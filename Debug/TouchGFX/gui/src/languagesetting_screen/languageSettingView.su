@@ -1,0 +1,16 @@
+../Middlewares/ST/touchgfx/framework/include/touchgfx/events/GestureEvent.hpp:74:13:int16_t touchgfx::GestureEvent::getVelocity() const	16	static
+../Middlewares/ST/touchgfx/framework/include/touchgfx/events/GestureEvent.hpp:84:22:touchgfx::GestureEvent::GestureEventType touchgfx::GestureEvent::getType() const	16	static
+../Middlewares/ST/touchgfx/framework/include/touchgfx/Screen.hpp:104:18:virtual void touchgfx::Screen::afterTransition()	16	static
+../Middlewares/ST/touchgfx/framework/include/touchgfx/Screen.hpp:115:18:virtual void touchgfx::Screen::tearDownScreen()	16	static
+../Middlewares/ST/touchgfx/framework/include/touchgfx/Screen.hpp:144:18:virtual void touchgfx::Screen::handleTickEvent()	16	static
+../Middlewares/ST/touchgfx/framework/include/touchgfx/Screen.hpp:154:18:virtual void touchgfx::Screen::handleKeyEvent(uint8_t)	16	static
+../Middlewares/ST/touchgfx/framework/include/touchgfx/Texts.hpp:48:23:static touchgfx::LanguageId touchgfx::Texts::getLanguage()	4	static
+../TouchGFX/generated/gui_generated/include/gui_generated/languagesetting_screen/languageSettingViewBase.hpp:25:26:FrontendApplication& languageSettingViewBase::application()	16	static
+../TouchGFX/gui/include/gui/languagesetting_screen/languageSettingView.hpp:12:13:languageSettingView::~languageSettingView()	16	static
+../TouchGFX/gui/include/gui/languagesetting_screen/languageSettingView.hpp:12:13:virtual languageSettingView::~languageSettingView()	16	static
+../TouchGFX/gui/src/languagesetting_screen/languageSettingView.cpp:7:1:languageSettingView::languageSettingView()	16	static
+../TouchGFX/gui/src/languagesetting_screen/languageSettingView.cpp:13:6:virtual void languageSettingView::setupScreen()	16	static
+../TouchGFX/gui/src/languagesetting_screen/languageSettingView.cpp:19:6:virtual void languageSettingView::tearDownScreen()	16	static
+../TouchGFX/gui/src/languagesetting_screen/languageSettingView.cpp:24:6:virtual void languageSettingView::handleGestureEvent(const touchgfx::GestureEvent&)	24	static
+../TouchGFX/gui/src/languagesetting_screen/languageSettingView.cpp:38:6:void languageSettingView::handleSwipeRight()	16	static
+../TouchGFX/gui/src/languagesetting_screen/languageSettingView.cpp:44:6:void languageSettingView::updateLanguageSelection()	16	static

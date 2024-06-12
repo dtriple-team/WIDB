@@ -1,0 +1,24 @@
+../Drivers/sensorhub/smartsensor.cpp:20:5:int set_command(uint8_t, uint8_t, uint8_t*, uint8_t)	2
+../Drivers/sensorhub/smartsensor.cpp:39:5:int get_command(uint8_t*, uint8_t)	1
+../Drivers/sensorhub/smartsensor.cpp:54:5:int set_command_wearablesuite_algomode(uint8_t)	1
+../Drivers/sensorhub/smartsensor.cpp:62:5:int set_command_wearablesuite_aecenable(uint8_t)	1
+../Drivers/sensorhub/smartsensor.cpp:70:5:int set_command_wearablesuite_autopdcurrentenable(uint8_t)	1
+../Drivers/sensorhub/smartsensor.cpp:78:5:int set_command_wearablesuite_targetpdperiod(uint16_t)	1
+../Drivers/sensorhub/smartsensor.cpp:86:5:int set_command_wearablesuite_motionthreshold(uint8_t)	1
+../Drivers/sensorhub/smartsensor.cpp:94:5:int set_command_wearablesuite_minpdcurrent(uint8_t)	1
+../Drivers/sensorhub/smartsensor.cpp:102:5:int set_command_wearablesuite_initpdcurrent(uint8_t)	1
+../Drivers/sensorhub/smartsensor.cpp:110:5:int set_command_wearablesuite_inittintoption(uint8_t)	1
+../Drivers/sensorhub/smartsensor.cpp:118:5:int set_command_wearablesuite_mintintoption(uint8_t)	1
+../Drivers/sensorhub/smartsensor.cpp:126:5:int set_command_wearablesuite_maxtintoption(uint8_t)	1
+../Drivers/sensorhub/smartsensor.cpp:134:5:int set_command_wearablesuite_initfsmpoption(uint8_t)	1
+../Drivers/sensorhub/smartsensor.cpp:142:5:int set_command_wearablesuite_minfsmpoption(uint8_t)	1
+../Drivers/sensorhub/smartsensor.cpp:150:5:int set_command_wearablesuite_maxfsmpoption(uint8_t)	1
+../Drivers/sensorhub/smartsensor.cpp:166:5:int set_command_wearblesuite_scdenable(uint8_t)	1
+../Drivers/sensorhub/smartsensor.cpp:174:5:int set_command_report_period(uint8_t)	1
+../Drivers/sensorhub/smartsensor.cpp:182:5:int read_ppg_9_setting()	1
+../Drivers/sensorhub/smartsensor.cpp:213:5:int read_ppg_9(uint8_t*, uint8_t)	3
+../Drivers/sensorhub/smartsensor.cpp:245:5:int ssInit()	1
+../Drivers/sensorhub/smartsensor.cpp:261:5:int ssBegin()	1
+../Drivers/sensorhub/smartsensor.cpp:283:5:int ssRead_setting()	1
+../Drivers/sensorhub/smartsensor.cpp:288:5:int ssRead(uint8_t*, uint8_t)	1
+../Drivers/sensorhub/smartsensor.cpp:292:6:void rxDataSplit(uint8_t*, ssDataEx_format*)	1

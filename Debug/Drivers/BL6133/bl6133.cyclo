@@ -1,0 +1,4 @@
+../Drivers/BL6133/bl6133.c:9:9:readTouchData	3
+../Drivers/BL6133/bl6133.c:27:9:touchDetect	2
+../Drivers/BL6133/bl6133.c:32:9:read_x	1
+../Drivers/BL6133/bl6133.c:37:9:read_y	1

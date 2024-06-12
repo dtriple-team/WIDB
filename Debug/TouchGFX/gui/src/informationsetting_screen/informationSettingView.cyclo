@@ -1,0 +1,14 @@
+../Middlewares/ST/touchgfx/framework/include/touchgfx/events/GestureEvent.hpp:74:13:int16_t touchgfx::GestureEvent::getVelocity() const	1
+../Middlewares/ST/touchgfx/framework/include/touchgfx/events/GestureEvent.hpp:84:22:touchgfx::GestureEvent::GestureEventType touchgfx::GestureEvent::getType() const	1
+../Middlewares/ST/touchgfx/framework/include/touchgfx/Screen.hpp:104:18:virtual void touchgfx::Screen::afterTransition()	1
+../Middlewares/ST/touchgfx/framework/include/touchgfx/Screen.hpp:115:18:virtual void touchgfx::Screen::tearDownScreen()	1
+../Middlewares/ST/touchgfx/framework/include/touchgfx/Screen.hpp:144:18:virtual void touchgfx::Screen::handleTickEvent()	1
+../Middlewares/ST/touchgfx/framework/include/touchgfx/Screen.hpp:154:18:virtual void touchgfx::Screen::handleKeyEvent(uint8_t)	1
+../TouchGFX/generated/gui_generated/include/gui_generated/informationsetting_screen/informationSettingViewBase.hpp:24:26:FrontendApplication& informationSettingViewBase::application()	1
+../TouchGFX/gui/include/gui/informationsetting_screen/informationSettingView.hpp:11:13:informationSettingView::~informationSettingView()	1
+../TouchGFX/gui/include/gui/informationsetting_screen/informationSettingView.hpp:11:13:virtual informationSettingView::~informationSettingView()	1
+../TouchGFX/gui/src/informationsetting_screen/informationSettingView.cpp:6:1:informationSettingView::informationSettingView()	1
+../TouchGFX/gui/src/informationsetting_screen/informationSettingView.cpp:12:6:virtual void informationSettingView::setupScreen()	1
+../TouchGFX/gui/src/informationsetting_screen/informationSettingView.cpp:17:6:virtual void informationSettingView::tearDownScreen()	1
+../TouchGFX/gui/src/informationsetting_screen/informationSettingView.cpp:22:6:virtual void informationSettingView::handleGestureEvent(const touchgfx::GestureEvent&)	3
+../TouchGFX/gui/src/informationsetting_screen/informationSettingView.cpp:36:6:void informationSettingView::handleSwipeRight()	1

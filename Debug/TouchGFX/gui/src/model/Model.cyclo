@@ -1,0 +1,16 @@
+../TouchGFX/gui/src/model/Model.cpp:4:1:Model::Model()	1
+../TouchGFX/gui/src/model/Model.cpp:12:6:void Model::tick()	3
+../TouchGFX/gui/src/model/Model.cpp:23:6:void Model::setToggleButton1State(bool)	3
+../TouchGFX/gui/src/model/Model.cpp:35:6:void Model::setToggleButton2State(bool)	3
+../TouchGFX/gui/src/model/Model.cpp:47:6:bool Model::getToggleButton1State() const	1
+../TouchGFX/gui/src/model/Model.cpp:52:6:bool Model::getToggleButton2State() const	1
+../TouchGFX/gui/src/model/Model.cpp:57:6:void Model::setSlider1Value(int)	1
+../TouchGFX/gui/src/model/Model.cpp:62:5:int Model::getSlider1Value() const	1
+../Middlewares/ST/touchgfx/framework/include/touchgfx/Callback.hpp:134:7:constexpr touchgfx::GenericCallback<bool>::GenericCallback()	1
+../Middlewares/ST/touchgfx/framework/include/touchgfx/Callback.hpp:360:5:touchgfx::Callback<dest_type, T1, void, void>::Callback() [with dest_type = Model; T1 = bool]	1
+../Middlewares/ST/touchgfx/framework/include/touchgfx/Callback.hpp:396:18:bool touchgfx::Callback<dest_type, T1, void, void>::isValid() const [with dest_type = Model; T1 = bool]	5
+../Middlewares/ST/touchgfx/framework/include/touchgfx/Callback.hpp:386:18:void touchgfx::Callback<dest_type, T1, void, void>::execute(T1) [with dest_type = Model; T1 = bool]	2
+../Middlewares/ST/touchgfx/framework/include/touchgfx/Callback.hpp:138:13:touchgfx::GenericCallback<T1, void, void>::~GenericCallback() [with T1 = bool]	1
+../Middlewares/ST/touchgfx/framework/include/touchgfx/Callback.hpp:138:13:touchgfx::GenericCallback<T1, void, void>::~GenericCallback() [with T1 = bool]	1
+../Middlewares/ST/touchgfx/framework/include/touchgfx/Callback.hpp:357:8:touchgfx::Callback<Model, bool>::~Callback()	1
+../Middlewares/ST/touchgfx/framework/include/touchgfx/Callback.hpp:357:8:virtual touchgfx::Callback<Model, bool>::~Callback()	1

@@ -1,0 +1,15 @@
+../Middlewares/ST/touchgfx/framework/include/touchgfx/events/GestureEvent.hpp:74:13:int16_t touchgfx::GestureEvent::getVelocity() const	16	static
+../Middlewares/ST/touchgfx/framework/include/touchgfx/events/GestureEvent.hpp:84:22:touchgfx::GestureEvent::GestureEventType touchgfx::GestureEvent::getType() const	16	static
+../Middlewares/ST/touchgfx/framework/include/touchgfx/Screen.hpp:104:18:virtual void touchgfx::Screen::afterTransition()	16	static
+../Middlewares/ST/touchgfx/framework/include/touchgfx/Screen.hpp:115:18:virtual void touchgfx::Screen::tearDownScreen()	16	static
+../Middlewares/ST/touchgfx/framework/include/touchgfx/Screen.hpp:154:18:virtual void touchgfx::Screen::handleKeyEvent(uint8_t)	16	static
+../TouchGFX/generated/gui_generated/include/gui_generated/homescreenwithbiodata_screen/HomeScreenWithBiodataViewBase.hpp:28:26:FrontendApplication& HomeScreenWithBiodataViewBase::application()	16	static
+../TouchGFX/gui/include/gui/homescreenwithbiodata_screen/HomeScreenWithBiodataView.hpp:14:13:HomeScreenWithBiodataView::~HomeScreenWithBiodataView()	16	static
+../TouchGFX/gui/include/gui/homescreenwithbiodata_screen/HomeScreenWithBiodataView.hpp:14:13:virtual HomeScreenWithBiodataView::~HomeScreenWithBiodataView()	16	static
+../TouchGFX/gui/src/homescreenwithbiodata_screen/HomeScreenWithBiodataView.cpp:8:1:HomeScreenWithBiodataView::HomeScreenWithBiodataView()	16	static
+../TouchGFX/gui/src/homescreenwithbiodata_screen/HomeScreenWithBiodataView.cpp:14:6:virtual void HomeScreenWithBiodataView::setupScreen()	24	static
+../TouchGFX/gui/src/homescreenwithbiodata_screen/HomeScreenWithBiodataView.cpp:32:6:virtual void HomeScreenWithBiodataView::tearDownScreen()	16	static
+../TouchGFX/gui/src/homescreenwithbiodata_screen/HomeScreenWithBiodataView.cpp:37:6:virtual void HomeScreenWithBiodataView::handleTickEvent()	40	static
+../TouchGFX/gui/src/homescreenwithbiodata_screen/HomeScreenWithBiodataView.cpp:59:6:virtual void HomeScreenWithBiodataView::handleGestureEvent(const touchgfx::GestureEvent&)	24	static
+../TouchGFX/gui/src/homescreenwithbiodata_screen/HomeScreenWithBiodataView.cpp:76:6:void HomeScreenWithBiodataView::handleSwipeDown()	16	static
+../TouchGFX/gui/src/homescreenwithbiodata_screen/HomeScreenWithBiodataView.cpp:81:6:void HomeScreenWithBiodataView::handleSwipeUp()	16	static

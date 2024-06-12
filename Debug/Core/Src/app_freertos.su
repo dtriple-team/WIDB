@@ -1,0 +1,7 @@
+../Core/Src/app_freertos.cpp:114:6:void MX_FREERTOS_Init()	8	static
+../Core/Src/app_freertos.cpp:165:6:void StartInitTask(void*)	16	static
+../Core/Src/app_freertos.cpp:214:6:void StartlcdTask(void*)	16	static
+../Core/Src/app_freertos.cpp:234:6:void StartPPMTask(void*)	16	static
+../Core/Src/app_freertos.cpp:252:6:void StartWPMTask(void*)	16	static
+../Core/Src/app_freertos.cpp:270:6:void StartSPMTask(void*)	16	static
+../Core/Src/app_freertos.cpp:283:6:void read_ppg()	96	static

@@ -1,0 +1,14 @@
+../Middlewares/ST/touchgfx/framework/include/mvp/Presenter.hpp:37:18:virtual void touchgfx::Presenter::activate()	16	static
+../Middlewares/ST/touchgfx/framework/include/mvp/Presenter.hpp:47:18:virtual void touchgfx::Presenter::deactivate()	16	static
+../Middlewares/ST/touchgfx/framework/include/mvp/Presenter.hpp:52:13:touchgfx::Presenter::~Presenter()	16	static
+../Middlewares/ST/touchgfx/framework/include/mvp/Presenter.hpp:52:13:virtual touchgfx::Presenter::~Presenter()	16	static
+../Middlewares/ST/touchgfx/framework/include/mvp/Presenter.hpp:58:5:touchgfx::Presenter::Presenter()	16	static
+../TouchGFX/gui/include/gui/model/ModelListener.hpp:18:5:ModelListener::ModelListener()	16	static
+../TouchGFX/gui/include/gui/model/ModelListener.hpp:20:13:ModelListener::~ModelListener()	16	static
+../TouchGFX/gui/include/gui/model/ModelListener.hpp:20:13:virtual ModelListener::~ModelListener()	16	static
+../TouchGFX/gui/include/gui/model/ModelListener.hpp:21:18:virtual void ModelListener::updateClock()	16	static
+../TouchGFX/gui/include/gui/turnoffscreen_screen/turnoffScreenPresenter.hpp:28:13:turnoffScreenPresenter::~turnoffScreenPresenter()	16	static
+../TouchGFX/gui/include/gui/turnoffscreen_screen/turnoffScreenPresenter.hpp:28:13:virtual turnoffScreenPresenter::~turnoffScreenPresenter()	16	static
+../TouchGFX/gui/src/turnoffscreen_screen/turnoffScreenPresenter.cpp:4:1:turnoffScreenPresenter::turnoffScreenPresenter(turnoffScreenView&)	16	static
+../TouchGFX/gui/src/turnoffscreen_screen/turnoffScreenPresenter.cpp:10:6:virtual void turnoffScreenPresenter::activate()	16	static
+../TouchGFX/gui/src/turnoffscreen_screen/turnoffScreenPresenter.cpp:15:6:virtual void turnoffScreenPresenter::deactivate()	16	static

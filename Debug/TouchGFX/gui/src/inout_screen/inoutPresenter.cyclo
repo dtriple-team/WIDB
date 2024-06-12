@@ -1,0 +1,14 @@
+../Middlewares/ST/touchgfx/framework/include/mvp/Presenter.hpp:37:18:virtual void touchgfx::Presenter::activate()	1
+../Middlewares/ST/touchgfx/framework/include/mvp/Presenter.hpp:47:18:virtual void touchgfx::Presenter::deactivate()	1
+../Middlewares/ST/touchgfx/framework/include/mvp/Presenter.hpp:52:13:touchgfx::Presenter::~Presenter()	1
+../Middlewares/ST/touchgfx/framework/include/mvp/Presenter.hpp:52:13:virtual touchgfx::Presenter::~Presenter()	1
+../Middlewares/ST/touchgfx/framework/include/mvp/Presenter.hpp:58:5:touchgfx::Presenter::Presenter()	1
+../TouchGFX/gui/include/gui/model/ModelListener.hpp:18:5:ModelListener::ModelListener()	1
+../TouchGFX/gui/include/gui/model/ModelListener.hpp:20:13:ModelListener::~ModelListener()	1
+../TouchGFX/gui/include/gui/model/ModelListener.hpp:20:13:virtual ModelListener::~ModelListener()	1
+../TouchGFX/gui/include/gui/model/ModelListener.hpp:21:18:virtual void ModelListener::updateClock()	1
+../TouchGFX/gui/include/gui/inout_screen/inoutPresenter.hpp:28:13:inoutPresenter::~inoutPresenter()	1
+../TouchGFX/gui/include/gui/inout_screen/inoutPresenter.hpp:28:13:virtual inoutPresenter::~inoutPresenter()	1
+../TouchGFX/gui/src/inout_screen/inoutPresenter.cpp:4:1:inoutPresenter::inoutPresenter(inoutView&)	1
+../TouchGFX/gui/src/inout_screen/inoutPresenter.cpp:10:6:virtual void inoutPresenter::activate()	1
+../TouchGFX/gui/src/inout_screen/inoutPresenter.cpp:15:6:virtual void inoutPresenter::deactivate()	1

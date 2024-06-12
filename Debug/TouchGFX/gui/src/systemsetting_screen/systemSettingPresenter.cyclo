@@ -1,0 +1,15 @@
+../Middlewares/ST/touchgfx/framework/include/mvp/Presenter.hpp:37:18:virtual void touchgfx::Presenter::activate()	1
+../Middlewares/ST/touchgfx/framework/include/mvp/Presenter.hpp:47:18:virtual void touchgfx::Presenter::deactivate()	1
+../Middlewares/ST/touchgfx/framework/include/mvp/Presenter.hpp:52:13:touchgfx::Presenter::~Presenter()	1
+../Middlewares/ST/touchgfx/framework/include/mvp/Presenter.hpp:52:13:virtual touchgfx::Presenter::~Presenter()	1
+../Middlewares/ST/touchgfx/framework/include/mvp/Presenter.hpp:58:5:touchgfx::Presenter::Presenter()	1
+../TouchGFX/gui/include/gui/model/ModelListener.hpp:18:5:ModelListener::ModelListener()	1
+../TouchGFX/gui/include/gui/model/ModelListener.hpp:20:13:ModelListener::~ModelListener()	1
+../TouchGFX/gui/include/gui/model/ModelListener.hpp:20:13:virtual ModelListener::~ModelListener()	1
+../TouchGFX/gui/include/gui/model/ModelListener.hpp:21:18:virtual void ModelListener::updateClock()	1
+../TouchGFX/gui/include/gui/systemsetting_screen/systemSettingPresenter.hpp:30:13:systemSettingPresenter::~systemSettingPresenter()	1
+../TouchGFX/gui/include/gui/systemsetting_screen/systemSettingPresenter.hpp:30:13:virtual systemSettingPresenter::~systemSettingPresenter()	1
+../TouchGFX/gui/src/systemsetting_screen/systemSettingPresenter.cpp:4:1:systemSettingPresenter::systemSettingPresenter(systemSettingView&)	1
+../TouchGFX/gui/src/systemsetting_screen/systemSettingPresenter.cpp:10:6:virtual void systemSettingPresenter::activate()	1
+../TouchGFX/gui/src/systemsetting_screen/systemSettingPresenter.cpp:15:6:virtual void systemSettingPresenter::deactivate()	1
+../TouchGFX/gui/src/systemsetting_screen/systemSettingPresenter.cpp:20:6:virtual void systemSettingPresenter::notifySwipeRight()	1

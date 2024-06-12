@@ -1,0 +1,4 @@
+../Drivers/BL6133/bl6133.c:9:9:readTouchData	32	static
+../Drivers/BL6133/bl6133.c:27:9:touchDetect	16	static
+../Drivers/BL6133/bl6133.c:32:9:read_x	24	static
+../Drivers/BL6133/bl6133.c:37:9:read_y	24	static

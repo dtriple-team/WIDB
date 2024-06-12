@@ -1,0 +1,16 @@
+../Middlewares/ST/touchgfx/framework/include/mvp/Presenter.hpp:37:18:virtual void touchgfx::Presenter::activate()	1
+../Middlewares/ST/touchgfx/framework/include/mvp/Presenter.hpp:47:18:virtual void touchgfx::Presenter::deactivate()	1
+../Middlewares/ST/touchgfx/framework/include/mvp/Presenter.hpp:52:13:touchgfx::Presenter::~Presenter()	1
+../Middlewares/ST/touchgfx/framework/include/mvp/Presenter.hpp:52:13:virtual touchgfx::Presenter::~Presenter()	1
+../Middlewares/ST/touchgfx/framework/include/mvp/Presenter.hpp:58:5:touchgfx::Presenter::Presenter()	1
+../TouchGFX/gui/include/gui/model/ModelListener.hpp:18:5:ModelListener::ModelListener()	1
+../TouchGFX/gui/include/gui/model/ModelListener.hpp:20:13:ModelListener::~ModelListener()	1
+../TouchGFX/gui/include/gui/model/ModelListener.hpp:20:13:virtual ModelListener::~ModelListener()	1
+../TouchGFX/gui/include/gui/model/ModelListener.hpp:21:18:virtual void ModelListener::updateClock()	1
+../TouchGFX/gui/include/gui/homescreenwithbiodata_screen/HomeScreenWithBiodataPresenter.hpp:21:13:HomeScreenWithBiodataPresenter::~HomeScreenWithBiodataPresenter()	1
+../TouchGFX/gui/include/gui/homescreenwithbiodata_screen/HomeScreenWithBiodataPresenter.hpp:21:13:virtual HomeScreenWithBiodataPresenter::~HomeScreenWithBiodataPresenter()	1
+../TouchGFX/gui/src/homescreenwithbiodata_screen/HomeScreenWithBiodataPresenter.cpp:4:1:HomeScreenWithBiodataPresenter::HomeScreenWithBiodataPresenter(HomeScreenWithBiodataView&)	1
+../TouchGFX/gui/src/homescreenwithbiodata_screen/HomeScreenWithBiodataPresenter.cpp:9:6:virtual void HomeScreenWithBiodataPresenter::activate()	1
+../TouchGFX/gui/src/homescreenwithbiodata_screen/HomeScreenWithBiodataPresenter.cpp:14:6:virtual void HomeScreenWithBiodataPresenter::deactivate()	1
+../TouchGFX/gui/src/homescreenwithbiodata_screen/HomeScreenWithBiodataPresenter.cpp:19:6:virtual void HomeScreenWithBiodataPresenter::notifySwipeDown()	1
+../TouchGFX/gui/src/homescreenwithbiodata_screen/HomeScreenWithBiodataPresenter.cpp:24:6:virtual void HomeScreenWithBiodataPresenter::notifySwipeUp()	1

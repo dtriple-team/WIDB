@@ -1,0 +1,4 @@
+../Drivers/pmic/pmic.cpp:8:5:int pmic_init()	1
+../Drivers/pmic/pmic.cpp:27:1:void __static_initialization_and_destruction_0(int, int)	5
+../Drivers/pmic/pmic.cpp:27:1:cpp)	1
+../Drivers/pmic/pmic.cpp:27:1:cpp)	1
