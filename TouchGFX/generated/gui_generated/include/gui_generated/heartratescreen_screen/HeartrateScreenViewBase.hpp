@@ -19,6 +19,15 @@ public:
     HeartrateScreenViewBase();
     virtual ~HeartrateScreenViewBase();
     virtual void setupScreen();
+    virtual void handleTickEvent();
+
+    /*
+     * Virtual Action Handlers
+     */
+    virtual void changeHRVal()
+    {
+        // Override and implement this function in HeartrateScreen
+    }
 
 protected:
     FrontendApplication& application() {

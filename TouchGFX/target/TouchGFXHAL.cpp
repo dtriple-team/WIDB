@@ -24,8 +24,12 @@
 
 /* USER CODE BEGIN TouchGFXHAL.cpp */
 
+#include "spi.h"
 #include <touchgfx/hal/OSWrappers.hpp>
 #include "main.h"
+#include <string.h>
+extern uint8_t spiDMACplt;
+uint8_t fps;
 
 using namespace touchgfx;
 
@@ -98,6 +102,8 @@ void TouchGFXHAL::flushFrameBuffer(const touchgfx::Rect& rect)
     // use advanceFrameBufferToRect(uint8_t* fbPtr, const touchgfx::Rect& rect)
     // defined in TouchGFXGeneratedHAL.cpp
 
+	uint millis = HAL_GetTick();
+
     TouchGFXGeneratedHAL::flushFrameBuffer(rect);
 
     __IO uint16_t* ptr;
@@ -106,20 +112,78 @@ void TouchGFXHAL::flushFrameBuffer(const touchgfx::Rect& rect)
 	ptr = getClientFrameBuffer() + rect.x + (240)*rect.y;
 	ST7789_SetAddressWindow(rect.x,rect.y,rect.x+rect.width-1,rect.y+rect.height-1);
 
+	//////////////// SPI //////////////////
+
+//	ST7789_Select();
+//	ST7789_DC_Set();
+//
+//	for (height = 0; height < rect.height ; height++)
+//	{
+//	  for(int i = 0; i < rect.width; i++) {
+//		uint8_t dat[2];
+//		dat[0] = ptr[i] >> 8;
+//		dat[1] = ptr[i];
+//		HAL_SPI_Transmit(&ST7789_SPI_PORT, dat, 2, HAL_MAX_DELAY);
+//	  }
+//	  ptr += 240; // Display Width.
+//	}
+//	ST7789_UnSelect();
+
+	//////////////// DMA 16bit Buffer ////////////////
+
+	uint8_t *spiDmaTxBuff;
+	spiDmaTxBuff = (uint8_t*)malloc(rect.height*rect.width*2+1);
+
+	uint32_t spiDmaTxBuff_Addr = (uint32_t)&spiDmaTxBuff[0];
+
+	for(int i=0; i<rect.height; i++){
+		memcpy((uint8_t*)spiDmaTxBuff_Addr+1, (uint8_t*)ptr, rect.width*2);
+		for(int j=0; j<rect.width; j++){
+			*((uint8_t*)spiDmaTxBuff_Addr) = *((uint8_t*)ptr+1+(j*2));
+			spiDmaTxBuff_Addr+=2;
+		}
+		ptr += 240;
+	}
+
 	ST7789_Select();
 	ST7789_DC_Set();
 
-	for (height = 0; height < rect.height ; height++)
-	{
-	  for(int i = 0; i < rect.width; i++) {
-		uint8_t dat[2];
-		dat[0] = ptr[i] >> 8;
-		dat[1] = ptr[i];
-		HAL_SPI_Transmit(&ST7789_SPI_PORT, dat, 2, HAL_MAX_DELAY);
-	  }
-	  ptr += 240; // Display Width.
+	spiTxDMA_start((uint8_t*)spiDmaTxBuff, rect.height*rect.width*2);
+	while(spiDMACplt != 2){
+		HAL_Delay(10);
 	}
+
 	ST7789_UnSelect();
+
+	free(spiDmaTxBuff);
+
+	uint8_t max_fps = 40*1000000 / (240*280*16); // SPI Max Speed 40M < 64Mbit/s
+	uint8_t proc_fps = 1000/(HAL_GetTick() - millis);
+	fps = proc_fps > max_fps ? max_fps : proc_fps;
+
+	//////////////// DMA 240px Line///////////////
+
+//	ST7789_Select();
+//	ST7789_DC_Set();
+//
+//	for(int i=0; i<rect.height; i++){
+//		for(int j=0; j<rect.width; j++){
+//			ptr[j] = ptr[j]>>8 | ptr[j]<<8;
+//		}
+//
+//		spiTxDMA_start((uint8_t*)ptr, rect.width*2);
+//
+//		while(spiDMACplt != 2);
+//
+//		for(int j=0; j<rect.width; j++){
+//			ptr[j] = ptr[j]>>8 | ptr[j]<<8; // reset position
+//		}
+//		ptr += 240;
+//
+//	}
+//
+//	ST7789_UnSelect();
+
 }
 
 bool TouchGFXHAL::blockCopy(void* RESTRICT dest, const void* RESTRICT src, uint32_t numBytes)

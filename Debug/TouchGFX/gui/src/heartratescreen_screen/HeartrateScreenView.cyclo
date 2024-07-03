@@ -2,13 +2,13 @@
 ../Middlewares/ST/touchgfx/framework/include/touchgfx/events/GestureEvent.hpp:84:22:touchgfx::GestureEvent::GestureEventType touchgfx::GestureEvent::getType() const	1
 ../Middlewares/ST/touchgfx/framework/include/touchgfx/Screen.hpp:104:18:virtual void touchgfx::Screen::afterTransition()	1
 ../Middlewares/ST/touchgfx/framework/include/touchgfx/Screen.hpp:115:18:virtual void touchgfx::Screen::tearDownScreen()	1
-../Middlewares/ST/touchgfx/framework/include/touchgfx/Screen.hpp:144:18:virtual void touchgfx::Screen::handleTickEvent()	1
 ../Middlewares/ST/touchgfx/framework/include/touchgfx/Screen.hpp:154:18:virtual void touchgfx::Screen::handleKeyEvent(uint8_t)	1
-../TouchGFX/generated/gui_generated/include/gui_generated/heartratescreen_screen/HeartrateScreenViewBase.hpp:24:26:FrontendApplication& HeartrateScreenViewBase::application()	1
+../TouchGFX/generated/gui_generated/include/gui_generated/heartratescreen_screen/HeartrateScreenViewBase.hpp:33:26:FrontendApplication& HeartrateScreenViewBase::application()	1
 ../TouchGFX/gui/include/gui/heartratescreen_screen/HeartrateScreenView.hpp:11:13:HeartrateScreenView::~HeartrateScreenView()	1
 ../TouchGFX/gui/include/gui/heartratescreen_screen/HeartrateScreenView.hpp:11:13:virtual HeartrateScreenView::~HeartrateScreenView()	1
-../TouchGFX/gui/src/heartratescreen_screen/HeartrateScreenView.cpp:6:1:HeartrateScreenView::HeartrateScreenView()	1
-../TouchGFX/gui/src/heartratescreen_screen/HeartrateScreenView.cpp:12:6:virtual void HeartrateScreenView::setupScreen()	1
-../TouchGFX/gui/src/heartratescreen_screen/HeartrateScreenView.cpp:17:6:virtual void HeartrateScreenView::tearDownScreen()	1
-../TouchGFX/gui/src/heartratescreen_screen/HeartrateScreenView.cpp:22:6:virtual void HeartrateScreenView::handleGestureEvent(const touchgfx::GestureEvent&)	3
-../TouchGFX/gui/src/heartratescreen_screen/HeartrateScreenView.cpp:35:6:void HeartrateScreenView::handleSwipeRight()	1
+../TouchGFX/gui/src/heartratescreen_screen/HeartrateScreenView.cpp:8:1:HeartrateScreenView::HeartrateScreenView()	1
+../TouchGFX/gui/src/heartratescreen_screen/HeartrateScreenView.cpp:14:6:virtual void HeartrateScreenView::setupScreen()	1
+../TouchGFX/gui/src/heartratescreen_screen/HeartrateScreenView.cpp:19:6:virtual void HeartrateScreenView::tearDownScreen()	1
+../TouchGFX/gui/src/heartratescreen_screen/HeartrateScreenView.cpp:24:6:virtual void HeartrateScreenView::handleGestureEvent(const touchgfx::GestureEvent&)	3
+../TouchGFX/gui/src/heartratescreen_screen/HeartrateScreenView.cpp:37:6:void HeartrateScreenView::handleSwipeRight()	1
+../TouchGFX/gui/src/heartratescreen_screen/HeartrateScreenView.cpp:42:6:virtual void HeartrateScreenView::changeHRVal()	2

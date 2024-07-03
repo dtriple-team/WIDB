@@ -25,7 +25,7 @@ uint8_t readTouchData(uint8_t* touchData, uint8_t len){
 }
 
 uint8_t touchDetect(uint8_t* touchData){
-	if((touchData[1] & 0x01) == 0x01) return 1;
+	if((touchData[1] & 0x01) == 0x01 && touchData[1]!=0xFF) return 1;
 	else return 0;
 }
 

@@ -17,6 +17,7 @@ public:
     virtual void tearDownScreen();
     virtual void handleTickEvent();
     virtual void handleGestureEvent(const GestureEvent& evt); //rkdalfks
+    virtual void handleDragEvent(const DragEvent& evt); //rkdalfks
 
     void handleSwipeDown(); //rkdalfks
     void handleSwipeUp();
@@ -32,6 +33,8 @@ private: //rkdalfks
 
     int initialX;
     int initialY;
+
+    uint8_t isDeltaYGreaterThanDeltaX = 0; // jh
 };
 
 #endif // HOMESCREENWITHBIODATAVIEW_HPP

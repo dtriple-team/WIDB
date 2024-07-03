@@ -48,6 +48,7 @@ screenontimeSettingViewBase::screenontimeSettingViewBase() :
 
     button1.setXY(48, 215);
     button1.setBitmaps(touchgfx::Bitmap(BITMAP_RECTANGLE_14_ID), touchgfx::Bitmap(BITMAP_RECTANGLEPRESSED_ID));
+    button1.setAction(buttonCallback);
     add(button1);
 
     textArea2.setPosition(48, 222, 144, 29);
@@ -99,6 +100,13 @@ void screenontimeSettingViewBase::buttonCallbackHandler(const touchgfx::Abstract
         //When button2 clicked change screen to screenSetting
         //Go to screenSetting with screen transition towards West
         application().gotoscreenSettingScreenWipeTransitionWest();
+    }
+    if (&src == &button1)
+    {
+        //call_changeScreenOnTime
+        //When button1 clicked call virtual function
+        //Call changeScreenOnTime
+        changeScreenOnTime();
     }
 }
 

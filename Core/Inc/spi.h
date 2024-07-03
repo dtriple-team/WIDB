@@ -41,7 +41,7 @@ extern SPI_HandleTypeDef hspi1;
 void MX_SPI1_Init(void);
 
 /* USER CODE BEGIN Prototypes */
-
+void spiTxDMA_start(uint8_t* pData, uint32_t dataLen);
 /* USER CODE END Prototypes */
 
 #ifdef __cplusplus

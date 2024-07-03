@@ -309,6 +309,8 @@ void rxDataSplit(uint8_t* rxdata, struct ssDataEx_format* pRxdataStruct){
 
 	pRxdataStruct->algo.spo2  = rxdata[68+1] << 8 | rxdata[69+1] << 0;
 
+	pRxdataStruct->algo.totalWalkSteps  = rxdata[32+1] << 24 | rxdata[33+1] << 16 | rxdata[34+1] << 8 | rxdata[35+1] << 0;
+
 	return;
 }
 

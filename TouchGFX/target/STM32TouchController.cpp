@@ -26,6 +26,9 @@
 
 #include "bl6133.h"
 
+extern uint8_t set_bLevel;
+extern uint8_t brightness_count;
+
 void STM32TouchController::init()
 {
     /**
@@ -33,7 +36,7 @@ void STM32TouchController::init()
      *
      */
 }
-
+uint8_t touchData[6] = {0,};
 bool STM32TouchController::sampleTouch(int32_t& x, int32_t& y)
 {
     /**
@@ -46,12 +49,16 @@ bool STM32TouchController::sampleTouch(int32_t& x, int32_t& y)
      * By default sampleTouch is called every tick, this can be adjusted by HAL::setTouchSampleRate(int8_t);
      *
      */
-	uint8_t touchData[6] = {0,};
+//	uint8_t touchData[6] = {0,};
 	uint8_t err = readTouchData(&touchData[0], sizeof(touchData));
 
+	HAL_Delay(10); // Debouncing
 	if(touchDetect(touchData) || !err){
 		x = read_x(touchData);
 		y = read_y(touchData);
+
+//		ST7789_brightness_setting(set_bLevel);
+		brightness_count = 0;
 
 		return true;
 	}

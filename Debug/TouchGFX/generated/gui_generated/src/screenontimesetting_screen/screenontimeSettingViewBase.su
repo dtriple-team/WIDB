@@ -62,18 +62,19 @@
 ../Middlewares/ST/touchgfx/framework/include/touchgfx/widgets/Image.hpp:38:7:virtual touchgfx::Image::~Image()	16	static
 ../TouchGFX/generated/gui_generated/include/gui_generated/screenontimesetting_screen/screenontimeSettingViewBase.hpp:26:18:virtual void screenontimeSettingViewBase::scrollWheel1UpdateItem(setting_screenontime_notselected&, int16_t)	24	static
 ../TouchGFX/generated/gui_generated/include/gui_generated/screenontimesetting_screen/screenontimeSettingViewBase.hpp:31:18:virtual void screenontimeSettingViewBase::scrollWheel1UpdateCenterItem(setting_screenontime_selected&, int16_t)	24	static
-../TouchGFX/generated/gui_generated/include/gui_generated/screenontimesetting_screen/screenontimeSettingViewBase.hpp:37:26:FrontendApplication& screenontimeSettingViewBase::application()	16	static
+../TouchGFX/generated/gui_generated/include/gui_generated/screenontimesetting_screen/screenontimeSettingViewBase.hpp:39:18:virtual void screenontimeSettingViewBase::changeScreenOnTime()	16	static
+../TouchGFX/generated/gui_generated/include/gui_generated/screenontimesetting_screen/screenontimeSettingViewBase.hpp:45:26:FrontendApplication& screenontimeSettingViewBase::application()	16	static
 ../Middlewares/ST/touchgfx/framework/include/mvp/View.hpp:36:7:touchgfx::View<screenontimeSettingPresenter>::~View()	16	static
 ../Middlewares/ST/touchgfx/framework/include/mvp/View.hpp:36:7:virtual touchgfx::View<screenontimeSettingPresenter>::~View()	16	static
 ../Middlewares/ST/touchgfx/framework/include/touchgfx/containers/scrollers/DrawableList.hpp:38:7:constexpr touchgfx::DrawableListItemsInterface::DrawableListItemsInterface()	16	static
 ../Middlewares/ST/touchgfx/framework/include/touchgfx/containers/scrollers/DrawableList.hpp:79:7:touchgfx::DrawableListItems<setting_screenontime_notselected, 6>::DrawableListItems()	24	static
 ../Middlewares/ST/touchgfx/framework/include/touchgfx/containers/scrollers/DrawableList.hpp:79:7:touchgfx::DrawableListItems<setting_screenontime_selected, 2>::DrawableListItems()	24	static
 ../TouchGFX/generated/gui_generated/src/screenontimesetting_screen/screenontimeSettingViewBase.cpp:9:1:screenontimeSettingViewBase::screenontimeSettingViewBase()	176	static
-../TouchGFX/generated/gui_generated/src/screenontimesetting_screen/screenontimeSettingViewBase.cpp:76:1:screenontimeSettingViewBase::~screenontimeSettingViewBase()	16	static
-../TouchGFX/generated/gui_generated/src/screenontimesetting_screen/screenontimeSettingViewBase.cpp:76:1:virtual screenontimeSettingViewBase::~screenontimeSettingViewBase()	16	static
-../TouchGFX/generated/gui_generated/src/screenontimesetting_screen/screenontimeSettingViewBase.cpp:81:6:virtual void screenontimeSettingViewBase::setupScreen()	24	static
-../TouchGFX/generated/gui_generated/src/screenontimesetting_screen/screenontimeSettingViewBase.cpp:94:6:void screenontimeSettingViewBase::buttonCallbackHandler(const touchgfx::AbstractButton&)	16	static
-../TouchGFX/generated/gui_generated/src/screenontimesetting_screen/screenontimeSettingViewBase.cpp:105:6:void screenontimeSettingViewBase::updateItemCallbackHandler(touchgfx::DrawableListItemsInterface*, int16_t, int16_t)	40	static
+../TouchGFX/generated/gui_generated/src/screenontimesetting_screen/screenontimeSettingViewBase.cpp:77:1:screenontimeSettingViewBase::~screenontimeSettingViewBase()	16	static
+../TouchGFX/generated/gui_generated/src/screenontimesetting_screen/screenontimeSettingViewBase.cpp:77:1:virtual screenontimeSettingViewBase::~screenontimeSettingViewBase()	16	static
+../TouchGFX/generated/gui_generated/src/screenontimesetting_screen/screenontimeSettingViewBase.cpp:82:6:virtual void screenontimeSettingViewBase::setupScreen()	24	static
+../TouchGFX/generated/gui_generated/src/screenontimesetting_screen/screenontimeSettingViewBase.cpp:95:6:void screenontimeSettingViewBase::buttonCallbackHandler(const touchgfx::AbstractButton&)	16	static
+../TouchGFX/generated/gui_generated/src/screenontimesetting_screen/screenontimeSettingViewBase.cpp:113:6:void screenontimeSettingViewBase::updateItemCallbackHandler(touchgfx::DrawableListItemsInterface*, int16_t, int16_t)	40	static
 ../Middlewares/ST/touchgfx/framework/include/mvp/View.hpp:39:5:touchgfx::View<T>::View() [with T = screenontimeSettingPresenter]	16	static
 ../Middlewares/ST/touchgfx/framework/include/touchgfx/Callback.hpp:44:7:constexpr touchgfx::GenericCallback<touchgfx::DrawableListItemsInterface*, short int, short int>::GenericCallback()	16	static
 ../Middlewares/ST/touchgfx/framework/include/touchgfx/Callback.hpp:237:5:touchgfx::Callback<dest_type, T1, T2, T3>::Callback(dest_type*, void (dest_type::*)(T1, T2, T3)) [with dest_type = screenontimeSettingViewBase; T1 = touchgfx::DrawableListItemsInterface*; T2 = short int; T3 = short int]	24	static

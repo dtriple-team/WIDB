@@ -43,7 +43,9 @@ void screenbrightnessSettingView::handleSwipeRight()
     application().gotoscreenSettingScreenWipeTransitionWest();
 }
 
+extern uint8_t set_bLevel;
 void screenbrightnessSettingView::slider1ChangedHandler(const Slider& src, int value)
 {
     presenter->updateSlider1Value(value);
+    set_bLevel = value+1;
 }

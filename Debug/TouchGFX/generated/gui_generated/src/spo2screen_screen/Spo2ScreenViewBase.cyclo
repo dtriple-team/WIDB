@@ -65,12 +65,14 @@
 ../Middlewares/ST/touchgfx/framework/include/touchgfx/widgets/TextAreaWithWildcard.hpp:98:10:void touchgfx::TextAreaWithOneWildcard::setWildcard(const UnicodeChar*)	1
 ../Middlewares/ST/touchgfx/framework/include/touchgfx/widgets/Image.hpp:38:7:touchgfx::Image::~Image()	1
 ../Middlewares/ST/touchgfx/framework/include/touchgfx/widgets/Image.hpp:38:7:virtual touchgfx::Image::~Image()	1
+../TouchGFX/generated/gui_generated/include/gui_generated/spo2screen_screen/Spo2ScreenViewBase.hpp:27:18:virtual void Spo2ScreenViewBase::changeSpO2Val()	1
 ../Middlewares/ST/touchgfx/framework/include/mvp/View.hpp:36:7:touchgfx::View<Spo2ScreenPresenter>::~View()	1
 ../Middlewares/ST/touchgfx/framework/include/mvp/View.hpp:36:7:virtual touchgfx::View<Spo2ScreenPresenter>::~View()	1
 ../TouchGFX/generated/gui_generated/src/spo2screen_screen/Spo2ScreenViewBase.cpp:9:1:Spo2ScreenViewBase::Spo2ScreenViewBase()	1
-../TouchGFX/generated/gui_generated/src/spo2screen_screen/Spo2ScreenViewBase.cpp:43:1:Spo2ScreenViewBase::~Spo2ScreenViewBase()	1
-../TouchGFX/generated/gui_generated/src/spo2screen_screen/Spo2ScreenViewBase.cpp:43:1:virtual Spo2ScreenViewBase::~Spo2ScreenViewBase()	1
-../TouchGFX/generated/gui_generated/src/spo2screen_screen/Spo2ScreenViewBase.cpp:48:6:virtual void Spo2ScreenViewBase::setupScreen()	1
+../TouchGFX/generated/gui_generated/src/spo2screen_screen/Spo2ScreenViewBase.cpp:44:1:Spo2ScreenViewBase::~Spo2ScreenViewBase()	1
+../TouchGFX/generated/gui_generated/src/spo2screen_screen/Spo2ScreenViewBase.cpp:44:1:virtual Spo2ScreenViewBase::~Spo2ScreenViewBase()	1
+../TouchGFX/generated/gui_generated/src/spo2screen_screen/Spo2ScreenViewBase.cpp:49:6:virtual void Spo2ScreenViewBase::setupScreen()	1
+../TouchGFX/generated/gui_generated/src/spo2screen_screen/Spo2ScreenViewBase.cpp:54:6:virtual void Spo2ScreenViewBase::handleTickEvent()	1
 ../Middlewares/ST/touchgfx/framework/include/mvp/View.hpp:39:5:touchgfx::View<T>::View() [with T = Spo2ScreenPresenter]	1
 ../Middlewares/ST/touchgfx/framework/include/touchgfx/widgets/TextAreaWithWildcard.hpp:62:7:touchgfx::TextAreaWithOneWildcard::~TextAreaWithOneWildcard()	1
 ../Middlewares/ST/touchgfx/framework/include/touchgfx/widgets/TextAreaWithWildcard.hpp:62:7:virtual touchgfx::TextAreaWithOneWildcard::~TextAreaWithOneWildcard()	1

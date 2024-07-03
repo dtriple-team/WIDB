@@ -319,7 +319,8 @@ void ST7789_WriteData(uint8_t *buff, size_t buff_size);
 void ST7789_DrawBitmap(uint16_t x, uint16_t y, uint16_t w, uint16_t h, const uint8_t *buff);
 void ST7789_SetAddressWindow(uint16_t x0, uint16_t y0, uint16_t x1, uint16_t y1);
 
-void ST7789_gpio_brightness_setting(void);
+void ST7789_gpio_setting(void);
+void ST7789_brightness_setting(uint8_t bright);
 
 #ifndef ST7789_ROTATION
     #error You should at least choose a display rotation!

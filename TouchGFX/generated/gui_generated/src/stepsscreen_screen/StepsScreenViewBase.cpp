@@ -25,7 +25,8 @@ StepsScreenViewBase::StepsScreenViewBase()
     textArea1.setPosition(0, 219, 240, 33);
     textArea1.setColor(touchgfx::Color::getColorFromRGB(255, 255, 255));
     textArea1.setLinespacing(0);
-    textArea1.setWildcard(touchgfx::TypedText(T_CURSTEPSVALUE).getText());
+    Unicode::snprintf(textArea1Buffer, TEXTAREA1_SIZE, "%s", touchgfx::TypedText(T_CURSTEPSVALUE).getText());
+    textArea1.setWildcard(textArea1Buffer);
     textArea1.setTypedText(touchgfx::TypedText(T_CURSTEPS));
     add(textArea1);
 
@@ -48,4 +49,12 @@ StepsScreenViewBase::~StepsScreenViewBase()
 void StepsScreenViewBase::setupScreen()
 {
 
+}
+
+void StepsScreenViewBase::handleTickEvent()
+{
+    //call_changeStepVal
+    //When every N tick call virtual function
+    //Call changeStepVal
+    changeStepVal();
 }

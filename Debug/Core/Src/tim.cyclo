@@ -7,3 +7,5 @@
 ../Core/Src/tim.c:398:6:HAL_TIM_MspPostInit	4
 ../Core/Src/tim.c:477:6:HAL_TIM_Base_MspDeInit	6
 ../Core/Src/tim.c:544:6:delay_us	2
+../Core/Src/tim.c:549:6:micros_start	1
+../Core/Src/tim.c:553:10:micros_stop	1

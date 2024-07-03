@@ -19,6 +19,15 @@ public:
     Spo2ScreenViewBase();
     virtual ~Spo2ScreenViewBase();
     virtual void setupScreen();
+    virtual void handleTickEvent();
+
+    /*
+     * Virtual Action Handlers
+     */
+    virtual void changeSpO2Val()
+    {
+        // Override and implement this function in Spo2Screen
+    }
 
 protected:
     FrontendApplication& application() {
@@ -33,6 +42,12 @@ protected:
     touchgfx::TextArea Spo2;
     touchgfx::TextAreaWithOneWildcard textArea1;
     touchgfx::ImageProgress batteryprogress;
+
+    /*
+     * Wildcard Buffers
+     */
+    static const uint16_t TEXTAREA1_SIZE = 5;
+    touchgfx::Unicode::UnicodeChar textArea1Buffer[TEXTAREA1_SIZE];
 
 private:
 

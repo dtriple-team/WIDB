@@ -3,6 +3,8 @@
 #include <touchgfx/hal/HAL.hpp> //rkdalfks
 #include <touchgfx/Utils.hpp> //rkdalfks
 
+extern uint16_t ssSpo2;
+
 Spo2ScreenView::Spo2ScreenView()
     : initialX(0), initialY(0) //rkdalfks
 {
@@ -36,4 +38,14 @@ void Spo2ScreenView::handleSwipeRight() //rkdalfks
 {
     // 화면 전환 코드
     application().gotoHomeScreenWithBiodataScreenWipeTransitionWest();
+}
+
+void Spo2ScreenView::changeSpO2Val(){
+	timeTick++;
+
+	if(timeTick%60 == 0){
+
+		touchgfx::Unicode::snprintf(textArea1Buffer, TEXTAREA1_SIZE, "%02u", ssSpo2);
+		textArea1.invalidate();
+	}
 }

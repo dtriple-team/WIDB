@@ -35,6 +35,8 @@ TouchGFX/target/TouchGFXGPIO.o: ../TouchGFX/target/TouchGFXGPIO.cpp \
  ../Drivers/STM32U5xx_HAL_Driver/Inc/stm32u5xx_hal_pwr_ex.h \
  ../Drivers/STM32U5xx_HAL_Driver/Inc/stm32u5xx_hal_ospi.h \
  ../Drivers/STM32U5xx_HAL_Driver/Inc/stm32u5xx_ll_dlyb.h \
+ ../Drivers/STM32U5xx_HAL_Driver/Inc/stm32u5xx_hal_rtc.h \
+ ../Drivers/STM32U5xx_HAL_Driver/Inc/stm32u5xx_hal_rtc_ex.h \
  ../Drivers/STM32U5xx_HAL_Driver/Inc/stm32u5xx_hal_spi.h \
  ../Drivers/STM32U5xx_HAL_Driver/Inc/stm32u5xx_hal_spi_ex.h \
  ../Drivers/STM32U5xx_HAL_Driver/Inc/stm32u5xx_hal_tim.h \
@@ -43,8 +45,8 @@ TouchGFX/target/TouchGFXGPIO.o: ../TouchGFX/target/TouchGFXGPIO.cpp \
  ../Drivers/STM32U5xx_HAL_Driver/Inc/stm32u5xx_hal_uart_ex.h \
  ../Drivers/STM32U5xx_HAL_Driver/Inc/stm32u5xx_hal_exti.h \
  ../Drivers/STM32U5xx_HAL_Driver/Inc/stm32u5xx_hal_mdf.h \
- C:/Users/D-triple/Desktop/WIDB_prj/WIDB_jh/Drivers/ST7789/st7789.h \
- C:/Users/D-triple/Desktop/WIDB_prj/WIDB_jh/Drivers/ST7789/fonts.h
+ C:/Users/D-triple/Desktop/WIDB_prj/WIDB/Drivers/ST7789/st7789.h \
+ C:/Users/D-triple/Desktop/WIDB_prj/WIDB/Drivers/ST7789/fonts.h
 ../Middlewares/ST/touchgfx/framework/include/touchgfx/hal/GPIO.hpp:
 ../Core/Inc/main.h:
 ../Drivers/STM32U5xx_HAL_Driver/Inc/stm32u5xx_hal.h:
@@ -82,6 +84,8 @@ TouchGFX/target/TouchGFXGPIO.o: ../TouchGFX/target/TouchGFXGPIO.cpp \
 ../Drivers/STM32U5xx_HAL_Driver/Inc/stm32u5xx_hal_pwr_ex.h:
 ../Drivers/STM32U5xx_HAL_Driver/Inc/stm32u5xx_hal_ospi.h:
 ../Drivers/STM32U5xx_HAL_Driver/Inc/stm32u5xx_ll_dlyb.h:
+../Drivers/STM32U5xx_HAL_Driver/Inc/stm32u5xx_hal_rtc.h:
+../Drivers/STM32U5xx_HAL_Driver/Inc/stm32u5xx_hal_rtc_ex.h:
 ../Drivers/STM32U5xx_HAL_Driver/Inc/stm32u5xx_hal_spi.h:
 ../Drivers/STM32U5xx_HAL_Driver/Inc/stm32u5xx_hal_spi_ex.h:
 ../Drivers/STM32U5xx_HAL_Driver/Inc/stm32u5xx_hal_tim.h:
@@ -90,5 +94,5 @@ TouchGFX/target/TouchGFXGPIO.o: ../TouchGFX/target/TouchGFXGPIO.cpp \
 ../Drivers/STM32U5xx_HAL_Driver/Inc/stm32u5xx_hal_uart_ex.h:
 ../Drivers/STM32U5xx_HAL_Driver/Inc/stm32u5xx_hal_exti.h:
 ../Drivers/STM32U5xx_HAL_Driver/Inc/stm32u5xx_hal_mdf.h:
-C:/Users/D-triple/Desktop/WIDB_prj/WIDB_jh/Drivers/ST7789/st7789.h:
-C:/Users/D-triple/Desktop/WIDB_prj/WIDB_jh/Drivers/ST7789/fonts.h:
+C:/Users/D-triple/Desktop/WIDB_prj/WIDB/Drivers/ST7789/st7789.h:
+C:/Users/D-triple/Desktop/WIDB_prj/WIDB/Drivers/ST7789/fonts.h:

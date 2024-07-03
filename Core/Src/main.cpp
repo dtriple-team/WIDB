@@ -22,12 +22,14 @@
 #include "adc.h"
 #include "mdf.h"
 #include "crc.h"
+#include "gpdma.h"
 #include "i2c.h"
 #include "icache.h"
 #include "lptim.h"
 #include "usart.h"
 #include "memorymap.h"
 #include "octospi.h"
+#include "rtc.h"
 #include "spi.h"
 #include "tim.h"
 #include "gpio.h"
@@ -40,7 +42,8 @@
 
 /* Private typedef -----------------------------------------------------------*/
 /* USER CODE BEGIN PTD */
-
+RTC_TimeTypeDef sTime;
+RTC_DateTypeDef sDate;
 /* USER CODE END PTD */
 
 /* Private define ------------------------------------------------------------*/
@@ -99,8 +102,7 @@ int main(void)
 
   /* Initialize all configured peripherals */
   MX_GPIO_Init();
-  MX_I2C1_Init();
-  MX_I2C2_Init();
+  MX_GPDMA1_Init();
   MX_I2C3_Init();
   MX_I2C4_Init();
   MX_OCTOSPI1_Init();
@@ -121,7 +123,10 @@ int main(void)
   MX_CRC_Init();
   MX_TIM15_Init();
   MX_TIM4_Init();
+  MX_I2C1_Init();
+  MX_I2C2_Init();
   MX_TIM5_Init();
+  MX_RTC_Init();
   MX_TouchGFX_Init();
   /* Call PreOsInit function */
   MX_TouchGFX_PreOSInit();
@@ -169,13 +174,15 @@ void SystemClock_Config(void)
 
   /** Initializes the CPU, AHB and APB buses clocks
   */
-  RCC_OscInitStruct.OscillatorType = RCC_OSCILLATORTYPE_HSI|RCC_OSCILLATORTYPE_MSI
-                              |RCC_OSCILLATORTYPE_MSIK;
+  RCC_OscInitStruct.OscillatorType = RCC_OSCILLATORTYPE_HSI|RCC_OSCILLATORTYPE_LSI
+                              |RCC_OSCILLATORTYPE_MSI|RCC_OSCILLATORTYPE_MSIK;
   RCC_OscInitStruct.HSIState = RCC_HSI_ON;
   RCC_OscInitStruct.HSICalibrationValue = RCC_HSICALIBRATION_DEFAULT;
+  RCC_OscInitStruct.LSIState = RCC_LSI_ON;
   RCC_OscInitStruct.MSIState = RCC_MSI_ON;
   RCC_OscInitStruct.MSICalibrationValue = RCC_MSICALIBRATION_DEFAULT;
   RCC_OscInitStruct.MSIClockRange = RCC_MSIRANGE_0;
+  RCC_OscInitStruct.LSIDiv = RCC_LSI_DIV1;
   RCC_OscInitStruct.MSIKClockRange = RCC_MSIKRANGE_4;
   RCC_OscInitStruct.MSIKState = RCC_MSIK_ON;
   RCC_OscInitStruct.PLL.PLLState = RCC_PLL_ON;
@@ -215,8 +222,10 @@ void SystemClock_Config(void)
 }
 
 /* USER CODE BEGIN 4 */
+
 extern uint8_t ssRunFlag;
 extern void read_ppg();
+
 /* USER CODE END 4 */
 
 /**
@@ -242,6 +251,12 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
 	  {
 		  read_ppg();
 	  }
+	HAL_RTC_GetDate(&hrtc, &sDate, RTC_FORMAT_BIN);
+	HAL_RTC_GetTime(&hrtc, &sTime, RTC_FORMAT_BIN);
+  }
+  if(htim->Instance == TIM15)
+  {
+
   }
   /* USER CODE END Callback 1 */
 }

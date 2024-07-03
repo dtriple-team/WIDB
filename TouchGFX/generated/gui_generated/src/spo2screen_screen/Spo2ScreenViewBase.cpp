@@ -25,7 +25,8 @@ Spo2ScreenViewBase::Spo2ScreenViewBase()
     textArea1.setPosition(0, 219, 240, 33);
     textArea1.setColor(touchgfx::Color::getColorFromRGB(255, 255, 255));
     textArea1.setLinespacing(0);
-    textArea1.setWildcard(touchgfx::TypedText(T_CURSPO2VALUE).getText());
+    Unicode::snprintf(textArea1Buffer, TEXTAREA1_SIZE, "%s", touchgfx::TypedText(T_CURSPO2VALUE).getText());
+    textArea1.setWildcard(textArea1Buffer);
     textArea1.setTypedText(touchgfx::TypedText(T_CURSPO2));
     add(textArea1);
 
@@ -48,4 +49,12 @@ Spo2ScreenViewBase::~Spo2ScreenViewBase()
 void Spo2ScreenViewBase::setupScreen()
 {
 
+}
+
+void Spo2ScreenViewBase::handleTickEvent()
+{
+    //call_changeSpO2Val
+    //When every N tick call virtual function
+    //Call changeSpO2Val
+    changeSpO2Val();
 }

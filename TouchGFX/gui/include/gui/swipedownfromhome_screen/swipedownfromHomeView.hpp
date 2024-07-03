@@ -13,6 +13,7 @@ public:
     virtual void setupScreen();
     virtual void tearDownScreen();
     virtual void handleGestureEvent(const GestureEvent& evt); //rkdalfks
+    virtual void handleDragEvent(const DragEvent& dragEvt); // jh
 
     void updateToggleButton1State(bool state); //test
     void updateToggleButton2State(bool state); //test
@@ -32,6 +33,8 @@ protected:
 private: //rkdalfks
     int initialX; //rkdalfks
     int initialY; //rkdaflks
+
+    uint8_t isDeltaYGreaterThanDeltaX = 0; // jh
 };
 
 #endif // SWIPEUPFROMHOMEVIEW_HPP

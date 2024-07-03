@@ -2,8 +2,8 @@ Middlewares/Third_Party/FreeRTOS/Source/croutine.o: \
  ../Middlewares/Third_Party/FreeRTOS/Source/croutine.c \
  ../Middlewares/Third_Party/FreeRTOS/Source/include/FreeRTOS.h \
  ../Core/Inc/FreeRTOSConfig.h \
- C:/Users/D-triple/Desktop/WIDB_prj/WIDB_jh/Drivers/ST7789/st7789.h \
- C:/Users/D-triple/Desktop/WIDB_prj/WIDB_jh/Drivers/ST7789/fonts.h \
+ C:/Users/D-triple/Desktop/WIDB_prj/WIDB/Drivers/ST7789/st7789.h \
+ C:/Users/D-triple/Desktop/WIDB_prj/WIDB/Drivers/ST7789/fonts.h \
  ../Core/Inc/main.h ../Drivers/STM32U5xx_HAL_Driver/Inc/stm32u5xx_hal.h \
  ../Core/Inc/stm32u5xx_hal_conf.h \
  ../Drivers/STM32U5xx_HAL_Driver/Inc/stm32u5xx_hal_rcc.h \
@@ -39,6 +39,8 @@ Middlewares/Third_Party/FreeRTOS/Source/croutine.o: \
  ../Drivers/STM32U5xx_HAL_Driver/Inc/stm32u5xx_hal_pwr_ex.h \
  ../Drivers/STM32U5xx_HAL_Driver/Inc/stm32u5xx_hal_ospi.h \
  ../Drivers/STM32U5xx_HAL_Driver/Inc/stm32u5xx_ll_dlyb.h \
+ ../Drivers/STM32U5xx_HAL_Driver/Inc/stm32u5xx_hal_rtc.h \
+ ../Drivers/STM32U5xx_HAL_Driver/Inc/stm32u5xx_hal_rtc_ex.h \
  ../Drivers/STM32U5xx_HAL_Driver/Inc/stm32u5xx_hal_spi.h \
  ../Drivers/STM32U5xx_HAL_Driver/Inc/stm32u5xx_hal_spi_ex.h \
  ../Drivers/STM32U5xx_HAL_Driver/Inc/stm32u5xx_hal_tim.h \
@@ -58,8 +60,8 @@ Middlewares/Third_Party/FreeRTOS/Source/croutine.o: \
  ../Middlewares/Third_Party/FreeRTOS/Source/include/croutine.h
 ../Middlewares/Third_Party/FreeRTOS/Source/include/FreeRTOS.h:
 ../Core/Inc/FreeRTOSConfig.h:
-C:/Users/D-triple/Desktop/WIDB_prj/WIDB_jh/Drivers/ST7789/st7789.h:
-C:/Users/D-triple/Desktop/WIDB_prj/WIDB_jh/Drivers/ST7789/fonts.h:
+C:/Users/D-triple/Desktop/WIDB_prj/WIDB/Drivers/ST7789/st7789.h:
+C:/Users/D-triple/Desktop/WIDB_prj/WIDB/Drivers/ST7789/fonts.h:
 ../Core/Inc/main.h:
 ../Drivers/STM32U5xx_HAL_Driver/Inc/stm32u5xx_hal.h:
 ../Core/Inc/stm32u5xx_hal_conf.h:
@@ -96,6 +98,8 @@ C:/Users/D-triple/Desktop/WIDB_prj/WIDB_jh/Drivers/ST7789/fonts.h:
 ../Drivers/STM32U5xx_HAL_Driver/Inc/stm32u5xx_hal_pwr_ex.h:
 ../Drivers/STM32U5xx_HAL_Driver/Inc/stm32u5xx_hal_ospi.h:
 ../Drivers/STM32U5xx_HAL_Driver/Inc/stm32u5xx_ll_dlyb.h:
+../Drivers/STM32U5xx_HAL_Driver/Inc/stm32u5xx_hal_rtc.h:
+../Drivers/STM32U5xx_HAL_Driver/Inc/stm32u5xx_hal_rtc_ex.h:
 ../Drivers/STM32U5xx_HAL_Driver/Inc/stm32u5xx_hal_spi.h:
 ../Drivers/STM32U5xx_HAL_Driver/Inc/stm32u5xx_hal_spi_ex.h:
 ../Drivers/STM32U5xx_HAL_Driver/Inc/stm32u5xx_hal_tim.h:

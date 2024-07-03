@@ -33,6 +33,14 @@ public:
         // Override and implement this function in screenontimeSetting
     }
 
+    /*
+     * Virtual Action Handlers
+     */
+    virtual void changeScreenOnTime()
+    {
+        // Override and implement this function in screenontimeSetting
+    }
+
 protected:
     FrontendApplication& application() {
         return *static_cast<FrontendApplication*>(touchgfx::Application::getInstance());

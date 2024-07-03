@@ -56,6 +56,8 @@ void HAL_TIM_MspPostInit(TIM_HandleTypeDef *htim);
 
 /* USER CODE BEGIN Prototypes */
 void delay_us(uint16_t time);
+void micros_start();
+uint32_t micros_stop();
 /* USER CODE END Prototypes */
 
 #ifdef __cplusplus

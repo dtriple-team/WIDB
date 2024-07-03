@@ -56,6 +56,9 @@
 
 /* External variables --------------------------------------------------------*/
 extern I2C_HandleTypeDef hi2c2;
+extern UART_HandleTypeDef huart2;
+extern DMA_HandleTypeDef handle_GPDMA1_Channel15;
+extern SPI_HandleTypeDef hspi1;
 extern TIM_HandleTypeDef htim4;
 extern TIM_HandleTypeDef htim15;
 extern TIM_HandleTypeDef htim2;
@@ -219,6 +222,34 @@ void I2C2_ER_IRQHandler(void)
 }
 
 /**
+  * @brief This function handles SPI1 global interrupt.
+  */
+void SPI1_IRQHandler(void)
+{
+  /* USER CODE BEGIN SPI1_IRQn 0 */
+
+  /* USER CODE END SPI1_IRQn 0 */
+  HAL_SPI_IRQHandler(&hspi1);
+  /* USER CODE BEGIN SPI1_IRQn 1 */
+
+  /* USER CODE END SPI1_IRQn 1 */
+}
+
+/**
+  * @brief This function handles USART2 global interrupt.
+  */
+void USART2_IRQHandler(void)
+{
+  /* USER CODE BEGIN USART2_IRQn 0 */
+
+  /* USER CODE END USART2_IRQn 0 */
+  HAL_UART_IRQHandler(&huart2);
+  /* USER CODE BEGIN USART2_IRQn 1 */
+
+  /* USER CODE END USART2_IRQn 1 */
+}
+
+/**
   * @brief This function handles TIM15 global interrupt.
   */
 void TIM15_IRQHandler(void)
@@ -230,6 +261,20 @@ void TIM15_IRQHandler(void)
   /* USER CODE BEGIN TIM15_IRQn 1 */
 
   /* USER CODE END TIM15_IRQn 1 */
+}
+
+/**
+  * @brief This function handles GPDMA1 Channel 15 global interrupt.
+  */
+void GPDMA1_Channel15_IRQHandler(void)
+{
+  /* USER CODE BEGIN GPDMA1_Channel15_IRQn 0 */
+
+  /* USER CODE END GPDMA1_Channel15_IRQn 0 */
+  HAL_DMA_IRQHandler(&handle_GPDMA1_Channel15);
+  /* USER CODE BEGIN GPDMA1_Channel15_IRQn 1 */
+
+  /* USER CODE END GPDMA1_Channel15_IRQn 1 */
 }
 
 /* USER CODE BEGIN 1 */

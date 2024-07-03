@@ -1,8 +1,8 @@
 Core/Src/app_freertos.o: ../Core/Src/app_freertos.cpp \
  ../Middlewares/Third_Party/FreeRTOS/Source/include/FreeRTOS.h \
  ../Core/Inc/FreeRTOSConfig.h \
- C:/Users/D-triple/Desktop/WIDB_prj/WIDB_jh/Drivers/ST7789/st7789.h \
- C:/Users/D-triple/Desktop/WIDB_prj/WIDB_jh/Drivers/ST7789/fonts.h \
+ C:/Users/D-triple/Desktop/WIDB_prj/WIDB/Drivers/ST7789/st7789.h \
+ C:/Users/D-triple/Desktop/WIDB_prj/WIDB/Drivers/ST7789/fonts.h \
  ../Core/Inc/main.h ../Drivers/STM32U5xx_HAL_Driver/Inc/stm32u5xx_hal.h \
  ../Core/Inc/stm32u5xx_hal_conf.h \
  ../Drivers/STM32U5xx_HAL_Driver/Inc/stm32u5xx_hal_rcc.h \
@@ -38,6 +38,8 @@ Core/Src/app_freertos.o: ../Core/Src/app_freertos.cpp \
  ../Drivers/STM32U5xx_HAL_Driver/Inc/stm32u5xx_hal_pwr_ex.h \
  ../Drivers/STM32U5xx_HAL_Driver/Inc/stm32u5xx_hal_ospi.h \
  ../Drivers/STM32U5xx_HAL_Driver/Inc/stm32u5xx_ll_dlyb.h \
+ ../Drivers/STM32U5xx_HAL_Driver/Inc/stm32u5xx_hal_rtc.h \
+ ../Drivers/STM32U5xx_HAL_Driver/Inc/stm32u5xx_hal_rtc_ex.h \
  ../Drivers/STM32U5xx_HAL_Driver/Inc/stm32u5xx_hal_spi.h \
  ../Drivers/STM32U5xx_HAL_Driver/Inc/stm32u5xx_hal_spi_ex.h \
  ../Drivers/STM32U5xx_HAL_Driver/Inc/stm32u5xx_hal_tim.h \
@@ -58,13 +60,16 @@ Core/Src/app_freertos.o: ../Core/Src/app_freertos.cpp \
  ../Drivers/pmic/pmic.h ../Drivers/sensorhub/smartsensor.h \
  ../Core/Inc/tim.h ../Core/Inc/main.h ../TouchGFX/App/app_touchgfx.h \
  ../Core/Inc/i2c.h \
- C:/Users/D-triple/Desktop/WIDB_prj/WIDB_jh/Drivers/BLE/stm32wb5mmg.h \
- C:/Users/D-triple/Desktop/WIDB_prj/WIDB_jh/Drivers/CatM1/BG770A-GL.h \
- C:/Users/D-triple/Desktop/WIDB_prj/WIDB_jh/Drivers/WiFi_BLE/NORA-W10.h
+ C:/Users/D-triple/Desktop/WIDB_prj/WIDB/Drivers/CatM1/BG770A-GL.h \
+ C:/Users/D-triple/Desktop/WIDB_prj/WIDB/Drivers/WiFi_BLE/NORA-W10.h \
+ ../Drivers/sensorhub/mems.h \
+ C:/Users/D-triple/Desktop/WIDB_prj/WIDB/Drivers/BLE/stm32wb5mmg.h \
+ C:/Users/D-triple/Desktop/WIDB_prj/WIDB/Drivers/BLE/stm32wb_at/stm32wb_at_ble.h \
+ C:/Users/D-triple/Desktop/WIDB_prj/WIDB/Drivers/BLE/stm32wb_at/stm32wb_at.h
 ../Middlewares/Third_Party/FreeRTOS/Source/include/FreeRTOS.h:
 ../Core/Inc/FreeRTOSConfig.h:
-C:/Users/D-triple/Desktop/WIDB_prj/WIDB_jh/Drivers/ST7789/st7789.h:
-C:/Users/D-triple/Desktop/WIDB_prj/WIDB_jh/Drivers/ST7789/fonts.h:
+C:/Users/D-triple/Desktop/WIDB_prj/WIDB/Drivers/ST7789/st7789.h:
+C:/Users/D-triple/Desktop/WIDB_prj/WIDB/Drivers/ST7789/fonts.h:
 ../Core/Inc/main.h:
 ../Drivers/STM32U5xx_HAL_Driver/Inc/stm32u5xx_hal.h:
 ../Core/Inc/stm32u5xx_hal_conf.h:
@@ -101,6 +106,8 @@ C:/Users/D-triple/Desktop/WIDB_prj/WIDB_jh/Drivers/ST7789/fonts.h:
 ../Drivers/STM32U5xx_HAL_Driver/Inc/stm32u5xx_hal_pwr_ex.h:
 ../Drivers/STM32U5xx_HAL_Driver/Inc/stm32u5xx_hal_ospi.h:
 ../Drivers/STM32U5xx_HAL_Driver/Inc/stm32u5xx_ll_dlyb.h:
+../Drivers/STM32U5xx_HAL_Driver/Inc/stm32u5xx_hal_rtc.h:
+../Drivers/STM32U5xx_HAL_Driver/Inc/stm32u5xx_hal_rtc_ex.h:
 ../Drivers/STM32U5xx_HAL_Driver/Inc/stm32u5xx_hal_spi.h:
 ../Drivers/STM32U5xx_HAL_Driver/Inc/stm32u5xx_hal_spi_ex.h:
 ../Drivers/STM32U5xx_HAL_Driver/Inc/stm32u5xx_hal_tim.h:
@@ -124,6 +131,9 @@ C:/Users/D-triple/Desktop/WIDB_prj/WIDB_jh/Drivers/ST7789/fonts.h:
 ../Core/Inc/main.h:
 ../TouchGFX/App/app_touchgfx.h:
 ../Core/Inc/i2c.h:
-C:/Users/D-triple/Desktop/WIDB_prj/WIDB_jh/Drivers/BLE/stm32wb5mmg.h:
-C:/Users/D-triple/Desktop/WIDB_prj/WIDB_jh/Drivers/CatM1/BG770A-GL.h:
-C:/Users/D-triple/Desktop/WIDB_prj/WIDB_jh/Drivers/WiFi_BLE/NORA-W10.h:
+C:/Users/D-triple/Desktop/WIDB_prj/WIDB/Drivers/CatM1/BG770A-GL.h:
+C:/Users/D-triple/Desktop/WIDB_prj/WIDB/Drivers/WiFi_BLE/NORA-W10.h:
+../Drivers/sensorhub/mems.h:
+C:/Users/D-triple/Desktop/WIDB_prj/WIDB/Drivers/BLE/stm32wb5mmg.h:
+C:/Users/D-triple/Desktop/WIDB_prj/WIDB/Drivers/BLE/stm32wb_at/stm32wb_at_ble.h:
+C:/Users/D-triple/Desktop/WIDB_prj/WIDB/Drivers/BLE/stm32wb_at/stm32wb_at.h:

@@ -23,4 +23,5 @@
 ../Drivers/ST7789/st7789.c:692:6:ST7789_TearEffect	2
 ../Drivers/ST7789/st7789.c:699:6:ST7789_DrawBitmap	2
 ../Drivers/ST7789/st7789.c:738:6:ST7789_Test	1
-../Drivers/ST7789/st7789.c:811:6:ST7789_gpio_brightness_setting	2
+../Drivers/ST7789/st7789.c:811:6:ST7789_gpio_setting	1
+../Drivers/ST7789/st7789.c:820:6:ST7789_brightness_setting	4

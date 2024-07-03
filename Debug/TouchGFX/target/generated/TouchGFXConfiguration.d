@@ -191,8 +191,7 @@ TouchGFX/target/generated/TouchGFXConfiguration.o: \
  ../TouchGFX/gui/include/gui/inout_screen/inoutPresenter.hpp \
  ../TouchGFX/generated/images/include/BitmapDatabase.hpp \
  ../TouchGFX/generated/images/include/images/BitmapDatabase.hpp \
- ../TouchGFX/target/generated/STM32DMA.hpp \
- ../TouchGFX/target/TouchGFXHAL.hpp \
+ ../TouchGFX/target/TouchGFXDMA.hpp ../TouchGFX/target/TouchGFXHAL.hpp \
  ../TouchGFX/target/generated/TouchGFXGeneratedHAL.hpp \
  ../TouchGFX/target/STM32TouchController.hpp \
  ../Drivers/STM32U5xx_HAL_Driver/Inc/stm32u5xx_hal.h \
@@ -230,6 +229,8 @@ TouchGFX/target/generated/TouchGFXConfiguration.o: \
  ../Drivers/STM32U5xx_HAL_Driver/Inc/stm32u5xx_hal_pwr_ex.h \
  ../Drivers/STM32U5xx_HAL_Driver/Inc/stm32u5xx_hal_ospi.h \
  ../Drivers/STM32U5xx_HAL_Driver/Inc/stm32u5xx_ll_dlyb.h \
+ ../Drivers/STM32U5xx_HAL_Driver/Inc/stm32u5xx_hal_rtc.h \
+ ../Drivers/STM32U5xx_HAL_Driver/Inc/stm32u5xx_hal_rtc_ex.h \
  ../Drivers/STM32U5xx_HAL_Driver/Inc/stm32u5xx_hal_spi.h \
  ../Drivers/STM32U5xx_HAL_Driver/Inc/stm32u5xx_hal_spi_ex.h \
  ../Drivers/STM32U5xx_HAL_Driver/Inc/stm32u5xx_hal_tim.h \
@@ -429,7 +430,7 @@ TouchGFX/target/generated/TouchGFXConfiguration.o: \
 ../TouchGFX/gui/include/gui/inout_screen/inoutPresenter.hpp:
 ../TouchGFX/generated/images/include/BitmapDatabase.hpp:
 ../TouchGFX/generated/images/include/images/BitmapDatabase.hpp:
-../TouchGFX/target/generated/STM32DMA.hpp:
+../TouchGFX/target/TouchGFXDMA.hpp:
 ../TouchGFX/target/TouchGFXHAL.hpp:
 ../TouchGFX/target/generated/TouchGFXGeneratedHAL.hpp:
 ../TouchGFX/target/STM32TouchController.hpp:
@@ -468,6 +469,8 @@ TouchGFX/target/generated/TouchGFXConfiguration.o: \
 ../Drivers/STM32U5xx_HAL_Driver/Inc/stm32u5xx_hal_pwr_ex.h:
 ../Drivers/STM32U5xx_HAL_Driver/Inc/stm32u5xx_hal_ospi.h:
 ../Drivers/STM32U5xx_HAL_Driver/Inc/stm32u5xx_ll_dlyb.h:
+../Drivers/STM32U5xx_HAL_Driver/Inc/stm32u5xx_hal_rtc.h:
+../Drivers/STM32U5xx_HAL_Driver/Inc/stm32u5xx_hal_rtc_ex.h:
 ../Drivers/STM32U5xx_HAL_Driver/Inc/stm32u5xx_hal_spi.h:
 ../Drivers/STM32U5xx_HAL_Driver/Inc/stm32u5xx_hal_spi_ex.h:
 ../Drivers/STM32U5xx_HAL_Driver/Inc/stm32u5xx_hal_tim.h:

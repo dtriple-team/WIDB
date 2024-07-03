@@ -25,6 +25,7 @@
 /* USER CODE END 0 */
 
 SPI_HandleTypeDef hspi1;
+DMA_HandleTypeDef handle_GPDMA1_Channel15;
 
 /* SPI1 init function */
 void MX_SPI1_Init(void)
@@ -41,12 +42,12 @@ void MX_SPI1_Init(void)
   /* USER CODE END SPI1_Init 1 */
   hspi1.Instance = SPI1;
   hspi1.Init.Mode = SPI_MODE_MASTER;
-  hspi1.Init.Direction = SPI_DIRECTION_1LINE;
+  hspi1.Init.Direction = SPI_DIRECTION_2LINES_TXONLY;
   hspi1.Init.DataSize = SPI_DATASIZE_8BIT;
   hspi1.Init.CLKPolarity = SPI_POLARITY_LOW;
   hspi1.Init.CLKPhase = SPI_PHASE_1EDGE;
   hspi1.Init.NSS = SPI_NSS_SOFT;
-  hspi1.Init.BaudRatePrescaler = SPI_BAUDRATEPRESCALER_16;
+  hspi1.Init.BaudRatePrescaler = SPI_BAUDRATEPRESCALER_4;
   hspi1.Init.FirstBit = SPI_FIRSTBIT_MSB;
   hspi1.Init.TIMode = SPI_TIMODE_DISABLE;
   hspi1.Init.CRCCalculation = SPI_CRCCALCULATION_DISABLE;
@@ -107,13 +108,51 @@ void HAL_SPI_MspInit(SPI_HandleTypeDef* spiHandle)
     PE13     ------> SPI1_SCK
     PE15     ------> SPI1_MOSI
     */
-    GPIO_InitStruct.Pin = GPIO_PIN_14|GPIO_PIN_13|GPIO_PIN_15;
+    GPIO_InitStruct.Pin = GPIO_PIN_14;
     GPIO_InitStruct.Mode = GPIO_MODE_AF_PP;
     GPIO_InitStruct.Pull = GPIO_NOPULL;
     GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
     GPIO_InitStruct.Alternate = GPIO_AF5_SPI1;
     HAL_GPIO_Init(GPIOE, &GPIO_InitStruct);
 
+    GPIO_InitStruct.Pin = GPIO_PIN_13|GPIO_PIN_15;
+    GPIO_InitStruct.Mode = GPIO_MODE_AF_PP;
+    GPIO_InitStruct.Pull = GPIO_NOPULL;
+    GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_HIGH;
+    GPIO_InitStruct.Alternate = GPIO_AF5_SPI1;
+    HAL_GPIO_Init(GPIOE, &GPIO_InitStruct);
+
+    /* SPI1 DMA Init */
+    /* GPDMA1_REQUEST_SPI1_TX Init */
+    handle_GPDMA1_Channel15.Instance = GPDMA1_Channel15;
+    handle_GPDMA1_Channel15.Init.Request = GPDMA1_REQUEST_SPI1_TX;
+    handle_GPDMA1_Channel15.Init.BlkHWRequest = DMA_BREQ_SINGLE_BURST;
+    handle_GPDMA1_Channel15.Init.Direction = DMA_MEMORY_TO_PERIPH;
+    handle_GPDMA1_Channel15.Init.SrcInc = DMA_SINC_INCREMENTED;
+    handle_GPDMA1_Channel15.Init.DestInc = DMA_DINC_FIXED;
+    handle_GPDMA1_Channel15.Init.SrcDataWidth = DMA_SRC_DATAWIDTH_BYTE;
+    handle_GPDMA1_Channel15.Init.DestDataWidth = DMA_DEST_DATAWIDTH_BYTE;
+    handle_GPDMA1_Channel15.Init.Priority = DMA_LOW_PRIORITY_LOW_WEIGHT;
+    handle_GPDMA1_Channel15.Init.SrcBurstLength = 1;
+    handle_GPDMA1_Channel15.Init.DestBurstLength = 1;
+    handle_GPDMA1_Channel15.Init.TransferAllocatedPort = DMA_SRC_ALLOCATED_PORT0|DMA_DEST_ALLOCATED_PORT0;
+    handle_GPDMA1_Channel15.Init.TransferEventMode = DMA_TCEM_BLOCK_TRANSFER;
+    handle_GPDMA1_Channel15.Init.Mode = DMA_NORMAL;
+    if (HAL_DMA_Init(&handle_GPDMA1_Channel15) != HAL_OK)
+    {
+      Error_Handler();
+    }
+
+    __HAL_LINKDMA(spiHandle, hdmatx, handle_GPDMA1_Channel15);
+
+    if (HAL_DMA_ConfigChannelAttributes(&handle_GPDMA1_Channel15, DMA_CHANNEL_NPRIV) != HAL_OK)
+    {
+      Error_Handler();
+    }
+
+    /* SPI1 interrupt Init */
+    HAL_NVIC_SetPriority(SPI1_IRQn, 5, 0);
+    HAL_NVIC_EnableIRQ(SPI1_IRQn);
   /* USER CODE BEGIN SPI1_MspInit 1 */
 
   /* USER CODE END SPI1_MspInit 1 */
@@ -138,6 +177,11 @@ void HAL_SPI_MspDeInit(SPI_HandleTypeDef* spiHandle)
     */
     HAL_GPIO_DeInit(GPIOE, GPIO_PIN_14|GPIO_PIN_13|GPIO_PIN_15);
 
+    /* SPI1 DMA DeInit */
+    HAL_DMA_DeInit(spiHandle->hdmatx);
+
+    /* SPI1 interrupt Deinit */
+    HAL_NVIC_DisableIRQ(SPI1_IRQn);
   /* USER CODE BEGIN SPI1_MspDeInit 1 */
 
   /* USER CODE END SPI1_MspDeInit 1 */
@@ -145,5 +189,56 @@ void HAL_SPI_MspDeInit(SPI_HandleTypeDef* spiHandle)
 }
 
 /* USER CODE BEGIN 1 */
+int spi_tx_complete = 0;
+#define SPI_DMA_TX_MAX_DATA_LEN 0xFFFE
+uint32_t dataLen = 0;
+uint8_t spiDMACplt = 0;
+uint8_t* pTxBuff = 0;
+void HAL_SPI_TxCpltCallback(SPI_HandleTypeDef* hspi)
+{
+	if (hspi->Instance == SPI1){
+		if(spiDMACplt != 1){
+			uint16_t length = 0;
+			pTxBuff = &pTxBuff[SPI_DMA_TX_MAX_DATA_LEN];
 
+			if(dataLen > SPI_DMA_TX_MAX_DATA_LEN){
+				length = SPI_DMA_TX_MAX_DATA_LEN;
+				dataLen -= SPI_DMA_TX_MAX_DATA_LEN;
+				spiDMACplt = 0;
+			}
+			else{
+				length = dataLen;
+				spiDMACplt = 1;
+			}
+			HAL_SPI_Transmit_DMA(hspi, pTxBuff, length);
+		}
+		else{
+			spiDMACplt = 2;
+			return;
+		}
+	}
+}
+
+void spiTxDMA_start(uint8_t* pData, uint32_t len)
+{
+	// global val reset
+	dataLen = 0;
+	spiDMACplt = 0;
+	pTxBuff = 0;
+
+	uint16_t length = 0;
+	pTxBuff = pData;
+	dataLen = len;
+
+	if(dataLen > SPI_DMA_TX_MAX_DATA_LEN){
+		length = SPI_DMA_TX_MAX_DATA_LEN;
+		dataLen -= SPI_DMA_TX_MAX_DATA_LEN;
+		spiDMACplt = 0;
+	}
+	else{
+		length = dataLen;
+		spiDMACplt = 1;
+	}
+	HAL_SPI_Transmit_DMA(&hspi1, pTxBuff, length);
+}
 /* USER CODE END 1 */

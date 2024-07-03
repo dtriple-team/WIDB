@@ -105,6 +105,8 @@ protected:
     touchgfx::Unicode::UnicodeChar homecurspo2valueBuffer[HOMECURSPO2VALUE_SIZE];
     static const uint16_t TEXTAREA3_SIZE = 7;
     touchgfx::Unicode::UnicodeChar textArea3Buffer[TEXTAREA3_SIZE];
+    static const uint16_t STEPVALUE_SIZE = 10;
+    touchgfx::Unicode::UnicodeChar StepValueBuffer[STEPVALUE_SIZE];
     static const uint16_t HEARTRATEVALUE_SIZE = 5;
     touchgfx::Unicode::UnicodeChar HeartrateValueBuffer[HEARTRATEVALUE_SIZE];
     static const uint16_t SPO2VALUE_SIZE = 4;

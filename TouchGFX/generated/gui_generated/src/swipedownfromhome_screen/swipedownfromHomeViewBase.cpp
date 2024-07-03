@@ -72,8 +72,8 @@ swipedownfromHomeViewBase::swipedownfromHomeViewBase() :
     slider1.setXY(161, 124);
     slider1.setBitmaps(touchgfx::Bitmap(BITMAP_RECTANGLE_15_ID), touchgfx::Bitmap(BITMAP_RECTANGLE_16_ID), touchgfx::Bitmap(BITMAP_LINE_10_ID));
     slider1.setupVerticalSlider(0, 0, 11, 1, 138);
-    slider1.setValueRange(0, 100);
-    slider1.setValue(50);
+    slider1.setValueRange(0, 15);
+    slider1.setValue(15);
     add(slider1);
 
     image4.setXY(173, 210);

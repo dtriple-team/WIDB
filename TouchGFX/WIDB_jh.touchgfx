@@ -443,7 +443,9 @@
                       "Blue": 255
                     },
                     "Wildcard1": {
-                      "TextId": "curStepsvalue"
+                      "TextId": "curStepsvalue",
+                      "UseBuffer": true,
+                      "BufferSize": 10
                     }
                   }
                 ]
@@ -836,7 +838,9 @@
               "Blue": 255
             },
             "Wildcard1": {
-              "TextId": "curSpo2value"
+              "TextId": "curSpo2value",
+              "UseBuffer": true,
+              "BufferSize": 5
             }
           },
           {
@@ -858,7 +862,19 @@
             "ProgressInitialValue": 90
           }
         ],
-        "Interactions": []
+        "Interactions": [
+          {
+            "InteractionName": "call_changeSpO2Val",
+            "Trigger": {
+              "Type": "TriggerOnEveryTick",
+              "TickCount": 1
+            },
+            "Action": {
+              "Type": "ActionCustom",
+              "FunctionName": "changeSpO2Val"
+            }
+          }
+        ]
       },
       {
         "Name": "HeartrateScreen",
@@ -922,7 +938,19 @@
             "ProgressInitialValue": 90
           }
         ],
-        "Interactions": []
+        "Interactions": [
+          {
+            "InteractionName": "call_changeHRVal",
+            "Trigger": {
+              "Type": "TriggerOnEveryTick",
+              "TickCount": 1
+            },
+            "Action": {
+              "Type": "ActionCustom",
+              "FunctionName": "changeHRVal"
+            }
+          }
+        ]
       },
       {
         "Name": "StepsScreen",
@@ -962,7 +990,9 @@
               "Blue": 255
             },
             "Wildcard1": {
-              "TextId": "curStepsvalue"
+              "TextId": "curStepsvalue",
+              "UseBuffer": true,
+              "BufferSize": 10
             }
           },
           {
@@ -984,7 +1014,19 @@
             "ProgressInitialValue": 90
           }
         ],
-        "Interactions": []
+        "Interactions": [
+          {
+            "InteractionName": "call_changeStepVal",
+            "Trigger": {
+              "Type": "TriggerOnEveryTick",
+              "TickCount": 1
+            },
+            "Action": {
+              "Type": "ActionCustom",
+              "FunctionName": "changeStepVal"
+            }
+          }
+        ]
       },
       {
         "Name": "HeartrateDetail",
@@ -1326,8 +1368,8 @@
             "IndicatorPos": 11,
             "IndicatorMax": 138,
             "IndicatorMin": 1,
-            "ValueMax": 100,
-            "InitValue": 50
+            "ValueMax": 15,
+            "InitValue": 15
           },
           {
             "Type": "Image",
@@ -2237,6 +2279,17 @@
               "ScreenTransitionDirection": "West",
               "ActionComponent": "screenSetting"
             }
+          },
+          {
+            "InteractionName": "call_changeScreenOnTime",
+            "Trigger": {
+              "Type": "TriggerClicked",
+              "TriggerComponent": "button1"
+            },
+            "Action": {
+              "Type": "ActionCustom",
+              "FunctionName": "changeScreenOnTime"
+            }
           }
         ]
       },
@@ -2276,8 +2329,8 @@
             "Indicator": "Line 10.png",
             "IndicatorPos": 31,
             "IndicatorMax": 226,
-            "ValueMax": 100,
-            "InitValue": 50
+            "ValueMax": 15,
+            "InitValue": 15
           },
           {
             "Type": "Image",
@@ -4753,7 +4806,25 @@
     "FrameworkFeatures": {
       "LCD16bpp": {
         "Id": "LCD16bpp",
-        "IsEnabled": true
+        "Features": [
+          {
+            "Id": "TextureMapperImageFormats",
+            "Features": [
+              {
+                "Id": "RGB565",
+                "IsEnabled": true
+              },
+              {
+                "Id": "A4",
+                "IsEnabled": true
+              }
+            ]
+          },
+          {
+            "Id": "L8Compression",
+            "IsEnabled": true
+          }
+        ]
       }
     },
     "GenerateAssetsCommand": "make -f simulator/gcc/Makefile assets -j8",

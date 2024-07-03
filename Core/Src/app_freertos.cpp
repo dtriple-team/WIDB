@@ -32,9 +32,13 @@
 #include "i2c.h"
 #include <stdio.h>
 #include <string.h>
-#include "stm32wb5mmg.h"
 #include "BG770A-GL.h"
 #include "NORA-W10.h"
+#include "mems.h"
+extern "C" {
+	#include "stm32wb5mmg.h"
+	#include "stm32wb_at_ble.h"
+}
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -55,12 +59,15 @@
 /* Private variables ---------------------------------------------------------*/
 /* USER CODE BEGIN Variables */
 struct ssDataEx_format lcd_ssDataEx;
+uint8_t screenOnTime = 0;
+uint8_t brightness_count = 0;
+
 /* USER CODE END Variables */
 /* Definitions for initTask */
 osThreadId_t initTaskHandle;
 const osThreadAttr_t initTask_attributes = {
   .name = "initTask",
-  .stack_size = 128 * 4,
+  .stack_size = 1024 * 4,
   .priority = (osPriority_t) osPriorityNormal
 };
 /* Definitions for lcdTask */
@@ -74,7 +81,7 @@ const osThreadAttr_t lcdTask_attributes = {
 osThreadId_t ppmTaskHandle;
 const osThreadAttr_t ppmTask_attributes = {
   .name = "ppmTask",
-  .stack_size = 128 * 4,
+  .stack_size = 1024 * 4,
   .priority = (osPriority_t) osPriorityNormal
 };
 /* Definitions for wpmTask */
@@ -91,11 +98,24 @@ const osThreadAttr_t spmTask_attributes = {
   .stack_size = 128 * 4,
   .priority = (osPriority_t) osPriorityNormal
 };
+/* Definitions for secTimerTask */
+osThreadId_t secTimerTaskHandle;
+const osThreadAttr_t secTimerTask_attributes = {
+  .name = "secTimerTask",
+  .stack_size = 128 * 4,
+  .priority = (osPriority_t) osPriorityHigh
+};
 
 /* Private function prototypes -----------------------------------------------*/
 /* USER CODE BEGIN FunctionPrototypes */
 extern void touchgfxSignalVSync(void);
 uint8_t ssRunFlag = 0;
+uint8_t initFlag = 0;
+uint8_t pmicInitFlag = 0;
+
+double test_mag_data[15] = {0,};
+uint8_t set_bLevel = 15;
+
 /* USER CODE END FunctionPrototypes */
 
 void StartInitTask(void *argument);
@@ -103,6 +123,7 @@ void StartlcdTask(void *argument);
 void StartPPMTask(void *argument);
 void StartWPMTask(void *argument);
 void StartSPMTask(void *argument);
+void StartSecTimerTask(void *argument);
 
 void MX_FREERTOS_Init(void); /* (MISRA C 2004 rule 8.1) */
 
@@ -146,6 +167,9 @@ void MX_FREERTOS_Init(void) {
   /* creation of spmTask */
   spmTaskHandle = osThreadNew(StartSPMTask, NULL, &spmTask_attributes);
 
+  /* creation of secTimerTask */
+  secTimerTaskHandle = osThreadNew(StartSecTimerTask, NULL, &secTimerTask_attributes);
+
   /* USER CODE BEGIN RTOS_THREADS */
   /* add threads, ... */
   /* USER CODE END RTOS_THREADS */
@@ -161,6 +185,7 @@ void MX_FREERTOS_Init(void) {
 * @param argument: Not used
 * @retval None
 */
+stm32wb_at_BLE_ADV_DATA_t param_BLE_DATA;
 /* USER CODE END Header_StartInitTask */
 void StartInitTask(void *argument)
 {
@@ -168,9 +193,9 @@ void StartInitTask(void *argument)
 //	// I2C test code
 //	for(;;){
 //		uint8_t arr[3] = {0,};
-//		arr[0] = 0xD6;
-//		arr[1] = 0xBA;
-//		arr[2] = 0x3C;
+//			arr[0] = 0xD6; // acc
+//			arr[1] = 0xBA; // pressure
+//			arr[2] = 0x3C; // magnet
 ////		for (uint8_t i=0; i<3; i++)
 ////		{
 ////		  uint8_t err = HAL_I2C_IsDeviceReady(&hi2c1, arr[i], 1, 1);
@@ -183,6 +208,7 @@ void StartInitTask(void *argument)
 
 	// PMIC init
 	pmic_init();
+	pmicInitFlag = 1;
 
 	// Smart Sensor Hub init
 	ssInit();
@@ -190,14 +216,23 @@ void StartInitTask(void *argument)
 	ssRead_setting();
 	ssRunFlag = 1;
 
+	init_iis2mdc();
+	init_ism330dhcx();
+	init_lps22hh();
+
 	// CatM1 init
 	bg770a_gl_init();
 
 	// BLE init
+//	HAL_GPIO_WritePin(GPIOD, GPIO_PIN_14, GPIO_PIN_SET);
+//	HAL_Delay(30000);
 	stm32wb5mmg_init();
+	stm32wb5mmg_adv_setting(&param_BLE_DATA);
 
 	// WiFi-BLE init
 	nora_w10_init();
+
+	initFlag = 1;
 
 	// finish Task
 	vTaskDelete(NULL);
@@ -214,7 +249,9 @@ void StartInitTask(void *argument)
 void StartlcdTask(void *argument)
 {
   /* USER CODE BEGIN lcdTask */
-	ST7789_gpio_brightness_setting();
+	while(!pmicInitFlag);
+	ST7789_gpio_setting();
+	ST7789_brightness_setting(16);
 	ST7789_Init();
 
 	touchgfxSignalVSync();
@@ -237,7 +274,10 @@ void StartPPMTask(void *argument)
   /* Infinite loop */
   for(;;)
   {
-    osDelay(1);
+    osDelay(1000);
+    if(initFlag){
+    	stm32wb5mmg_adv(&param_BLE_DATA);
+    }
   }
   /* USER CODE END ppmTask */
 }
@@ -255,7 +295,9 @@ void StartWPMTask(void *argument)
   /* Infinite loop */
   for(;;)
   {
-    osDelay(1);
+    osDelay(10000);
+    if(initFlag){
+    }
   }
   /* USER CODE END wpmTask */
 }
@@ -270,16 +312,99 @@ void StartWPMTask(void *argument)
 void StartSPMTask(void *argument)
 {
   /* USER CODE BEGIN spmTask */
+	// using parameter init (default val)
+	uint8_t now_bLevel = 15;
+	uint8_t bLevelCtrlTimCount = 0;
+
   /* Infinite loop */
   for(;;)
   {
-    osDelay(1);
+    osDelay(100);
+    if(initFlag){
+    	// read sensor
+    	double magnetX, magnetY, magnetZ, iisTemp;
+    	read_iis2mdc(&magnetX, &magnetY, &magnetZ, &iisTemp);
+
+    	uint16_t gyroSensi = 125;
+    	uint8_t accSensi = 2;
+    	double ismTemp, gyroX, gyroY, gyroZ, accX, accY, accZ;
+		read_ism330dhcx(gyroSensi, accSensi, &ismTemp, &gyroX, &gyroY, &gyroZ, &accX, &accY, &accZ);
+
+		double pressure, lpsTemp;
+		read_lps22hh(&pressure, &lpsTemp);
+
+    	test_mag_data[0] = magnetX/10; 	// mgauss -> uT
+    	test_mag_data[1] = magnetY/10; 	// mgauss -> uT
+    	test_mag_data[2] = magnetZ/10; 	// mgauss -> uT
+    	test_mag_data[3] = iisTemp;		// degC
+
+    	test_mag_data[4] = 0;
+
+    	test_mag_data[5] = ismTemp;		// degC
+		test_mag_data[6] = gyroX/1000; 	// mdeg/s -> deg/s
+		test_mag_data[7] = gyroY/1000; 	// mdeg/s -> deg/s
+    	test_mag_data[8] = gyroZ/1000; 	// mdeg/s -> deg/s
+		test_mag_data[9] = accX/1000;  	// mg -> g
+		test_mag_data[10] = accY/1000; 	// mg -> g
+		test_mag_data[11] = accZ/1000; 	// mg -> g
+
+		test_mag_data[12] = 0;
+
+		test_mag_data[13] = pressure; 	// hPa
+		test_mag_data[14] = lpsTemp;  	// degC
+
+//		if(bLevelCtrlTimCount*100 > 300){ // bright ctrl add delay
+			bLevelCtrlTimCount = 0;
+			// change parameter val
+			if(now_bLevel != set_bLevel){
+				now_bLevel = set_bLevel;
+				ST7789_brightness_setting(now_bLevel);
+			}
+//		}
+//		bLevelCtrlTimCount++;
+    }
   }
   /* USER CODE END spmTask */
 }
 
+/* USER CODE BEGIN Header_StartSecTimerTask */
+/**
+* @brief Function implementing the secTimerTask thread.
+* @param argument: Not used
+* @retval None
+*/
+/* USER CODE END Header_StartSecTimerTask */
+void StartSecTimerTask(void *argument)
+{
+  /* USER CODE BEGIN secTimerTask */
+	screenOnTime = 20; // default screen on time;
+  /* Infinite loop */
+  for(;;)
+  {
+    osDelay(1000*5);
+
+    // turn off LCD backlight
+    if(brightness_count == 0){
+    	ST7789_brightness_setting(set_bLevel);
+    }
+
+    if(brightness_count > screenOnTime/5){
+    	ST7789_brightness_setting(0);
+    }
+    else{
+        brightness_count++;
+    }
+  }
+  /* USER CODE END secTimerTask */
+}
+
 /* Private application code --------------------------------------------------*/
 /* USER CODE BEGIN Application */
+
+uint16_t ssHr = 0;
+uint16_t ssSpo2 = 0;
+uint32_t ssWalk = 0;
+
 void read_ppg()
 {
 	uint8_t data[76+1] = {0,}; // +1: status byte
@@ -297,6 +422,15 @@ void read_ppg()
 	}
 
 	memcpy(&lcd_ssDataEx, ssDataEx, sizeof(ssDataEx_format));
+
+	if(lcd_ssDataEx.algo.SCDstate == 3){
+		ssHr = lcd_ssDataEx.algo.hr/10;
+		ssSpo2 = lcd_ssDataEx.algo.spo2/10;
+	} else {
+		ssHr = 0;
+		ssSpo2 = 0;
+	}
+	ssWalk = lcd_ssDataEx.algo.totalWalkSteps;
 
 //	printf("%d,\t accX:%d,\t accY:%d,\t accZ:%d,\t ", counter++, ssAccX/100, ssAccY/100, ssAccZ/100);
 //	printf("HR:%d,\t SpO2:%d\t ", ssHr/10, ssSpo2/10);

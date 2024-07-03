@@ -34,6 +34,8 @@ Core/Src/main.o: ../Core/Src/main.cpp ../Core/Inc/main.h \
  ../Drivers/STM32U5xx_HAL_Driver/Inc/stm32u5xx_hal_pwr_ex.h \
  ../Drivers/STM32U5xx_HAL_Driver/Inc/stm32u5xx_hal_ospi.h \
  ../Drivers/STM32U5xx_HAL_Driver/Inc/stm32u5xx_ll_dlyb.h \
+ ../Drivers/STM32U5xx_HAL_Driver/Inc/stm32u5xx_hal_rtc.h \
+ ../Drivers/STM32U5xx_HAL_Driver/Inc/stm32u5xx_hal_rtc_ex.h \
  ../Drivers/STM32U5xx_HAL_Driver/Inc/stm32u5xx_hal_spi.h \
  ../Drivers/STM32U5xx_HAL_Driver/Inc/stm32u5xx_hal_spi_ex.h \
  ../Drivers/STM32U5xx_HAL_Driver/Inc/stm32u5xx_hal_tim.h \
@@ -42,14 +44,14 @@ Core/Src/main.o: ../Core/Src/main.cpp ../Core/Inc/main.h \
  ../Drivers/STM32U5xx_HAL_Driver/Inc/stm32u5xx_hal_uart_ex.h \
  ../Drivers/STM32U5xx_HAL_Driver/Inc/stm32u5xx_hal_exti.h \
  ../Drivers/STM32U5xx_HAL_Driver/Inc/stm32u5xx_hal_mdf.h \
- C:/Users/D-triple/Desktop/WIDB_prj/WIDB_jh/Drivers/ST7789/st7789.h \
- C:/Users/D-triple/Desktop/WIDB_prj/WIDB_jh/Drivers/ST7789/fonts.h \
+ C:/Users/D-triple/Desktop/WIDB_prj/WIDB/Drivers/ST7789/st7789.h \
+ C:/Users/D-triple/Desktop/WIDB_prj/WIDB/Drivers/ST7789/fonts.h \
  ../Middlewares/Third_Party/CMSIS/RTOS2/Include/cmsis_os2.h \
  ../Core/Inc/adc.h ../Core/Inc/main.h ../Core/Inc/mdf.h ../Core/Inc/crc.h \
- ../Core/Inc/i2c.h ../Core/Inc/icache.h ../Core/Inc/lptim.h \
- ../Core/Inc/usart.h ../Core/Inc/memorymap.h ../Core/Inc/octospi.h \
- ../Core/Inc/spi.h ../Core/Inc/tim.h ../Core/Inc/gpio.h \
- ../TouchGFX/App/app_touchgfx.h
+ ../Core/Inc/gpdma.h ../Core/Inc/i2c.h ../Core/Inc/icache.h \
+ ../Core/Inc/lptim.h ../Core/Inc/usart.h ../Core/Inc/memorymap.h \
+ ../Core/Inc/octospi.h ../Core/Inc/rtc.h ../Core/Inc/spi.h \
+ ../Core/Inc/tim.h ../Core/Inc/gpio.h ../TouchGFX/App/app_touchgfx.h
 ../Core/Inc/main.h:
 ../Drivers/STM32U5xx_HAL_Driver/Inc/stm32u5xx_hal.h:
 ../Core/Inc/stm32u5xx_hal_conf.h:
@@ -86,6 +88,8 @@ Core/Src/main.o: ../Core/Src/main.cpp ../Core/Inc/main.h \
 ../Drivers/STM32U5xx_HAL_Driver/Inc/stm32u5xx_hal_pwr_ex.h:
 ../Drivers/STM32U5xx_HAL_Driver/Inc/stm32u5xx_hal_ospi.h:
 ../Drivers/STM32U5xx_HAL_Driver/Inc/stm32u5xx_ll_dlyb.h:
+../Drivers/STM32U5xx_HAL_Driver/Inc/stm32u5xx_hal_rtc.h:
+../Drivers/STM32U5xx_HAL_Driver/Inc/stm32u5xx_hal_rtc_ex.h:
 ../Drivers/STM32U5xx_HAL_Driver/Inc/stm32u5xx_hal_spi.h:
 ../Drivers/STM32U5xx_HAL_Driver/Inc/stm32u5xx_hal_spi_ex.h:
 ../Drivers/STM32U5xx_HAL_Driver/Inc/stm32u5xx_hal_tim.h:
@@ -94,19 +98,21 @@ Core/Src/main.o: ../Core/Src/main.cpp ../Core/Inc/main.h \
 ../Drivers/STM32U5xx_HAL_Driver/Inc/stm32u5xx_hal_uart_ex.h:
 ../Drivers/STM32U5xx_HAL_Driver/Inc/stm32u5xx_hal_exti.h:
 ../Drivers/STM32U5xx_HAL_Driver/Inc/stm32u5xx_hal_mdf.h:
-C:/Users/D-triple/Desktop/WIDB_prj/WIDB_jh/Drivers/ST7789/st7789.h:
-C:/Users/D-triple/Desktop/WIDB_prj/WIDB_jh/Drivers/ST7789/fonts.h:
+C:/Users/D-triple/Desktop/WIDB_prj/WIDB/Drivers/ST7789/st7789.h:
+C:/Users/D-triple/Desktop/WIDB_prj/WIDB/Drivers/ST7789/fonts.h:
 ../Middlewares/Third_Party/CMSIS/RTOS2/Include/cmsis_os2.h:
 ../Core/Inc/adc.h:
 ../Core/Inc/main.h:
 ../Core/Inc/mdf.h:
 ../Core/Inc/crc.h:
+../Core/Inc/gpdma.h:
 ../Core/Inc/i2c.h:
 ../Core/Inc/icache.h:
 ../Core/Inc/lptim.h:
 ../Core/Inc/usart.h:
 ../Core/Inc/memorymap.h:
 ../Core/Inc/octospi.h:
+../Core/Inc/rtc.h:
 ../Core/Inc/spi.h:
 ../Core/Inc/tim.h:
 ../Core/Inc/gpio.h:

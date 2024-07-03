@@ -198,7 +198,8 @@ HomeScreenWithBiodataViewBase::HomeScreenWithBiodataViewBase() :
     StepValue.setPosition(0, 219, 240, 33);
     StepValue.setColor(touchgfx::Color::getColorFromRGB(255, 255, 255));
     StepValue.setLinespacing(0);
-    StepValue.setWildcard(touchgfx::TypedText(T_CURSTEPSVALUE).getText());
+    Unicode::snprintf(StepValueBuffer, STEPVALUE_SIZE, "%s", touchgfx::TypedText(T_CURSTEPSVALUE).getText());
+    StepValue.setWildcard(StepValueBuffer);
     StepValue.setTypedText(touchgfx::TypedText(T_CURSTEPS));
     StepsScreen.add(StepValue);
 

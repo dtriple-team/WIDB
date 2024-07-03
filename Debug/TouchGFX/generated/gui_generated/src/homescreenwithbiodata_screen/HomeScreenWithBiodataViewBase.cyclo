@@ -85,10 +85,10 @@
 ../Middlewares/ST/touchgfx/framework/include/mvp/View.hpp:36:7:touchgfx::View<HomeScreenWithBiodataPresenter>::~View()	1
 ../Middlewares/ST/touchgfx/framework/include/mvp/View.hpp:36:7:virtual touchgfx::View<HomeScreenWithBiodataPresenter>::~View()	1
 ../TouchGFX/generated/gui_generated/src/homescreenwithbiodata_screen/HomeScreenWithBiodataViewBase.cpp:9:1:HomeScreenWithBiodataViewBase::HomeScreenWithBiodataViewBase()	1
-../TouchGFX/generated/gui_generated/src/homescreenwithbiodata_screen/HomeScreenWithBiodataViewBase.cpp:295:1:HomeScreenWithBiodataViewBase::~HomeScreenWithBiodataViewBase()	1
-../TouchGFX/generated/gui_generated/src/homescreenwithbiodata_screen/HomeScreenWithBiodataViewBase.cpp:295:1:virtual HomeScreenWithBiodataViewBase::~HomeScreenWithBiodataViewBase()	1
-../TouchGFX/generated/gui_generated/src/homescreenwithbiodata_screen/HomeScreenWithBiodataViewBase.cpp:300:6:virtual void HomeScreenWithBiodataViewBase::setupScreen()	1
-../TouchGFX/generated/gui_generated/src/homescreenwithbiodata_screen/HomeScreenWithBiodataViewBase.cpp:305:6:void HomeScreenWithBiodataViewBase::buttonCallbackHandler(const touchgfx::AbstractButton&)	6
+../TouchGFX/generated/gui_generated/src/homescreenwithbiodata_screen/HomeScreenWithBiodataViewBase.cpp:296:1:HomeScreenWithBiodataViewBase::~HomeScreenWithBiodataViewBase()	1
+../TouchGFX/generated/gui_generated/src/homescreenwithbiodata_screen/HomeScreenWithBiodataViewBase.cpp:296:1:virtual HomeScreenWithBiodataViewBase::~HomeScreenWithBiodataViewBase()	1
+../TouchGFX/generated/gui_generated/src/homescreenwithbiodata_screen/HomeScreenWithBiodataViewBase.cpp:301:6:virtual void HomeScreenWithBiodataViewBase::setupScreen()	1
+../TouchGFX/generated/gui_generated/src/homescreenwithbiodata_screen/HomeScreenWithBiodataViewBase.cpp:306:6:void HomeScreenWithBiodataViewBase::buttonCallbackHandler(const touchgfx::AbstractButton&)	6
 ../Middlewares/ST/touchgfx/framework/include/mvp/View.hpp:39:5:touchgfx::View<T>::View() [with T = HomeScreenWithBiodataPresenter]	1
 ../Middlewares/ST/touchgfx/framework/include/touchgfx/Callback.hpp:134:7:constexpr touchgfx::GenericCallback<const touchgfx::AbstractButton&>::GenericCallback()	1
 ../Middlewares/ST/touchgfx/framework/include/touchgfx/Callback.hpp:373:5:touchgfx::Callback<dest_type, T1, void, void>::Callback(dest_type*, void (dest_type::*)(T1)) [with dest_type = HomeScreenWithBiodataViewBase; T1 = const touchgfx::AbstractButton&]	1

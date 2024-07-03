@@ -4,6 +4,9 @@
 #include <touchgfx/hal/HAL.hpp>
 #include <touchgfx/Utils.hpp>
 
+extern uint8_t screenOnTime;
+uint16_t local_screenOnTime = screenOnTime;
+
 screenontimeSettingView::screenontimeSettingView()
 	: scrollWheel1AnimateToCallback(this, &screenontimeSettingView::scrollWheel1AnimateToHandler),
 	  initialX(0), initialY(0)
@@ -52,5 +55,13 @@ void screenontimeSettingView::scrollWheel1UpdateCenterItem(setting_screenontime_
 
 void screenontimeSettingView::scrollWheel1AnimateToHandler(int16_t item)
 {
+	local_screenOnTime = (item+1)*5;
+}
 
+void screenontimeSettingView::changeScreenOnTime(){
+	if(local_screenOnTime == 0){
+		// not normal event => screen on time == 0 => time = 20(default) init
+		local_screenOnTime = 20;
+	}
+	screenOnTime = (uint8_t)local_screenOnTime;
 }

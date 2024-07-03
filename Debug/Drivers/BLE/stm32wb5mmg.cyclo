@@ -1,1 +1,3 @@
-../Drivers/BLE/stm32wb5mmg.cpp:4:6:void stm32wb5mmg_init()	1
+../Drivers/BLE/stm32wb5mmg.c:9:6:stm32wb5mmg_init	2
+../Drivers/BLE/stm32wb5mmg.c:38:6:stm32wb5mmg_adv_setting	1
+../Drivers/BLE/stm32wb5mmg.c:52:6:stm32wb5mmg_adv	1

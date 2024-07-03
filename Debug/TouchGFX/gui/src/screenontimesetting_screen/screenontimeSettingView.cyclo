@@ -4,22 +4,25 @@
 ../Middlewares/ST/touchgfx/framework/include/touchgfx/Screen.hpp:115:18:virtual void touchgfx::Screen::tearDownScreen()	1
 ../Middlewares/ST/touchgfx/framework/include/touchgfx/Screen.hpp:144:18:virtual void touchgfx::Screen::handleTickEvent()	1
 ../Middlewares/ST/touchgfx/framework/include/touchgfx/Screen.hpp:154:18:virtual void touchgfx::Screen::handleKeyEvent(uint8_t)	1
-../TouchGFX/generated/gui_generated/include/gui_generated/screenontimesetting_screen/screenontimeSettingViewBase.hpp:37:26:FrontendApplication& screenontimeSettingViewBase::application()	1
+../TouchGFX/generated/gui_generated/include/gui_generated/screenontimesetting_screen/screenontimeSettingViewBase.hpp:45:26:FrontendApplication& screenontimeSettingViewBase::application()	1
 ../TouchGFX/gui/include/gui/screenontimesetting_screen/screenontimeSettingView.hpp:12:13:screenontimeSettingView::~screenontimeSettingView()	1
 ../TouchGFX/gui/include/gui/screenontimesetting_screen/screenontimeSettingView.hpp:12:13:virtual screenontimeSettingView::~screenontimeSettingView()	1
-../TouchGFX/gui/src/screenontimesetting_screen/screenontimeSettingView.cpp:7:1:screenontimeSettingView::screenontimeSettingView()	1
-../TouchGFX/gui/src/screenontimesetting_screen/screenontimeSettingView.cpp:14:6:virtual void screenontimeSettingView::setupScreen()	1
-../TouchGFX/gui/src/screenontimesetting_screen/screenontimeSettingView.cpp:20:6:virtual void screenontimeSettingView::tearDownScreen()	1
-../TouchGFX/gui/src/screenontimesetting_screen/screenontimeSettingView.cpp:25:6:virtual void screenontimeSettingView::handleGestureEvent(const touchgfx::GestureEvent&)	3
-../TouchGFX/gui/src/screenontimesetting_screen/screenontimeSettingView.cpp:38:6:void screenontimeSettingView::handleSwipeRight()	1
-../TouchGFX/gui/src/screenontimesetting_screen/screenontimeSettingView.cpp:43:6:virtual void screenontimeSettingView::scrollWheel1UpdateItem(setting_screenontime_notselected&, int16_t)	1
-../TouchGFX/gui/src/screenontimesetting_screen/screenontimeSettingView.cpp:48:6:virtual void screenontimeSettingView::scrollWheel1UpdateCenterItem(setting_screenontime_selected&, int16_t)	1
-../TouchGFX/gui/src/screenontimesetting_screen/screenontimeSettingView.cpp:53:6:void screenontimeSettingView::scrollWheel1AnimateToHandler(int16_t)	1
+../TouchGFX/gui/src/screenontimesetting_screen/screenontimeSettingView.cpp:10:1:screenontimeSettingView::screenontimeSettingView()	1
+../TouchGFX/gui/src/screenontimesetting_screen/screenontimeSettingView.cpp:17:6:virtual void screenontimeSettingView::setupScreen()	1
+../TouchGFX/gui/src/screenontimesetting_screen/screenontimeSettingView.cpp:23:6:virtual void screenontimeSettingView::tearDownScreen()	1
+../TouchGFX/gui/src/screenontimesetting_screen/screenontimeSettingView.cpp:28:6:virtual void screenontimeSettingView::handleGestureEvent(const touchgfx::GestureEvent&)	3
+../TouchGFX/gui/src/screenontimesetting_screen/screenontimeSettingView.cpp:41:6:void screenontimeSettingView::handleSwipeRight()	1
+../TouchGFX/gui/src/screenontimesetting_screen/screenontimeSettingView.cpp:46:6:virtual void screenontimeSettingView::scrollWheel1UpdateItem(setting_screenontime_notselected&, int16_t)	1
+../TouchGFX/gui/src/screenontimesetting_screen/screenontimeSettingView.cpp:51:6:virtual void screenontimeSettingView::scrollWheel1UpdateCenterItem(setting_screenontime_selected&, int16_t)	1
+../TouchGFX/gui/src/screenontimesetting_screen/screenontimeSettingView.cpp:56:6:void screenontimeSettingView::scrollWheel1AnimateToHandler(int16_t)	1
+../TouchGFX/gui/src/screenontimesetting_screen/screenontimeSettingView.cpp:61:6:virtual void screenontimeSettingView::changeScreenOnTime()	2
 ../Middlewares/ST/touchgfx/framework/include/touchgfx/Callback.hpp:134:7:constexpr touchgfx::GenericCallback<short int>::GenericCallback()	1
 ../Middlewares/ST/touchgfx/framework/include/touchgfx/Callback.hpp:373:5:touchgfx::Callback<dest_type, T1, void, void>::Callback(dest_type*, void (dest_type::*)(T1)) [with dest_type = screenontimeSettingView; T1 = short int]	1
 ../Middlewares/ST/touchgfx/framework/include/touchgfx/Callback.hpp:138:13:touchgfx::GenericCallback<T1, void, void>::~GenericCallback() [with T1 = short int]	1
 ../Middlewares/ST/touchgfx/framework/include/touchgfx/Callback.hpp:138:13:touchgfx::GenericCallback<T1, void, void>::~GenericCallback() [with T1 = short int]	1
 ../Middlewares/ST/touchgfx/framework/include/touchgfx/Callback.hpp:357:8:touchgfx::Callback<screenontimeSettingView, short int>::~Callback()	1
 ../Middlewares/ST/touchgfx/framework/include/touchgfx/Callback.hpp:357:8:virtual touchgfx::Callback<screenontimeSettingView, short int>::~Callback()	1
+../TouchGFX/gui/src/screenontimesetting_screen/screenontimeSettingView.cpp:67:1:void __static_initialization_and_destruction_0(int, int)	3
 ../Middlewares/ST/touchgfx/framework/include/touchgfx/Callback.hpp:386:18:void touchgfx::Callback<dest_type, T1, void, void>::execute(T1) [with dest_type = screenontimeSettingView; T1 = short int]	2
 ../Middlewares/ST/touchgfx/framework/include/touchgfx/Callback.hpp:396:18:bool touchgfx::Callback<dest_type, T1, void, void>::isValid() const [with dest_type = screenontimeSettingView; T1 = short int]	5
+../TouchGFX/gui/src/screenontimesetting_screen/screenontimeSettingView.cpp:67:1:cpp)	1

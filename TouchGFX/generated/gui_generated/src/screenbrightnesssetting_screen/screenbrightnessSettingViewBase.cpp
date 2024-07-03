@@ -25,8 +25,8 @@ screenbrightnessSettingViewBase::screenbrightnessSettingViewBase()
     slider1.setXY(67, 39);
     slider1.setBitmaps(touchgfx::Bitmap(BITMAP_RECTANGLE_40_ID), touchgfx::Bitmap(BITMAP_RECTANGLE_41_ID), touchgfx::Bitmap(BITMAP_LINE_10_ID));
     slider1.setupVerticalSlider(0, 0, 31, 0, 226);
-    slider1.setValueRange(0, 100);
-    slider1.setValue(50);
+    slider1.setValueRange(0, 15);
+    slider1.setValue(15);
     add(slider1);
 
     image1.setXY(87, 179);

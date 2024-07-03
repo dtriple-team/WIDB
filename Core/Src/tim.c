@@ -542,7 +542,15 @@ void HAL_TIM_Base_MspDeInit(TIM_HandleTypeDef* tim_baseHandle)
 
 /* USER CODE BEGIN 1 */
 void delay_us(uint16_t time) {
-	__HAL_TIM_SET_COUNTER(&htim15, 0);              // ???ù¥Î®∏Î?? 0?úºÎ°? Ï¥àÍ∏∞?ôî
-	while((__HAL_TIM_GET_COUNTER(&htim15))<time);   // ?Ñ§?†ï?ïú ?ãúÍ∞ÑÍπåÏß? ??Í∏?
+	__HAL_TIM_SET_COUNTER(&htim15, 0);              // ???ÔøΩÔøΩÎ®∏ÔøΩ?? 0?ÔøΩÔøΩÔø?? Ï¥àÍ∏∞?ÔøΩÔøΩ
+	while((__HAL_TIM_GET_COUNTER(&htim15))<time);   // ?ÔøΩÔøΩ?ÔøΩÔøΩ?ÔøΩÔøΩ ?ÔøΩÔøΩÍ∞ÑÍπåÔø?? ??Ôø??
+}
+
+void micros_start(){
+	__HAL_TIM_SET_COUNTER(&htim15, 0);              // ???ÔøΩÔøΩÎ®∏ÔøΩ?? 0?ÔøΩÔøΩÔø?? Ï¥àÍ∏∞?ÔøΩÔøΩ
+	return;
+}
+uint32_t micros_stop(){
+	return (__HAL_TIM_GET_COUNTER(&htim15));
 }
 /* USER CODE END 1 */

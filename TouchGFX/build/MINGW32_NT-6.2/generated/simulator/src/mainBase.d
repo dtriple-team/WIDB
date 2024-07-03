@@ -65,26 +65,60 @@ build/MINGW32_NT-6.2/generated/simulator/src/mainBase.o: \
  ../Middlewares/ST/touchgfx/framework/include/touchgfx/transitions/Transition.hpp \
  ../Middlewares/ST/touchgfx/framework/include/touchgfx/containers/Container.hpp \
  ../Middlewares/ST/touchgfx/framework/include/touchgfx/Callback.hpp \
+ ../Middlewares/ST/touchgfx/framework/include/touchgfx/transitions/CoverTransition.hpp \
+ ../Middlewares/ST/touchgfx/framework/include/touchgfx/EasingEquations.hpp \
+ ../Middlewares/ST/touchgfx/framework/include/touchgfx/transitions/WipeTransition.hpp \
  gui/include/gui/common/FrontendApplication.hpp \
+ ../Middlewares/ST/touchgfx/framework/include/mvp/View.hpp \
+ ../Middlewares/ST/touchgfx/framework/include/touchgfx/Screen.hpp \
+ ../Middlewares/ST/touchgfx/framework/include/mvp/Presenter.hpp \
  generated/gui_generated/include/gui_generated/common/FrontendApplicationBase.hpp \
  ../Middlewares/ST/touchgfx/framework/include/mvp/MVPApplication.hpp \
- ../Middlewares/ST/touchgfx/framework/include/mvp/Presenter.hpp \
- ../Middlewares/ST/touchgfx/framework/include/touchgfx/Screen.hpp \
  gui/include/gui/model/Model.hpp \
- gui/include/gui/screen1_screen/Screen1View.hpp \
- generated/gui_generated/include/gui_generated/screen1_screen/Screen1ViewBase.hpp \
- ../Middlewares/ST/touchgfx/framework/include/mvp/View.hpp \
- gui/include/gui/screen1_screen/Screen1Presenter.hpp \
+ ../Middlewares/ST/touchgfx/framework/include/touchgfx/Utils.hpp \
+ generated/texts/include/texts/TextKeysAndLanguages.hpp \
+ gui/include/gui/homescreenwithbiodata_screen/HomeScreenWithBiodataView.hpp \
+ generated/gui_generated/include/gui_generated/homescreenwithbiodata_screen/HomeScreenWithBiodataViewBase.hpp \
+ gui/include/gui/homescreenwithbiodata_screen/HomeScreenWithBiodataPresenter.hpp \
  gui/include/gui/model/ModelListener.hpp \
  ../Middlewares/ST/touchgfx/framework/include/touchgfx/widgets/Box.hpp \
- ../Middlewares/ST/touchgfx/framework/include/touchgfx/widgets/canvas/Circle.hpp \
+ ../Middlewares/ST/touchgfx/framework/include/touchgfx/widgets/Image.hpp \
+ ../Middlewares/ST/touchgfx/framework/include/touchgfx/containers/SwipeContainer.hpp \
+ ../Middlewares/ST/touchgfx/framework/include/touchgfx/containers/ListLayout.hpp \
+ ../Middlewares/ST/touchgfx/framework/include/touchgfx/widgets/TiledImage.hpp \
+ ../Middlewares/ST/touchgfx/framework/include/touchgfx/widgets/Button.hpp \
+ ../Middlewares/ST/touchgfx/framework/include/touchgfx/widgets/AbstractButton.hpp \
+ ../Middlewares/ST/touchgfx/framework/include/touchgfx/widgets/TextArea.hpp \
+ ../Middlewares/ST/touchgfx/framework/include/touchgfx/widgets/TextAreaWithWildcard.hpp \
+ ../Middlewares/ST/touchgfx/framework/include/touchgfx/containers/clock/DigitalClock.hpp \
+ ../Middlewares/ST/touchgfx/framework/include/touchgfx/containers/clock/AbstractClock.hpp \
+ ../Middlewares/ST/touchgfx/framework/include/touchgfx/containers/progress_indicators/ImageProgress.hpp \
+ ../Middlewares/ST/touchgfx/framework/include/touchgfx/containers/progress_indicators/AbstractDirectionProgress.hpp \
+ ../Middlewares/ST/touchgfx/framework/include/touchgfx/containers/progress_indicators/AbstractProgressIndicator.hpp \
+ gui/include/gui/sleepscreen_screen/SleepScreenView.hpp \
+ generated/gui_generated/include/gui_generated/sleepscreen_screen/SleepScreenViewBase.hpp \
+ gui/include/gui/sleepscreen_screen/SleepScreenPresenter.hpp \
+ gui/include/gui/spo2screen_screen/Spo2ScreenView.hpp \
+ generated/gui_generated/include/gui_generated/spo2screen_screen/Spo2ScreenViewBase.hpp \
+ gui/include/gui/spo2screen_screen/Spo2ScreenPresenter.hpp \
+ gui/include/gui/heartratescreen_screen/HeartrateScreenView.hpp \
+ generated/gui_generated/include/gui_generated/heartratescreen_screen/HeartrateScreenViewBase.hpp \
+ gui/include/gui/heartratescreen_screen/HeartrateScreenPresenter.hpp \
+ gui/include/gui/stepsscreen_screen/StepsScreenView.hpp \
+ generated/gui_generated/include/gui_generated/stepsscreen_screen/StepsScreenViewBase.hpp \
+ gui/include/gui/stepsscreen_screen/StepsScreenPresenter.hpp \
+ gui/include/gui/heartratedetail_screen/HeartrateDetailView.hpp \
+ generated/gui_generated/include/gui_generated/heartratedetail_screen/HeartrateDetailViewBase.hpp \
+ gui/include/gui/heartratedetail_screen/HeartrateDetailPresenter.hpp \
+ ../Middlewares/ST/touchgfx/framework/include/touchgfx/widgets/graph/GraphWrapAndOverwrite.hpp \
+ ../Middlewares/ST/touchgfx/framework/include/touchgfx/widgets/graph/AbstractDataGraph.hpp \
  ../Middlewares/ST/touchgfx/framework/include/touchgfx/widgets/canvas/CWRUtil.hpp \
- ../Middlewares/ST/touchgfx/framework/include/touchgfx/Utils.hpp \
  ../Middlewares/ST/touchgfx/framework/include/touchgfx/canvas_widget_renderer/Rasterizer.hpp \
  ../Middlewares/ST/touchgfx/framework/include/touchgfx/canvas_widget_renderer/Outline.hpp \
  ../Middlewares/ST/touchgfx/framework/include/touchgfx/canvas_widget_renderer/Cell.hpp \
  ../Middlewares/ST/touchgfx/framework/include/touchgfx/widgets/canvas/AbstractPainter.hpp \
  ../Middlewares/ST/touchgfx/framework/include/touchgfx/transforms/DisplayTransformation.hpp \
+ ../Middlewares/ST/touchgfx/framework/include/touchgfx/widgets/graph/GraphElements.hpp \
  ../Middlewares/ST/touchgfx/framework/include/touchgfx/widgets/canvas/Canvas.hpp \
  ../Middlewares/ST/touchgfx/framework/include/touchgfx/widgets/canvas/CanvasWidget.hpp \
  ../Middlewares/ST/touchgfx/framework/include/touchgfx/widgets/canvas/PainterRGB565.hpp \
@@ -92,18 +126,89 @@ build/MINGW32_NT-6.2/generated/simulator/src/mainBase.o: \
  ../Middlewares/ST/touchgfx/framework/include/touchgfx/lcd/LCD16DebugPrinter.hpp \
  ../Middlewares/ST/touchgfx/framework/include/touchgfx/widgets/canvas/AbstractPainterColor.hpp \
  ../Middlewares/ST/touchgfx/framework/include/touchgfx/widgets/canvas/AbstractPainterRGB565.hpp \
- ../Middlewares/ST/touchgfx/framework/include/touchgfx/widgets/canvas/Line.hpp \
- ../Middlewares/ST/touchgfx/framework/include/touchgfx/widgets/TextAreaWithWildcard.hpp \
- ../Middlewares/ST/touchgfx/framework/include/touchgfx/widgets/TextArea.hpp \
- ../Middlewares/ST/touchgfx/framework/include/touchgfx/widgets/Button.hpp \
- ../Middlewares/ST/touchgfx/framework/include/touchgfx/widgets/AbstractButton.hpp \
- ../Middlewares/ST/touchgfx/framework/include/touchgfx/EasingEquations.hpp \
- ../Middlewares/ST/touchgfx/framework/include/touchgfx/mixins/MoveAnimator.hpp \
- gui/include/gui/screen2_screen/Screen2View.hpp \
- generated/gui_generated/include/gui_generated/screen2_screen/Screen2ViewBase.hpp \
- gui/include/gui/screen2_screen/Screen2Presenter.hpp \
- ../Middlewares/ST/touchgfx/framework/include/touchgfx/widgets/canvas/Shape.hpp \
- ../Middlewares/ST/touchgfx/framework/include/touchgfx/widgets/canvas/AbstractShape.hpp
+ gui/include/gui/spo2detail_screen/Spo2DetailView.hpp \
+ generated/gui_generated/include/gui_generated/spo2detail_screen/Spo2DetailViewBase.hpp \
+ gui/include/gui/spo2detail_screen/Spo2DetailPresenter.hpp \
+ gui/include/gui/swipedownfromhome_screen/swipedownfromHomeView.hpp \
+ generated/gui_generated/include/gui_generated/swipedownfromhome_screen/swipedownfromHomeViewBase.hpp \
+ gui/include/gui/swipedownfromhome_screen/swipedownfromHomePresenter.hpp \
+ ../Middlewares/ST/touchgfx/framework/include/touchgfx/widgets/ToggleButton.hpp \
+ ../Middlewares/ST/touchgfx/framework/include/touchgfx/containers/Slider.hpp \
+ gui/include/gui/notificationscreen_screen/NotificationScreenView.hpp \
+ generated/gui_generated/include/gui_generated/notificationscreen_screen/NotificationScreenViewBase.hpp \
+ gui/include/gui/notificationscreen_screen/NotificationScreenPresenter.hpp \
+ ../Middlewares/ST/touchgfx/framework/include/touchgfx/containers/ScrollableContainer.hpp \
+ gui/include/gui/settingscreen_screen/SettingScreenView.hpp \
+ generated/gui_generated/include/gui_generated/settingscreen_screen/SettingScreenViewBase.hpp \
+ gui/include/gui/settingscreen_screen/SettingScreenPresenter.hpp \
+ gui/include/gui/screensetting_screen/screenSettingView.hpp \
+ generated/gui_generated/include/gui_generated/screensetting_screen/screenSettingViewBase.hpp \
+ gui/include/gui/screensetting_screen/screenSettingPresenter.hpp \
+ gui/include/gui/screenontimesetting_screen/screenontimeSettingView.hpp \
+ generated/gui_generated/include/gui_generated/screenontimesetting_screen/screenontimeSettingViewBase.hpp \
+ gui/include/gui/screenontimesetting_screen/screenontimeSettingPresenter.hpp \
+ ../Middlewares/ST/touchgfx/framework/include/touchgfx/containers/scrollers/ScrollWheelWithSelectionStyle.hpp \
+ ../Middlewares/ST/touchgfx/framework/include/touchgfx/containers/scrollers/DrawableList.hpp \
+ ../Middlewares/ST/touchgfx/framework/include/touchgfx/containers/scrollers/ScrollWheelBase.hpp \
+ ../Middlewares/ST/touchgfx/framework/include/touchgfx/containers/scrollers/ScrollBase.hpp \
+ gui/include/gui/containers/setting_screenontime_notselected.hpp \
+ generated/gui_generated/include/gui_generated/containers/setting_screenontime_notselectedBase.hpp \
+ gui/include/gui/containers/setting_screenontime_selected.hpp \
+ generated/gui_generated/include/gui_generated/containers/setting_screenontime_selectedBase.hpp \
+ gui/include/gui/screenbrightnesssetting_screen/screenbrightnessSettingView.hpp \
+ generated/gui_generated/include/gui_generated/screenbrightnesssetting_screen/screenbrightnessSettingViewBase.hpp \
+ gui/include/gui/screenbrightnesssetting_screen/screenbrightnessSettingPresenter.hpp \
+ gui/include/gui/soundnhapticssetting_screen/soundnhapticsSettingView.hpp \
+ generated/gui_generated/include/gui_generated/soundnhapticssetting_screen/soundnhapticsSettingViewBase.hpp \
+ gui/include/gui/soundnhapticssetting_screen/soundnhapticsSettingPresenter.hpp \
+ gui/include/gui/languagesetting_screen/languageSettingView.hpp \
+ generated/gui_generated/include/gui_generated/languagesetting_screen/languageSettingViewBase.hpp \
+ gui/include/gui/languagesetting_screen/languageSettingPresenter.hpp \
+ ../Middlewares/ST/touchgfx/framework/include/touchgfx/widgets/RadioButton.hpp \
+ ../Middlewares/ST/touchgfx/framework/include/touchgfx/widgets/RadioButtonGroup.hpp \
+ gui/include/gui/wifisetting_screen/wifiSettingView.hpp \
+ generated/gui_generated/include/gui_generated/wifisetting_screen/wifiSettingViewBase.hpp \
+ gui/include/gui/wifisetting_screen/wifiSettingPresenter.hpp \
+ gui/include/gui/informationsetting_screen/informationSettingView.hpp \
+ generated/gui_generated/include/gui_generated/informationsetting_screen/informationSettingViewBase.hpp \
+ gui/include/gui/informationsetting_screen/informationSettingPresenter.hpp \
+ gui/include/gui/deviceinfosetting_screen/deviceInfoSettingView.hpp \
+ generated/gui_generated/include/gui_generated/deviceinfosetting_screen/deviceInfoSettingViewBase.hpp \
+ gui/include/gui/deviceinfosetting_screen/deviceInfoSettingPresenter.hpp \
+ gui/include/gui/networkinfosetting_screen/networkInfoSettingView.hpp \
+ generated/gui_generated/include/gui_generated/networkinfosetting_screen/networkInfoSettingViewBase.hpp \
+ gui/include/gui/networkinfosetting_screen/networkInfoSettingPresenter.hpp \
+ gui/include/gui/communicationcyclesetting_screen/communicationCycleSettingView.hpp \
+ generated/gui_generated/include/gui_generated/communicationcyclesetting_screen/communicationCycleSettingViewBase.hpp \
+ gui/include/gui/communicationcyclesetting_screen/communicationCycleSettingPresenter.hpp \
+ gui/include/gui/containers/setting_communicationcycle_notselected.hpp \
+ generated/gui_generated/include/gui_generated/containers/setting_communicationcycle_notselectedBase.hpp \
+ gui/include/gui/containers/setting_communicationcycle_selected.hpp \
+ generated/gui_generated/include/gui_generated/containers/setting_communicationcycle_selectedBase.hpp \
+ gui/include/gui/systemsetting_screen/systemSettingView.hpp \
+ generated/gui_generated/include/gui_generated/systemsetting_screen/systemSettingViewBase.hpp \
+ gui/include/gui/systemsetting_screen/systemSettingPresenter.hpp \
+ gui/include/gui/turnoffscreen_screen/turnoffScreenView.hpp \
+ generated/gui_generated/include/gui_generated/turnoffscreen_screen/turnoffScreenViewBase.hpp \
+ gui/include/gui/turnoffscreen_screen/turnoffScreenPresenter.hpp \
+ gui/include/gui/englishkeyboard_screen/englishKeyboardView.hpp \
+ generated/gui_generated/include/gui_generated/englishkeyboard_screen/englishKeyboardViewBase.hpp \
+ gui/include/gui/englishkeyboard_screen/englishKeyboardPresenter.hpp \
+ gui/include/gui/numberkeyboard_screen/numberKeyboardView.hpp \
+ generated/gui_generated/include/gui_generated/numberkeyboard_screen/numberKeyboardViewBase.hpp \
+ gui/include/gui/numberkeyboard_screen/numberKeyboardPresenter.hpp \
+ gui/include/gui/characterkeyboard_screen/characterKeyboardView.hpp \
+ generated/gui_generated/include/gui_generated/characterkeyboard_screen/characterKeyboardViewBase.hpp \
+ gui/include/gui/characterkeyboard_screen/characterKeyboardPresenter.hpp \
+ gui/include/gui/dispatchorwait_screen/dispatchorwaitView.hpp \
+ generated/gui_generated/include/gui_generated/dispatchorwait_screen/dispatchorwaitViewBase.hpp \
+ gui/include/gui/dispatchorwait_screen/dispatchorwaitPresenter.hpp \
+ gui/include/gui/falldetected_screen/fallDetectedView.hpp \
+ generated/gui_generated/include/gui_generated/falldetected_screen/fallDetectedViewBase.hpp \
+ gui/include/gui/falldetected_screen/fallDetectedPresenter.hpp \
+ gui/include/gui/inout_screen/inoutView.hpp \
+ generated/gui_generated/include/gui_generated/inout_screen/inoutViewBase.hpp \
+ gui/include/gui/inout_screen/inoutPresenter.hpp
 
 generated/simulator/include/simulator/mainBase.hpp:
 
@@ -235,35 +340,101 @@ generated/gui_generated/include/gui_generated/common/FrontendHeapBase.hpp:
 
 ../Middlewares/ST/touchgfx/framework/include/touchgfx/Callback.hpp:
 
+../Middlewares/ST/touchgfx/framework/include/touchgfx/transitions/CoverTransition.hpp:
+
+../Middlewares/ST/touchgfx/framework/include/touchgfx/EasingEquations.hpp:
+
+../Middlewares/ST/touchgfx/framework/include/touchgfx/transitions/WipeTransition.hpp:
+
 gui/include/gui/common/FrontendApplication.hpp:
+
+../Middlewares/ST/touchgfx/framework/include/mvp/View.hpp:
+
+../Middlewares/ST/touchgfx/framework/include/touchgfx/Screen.hpp:
+
+../Middlewares/ST/touchgfx/framework/include/mvp/Presenter.hpp:
 
 generated/gui_generated/include/gui_generated/common/FrontendApplicationBase.hpp:
 
 ../Middlewares/ST/touchgfx/framework/include/mvp/MVPApplication.hpp:
 
-../Middlewares/ST/touchgfx/framework/include/mvp/Presenter.hpp:
-
-../Middlewares/ST/touchgfx/framework/include/touchgfx/Screen.hpp:
-
 gui/include/gui/model/Model.hpp:
 
-gui/include/gui/screen1_screen/Screen1View.hpp:
+../Middlewares/ST/touchgfx/framework/include/touchgfx/Utils.hpp:
 
-generated/gui_generated/include/gui_generated/screen1_screen/Screen1ViewBase.hpp:
+generated/texts/include/texts/TextKeysAndLanguages.hpp:
 
-../Middlewares/ST/touchgfx/framework/include/mvp/View.hpp:
+gui/include/gui/homescreenwithbiodata_screen/HomeScreenWithBiodataView.hpp:
 
-gui/include/gui/screen1_screen/Screen1Presenter.hpp:
+generated/gui_generated/include/gui_generated/homescreenwithbiodata_screen/HomeScreenWithBiodataViewBase.hpp:
+
+gui/include/gui/homescreenwithbiodata_screen/HomeScreenWithBiodataPresenter.hpp:
 
 gui/include/gui/model/ModelListener.hpp:
 
 ../Middlewares/ST/touchgfx/framework/include/touchgfx/widgets/Box.hpp:
 
-../Middlewares/ST/touchgfx/framework/include/touchgfx/widgets/canvas/Circle.hpp:
+../Middlewares/ST/touchgfx/framework/include/touchgfx/widgets/Image.hpp:
+
+../Middlewares/ST/touchgfx/framework/include/touchgfx/containers/SwipeContainer.hpp:
+
+../Middlewares/ST/touchgfx/framework/include/touchgfx/containers/ListLayout.hpp:
+
+../Middlewares/ST/touchgfx/framework/include/touchgfx/widgets/TiledImage.hpp:
+
+../Middlewares/ST/touchgfx/framework/include/touchgfx/widgets/Button.hpp:
+
+../Middlewares/ST/touchgfx/framework/include/touchgfx/widgets/AbstractButton.hpp:
+
+../Middlewares/ST/touchgfx/framework/include/touchgfx/widgets/TextArea.hpp:
+
+../Middlewares/ST/touchgfx/framework/include/touchgfx/widgets/TextAreaWithWildcard.hpp:
+
+../Middlewares/ST/touchgfx/framework/include/touchgfx/containers/clock/DigitalClock.hpp:
+
+../Middlewares/ST/touchgfx/framework/include/touchgfx/containers/clock/AbstractClock.hpp:
+
+../Middlewares/ST/touchgfx/framework/include/touchgfx/containers/progress_indicators/ImageProgress.hpp:
+
+../Middlewares/ST/touchgfx/framework/include/touchgfx/containers/progress_indicators/AbstractDirectionProgress.hpp:
+
+../Middlewares/ST/touchgfx/framework/include/touchgfx/containers/progress_indicators/AbstractProgressIndicator.hpp:
+
+gui/include/gui/sleepscreen_screen/SleepScreenView.hpp:
+
+generated/gui_generated/include/gui_generated/sleepscreen_screen/SleepScreenViewBase.hpp:
+
+gui/include/gui/sleepscreen_screen/SleepScreenPresenter.hpp:
+
+gui/include/gui/spo2screen_screen/Spo2ScreenView.hpp:
+
+generated/gui_generated/include/gui_generated/spo2screen_screen/Spo2ScreenViewBase.hpp:
+
+gui/include/gui/spo2screen_screen/Spo2ScreenPresenter.hpp:
+
+gui/include/gui/heartratescreen_screen/HeartrateScreenView.hpp:
+
+generated/gui_generated/include/gui_generated/heartratescreen_screen/HeartrateScreenViewBase.hpp:
+
+gui/include/gui/heartratescreen_screen/HeartrateScreenPresenter.hpp:
+
+gui/include/gui/stepsscreen_screen/StepsScreenView.hpp:
+
+generated/gui_generated/include/gui_generated/stepsscreen_screen/StepsScreenViewBase.hpp:
+
+gui/include/gui/stepsscreen_screen/StepsScreenPresenter.hpp:
+
+gui/include/gui/heartratedetail_screen/HeartrateDetailView.hpp:
+
+generated/gui_generated/include/gui_generated/heartratedetail_screen/HeartrateDetailViewBase.hpp:
+
+gui/include/gui/heartratedetail_screen/HeartrateDetailPresenter.hpp:
+
+../Middlewares/ST/touchgfx/framework/include/touchgfx/widgets/graph/GraphWrapAndOverwrite.hpp:
+
+../Middlewares/ST/touchgfx/framework/include/touchgfx/widgets/graph/AbstractDataGraph.hpp:
 
 ../Middlewares/ST/touchgfx/framework/include/touchgfx/widgets/canvas/CWRUtil.hpp:
-
-../Middlewares/ST/touchgfx/framework/include/touchgfx/Utils.hpp:
 
 ../Middlewares/ST/touchgfx/framework/include/touchgfx/canvas_widget_renderer/Rasterizer.hpp:
 
@@ -274,6 +445,8 @@ gui/include/gui/model/ModelListener.hpp:
 ../Middlewares/ST/touchgfx/framework/include/touchgfx/widgets/canvas/AbstractPainter.hpp:
 
 ../Middlewares/ST/touchgfx/framework/include/touchgfx/transforms/DisplayTransformation.hpp:
+
+../Middlewares/ST/touchgfx/framework/include/touchgfx/widgets/graph/GraphElements.hpp:
 
 ../Middlewares/ST/touchgfx/framework/include/touchgfx/widgets/canvas/Canvas.hpp:
 
@@ -289,26 +462,168 @@ gui/include/gui/model/ModelListener.hpp:
 
 ../Middlewares/ST/touchgfx/framework/include/touchgfx/widgets/canvas/AbstractPainterRGB565.hpp:
 
-../Middlewares/ST/touchgfx/framework/include/touchgfx/widgets/canvas/Line.hpp:
+gui/include/gui/spo2detail_screen/Spo2DetailView.hpp:
 
-../Middlewares/ST/touchgfx/framework/include/touchgfx/widgets/TextAreaWithWildcard.hpp:
+generated/gui_generated/include/gui_generated/spo2detail_screen/Spo2DetailViewBase.hpp:
 
-../Middlewares/ST/touchgfx/framework/include/touchgfx/widgets/TextArea.hpp:
+gui/include/gui/spo2detail_screen/Spo2DetailPresenter.hpp:
 
-../Middlewares/ST/touchgfx/framework/include/touchgfx/widgets/Button.hpp:
+gui/include/gui/swipedownfromhome_screen/swipedownfromHomeView.hpp:
 
-../Middlewares/ST/touchgfx/framework/include/touchgfx/widgets/AbstractButton.hpp:
+generated/gui_generated/include/gui_generated/swipedownfromhome_screen/swipedownfromHomeViewBase.hpp:
 
-../Middlewares/ST/touchgfx/framework/include/touchgfx/EasingEquations.hpp:
+gui/include/gui/swipedownfromhome_screen/swipedownfromHomePresenter.hpp:
 
-../Middlewares/ST/touchgfx/framework/include/touchgfx/mixins/MoveAnimator.hpp:
+../Middlewares/ST/touchgfx/framework/include/touchgfx/widgets/ToggleButton.hpp:
 
-gui/include/gui/screen2_screen/Screen2View.hpp:
+../Middlewares/ST/touchgfx/framework/include/touchgfx/containers/Slider.hpp:
 
-generated/gui_generated/include/gui_generated/screen2_screen/Screen2ViewBase.hpp:
+gui/include/gui/notificationscreen_screen/NotificationScreenView.hpp:
 
-gui/include/gui/screen2_screen/Screen2Presenter.hpp:
+generated/gui_generated/include/gui_generated/notificationscreen_screen/NotificationScreenViewBase.hpp:
 
-../Middlewares/ST/touchgfx/framework/include/touchgfx/widgets/canvas/Shape.hpp:
+gui/include/gui/notificationscreen_screen/NotificationScreenPresenter.hpp:
 
-../Middlewares/ST/touchgfx/framework/include/touchgfx/widgets/canvas/AbstractShape.hpp:
+../Middlewares/ST/touchgfx/framework/include/touchgfx/containers/ScrollableContainer.hpp:
+
+gui/include/gui/settingscreen_screen/SettingScreenView.hpp:
+
+generated/gui_generated/include/gui_generated/settingscreen_screen/SettingScreenViewBase.hpp:
+
+gui/include/gui/settingscreen_screen/SettingScreenPresenter.hpp:
+
+gui/include/gui/screensetting_screen/screenSettingView.hpp:
+
+generated/gui_generated/include/gui_generated/screensetting_screen/screenSettingViewBase.hpp:
+
+gui/include/gui/screensetting_screen/screenSettingPresenter.hpp:
+
+gui/include/gui/screenontimesetting_screen/screenontimeSettingView.hpp:
+
+generated/gui_generated/include/gui_generated/screenontimesetting_screen/screenontimeSettingViewBase.hpp:
+
+gui/include/gui/screenontimesetting_screen/screenontimeSettingPresenter.hpp:
+
+../Middlewares/ST/touchgfx/framework/include/touchgfx/containers/scrollers/ScrollWheelWithSelectionStyle.hpp:
+
+../Middlewares/ST/touchgfx/framework/include/touchgfx/containers/scrollers/DrawableList.hpp:
+
+../Middlewares/ST/touchgfx/framework/include/touchgfx/containers/scrollers/ScrollWheelBase.hpp:
+
+../Middlewares/ST/touchgfx/framework/include/touchgfx/containers/scrollers/ScrollBase.hpp:
+
+gui/include/gui/containers/setting_screenontime_notselected.hpp:
+
+generated/gui_generated/include/gui_generated/containers/setting_screenontime_notselectedBase.hpp:
+
+gui/include/gui/containers/setting_screenontime_selected.hpp:
+
+generated/gui_generated/include/gui_generated/containers/setting_screenontime_selectedBase.hpp:
+
+gui/include/gui/screenbrightnesssetting_screen/screenbrightnessSettingView.hpp:
+
+generated/gui_generated/include/gui_generated/screenbrightnesssetting_screen/screenbrightnessSettingViewBase.hpp:
+
+gui/include/gui/screenbrightnesssetting_screen/screenbrightnessSettingPresenter.hpp:
+
+gui/include/gui/soundnhapticssetting_screen/soundnhapticsSettingView.hpp:
+
+generated/gui_generated/include/gui_generated/soundnhapticssetting_screen/soundnhapticsSettingViewBase.hpp:
+
+gui/include/gui/soundnhapticssetting_screen/soundnhapticsSettingPresenter.hpp:
+
+gui/include/gui/languagesetting_screen/languageSettingView.hpp:
+
+generated/gui_generated/include/gui_generated/languagesetting_screen/languageSettingViewBase.hpp:
+
+gui/include/gui/languagesetting_screen/languageSettingPresenter.hpp:
+
+../Middlewares/ST/touchgfx/framework/include/touchgfx/widgets/RadioButton.hpp:
+
+../Middlewares/ST/touchgfx/framework/include/touchgfx/widgets/RadioButtonGroup.hpp:
+
+gui/include/gui/wifisetting_screen/wifiSettingView.hpp:
+
+generated/gui_generated/include/gui_generated/wifisetting_screen/wifiSettingViewBase.hpp:
+
+gui/include/gui/wifisetting_screen/wifiSettingPresenter.hpp:
+
+gui/include/gui/informationsetting_screen/informationSettingView.hpp:
+
+generated/gui_generated/include/gui_generated/informationsetting_screen/informationSettingViewBase.hpp:
+
+gui/include/gui/informationsetting_screen/informationSettingPresenter.hpp:
+
+gui/include/gui/deviceinfosetting_screen/deviceInfoSettingView.hpp:
+
+generated/gui_generated/include/gui_generated/deviceinfosetting_screen/deviceInfoSettingViewBase.hpp:
+
+gui/include/gui/deviceinfosetting_screen/deviceInfoSettingPresenter.hpp:
+
+gui/include/gui/networkinfosetting_screen/networkInfoSettingView.hpp:
+
+generated/gui_generated/include/gui_generated/networkinfosetting_screen/networkInfoSettingViewBase.hpp:
+
+gui/include/gui/networkinfosetting_screen/networkInfoSettingPresenter.hpp:
+
+gui/include/gui/communicationcyclesetting_screen/communicationCycleSettingView.hpp:
+
+generated/gui_generated/include/gui_generated/communicationcyclesetting_screen/communicationCycleSettingViewBase.hpp:
+
+gui/include/gui/communicationcyclesetting_screen/communicationCycleSettingPresenter.hpp:
+
+gui/include/gui/containers/setting_communicationcycle_notselected.hpp:
+
+generated/gui_generated/include/gui_generated/containers/setting_communicationcycle_notselectedBase.hpp:
+
+gui/include/gui/containers/setting_communicationcycle_selected.hpp:
+
+generated/gui_generated/include/gui_generated/containers/setting_communicationcycle_selectedBase.hpp:
+
+gui/include/gui/systemsetting_screen/systemSettingView.hpp:
+
+generated/gui_generated/include/gui_generated/systemsetting_screen/systemSettingViewBase.hpp:
+
+gui/include/gui/systemsetting_screen/systemSettingPresenter.hpp:
+
+gui/include/gui/turnoffscreen_screen/turnoffScreenView.hpp:
+
+generated/gui_generated/include/gui_generated/turnoffscreen_screen/turnoffScreenViewBase.hpp:
+
+gui/include/gui/turnoffscreen_screen/turnoffScreenPresenter.hpp:
+
+gui/include/gui/englishkeyboard_screen/englishKeyboardView.hpp:
+
+generated/gui_generated/include/gui_generated/englishkeyboard_screen/englishKeyboardViewBase.hpp:
+
+gui/include/gui/englishkeyboard_screen/englishKeyboardPresenter.hpp:
+
+gui/include/gui/numberkeyboard_screen/numberKeyboardView.hpp:
+
+generated/gui_generated/include/gui_generated/numberkeyboard_screen/numberKeyboardViewBase.hpp:
+
+gui/include/gui/numberkeyboard_screen/numberKeyboardPresenter.hpp:
+
+gui/include/gui/characterkeyboard_screen/characterKeyboardView.hpp:
+
+generated/gui_generated/include/gui_generated/characterkeyboard_screen/characterKeyboardViewBase.hpp:
+
+gui/include/gui/characterkeyboard_screen/characterKeyboardPresenter.hpp:
+
+gui/include/gui/dispatchorwait_screen/dispatchorwaitView.hpp:
+
+generated/gui_generated/include/gui_generated/dispatchorwait_screen/dispatchorwaitViewBase.hpp:
+
+gui/include/gui/dispatchorwait_screen/dispatchorwaitPresenter.hpp:
+
+gui/include/gui/falldetected_screen/fallDetectedView.hpp:
+
+generated/gui_generated/include/gui_generated/falldetected_screen/fallDetectedViewBase.hpp:
+
+gui/include/gui/falldetected_screen/fallDetectedPresenter.hpp:
+
+gui/include/gui/inout_screen/inoutView.hpp:
+
+generated/gui_generated/include/gui_generated/inout_screen/inoutViewBase.hpp:
+
+gui/include/gui/inout_screen/inoutPresenter.hpp:

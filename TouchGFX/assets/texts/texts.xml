@@ -55,7 +55,7 @@
         <Translation Language="Korean">심박수</Translation>
       </Text>
       <Text Id="curStepsvalue" Alignment="Left" TypographyId="size24">
-        <Translation Language="GB">1234</Translation>
+        <Translation Language="GB">0000</Translation>
         <Translation Language="Korean">1234</Translation>
       </Text>
       <Text Id="curSteps" Alignment="Center" TypographyId="size24">
@@ -103,7 +103,7 @@
         <Translation Language="Korean">00</Translation>
       </Text>
       <Text Id="B_curStepsvalue" Alignment="Left" TypographyId="size32_Bold">
-        <Translation Language="GB">1234</Translation>
+        <Translation Language="GB">0000</Translation>
         <Translation Language="Korean">1234</Translation>
       </Text>
       <Text Id="homeHr" Alignment="Left" TypographyId="size16">
@@ -578,7 +578,7 @@
       <LanguageSetting Language="GB" Font="Pretendard-Regular.ttf" Size="10" Bpp="4" IsVector="no" Direction="LTR" FallbackCharacter="?" />
       <LanguageSetting Language="Korean" Font="Pretendard-Regular.ttf" Size="10" Bpp="4" IsVector="no" Direction="LTR" FallbackCharacter="?" />
     </Typography>
-    <Typography Id="size16" Font="Pretendard-Regular.ttf" Size="16" Bpp="4" IsVector="no" Direction="LTR" FallbackCharacter="?">
+    <Typography Id="size16" Font="Pretendard-Regular.ttf" Size="16" Bpp="4" IsVector="no" Direction="LTR" FallbackCharacter="?" WildcardCharacterRanges="0-9">
       <LanguageSetting Language="GB" Font="Pretendard-Regular.ttf" Size="16" Bpp="4" IsVector="no" Direction="LTR" FallbackCharacter="?" />
       <LanguageSetting Language="Korean" Font="Pretendard-Regular.ttf" Size="16" Bpp="4" IsVector="no" Direction="LTR" FallbackCharacter="?" />
     </Typography>
@@ -590,7 +590,7 @@
       <LanguageSetting Language="GB" Font="Pretendard-Regular.ttf" Size="20" Bpp="4" IsVector="no" Direction="LTR" FallbackCharacter="?" />
       <LanguageSetting Language="Korean" Font="Pretendard-Regular.ttf" Size="20" Bpp="4" IsVector="no" Direction="LTR" FallbackCharacter="?" />
     </Typography>
-    <Typography Id="size24" Font="Pretendard-Regular.ttf" Size="24" Bpp="4" IsVector="no" Direction="LTR" FallbackCharacter="?">
+    <Typography Id="size24" Font="Pretendard-Regular.ttf" Size="24" Bpp="4" IsVector="no" Direction="LTR" FallbackCharacter="?" WildcardCharacterRanges="0-9">
       <LanguageSetting Language="GB" Font="Pretendard-Regular.ttf" Size="24" Bpp="4" IsVector="no" Direction="LTR" FallbackCharacter="?" />
       <LanguageSetting Language="Korean" Font="Pretendard-Regular.ttf" Size="24" Bpp="4" IsVector="no" Direction="LTR" FallbackCharacter="?" />
     </Typography>
@@ -602,7 +602,7 @@
       <LanguageSetting Language="GB" Font="Pretendard-Regular.ttf" Size="32" Bpp="4" IsVector="no" Direction="LTR" FallbackCharacter="?" />
       <LanguageSetting Language="Korean" Font="Pretendard-Regular.ttf" Size="32" Bpp="4" IsVector="no" Direction="LTR" FallbackCharacter="?" />
     </Typography>
-    <Typography Id="size32_Bold" Font="Pretendard-Bold.ttf" Size="32" Bpp="4" IsVector="no" Direction="LTR" FallbackCharacter="?">
+    <Typography Id="size32_Bold" Font="Pretendard-Bold.ttf" Size="32" Bpp="4" IsVector="no" Direction="LTR" FallbackCharacter="?" WildcardCharacterRanges="0-9">
       <LanguageSetting Language="GB" Font="Pretendard-Bold.ttf" Size="32" Bpp="4" IsVector="no" Direction="LTR" FallbackCharacter="?" />
       <LanguageSetting Language="Korean" Font="Pretendard-Bold.ttf" Size="32" Bpp="4" IsVector="no" Direction="LTR" FallbackCharacter="?" />
     </Typography>

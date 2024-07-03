@@ -50,3 +50,11 @@ void HeartrateScreenViewBase::setupScreen()
 {
 
 }
+
+void HeartrateScreenViewBase::handleTickEvent()
+{
+    //call_changeHRVal
+    //When every N tick call virtual function
+    //Call changeHRVal
+    changeHRVal();
+}

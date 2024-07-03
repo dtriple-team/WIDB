@@ -1,0 +1,6 @@
+../Drivers/sensorhub/mems.cpp:12:6:void init_iis2mdc()	24	static
+../Drivers/sensorhub/mems.cpp:29:6:void read_iis2mdc(double*, double*, double*, double*)	72	static
+../Drivers/sensorhub/mems.cpp:70:6:void init_ism330dhcx()	24	static
+../Drivers/sensorhub/mems.cpp:92:6:void read_ism330dhcx(uint16_t, uint8_t, double*, double*, double*, double*, double*, double*, double*)	88	static
+../Drivers/sensorhub/mems.cpp:136:6:void init_lps22hh()	24	static
+../Drivers/sensorhub/mems.cpp:150:6:void read_lps22hh(double*, double*)	64	static

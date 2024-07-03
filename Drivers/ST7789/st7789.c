@@ -808,16 +808,29 @@ void ST7789_Test(void)
 	HAL_Delay(3000);
 }
 
-void ST7789_gpio_brightness_setting(void)
+void ST7789_gpio_setting(void)
 {
 	HAL_GPIO_WritePin(GPIOD, GPIO_PIN_0, GPIO_PIN_SET);
 	HAL_GPIO_WritePin(GPIOF, GPIO_PIN_5, GPIO_PIN_RESET);
+}
 
-	// LCD Brightness control
-	uint8_t bLevel = 0; // 0:MAX 15:MIN
+// 16:MAX
+// 1: MIN
+// 0: off
+void ST7789_brightness_setting(uint8_t bright)
+{
+	uint8_t min_bright = 16+1;
+	if(bright > min_bright){
+		// bright range err
+		return;
+	}
+
+	uint8_t bLevel = min_bright-bright; // bLevel = 1:MAX 16:MIN
+	if(bright == 0) bLevel = 0;
+
 	HAL_GPIO_WritePin(GPIOF, GPIO_PIN_5, GPIO_PIN_RESET);
 	delay_us(2500);
-	for(int i=0; i<1+bLevel; i++){
+	for(int i=0; i<bLevel; i++){
 		HAL_GPIO_WritePin(GPIOF, GPIO_PIN_5, GPIO_PIN_RESET);
 		delay_us(1);
 		HAL_GPIO_WritePin(GPIOF, GPIO_PIN_5, GPIO_PIN_SET);
