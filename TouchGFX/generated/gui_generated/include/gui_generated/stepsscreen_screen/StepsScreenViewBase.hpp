@@ -12,6 +12,8 @@
 #include <touchgfx/widgets/TextArea.hpp>
 #include <touchgfx/widgets/TextAreaWithWildcard.hpp>
 #include <touchgfx/containers/progress_indicators/ImageProgress.hpp>
+#include <touchgfx/containers/progress_indicators/CircleProgress.hpp>
+#include <touchgfx/widgets/canvas/PainterRGB565.hpp>
 
 class StepsScreenViewBase : public touchgfx::View<StepsScreenPresenter>
 {
@@ -19,15 +21,6 @@ public:
     StepsScreenViewBase();
     virtual ~StepsScreenViewBase();
     virtual void setupScreen();
-    virtual void handleTickEvent();
-
-    /*
-     * Virtual Action Handlers
-     */
-    virtual void changeStepVal()
-    {
-        // Override and implement this function in StepsScreen
-    }
 
 protected:
     FrontendApplication& application() {
@@ -39,17 +32,29 @@ protected:
      */
     touchgfx::Box __background;
     touchgfx::Image background;
-    touchgfx::TextArea Steps;
-    touchgfx::TextAreaWithOneWildcard textArea1;
+    touchgfx::TextArea steps_label;
+    touchgfx::TextAreaWithOneWildcard steps_value;
+    touchgfx::Box topright_image;
+    touchgfx::Box topleft_image;
     touchgfx::ImageProgress batteryprogress;
+    touchgfx::Image catm1_image;
+    touchgfx::Image steps_image;
+    touchgfx::CircleProgress steps_progress;
+    touchgfx::PainterRGB565 steps_progressPainter;
 
     /*
      * Wildcard Buffers
      */
-    static const uint16_t TEXTAREA1_SIZE = 10;
-    touchgfx::Unicode::UnicodeChar textArea1Buffer[TEXTAREA1_SIZE];
+    static const uint16_t STEPS_VALUE_SIZE = 10;
+    touchgfx::Unicode::UnicodeChar steps_valueBuffer[STEPS_VALUE_SIZE];
 
 private:
+
+    /*
+     * Canvas Buffer Size
+     */
+    static const uint32_t CANVAS_BUFFER_SIZE = 3600;
+    uint8_t canvasBuffer[CANVAS_BUFFER_SIZE];
 
 };
 

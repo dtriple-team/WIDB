@@ -33,13 +33,22 @@ protected:
      */
     touchgfx::Box __background;
     touchgfx::Image background;
-    touchgfx::TextArea Spo2;
-    touchgfx::Image image1;
-    touchgfx::TextAreaWithOneWildcard curspo2detail;
+    touchgfx::TextArea spo2_label;
+    touchgfx::Image spo2_image;
+    touchgfx::TextAreaWithOneWildcard spo2_value;
+    touchgfx::Box topright_image;
+    touchgfx::Box topleft_image;
     touchgfx::ImageProgress batteryprogress;
-    touchgfx::GraphWrapAndOverwrite<24> dynamicGraph1;
-    touchgfx::GraphElementLine dynamicGraph1Line1;
-    touchgfx::PainterRGB565 dynamicGraph1Line1Painter;
+    touchgfx::GraphWrapAndOverwrite<24> spo2_detail_graph;
+    touchgfx::GraphElementLine spo2_detail_graphLine1;
+    touchgfx::PainterRGB565 spo2_detail_graphLine1Painter;
+    touchgfx::Image catm1_image;
+
+    /*
+     * Wildcard Buffers
+     */
+    static const uint16_t SPO2_VALUE_SIZE = 4;
+    touchgfx::Unicode::UnicodeChar spo2_valueBuffer[SPO2_VALUE_SIZE];
 
 private:
 

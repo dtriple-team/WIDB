@@ -34,12 +34,13 @@ public:
     }
 
     /*
-     * Virtual Action Handlers
+     * Custom Actions
      */
     virtual void changeScreenOnTime()
     {
-        // Override and implement this function in screenontimeSetting
+        // Override and implement this function in Screen1
     }
+    
 
 protected:
     FrontendApplication& application() {
@@ -51,15 +52,15 @@ protected:
      */
     touchgfx::Box __background;
     touchgfx::Image background;
-    touchgfx::TextArea screenontime;
+    touchgfx::TextArea ontime_label;
     touchgfx::ScrollWheelWithSelectionStyle scrollWheel1;
     touchgfx::DrawableListItems<setting_screenontime_notselected, 6> scrollWheel1ListItems;
     touchgfx::DrawableListItems<setting_screenontime_selected, 2> scrollWheel1SelectedListItems;
-    touchgfx::Image image1;
-    touchgfx::Button button1;
-    touchgfx::TextArea textArea2;
+    touchgfx::Image scrollwheel_contour_image;
+    touchgfx::Button ontime_done_button;
+    touchgfx::TextArea ontime_done_label;
     touchgfx::ImageProgress batteryprogress;
-    touchgfx::Button button2;
+    touchgfx::Button buttonfornothing;
 
 private:
 

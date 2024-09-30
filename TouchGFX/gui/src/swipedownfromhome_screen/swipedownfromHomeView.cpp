@@ -5,6 +5,7 @@
 #include <touchgfx/Utils.hpp>
 
 #include <cstdlib>
+extern uint8_t set_bLevel;
 
 swipedownfromHomeView::swipedownfromHomeView()
 	: toggleButton1ClickedCallback(this, &swipedownfromHomeView::toggleButton1Clicked), //test
@@ -18,10 +19,10 @@ swipedownfromHomeView::swipedownfromHomeView()
 void swipedownfromHomeView::setupScreen()
 {
     swipedownfromHomeViewBase::setupScreen();
-    toggleButton1.setAction(toggleButton1ClickedCallback);
-    toggleButton2.setAction(toggleButton2ClickedCallback);
-    toggleButton1.forceState(presenter->getToggleButton1State()); //test
-    toggleButton2.forceState(presenter->getToggleButton2State()); //test
+    haptic_togglebutton.setAction(toggleButton1ClickedCallback);
+    sound_togglebutton.setAction(toggleButton2ClickedCallback);
+    haptic_togglebutton.forceState(presenter->getToggleButton1State()); //test
+    sound_togglebutton.forceState(presenter->getToggleButton2State()); //test
     slider1.setValue(presenter->getSlider1Value());
     slider1.setNewValueCallback(slider1ChangedCallback);
 }
@@ -35,13 +36,51 @@ void swipedownfromHomeView::handleGestureEvent(const GestureEvent& evt)
 {
     if (evt.getType() == GestureEvent::SWIPE_VERTICAL && isDeltaYGreaterThanDeltaX)
     {
+    	//int deltaX = evt.getVelocityX();
         int deltaY = evt.getVelocity();
-        if (deltaY < 0)
-        {
-            presenter->notifySwipeUp();
-        }
+
+        //if(abs(deltaY)>abs(deltaX))
+        //{
+			if (deltaY < 0)
+			{
+				presenter->notifySwipeUp();
+			}
+        //}
     }
     swipedownfromHomeViewBase::handleGestureEvent(evt);
+}
+
+void swipedownfromHomeView::handleSwipeUp()
+{
+    application().gotoHomeScreenWithBiodataScreenWipeTransitionSouth();
+}
+
+void swipedownfromHomeView::toggleButton1Clicked(const touchgfx::AbstractButton& source)
+{
+    bool newState = haptic_togglebutton.getState();
+    presenter->updateToggleButton1State(newState);
+}
+
+void swipedownfromHomeView::updateToggleButton1State(bool state)
+{
+	haptic_togglebutton.forceState(state);
+}
+
+void swipedownfromHomeView::toggleButton2Clicked(const touchgfx::AbstractButton& source)
+{
+    bool newState = sound_togglebutton.getState();
+    presenter->updateToggleButton2State(newState);
+}
+
+void swipedownfromHomeView::updateToggleButton2State(bool state)
+{
+	sound_togglebutton.forceState(state);
+}
+
+void swipedownfromHomeView::slider1ChangedHandler(const Slider& src, int value)
+{
+    presenter->updateSlider1Value(value);
+    set_bLevel = value/6.67+1;
 }
 
 void swipedownfromHomeView::handleDragEvent(const DragEvent& evt)
@@ -54,38 +93,4 @@ void swipedownfromHomeView::handleDragEvent(const DragEvent& evt)
 		isDeltaYGreaterThanDeltaX = 0;
 	}
     swipedownfromHomeViewBase::handleDragEvent(evt);
-}
-
-void swipedownfromHomeView::handleSwipeUp()
-{
-    application().gotoHomeScreenWithBiodataScreenWipeTransitionSouth();
-}
-
-void swipedownfromHomeView::toggleButton1Clicked(const touchgfx::AbstractButton& source)
-{
-    bool newState = toggleButton1.getState();
-    presenter->updateToggleButton1State(newState);
-}
-
-void swipedownfromHomeView::updateToggleButton1State(bool state)
-{
-    toggleButton1.forceState(state);
-}
-
-void swipedownfromHomeView::toggleButton2Clicked(const touchgfx::AbstractButton& source)
-{
-    bool newState = toggleButton2.getState();
-    presenter->updateToggleButton2State(newState);
-}
-
-void swipedownfromHomeView::updateToggleButton2State(bool state)
-{
-    toggleButton2.forceState(state);
-}
-
-extern uint8_t set_bLevel;
-void swipedownfromHomeView::slider1ChangedHandler(const Slider& src, int value)
-{
-    presenter->updateSlider1Value(value);
-    set_bLevel = value+1;
 }

@@ -30,14 +30,18 @@ protected:
      */
     touchgfx::Box __background;
     touchgfx::Image background;
-    touchgfx::TextArea NetworkInfo;
-    touchgfx::TextArea textArea1;
-    touchgfx::TextArea textArea1_1;
-    touchgfx::TextAreaWithOneWildcard textArea2;
-    touchgfx::TextAreaWithOneWildcard textArea2_1;
-    touchgfx::TextAreaWithOneWildcard textArea3;
-    touchgfx::TextAreaWithOneWildcard textArea3_1;
+    touchgfx::TextArea networkinfo_label;
+    touchgfx::TextAreaWithOneWildcard imei_label;
+    touchgfx::TextAreaWithOneWildcard iccid_label;
     touchgfx::ImageProgress batteryprogress;
+
+    /*
+     * Wildcard Buffers
+     */
+    static const uint16_t IMEI_LABEL_SIZE = 20;
+    touchgfx::Unicode::UnicodeChar imei_labelBuffer[IMEI_LABEL_SIZE];
+    static const uint16_t ICCID_LABEL_SIZE = 20;
+    touchgfx::Unicode::UnicodeChar iccid_labelBuffer[ICCID_LABEL_SIZE];
 
 private:
 

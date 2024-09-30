@@ -11,8 +11,10 @@
 #include <touchgfx/widgets/Image.hpp>
 #include <touchgfx/widgets/TextArea.hpp>
 #include <touchgfx/widgets/TextAreaWithWildcard.hpp>
-#include <touchgfx/containers/progress_indicators/ImageProgress.hpp>
 #include <touchgfx/widgets/Button.hpp>
+#include <touchgfx/containers/progress_indicators/ImageProgress.hpp>
+#include <touchgfx/containers/progress_indicators/CircleProgress.hpp>
+#include <touchgfx/widgets/canvas/PainterRGB565.hpp>
 
 class SleepScreenViewBase : public touchgfx::View<SleepScreenPresenter>
 {
@@ -31,12 +33,32 @@ protected:
      */
     touchgfx::Box __background;
     touchgfx::Image background;
-    touchgfx::TextArea Sleep;
-    touchgfx::TextAreaWithTwoWildcards textArea1;
+    touchgfx::TextArea sleep_label;
+    touchgfx::TextAreaWithTwoWildcards sleep_value;
+    touchgfx::Button buttonfornothing;
+    touchgfx::Box topright_box;
+    touchgfx::Box topleft_box;
     touchgfx::ImageProgress batteryprogress;
-    touchgfx::Button button1;
+    touchgfx::Image catm1_image;
+    touchgfx::Image sleep_image;
+    touchgfx::CircleProgress sleep_progress;
+    touchgfx::PainterRGB565 sleep_progressPainter;
+
+    /*
+     * Wildcard Buffers
+     */
+    static const uint16_t SLEEP_VALUEBUFFER1_SIZE = 3;
+    touchgfx::Unicode::UnicodeChar sleep_valueBuffer1[SLEEP_VALUEBUFFER1_SIZE];
+    static const uint16_t SLEEP_VALUEBUFFER2_SIZE = 3;
+    touchgfx::Unicode::UnicodeChar sleep_valueBuffer2[SLEEP_VALUEBUFFER2_SIZE];
 
 private:
+
+    /*
+     * Canvas Buffer Size
+     */
+    static const uint32_t CANVAS_BUFFER_SIZE = 3600;
+    uint8_t canvasBuffer[CANVAS_BUFFER_SIZE];
 
     /*
      * Callback Declarations

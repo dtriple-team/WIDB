@@ -30,17 +30,19 @@ protected:
      */
     touchgfx::Box __background;
     touchgfx::Image background;
-    touchgfx::TextArea Screen;
-    touchgfx::Image image1;
-    touchgfx::Image image1_1;
-    touchgfx::TextArea textArea1;
-    touchgfx::TextArea textArea1_1;
-    touchgfx::Image image2;
-    touchgfx::Image image2_1;
-    touchgfx::Button button1;
-    touchgfx::Button button2;
+    touchgfx::TextArea screen_label;
+    touchgfx::Image ontimebutton_icon_back;
+    touchgfx::Image brightnessbutton_icon_back;
+    touchgfx::TextArea ontime_label;
+    touchgfx::TextArea brightness_label;
+    touchgfx::Image ontime_arrow_image;
+    touchgfx::Image brightness_arrow_image;
+    touchgfx::Button ontime_button;
+    touchgfx::Button brightness_button;
     touchgfx::ImageProgress batteryprogress;
-    touchgfx::Button button3;
+    touchgfx::Button buttonfornothing;
+    touchgfx::Image ontime_image;
+    touchgfx::Image brightness_image;
 
 private:
 

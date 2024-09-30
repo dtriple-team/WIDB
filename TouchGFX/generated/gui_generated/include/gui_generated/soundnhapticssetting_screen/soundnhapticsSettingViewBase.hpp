@@ -30,14 +30,16 @@ protected:
      */
     touchgfx::Box __background;
     touchgfx::Image background;
-    touchgfx::TextArea Screen;
-    touchgfx::Image image1;
-    touchgfx::Image image1_1;
-    touchgfx::TextArea textArea1;
-    touchgfx::TextArea textArea2;
-    touchgfx::ToggleButton toggleButton1;
-    touchgfx::ToggleButton toggleButton2;
+    touchgfx::TextArea soundnhaptics_label;
+    touchgfx::Image haptic_icon_back;
+    touchgfx::Image sound_icon_back;
+    touchgfx::TextArea haptic_label;
+    touchgfx::TextArea sound_label;
+    touchgfx::ToggleButton haptic_togglebutton;
+    touchgfx::ToggleButton sound_togglebutton;
     touchgfx::ImageProgress batteryprogress;
+    touchgfx::Image haptic_image;
+    touchgfx::Image sound_image;
 
 private:
 

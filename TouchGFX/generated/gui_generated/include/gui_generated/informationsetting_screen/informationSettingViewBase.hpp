@@ -30,16 +30,18 @@ protected:
      */
     touchgfx::Box __background;
     touchgfx::Image background;
-    touchgfx::TextArea Information;
-    touchgfx::Image image1;
-    touchgfx::Image image1_1;
-    touchgfx::TextArea textArea1;
-    touchgfx::TextArea textArea1_1;
-    touchgfx::Image image2;
-    touchgfx::Image image2_1;
-    touchgfx::Button button1;
-    touchgfx::Button button2;
+    touchgfx::TextArea information_label;
+    touchgfx::Image device_icon_back;
+    touchgfx::Image network_icon_back;
+    touchgfx::TextArea device_label;
+    touchgfx::TextArea network_label;
+    touchgfx::Image device_arrow_image;
+    touchgfx::Image network_arrow_image;
+    touchgfx::Button device_button;
+    touchgfx::Button network_button;
     touchgfx::ImageProgress batteryprogress;
+    touchgfx::Image device_image;
+    touchgfx::Image network_image;
 
 private:
 

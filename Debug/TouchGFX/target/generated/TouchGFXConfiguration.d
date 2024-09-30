@@ -66,15 +66,30 @@ TouchGFX/target/generated/TouchGFXConfiguration.o: \
  ../Middlewares/ST/touchgfx/framework/include/touchgfx/containers/SwipeContainer.hpp \
  ../Middlewares/ST/touchgfx/framework/include/touchgfx/containers/ListLayout.hpp \
  ../Middlewares/ST/touchgfx/framework/include/touchgfx/widgets/TiledImage.hpp \
- ../Middlewares/ST/touchgfx/framework/include/touchgfx/widgets/Button.hpp \
- ../Middlewares/ST/touchgfx/framework/include/touchgfx/widgets/AbstractButton.hpp \
- ../Middlewares/ST/touchgfx/framework/include/touchgfx/widgets/TextArea.hpp \
- ../Middlewares/ST/touchgfx/framework/include/touchgfx/widgets/TextAreaWithWildcard.hpp \
  ../Middlewares/ST/touchgfx/framework/include/touchgfx/containers/clock/DigitalClock.hpp \
  ../Middlewares/ST/touchgfx/framework/include/touchgfx/containers/clock/AbstractClock.hpp \
+ ../Middlewares/ST/touchgfx/framework/include/touchgfx/widgets/TextAreaWithWildcard.hpp \
+ ../Middlewares/ST/touchgfx/framework/include/touchgfx/widgets/TextArea.hpp \
+ ../Middlewares/ST/touchgfx/framework/include/touchgfx/containers/progress_indicators/CircleProgress.hpp \
+ ../Middlewares/ST/touchgfx/framework/include/touchgfx/containers/progress_indicators/AbstractProgressIndicator.hpp \
+ ../Middlewares/ST/touchgfx/framework/include/touchgfx/widgets/canvas/AbstractPainter.hpp \
+ ../Middlewares/ST/touchgfx/framework/include/touchgfx/transforms/DisplayTransformation.hpp \
+ ../Middlewares/ST/touchgfx/framework/include/touchgfx/widgets/canvas/Circle.hpp \
+ ../Middlewares/ST/touchgfx/framework/include/touchgfx/widgets/canvas/CWRUtil.hpp \
+ ../Middlewares/ST/touchgfx/framework/include/touchgfx/canvas_widget_renderer/Rasterizer.hpp \
+ ../Middlewares/ST/touchgfx/framework/include/touchgfx/canvas_widget_renderer/Outline.hpp \
+ ../Middlewares/ST/touchgfx/framework/include/touchgfx/canvas_widget_renderer/Cell.hpp \
+ ../Middlewares/ST/touchgfx/framework/include/touchgfx/widgets/canvas/Canvas.hpp \
+ ../Middlewares/ST/touchgfx/framework/include/touchgfx/widgets/canvas/CanvasWidget.hpp \
+ ../Middlewares/ST/touchgfx/framework/include/touchgfx/widgets/canvas/PainterRGB565.hpp \
+ ../Middlewares/ST/touchgfx/framework/include/platform/driver/lcd/LCD16bpp.hpp \
+ ../Middlewares/ST/touchgfx/framework/include/touchgfx/lcd/LCD16DebugPrinter.hpp \
+ ../Middlewares/ST/touchgfx/framework/include/touchgfx/widgets/canvas/AbstractPainterColor.hpp \
+ ../Middlewares/ST/touchgfx/framework/include/touchgfx/widgets/canvas/AbstractPainterRGB565.hpp \
+ ../Middlewares/ST/touchgfx/framework/include/touchgfx/widgets/Button.hpp \
+ ../Middlewares/ST/touchgfx/framework/include/touchgfx/widgets/AbstractButton.hpp \
  ../Middlewares/ST/touchgfx/framework/include/touchgfx/containers/progress_indicators/ImageProgress.hpp \
  ../Middlewares/ST/touchgfx/framework/include/touchgfx/containers/progress_indicators/AbstractDirectionProgress.hpp \
- ../Middlewares/ST/touchgfx/framework/include/touchgfx/containers/progress_indicators/AbstractProgressIndicator.hpp \
  ../TouchGFX/gui/include/gui/sleepscreen_screen/SleepScreenView.hpp \
  ../TouchGFX/generated/gui_generated/include/gui_generated/sleepscreen_screen/SleepScreenViewBase.hpp \
  ../TouchGFX/gui/include/gui/sleepscreen_screen/SleepScreenPresenter.hpp \
@@ -92,20 +107,7 @@ TouchGFX/target/generated/TouchGFXConfiguration.o: \
  ../TouchGFX/gui/include/gui/heartratedetail_screen/HeartrateDetailPresenter.hpp \
  ../Middlewares/ST/touchgfx/framework/include/touchgfx/widgets/graph/GraphWrapAndOverwrite.hpp \
  ../Middlewares/ST/touchgfx/framework/include/touchgfx/widgets/graph/AbstractDataGraph.hpp \
- ../Middlewares/ST/touchgfx/framework/include/touchgfx/widgets/canvas/CWRUtil.hpp \
- ../Middlewares/ST/touchgfx/framework/include/touchgfx/canvas_widget_renderer/Rasterizer.hpp \
- ../Middlewares/ST/touchgfx/framework/include/touchgfx/canvas_widget_renderer/Outline.hpp \
- ../Middlewares/ST/touchgfx/framework/include/touchgfx/canvas_widget_renderer/Cell.hpp \
- ../Middlewares/ST/touchgfx/framework/include/touchgfx/widgets/canvas/AbstractPainter.hpp \
- ../Middlewares/ST/touchgfx/framework/include/touchgfx/transforms/DisplayTransformation.hpp \
  ../Middlewares/ST/touchgfx/framework/include/touchgfx/widgets/graph/GraphElements.hpp \
- ../Middlewares/ST/touchgfx/framework/include/touchgfx/widgets/canvas/Canvas.hpp \
- ../Middlewares/ST/touchgfx/framework/include/touchgfx/widgets/canvas/CanvasWidget.hpp \
- ../Middlewares/ST/touchgfx/framework/include/touchgfx/widgets/canvas/PainterRGB565.hpp \
- ../Middlewares/ST/touchgfx/framework/include/platform/driver/lcd/LCD16bpp.hpp \
- ../Middlewares/ST/touchgfx/framework/include/touchgfx/lcd/LCD16DebugPrinter.hpp \
- ../Middlewares/ST/touchgfx/framework/include/touchgfx/widgets/canvas/AbstractPainterColor.hpp \
- ../Middlewares/ST/touchgfx/framework/include/touchgfx/widgets/canvas/AbstractPainterRGB565.hpp \
  ../TouchGFX/gui/include/gui/spo2detail_screen/Spo2DetailView.hpp \
  ../TouchGFX/generated/gui_generated/include/gui_generated/spo2detail_screen/Spo2DetailViewBase.hpp \
  ../TouchGFX/gui/include/gui/spo2detail_screen/Spo2DetailPresenter.hpp \
@@ -114,13 +116,10 @@ TouchGFX/target/generated/TouchGFXConfiguration.o: \
  ../TouchGFX/gui/include/gui/swipedownfromhome_screen/swipedownfromHomePresenter.hpp \
  ../Middlewares/ST/touchgfx/framework/include/touchgfx/widgets/ToggleButton.hpp \
  ../Middlewares/ST/touchgfx/framework/include/touchgfx/containers/Slider.hpp \
- ../TouchGFX/gui/include/gui/notificationscreen_screen/NotificationScreenView.hpp \
- ../TouchGFX/generated/gui_generated/include/gui_generated/notificationscreen_screen/NotificationScreenViewBase.hpp \
- ../TouchGFX/gui/include/gui/notificationscreen_screen/NotificationScreenPresenter.hpp \
- ../Middlewares/ST/touchgfx/framework/include/touchgfx/containers/ScrollableContainer.hpp \
  ../TouchGFX/gui/include/gui/settingscreen_screen/SettingScreenView.hpp \
  ../TouchGFX/generated/gui_generated/include/gui_generated/settingscreen_screen/SettingScreenViewBase.hpp \
  ../TouchGFX/gui/include/gui/settingscreen_screen/SettingScreenPresenter.hpp \
+ ../Middlewares/ST/touchgfx/framework/include/touchgfx/containers/ScrollableContainer.hpp \
  ../TouchGFX/gui/include/gui/screensetting_screen/screenSettingView.hpp \
  ../TouchGFX/generated/gui_generated/include/gui_generated/screensetting_screen/screenSettingViewBase.hpp \
  ../TouchGFX/gui/include/gui/screensetting_screen/screenSettingPresenter.hpp \
@@ -146,9 +145,6 @@ TouchGFX/target/generated/TouchGFXConfiguration.o: \
  ../TouchGFX/gui/include/gui/languagesetting_screen/languageSettingPresenter.hpp \
  ../Middlewares/ST/touchgfx/framework/include/touchgfx/widgets/RadioButton.hpp \
  ../Middlewares/ST/touchgfx/framework/include/touchgfx/widgets/RadioButtonGroup.hpp \
- ../TouchGFX/gui/include/gui/wifisetting_screen/wifiSettingView.hpp \
- ../TouchGFX/generated/gui_generated/include/gui_generated/wifisetting_screen/wifiSettingViewBase.hpp \
- ../TouchGFX/gui/include/gui/wifisetting_screen/wifiSettingPresenter.hpp \
  ../TouchGFX/gui/include/gui/informationsetting_screen/informationSettingView.hpp \
  ../TouchGFX/generated/gui_generated/include/gui_generated/informationsetting_screen/informationSettingViewBase.hpp \
  ../TouchGFX/gui/include/gui/informationsetting_screen/informationSettingPresenter.hpp \
@@ -158,37 +154,37 @@ TouchGFX/target/generated/TouchGFXConfiguration.o: \
  ../TouchGFX/gui/include/gui/networkinfosetting_screen/networkInfoSettingView.hpp \
  ../TouchGFX/generated/gui_generated/include/gui_generated/networkinfosetting_screen/networkInfoSettingViewBase.hpp \
  ../TouchGFX/gui/include/gui/networkinfosetting_screen/networkInfoSettingPresenter.hpp \
- ../TouchGFX/gui/include/gui/communicationcyclesetting_screen/communicationCycleSettingView.hpp \
- ../TouchGFX/generated/gui_generated/include/gui_generated/communicationcyclesetting_screen/communicationCycleSettingViewBase.hpp \
- ../TouchGFX/gui/include/gui/communicationcyclesetting_screen/communicationCycleSettingPresenter.hpp \
- ../TouchGFX/gui/include/gui/containers/setting_communicationcycle_notselected.hpp \
- ../TouchGFX/generated/gui_generated/include/gui_generated/containers/setting_communicationcycle_notselectedBase.hpp \
- ../TouchGFX/gui/include/gui/containers/setting_communicationcycle_selected.hpp \
- ../TouchGFX/generated/gui_generated/include/gui_generated/containers/setting_communicationcycle_selectedBase.hpp \
  ../TouchGFX/gui/include/gui/systemsetting_screen/systemSettingView.hpp \
  ../TouchGFX/generated/gui_generated/include/gui_generated/systemsetting_screen/systemSettingViewBase.hpp \
  ../TouchGFX/gui/include/gui/systemsetting_screen/systemSettingPresenter.hpp \
  ../TouchGFX/gui/include/gui/turnoffscreen_screen/turnoffScreenView.hpp \
  ../TouchGFX/generated/gui_generated/include/gui_generated/turnoffscreen_screen/turnoffScreenViewBase.hpp \
  ../TouchGFX/gui/include/gui/turnoffscreen_screen/turnoffScreenPresenter.hpp \
- ../TouchGFX/gui/include/gui/englishkeyboard_screen/englishKeyboardView.hpp \
- ../TouchGFX/generated/gui_generated/include/gui_generated/englishkeyboard_screen/englishKeyboardViewBase.hpp \
- ../TouchGFX/gui/include/gui/englishkeyboard_screen/englishKeyboardPresenter.hpp \
- ../TouchGFX/gui/include/gui/numberkeyboard_screen/numberKeyboardView.hpp \
- ../TouchGFX/generated/gui_generated/include/gui_generated/numberkeyboard_screen/numberKeyboardViewBase.hpp \
- ../TouchGFX/gui/include/gui/numberkeyboard_screen/numberKeyboardPresenter.hpp \
- ../TouchGFX/gui/include/gui/characterkeyboard_screen/characterKeyboardView.hpp \
- ../TouchGFX/generated/gui_generated/include/gui_generated/characterkeyboard_screen/characterKeyboardViewBase.hpp \
- ../TouchGFX/gui/include/gui/characterkeyboard_screen/characterKeyboardPresenter.hpp \
- ../TouchGFX/gui/include/gui/dispatchorwait_screen/dispatchorwaitView.hpp \
- ../TouchGFX/generated/gui_generated/include/gui_generated/dispatchorwait_screen/dispatchorwaitViewBase.hpp \
- ../TouchGFX/gui/include/gui/dispatchorwait_screen/dispatchorwaitPresenter.hpp \
  ../TouchGFX/gui/include/gui/falldetected_screen/fallDetectedView.hpp \
  ../TouchGFX/generated/gui_generated/include/gui_generated/falldetected_screen/fallDetectedViewBase.hpp \
  ../TouchGFX/gui/include/gui/falldetected_screen/fallDetectedPresenter.hpp \
- ../TouchGFX/gui/include/gui/inout_screen/inoutView.hpp \
- ../TouchGFX/generated/gui_generated/include/gui_generated/inout_screen/inoutViewBase.hpp \
- ../TouchGFX/gui/include/gui/inout_screen/inoutPresenter.hpp \
+ ../TouchGFX/gui/include/gui/initblackscreen_screen/initBlackScreenView.hpp \
+ ../TouchGFX/generated/gui_generated/include/gui_generated/initblackscreen_screen/initBlackScreenViewBase.hpp \
+ ../TouchGFX/gui/include/gui/initblackscreen_screen/initBlackScreenPresenter.hpp \
+ ../Middlewares/ST/touchgfx/framework/include/touchgfx/containers/buttons/Buttons.hpp \
+ ../Middlewares/ST/touchgfx/framework/include/touchgfx/containers/buttons/AnimatedImageButtonStyle.hpp \
+ ../Middlewares/ST/touchgfx/framework/include/touchgfx/containers/buttons/AbstractButtonContainer.hpp \
+ ../Middlewares/ST/touchgfx/framework/include/touchgfx/widgets/AnimatedImage.hpp \
+ ../Middlewares/ST/touchgfx/framework/include/touchgfx/containers/buttons/BoxWithBorderButtonStyle.hpp \
+ ../Middlewares/ST/touchgfx/framework/include/touchgfx/widgets/BoxWithBorder.hpp \
+ ../Middlewares/ST/touchgfx/framework/include/touchgfx/containers/buttons/ClickButtonTrigger.hpp \
+ ../Middlewares/ST/touchgfx/framework/include/touchgfx/containers/buttons/IconButtonStyle.hpp \
+ ../Middlewares/ST/touchgfx/framework/include/touchgfx/containers/buttons/ImageButtonStyle.hpp \
+ ../Middlewares/ST/touchgfx/framework/include/touchgfx/containers/buttons/RepeatButtonTrigger.hpp \
+ ../Middlewares/ST/touchgfx/framework/include/touchgfx/containers/buttons/TextButtonStyle.hpp \
+ ../Middlewares/ST/touchgfx/framework/include/touchgfx/containers/buttons/TiledImageButtonStyle.hpp \
+ ../Middlewares/ST/touchgfx/framework/include/touchgfx/containers/buttons/ToggleButtonTrigger.hpp \
+ ../Middlewares/ST/touchgfx/framework/include/touchgfx/containers/buttons/TouchButtonTrigger.hpp \
+ ../Middlewares/ST/touchgfx/framework/include/touchgfx/containers/buttons/TwoWildcardTextButtonStyle.hpp \
+ ../Middlewares/ST/touchgfx/framework/include/touchgfx/containers/buttons/WildcardTextButtonStyle.hpp \
+ ../TouchGFX/gui/include/gui/temphome_screen/tempHomeView.hpp \
+ ../TouchGFX/generated/gui_generated/include/gui_generated/temphome_screen/tempHomeViewBase.hpp \
+ ../TouchGFX/gui/include/gui/temphome_screen/tempHomePresenter.hpp \
  ../TouchGFX/generated/images/include/BitmapDatabase.hpp \
  ../TouchGFX/generated/images/include/images/BitmapDatabase.hpp \
  ../TouchGFX/target/TouchGFXDMA.hpp ../TouchGFX/target/TouchGFXHAL.hpp \
@@ -305,15 +301,30 @@ TouchGFX/target/generated/TouchGFXConfiguration.o: \
 ../Middlewares/ST/touchgfx/framework/include/touchgfx/containers/SwipeContainer.hpp:
 ../Middlewares/ST/touchgfx/framework/include/touchgfx/containers/ListLayout.hpp:
 ../Middlewares/ST/touchgfx/framework/include/touchgfx/widgets/TiledImage.hpp:
-../Middlewares/ST/touchgfx/framework/include/touchgfx/widgets/Button.hpp:
-../Middlewares/ST/touchgfx/framework/include/touchgfx/widgets/AbstractButton.hpp:
-../Middlewares/ST/touchgfx/framework/include/touchgfx/widgets/TextArea.hpp:
-../Middlewares/ST/touchgfx/framework/include/touchgfx/widgets/TextAreaWithWildcard.hpp:
 ../Middlewares/ST/touchgfx/framework/include/touchgfx/containers/clock/DigitalClock.hpp:
 ../Middlewares/ST/touchgfx/framework/include/touchgfx/containers/clock/AbstractClock.hpp:
+../Middlewares/ST/touchgfx/framework/include/touchgfx/widgets/TextAreaWithWildcard.hpp:
+../Middlewares/ST/touchgfx/framework/include/touchgfx/widgets/TextArea.hpp:
+../Middlewares/ST/touchgfx/framework/include/touchgfx/containers/progress_indicators/CircleProgress.hpp:
+../Middlewares/ST/touchgfx/framework/include/touchgfx/containers/progress_indicators/AbstractProgressIndicator.hpp:
+../Middlewares/ST/touchgfx/framework/include/touchgfx/widgets/canvas/AbstractPainter.hpp:
+../Middlewares/ST/touchgfx/framework/include/touchgfx/transforms/DisplayTransformation.hpp:
+../Middlewares/ST/touchgfx/framework/include/touchgfx/widgets/canvas/Circle.hpp:
+../Middlewares/ST/touchgfx/framework/include/touchgfx/widgets/canvas/CWRUtil.hpp:
+../Middlewares/ST/touchgfx/framework/include/touchgfx/canvas_widget_renderer/Rasterizer.hpp:
+../Middlewares/ST/touchgfx/framework/include/touchgfx/canvas_widget_renderer/Outline.hpp:
+../Middlewares/ST/touchgfx/framework/include/touchgfx/canvas_widget_renderer/Cell.hpp:
+../Middlewares/ST/touchgfx/framework/include/touchgfx/widgets/canvas/Canvas.hpp:
+../Middlewares/ST/touchgfx/framework/include/touchgfx/widgets/canvas/CanvasWidget.hpp:
+../Middlewares/ST/touchgfx/framework/include/touchgfx/widgets/canvas/PainterRGB565.hpp:
+../Middlewares/ST/touchgfx/framework/include/platform/driver/lcd/LCD16bpp.hpp:
+../Middlewares/ST/touchgfx/framework/include/touchgfx/lcd/LCD16DebugPrinter.hpp:
+../Middlewares/ST/touchgfx/framework/include/touchgfx/widgets/canvas/AbstractPainterColor.hpp:
+../Middlewares/ST/touchgfx/framework/include/touchgfx/widgets/canvas/AbstractPainterRGB565.hpp:
+../Middlewares/ST/touchgfx/framework/include/touchgfx/widgets/Button.hpp:
+../Middlewares/ST/touchgfx/framework/include/touchgfx/widgets/AbstractButton.hpp:
 ../Middlewares/ST/touchgfx/framework/include/touchgfx/containers/progress_indicators/ImageProgress.hpp:
 ../Middlewares/ST/touchgfx/framework/include/touchgfx/containers/progress_indicators/AbstractDirectionProgress.hpp:
-../Middlewares/ST/touchgfx/framework/include/touchgfx/containers/progress_indicators/AbstractProgressIndicator.hpp:
 ../TouchGFX/gui/include/gui/sleepscreen_screen/SleepScreenView.hpp:
 ../TouchGFX/generated/gui_generated/include/gui_generated/sleepscreen_screen/SleepScreenViewBase.hpp:
 ../TouchGFX/gui/include/gui/sleepscreen_screen/SleepScreenPresenter.hpp:
@@ -331,20 +342,7 @@ TouchGFX/target/generated/TouchGFXConfiguration.o: \
 ../TouchGFX/gui/include/gui/heartratedetail_screen/HeartrateDetailPresenter.hpp:
 ../Middlewares/ST/touchgfx/framework/include/touchgfx/widgets/graph/GraphWrapAndOverwrite.hpp:
 ../Middlewares/ST/touchgfx/framework/include/touchgfx/widgets/graph/AbstractDataGraph.hpp:
-../Middlewares/ST/touchgfx/framework/include/touchgfx/widgets/canvas/CWRUtil.hpp:
-../Middlewares/ST/touchgfx/framework/include/touchgfx/canvas_widget_renderer/Rasterizer.hpp:
-../Middlewares/ST/touchgfx/framework/include/touchgfx/canvas_widget_renderer/Outline.hpp:
-../Middlewares/ST/touchgfx/framework/include/touchgfx/canvas_widget_renderer/Cell.hpp:
-../Middlewares/ST/touchgfx/framework/include/touchgfx/widgets/canvas/AbstractPainter.hpp:
-../Middlewares/ST/touchgfx/framework/include/touchgfx/transforms/DisplayTransformation.hpp:
 ../Middlewares/ST/touchgfx/framework/include/touchgfx/widgets/graph/GraphElements.hpp:
-../Middlewares/ST/touchgfx/framework/include/touchgfx/widgets/canvas/Canvas.hpp:
-../Middlewares/ST/touchgfx/framework/include/touchgfx/widgets/canvas/CanvasWidget.hpp:
-../Middlewares/ST/touchgfx/framework/include/touchgfx/widgets/canvas/PainterRGB565.hpp:
-../Middlewares/ST/touchgfx/framework/include/platform/driver/lcd/LCD16bpp.hpp:
-../Middlewares/ST/touchgfx/framework/include/touchgfx/lcd/LCD16DebugPrinter.hpp:
-../Middlewares/ST/touchgfx/framework/include/touchgfx/widgets/canvas/AbstractPainterColor.hpp:
-../Middlewares/ST/touchgfx/framework/include/touchgfx/widgets/canvas/AbstractPainterRGB565.hpp:
 ../TouchGFX/gui/include/gui/spo2detail_screen/Spo2DetailView.hpp:
 ../TouchGFX/generated/gui_generated/include/gui_generated/spo2detail_screen/Spo2DetailViewBase.hpp:
 ../TouchGFX/gui/include/gui/spo2detail_screen/Spo2DetailPresenter.hpp:
@@ -353,13 +351,10 @@ TouchGFX/target/generated/TouchGFXConfiguration.o: \
 ../TouchGFX/gui/include/gui/swipedownfromhome_screen/swipedownfromHomePresenter.hpp:
 ../Middlewares/ST/touchgfx/framework/include/touchgfx/widgets/ToggleButton.hpp:
 ../Middlewares/ST/touchgfx/framework/include/touchgfx/containers/Slider.hpp:
-../TouchGFX/gui/include/gui/notificationscreen_screen/NotificationScreenView.hpp:
-../TouchGFX/generated/gui_generated/include/gui_generated/notificationscreen_screen/NotificationScreenViewBase.hpp:
-../TouchGFX/gui/include/gui/notificationscreen_screen/NotificationScreenPresenter.hpp:
-../Middlewares/ST/touchgfx/framework/include/touchgfx/containers/ScrollableContainer.hpp:
 ../TouchGFX/gui/include/gui/settingscreen_screen/SettingScreenView.hpp:
 ../TouchGFX/generated/gui_generated/include/gui_generated/settingscreen_screen/SettingScreenViewBase.hpp:
 ../TouchGFX/gui/include/gui/settingscreen_screen/SettingScreenPresenter.hpp:
+../Middlewares/ST/touchgfx/framework/include/touchgfx/containers/ScrollableContainer.hpp:
 ../TouchGFX/gui/include/gui/screensetting_screen/screenSettingView.hpp:
 ../TouchGFX/generated/gui_generated/include/gui_generated/screensetting_screen/screenSettingViewBase.hpp:
 ../TouchGFX/gui/include/gui/screensetting_screen/screenSettingPresenter.hpp:
@@ -385,9 +380,6 @@ TouchGFX/target/generated/TouchGFXConfiguration.o: \
 ../TouchGFX/gui/include/gui/languagesetting_screen/languageSettingPresenter.hpp:
 ../Middlewares/ST/touchgfx/framework/include/touchgfx/widgets/RadioButton.hpp:
 ../Middlewares/ST/touchgfx/framework/include/touchgfx/widgets/RadioButtonGroup.hpp:
-../TouchGFX/gui/include/gui/wifisetting_screen/wifiSettingView.hpp:
-../TouchGFX/generated/gui_generated/include/gui_generated/wifisetting_screen/wifiSettingViewBase.hpp:
-../TouchGFX/gui/include/gui/wifisetting_screen/wifiSettingPresenter.hpp:
 ../TouchGFX/gui/include/gui/informationsetting_screen/informationSettingView.hpp:
 ../TouchGFX/generated/gui_generated/include/gui_generated/informationsetting_screen/informationSettingViewBase.hpp:
 ../TouchGFX/gui/include/gui/informationsetting_screen/informationSettingPresenter.hpp:
@@ -397,37 +389,37 @@ TouchGFX/target/generated/TouchGFXConfiguration.o: \
 ../TouchGFX/gui/include/gui/networkinfosetting_screen/networkInfoSettingView.hpp:
 ../TouchGFX/generated/gui_generated/include/gui_generated/networkinfosetting_screen/networkInfoSettingViewBase.hpp:
 ../TouchGFX/gui/include/gui/networkinfosetting_screen/networkInfoSettingPresenter.hpp:
-../TouchGFX/gui/include/gui/communicationcyclesetting_screen/communicationCycleSettingView.hpp:
-../TouchGFX/generated/gui_generated/include/gui_generated/communicationcyclesetting_screen/communicationCycleSettingViewBase.hpp:
-../TouchGFX/gui/include/gui/communicationcyclesetting_screen/communicationCycleSettingPresenter.hpp:
-../TouchGFX/gui/include/gui/containers/setting_communicationcycle_notselected.hpp:
-../TouchGFX/generated/gui_generated/include/gui_generated/containers/setting_communicationcycle_notselectedBase.hpp:
-../TouchGFX/gui/include/gui/containers/setting_communicationcycle_selected.hpp:
-../TouchGFX/generated/gui_generated/include/gui_generated/containers/setting_communicationcycle_selectedBase.hpp:
 ../TouchGFX/gui/include/gui/systemsetting_screen/systemSettingView.hpp:
 ../TouchGFX/generated/gui_generated/include/gui_generated/systemsetting_screen/systemSettingViewBase.hpp:
 ../TouchGFX/gui/include/gui/systemsetting_screen/systemSettingPresenter.hpp:
 ../TouchGFX/gui/include/gui/turnoffscreen_screen/turnoffScreenView.hpp:
 ../TouchGFX/generated/gui_generated/include/gui_generated/turnoffscreen_screen/turnoffScreenViewBase.hpp:
 ../TouchGFX/gui/include/gui/turnoffscreen_screen/turnoffScreenPresenter.hpp:
-../TouchGFX/gui/include/gui/englishkeyboard_screen/englishKeyboardView.hpp:
-../TouchGFX/generated/gui_generated/include/gui_generated/englishkeyboard_screen/englishKeyboardViewBase.hpp:
-../TouchGFX/gui/include/gui/englishkeyboard_screen/englishKeyboardPresenter.hpp:
-../TouchGFX/gui/include/gui/numberkeyboard_screen/numberKeyboardView.hpp:
-../TouchGFX/generated/gui_generated/include/gui_generated/numberkeyboard_screen/numberKeyboardViewBase.hpp:
-../TouchGFX/gui/include/gui/numberkeyboard_screen/numberKeyboardPresenter.hpp:
-../TouchGFX/gui/include/gui/characterkeyboard_screen/characterKeyboardView.hpp:
-../TouchGFX/generated/gui_generated/include/gui_generated/characterkeyboard_screen/characterKeyboardViewBase.hpp:
-../TouchGFX/gui/include/gui/characterkeyboard_screen/characterKeyboardPresenter.hpp:
-../TouchGFX/gui/include/gui/dispatchorwait_screen/dispatchorwaitView.hpp:
-../TouchGFX/generated/gui_generated/include/gui_generated/dispatchorwait_screen/dispatchorwaitViewBase.hpp:
-../TouchGFX/gui/include/gui/dispatchorwait_screen/dispatchorwaitPresenter.hpp:
 ../TouchGFX/gui/include/gui/falldetected_screen/fallDetectedView.hpp:
 ../TouchGFX/generated/gui_generated/include/gui_generated/falldetected_screen/fallDetectedViewBase.hpp:
 ../TouchGFX/gui/include/gui/falldetected_screen/fallDetectedPresenter.hpp:
-../TouchGFX/gui/include/gui/inout_screen/inoutView.hpp:
-../TouchGFX/generated/gui_generated/include/gui_generated/inout_screen/inoutViewBase.hpp:
-../TouchGFX/gui/include/gui/inout_screen/inoutPresenter.hpp:
+../TouchGFX/gui/include/gui/initblackscreen_screen/initBlackScreenView.hpp:
+../TouchGFX/generated/gui_generated/include/gui_generated/initblackscreen_screen/initBlackScreenViewBase.hpp:
+../TouchGFX/gui/include/gui/initblackscreen_screen/initBlackScreenPresenter.hpp:
+../Middlewares/ST/touchgfx/framework/include/touchgfx/containers/buttons/Buttons.hpp:
+../Middlewares/ST/touchgfx/framework/include/touchgfx/containers/buttons/AnimatedImageButtonStyle.hpp:
+../Middlewares/ST/touchgfx/framework/include/touchgfx/containers/buttons/AbstractButtonContainer.hpp:
+../Middlewares/ST/touchgfx/framework/include/touchgfx/widgets/AnimatedImage.hpp:
+../Middlewares/ST/touchgfx/framework/include/touchgfx/containers/buttons/BoxWithBorderButtonStyle.hpp:
+../Middlewares/ST/touchgfx/framework/include/touchgfx/widgets/BoxWithBorder.hpp:
+../Middlewares/ST/touchgfx/framework/include/touchgfx/containers/buttons/ClickButtonTrigger.hpp:
+../Middlewares/ST/touchgfx/framework/include/touchgfx/containers/buttons/IconButtonStyle.hpp:
+../Middlewares/ST/touchgfx/framework/include/touchgfx/containers/buttons/ImageButtonStyle.hpp:
+../Middlewares/ST/touchgfx/framework/include/touchgfx/containers/buttons/RepeatButtonTrigger.hpp:
+../Middlewares/ST/touchgfx/framework/include/touchgfx/containers/buttons/TextButtonStyle.hpp:
+../Middlewares/ST/touchgfx/framework/include/touchgfx/containers/buttons/TiledImageButtonStyle.hpp:
+../Middlewares/ST/touchgfx/framework/include/touchgfx/containers/buttons/ToggleButtonTrigger.hpp:
+../Middlewares/ST/touchgfx/framework/include/touchgfx/containers/buttons/TouchButtonTrigger.hpp:
+../Middlewares/ST/touchgfx/framework/include/touchgfx/containers/buttons/TwoWildcardTextButtonStyle.hpp:
+../Middlewares/ST/touchgfx/framework/include/touchgfx/containers/buttons/WildcardTextButtonStyle.hpp:
+../TouchGFX/gui/include/gui/temphome_screen/tempHomeView.hpp:
+../TouchGFX/generated/gui_generated/include/gui_generated/temphome_screen/tempHomeViewBase.hpp:
+../TouchGFX/gui/include/gui/temphome_screen/tempHomePresenter.hpp:
 ../TouchGFX/generated/images/include/BitmapDatabase.hpp:
 ../TouchGFX/generated/images/include/images/BitmapDatabase.hpp:
 ../TouchGFX/target/TouchGFXDMA.hpp:

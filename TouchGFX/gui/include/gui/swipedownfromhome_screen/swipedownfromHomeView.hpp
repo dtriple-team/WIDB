@@ -13,7 +13,6 @@ public:
     virtual void setupScreen();
     virtual void tearDownScreen();
     virtual void handleGestureEvent(const GestureEvent& evt); //rkdalfks
-    virtual void handleDragEvent(const DragEvent& dragEvt); // jh
 
     void updateToggleButton1State(bool state); //test
     void updateToggleButton2State(bool state); //test
@@ -21,6 +20,8 @@ public:
     void handleSwipeUp(); //rkdalfks
 
     void slider1Changed(int value);
+
+    virtual void handleDragEvent(const DragEvent& evt);
 protected:
     Callback<swipedownfromHomeView, const touchgfx::AbstractButton&> toggleButton1ClickedCallback; //test
     Callback<swipedownfromHomeView, const touchgfx::AbstractButton&> toggleButton2ClickedCallback; //test
@@ -34,7 +35,7 @@ private: //rkdalfks
     int initialX; //rkdalfks
     int initialY; //rkdaflks
 
-    uint8_t isDeltaYGreaterThanDeltaX = 0; // jh
+    uint8_t isDeltaYGreaterThanDeltaX;
 };
 
 #endif // SWIPEUPFROMHOMEVIEW_HPP

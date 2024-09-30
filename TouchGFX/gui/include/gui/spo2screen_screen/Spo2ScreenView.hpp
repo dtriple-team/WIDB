@@ -15,15 +15,11 @@ public:
 
     void handleSwipeRight(); //rkdalfks
 
-    virtual void changeSpO2Val(); // jh
-
 protected:
 
 private: //rkdalfks
     int initialX; //rkdalfks
     int initialY; //rkdalfks
-
-    uint8_t timeTick = 0; // jh
 };
 
 #endif // SPO2SCREENVIEW_HPP

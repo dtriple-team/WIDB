@@ -39,6 +39,9 @@ extern "C" {
 	#include "stm32wb5mmg.h"
 	#include "stm32wb_at_ble.h"
 }
+#include <gui_generated/initblackscreen_screen/initBlackScreenViewBase.hpp>
+#include <gui_generated/falldetected_screen/fallDetectedViewBase.hpp>
+#include <gui_generated/temphome_screen/tempHomeViewBase.hpp>
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -61,6 +64,10 @@ extern "C" {
 struct ssDataEx_format lcd_ssDataEx;
 uint8_t screenOnTime = 0;
 uint8_t brightness_count = 0;
+
+extern uint8_t secTime;
+
+uint8_t now_sleepmode = 0;
 
 /* USER CODE END Variables */
 /* Definitions for initTask */
@@ -103,7 +110,14 @@ osThreadId_t secTimerTaskHandle;
 const osThreadAttr_t secTimerTask_attributes = {
   .name = "secTimerTask",
   .stack_size = 128 * 4,
-  .priority = (osPriority_t) osPriorityHigh
+  .priority = (osPriority_t) osPriorityLow
+};
+/* Definitions for checkINTTask */
+osThreadId_t checkINTTaskHandle;
+const osThreadAttr_t checkINTTask_attributes = {
+  .name = "checkINTTask",
+  .stack_size = 4096 * 4,
+  .priority = (osPriority_t) osPriorityNormal
 };
 
 /* Private function prototypes -----------------------------------------------*/
@@ -116,6 +130,12 @@ uint8_t pmicInitFlag = 0;
 double test_mag_data[15] = {0,};
 uint8_t set_bLevel = 15;
 
+initBlackScreenViewBase myBlackScreenView;
+fallDetectedViewBase myFallDetectedView;
+tempHomeViewBase myTempHomeView;
+
+extern uint8_t occurred_imuInterrupt;
+
 /* USER CODE END FunctionPrototypes */
 
 void StartInitTask(void *argument);
@@ -124,6 +144,7 @@ void StartPPMTask(void *argument);
 void StartWPMTask(void *argument);
 void StartSPMTask(void *argument);
 void StartSecTimerTask(void *argument);
+void StartCheckINTTask(void *argument);
 
 void MX_FREERTOS_Init(void); /* (MISRA C 2004 rule 8.1) */
 
@@ -169,6 +190,9 @@ void MX_FREERTOS_Init(void) {
 
   /* creation of secTimerTask */
   secTimerTaskHandle = osThreadNew(StartSecTimerTask, NULL, &secTimerTask_attributes);
+
+  /* creation of checkINTTask */
+  checkINTTaskHandle = osThreadNew(StartCheckINTTask, NULL, &checkINTTask_attributes);
 
   /* USER CODE BEGIN RTOS_THREADS */
   /* add threads, ... */
@@ -219,6 +243,8 @@ void StartInitTask(void *argument)
 	init_iis2mdc();
 	init_ism330dhcx();
 	init_lps22hh();
+
+//	ism330dhcxINTEnable();
 
 	// CatM1 init
 	bg770a_gl_init();
@@ -274,10 +300,15 @@ void StartPPMTask(void *argument)
   /* Infinite loop */
   for(;;)
   {
-    osDelay(1000);
+    osDelay(1);
     if(initFlag){
     	stm32wb5mmg_adv(&param_BLE_DATA);
     }
+//    if(FreeFallDetection_GetState()==1)
+//	{
+//		HAL_Delay(1000);
+//		FreeFallDetection_SetState(0);
+//	}
   }
   /* USER CODE END ppmTask */
 }
@@ -316,6 +347,12 @@ void StartSPMTask(void *argument)
 	uint8_t now_bLevel = 15;
 	uint8_t bLevelCtrlTimCount = 0;
 
+	uint8_t pre_secTime = 0;
+	screenOnTime = 20;
+	uint8_t pre_brightness_count = 0;
+
+//	double pre_pressure[PRESSURE_VAL_LEN] = {0,};
+
   /* Infinite loop */
   for(;;)
   {
@@ -332,6 +369,10 @@ void StartSPMTask(void *argument)
 
 		double pressure, lpsTemp;
 		read_lps22hh(&pressure, &lpsTemp);
+//		for(int i=0; i<PRESSURE_VAL_LEN-1; i++){
+//			pre_pressure[i] = pre_pressure[i+1];
+//		}
+//		pre_pressure[PRESSURE_VAL_LEN-1] = pressure;
 
     	test_mag_data[0] = magnetX/10; 	// mgauss -> uT
     	test_mag_data[1] = magnetY/10; 	// mgauss -> uT
@@ -363,6 +404,42 @@ void StartSPMTask(void *argument)
 //		}
 //		bLevelCtrlTimCount++;
     }
+
+//    if(pre_secTime != secTime && secTime%1 == 0){ // 1sec
+//    	// turn off LCD backlight
+//		if(brightness_count == 0){
+//			ST7789_brightness_setting(set_bLevel);
+//		}
+//		else{
+//			if(brightness_count > screenOnTime){
+//				ST7789_brightness_setting(0);
+//			}
+//			else{
+//				brightness_count++;
+//			}
+//		}
+//		pre_brightness_count = brightness_count;
+//		pre_secTime = secTime;
+//    }
+
+    // screenOnTime == brightness_count�??? ?���??? ?���??? 꺼라
+    // brightness_count == 0?���??? 바�?�면 백라?��?���??? 켜라
+    if(pre_secTime != secTime && secTime%1 == 0){ // 1sec
+		// turn off LCD backlight
+		if(brightness_count == 0 && pre_brightness_count >= screenOnTime){
+			ST7789_brightness_setting(set_bLevel);
+			now_sleepmode = 0;
+		}
+		else if(brightness_count >= screenOnTime && pre_brightness_count < screenOnTime){
+			ST7789_brightness_setting(0);
+			myBlackScreenView.changeToInitBlackScreen();
+			now_sleepmode = 1;
+		}
+		pre_brightness_count = brightness_count;
+		pre_secTime = secTime;
+		brightness_count++;
+	}
+
   }
   /* USER CODE END spmTask */
 }
@@ -377,25 +454,101 @@ void StartSPMTask(void *argument)
 void StartSecTimerTask(void *argument)
 {
   /* USER CODE BEGIN secTimerTask */
-	screenOnTime = 20; // default screen on time;
+//	screenOnTime = 20; // default screen on time;
   /* Infinite loop */
   for(;;)
   {
     osDelay(1000*5);
 
-    // turn off LCD backlight
-    if(brightness_count == 0){
-    	ST7789_brightness_setting(set_bLevel);
-    }
-
-    if(brightness_count > screenOnTime/5){
-    	ST7789_brightness_setting(0);
-    }
-    else{
-        brightness_count++;
-    }
+//    // turn off LCD backlight
+//    if(brightness_count == 0){
+//    	ST7789_brightness_setting(set_bLevel);
+//    }
+//
+//    if(brightness_count > screenOnTime/5){
+//    	ST7789_brightness_setting(0);
+//    }
+//    else{
+//        brightness_count++;
+//    }
   }
   /* USER CODE END secTimerTask */
+}
+
+/* USER CODE BEGIN Header_StartCheckINTTask */
+/**
+* @brief Function implementing the checkINTTask thread.
+* @param argument: Not used
+* @retval None
+*/
+uint8_t interrupt_kind = 0;
+#define PRESSURE_VAL_LEN 10
+#include <math.h>
+double calculateAltitudeDifference(double P1, double P2) {
+    const double R = 8.314;       // 기체 ?��?�� (J/(mol·K))
+    const double T = 273.15+25;   // ?���? ?��?�� (K) - ?���? ??�? 조건 15°C
+    const double g = 9.80665;     // 중력 �??��?�� (m/s²)
+    const double M = 0.02896;     // 공기?�� �? 질량 (kg/mol)
+
+    double altitudeDifference = (R * T) / (g * M) * log(P1 / P2);
+
+    return altitudeDifference;
+}
+/* USER CODE END Header_StartCheckINTTask */
+void StartCheckINTTask(void *argument)
+{
+  /* USER CODE BEGIN checkINTTask */
+	double before_falling_pressure[PRESSURE_VAL_LEN] = {0,};
+	double after_falling_pressure[PRESSURE_VAL_LEN] = {0,};
+
+  /* Infinite loop */
+  for(;;)
+  {
+    osDelay(1);
+
+    if(occurred_imuInterrupt){
+    	occurred_imuInterrupt = 0;
+    	interrupt_kind = whatKindInterrupt();
+    	if((interrupt_kind & 0x01) == 0x01){
+    		// free-fall + pressure(after outlier delet => cal mean val)
+    		/*
+    		 * back light enable
+    		 * change screen
+    		 * haptic
+    		 * send signal to web server using CatM1
+    		 */
+
+    		ST7789_brightness_setting(16);
+			myFallDetectedView.changeToFallDetected(); ////////////////////////
+    	}
+    	if((interrupt_kind & 0x02) == 0x02){
+    		// wake-up
+    	}
+    	if((interrupt_kind & 0x04) == 0x04){
+    		// single-tap
+    	}
+    	if((interrupt_kind & 0x08) == 0x08){
+    		// double-tap
+    	}
+    	if((interrupt_kind & 0x10) == 0x10){
+    		// change position
+//    		if(now_sleepmode == 1){
+//				ST7789_brightness_setting(now_bLevel);
+//				myBlackScreenView.changeToInitBlackScreen();
+//    		}
+    	}
+    	if((interrupt_kind & 0x20) == 0x20){
+    		// change activity/inactivity
+    	}
+    }
+
+    // MCU GPIO button click => change to home screen & backlight on
+    if(HAL_GPIO_ReadPin(GPIOB, GPIO_PIN_12) == GPIO_PIN_RESET){
+    	brightness_count = 0;
+    	myTempHomeView.changeToHomeScreen();
+    }
+  }
+  /* USER CODE END checkINTTask */
 }
 
 /* Private application code --------------------------------------------------*/
@@ -437,5 +590,8 @@ void read_ppg()
 //	printf("\r\n");
 	free(ssDataEx);
 }
+
+
+
 /* USER CODE END Application */
 

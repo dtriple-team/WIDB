@@ -11,8 +11,8 @@ RM := rm -rf
 -include sources.mk
 -include TouchGFX/target/generated/subdir.mk
 -include TouchGFX/target/subdir.mk
--include TouchGFX/gui/src/wifisetting_screen/subdir.mk
 -include TouchGFX/gui/src/turnoffscreen_screen/subdir.mk
+-include TouchGFX/gui/src/temphome_screen/subdir.mk
 -include TouchGFX/gui/src/systemsetting_screen/subdir.mk
 -include TouchGFX/gui/src/swipedownfromhome_screen/subdir.mk
 -include TouchGFX/gui/src/stepsscreen_screen/subdir.mk
@@ -24,29 +24,23 @@ RM := rm -rf
 -include TouchGFX/gui/src/screensetting_screen/subdir.mk
 -include TouchGFX/gui/src/screenontimesetting_screen/subdir.mk
 -include TouchGFX/gui/src/screenbrightnesssetting_screen/subdir.mk
--include TouchGFX/gui/src/numberkeyboard_screen/subdir.mk
--include TouchGFX/gui/src/notificationscreen_screen/subdir.mk
 -include TouchGFX/gui/src/networkinfosetting_screen/subdir.mk
 -include TouchGFX/gui/src/model/subdir.mk
 -include TouchGFX/gui/src/languagesetting_screen/subdir.mk
--include TouchGFX/gui/src/inout_screen/subdir.mk
+-include TouchGFX/gui/src/initblackscreen_screen/subdir.mk
 -include TouchGFX/gui/src/informationsetting_screen/subdir.mk
 -include TouchGFX/gui/src/homescreenwithbiodata_screen/subdir.mk
 -include TouchGFX/gui/src/heartratescreen_screen/subdir.mk
 -include TouchGFX/gui/src/heartratedetail_screen/subdir.mk
 -include TouchGFX/gui/src/falldetected_screen/subdir.mk
--include TouchGFX/gui/src/englishkeyboard_screen/subdir.mk
--include TouchGFX/gui/src/dispatchorwait_screen/subdir.mk
 -include TouchGFX/gui/src/deviceinfosetting_screen/subdir.mk
 -include TouchGFX/gui/src/containers/subdir.mk
--include TouchGFX/gui/src/communicationcyclesetting_screen/subdir.mk
 -include TouchGFX/gui/src/common/subdir.mk
--include TouchGFX/gui/src/characterkeyboard_screen/subdir.mk
 -include TouchGFX/generated/texts/src/subdir.mk
 -include TouchGFX/generated/images/src/__generated/subdir.mk
 -include TouchGFX/generated/images/src/subdir.mk
--include TouchGFX/generated/gui_generated/src/wifisetting_screen/subdir.mk
 -include TouchGFX/generated/gui_generated/src/turnoffscreen_screen/subdir.mk
+-include TouchGFX/generated/gui_generated/src/temphome_screen/subdir.mk
 -include TouchGFX/generated/gui_generated/src/systemsetting_screen/subdir.mk
 -include TouchGFX/generated/gui_generated/src/swipedownfromhome_screen/subdir.mk
 -include TouchGFX/generated/gui_generated/src/stepsscreen_screen/subdir.mk
@@ -58,23 +52,17 @@ RM := rm -rf
 -include TouchGFX/generated/gui_generated/src/screensetting_screen/subdir.mk
 -include TouchGFX/generated/gui_generated/src/screenontimesetting_screen/subdir.mk
 -include TouchGFX/generated/gui_generated/src/screenbrightnesssetting_screen/subdir.mk
--include TouchGFX/generated/gui_generated/src/numberkeyboard_screen/subdir.mk
--include TouchGFX/generated/gui_generated/src/notificationscreen_screen/subdir.mk
 -include TouchGFX/generated/gui_generated/src/networkinfosetting_screen/subdir.mk
 -include TouchGFX/generated/gui_generated/src/languagesetting_screen/subdir.mk
--include TouchGFX/generated/gui_generated/src/inout_screen/subdir.mk
+-include TouchGFX/generated/gui_generated/src/initblackscreen_screen/subdir.mk
 -include TouchGFX/generated/gui_generated/src/informationsetting_screen/subdir.mk
 -include TouchGFX/generated/gui_generated/src/homescreenwithbiodata_screen/subdir.mk
 -include TouchGFX/generated/gui_generated/src/heartratescreen_screen/subdir.mk
 -include TouchGFX/generated/gui_generated/src/heartratedetail_screen/subdir.mk
 -include TouchGFX/generated/gui_generated/src/falldetected_screen/subdir.mk
--include TouchGFX/generated/gui_generated/src/englishkeyboard_screen/subdir.mk
--include TouchGFX/generated/gui_generated/src/dispatchorwait_screen/subdir.mk
 -include TouchGFX/generated/gui_generated/src/deviceinfosetting_screen/subdir.mk
 -include TouchGFX/generated/gui_generated/src/containers/subdir.mk
--include TouchGFX/generated/gui_generated/src/communicationcyclesetting_screen/subdir.mk
 -include TouchGFX/generated/gui_generated/src/common/subdir.mk
--include TouchGFX/generated/gui_generated/src/characterkeyboard_screen/subdir.mk
 -include TouchGFX/generated/fonts/src/subdir.mk
 -include TouchGFX/build/MINGW32_NT-6.2/touchgfx/framework/source/platform/hal/simulator/sdl2/subdir.mk
 -include TouchGFX/build/MINGW32_NT-6.2/touchgfx/framework/source/platform/driver/touch/subdir.mk
@@ -83,6 +71,10 @@ RM := rm -rf
 -include TouchGFX/build/MINGW32_NT-6.2/gui/src/turnoffscreen_screen/subdir.mk
 -include TouchGFX/build/MINGW32_NT-6.2/gui/src/systemsetting_screen/subdir.mk
 -include TouchGFX/build/MINGW32_NT-6.2/gui/src/swipedownfromhome_screen/subdir.mk
+-include TouchGFX/build/MINGW32_NT-6.2/gui/src/stimulation_time_setting_screen/subdir.mk
+-include TouchGFX/build/MINGW32_NT-6.2/gui/src/stimulation_strength_screen/subdir.mk
+-include TouchGFX/build/MINGW32_NT-6.2/gui/src/stimulation_start_screen/subdir.mk
+-include TouchGFX/build/MINGW32_NT-6.2/gui/src/stimulation_select_screen/subdir.mk
 -include TouchGFX/build/MINGW32_NT-6.2/gui/src/stepsscreen_screen/subdir.mk
 -include TouchGFX/build/MINGW32_NT-6.2/gui/src/spo2screen_screen/subdir.mk
 -include TouchGFX/build/MINGW32_NT-6.2/gui/src/spo2detail_screen/subdir.mk
@@ -98,6 +90,7 @@ RM := rm -rf
 -include TouchGFX/build/MINGW32_NT-6.2/gui/src/model/subdir.mk
 -include TouchGFX/build/MINGW32_NT-6.2/gui/src/languagesetting_screen/subdir.mk
 -include TouchGFX/build/MINGW32_NT-6.2/gui/src/inout_screen/subdir.mk
+-include TouchGFX/build/MINGW32_NT-6.2/gui/src/initblackscreen_screen/subdir.mk
 -include TouchGFX/build/MINGW32_NT-6.2/gui/src/informationsetting_screen/subdir.mk
 -include TouchGFX/build/MINGW32_NT-6.2/gui/src/homescreenwithbiodata_screen/subdir.mk
 -include TouchGFX/build/MINGW32_NT-6.2/gui/src/heartratescreen_screen/subdir.mk
@@ -119,6 +112,10 @@ RM := rm -rf
 -include TouchGFX/build/MINGW32_NT-6.2/generated/gui_generated/src/turnoffscreen_screen/subdir.mk
 -include TouchGFX/build/MINGW32_NT-6.2/generated/gui_generated/src/systemsetting_screen/subdir.mk
 -include TouchGFX/build/MINGW32_NT-6.2/generated/gui_generated/src/swipedownfromhome_screen/subdir.mk
+-include TouchGFX/build/MINGW32_NT-6.2/generated/gui_generated/src/stimulation_time_setting_screen/subdir.mk
+-include TouchGFX/build/MINGW32_NT-6.2/generated/gui_generated/src/stimulation_strength_screen/subdir.mk
+-include TouchGFX/build/MINGW32_NT-6.2/generated/gui_generated/src/stimulation_start_screen/subdir.mk
+-include TouchGFX/build/MINGW32_NT-6.2/generated/gui_generated/src/stimulation_select_screen/subdir.mk
 -include TouchGFX/build/MINGW32_NT-6.2/generated/gui_generated/src/stepsscreen_screen/subdir.mk
 -include TouchGFX/build/MINGW32_NT-6.2/generated/gui_generated/src/spo2screen_screen/subdir.mk
 -include TouchGFX/build/MINGW32_NT-6.2/generated/gui_generated/src/spo2detail_screen/subdir.mk
@@ -133,6 +130,7 @@ RM := rm -rf
 -include TouchGFX/build/MINGW32_NT-6.2/generated/gui_generated/src/networkinfosetting_screen/subdir.mk
 -include TouchGFX/build/MINGW32_NT-6.2/generated/gui_generated/src/languagesetting_screen/subdir.mk
 -include TouchGFX/build/MINGW32_NT-6.2/generated/gui_generated/src/inout_screen/subdir.mk
+-include TouchGFX/build/MINGW32_NT-6.2/generated/gui_generated/src/initblackscreen_screen/subdir.mk
 -include TouchGFX/build/MINGW32_NT-6.2/generated/gui_generated/src/informationsetting_screen/subdir.mk
 -include TouchGFX/build/MINGW32_NT-6.2/generated/gui_generated/src/homescreenwithbiodata_screen/subdir.mk
 -include TouchGFX/build/MINGW32_NT-6.2/generated/gui_generated/src/heartratescreen_screen/subdir.mk
@@ -242,8 +240,8 @@ all: main-build
 main-build: WIDB_jh.elf secondary-outputs
 
 # Tool invocations
-WIDB_jh.elf WIDB_jh.map: $(OBJS) $(USER_OBJS) C:\Users\D-triple\Desktop\WIDB_prj\WIDB\STM32U585AIIXQ_FLASH.ld makefile objects.list $(OPTIONAL_TOOL_DEPS)
-	arm-none-eabi-g++ -o "WIDB_jh.elf" @"objects.list" $(USER_OBJS) $(LIBS) -mcpu=cortex-m33 -T"C:\Users\D-triple\Desktop\WIDB_prj\WIDB\STM32U585AIIXQ_FLASH.ld" -Wl,-Map="WIDB_jh.map" -Wl,--gc-sections -static -L"C:\Users\D-triple\Desktop\WIDB_prj\WIDB\Middlewares\ST\touchgfx\lib\core\cortex_m33\gcc" --specs=nano.specs -mfpu=fpv5-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -lstdc++ -lsupc++ -Wl,--end-group
+WIDB_jh.elf WIDB_jh.map: $(OBJS) $(USER_OBJS) C:\Users\D-triple\Desktop\WIDB_prj\WIDB_FFWB_GUI_backup_internalmemory\STM32U585AIIXQ_FLASH.ld makefile objects.list $(OPTIONAL_TOOL_DEPS)
+	arm-none-eabi-g++ -o "WIDB_jh.elf" @"objects.list" $(USER_OBJS) $(LIBS) -mcpu=cortex-m33 -T"C:\Users\D-triple\Desktop\WIDB_prj\WIDB_FFWB_GUI_backup_internalmemory\STM32U585AIIXQ_FLASH.ld" -Wl,-Map="WIDB_jh.map" -Wl,--gc-sections -static -L"C:\Users\D-triple\Desktop\WIDB_prj\WIDB_FFWB_GUI_backup_internalmemory\Middlewares\ST\touchgfx\lib\core\cortex_m33\gcc" --specs=nano.specs -mfpu=fpv5-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -lstdc++ -lsupc++ -Wl,--end-group
 	@echo 'Finished building target: $@'
 	@echo ' '
 

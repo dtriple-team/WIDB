@@ -12,6 +12,7 @@
 #include <touchgfx/widgets/TextArea.hpp>
 #include <touchgfx/widgets/TextAreaWithWildcard.hpp>
 #include <touchgfx/containers/progress_indicators/ImageProgress.hpp>
+#include <touchgfx/widgets/Button.hpp>
 
 class Spo2ScreenViewBase : public touchgfx::View<Spo2ScreenPresenter>
 {
@@ -19,15 +20,6 @@ public:
     Spo2ScreenViewBase();
     virtual ~Spo2ScreenViewBase();
     virtual void setupScreen();
-    virtual void handleTickEvent();
-
-    /*
-     * Virtual Action Handlers
-     */
-    virtual void changeSpO2Val()
-    {
-        // Override and implement this function in Spo2Screen
-    }
 
 protected:
     FrontendApplication& application() {
@@ -39,17 +31,31 @@ protected:
      */
     touchgfx::Box __background;
     touchgfx::Image background;
-    touchgfx::TextArea Spo2;
-    touchgfx::TextAreaWithOneWildcard textArea1;
+    touchgfx::TextArea spo2_label;
+    touchgfx::TextAreaWithOneWildcard spo2_value;
+    touchgfx::Box topright_box;
+    touchgfx::Box topleft_box;
     touchgfx::ImageProgress batteryprogress;
+    touchgfx::Image catm1_image;
+    touchgfx::Button spo2_detail_button;
 
     /*
      * Wildcard Buffers
      */
-    static const uint16_t TEXTAREA1_SIZE = 5;
-    touchgfx::Unicode::UnicodeChar textArea1Buffer[TEXTAREA1_SIZE];
+    static const uint16_t SPO2_VALUE_SIZE = 4;
+    touchgfx::Unicode::UnicodeChar spo2_valueBuffer[SPO2_VALUE_SIZE];
 
 private:
+
+    /*
+     * Callback Declarations
+     */
+    touchgfx::Callback<Spo2ScreenViewBase, const touchgfx::AbstractButton&> buttonCallback;
+
+    /*
+     * Callback Handler Declarations
+     */
+    void buttonCallbackHandler(const touchgfx::AbstractButton& src);
 
 };
 

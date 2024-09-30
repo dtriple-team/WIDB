@@ -19,6 +19,11 @@ public:
     virtual ~fallDetectedViewBase();
     virtual void setupScreen();
 
+    /*
+     * Custom Actions
+     */
+    virtual void changeToFallDetected();
+
 protected:
     FrontendApplication& application() {
         return *static_cast<FrontendApplication*>(touchgfx::Application::getInstance());
@@ -29,10 +34,12 @@ protected:
      */
     touchgfx::Box __background;
     touchgfx::Image background;
-    touchgfx::TextArea falldetectiontext;
+    touchgfx::TextArea textArea1;
     touchgfx::ImageProgress batteryprogress;
     touchgfx::Image image1;
-    touchgfx::TextArea textArea1;
+    touchgfx::TextArea textArea2;
+    touchgfx::Box topleft_box;
+    touchgfx::Image image2;
 
 private:
 

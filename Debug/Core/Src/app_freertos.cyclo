@@ -1,8 +1,0 @@
-../Core/Src/app_freertos.cpp:135:6:void MX_FREERTOS_Init()	1
-../Core/Src/app_freertos.cpp:190:6:void StartInitTask(void*)	1
-../Core/Src/app_freertos.cpp:249:6:void StartlcdTask(void*)	2
-../Core/Src/app_freertos.cpp:271:6:void StartPPMTask(void*)	2
-../Core/Src/app_freertos.cpp:292:6:void StartWPMTask(void*)	1
-../Core/Src/app_freertos.cpp:312:6:void StartSPMTask(void*)	3
-../Core/Src/app_freertos.cpp:377:6:void StartSecTimerTask(void*)	3
-../Core/Src/app_freertos.cpp:408:6:void read_ppg()	4

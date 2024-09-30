@@ -11,8 +11,8 @@
 #include <touchgfx/widgets/Image.hpp>
 #include <touchgfx/widgets/ToggleButton.hpp>
 #include <touchgfx/widgets/Button.hpp>
-#include <touchgfx/containers/progress_indicators/ImageProgress.hpp>
 #include <touchgfx/containers/Slider.hpp>
+#include <touchgfx/containers/progress_indicators/ImageProgress.hpp>
 
 class swipedownfromHomeViewBase : public touchgfx::View<swipedownfromHomePresenter>
 {
@@ -31,20 +31,25 @@ protected:
      */
     touchgfx::Box __background;
     touchgfx::Image background;
-    touchgfx::ToggleButton toggleButton1;
-    touchgfx::ToggleButton toggleButton2;
-    touchgfx::Button button1;
-    touchgfx::Image image1;
-    touchgfx::Image image2;
-    touchgfx::Image image3;
-    touchgfx::Button button2;
-    touchgfx::Button button3;
-    touchgfx::Button button4;
-    touchgfx::Button button5;
-    touchgfx::ImageProgress batteryprogress;
+    touchgfx::ToggleButton haptic_togglebutton;
+    touchgfx::ToggleButton sound_togglebutton;
+    touchgfx::Button setting_button;
+    touchgfx::ToggleButton wifi_togglebutton;
+    touchgfx::ToggleButton bluetooth_togglebutton;
+    touchgfx::Button information_button;
+    touchgfx::ToggleButton flashlight_togglebutton;
     touchgfx::Slider slider1;
-    touchgfx::Image image4;
-    touchgfx::Button button6;
+    touchgfx::Image haptic_image;
+    touchgfx::Image sound_image;
+    touchgfx::Image setting_image;
+    touchgfx::Image information_image;
+    touchgfx::Image brightness_image;
+    touchgfx::Image flashlight_image;
+    touchgfx::Box topright_box;
+    touchgfx::Box topleft_box;
+    touchgfx::ImageProgress batteryprogress;
+    touchgfx::Button buttonfornothing;
+    touchgfx::Image catm1_image;
 
 private:
 

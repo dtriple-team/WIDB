@@ -33,13 +33,22 @@ protected:
      */
     touchgfx::Box __background;
     touchgfx::Image background;
-    touchgfx::TextArea Heartrate;
-    touchgfx::Image image1;
-    touchgfx::TextAreaWithOneWildcard curhrdetail;
+    touchgfx::TextArea heartrate_label;
+    touchgfx::Image heartrate_image;
+    touchgfx::TextAreaWithOneWildcard heartrate_value;
+    touchgfx::Box topright_box;
+    touchgfx::Box topleft_box;
     touchgfx::ImageProgress batteryprogress;
-    touchgfx::GraphWrapAndOverwrite<24> dynamicGraph1;
-    touchgfx::GraphElementLine dynamicGraph1Line1;
-    touchgfx::PainterRGB565 dynamicGraph1Line1Painter;
+    touchgfx::GraphWrapAndOverwrite<24> heartrate_detail_graph;
+    touchgfx::GraphElementLine heartrate_detail_graphLine1;
+    touchgfx::PainterRGB565 heartrate_detail_graphLine1Painter;
+    touchgfx::Image catm1_image;
+
+    /*
+     * Wildcard Buffers
+     */
+    static const uint16_t HEARTRATE_VALUE_SIZE = 4;
+    touchgfx::Unicode::UnicodeChar heartrate_valueBuffer[HEARTRATE_VALUE_SIZE];
 
 private:
 

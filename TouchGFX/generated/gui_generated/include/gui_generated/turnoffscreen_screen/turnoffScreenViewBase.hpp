@@ -9,7 +9,8 @@
 #include <gui/turnoffscreen_screen/turnoffScreenPresenter.hpp>
 #include <touchgfx/widgets/Box.hpp>
 #include <touchgfx/widgets/Image.hpp>
-#include <touchgfx/widgets/TextAreaWithWildcard.hpp>
+#include <touchgfx/widgets/TextArea.hpp>
+#include <touchgfx/widgets/Button.hpp>
 
 class turnoffScreenViewBase : public touchgfx::View<turnoffScreenPresenter>
 {
@@ -28,9 +29,23 @@ protected:
      */
     touchgfx::Box __background;
     touchgfx::Image background;
-    touchgfx::TextAreaWithOneWildcard textArea1;
+    touchgfx::TextArea yousure_label;
+    touchgfx::Button no_button;
+    touchgfx::Button yes_button;
+    touchgfx::TextArea yes_label;
+    touchgfx::TextArea no_label;
 
 private:
+
+    /*
+     * Callback Declarations
+     */
+    touchgfx::Callback<turnoffScreenViewBase, const touchgfx::AbstractButton&> buttonCallback;
+
+    /*
+     * Callback Handler Declarations
+     */
+    void buttonCallbackHandler(const touchgfx::AbstractButton& src);
 
 };
 

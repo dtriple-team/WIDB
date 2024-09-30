@@ -31,15 +31,21 @@ protected:
      */
     touchgfx::Box __background;
     touchgfx::Image background;
-    touchgfx::TextArea Screen;
-    touchgfx::Image image1;
-    touchgfx::Image image1_1;
-    touchgfx::TextArea textArea1;
-    touchgfx::TextArea textArea2;
-    touchgfx::RadioButtonGroup<2> radioButtonGroup1;
+    touchgfx::TextArea language_label;
+    touchgfx::Image korean_icon_back;
+    touchgfx::Image english_icon_back;
+    touchgfx::Image spanish_icon_back;
+    touchgfx::TextArea korean_label;
+    touchgfx::TextArea english_label;
+    touchgfx::TextArea spanish_label;
+    touchgfx::RadioButtonGroup<3> radioButtonGroup1;
     touchgfx::RadioButton radioButton1;
     touchgfx::RadioButton radioButton2;
+    touchgfx::RadioButton radioButton3;
     touchgfx::ImageProgress batteryprogress;
+    touchgfx::Image korean_image;
+    touchgfx::Image english_image;
+    touchgfx::Image spanish_image;
 
 private:
 

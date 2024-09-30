@@ -127,12 +127,14 @@ int main(void)
   MX_I2C2_Init();
   MX_TIM5_Init();
   MX_RTC_Init();
+  MX_TIM17_Init();
   MX_TouchGFX_Init();
   /* Call PreOsInit function */
   MX_TouchGFX_PreOSInit();
   /* USER CODE BEGIN 2 */
   HAL_TIM_Base_Start(&htim15);
   HAL_TIM_Base_Start_IT(&htim4);
+  HAL_TIM_Base_Start_IT(&htim17);
   /* USER CODE END 2 */
 
   /* Init scheduler */
@@ -226,6 +228,26 @@ void SystemClock_Config(void)
 extern uint8_t ssRunFlag;
 extern void read_ppg();
 
+uint8_t secTime = 0;
+
+uint8_t occurred_imuInterrupt = 0;
+
+void HAL_GPIO_EXTI_Rising_Callback(uint16_t GPIO_Pin)
+{
+  if(GPIO_Pin == MAG_INT_Pin){
+  }
+  else if(GPIO_Pin == IMU_INT_Pin){
+	  occurred_imuInterrupt = 1;
+  }
+  else if(GPIO_Pin == PRESS_INT_Pin){
+  }
+  else if(GPIO_Pin == TP_INT_Pin){
+  }
+  else if(GPIO_Pin == PMIC_INT_Pin){
+  }
+  else if(GPIO_Pin == PMIC_BUTT_INT_Pin){
+  }
+}
 /* USER CODE END 4 */
 
 /**
@@ -251,12 +273,15 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
 	  {
 		  read_ppg();
 	  }
+  }
+  if(htim->Instance == TIM17)
+  {
 	HAL_RTC_GetDate(&hrtc, &sDate, RTC_FORMAT_BIN);
 	HAL_RTC_GetTime(&hrtc, &sTime, RTC_FORMAT_BIN);
-  }
-  if(htim->Instance == TIM15)
-  {
-
+	secTime++;
+	if(secTime%60 == 0){
+		secTime = 0;
+	}
   }
   /* USER CODE END Callback 1 */
 }

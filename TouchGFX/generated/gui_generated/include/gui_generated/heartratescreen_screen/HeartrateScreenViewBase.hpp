@@ -12,6 +12,7 @@
 #include <touchgfx/widgets/TextArea.hpp>
 #include <touchgfx/widgets/TextAreaWithWildcard.hpp>
 #include <touchgfx/containers/progress_indicators/ImageProgress.hpp>
+#include <touchgfx/widgets/Button.hpp>
 
 class HeartrateScreenViewBase : public touchgfx::View<HeartrateScreenPresenter>
 {
@@ -19,15 +20,6 @@ public:
     HeartrateScreenViewBase();
     virtual ~HeartrateScreenViewBase();
     virtual void setupScreen();
-    virtual void handleTickEvent();
-
-    /*
-     * Virtual Action Handlers
-     */
-    virtual void changeHRVal()
-    {
-        // Override and implement this function in HeartrateScreen
-    }
 
 protected:
     FrontendApplication& application() {
@@ -39,17 +31,31 @@ protected:
      */
     touchgfx::Box __background;
     touchgfx::Image background;
-    touchgfx::TextArea Heartrate;
-    touchgfx::TextAreaWithOneWildcard textArea1;
+    touchgfx::TextArea heartrate_label;
+    touchgfx::TextAreaWithOneWildcard heartrate_value;
+    touchgfx::Box topright_box;
+    touchgfx::Box topleft_box;
     touchgfx::ImageProgress batteryprogress;
+    touchgfx::Image catm1_button;
+    touchgfx::Button heartrate_detail_button;
 
     /*
      * Wildcard Buffers
      */
-    static const uint16_t TEXTAREA1_SIZE = 10;
-    touchgfx::Unicode::UnicodeChar textArea1Buffer[TEXTAREA1_SIZE];
+    static const uint16_t HEARTRATE_VALUE_SIZE = 4;
+    touchgfx::Unicode::UnicodeChar heartrate_valueBuffer[HEARTRATE_VALUE_SIZE];
 
 private:
+
+    /*
+     * Callback Declarations
+     */
+    touchgfx::Callback<HeartrateScreenViewBase, const touchgfx::AbstractButton&> buttonCallback;
+
+    /*
+     * Callback Handler Declarations
+     */
+    void buttonCallbackHandler(const touchgfx::AbstractButton& src);
 
 };
 

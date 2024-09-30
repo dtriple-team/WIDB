@@ -27,27 +27,20 @@ public:
 
     void gotoHomeScreenWithBiodataScreenWipeTransitionSouth();
 
-    void gotoHomeScreenWithBiodataScreenWipeTransitionNorth();
+    // HeartrateDetail
+    void gotoHeartrateDetailScreenCoverTransitionEast();
 
-    // SleepScreen
-    void gotoSleepScreenScreenCoverTransitionEast();
+    void gotoHeartrateDetailScreenWipeTransitionSouth();
 
-    // Spo2Screen
-    void gotoSpo2ScreenScreenCoverTransitionEast();
+    // Spo2Detail
+    void gotoSpo2DetailScreenCoverTransitionEast();
 
-    // HeartrateScreen
-    void gotoHeartrateScreenScreenCoverTransitionEast();
-
-    // StepsScreen
-    void gotoStepsScreenScreenCoverTransitionEast();
+    void gotoSpo2DetailScreenWipeTransitionSouth();
 
     // swipedownfromHome
     void gotoswipedownfromHomeScreenCoverTransitionNorth();
 
     void gotoswipedownfromHomeScreenWipeTransitionWest();
-
-    // NotificationScreen
-    void gotoNotificationScreenScreenCoverTransitionSouth();
 
     // SettingScreen
     void gotoSettingScreenScreenWipeTransitionNorth();
@@ -71,10 +64,9 @@ public:
     // languageSetting
     void gotolanguageSettingScreenCoverTransitionEast();
 
-    // wifiSetting
-    void gotowifiSettingScreenCoverTransitionEast();
-
     // informationSetting
+    void gotoinformationSettingScreenWipeTransitionNorth();
+
     void gotoinformationSettingScreenCoverTransitionEast();
 
     void gotoinformationSettingScreenWipeTransitionWest();
@@ -85,23 +77,17 @@ public:
     // networkInfoSetting
     void gotonetworkInfoSettingScreenCoverTransitionEast();
 
-    // communicationCycleSetting
-    void gotocommunicationCycleSettingScreenCoverTransitionEast();
-
     // systemSetting
     void gotosystemSettingScreenCoverTransitionEast();
 
     // turnoffScreen
     void gototurnoffScreenScreenNoTransition();
 
-    // englishKeyboard
-    void gotoenglishKeyboardScreenNoTransition();
+    // fallDetected
+    void gotofallDetectedScreenNoTransition();
 
-    // numberKeyboard
-    void gotonumberKeyboardScreenNoTransition();
-
-    // characterKeyboard
-    void gotocharacterKeyboardScreenNoTransition();
+    // initBlackScreen
+    void gotoinitBlackScreenScreenNoTransition();
 
 protected:
     touchgfx::Callback<FrontendApplicationBase> transitionCallback;
@@ -115,27 +101,20 @@ protected:
 
     void gotoHomeScreenWithBiodataScreenWipeTransitionSouthImpl();
 
-    void gotoHomeScreenWithBiodataScreenWipeTransitionNorthImpl();
+    // HeartrateDetail
+    void gotoHeartrateDetailScreenCoverTransitionEastImpl();
 
-    // SleepScreen
-    void gotoSleepScreenScreenCoverTransitionEastImpl();
+    void gotoHeartrateDetailScreenWipeTransitionSouthImpl();
 
-    // Spo2Screen
-    void gotoSpo2ScreenScreenCoverTransitionEastImpl();
+    // Spo2Detail
+    void gotoSpo2DetailScreenCoverTransitionEastImpl();
 
-    // HeartrateScreen
-    void gotoHeartrateScreenScreenCoverTransitionEastImpl();
-
-    // StepsScreen
-    void gotoStepsScreenScreenCoverTransitionEastImpl();
+    void gotoSpo2DetailScreenWipeTransitionSouthImpl();
 
     // swipedownfromHome
     void gotoswipedownfromHomeScreenCoverTransitionNorthImpl();
 
     void gotoswipedownfromHomeScreenWipeTransitionWestImpl();
-
-    // NotificationScreen
-    void gotoNotificationScreenScreenCoverTransitionSouthImpl();
 
     // SettingScreen
     void gotoSettingScreenScreenWipeTransitionNorthImpl();
@@ -159,10 +138,9 @@ protected:
     // languageSetting
     void gotolanguageSettingScreenCoverTransitionEastImpl();
 
-    // wifiSetting
-    void gotowifiSettingScreenCoverTransitionEastImpl();
-
     // informationSetting
+    void gotoinformationSettingScreenWipeTransitionNorthImpl();
+
     void gotoinformationSettingScreenCoverTransitionEastImpl();
 
     void gotoinformationSettingScreenWipeTransitionWestImpl();
@@ -173,23 +151,17 @@ protected:
     // networkInfoSetting
     void gotonetworkInfoSettingScreenCoverTransitionEastImpl();
 
-    // communicationCycleSetting
-    void gotocommunicationCycleSettingScreenCoverTransitionEastImpl();
-
     // systemSetting
     void gotosystemSettingScreenCoverTransitionEastImpl();
 
     // turnoffScreen
     void gototurnoffScreenScreenNoTransitionImpl();
 
-    // englishKeyboard
-    void gotoenglishKeyboardScreenNoTransitionImpl();
+    // fallDetected
+    void gotofallDetectedScreenNoTransitionImpl();
 
-    // numberKeyboard
-    void gotonumberKeyboardScreenNoTransitionImpl();
-
-    // characterKeyboard
-    void gotocharacterKeyboardScreenNoTransitionImpl();
+    // initBlackScreen
+    void gotoinitBlackScreenScreenNoTransitionImpl();
 };
 
 #endif // FRONTENDAPPLICATIONBASE_HPP

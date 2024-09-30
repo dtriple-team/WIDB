@@ -31,8 +31,6 @@
 #include <gui/spo2detail_screen/Spo2DetailPresenter.hpp>
 #include <gui/swipedownfromhome_screen/swipedownfromHomeView.hpp>
 #include <gui/swipedownfromhome_screen/swipedownfromHomePresenter.hpp>
-#include <gui/notificationscreen_screen/NotificationScreenView.hpp>
-#include <gui/notificationscreen_screen/NotificationScreenPresenter.hpp>
 #include <gui/settingscreen_screen/SettingScreenView.hpp>
 #include <gui/settingscreen_screen/SettingScreenPresenter.hpp>
 #include <gui/screensetting_screen/screenSettingView.hpp>
@@ -45,32 +43,22 @@
 #include <gui/soundnhapticssetting_screen/soundnhapticsSettingPresenter.hpp>
 #include <gui/languagesetting_screen/languageSettingView.hpp>
 #include <gui/languagesetting_screen/languageSettingPresenter.hpp>
-#include <gui/wifisetting_screen/wifiSettingView.hpp>
-#include <gui/wifisetting_screen/wifiSettingPresenter.hpp>
 #include <gui/informationsetting_screen/informationSettingView.hpp>
 #include <gui/informationsetting_screen/informationSettingPresenter.hpp>
 #include <gui/deviceinfosetting_screen/deviceInfoSettingView.hpp>
 #include <gui/deviceinfosetting_screen/deviceInfoSettingPresenter.hpp>
 #include <gui/networkinfosetting_screen/networkInfoSettingView.hpp>
 #include <gui/networkinfosetting_screen/networkInfoSettingPresenter.hpp>
-#include <gui/communicationcyclesetting_screen/communicationCycleSettingView.hpp>
-#include <gui/communicationcyclesetting_screen/communicationCycleSettingPresenter.hpp>
 #include <gui/systemsetting_screen/systemSettingView.hpp>
 #include <gui/systemsetting_screen/systemSettingPresenter.hpp>
 #include <gui/turnoffscreen_screen/turnoffScreenView.hpp>
 #include <gui/turnoffscreen_screen/turnoffScreenPresenter.hpp>
-#include <gui/englishkeyboard_screen/englishKeyboardView.hpp>
-#include <gui/englishkeyboard_screen/englishKeyboardPresenter.hpp>
-#include <gui/numberkeyboard_screen/numberKeyboardView.hpp>
-#include <gui/numberkeyboard_screen/numberKeyboardPresenter.hpp>
-#include <gui/characterkeyboard_screen/characterKeyboardView.hpp>
-#include <gui/characterkeyboard_screen/characterKeyboardPresenter.hpp>
-#include <gui/dispatchorwait_screen/dispatchorwaitView.hpp>
-#include <gui/dispatchorwait_screen/dispatchorwaitPresenter.hpp>
 #include <gui/falldetected_screen/fallDetectedView.hpp>
 #include <gui/falldetected_screen/fallDetectedPresenter.hpp>
-#include <gui/inout_screen/inoutView.hpp>
-#include <gui/inout_screen/inoutPresenter.hpp>
+#include <gui/initblackscreen_screen/initBlackScreenView.hpp>
+#include <gui/initblackscreen_screen/initBlackScreenPresenter.hpp>
+#include <gui/temphome_screen/tempHomeView.hpp>
+#include <gui/temphome_screen/tempHomePresenter.hpp>
 
 
 /**
@@ -101,27 +89,21 @@ public:
             touchgfx::meta::TypeList< HeartrateDetailView,
             touchgfx::meta::TypeList< Spo2DetailView,
             touchgfx::meta::TypeList< swipedownfromHomeView,
-            touchgfx::meta::TypeList< NotificationScreenView,
             touchgfx::meta::TypeList< SettingScreenView,
             touchgfx::meta::TypeList< screenSettingView,
             touchgfx::meta::TypeList< screenontimeSettingView,
             touchgfx::meta::TypeList< screenbrightnessSettingView,
             touchgfx::meta::TypeList< soundnhapticsSettingView,
             touchgfx::meta::TypeList< languageSettingView,
-            touchgfx::meta::TypeList< wifiSettingView,
             touchgfx::meta::TypeList< informationSettingView,
             touchgfx::meta::TypeList< deviceInfoSettingView,
             touchgfx::meta::TypeList< networkInfoSettingView,
-            touchgfx::meta::TypeList< communicationCycleSettingView,
             touchgfx::meta::TypeList< systemSettingView,
             touchgfx::meta::TypeList< turnoffScreenView,
-            touchgfx::meta::TypeList< englishKeyboardView,
-            touchgfx::meta::TypeList< numberKeyboardView,
-            touchgfx::meta::TypeList< characterKeyboardView,
-            touchgfx::meta::TypeList< dispatchorwaitView,
             touchgfx::meta::TypeList< fallDetectedView,
-            touchgfx::meta::TypeList< inoutView,
-            touchgfx::meta::Nil > > > > > > > > > > > > > > > > > > > > > > > > > > >
+            touchgfx::meta::TypeList< initBlackScreenView,
+            touchgfx::meta::TypeList< tempHomeView,
+            touchgfx::meta::Nil > > > > > > > > > > > > > > > > > > > > >
             > GeneratedViewTypes;
 
     /**
@@ -141,27 +123,21 @@ public:
             touchgfx::meta::TypeList< HeartrateDetailPresenter,
             touchgfx::meta::TypeList< Spo2DetailPresenter,
             touchgfx::meta::TypeList< swipedownfromHomePresenter,
-            touchgfx::meta::TypeList< NotificationScreenPresenter,
             touchgfx::meta::TypeList< SettingScreenPresenter,
             touchgfx::meta::TypeList< screenSettingPresenter,
             touchgfx::meta::TypeList< screenontimeSettingPresenter,
             touchgfx::meta::TypeList< screenbrightnessSettingPresenter,
             touchgfx::meta::TypeList< soundnhapticsSettingPresenter,
             touchgfx::meta::TypeList< languageSettingPresenter,
-            touchgfx::meta::TypeList< wifiSettingPresenter,
             touchgfx::meta::TypeList< informationSettingPresenter,
             touchgfx::meta::TypeList< deviceInfoSettingPresenter,
             touchgfx::meta::TypeList< networkInfoSettingPresenter,
-            touchgfx::meta::TypeList< communicationCycleSettingPresenter,
             touchgfx::meta::TypeList< systemSettingPresenter,
             touchgfx::meta::TypeList< turnoffScreenPresenter,
-            touchgfx::meta::TypeList< englishKeyboardPresenter,
-            touchgfx::meta::TypeList< numberKeyboardPresenter,
-            touchgfx::meta::TypeList< characterKeyboardPresenter,
-            touchgfx::meta::TypeList< dispatchorwaitPresenter,
             touchgfx::meta::TypeList< fallDetectedPresenter,
-            touchgfx::meta::TypeList< inoutPresenter,
-            touchgfx::meta::Nil > > > > > > > > > > > > > > > > > > > > > > > > > > >
+            touchgfx::meta::TypeList< initBlackScreenPresenter,
+            touchgfx::meta::TypeList< tempHomePresenter,
+            touchgfx::meta::Nil > > > > > > > > > > > > > > > > > > > > >
             > GeneratedPresenterTypes;
 
     /**
@@ -174,13 +150,12 @@ public:
      * @note All transition types used in the application MUST be added to this list!
      */
     typedef touchgfx::meta::TypeList< touchgfx::NoTransition,
-            touchgfx::meta::TypeList< CoverTransition<EAST>,
             touchgfx::meta::TypeList< CoverTransition<NORTH>,
-            touchgfx::meta::TypeList< CoverTransition<SOUTH>,
+            touchgfx::meta::TypeList< CoverTransition<EAST>,
             touchgfx::meta::TypeList< WipeTransition<WEST>,
-            touchgfx::meta::TypeList< WipeTransition<NORTH>,
             touchgfx::meta::TypeList< WipeTransition<SOUTH>,
-            touchgfx::meta::Nil > > > > > >
+            touchgfx::meta::TypeList< WipeTransition<NORTH>,
+            touchgfx::meta::Nil > > > > >
             > GeneratedTransitionTypes;
 
     /**
