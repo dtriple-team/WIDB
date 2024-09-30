@@ -27,12 +27,16 @@ void screenbrightnessSettingView::handleGestureEvent(const GestureEvent& evt)
 {
     if (evt.getType() == GestureEvent::SWIPE_HORIZONTAL)
     {
-        int deltaX = evt.getVelocity();
-        if (deltaX > 0) // 오른쪽으로 스와이프
-        {
-            // 스와이프 이벤트 처리
-            presenter->notifySwipeRight();
-        }
+    	int deltaX = evt.getVelocity();
+        //int deltaY = evt.getVelocityY();
+
+        //if(abs(deltaX)>abs(deltaY))
+        //{
+			if (deltaX > 0)
+			{
+				presenter->notifySwipeRight();
+			}
+        //}
     }
     screenbrightnessSettingViewBase::handleGestureEvent(evt);
 }
@@ -47,5 +51,5 @@ extern uint8_t set_bLevel;
 void screenbrightnessSettingView::slider1ChangedHandler(const Slider& src, int value)
 {
     presenter->updateSlider1Value(value);
-    set_bLevel = value+1;
+    set_bLevel = value/6.67+1;
 }

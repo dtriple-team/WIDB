@@ -11,4 +11,4 @@
 ../TouchGFX/gui/src/screensetting_screen/screenSettingView.cpp:12:6:virtual void screenSettingView::setupScreen()	16	static
 ../TouchGFX/gui/src/screensetting_screen/screenSettingView.cpp:17:6:virtual void screenSettingView::tearDownScreen()	16	static
 ../TouchGFX/gui/src/screensetting_screen/screenSettingView.cpp:22:6:virtual void screenSettingView::handleGestureEvent(const touchgfx::GestureEvent&)	24	static
-../TouchGFX/gui/src/screensetting_screen/screenSettingView.cpp:36:6:void screenSettingView::handleSwipeRight()	16	static
+../TouchGFX/gui/src/screensetting_screen/screenSettingView.cpp:40:6:void screenSettingView::handleSwipeRight()	16	static

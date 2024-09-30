@@ -17,32 +17,32 @@ systemSettingViewBase::systemSettingViewBase() :
     background.setBitmap(touchgfx::Bitmap(BITMAP_BACKGROUND_ID));
     add(background);
 
-    NetworkInfo.setPosition(0, 6, 240, 25);
-    NetworkInfo.setColor(touchgfx::Color::getColorFromRGB(255, 255, 255));
-    NetworkInfo.setLinespacing(0);
-    NetworkInfo.setTypedText(touchgfx::TypedText(T_SYSTEM));
-    add(NetworkInfo);
+    system_label.setPosition(0, 6, 240, 25);
+    system_label.setColor(touchgfx::Color::getColorFromRGB(255, 255, 255));
+    system_label.setLinespacing(0);
+    system_label.setTypedText(touchgfx::TypedText(T_SYSTEM));
+    add(system_label);
 
-    button1.setXY(20, 66);
-    button1.setBitmaps(touchgfx::Bitmap(BITMAP_RECTANGLE_32_ID), touchgfx::Bitmap(BITMAP_RECTANGLE_32_D_ID));
-    add(button1);
+    reset_button.setXY(20, 66);
+    reset_button.setBitmaps(touchgfx::Bitmap(BITMAP_RECTANGLE_32_ID), touchgfx::Bitmap(BITMAP_RECTANGLE_32_D_ID));
+    add(reset_button);
 
-    button2.setXY(20, 161);
-    button2.setBitmaps(touchgfx::Bitmap(BITMAP_RECTANGLE_31_ID), touchgfx::Bitmap(BITMAP_RECTANGLE_31_D_ID));
-    button2.setAction(buttonCallback);
-    add(button2);
+    poweroff_button.setXY(20, 161);
+    poweroff_button.setBitmaps(touchgfx::Bitmap(BITMAP_RECTANGLE_31_ID), touchgfx::Bitmap(BITMAP_RECTANGLE_31_D_ID));
+    poweroff_button.setAction(buttonCallback);
+    add(poweroff_button);
 
-    textArea1.setPosition(20, 80, 200, 29);
-    textArea1.setColor(touchgfx::Color::getColorFromRGB(255, 255, 255));
-    textArea1.setLinespacing(0);
-    textArea1.setTypedText(touchgfx::TypedText(T_RESETTEXT));
-    add(textArea1);
+    reset_label.setPosition(20, 80, 200, 29);
+    reset_label.setColor(touchgfx::Color::getColorFromRGB(255, 255, 255));
+    reset_label.setLinespacing(0);
+    reset_label.setTypedText(touchgfx::TypedText(T_RESETTEXT));
+    add(reset_label);
 
-    textArea2.setPosition(20, 175, 200, 29);
-    textArea2.setColor(touchgfx::Color::getColorFromRGB(255, 255, 255));
-    textArea2.setLinespacing(0);
-    textArea2.setTypedText(touchgfx::TypedText(T_POWEROFFTEXT));
-    add(textArea2);
+    poweroff_label.setPosition(20, 175, 200, 29);
+    poweroff_label.setColor(touchgfx::Color::getColorFromRGB(255, 255, 255));
+    poweroff_label.setLinespacing(0);
+    poweroff_label.setTypedText(touchgfx::TypedText(T_POWEROFFTEXT));
+    add(poweroff_label);
 
     batteryprogress.setXY(197, 8);
     batteryprogress.setProgressIndicatorPosition(2, 2, 27, 11);
@@ -67,10 +67,10 @@ void systemSettingViewBase::setupScreen()
 
 void systemSettingViewBase::buttonCallbackHandler(const touchgfx::AbstractButton& src)
 {
-    if (&src == &button2)
+    if (&src == &poweroff_button)
     {
         //poweroffbtn_pressed
-        //When button2 clicked change screen to turnoffScreen
+        //When poweroff_button clicked change screen to turnoffScreen
         //Go to turnoffScreen with no screen transition
         application().gototurnoffScreenScreenNoTransition();
     }

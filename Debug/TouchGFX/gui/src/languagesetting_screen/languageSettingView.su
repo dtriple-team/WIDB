@@ -12,5 +12,5 @@
 ../TouchGFX/gui/src/languagesetting_screen/languageSettingView.cpp:13:6:virtual void languageSettingView::setupScreen()	16	static
 ../TouchGFX/gui/src/languagesetting_screen/languageSettingView.cpp:19:6:virtual void languageSettingView::tearDownScreen()	16	static
 ../TouchGFX/gui/src/languagesetting_screen/languageSettingView.cpp:24:6:virtual void languageSettingView::handleGestureEvent(const touchgfx::GestureEvent&)	24	static
-../TouchGFX/gui/src/languagesetting_screen/languageSettingView.cpp:38:6:void languageSettingView::handleSwipeRight()	16	static
-../TouchGFX/gui/src/languagesetting_screen/languageSettingView.cpp:44:6:void languageSettingView::updateLanguageSelection()	16	static
+../TouchGFX/gui/src/languagesetting_screen/languageSettingView.cpp:42:6:void languageSettingView::handleSwipeRight()	16	static
+../TouchGFX/gui/src/languagesetting_screen/languageSettingView.cpp:48:6:void languageSettingView::updateLanguageSelection()	16	static

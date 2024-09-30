@@ -31,4 +31,3 @@ all assets: $(filter clean,$(MAKECMDGOALS))
 all clean assets:
 	@$(MAKE) -r -f generated/simulator/gcc/Makefile -s $(MFLAGS) $@ -C "$(application_path)"
 endif
-

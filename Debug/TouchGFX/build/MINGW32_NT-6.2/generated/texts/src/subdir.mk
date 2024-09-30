@@ -7,6 +7,7 @@
 O_SRCS += \
 ../TouchGFX/build/MINGW32_NT-6.2/generated/texts/src/LanguageGb.o \
 ../TouchGFX/build/MINGW32_NT-6.2/generated/texts/src/LanguageKorean.o \
+../TouchGFX/build/MINGW32_NT-6.2/generated/texts/src/LanguageSpanish.o \
 ../TouchGFX/build/MINGW32_NT-6.2/generated/texts/src/Texts.o \
 ../TouchGFX/build/MINGW32_NT-6.2/generated/texts/src/TypedTextDatabase.o 
 

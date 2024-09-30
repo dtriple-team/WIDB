@@ -6,7 +6,8 @@
 #include <images/BitmapDatabase.hpp>
 #include <texts/TextKeysAndLanguages.hpp>
 
-HeartrateScreenViewBase::HeartrateScreenViewBase()
+HeartrateScreenViewBase::HeartrateScreenViewBase() :
+    buttonCallback(this, &HeartrateScreenViewBase::buttonCallbackHandler)
 {
     __background.setPosition(0, 0, 240, 280);
     __background.setColor(touchgfx::Color::getColorFromRGB(0, 0, 0));
@@ -16,19 +17,27 @@ HeartrateScreenViewBase::HeartrateScreenViewBase()
     background.setBitmap(touchgfx::Bitmap(BITMAP_BACKGROUND_ID));
     add(background);
 
-    Heartrate.setPosition(0, 6, 240, 25);
-    Heartrate.setColor(touchgfx::Color::getColorFromRGB(255, 255, 255));
-    Heartrate.setLinespacing(0);
-    Heartrate.setTypedText(touchgfx::TypedText(T_HEARTRATETEXT));
-    add(Heartrate);
+    heartrate_label.setPosition(0, 6, 240, 25);
+    heartrate_label.setColor(touchgfx::Color::getColorFromRGB(255, 255, 255));
+    heartrate_label.setLinespacing(0);
+    heartrate_label.setTypedText(touchgfx::TypedText(T_HEARTRATETEXT));
+    add(heartrate_label);
 
-    textArea1.setPosition(0, 219, 240, 33);
-    textArea1.setColor(touchgfx::Color::getColorFromRGB(255, 255, 255));
-    textArea1.setLinespacing(0);
-    Unicode::snprintf(textArea1Buffer, TEXTAREA1_SIZE, "%s", touchgfx::TypedText(T_CURHRVALUE).getText());
-    textArea1.setWildcard(textArea1Buffer);
-    textArea1.setTypedText(touchgfx::TypedText(T_CURHR));
-    add(textArea1);
+    heartrate_value.setPosition(0, 219, 240, 33);
+    heartrate_value.setColor(touchgfx::Color::getColorFromRGB(255, 255, 255));
+    heartrate_value.setLinespacing(0);
+    Unicode::snprintf(heartrate_valueBuffer, HEARTRATE_VALUE_SIZE, "%s", touchgfx::TypedText(T_CURHRVALUE).getText());
+    heartrate_value.setWildcard(heartrate_valueBuffer);
+    heartrate_value.setTypedText(touchgfx::TypedText(T_CURHR));
+    add(heartrate_value);
+
+    topright_box.setPosition(175, 0, 65, 33);
+    topright_box.setColor(touchgfx::Color::getColorFromRGB(0, 0, 0));
+    add(topright_box);
+
+    topleft_box.setPosition(0, 0, 65, 33);
+    topleft_box.setColor(touchgfx::Color::getColorFromRGB(0, 0, 0));
+    add(topleft_box);
 
     batteryprogress.setXY(197, 8);
     batteryprogress.setProgressIndicatorPosition(2, 2, 27, 11);
@@ -39,6 +48,15 @@ HeartrateScreenViewBase::HeartrateScreenViewBase()
     batteryprogress.setValue(90);
     batteryprogress.setAnchorAtZero(true);
     add(batteryprogress);
+
+    catm1_button.setXY(11, 11);
+    catm1_button.setBitmap(touchgfx::Bitmap(BITMAP_LTE_NOTCONNECTED_ID));
+    add(catm1_button);
+
+    heartrate_detail_button.setXY(70, 75);
+    heartrate_detail_button.setBitmaps(touchgfx::Bitmap(BITMAP_HR_ICON_ID), touchgfx::Bitmap(BITMAP_HR_ICON_ID));
+    heartrate_detail_button.setAction(buttonCallback);
+    add(heartrate_detail_button);
 }
 
 HeartrateScreenViewBase::~HeartrateScreenViewBase()
@@ -51,10 +69,13 @@ void HeartrateScreenViewBase::setupScreen()
 
 }
 
-void HeartrateScreenViewBase::handleTickEvent()
+void HeartrateScreenViewBase::buttonCallbackHandler(const touchgfx::AbstractButton& src)
 {
-    //call_changeHRVal
-    //When every N tick call virtual function
-    //Call changeHRVal
-    changeHRVal();
+    if (&src == &heartrate_detail_button)
+    {
+        //Interaction1
+        //When heartrate_detail_button clicked change screen to HeartrateDetail
+        //Go to HeartrateDetail with screen transition towards South
+        application().gotoHeartrateDetailScreenWipeTransitionSouth();
+    }
 }

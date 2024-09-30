@@ -3,6 +3,7 @@
     "Screens": [
       {
         "Name": "HomeScreenWithBiodata",
+        "CanvasBufferSize": 3600,
         "Components": [
           {
             "Type": "Image",
@@ -17,7 +18,7 @@
             "Width": 240,
             "Height": 280,
             "SwipeCutoff": 50,
-            "PageIndicatorX": 84,
+            "PageIndicatorX": 90,
             "PageIndicatorY": 265,
             "CenteredX": true,
             "IndicatorImageNormal": "__generated\\alternate_theme_images_widgets_swipecontainer_small_off_normal.png",
@@ -27,227 +28,13 @@
             "Components": [
               {
                 "Type": "Container",
-                "Name": "BiometricData",
-                "Width": 240,
-                "Height": 280,
-                "Components": [
-                  {
-                    "Type": "Image",
-                    "Name": "background_1",
-                    "Width": 240,
-                    "Height": 280,
-                    "RelativeFilename": "background.png"
-                  },
-                  {
-                    "Type": "Button",
-                    "Name": "button1",
-                    "X": 15,
-                    "Y": 41,
-                    "Width": 100,
-                    "Height": 105,
-                    "Pressed": "Rectangle 29.png",
-                    "Released": "BioButton.png"
-                  },
-                  {
-                    "Type": "TextArea",
-                    "Name": "steps",
-                    "X": 15,
-                    "Y": 44,
-                    "Width": 100,
-                    "Height": 25,
-                    "TextId": "stepsText",
-                    "TextRotation": "0",
-                    "Color": {
-                      "Red": 255,
-                      "Green": 255,
-                      "Blue": 255
-                    }
-                  },
-                  {
-                    "Type": "TextArea",
-                    "Name": "curstepsvalue",
-                    "X": 15,
-                    "Y": 84,
-                    "Width": 100,
-                    "Height": 37,
-                    "TextId": "B_curSteps",
-                    "TextRotation": "0",
-                    "Color": {
-                      "Red": 255,
-                      "Green": 255,
-                      "Blue": 255
-                    },
-                    "Wildcard1": {
-                      "TextId": "B_curStepsvalue",
-                      "UseBuffer": true,
-                      "BufferSize": 7
-                    }
-                  },
-                  {
-                    "Type": "Button",
-                    "Name": "button2",
-                    "X": 126,
-                    "Y": 41,
-                    "Width": 100,
-                    "Height": 105,
-                    "Pressed": "Rectangle 29.png",
-                    "Released": "BioButton.png"
-                  },
-                  {
-                    "Type": "TextArea",
-                    "Name": "hr",
-                    "X": 126,
-                    "Y": 44,
-                    "Width": 100,
-                    "Height": 25,
-                    "TextId": "heartrateText",
-                    "TextRotation": "0",
-                    "Color": {
-                      "Red": 255,
-                      "Green": 255,
-                      "Blue": 255
-                    }
-                  },
-                  {
-                    "Type": "TextArea",
-                    "Name": "curhrvalue",
-                    "X": 126,
-                    "Y": 84,
-                    "Width": 100,
-                    "Height": 37,
-                    "TextId": "B_curHr",
-                    "TextRotation": "0",
-                    "Color": {
-                      "Red": 255,
-                      "Green": 255,
-                      "Blue": 255
-                    },
-                    "Wildcard1": {
-                      "TextId": "B_curHrvalue",
-                      "UseBuffer": true,
-                      "BufferSize": 4
-                    }
-                  },
-                  {
-                    "Type": "Button",
-                    "Name": "button3",
-                    "X": 15,
-                    "Y": 157,
-                    "Width": 100,
-                    "Height": 105,
-                    "Pressed": "Rectangle 29.png",
-                    "Released": "BioButton.png"
-                  },
-                  {
-                    "Type": "TextArea",
-                    "Name": "spo2",
-                    "X": 15,
-                    "Y": 160,
-                    "Width": 100,
-                    "Height": 25,
-                    "TextId": "spo2Text",
-                    "TextRotation": "0",
-                    "Color": {
-                      "Red": 255,
-                      "Green": 255,
-                      "Blue": 255
-                    }
-                  },
-                  {
-                    "Type": "TextArea",
-                    "Name": "curSpo2value",
-                    "X": 15,
-                    "Y": 199,
-                    "Width": 100,
-                    "Height": 37,
-                    "TextId": "B_spo2",
-                    "TextRotation": "0",
-                    "Color": {
-                      "Red": 255,
-                      "Green": 255,
-                      "Blue": 255
-                    },
-                    "Wildcard1": {
-                      "TextId": "B_curSpo2value",
-                      "UseBuffer": true,
-                      "BufferSize": 4
-                    }
-                  },
-                  {
-                    "Type": "Button",
-                    "Name": "button4",
-                    "X": 126,
-                    "Y": 157,
-                    "Width": 100,
-                    "Height": 105,
-                    "Pressed": "Rectangle 29.png",
-                    "Released": "BioButton.png"
-                  },
-                  {
-                    "Type": "TextArea",
-                    "Name": "sleep",
-                    "X": 126,
-                    "Y": 160,
-                    "Width": 100,
-                    "Height": 25,
-                    "TextId": "sleepText",
-                    "TextRotation": "0",
-                    "Color": {
-                      "Red": 255,
-                      "Green": 255,
-                      "Blue": 255
-                    }
-                  },
-                  {
-                    "Type": "TextArea",
-                    "Name": "curSleepvalue",
-                    "X": 126,
-                    "Y": 183,
-                    "Width": 100,
-                    "Height": 77,
-                    "TextId": "B_sleep",
-                    "TextRotation": "0",
-                    "Color": {
-                      "Red": 255,
-                      "Green": 255,
-                      "Blue": 255
-                    },
-                    "Wildcard1": {
-                      "TextId": "B_sleepHvalue",
-                      "UseBuffer": true,
-                      "BufferSize": 3
-                    },
-                    "Wildcard2": {
-                      "TextId": "B_sleepMvalue",
-                      "UseBuffer": true,
-                      "BufferSize": 3
-                    }
-                  },
-                  {
-                    "Type": "TextArea",
-                    "Name": "BiometricData_1",
-                    "Y": 8,
-                    "Width": 240,
-                    "Height": 25,
-                    "TextId": "biometricdataText",
-                    "TextRotation": "0",
-                    "Color": {
-                      "Red": 255,
-                      "Green": 255,
-                      "Blue": 255
-                    }
-                  }
-                ]
-              },
-              {
-                "Type": "Container",
                 "Name": "HomeScreen",
                 "Width": 240,
                 "Height": 280,
                 "Components": [
                   {
                     "Type": "Image",
-                    "Name": "background_2",
+                    "Name": "home_background",
                     "Width": 240,
                     "Height": 280,
                     "RelativeFilename": "background.png"
@@ -270,7 +57,7 @@
                   },
                   {
                     "Type": "TextArea",
-                    "Name": "date",
+                    "Name": "date_value",
                     "X": 22,
                     "Y": 52,
                     "Width": 98,
@@ -295,7 +82,7 @@
                   },
                   {
                     "Type": "TextArea",
-                    "Name": "year",
+                    "Name": "year_value",
                     "X": 126,
                     "Y": 52,
                     "Width": 95,
@@ -314,8 +101,35 @@
                     }
                   },
                   {
+                    "Type": "Image",
+                    "Name": "home_heartrate_image",
+                    "X": 26,
+                    "Y": 174,
+                    "Width": 15,
+                    "Height": 13,
+                    "RelativeFilename": "miniheart_color.png"
+                  },
+                  {
+                    "Type": "Image",
+                    "Name": "home_spo2_image",
+                    "X": 23,
+                    "Y": 200,
+                    "Width": 18,
+                    "Height": 18,
+                    "RelativeFilename": "spo2_icon_color.png"
+                  },
+                  {
+                    "Type": "Image",
+                    "Name": "home_step_image",
+                    "X": 23,
+                    "Y": 229,
+                    "Width": 20,
+                    "Height": 20,
+                    "RelativeFilename": "minifootprint_color.png"
+                  },
+                  {
                     "Type": "TextArea",
-                    "Name": "textArea1",
+                    "Name": "home_heartrate_value",
                     "X": 47,
                     "Y": 170,
                     "Width": 73,
@@ -334,26 +148,8 @@
                     }
                   },
                   {
-                    "Type": "Image",
-                    "Name": "image1",
-                    "X": 26,
-                    "Y": 174,
-                    "Width": 15,
-                    "Height": 13,
-                    "RelativeFilename": "miniheart.png"
-                  },
-                  {
-                    "Type": "Image",
-                    "Name": "image2",
-                    "X": 23,
-                    "Y": 201,
-                    "Width": 20,
-                    "Height": 20,
-                    "RelativeFilename": "minispo2.png"
-                  },
-                  {
                     "Type": "TextArea",
-                    "Name": "homecurspo2value",
+                    "Name": "home_spo2_value",
                     "X": 47,
                     "Y": 199,
                     "Width": 73,
@@ -372,17 +168,8 @@
                     }
                   },
                   {
-                    "Type": "Image",
-                    "Name": "image3",
-                    "X": 23,
-                    "Y": 229,
-                    "Width": 20,
-                    "Height": 20,
-                    "RelativeFilename": "minifootprint.png"
-                  },
-                  {
                     "Type": "TextArea",
-                    "Name": "textArea3",
+                    "Name": "home_steps_value",
                     "X": 47,
                     "Y": 229,
                     "Width": 130,
@@ -397,7 +184,7 @@
                     "Wildcard1": {
                       "TextId": "H_curStepsvalue",
                       "UseBuffer": true,
-                      "BufferSize": 7
+                      "BufferSize": 10
                     }
                   }
                 ]
@@ -410,14 +197,14 @@
                 "Components": [
                   {
                     "Type": "Image",
-                    "Name": "background_3",
+                    "Name": "steps_background",
                     "Width": 240,
                     "Height": 280,
                     "RelativeFilename": "background.png"
                   },
                   {
                     "Type": "TextArea",
-                    "Name": "Steps",
+                    "Name": "steps_label",
                     "Y": 8,
                     "Width": 240,
                     "Height": 25,
@@ -431,7 +218,7 @@
                   },
                   {
                     "Type": "TextArea",
-                    "Name": "StepValue",
+                    "Name": "step_value",
                     "Y": 219,
                     "Width": 240,
                     "Height": 33,
@@ -447,6 +234,37 @@
                       "UseBuffer": true,
                       "BufferSize": 10
                     }
+                  },
+                  {
+                    "Type": "Image",
+                    "Name": "steps_image",
+                    "X": 85,
+                    "Y": 90,
+                    "Width": 70,
+                    "Height": 70,
+                    "RelativeFilename": "footprint_icon.png"
+                  },
+                  {
+                    "Type": "CircleProgress",
+                    "Name": "steps_progress",
+                    "X": 30,
+                    "Y": 35,
+                    "Width": 180,
+                    "Height": 180,
+                    "Color": {
+                      "Red": 93,
+                      "Green": 211,
+                      "Blue": 74
+                    },
+                    "CenterX": 90.0,
+                    "CenterY": 90.0,
+                    "Radius": 67.5,
+                    "LineWidth": 13.0,
+                    "EndAngle": 360.0,
+                    "CapPrecision": "Round",
+                    "FileNameBackground": "footprint_progressbar_back.png",
+                    "ProgressRangeMax": 100,
+                    "ProgressInitialValue": 60
                   }
                 ]
               },
@@ -458,17 +276,17 @@
                 "Components": [
                   {
                     "Type": "Image",
-                    "Name": "background_4",
+                    "Name": "heartrate_background",
                     "Width": 240,
                     "Height": 280,
                     "RelativeFilename": "background.png"
                   },
                   {
                     "Type": "TextArea",
-                    "Name": "Heartrate",
+                    "Name": "heartrate_label",
                     "Y": 8,
                     "Width": 240,
-                    "Height": 25,
+                    "Height": 56,
                     "TextId": "heartrateText",
                     "TextRotation": "0",
                     "Color": {
@@ -479,7 +297,7 @@
                   },
                   {
                     "Type": "TextArea",
-                    "Name": "HeartrateValue",
+                    "Name": "heartrate_value",
                     "Y": 219,
                     "Width": 240,
                     "Height": 33,
@@ -495,6 +313,16 @@
                       "UseBuffer": true,
                       "BufferSize": 5
                     }
+                  },
+                  {
+                    "Type": "Button",
+                    "Name": "hr_detail_button",
+                    "X": 70,
+                    "Y": 75,
+                    "Width": 100,
+                    "Height": 100,
+                    "Pressed": "hr_icon.png",
+                    "Released": "hr_icon.png"
                   }
                 ]
               },
@@ -506,14 +334,14 @@
                 "Components": [
                   {
                     "Type": "Image",
-                    "Name": "background_5",
+                    "Name": "spo2_background",
                     "Width": 240,
                     "Height": 280,
                     "RelativeFilename": "background.png"
                   },
                   {
                     "Type": "TextArea",
-                    "Name": "Spo2",
+                    "Name": "spo2_label",
                     "Y": 8,
                     "Width": 240,
                     "Height": 25,
@@ -527,7 +355,7 @@
                   },
                   {
                     "Type": "TextArea",
-                    "Name": "Spo2Value",
+                    "Name": "spo2_value",
                     "Y": 219,
                     "Width": 240,
                     "Height": 33,
@@ -543,6 +371,16 @@
                       "UseBuffer": true,
                       "BufferSize": 4
                     }
+                  },
+                  {
+                    "Type": "Button",
+                    "Name": "spo2_detail_button",
+                    "X": 70,
+                    "Y": 75,
+                    "Width": 100,
+                    "Height": 100,
+                    "Pressed": "spo2_icon.png",
+                    "Released": "spo2_icon.png"
                   }
                 ]
               },
@@ -561,7 +399,7 @@
                   },
                   {
                     "Type": "TextArea",
-                    "Name": "Sleep",
+                    "Name": "sleep_label",
                     "Y": 8,
                     "Width": 240,
                     "Height": 25,
@@ -575,7 +413,7 @@
                   },
                   {
                     "Type": "TextArea",
-                    "Name": "SleepValue",
+                    "Name": "sleeptime_value",
                     "Y": 219,
                     "Width": 240,
                     "Height": 33,
@@ -596,10 +434,54 @@
                       "UseBuffer": true,
                       "BufferSize": 4
                     }
+                  },
+                  {
+                    "Type": "Image",
+                    "Name": "sleep_image",
+                    "X": 87,
+                    "Y": 92,
+                    "Width": 65,
+                    "Height": 65,
+                    "RelativeFilename": "sleep_time_icon.png"
+                  },
+                  {
+                    "Type": "CircleProgress",
+                    "Name": "sleep_progress",
+                    "X": 30,
+                    "Y": 35,
+                    "Width": 180,
+                    "Height": 180,
+                    "Color": {
+                      "Red": 119,
+                      "Green": 93,
+                      "Blue": 195
+                    },
+                    "CenterX": 90.0,
+                    "CenterY": 90.0,
+                    "Radius": 67.5,
+                    "LineWidth": 13.0,
+                    "EndAngle": 360.0,
+                    "CapPrecision": "Round",
+                    "FileNameBackground": "sleep_time_progressbar_back.png",
+                    "ProgressRangeMax": 100,
+                    "ProgressInitialValue": 75
                   }
                 ]
               }
             ]
+          },
+          {
+            "Type": "Box",
+            "Name": "topleft_box",
+            "Width": 65,
+            "Height": 33
+          },
+          {
+            "Type": "Box",
+            "Name": "topright_box",
+            "X": 175,
+            "Width": 65,
+            "Height": 33
           },
           {
             "Type": "ImageProgress",
@@ -621,73 +503,30 @@
           },
           {
             "Type": "Button",
-            "Name": "button5",
+            "Name": "buttonfornothing",
             "Width": 240,
             "Height": 50,
             "Visible": false,
             "Pressed": "__generated\\alternate_theme_images_widgets_button_regular_height_50_medium_rounded_pressed.png",
             "Released": "__generated\\alternate_theme_images_widgets_button_regular_height_50_medium_rounded_normal.png",
             "Preset": "alternate_theme\\presets\\button\\regular\\height_50\\medium_rounded_normal.json"
+          },
+          {
+            "Type": "Image",
+            "Name": "catm1_image",
+            "X": 11,
+            "Y": 11,
+            "Width": 15,
+            "Height": 12,
+            "RelativeFilename": "lte_notconnected.png"
           }
         ],
         "Interactions": [
           {
-            "InteractionName": "movetoSteps",
-            "Trigger": {
-              "Type": "TriggerClicked",
-              "TriggerComponent": "button1"
-            },
-            "Action": {
-              "Type": "ActionGotoScreen",
-              "ScreenTransitionType": "ScreenTransitionCover",
-              "ScreenTransitionDirection": "East",
-              "ActionComponent": "StepsScreen"
-            }
-          },
-          {
-            "InteractionName": "movetoHr",
-            "Trigger": {
-              "Type": "TriggerClicked",
-              "TriggerComponent": "button2"
-            },
-            "Action": {
-              "Type": "ActionGotoScreen",
-              "ScreenTransitionType": "ScreenTransitionCover",
-              "ScreenTransitionDirection": "East",
-              "ActionComponent": "HeartrateScreen"
-            }
-          },
-          {
-            "InteractionName": "movetoSpo2",
-            "Trigger": {
-              "Type": "TriggerClicked",
-              "TriggerComponent": "button3"
-            },
-            "Action": {
-              "Type": "ActionGotoScreen",
-              "ScreenTransitionType": "ScreenTransitionCover",
-              "ScreenTransitionDirection": "East",
-              "ActionComponent": "Spo2Screen"
-            }
-          },
-          {
-            "InteractionName": "movetoSleep",
-            "Trigger": {
-              "Type": "TriggerClicked",
-              "TriggerComponent": "button4"
-            },
-            "Action": {
-              "Type": "ActionGotoScreen",
-              "ScreenTransitionType": "ScreenTransitionCover",
-              "ScreenTransitionDirection": "East",
-              "ActionComponent": "SleepScreen"
-            }
-          },
-          {
             "InteractionName": "Interaction1",
             "Trigger": {
               "Type": "TriggerClicked",
-              "TriggerComponent": "button5"
+              "TriggerComponent": "buttonfornothing"
             },
             "Action": {
               "Type": "ActionGotoScreen",
@@ -697,22 +536,36 @@
             }
           },
           {
-            "InteractionName": "Interaction2",
+            "InteractionName": "Interaction3",
             "Trigger": {
               "Type": "TriggerClicked",
-              "TriggerComponent": "button5"
+              "TriggerComponent": "hr_detail_button"
             },
             "Action": {
               "Type": "ActionGotoScreen",
               "ScreenTransitionType": "ScreenTransitionCover",
-              "ScreenTransitionDirection": "South",
-              "ActionComponent": "NotificationScreen"
+              "ScreenTransitionDirection": "East",
+              "ActionComponent": "HeartrateDetail"
+            }
+          },
+          {
+            "InteractionName": "Interaction4",
+            "Trigger": {
+              "Type": "TriggerClicked",
+              "TriggerComponent": "spo2_detail_button"
+            },
+            "Action": {
+              "Type": "ActionGotoScreen",
+              "ScreenTransitionType": "ScreenTransitionCover",
+              "ScreenTransitionDirection": "East",
+              "ActionComponent": "Spo2Detail"
             }
           }
         ]
       },
       {
         "Name": "SleepScreen",
+        "CanvasBufferSize": 3600,
         "Components": [
           {
             "Type": "Image",
@@ -723,7 +576,7 @@
           },
           {
             "Type": "TextArea",
-            "Name": "Sleep",
+            "Name": "sleep_label",
             "Y": 6,
             "Width": 240,
             "Height": 25,
@@ -737,7 +590,7 @@
           },
           {
             "Type": "TextArea",
-            "Name": "textArea1",
+            "Name": "sleep_value",
             "Y": 219,
             "Width": 240,
             "Height": 33,
@@ -749,11 +602,38 @@
               "Blue": 255
             },
             "Wildcard1": {
-              "TextId": "curSleepHvalue"
+              "TextId": "curSleepHvalue",
+              "UseBuffer": true,
+              "BufferSize": 3
             },
             "Wildcard2": {
-              "TextId": "curSleepMvalue"
+              "TextId": "curSleepMvalue",
+              "UseBuffer": true,
+              "BufferSize": 3
             }
+          },
+          {
+            "Type": "Button",
+            "Name": "buttonfornothing",
+            "Width": 240,
+            "Height": 50,
+            "Visible": false,
+            "Pressed": "__generated\\alternate_theme_images_widgets_button_regular_height_50_medium_rounded_pressed.png",
+            "Released": "__generated\\alternate_theme_images_widgets_button_regular_height_50_medium_rounded_normal.png",
+            "Preset": "alternate_theme\\presets\\button\\regular\\height_50\\medium_rounded_normal.json"
+          },
+          {
+            "Type": "Box",
+            "Name": "topright_box",
+            "X": 175,
+            "Width": 65,
+            "Height": 33
+          },
+          {
+            "Type": "Box",
+            "Name": "topleft_box",
+            "Width": 65,
+            "Height": 33
           },
           {
             "Type": "ImageProgress",
@@ -774,14 +654,44 @@
             "ProgressInitialValue": 90
           },
           {
-            "Type": "Button",
-            "Name": "button1",
-            "Width": 240,
-            "Height": 50,
-            "Visible": false,
-            "Pressed": "__generated\\alternate_theme_images_widgets_button_regular_height_50_medium_rounded_pressed.png",
-            "Released": "__generated\\alternate_theme_images_widgets_button_regular_height_50_medium_rounded_normal.png",
-            "Preset": "alternate_theme\\presets\\button\\regular\\height_50\\medium_rounded_normal.json"
+            "Type": "Image",
+            "Name": "catm1_image",
+            "X": 11,
+            "Y": 11,
+            "Width": 15,
+            "Height": 12,
+            "RelativeFilename": "lte_notconnected.png"
+          },
+          {
+            "Type": "Image",
+            "Name": "sleep_image",
+            "X": 87,
+            "Y": 92,
+            "Width": 65,
+            "Height": 65,
+            "RelativeFilename": "sleep_time_icon.png"
+          },
+          {
+            "Type": "CircleProgress",
+            "Name": "sleep_progress",
+            "X": 30,
+            "Y": 35,
+            "Width": 180,
+            "Height": 180,
+            "Color": {
+              "Red": 119,
+              "Green": 93,
+              "Blue": 195
+            },
+            "CenterX": 90.0,
+            "CenterY": 90.0,
+            "Radius": 67.5,
+            "LineWidth": 13.0,
+            "EndAngle": 360.0,
+            "CapPrecision": "Round",
+            "FileNameBackground": "sleep_time_progressbar_back.png",
+            "ProgressRangeMax": 100,
+            "ProgressInitialValue": 75
           }
         ],
         "Interactions": [
@@ -789,7 +699,7 @@
             "InteractionName": "Interaction1",
             "Trigger": {
               "Type": "TriggerClicked",
-              "TriggerComponent": "button1"
+              "TriggerComponent": "buttonfornothing"
             },
             "Action": {
               "Type": "ActionGotoScreen",
@@ -812,7 +722,7 @@
           },
           {
             "Type": "TextArea",
-            "Name": "Spo2",
+            "Name": "spo2_label",
             "Y": 6,
             "Width": 240,
             "Height": 25,
@@ -826,7 +736,7 @@
           },
           {
             "Type": "TextArea",
-            "Name": "textArea1",
+            "Name": "spo2_value",
             "Y": 219,
             "Width": 240,
             "Height": 33,
@@ -840,8 +750,21 @@
             "Wildcard1": {
               "TextId": "curSpo2value",
               "UseBuffer": true,
-              "BufferSize": 5
+              "BufferSize": 4
             }
+          },
+          {
+            "Type": "Box",
+            "Name": "topright_box",
+            "X": 175,
+            "Width": 65,
+            "Height": 33
+          },
+          {
+            "Type": "Box",
+            "Name": "topleft_box",
+            "Width": 65,
+            "Height": 33
           },
           {
             "Type": "ImageProgress",
@@ -860,18 +783,39 @@
             "IndicatorPositionHeight": 11,
             "ProgressRangeMax": 100,
             "ProgressInitialValue": 90
+          },
+          {
+            "Type": "Image",
+            "Name": "catm1_image",
+            "X": 11,
+            "Y": 11,
+            "Width": 15,
+            "Height": 12,
+            "RelativeFilename": "lte_notconnected.png"
+          },
+          {
+            "Type": "Button",
+            "Name": "spo2_detail_button",
+            "X": 70,
+            "Y": 75,
+            "Width": 100,
+            "Height": 100,
+            "Pressed": "spo2_icon.png",
+            "Released": "spo2_icon.png"
           }
         ],
         "Interactions": [
           {
-            "InteractionName": "call_changeSpO2Val",
+            "InteractionName": "Interaction1",
             "Trigger": {
-              "Type": "TriggerOnEveryTick",
-              "TickCount": 1
+              "Type": "TriggerClicked",
+              "TriggerComponent": "spo2_detail_button"
             },
             "Action": {
-              "Type": "ActionCustom",
-              "FunctionName": "changeSpO2Val"
+              "Type": "ActionGotoScreen",
+              "ScreenTransitionType": "ScreenTransitionWipe",
+              "ScreenTransitionDirection": "South",
+              "ActionComponent": "Spo2Detail"
             }
           }
         ]
@@ -888,7 +832,7 @@
           },
           {
             "Type": "TextArea",
-            "Name": "Heartrate",
+            "Name": "heartrate_label",
             "Y": 6,
             "Width": 240,
             "Height": 25,
@@ -902,7 +846,7 @@
           },
           {
             "Type": "TextArea",
-            "Name": "textArea1",
+            "Name": "heartrate_value",
             "Y": 219,
             "Width": 240,
             "Height": 33,
@@ -916,8 +860,21 @@
             "Wildcard1": {
               "TextId": "curHrvalue",
               "UseBuffer": true,
-              "BufferSize": 10
+              "BufferSize": 4
             }
+          },
+          {
+            "Type": "Box",
+            "Name": "topright_box",
+            "X": 175,
+            "Width": 65,
+            "Height": 33
+          },
+          {
+            "Type": "Box",
+            "Name": "topleft_box",
+            "Width": 65,
+            "Height": 33
           },
           {
             "Type": "ImageProgress",
@@ -936,24 +893,46 @@
             "IndicatorPositionHeight": 11,
             "ProgressRangeMax": 100,
             "ProgressInitialValue": 90
+          },
+          {
+            "Type": "Image",
+            "Name": "catm1_button",
+            "X": 11,
+            "Y": 11,
+            "Width": 15,
+            "Height": 12,
+            "RelativeFilename": "lte_notconnected.png"
+          },
+          {
+            "Type": "Button",
+            "Name": "heartrate_detail_button",
+            "X": 70,
+            "Y": 75,
+            "Width": 100,
+            "Height": 100,
+            "Pressed": "hr_icon.png",
+            "Released": "hr_icon.png"
           }
         ],
         "Interactions": [
           {
-            "InteractionName": "call_changeHRVal",
+            "InteractionName": "Interaction1",
             "Trigger": {
-              "Type": "TriggerOnEveryTick",
-              "TickCount": 1
+              "Type": "TriggerClicked",
+              "TriggerComponent": "heartrate_detail_button"
             },
             "Action": {
-              "Type": "ActionCustom",
-              "FunctionName": "changeHRVal"
+              "Type": "ActionGotoScreen",
+              "ScreenTransitionType": "ScreenTransitionWipe",
+              "ScreenTransitionDirection": "South",
+              "ActionComponent": "HeartrateDetail"
             }
           }
         ]
       },
       {
         "Name": "StepsScreen",
+        "CanvasBufferSize": 3600,
         "Components": [
           {
             "Type": "Image",
@@ -964,7 +943,7 @@
           },
           {
             "Type": "TextArea",
-            "Name": "Steps",
+            "Name": "steps_label",
             "Y": 6,
             "Width": 240,
             "Height": 25,
@@ -978,7 +957,7 @@
           },
           {
             "Type": "TextArea",
-            "Name": "textArea1",
+            "Name": "steps_value",
             "Y": 219,
             "Width": 240,
             "Height": 33,
@@ -996,6 +975,19 @@
             }
           },
           {
+            "Type": "Box",
+            "Name": "topright_image",
+            "X": 175,
+            "Width": 65,
+            "Height": 33
+          },
+          {
+            "Type": "Box",
+            "Name": "topleft_image",
+            "Width": 65,
+            "Height": 33
+          },
+          {
             "Type": "ImageProgress",
             "Name": "batteryprogress",
             "X": 197,
@@ -1012,21 +1004,49 @@
             "IndicatorPositionHeight": 11,
             "ProgressRangeMax": 100,
             "ProgressInitialValue": 90
+          },
+          {
+            "Type": "Image",
+            "Name": "catm1_image",
+            "X": 11,
+            "Y": 11,
+            "Width": 15,
+            "Height": 12,
+            "RelativeFilename": "lte_notconnected.png"
+          },
+          {
+            "Type": "Image",
+            "Name": "steps_image",
+            "X": 85,
+            "Y": 90,
+            "Width": 70,
+            "Height": 70,
+            "RelativeFilename": "footprint_icon.png"
+          },
+          {
+            "Type": "CircleProgress",
+            "Name": "steps_progress",
+            "X": 30,
+            "Y": 35,
+            "Width": 180,
+            "Height": 180,
+            "Color": {
+              "Red": 93,
+              "Green": 211,
+              "Blue": 74
+            },
+            "CenterX": 90.0,
+            "CenterY": 90.0,
+            "Radius": 67.5,
+            "LineWidth": 13.0,
+            "EndAngle": 360.0,
+            "CapPrecision": "Round",
+            "FileNameBackground": "footprint_progressbar_back.png",
+            "ProgressRangeMax": 100,
+            "ProgressInitialValue": 60
           }
         ],
-        "Interactions": [
-          {
-            "InteractionName": "call_changeStepVal",
-            "Trigger": {
-              "Type": "TriggerOnEveryTick",
-              "TickCount": 1
-            },
-            "Action": {
-              "Type": "ActionCustom",
-              "FunctionName": "changeStepVal"
-            }
-          }
-        ]
+        "Interactions": []
       },
       {
         "Name": "HeartrateDetail",
@@ -1041,7 +1061,7 @@
           },
           {
             "Type": "TextArea",
-            "Name": "Heartrate",
+            "Name": "heartrate_label",
             "Y": 6,
             "Width": 240,
             "Height": 25,
@@ -1055,7 +1075,7 @@
           },
           {
             "Type": "Image",
-            "Name": "image1",
+            "Name": "heartrate_image",
             "X": 20,
             "Y": 41,
             "Width": 29,
@@ -1064,7 +1084,7 @@
           },
           {
             "Type": "TextArea",
-            "Name": "curhrdetail",
+            "Name": "heartrate_value",
             "X": 49,
             "Y": 42,
             "Width": 180,
@@ -1077,8 +1097,23 @@
               "Blue": 255
             },
             "Wildcard1": {
-              "TextId": "curHrvalue"
+              "TextId": "curHrvalue",
+              "UseBuffer": true,
+              "BufferSize": 4
             }
+          },
+          {
+            "Type": "Box",
+            "Name": "topright_box",
+            "X": 175,
+            "Width": 65,
+            "Height": 33
+          },
+          {
+            "Type": "Box",
+            "Name": "topleft_box",
+            "Width": 65,
+            "Height": 33
           },
           {
             "Type": "ImageProgress",
@@ -1100,7 +1135,7 @@
           },
           {
             "Type": "DynamicGraph",
-            "Name": "dynamicGraph1",
+            "Name": "heartrate_detail_graph",
             "X": 20,
             "Y": 95,
             "Width": 200,
@@ -1124,6 +1159,15 @@
                 }
               }
             ]
+          },
+          {
+            "Type": "Image",
+            "Name": "catm1_image",
+            "X": 11,
+            "Y": 11,
+            "Width": 15,
+            "Height": 12,
+            "RelativeFilename": "lte_notconnected.png"
           }
         ],
         "Interactions": []
@@ -1141,7 +1185,7 @@
           },
           {
             "Type": "TextArea",
-            "Name": "Spo2",
+            "Name": "spo2_label",
             "Y": 6,
             "Width": 240,
             "Height": 25,
@@ -1155,7 +1199,7 @@
           },
           {
             "Type": "Image",
-            "Name": "image1",
+            "Name": "spo2_image",
             "X": 15,
             "Y": 33,
             "Width": 40,
@@ -1164,7 +1208,7 @@
           },
           {
             "Type": "TextArea",
-            "Name": "curspo2detail",
+            "Name": "spo2_value",
             "X": 55,
             "Y": 42,
             "Width": 170,
@@ -1177,8 +1221,23 @@
               "Blue": 255
             },
             "Wildcard1": {
-              "TextId": "curSpo2value"
+              "TextId": "curSpo2value",
+              "UseBuffer": true,
+              "BufferSize": 4
             }
+          },
+          {
+            "Type": "Box",
+            "Name": "topright_image",
+            "X": 175,
+            "Width": 65,
+            "Height": 33
+          },
+          {
+            "Type": "Box",
+            "Name": "topleft_image",
+            "Width": 65,
+            "Height": 33
           },
           {
             "Type": "ImageProgress",
@@ -1200,7 +1259,7 @@
           },
           {
             "Type": "DynamicGraph",
-            "Name": "dynamicGraph1",
+            "Name": "spo2_detail_graph",
             "X": 20,
             "Y": 95,
             "Width": 200,
@@ -1224,6 +1283,15 @@
                 }
               }
             ]
+          },
+          {
+            "Type": "Image",
+            "Name": "catm1_image",
+            "X": 11,
+            "Y": 11,
+            "Width": 15,
+            "Height": 12,
+            "RelativeFilename": "lte_notconnected.png"
           }
         ],
         "Interactions": []
@@ -1240,102 +1308,156 @@
           },
           {
             "Type": "ToggleButton",
-            "Name": "toggleButton1",
+            "Name": "haptic_togglebutton",
             "X": 14,
             "Y": 51,
             "Width": 66,
             "Height": 66,
-            "InitialStatePressed": true,
-            "Pressed": "Rectangle 12.png",
-            "Released": "Rectangle 13.png"
+            "Pressed": "swipedown_button.png",
+            "Released": "swipedown_button_pressed.png"
           },
           {
             "Type": "ToggleButton",
-            "Name": "toggleButton2",
+            "Name": "sound_togglebutton",
             "X": 87,
             "Y": 51,
             "Width": 66,
             "Height": 66,
-            "InitialStatePressed": true,
-            "Pressed": "Rectangle 12.png",
-            "Released": "Rectangle 13.png"
+            "Pressed": "swipedown_button.png",
+            "Released": "swipedown_button_pressed.png"
           },
           {
             "Type": "Button",
-            "Name": "button1",
+            "Name": "setting_button",
             "X": 160,
             "Y": 51,
             "Width": 66,
             "Height": 66,
-            "Pressed": "Rectangle 12_D.png",
-            "Released": "Rectangle 12.png"
+            "Pressed": "swipedown_button_pressed.png",
+            "Released": "swipedown_button.png"
+          },
+          {
+            "Type": "ToggleButton",
+            "Name": "wifi_togglebutton",
+            "X": 14,
+            "Y": 124,
+            "Width": 66,
+            "Height": 66,
+            "Pressed": "swipedown_button_pressed.png",
+            "Released": "swipedown_button.png"
+          },
+          {
+            "Type": "ToggleButton",
+            "Name": "bluetooth_togglebutton",
+            "X": 87,
+            "Y": 124,
+            "Width": 66,
+            "Height": 66,
+            "Pressed": "swipedown_button_pressed.png",
+            "Released": "swipedown_button.png"
+          },
+          {
+            "Type": "Button",
+            "Name": "information_button",
+            "X": 14,
+            "Y": 197,
+            "Width": 66,
+            "Height": 66,
+            "Pressed": "swipedown_button_pressed.png",
+            "Released": "swipedown_button.png"
+          },
+          {
+            "Type": "ToggleButton",
+            "Name": "flashlight_togglebutton",
+            "X": 87,
+            "Y": 197,
+            "Width": 66,
+            "Height": 66,
+            "Pressed": "swipedown_button.png",
+            "Released": "swipedown_button_pressed.png"
+          },
+          {
+            "Type": "Slider",
+            "Name": "slider1",
+            "X": 161,
+            "Y": 124,
+            "Width": 65,
+            "Height": 139,
+            "BackgroundUnselected": "swipedown_brightness_back.png",
+            "BackgroundSelected": "swipedown_brightness.png",
+            "Indicator": "swipedown_brightness_indicator.png",
+            "IndicatorPos": 11,
+            "IndicatorMax": 138,
+            "IndicatorMin": 1,
+            "ValueMax": 100,
+            "InitValue": 50
           },
           {
             "Type": "Image",
-            "Name": "image1",
+            "Name": "haptic_image",
             "X": 23,
             "Y": 67,
             "Width": 48,
             "Height": 34,
-            "RelativeFilename": "hapticicon.png"
+            "RelativeFilename": "swipedown_hapticicon.png"
           },
           {
             "Type": "Image",
-            "Name": "image2",
+            "Name": "sound_image",
             "X": 101,
             "Y": 65,
             "Width": 39,
             "Height": 39,
-            "RelativeFilename": "soundicon.png"
+            "RelativeFilename": "swipedown_soundicon.png"
           },
           {
             "Type": "Image",
-            "Name": "image3",
+            "Name": "setting_image",
             "X": 175,
             "Y": 66,
             "Width": 37,
             "Height": 37,
-            "RelativeFilename": "settingicon.png"
+            "RelativeFilename": "swipedown_settingicon.png"
           },
           {
-            "Type": "Button",
-            "Name": "button2",
-            "X": 14,
-            "Y": 124,
-            "Width": 66,
-            "Height": 66,
-            "Pressed": "Rectangle 12_D.png",
-            "Released": "Rectangle 12.png"
+            "Type": "Image",
+            "Name": "information_image",
+            "X": 25,
+            "Y": 208,
+            "Width": 45,
+            "Height": 45,
+            "RelativeFilename": "swipedown_infoicon.png"
           },
           {
-            "Type": "Button",
-            "Name": "button3",
-            "X": 87,
-            "Y": 124,
-            "Width": 66,
-            "Height": 66,
-            "Pressed": "Rectangle 12_D.png",
-            "Released": "Rectangle 12.png"
+            "Type": "Image",
+            "Name": "brightness_image",
+            "X": 173,
+            "Y": 210,
+            "Width": 40,
+            "Height": 40,
+            "RelativeFilename": "swipedown_brightness_icon.png"
           },
           {
-            "Type": "Button",
-            "Name": "button4",
-            "X": 14,
-            "Y": 197,
-            "Width": 66,
-            "Height": 66,
-            "Pressed": "Rectangle 12_D.png",
-            "Released": "Rectangle 12.png"
+            "Type": "Image",
+            "Name": "flashlight_image",
+            "X": 98,
+            "Y": 208,
+            "Width": 45,
+            "Height": 45,
+            "RelativeFilename": "swipedown_flashlighticon.png"
           },
           {
-            "Type": "Button",
-            "Name": "button5",
-            "X": 87,
-            "Y": 197,
-            "Width": 66,
-            "Height": 66,
-            "Pressed": "Rectangle 12_D.png",
-            "Released": "Rectangle 12.png"
+            "Type": "Box",
+            "Name": "topright_box",
+            "X": 175,
+            "Width": 65,
+            "Height": 33
+          },
+          {
+            "Type": "Box",
+            "Name": "topleft_box",
+            "Width": 65,
+            "Height": 33
           },
           {
             "Type": "ImageProgress",
@@ -1356,39 +1478,23 @@
             "ProgressInitialValue": 90
           },
           {
-            "Type": "Slider",
-            "Name": "slider1",
-            "X": 161,
-            "Y": 124,
-            "Width": 65,
-            "Height": 139,
-            "BackgroundUnselected": "Rectangle 15.png",
-            "BackgroundSelected": "Rectangle 16.png",
-            "Indicator": "Line 10.png",
-            "IndicatorPos": 11,
-            "IndicatorMax": 138,
-            "IndicatorMin": 1,
-            "ValueMax": 15,
-            "InitValue": 15
-          },
-          {
-            "Type": "Image",
-            "Name": "image4",
-            "X": 173,
-            "Y": 210,
-            "Width": 40,
-            "Height": 40,
-            "RelativeFilename": "brightness.png"
-          },
-          {
             "Type": "Button",
-            "Name": "button6",
+            "Name": "buttonfornothing",
             "Width": 240,
             "Height": 50,
             "Visible": false,
             "Pressed": "__generated\\alternate_theme_images_widgets_button_regular_height_50_medium_rounded_pressed.png",
             "Released": "__generated\\alternate_theme_images_widgets_button_regular_height_50_medium_rounded_normal.png",
             "Preset": "alternate_theme\\presets\\button\\regular\\height_50\\medium_rounded_normal.json"
+          },
+          {
+            "Type": "Image",
+            "Name": "catm1_image",
+            "X": 11,
+            "Y": 11,
+            "Width": 15,
+            "Height": 12,
+            "RelativeFilename": "lte_notconnected.png"
           }
         ],
         "Interactions": [
@@ -1396,7 +1502,7 @@
             "InteractionName": "movetoSetting",
             "Trigger": {
               "Type": "TriggerClicked",
-              "TriggerComponent": "button1"
+              "TriggerComponent": "setting_button"
             },
             "Action": {
               "Type": "ActionGotoScreen",
@@ -1409,7 +1515,7 @@
             "InteractionName": "Interaction1",
             "Trigger": {
               "Type": "TriggerClicked",
-              "TriggerComponent": "button6"
+              "TriggerComponent": "buttonfornothing"
             },
             "Action": {
               "Type": "ActionGotoScreen",
@@ -1417,105 +1523,18 @@
               "ScreenTransitionDirection": "South",
               "ActionComponent": "HomeScreenWithBiodata"
             }
-          }
-        ]
-      },
-      {
-        "Name": "NotificationScreen",
-        "Components": [
-          {
-            "Type": "Image",
-            "Name": "background",
-            "Width": 240,
-            "Height": 280,
-            "RelativeFilename": "background.png"
           },
           {
-            "Type": "ScrollableContainer",
-            "Name": "settingscrollablecontainer",
-            "Y": 34,
-            "Width": 240,
-            "Height": 246,
-            "VerticalScrollEnabled": true,
-            "ScrollbarsVisibleOnPressed": true,
-            "ScrollbarsColor": {
-              "Red": 96,
-              "Green": 96,
-              "Blue": 96
-            },
-            "ScrollbarsAlpha": 255,
-            "Components": [
-              {
-                "Type": "TextArea",
-                "Name": "textArea1",
-                "Y": 186,
-                "Width": 240,
-                "Height": 20,
-                "TextId": "nonoti",
-                "TextRotation": "0",
-                "Color": {
-                  "Red": 96,
-                  "Green": 96,
-                  "Blue": 96
-                }
-              }
-            ]
-          },
-          {
-            "Type": "TextArea",
-            "Name": "notification",
-            "Y": 8,
-            "Width": 240,
-            "Height": 25,
-            "TextId": "notification",
-            "TextRotation": "0",
-            "Color": {
-              "Red": 255,
-              "Green": 255,
-              "Blue": 255
-            }
-          },
-          {
-            "Type": "ImageProgress",
-            "Name": "batteryprogress",
-            "X": 197,
-            "Y": 8,
-            "Width": 33,
-            "Height": 15,
-            "FileNameProgress": "battpercentage.png",
-            "AnchorAtZero": true,
-            "Direction": "Right",
-            "FileNameBackground": "Group 6.png",
-            "IndicatorPositionX": 2,
-            "IndicatorPositionY": 2,
-            "IndicatorPositionWidth": 27,
-            "IndicatorPositionHeight": 11,
-            "ProgressRangeMax": 100,
-            "ProgressInitialValue": 90
-          },
-          {
-            "Type": "Button",
-            "Name": "button1",
-            "Width": 240,
-            "Height": 50,
-            "Visible": false,
-            "Pressed": "__generated\\alternate_theme_images_widgets_button_regular_height_50_medium_rounded_pressed.png",
-            "Released": "__generated\\alternate_theme_images_widgets_button_regular_height_50_medium_rounded_normal.png",
-            "Preset": "alternate_theme\\presets\\button\\regular\\height_50\\medium_rounded_normal.json"
-          }
-        ],
-        "Interactions": [
-          {
-            "InteractionName": "Interaction1",
+            "InteractionName": "Interaction2",
             "Trigger": {
               "Type": "TriggerClicked",
-              "TriggerComponent": "button1"
+              "TriggerComponent": "information_button"
             },
             "Action": {
               "Type": "ActionGotoScreen",
               "ScreenTransitionType": "ScreenTransitionWipe",
               "ScreenTransitionDirection": "North",
-              "ActionComponent": "HomeScreenWithBiodata"
+              "ActionComponent": "informationSetting"
             }
           }
         ]
@@ -1547,7 +1566,7 @@
             "Components": [
               {
                 "Type": "Button",
-                "Name": "button1",
+                "Name": "screen_button",
                 "X": 14,
                 "Y": 7,
                 "Width": 212,
@@ -1556,17 +1575,112 @@
                 "Released": "Rectangle 21.png"
               },
               {
+                "Type": "Button",
+                "Name": "soundnhaptics_button",
+                "X": 14,
+                "Y": 70,
+                "Width": 212,
+                "Height": 54,
+                "Pressed": "Rectangle 30.png",
+                "Released": "Rectangle 21.png"
+              },
+              {
+                "Type": "Button",
+                "Name": "language_button",
+                "X": 14,
+                "Y": 133,
+                "Width": 212,
+                "Height": 54,
+                "Pressed": "Rectangle 30.png",
+                "Released": "Rectangle 21.png"
+              },
+              {
+                "Type": "Button",
+                "Name": "findmyphone_button",
+                "X": 14,
+                "Y": 196,
+                "Width": 212,
+                "Height": 54,
+                "Pressed": "Rectangle 30.png",
+                "Released": "Rectangle 21.png"
+              },
+              {
+                "Type": "Button",
+                "Name": "information_button",
+                "X": 14,
+                "Y": 259,
+                "Width": 212,
+                "Height": 54,
+                "Pressed": "Rectangle 30.png",
+                "Released": "Rectangle 21.png"
+              },
+              {
+                "Type": "Button",
+                "Name": "system_button",
+                "X": 14,
+                "Y": 322,
+                "Width": 212,
+                "Height": 54,
+                "Pressed": "Rectangle 30.png",
+                "Released": "Rectangle 21.png"
+              },
+              {
                 "Type": "Image",
-                "Name": "image1",
+                "Name": "screenbutton_icon_back",
                 "X": 20,
                 "Y": 14,
                 "Width": 40,
                 "Height": 40,
-                "RelativeFilename": "Rectangle 26.png"
+                "RelativeFilename": "setting_iconback.png"
+              },
+              {
+                "Type": "Image",
+                "Name": "snhbutton_icon_back",
+                "X": 20,
+                "Y": 77,
+                "Width": 40,
+                "Height": 40,
+                "RelativeFilename": "setting_iconback.png"
+              },
+              {
+                "Type": "Image",
+                "Name": "languagebutton_icon_back",
+                "X": 20,
+                "Y": 140,
+                "Width": 40,
+                "Height": 40,
+                "RelativeFilename": "setting_iconback.png"
+              },
+              {
+                "Type": "Image",
+                "Name": "phonebutton_icon_back",
+                "X": 20,
+                "Y": 203,
+                "Width": 40,
+                "Height": 40,
+                "RelativeFilename": "setting_iconback.png"
+              },
+              {
+                "Type": "Image",
+                "Name": "informationbutton_icon_back",
+                "X": 20,
+                "Y": 266,
+                "Width": 40,
+                "Height": 40,
+                "RelativeFilename": "setting_iconback.png"
+              },
+              {
+                "Type": "Image",
+                "Name": "systembutton_icon_back",
+                "X": 20,
+                "Y": 329,
+                "Width": 40,
+                "Height": 40,
+                "RelativeFilename": "setting_iconback.png"
               },
               {
                 "Type": "TextArea",
-                "Name": "Screen",
+                "Name": "screen_label",
                 "X": 66,
                 "Y": 23,
                 "Width": 155,
@@ -1580,27 +1694,8 @@
                 }
               },
               {
-                "Type": "Button",
-                "Name": "button2",
-                "X": 14,
-                "Y": 70,
-                "Width": 212,
-                "Height": 54,
-                "Pressed": "Rectangle 30.png",
-                "Released": "Rectangle 21.png"
-              },
-              {
-                "Type": "Image",
-                "Name": "image2",
-                "X": 20,
-                "Y": 77,
-                "Width": 40,
-                "Height": 40,
-                "RelativeFilename": "Rectangle 26.png"
-              },
-              {
                 "Type": "TextArea",
-                "Name": "SoundnHaptics",
+                "Name": "soundnhaptics_label",
                 "X": 66,
                 "Y": 86,
                 "Width": 155,
@@ -1614,27 +1709,8 @@
                 }
               },
               {
-                "Type": "Button",
-                "Name": "button3",
-                "X": 14,
-                "Y": 133,
-                "Width": 212,
-                "Height": 54,
-                "Pressed": "Rectangle 30.png",
-                "Released": "Rectangle 21.png"
-              },
-              {
-                "Type": "Image",
-                "Name": "image3",
-                "X": 20,
-                "Y": 140,
-                "Width": 40,
-                "Height": 40,
-                "RelativeFilename": "Rectangle 26.png"
-              },
-              {
                 "Type": "TextArea",
-                "Name": "Language",
+                "Name": "language_label",
                 "X": 66,
                 "Y": 149,
                 "Width": 155,
@@ -1648,63 +1724,10 @@
                 }
               },
               {
-                "Type": "Button",
-                "Name": "button4",
-                "X": 14,
-                "Y": 196,
-                "Width": 212,
-                "Height": 54,
-                "Pressed": "Rectangle 30.png",
-                "Released": "Rectangle 21.png"
-              },
-              {
-                "Type": "Image",
-                "Name": "image4",
-                "X": 20,
-                "Y": 203,
-                "Width": 40,
-                "Height": 40,
-                "RelativeFilename": "Rectangle 26.png"
-              },
-              {
                 "Type": "TextArea",
-                "Name": "WiFiSetting",
+                "Name": "findmyphone_label",
                 "X": 66,
                 "Y": 212,
-                "Width": 155,
-                "Height": 25,
-                "TextId": "wifisettingText",
-                "TextRotation": "0",
-                "Color": {
-                  "Red": 217,
-                  "Green": 217,
-                  "Blue": 217
-                }
-              },
-              {
-                "Type": "Button",
-                "Name": "button5",
-                "X": 14,
-                "Y": 259,
-                "Width": 212,
-                "Height": 54,
-                "Pressed": "Rectangle 30.png",
-                "Released": "Rectangle 21.png"
-              },
-              {
-                "Type": "Image",
-                "Name": "image5",
-                "X": 20,
-                "Y": 266,
-                "Width": 40,
-                "Height": 40,
-                "RelativeFilename": "Rectangle 26.png"
-              },
-              {
-                "Type": "TextArea",
-                "Name": "Findmyphone",
-                "X": 66,
-                "Y": 275,
                 "Width": 155,
                 "Height": 25,
                 "TextId": "findmyphoneText",
@@ -1716,29 +1739,10 @@
                 }
               },
               {
-                "Type": "Button",
-                "Name": "button6",
-                "X": 14,
-                "Y": 322,
-                "Width": 212,
-                "Height": 54,
-                "Pressed": "Rectangle 30.png",
-                "Released": "Rectangle 21.png"
-              },
-              {
-                "Type": "Image",
-                "Name": "image6",
-                "X": 20,
-                "Y": 329,
-                "Width": 40,
-                "Height": 40,
-                "RelativeFilename": "Rectangle 26.png"
-              },
-              {
                 "Type": "TextArea",
-                "Name": "Information",
+                "Name": "information_label",
                 "X": 66,
-                "Y": 338,
+                "Y": 275,
                 "Width": 155,
                 "Height": 25,
                 "TextId": "informationText",
@@ -1750,63 +1754,10 @@
                 }
               },
               {
-                "Type": "Button",
-                "Name": "button7",
-                "X": 296,
-                "Y": 385,
-                "Width": 212,
-                "Height": 54,
-                "Pressed": "Rectangle 30.png",
-                "Released": "Rectangle 21.png"
-              },
-              {
-                "Type": "Image",
-                "Name": "image7",
-                "X": 302,
-                "Y": 392,
-                "Width": 40,
-                "Height": 40,
-                "RelativeFilename": "Rectangle 26.png"
-              },
-              {
                 "Type": "TextArea",
-                "Name": "commu_cycle",
-                "X": 348,
-                "Y": 389,
-                "Width": 155,
-                "Height": 47,
-                "TextId": "communication_cycle_text",
-                "TextRotation": "0",
-                "Color": {
-                  "Red": 217,
-                  "Green": 217,
-                  "Blue": 217
-                }
-              },
-              {
-                "Type": "Button",
-                "Name": "button8",
-                "X": 14,
-                "Y": 385,
-                "Width": 212,
-                "Height": 54,
-                "Pressed": "Rectangle 30.png",
-                "Released": "Rectangle 21.png"
-              },
-              {
-                "Type": "Image",
-                "Name": "image8",
-                "X": 20,
-                "Y": 392,
-                "Width": 40,
-                "Height": 40,
-                "RelativeFilename": "Rectangle 26.png"
-              },
-              {
-                "Type": "TextArea",
-                "Name": "System",
+                "Name": "system_label",
                 "X": 66,
-                "Y": 401,
+                "Y": 338,
                 "Width": 155,
                 "Height": 25,
                 "TextId": "systemText",
@@ -1819,21 +1770,75 @@
               },
               {
                 "Type": "Box",
-                "Name": "box1",
+                "Name": "bottom_padding_box",
                 "X": 14,
-                "Y": 439,
+                "Y": 376,
                 "Width": 212,
                 "Height": 9
+              },
+              {
+                "Type": "Image",
+                "Name": "screen_image",
+                "X": 23,
+                "Y": 18,
+                "Width": 33,
+                "Height": 33,
+                "RelativeFilename": "setting_screen_icon.png"
+              },
+              {
+                "Type": "Image",
+                "Name": "sound_image",
+                "X": 23,
+                "Y": 81,
+                "Width": 33,
+                "Height": 33,
+                "RelativeFilename": "setting_sound_icon.png"
+              },
+              {
+                "Type": "Image",
+                "Name": "language_image",
+                "X": 22,
+                "Y": 143,
+                "Width": 35,
+                "Height": 35,
+                "RelativeFilename": "setting_language_icon.png"
+              },
+              {
+                "Type": "Image",
+                "Name": "phone_image",
+                "X": 22,
+                "Y": 206,
+                "Width": 35,
+                "Height": 35,
+                "RelativeFilename": "setting_phone_icon.png"
+              },
+              {
+                "Type": "Image",
+                "Name": "information_image",
+                "X": 22,
+                "Y": 268,
+                "Width": 35,
+                "Height": 35,
+                "RelativeFilename": "setting_information_icon.png"
+              },
+              {
+                "Type": "Image",
+                "Name": "system_image",
+                "X": 22,
+                "Y": 329,
+                "Width": 36,
+                "Height": 36,
+                "RelativeFilename": "setting_system_icon.png"
               }
             ]
           },
           {
             "Type": "TextArea",
-            "Name": "Setting",
+            "Name": "setting_label",
             "Y": 6,
             "Width": 240,
             "Height": 25,
-            "TextId": "settingLable",
+            "TextId": "settingLabel",
             "TextRotation": "0",
             "Color": {
               "Red": 255,
@@ -1861,13 +1866,22 @@
           },
           {
             "Type": "Button",
-            "Name": "button0",
+            "Name": "buttonfornothing",
             "Width": 240,
             "Height": 50,
             "Visible": false,
             "Pressed": "__generated\\alternate_theme_images_widgets_button_regular_height_50_medium_rounded_pressed.png",
             "Released": "__generated\\alternate_theme_images_widgets_button_regular_height_50_medium_rounded_normal.png",
             "Preset": "alternate_theme\\presets\\button\\regular\\height_50\\medium_rounded_normal.json"
+          },
+          {
+            "Type": "Image",
+            "Name": "catm1_image",
+            "X": 11,
+            "Y": 11,
+            "Width": 15,
+            "Height": 12,
+            "RelativeFilename": "lte_notconnected.png"
           }
         ],
         "Interactions": [
@@ -1875,7 +1889,7 @@
             "InteractionName": "screenSettingInteraction",
             "Trigger": {
               "Type": "TriggerClicked",
-              "TriggerComponent": "button1"
+              "TriggerComponent": "screen_button"
             },
             "Action": {
               "Type": "ActionGotoScreen",
@@ -1888,7 +1902,7 @@
             "InteractionName": "snhSettingInteraction",
             "Trigger": {
               "Type": "TriggerClicked",
-              "TriggerComponent": "button2"
+              "TriggerComponent": "soundnhaptics_button"
             },
             "Action": {
               "Type": "ActionGotoScreen",
@@ -1901,7 +1915,7 @@
             "InteractionName": "languageSettingInteraction",
             "Trigger": {
               "Type": "TriggerClicked",
-              "TriggerComponent": "button3"
+              "TriggerComponent": "language_button"
             },
             "Action": {
               "Type": "ActionGotoScreen",
@@ -1914,7 +1928,7 @@
             "InteractionName": "infoSettingInteraction",
             "Trigger": {
               "Type": "TriggerClicked",
-              "TriggerComponent": "button6"
+              "TriggerComponent": "information_button"
             },
             "Action": {
               "Type": "ActionGotoScreen",
@@ -1927,7 +1941,7 @@
             "InteractionName": "systemSettingInteraction",
             "Trigger": {
               "Type": "TriggerClicked",
-              "TriggerComponent": "button8"
+              "TriggerComponent": "system_button"
             },
             "Action": {
               "Type": "ActionGotoScreen",
@@ -1937,42 +1951,16 @@
             }
           },
           {
-            "InteractionName": "wifiSettingInteraction",
-            "Trigger": {
-              "Type": "TriggerClicked",
-              "TriggerComponent": "button4"
-            },
-            "Action": {
-              "Type": "ActionGotoScreen",
-              "ScreenTransitionType": "ScreenTransitionCover",
-              "ScreenTransitionDirection": "East",
-              "ActionComponent": "wifiSetting"
-            }
-          },
-          {
             "InteractionName": "Interaction1",
             "Trigger": {
               "Type": "TriggerClicked",
-              "TriggerComponent": "button0"
+              "TriggerComponent": "buttonfornothing"
             },
             "Action": {
               "Type": "ActionGotoScreen",
               "ScreenTransitionType": "ScreenTransitionWipe",
               "ScreenTransitionDirection": "West",
               "ActionComponent": "swipedownfromHome"
-            }
-          },
-          {
-            "InteractionName": "CycleSettingInteraction",
-            "Trigger": {
-              "Type": "TriggerClicked",
-              "TriggerComponent": "button7"
-            },
-            "Action": {
-              "Type": "ActionGotoScreen",
-              "ScreenTransitionType": "ScreenTransitionCover",
-              "ScreenTransitionDirection": "East",
-              "ActionComponent": "communicationCycleSetting"
             }
           }
         ]
@@ -1989,7 +1977,7 @@
           },
           {
             "Type": "TextArea",
-            "Name": "Screen",
+            "Name": "screen_label",
             "Y": 6,
             "Width": 240,
             "Height": 25,
@@ -2003,25 +1991,25 @@
           },
           {
             "Type": "Image",
-            "Name": "image1",
+            "Name": "ontimebutton_icon_back",
             "X": 14,
             "Y": 48,
             "Width": 40,
             "Height": 40,
-            "RelativeFilename": "Rectangle 26.png"
+            "RelativeFilename": "set_setting_iconback.png"
           },
           {
             "Type": "Image",
-            "Name": "image1_1",
+            "Name": "brightnessbutton_icon_back",
             "X": 14,
             "Y": 109,
             "Width": 40,
             "Height": 40,
-            "RelativeFilename": "Rectangle 26.png"
+            "RelativeFilename": "set_setting_iconback.png"
           },
           {
             "Type": "TextArea",
-            "Name": "textArea1",
+            "Name": "ontime_label",
             "X": 66,
             "Y": 59,
             "Width": 140,
@@ -2036,7 +2024,7 @@
           },
           {
             "Type": "TextArea",
-            "Name": "textArea1_1",
+            "Name": "brightness_label",
             "X": 66,
             "Y": 120,
             "Width": 140,
@@ -2051,7 +2039,7 @@
           },
           {
             "Type": "Image",
-            "Name": "image2",
+            "Name": "ontime_arrow_image",
             "X": 211,
             "Y": 58,
             "Width": 20,
@@ -2060,7 +2048,7 @@
           },
           {
             "Type": "Image",
-            "Name": "image2_1",
+            "Name": "brightness_arrow_image",
             "X": 211,
             "Y": 120,
             "Width": 20,
@@ -2069,7 +2057,7 @@
           },
           {
             "Type": "Button",
-            "Name": "button1",
+            "Name": "ontime_button",
             "X": 56,
             "Y": 43,
             "Width": 175,
@@ -2080,7 +2068,7 @@
           },
           {
             "Type": "Button",
-            "Name": "button2",
+            "Name": "brightness_button",
             "X": 56,
             "Y": 104,
             "Width": 175,
@@ -2109,13 +2097,31 @@
           },
           {
             "Type": "Button",
-            "Name": "button3",
+            "Name": "buttonfornothing",
             "Width": 240,
             "Height": 50,
             "Visible": false,
             "Pressed": "__generated\\alternate_theme_images_widgets_button_regular_height_50_medium_rounded_pressed.png",
             "Released": "__generated\\alternate_theme_images_widgets_button_regular_height_50_medium_rounded_normal.png",
             "Preset": "alternate_theme\\presets\\button\\regular\\height_50\\medium_rounded_normal.json"
+          },
+          {
+            "Type": "Image",
+            "Name": "ontime_image",
+            "X": 16,
+            "Y": 50,
+            "Width": 35,
+            "Height": 35,
+            "RelativeFilename": "set_setting_ontime_icon.png"
+          },
+          {
+            "Type": "Image",
+            "Name": "brightness_image",
+            "X": 17,
+            "Y": 112,
+            "Width": 33,
+            "Height": 33,
+            "RelativeFilename": "set_setting_brightness_icon.png"
           }
         ],
         "Interactions": [
@@ -2123,7 +2129,7 @@
             "InteractionName": "setscreenontime",
             "Trigger": {
               "Type": "TriggerClicked",
-              "TriggerComponent": "button1"
+              "TriggerComponent": "ontime_button"
             },
             "Action": {
               "Type": "ActionGotoScreen",
@@ -2136,7 +2142,7 @@
             "InteractionName": "setscreenbrightness",
             "Trigger": {
               "Type": "TriggerClicked",
-              "TriggerComponent": "button2"
+              "TriggerComponent": "brightness_button"
             },
             "Action": {
               "Type": "ActionGotoScreen",
@@ -2149,7 +2155,7 @@
             "InteractionName": "Interaction1",
             "Trigger": {
               "Type": "TriggerClicked",
-              "TriggerComponent": "button3"
+              "TriggerComponent": "buttonfornothing"
             },
             "Action": {
               "Type": "ActionGotoScreen",
@@ -2172,7 +2178,7 @@
           },
           {
             "Type": "TextArea",
-            "Name": "screenontime",
+            "Name": "ontime_label",
             "Y": 6,
             "Width": 240,
             "Height": 25,
@@ -2205,7 +2211,7 @@
           },
           {
             "Type": "Image",
-            "Name": "image1",
+            "Name": "scrollwheel_contour_image",
             "X": 22,
             "Y": 107,
             "Width": 198,
@@ -2214,7 +2220,7 @@
           },
           {
             "Type": "Button",
-            "Name": "button1",
+            "Name": "ontime_done_button",
             "X": 48,
             "Y": 215,
             "Width": 144,
@@ -2224,7 +2230,7 @@
           },
           {
             "Type": "TextArea",
-            "Name": "textArea2",
+            "Name": "ontime_done_label",
             "X": 48,
             "Y": 222,
             "Width": 144,
@@ -2257,7 +2263,7 @@
           },
           {
             "Type": "Button",
-            "Name": "button2",
+            "Name": "buttonfornothing",
             "Width": 240,
             "Height": 50,
             "Visible": false,
@@ -2271,7 +2277,7 @@
             "InteractionName": "Interaction1",
             "Trigger": {
               "Type": "TriggerClicked",
-              "TriggerComponent": "button2"
+              "TriggerComponent": "buttonfornothing"
             },
             "Action": {
               "Type": "ActionGotoScreen",
@@ -2281,15 +2287,34 @@
             }
           },
           {
-            "InteractionName": "call_changeScreenOnTime",
+            "InteractionName": "Interaction2",
             "Trigger": {
               "Type": "TriggerClicked",
-              "TriggerComponent": "button1"
+              "TriggerComponent": "ontime_done_button"
             },
             "Action": {
-              "Type": "ActionCustom",
-              "FunctionName": "changeScreenOnTime"
+              "Type": "ActionGotoScreen",
+              "ScreenTransitionType": "ScreenTransitionWipe",
+              "ScreenTransitionDirection": "West",
+              "ActionComponent": "screenSetting"
             }
+          },
+          {
+            "InteractionName": "callFunction",
+            "Trigger": {
+              "Type": "TriggerClicked",
+              "TriggerComponent": "ontime_done_button"
+            },
+            "Action": {
+              "Type": "ActionCustom2",
+              "ActionCustomTypeName": "Call screenontimeSetting changeScreenOnTime",
+              "ActionComponent": "screenontimeSetting"
+            }
+          }
+        ],
+        "CustomActions": [
+          {
+            "Name": "changeScreenOnTime"
           }
         ]
       },
@@ -2305,7 +2330,7 @@
           },
           {
             "Type": "TextArea",
-            "Name": "screenbrightness",
+            "Name": "screenbrightness_label",
             "Y": 6,
             "Width": 240,
             "Height": 25,
@@ -2324,22 +2349,22 @@
             "Y": 39,
             "Width": 107,
             "Height": 227,
-            "BackgroundUnselected": "Rectangle 40.png",
-            "BackgroundSelected": "Rectangle 41.png",
-            "Indicator": "Line 10.png",
+            "BackgroundUnselected": "set_brightness_back.png",
+            "BackgroundSelected": "set_brigntness.png",
+            "Indicator": "swipedown_brightness_indicator.png",
             "IndicatorPos": 31,
             "IndicatorMax": 226,
-            "ValueMax": 15,
-            "InitValue": 15
+            "ValueMax": 100,
+            "InitValue": 50
           },
           {
             "Type": "Image",
-            "Name": "image1",
+            "Name": "brightness_image",
             "X": 87,
             "Y": 179,
             "Width": 66,
             "Height": 66,
-            "RelativeFilename": "brightness2.png"
+            "RelativeFilename": "set_setting_slider_icon.png"
           },
           {
             "Type": "ImageProgress",
@@ -2374,7 +2399,7 @@
           },
           {
             "Type": "TextArea",
-            "Name": "Screen",
+            "Name": "soundnhaptics_label",
             "Y": 6,
             "Width": 240,
             "Height": 25,
@@ -2388,25 +2413,25 @@
           },
           {
             "Type": "Image",
-            "Name": "image1",
+            "Name": "haptic_icon_back",
             "X": 14,
             "Y": 48,
             "Width": 40,
             "Height": 40,
-            "RelativeFilename": "Rectangle 26.png"
+            "RelativeFilename": "set_setting_iconback.png"
           },
           {
             "Type": "Image",
-            "Name": "image1_1",
+            "Name": "sound_icon_back",
             "X": 14,
             "Y": 109,
             "Width": 40,
             "Height": 40,
-            "RelativeFilename": "Rectangle 26.png"
+            "RelativeFilename": "set_setting_iconback.png"
           },
           {
             "Type": "TextArea",
-            "Name": "textArea1",
+            "Name": "haptic_label",
             "X": 66,
             "Y": 59,
             "Width": 45,
@@ -2422,7 +2447,7 @@
           },
           {
             "Type": "TextArea",
-            "Name": "textArea2",
+            "Name": "sound_label",
             "X": 66,
             "Y": 120,
             "Width": 46,
@@ -2438,7 +2463,7 @@
           },
           {
             "Type": "ToggleButton",
-            "Name": "toggleButton1",
+            "Name": "haptic_togglebutton",
             "X": 182,
             "Y": 48,
             "Width": 40,
@@ -2449,7 +2474,7 @@
           },
           {
             "Type": "ToggleButton",
-            "Name": "toggleButton2",
+            "Name": "sound_togglebutton",
             "X": 182,
             "Y": 109,
             "Width": 40,
@@ -2475,6 +2500,24 @@
             "IndicatorPositionHeight": 11,
             "ProgressRangeMax": 100,
             "ProgressInitialValue": 90
+          },
+          {
+            "Type": "Image",
+            "Name": "haptic_image",
+            "X": 15,
+            "Y": 55,
+            "Width": 38,
+            "Height": 25,
+            "RelativeFilename": "set_setting_haptic_icon.png"
+          },
+          {
+            "Type": "Image",
+            "Name": "sound_image",
+            "X": 17,
+            "Y": 112,
+            "Width": 33,
+            "Height": 33,
+            "RelativeFilename": "set_setting_sound_icon.png"
           }
         ],
         "Interactions": []
@@ -2491,7 +2534,7 @@
           },
           {
             "Type": "TextArea",
-            "Name": "Screen",
+            "Name": "language_label",
             "Y": 6,
             "Width": 240,
             "Height": 25,
@@ -2505,25 +2548,34 @@
           },
           {
             "Type": "Image",
-            "Name": "image1",
+            "Name": "korean_icon_back",
             "X": 14,
             "Y": 48,
             "Width": 40,
             "Height": 40,
-            "RelativeFilename": "Rectangle 26.png"
+            "RelativeFilename": "set_setting_iconback.png"
           },
           {
             "Type": "Image",
-            "Name": "image1_1",
+            "Name": "english_icon_back",
             "X": 14,
             "Y": 109,
             "Width": 40,
             "Height": 40,
-            "RelativeFilename": "Rectangle 26.png"
+            "RelativeFilename": "set_setting_iconback.png"
+          },
+          {
+            "Type": "Image",
+            "Name": "spanish_icon_back",
+            "X": 14,
+            "Y": 170,
+            "Width": 40,
+            "Height": 40,
+            "RelativeFilename": "set_setting_iconback.png"
           },
           {
             "Type": "TextArea",
-            "Name": "textArea1",
+            "Name": "korean_label",
             "X": 66,
             "Y": 59,
             "Width": 107,
@@ -2538,12 +2590,27 @@
           },
           {
             "Type": "TextArea",
-            "Name": "textArea2",
+            "Name": "english_label",
             "X": 66,
             "Y": 120,
             "Width": 107,
             "Height": 20,
             "TextId": "English",
+            "TextRotation": "0",
+            "Color": {
+              "Red": 255,
+              "Green": 255,
+              "Blue": 255
+            }
+          },
+          {
+            "Type": "TextArea",
+            "Name": "spanish_label",
+            "X": 66,
+            "Y": 180,
+            "Width": 107,
+            "Height": 20,
+            "TextId": "Spanish",
             "TextRotation": "0",
             "Color": {
               "Red": 255,
@@ -2579,6 +2646,19 @@
             "RadioButtonGroup": "radioButtonGroup1"
           },
           {
+            "Type": "RadioButton",
+            "Name": "radioButton3",
+            "X": 191,
+            "Y": 178,
+            "Width": 25,
+            "Height": 25,
+            "FileNameSelected": "radiofill.png",
+            "FileNameSelectedPressed": "radiofill.png",
+            "FileNameUnselected": "radionfill.png",
+            "FileNameUnselectedPressed": "radionfill.png",
+            "RadioButtonGroup": "radioButtonGroup1"
+          },
+          {
             "Type": "ImageProgress",
             "Name": "batteryprogress",
             "X": 197,
@@ -2595,6 +2675,33 @@
             "IndicatorPositionHeight": 11,
             "ProgressRangeMax": 100,
             "ProgressInitialValue": 90
+          },
+          {
+            "Type": "Image",
+            "Name": "korean_image",
+            "X": 22,
+            "Y": 55,
+            "Width": 24,
+            "Height": 26,
+            "RelativeFilename": "set_setting_korean_icon.png"
+          },
+          {
+            "Type": "Image",
+            "Name": "english_image",
+            "X": 16,
+            "Y": 111,
+            "Width": 35,
+            "Height": 35,
+            "RelativeFilename": "set_setting_english_icon.png"
+          },
+          {
+            "Type": "Image",
+            "Name": "spanish_image",
+            "X": 17,
+            "Y": 178,
+            "Width": 33,
+            "Height": 25,
+            "RelativeFilename": "set_setting_spanish_icon.png"
           }
         ],
         "Interactions": [
@@ -2620,87 +2727,19 @@
               "Type": "ActionSetLanguage",
               "Language": "GB"
             }
+          },
+          {
+            "InteractionName": "setLanguageToSpanish",
+            "Trigger": {
+              "Type": "TriggerRadioButtonSelected",
+              "TriggerComponent": "radioButton3"
+            },
+            "Action": {
+              "Type": "ActionSetLanguage",
+              "Language": "Spanish"
+            }
           }
         ]
-      },
-      {
-        "Name": "wifiSetting",
-        "Components": [
-          {
-            "Type": "Image",
-            "Name": "background",
-            "Width": 240,
-            "Height": 280,
-            "RelativeFilename": "background.png"
-          },
-          {
-            "Type": "TextArea",
-            "Name": "textArea1",
-            "Y": 6,
-            "Width": 240,
-            "Height": 22,
-            "TextId": "wifisetting",
-            "TextRotation": "0",
-            "Color": {
-              "Red": 255,
-              "Green": 255,
-              "Blue": 255
-            }
-          },
-          {
-            "Type": "ImageProgress",
-            "Name": "batteryprogress",
-            "X": 197,
-            "Y": 8,
-            "Width": 33,
-            "Height": 15,
-            "FileNameProgress": "battpercentage.png",
-            "AnchorAtZero": true,
-            "Direction": "Right",
-            "FileNameBackground": "Group 6.png",
-            "IndicatorPositionX": 2,
-            "IndicatorPositionY": 2,
-            "IndicatorPositionWidth": 27,
-            "IndicatorPositionHeight": 11,
-            "ProgressRangeMax": 100,
-            "ProgressInitialValue": 90
-          },
-          {
-            "Type": "Image",
-            "Name": "image1",
-            "X": 14,
-            "Y": 41,
-            "Width": 212,
-            "Height": 100,
-            "RelativeFilename": "Rectangle 22.png"
-          },
-          {
-            "Type": "Image",
-            "Name": "image2",
-            "X": 21,
-            "Y": 89,
-            "Width": 197,
-            "Height": 1,
-            "RelativeFilename": "wifiline.png"
-          },
-          {
-            "Type": "TextArea",
-            "Name": "textArea2",
-            "X": 33,
-            "Y": 54,
-            "Width": 118,
-            "Height": 19,
-            "TextId": "searchingwifi",
-            "TextRotation": "0",
-            "Color": {
-              "Red": 217,
-              "Green": 217,
-              "Blue": 217
-            },
-            "AutoSize": true
-          }
-        ],
-        "Interactions": []
       },
       {
         "Name": "informationSetting",
@@ -2714,7 +2753,7 @@
           },
           {
             "Type": "TextArea",
-            "Name": "Information",
+            "Name": "information_label",
             "Y": 6,
             "Width": 240,
             "Height": 25,
@@ -2728,25 +2767,25 @@
           },
           {
             "Type": "Image",
-            "Name": "image1",
+            "Name": "device_icon_back",
             "X": 14,
             "Y": 48,
             "Width": 40,
             "Height": 40,
-            "RelativeFilename": "Rectangle 26.png"
+            "RelativeFilename": "set_setting_iconback.png"
           },
           {
             "Type": "Image",
-            "Name": "image1_1",
+            "Name": "network_icon_back",
             "X": 14,
             "Y": 109,
             "Width": 40,
             "Height": 40,
-            "RelativeFilename": "Rectangle 26.png"
+            "RelativeFilename": "set_setting_iconback.png"
           },
           {
             "Type": "TextArea",
-            "Name": "textArea1",
+            "Name": "device_label",
             "X": 66,
             "Y": 59,
             "Width": 140,
@@ -2761,7 +2800,7 @@
           },
           {
             "Type": "TextArea",
-            "Name": "textArea1_1",
+            "Name": "network_label",
             "X": 66,
             "Y": 120,
             "Width": 140,
@@ -2776,7 +2815,7 @@
           },
           {
             "Type": "Image",
-            "Name": "image2",
+            "Name": "device_arrow_image",
             "X": 211,
             "Y": 58,
             "Width": 20,
@@ -2785,7 +2824,7 @@
           },
           {
             "Type": "Image",
-            "Name": "image2_1",
+            "Name": "network_arrow_image",
             "X": 211,
             "Y": 120,
             "Width": 20,
@@ -2794,7 +2833,7 @@
           },
           {
             "Type": "Button",
-            "Name": "button1",
+            "Name": "device_button",
             "X": 56,
             "Y": 43,
             "Width": 175,
@@ -2805,7 +2844,7 @@
           },
           {
             "Type": "Button",
-            "Name": "button2",
+            "Name": "network_button",
             "X": 56,
             "Y": 104,
             "Width": 175,
@@ -2831,6 +2870,24 @@
             "IndicatorPositionHeight": 11,
             "ProgressRangeMax": 100,
             "ProgressInitialValue": 90
+          },
+          {
+            "Type": "Image",
+            "Name": "device_image",
+            "X": 14,
+            "Y": 48,
+            "Width": 40,
+            "Height": 40,
+            "RelativeFilename": "set_setting_device_icon.png"
+          },
+          {
+            "Type": "Image",
+            "Name": "network_image",
+            "X": 19,
+            "Y": 114,
+            "Width": 30,
+            "Height": 30,
+            "RelativeFilename": "set_setting_network_icon.png"
           }
         ],
         "Interactions": [
@@ -2838,7 +2895,7 @@
             "InteractionName": "movetoDeviceInfo",
             "Trigger": {
               "Type": "TriggerClicked",
-              "TriggerComponent": "button1"
+              "TriggerComponent": "device_button"
             },
             "Action": {
               "Type": "ActionGotoScreen",
@@ -2851,7 +2908,7 @@
             "InteractionName": "movetoNetworkInfo",
             "Trigger": {
               "Type": "TriggerClicked",
-              "TriggerComponent": "button2"
+              "TriggerComponent": "network_button"
             },
             "Action": {
               "Type": "ActionGotoScreen",
@@ -2874,7 +2931,7 @@
           },
           {
             "Type": "TextArea",
-            "Name": "DeviceInfo",
+            "Name": "deviceinfo_label",
             "Y": 6,
             "Width": 240,
             "Height": 25,
@@ -2888,7 +2945,7 @@
           },
           {
             "Type": "TextArea",
-            "Name": "textArea1",
+            "Name": "model_label",
             "Y": 67,
             "Width": 240,
             "Height": 29,
@@ -2900,12 +2957,14 @@
               "Blue": 255
             },
             "Wildcard1": {
-              "TextId": "modelnameValue"
+              "TextId": "modelnameValue",
+              "UseBuffer": true,
+              "BufferSize": 20
             }
           },
           {
             "Type": "TextArea",
-            "Name": "textArea2",
+            "Name": "version_label",
             "Y": 98,
             "Width": 240,
             "Height": 29,
@@ -2917,12 +2976,14 @@
               "Blue": 255
             },
             "Wildcard1": {
-              "TextId": "fwversionValue"
+              "TextId": "fwversionValue",
+              "UseBuffer": true,
+              "BufferSize": 20
             }
           },
           {
             "Type": "TextArea",
-            "Name": "textArea3",
+            "Name": "id_label",
             "Y": 129,
             "Width": 240,
             "Height": 29,
@@ -2934,12 +2995,14 @@
               "Blue": 255
             },
             "Wildcard1": {
-              "TextId": "idinfoValue"
+              "TextId": "idinfoValue",
+              "UseBuffer": true,
+              "BufferSize": 20
             }
           },
           {
             "Type": "TextArea",
-            "Name": "textArea4",
+            "Name": "serialnumber_label",
             "Y": 160,
             "Width": 240,
             "Height": 29,
@@ -2951,12 +3014,14 @@
               "Blue": 255
             },
             "Wildcard1": {
-              "TextId": "serialnumberValue"
+              "TextId": "serialnumberValue",
+              "UseBuffer": true,
+              "BufferSize": 20
             }
           },
           {
             "Type": "TextArea",
-            "Name": "textArea5",
+            "Name": "servicenumber_label",
             "Y": 191,
             "Width": 240,
             "Height": 29,
@@ -2968,7 +3033,9 @@
               "Blue": 255
             },
             "Wildcard1": {
-              "TextId": "servicenumberValue"
+              "TextId": "servicenumberValue",
+              "UseBuffer": true,
+              "BufferSize": 20
             }
           },
           {
@@ -2991,7 +3058,7 @@
           },
           {
             "Type": "Button",
-            "Name": "button1",
+            "Name": "buttonfornothing",
             "Width": 240,
             "Height": 50,
             "Visible": false,
@@ -3005,7 +3072,7 @@
             "InteractionName": "Interaction1",
             "Trigger": {
               "Type": "TriggerClicked",
-              "TriggerComponent": "button1"
+              "TriggerComponent": "buttonfornothing"
             },
             "Action": {
               "Type": "ActionGotoScreen",
@@ -3028,7 +3095,7 @@
           },
           {
             "Type": "TextArea",
-            "Name": "NetworkInfo",
+            "Name": "networkinfo_label",
             "Y": 6,
             "Width": 240,
             "Height": 25,
@@ -3042,72 +3109,8 @@
           },
           {
             "Type": "TextArea",
-            "Name": "textArea1",
+            "Name": "imei_label",
             "Y": 53,
-            "Width": 240,
-            "Height": 29,
-            "TextId": "blemacaddLable",
-            "TextRotation": "0",
-            "Color": {
-              "Red": 239,
-              "Green": 140,
-              "Blue": 48
-            }
-          },
-          {
-            "Type": "TextArea",
-            "Name": "textArea1_1",
-            "X": 33,
-            "Y": 109,
-            "Width": 158,
-            "Height": 29,
-            "TextId": "wifimacaddLabel",
-            "TextRotation": "0",
-            "Color": {
-              "Red": 239,
-              "Green": 140,
-              "Blue": 48
-            },
-            "AutoSize": true
-          },
-          {
-            "Type": "TextArea",
-            "Name": "textArea2",
-            "Y": 80,
-            "Width": 240,
-            "Height": 29,
-            "TextId": "blemacaddText",
-            "TextRotation": "0",
-            "Color": {
-              "Red": 255,
-              "Green": 255,
-              "Blue": 255
-            },
-            "Wildcard1": {
-              "TextId": "blemacaddValue"
-            }
-          },
-          {
-            "Type": "TextArea",
-            "Name": "textArea2_1",
-            "Y": 136,
-            "Width": 240,
-            "Height": 29,
-            "TextId": "wifimacaddText",
-            "TextRotation": "0",
-            "Color": {
-              "Red": 255,
-              "Green": 255,
-              "Blue": 255
-            },
-            "Wildcard1": {
-              "TextId": "wifimacaddValue"
-            }
-          },
-          {
-            "Type": "TextArea",
-            "Name": "textArea3",
-            "Y": 167,
             "Width": 240,
             "Height": 29,
             "TextId": "imei",
@@ -3118,13 +3121,15 @@
               "Blue": 255
             },
             "Wildcard1": {
-              "TextId": "imeiValue"
+              "TextId": "imeiValue",
+              "UseBuffer": true,
+              "BufferSize": 20
             }
           },
           {
             "Type": "TextArea",
-            "Name": "textArea3_1",
-            "Y": 198,
+            "Name": "iccid_label",
+            "Y": 80,
             "Width": 240,
             "Height": 29,
             "TextId": "iccid",
@@ -3135,105 +3140,9 @@
               "Blue": 255
             },
             "Wildcard1": {
-              "TextId": "iccidValue"
-            }
-          },
-          {
-            "Type": "ImageProgress",
-            "Name": "batteryprogress",
-            "X": 197,
-            "Y": 8,
-            "Width": 33,
-            "Height": 15,
-            "FileNameProgress": "battpercentage.png",
-            "AnchorAtZero": true,
-            "Direction": "Right",
-            "FileNameBackground": "Group 6.png",
-            "IndicatorPositionX": 2,
-            "IndicatorPositionY": 2,
-            "IndicatorPositionWidth": 27,
-            "IndicatorPositionHeight": 11,
-            "ProgressRangeMax": 100,
-            "ProgressInitialValue": 90
-          }
-        ],
-        "Interactions": []
-      },
-      {
-        "Name": "communicationCycleSetting",
-        "Components": [
-          {
-            "Type": "Image",
-            "Name": "background",
-            "Width": 240,
-            "Height": 280,
-            "RelativeFilename": "background.png"
-          },
-          {
-            "Type": "TextArea",
-            "Name": "Setting",
-            "Y": 6,
-            "Width": 240,
-            "Height": 43,
-            "TextId": "communicationcycleLabel",
-            "TextRotation": "0",
-            "Color": {
-              "Red": 255,
-              "Green": 255,
-              "Blue": 255
-            }
-          },
-          {
-            "Type": "ScrollWheel",
-            "Name": "scrollWheel1",
-            "X": 22,
-            "Y": 54,
-            "Width": 197,
-            "Height": 153,
-            "SelectedItemOffset": 53,
-            "UseSelectedStyle": true,
-            "SelectedItemTemplateName": "setting_communicationcycle_selected",
-            "ItemTemplateName": "setting_communicationcycle_notselected",
-            "NumberofItems": 3,
-            "InitialElement": 1,
-            "Easing": "Back",
-            "EasingOption": "Out",
-            "SwipeAcceleration": 1.2,
-            "DragAcceleration": 1.2,
-            "OverShootPercentage": 75
-          },
-          {
-            "Type": "Image",
-            "Name": "image1",
-            "X": 22,
-            "Y": 107,
-            "Width": 198,
-            "Height": 47,
-            "RelativeFilename": "selectline.png"
-          },
-          {
-            "Type": "Button",
-            "Name": "button1",
-            "X": 48,
-            "Y": 215,
-            "Width": 144,
-            "Height": 43,
-            "Pressed": "Rectanglepressed.png",
-            "Released": "Rectangle 14.png"
-          },
-          {
-            "Type": "TextArea",
-            "Name": "textArea2",
-            "X": 48,
-            "Y": 222,
-            "Width": 144,
-            "Height": 29,
-            "TextId": "communicationcycleApply",
-            "TextRotation": "0",
-            "Color": {
-              "Red": 255,
-              "Green": 255,
-              "Blue": 255
+              "TextId": "iccidValue",
+              "UseBuffer": true,
+              "BufferSize": 20
             }
           },
           {
@@ -3269,7 +3178,7 @@
           },
           {
             "Type": "TextArea",
-            "Name": "NetworkInfo",
+            "Name": "system_label",
             "Y": 6,
             "Width": 240,
             "Height": 25,
@@ -3283,7 +3192,7 @@
           },
           {
             "Type": "Button",
-            "Name": "button1",
+            "Name": "reset_button",
             "X": 20,
             "Y": 66,
             "Width": 200,
@@ -3293,7 +3202,7 @@
           },
           {
             "Type": "Button",
-            "Name": "button2",
+            "Name": "poweroff_button",
             "X": 20,
             "Y": 161,
             "Width": 200,
@@ -3303,7 +3212,7 @@
           },
           {
             "Type": "TextArea",
-            "Name": "textArea1",
+            "Name": "reset_label",
             "X": 20,
             "Y": 80,
             "Width": 200,
@@ -3318,7 +3227,7 @@
           },
           {
             "Type": "TextArea",
-            "Name": "textArea2",
+            "Name": "poweroff_label",
             "X": 20,
             "Y": 175,
             "Width": 200,
@@ -3355,7 +3264,7 @@
             "InteractionName": "poweroffbtn_pressed",
             "Trigger": {
               "Type": "TriggerClicked",
-              "TriggerComponent": "button2"
+              "TriggerComponent": "poweroff_button"
             },
             "Action": {
               "Type": "ActionGotoScreen",
@@ -3377,1141 +3286,21 @@
           },
           {
             "Type": "TextArea",
-            "Name": "textArea1",
-            "Y": 111,
+            "Name": "yousure_label",
+            "Y": 21,
             "Width": 240,
-            "Height": 60,
+            "Height": 90,
             "TextId": "offText",
             "TextRotation": "0",
             "Color": {
               "Red": 255,
               "Green": 255,
               "Blue": 255
-            },
-            "Wildcard1": {
-              "TextId": "offCountdown"
-            }
-          }
-        ],
-        "Interactions": []
-      },
-      {
-        "Name": "englishKeyboard",
-        "Components": [
-          {
-            "Type": "Image",
-            "Name": "background",
-            "Width": 240,
-            "Height": 280,
-            "RelativeFilename": "background.png"
-          },
-          {
-            "Type": "Button",
-            "Name": "backspace",
-            "X": 191,
-            "Y": 27,
-            "Width": 35,
-            "Height": 35,
-            "Pressed": "backspace_D.png",
-            "Released": "backspace.png"
-          },
-          {
-            "Type": "ImageProgress",
-            "Name": "batteryprogress",
-            "X": 197,
-            "Y": 8,
-            "Width": 33,
-            "Height": 15,
-            "FileNameProgress": "battpercentage.png",
-            "AnchorAtZero": true,
-            "Direction": "Right",
-            "FileNameBackground": "Group 6.png",
-            "IndicatorPositionX": 2,
-            "IndicatorPositionY": 2,
-            "IndicatorPositionWidth": 27,
-            "IndicatorPositionHeight": 11,
-            "ProgressRangeMax": 100,
-            "ProgressInitialValue": 90
-          },
-          {
-            "Type": "Button",
-            "Name": "btn1",
-            "X": 14,
-            "Y": 78,
-            "Width": 66,
-            "Height": 43,
-            "Pressed": "keyboardbtn_D.png",
-            "Released": "keyboardbtn.png"
-          },
-          {
-            "Type": "Button",
-            "Name": "btn2",
-            "X": 87,
-            "Y": 78,
-            "Width": 66,
-            "Height": 43,
-            "Pressed": "keyboardbtn_D.png",
-            "Released": "keyboardbtn.png"
-          },
-          {
-            "Type": "Button",
-            "Name": "btn3",
-            "X": 160,
-            "Y": 78,
-            "Width": 66,
-            "Height": 43,
-            "Pressed": "keyboardbtn_D.png",
-            "Released": "keyboardbtn.png"
-          },
-          {
-            "Type": "Button",
-            "Name": "btn4",
-            "X": 14,
-            "Y": 127,
-            "Width": 66,
-            "Height": 43,
-            "Pressed": "keyboardbtn_D.png",
-            "Released": "keyboardbtn.png"
-          },
-          {
-            "Type": "Button",
-            "Name": "btn5",
-            "X": 87,
-            "Y": 127,
-            "Width": 66,
-            "Height": 43,
-            "Pressed": "keyboardbtn_D.png",
-            "Released": "keyboardbtn.png"
-          },
-          {
-            "Type": "Button",
-            "Name": "btn6",
-            "X": 160,
-            "Y": 127,
-            "Width": 66,
-            "Height": 43,
-            "Pressed": "keyboardbtn_D.png",
-            "Released": "keyboardbtn.png"
-          },
-          {
-            "Type": "Button",
-            "Name": "btn7",
-            "X": 14,
-            "Y": 176,
-            "Width": 66,
-            "Height": 43,
-            "Pressed": "keyboardbtn_D.png",
-            "Released": "keyboardbtn.png"
-          },
-          {
-            "Type": "Button",
-            "Name": "btn8",
-            "X": 87,
-            "Y": 176,
-            "Width": 66,
-            "Height": 43,
-            "Pressed": "keyboardbtn_D.png",
-            "Released": "keyboardbtn.png"
-          },
-          {
-            "Type": "Button",
-            "Name": "btn9",
-            "X": 160,
-            "Y": 176,
-            "Width": 66,
-            "Height": 43,
-            "Pressed": "keyboardbtn_D.png",
-            "Released": "keyboardbtn.png"
-          },
-          {
-            "Type": "Button",
-            "Name": "btn10",
-            "X": 14,
-            "Y": 225,
-            "Width": 66,
-            "Height": 43,
-            "Pressed": "keyboardbtn_D.png",
-            "Released": "keyboardbtn.png"
-          },
-          {
-            "Type": "Button",
-            "Name": "btn11",
-            "X": 87,
-            "Y": 225,
-            "Width": 66,
-            "Height": 43,
-            "Pressed": "keyboardbtn_D.png",
-            "Released": "keyboardbtn.png"
-          },
-          {
-            "Type": "Button",
-            "Name": "btn12",
-            "X": 160,
-            "Y": 225,
-            "Width": 66,
-            "Height": 43,
-            "Pressed": "keyboardbtn_D.png",
-            "Released": "keyboardbtn.png"
-          },
-          {
-            "Type": "TextArea",
-            "Name": "textArea1",
-            "X": 14,
-            "Y": 88,
-            "Width": 66,
-            "Height": 23,
-            "TextId": "abc",
-            "TextRotation": "0",
-            "Color": {
-              "Red": 255,
-              "Green": 255,
-              "Blue": 255
-            }
-          },
-          {
-            "Type": "TextArea",
-            "Name": "textArea2",
-            "X": 87,
-            "Y": 88,
-            "Width": 66,
-            "Height": 23,
-            "TextId": "def",
-            "TextRotation": "0",
-            "Color": {
-              "Red": 255,
-              "Green": 255,
-              "Blue": 255
-            }
-          },
-          {
-            "Type": "TextArea",
-            "Name": "textArea3",
-            "X": 160,
-            "Y": 88,
-            "Width": 66,
-            "Height": 23,
-            "TextId": "ghi",
-            "TextRotation": "0",
-            "Color": {
-              "Red": 255,
-              "Green": 255,
-              "Blue": 255
-            }
-          },
-          {
-            "Type": "TextArea",
-            "Name": "textArea4",
-            "X": 14,
-            "Y": 137,
-            "Width": 66,
-            "Height": 23,
-            "TextId": "jkl",
-            "TextRotation": "0",
-            "Color": {
-              "Red": 255,
-              "Green": 255,
-              "Blue": 255
-            }
-          },
-          {
-            "Type": "TextArea",
-            "Name": "textArea5",
-            "X": 87,
-            "Y": 137,
-            "Width": 66,
-            "Height": 23,
-            "TextId": "mno",
-            "TextRotation": "0",
-            "Color": {
-              "Red": 255,
-              "Green": 255,
-              "Blue": 255
-            }
-          },
-          {
-            "Type": "TextArea",
-            "Name": "textArea6",
-            "X": 160,
-            "Y": 137,
-            "Width": 66,
-            "Height": 23,
-            "TextId": "pqr",
-            "TextRotation": "0",
-            "Color": {
-              "Red": 255,
-              "Green": 255,
-              "Blue": 255
-            }
-          },
-          {
-            "Type": "TextArea",
-            "Name": "textArea7",
-            "X": 14,
-            "Y": 186,
-            "Width": 66,
-            "Height": 23,
-            "TextId": "stu",
-            "TextRotation": "0",
-            "Color": {
-              "Red": 255,
-              "Green": 255,
-              "Blue": 255
-            }
-          },
-          {
-            "Type": "TextArea",
-            "Name": "textArea8",
-            "X": 87,
-            "Y": 186,
-            "Width": 66,
-            "Height": 23,
-            "TextId": "vwx",
-            "TextRotation": "0",
-            "Color": {
-              "Red": 255,
-              "Green": 255,
-              "Blue": 255
-            }
-          },
-          {
-            "Type": "TextArea",
-            "Name": "textArea9",
-            "X": 160,
-            "Y": 186,
-            "Width": 66,
-            "Height": 23,
-            "TextId": "yz",
-            "TextRotation": "0",
-            "Color": {
-              "Red": 255,
-              "Green": 255,
-              "Blue": 255
-            }
-          },
-          {
-            "Type": "TextArea",
-            "Name": "textArea10",
-            "X": 14,
-            "Y": 235,
-            "Width": 66,
-            "Height": 23,
-            "TextId": "change",
-            "TextRotation": "0",
-            "Color": {
-              "Red": 255,
-              "Green": 255,
-              "Blue": 255
-            }
-          },
-          {
-            "Type": "Image",
-            "Name": "space",
-            "X": 100,
-            "Y": 226,
-            "Width": 40,
-            "Height": 40,
-            "RelativeFilename": "space.png"
-          },
-          {
-            "Type": "Image",
-            "Name": "enter",
-            "X": 178,
-            "Y": 231,
-            "Width": 30,
-            "Height": 30,
-            "RelativeFilename": "return.png"
-          }
-        ],
-        "Interactions": [
-          {
-            "InteractionName": "changeEnglishtoNumber",
-            "Trigger": {
-              "Type": "TriggerClicked",
-              "TriggerComponent": "btn10"
-            },
-            "Action": {
-              "Type": "ActionGotoScreen",
-              "ScreenTransitionType": "ScreenTransitionNone",
-              "ActionComponent": "numberKeyboard"
-            }
-          }
-        ]
-      },
-      {
-        "Name": "numberKeyboard",
-        "Components": [
-          {
-            "Type": "Image",
-            "Name": "background",
-            "Width": 240,
-            "Height": 280,
-            "RelativeFilename": "background.png"
-          },
-          {
-            "Type": "Button",
-            "Name": "backspace",
-            "X": 191,
-            "Y": 27,
-            "Width": 35,
-            "Height": 35,
-            "Pressed": "backspace_D.png",
-            "Released": "backspace.png"
-          },
-          {
-            "Type": "ImageProgress",
-            "Name": "batteryprogress",
-            "X": 197,
-            "Y": 8,
-            "Width": 33,
-            "Height": 15,
-            "FileNameProgress": "battpercentage.png",
-            "AnchorAtZero": true,
-            "Direction": "Right",
-            "FileNameBackground": "Group 6.png",
-            "IndicatorPositionX": 2,
-            "IndicatorPositionY": 2,
-            "IndicatorPositionWidth": 27,
-            "IndicatorPositionHeight": 11,
-            "ProgressRangeMax": 100,
-            "ProgressInitialValue": 90
-          },
-          {
-            "Type": "Button",
-            "Name": "btn1",
-            "X": 14,
-            "Y": 78,
-            "Width": 66,
-            "Height": 43,
-            "Pressed": "keyboardbtn_D.png",
-            "Released": "keyboardbtn.png"
-          },
-          {
-            "Type": "Button",
-            "Name": "btn2",
-            "X": 87,
-            "Y": 78,
-            "Width": 66,
-            "Height": 43,
-            "Pressed": "keyboardbtn_D.png",
-            "Released": "keyboardbtn.png"
-          },
-          {
-            "Type": "Button",
-            "Name": "btn3",
-            "X": 160,
-            "Y": 78,
-            "Width": 66,
-            "Height": 43,
-            "Pressed": "keyboardbtn_D.png",
-            "Released": "keyboardbtn.png"
-          },
-          {
-            "Type": "Button",
-            "Name": "btn4",
-            "X": 14,
-            "Y": 127,
-            "Width": 66,
-            "Height": 43,
-            "Pressed": "keyboardbtn_D.png",
-            "Released": "keyboardbtn.png"
-          },
-          {
-            "Type": "Button",
-            "Name": "btn5",
-            "X": 87,
-            "Y": 127,
-            "Width": 66,
-            "Height": 43,
-            "Pressed": "keyboardbtn_D.png",
-            "Released": "keyboardbtn.png"
-          },
-          {
-            "Type": "Button",
-            "Name": "btn6",
-            "X": 160,
-            "Y": 127,
-            "Width": 66,
-            "Height": 43,
-            "Pressed": "keyboardbtn_D.png",
-            "Released": "keyboardbtn.png"
-          },
-          {
-            "Type": "Button",
-            "Name": "btn7",
-            "X": 14,
-            "Y": 176,
-            "Width": 66,
-            "Height": 43,
-            "Pressed": "keyboardbtn_D.png",
-            "Released": "keyboardbtn.png"
-          },
-          {
-            "Type": "Button",
-            "Name": "btn8",
-            "X": 87,
-            "Y": 176,
-            "Width": 66,
-            "Height": 43,
-            "Pressed": "keyboardbtn_D.png",
-            "Released": "keyboardbtn.png"
-          },
-          {
-            "Type": "Button",
-            "Name": "btn9",
-            "X": 160,
-            "Y": 176,
-            "Width": 66,
-            "Height": 43,
-            "Pressed": "keyboardbtn_D.png",
-            "Released": "keyboardbtn.png"
-          },
-          {
-            "Type": "Button",
-            "Name": "btn10",
-            "X": 14,
-            "Y": 225,
-            "Width": 66,
-            "Height": 43,
-            "Pressed": "keyboardbtn_D.png",
-            "Released": "keyboardbtn.png"
-          },
-          {
-            "Type": "Button",
-            "Name": "btn11",
-            "X": 87,
-            "Y": 225,
-            "Width": 66,
-            "Height": 43,
-            "Pressed": "keyboardbtn_D.png",
-            "Released": "keyboardbtn.png"
-          },
-          {
-            "Type": "Button",
-            "Name": "btn12",
-            "X": 160,
-            "Y": 225,
-            "Width": 66,
-            "Height": 43,
-            "Pressed": "keyboardbtn_D.png",
-            "Released": "keyboardbtn.png"
-          },
-          {
-            "Type": "TextArea",
-            "Name": "textArea1",
-            "X": 14,
-            "Y": 88,
-            "Width": 66,
-            "Height": 23,
-            "TextId": "1",
-            "TextRotation": "0",
-            "Color": {
-              "Red": 255,
-              "Green": 255,
-              "Blue": 255
-            }
-          },
-          {
-            "Type": "TextArea",
-            "Name": "textArea2",
-            "X": 87,
-            "Y": 88,
-            "Width": 66,
-            "Height": 23,
-            "TextId": "2",
-            "TextRotation": "0",
-            "Color": {
-              "Red": 255,
-              "Green": 255,
-              "Blue": 255
-            }
-          },
-          {
-            "Type": "TextArea",
-            "Name": "textArea3",
-            "X": 160,
-            "Y": 88,
-            "Width": 66,
-            "Height": 23,
-            "TextId": "3",
-            "TextRotation": "0",
-            "Color": {
-              "Red": 255,
-              "Green": 255,
-              "Blue": 255
-            }
-          },
-          {
-            "Type": "TextArea",
-            "Name": "textArea4",
-            "X": 14,
-            "Y": 137,
-            "Width": 66,
-            "Height": 23,
-            "TextId": "4",
-            "TextRotation": "0",
-            "Color": {
-              "Red": 255,
-              "Green": 255,
-              "Blue": 255
-            }
-          },
-          {
-            "Type": "TextArea",
-            "Name": "textArea5",
-            "X": 87,
-            "Y": 137,
-            "Width": 66,
-            "Height": 23,
-            "TextId": "5",
-            "TextRotation": "0",
-            "Color": {
-              "Red": 255,
-              "Green": 255,
-              "Blue": 255
-            }
-          },
-          {
-            "Type": "TextArea",
-            "Name": "textArea6",
-            "X": 160,
-            "Y": 137,
-            "Width": 66,
-            "Height": 23,
-            "TextId": "6",
-            "TextRotation": "0",
-            "Color": {
-              "Red": 255,
-              "Green": 255,
-              "Blue": 255
-            }
-          },
-          {
-            "Type": "TextArea",
-            "Name": "textArea7",
-            "X": 14,
-            "Y": 186,
-            "Width": 66,
-            "Height": 23,
-            "TextId": "7",
-            "TextRotation": "0",
-            "Color": {
-              "Red": 255,
-              "Green": 255,
-              "Blue": 255
-            }
-          },
-          {
-            "Type": "TextArea",
-            "Name": "textArea8",
-            "X": 87,
-            "Y": 186,
-            "Width": 66,
-            "Height": 23,
-            "TextId": "8",
-            "TextRotation": "0",
-            "Color": {
-              "Red": 255,
-              "Green": 255,
-              "Blue": 255
-            }
-          },
-          {
-            "Type": "TextArea",
-            "Name": "textArea9",
-            "X": 160,
-            "Y": 186,
-            "Width": 66,
-            "Height": 23,
-            "TextId": "9",
-            "TextRotation": "0",
-            "Color": {
-              "Red": 255,
-              "Green": 255,
-              "Blue": 255
-            }
-          },
-          {
-            "Type": "TextArea",
-            "Name": "textArea10",
-            "X": 14,
-            "Y": 235,
-            "Width": 66,
-            "Height": 23,
-            "TextId": "change",
-            "TextRotation": "0",
-            "Color": {
-              "Red": 255,
-              "Green": 255,
-              "Blue": 255
-            }
-          },
-          {
-            "Type": "TextArea",
-            "Name": "textArea11",
-            "X": 87,
-            "Y": 235,
-            "Width": 66,
-            "Height": 23,
-            "TextId": "0",
-            "TextRotation": "0",
-            "Color": {
-              "Red": 255,
-              "Green": 255,
-              "Blue": 255
-            }
-          },
-          {
-            "Type": "Image",
-            "Name": "enter",
-            "X": 178,
-            "Y": 231,
-            "Width": 30,
-            "Height": 30,
-            "RelativeFilename": "return.png"
-          }
-        ],
-        "Interactions": [
-          {
-            "InteractionName": "changeNumbertoCharacter",
-            "Trigger": {
-              "Type": "TriggerClicked",
-              "TriggerComponent": "btn10"
-            },
-            "Action": {
-              "Type": "ActionGotoScreen",
-              "ScreenTransitionType": "ScreenTransitionNone",
-              "ActionComponent": "characterKeyboard"
-            }
-          }
-        ]
-      },
-      {
-        "Name": "characterKeyboard",
-        "Components": [
-          {
-            "Type": "Image",
-            "Name": "background",
-            "Width": 240,
-            "Height": 280,
-            "RelativeFilename": "background.png"
-          },
-          {
-            "Type": "Button",
-            "Name": "backspace",
-            "X": 191,
-            "Y": 27,
-            "Width": 35,
-            "Height": 35,
-            "Pressed": "backspace_D.png",
-            "Released": "backspace.png"
-          },
-          {
-            "Type": "ImageProgress",
-            "Name": "batteryprogress",
-            "X": 197,
-            "Y": 8,
-            "Width": 33,
-            "Height": 15,
-            "FileNameProgress": "battpercentage.png",
-            "AnchorAtZero": true,
-            "Direction": "Right",
-            "FileNameBackground": "Group 6.png",
-            "IndicatorPositionX": 2,
-            "IndicatorPositionY": 2,
-            "IndicatorPositionWidth": 27,
-            "IndicatorPositionHeight": 11,
-            "ProgressRangeMax": 100,
-            "ProgressInitialValue": 90
-          },
-          {
-            "Type": "Button",
-            "Name": "btn1",
-            "X": 14,
-            "Y": 78,
-            "Width": 66,
-            "Height": 43,
-            "Pressed": "keyboardbtn_D.png",
-            "Released": "keyboardbtn.png"
-          },
-          {
-            "Type": "Button",
-            "Name": "btn2",
-            "X": 87,
-            "Y": 78,
-            "Width": 66,
-            "Height": 43,
-            "Pressed": "keyboardbtn_D.png",
-            "Released": "keyboardbtn.png"
-          },
-          {
-            "Type": "Button",
-            "Name": "btn3",
-            "X": 160,
-            "Y": 78,
-            "Width": 66,
-            "Height": 43,
-            "Pressed": "keyboardbtn_D.png",
-            "Released": "keyboardbtn.png"
-          },
-          {
-            "Type": "Button",
-            "Name": "btn4",
-            "X": 14,
-            "Y": 127,
-            "Width": 66,
-            "Height": 43,
-            "Pressed": "keyboardbtn_D.png",
-            "Released": "keyboardbtn.png"
-          },
-          {
-            "Type": "Button",
-            "Name": "btn5",
-            "X": 87,
-            "Y": 127,
-            "Width": 66,
-            "Height": 43,
-            "Pressed": "keyboardbtn_D.png",
-            "Released": "keyboardbtn.png"
-          },
-          {
-            "Type": "Button",
-            "Name": "btn6",
-            "X": 160,
-            "Y": 127,
-            "Width": 66,
-            "Height": 43,
-            "Pressed": "keyboardbtn_D.png",
-            "Released": "keyboardbtn.png"
-          },
-          {
-            "Type": "Button",
-            "Name": "btn7",
-            "X": 14,
-            "Y": 176,
-            "Width": 66,
-            "Height": 43,
-            "Pressed": "keyboardbtn_D.png",
-            "Released": "keyboardbtn.png"
-          },
-          {
-            "Type": "Button",
-            "Name": "btn8",
-            "X": 87,
-            "Y": 176,
-            "Width": 66,
-            "Height": 43,
-            "Pressed": "keyboardbtn_D.png",
-            "Released": "keyboardbtn.png"
-          },
-          {
-            "Type": "Button",
-            "Name": "btn9",
-            "X": 160,
-            "Y": 176,
-            "Width": 66,
-            "Height": 43,
-            "Pressed": "keyboardbtn_D.png",
-            "Released": "keyboardbtn.png"
-          },
-          {
-            "Type": "Button",
-            "Name": "btn10",
-            "X": 14,
-            "Y": 225,
-            "Width": 66,
-            "Height": 43,
-            "Pressed": "keyboardbtn_D.png",
-            "Released": "keyboardbtn.png"
-          },
-          {
-            "Type": "Button",
-            "Name": "btn11",
-            "X": 87,
-            "Y": 225,
-            "Width": 66,
-            "Height": 43,
-            "Pressed": "keyboardbtn_D.png",
-            "Released": "keyboardbtn.png"
-          },
-          {
-            "Type": "Button",
-            "Name": "btn12",
-            "X": 160,
-            "Y": 225,
-            "Width": 66,
-            "Height": 43,
-            "Pressed": "keyboardbtn_D.png",
-            "Released": "keyboardbtn.png"
-          },
-          {
-            "Type": "TextArea",
-            "Name": "textArea1",
-            "X": 14,
-            "Y": 88,
-            "Width": 66,
-            "Height": 23,
-            "TextId": "C_group1",
-            "TextRotation": "0",
-            "Color": {
-              "Red": 255,
-              "Green": 255,
-              "Blue": 255
-            }
-          },
-          {
-            "Type": "TextArea",
-            "Name": "textArea2",
-            "X": 87,
-            "Y": 88,
-            "Width": 66,
-            "Height": 23,
-            "TextId": "C_group2",
-            "TextRotation": "0",
-            "Color": {
-              "Red": 255,
-              "Green": 255,
-              "Blue": 255
-            }
-          },
-          {
-            "Type": "TextArea",
-            "Name": "textArea3",
-            "X": 160,
-            "Y": 88,
-            "Width": 66,
-            "Height": 23,
-            "TextId": "C_group3",
-            "TextRotation": "0",
-            "Color": {
-              "Red": 255,
-              "Green": 255,
-              "Blue": 255
-            }
-          },
-          {
-            "Type": "TextArea",
-            "Name": "textArea4",
-            "X": 14,
-            "Y": 137,
-            "Width": 66,
-            "Height": 23,
-            "TextId": "C_group4",
-            "TextRotation": "0",
-            "Color": {
-              "Red": 255,
-              "Green": 255,
-              "Blue": 255
-            }
-          },
-          {
-            "Type": "TextArea",
-            "Name": "textArea5",
-            "X": 87,
-            "Y": 137,
-            "Width": 66,
-            "Height": 23,
-            "TextId": "C_group5",
-            "TextRotation": "0",
-            "Color": {
-              "Red": 255,
-              "Green": 255,
-              "Blue": 255
-            }
-          },
-          {
-            "Type": "TextArea",
-            "Name": "textArea6",
-            "X": 160,
-            "Y": 137,
-            "Width": 66,
-            "Height": 23,
-            "TextId": "C_group6",
-            "TextRotation": "0",
-            "Color": {
-              "Red": 255,
-              "Green": 255,
-              "Blue": 255
-            }
-          },
-          {
-            "Type": "TextArea",
-            "Name": "textArea7",
-            "X": 14,
-            "Y": 186,
-            "Width": 66,
-            "Height": 23,
-            "TextId": "C_group7",
-            "TextRotation": "0",
-            "Color": {
-              "Red": 255,
-              "Green": 255,
-              "Blue": 255
-            }
-          },
-          {
-            "Type": "TextArea",
-            "Name": "textArea8",
-            "X": 87,
-            "Y": 186,
-            "Width": 66,
-            "Height": 23,
-            "TextId": "C_group8",
-            "TextRotation": "0",
-            "Color": {
-              "Red": 255,
-              "Green": 255,
-              "Blue": 255
-            }
-          },
-          {
-            "Type": "TextArea",
-            "Name": "textArea9",
-            "X": 160,
-            "Y": 186,
-            "Width": 66,
-            "Height": 23,
-            "TextId": "C_group9",
-            "TextRotation": "0",
-            "Color": {
-              "Red": 255,
-              "Green": 255,
-              "Blue": 255
-            }
-          },
-          {
-            "Type": "TextArea",
-            "Name": "textArea10",
-            "X": 14,
-            "Y": 235,
-            "Width": 66,
-            "Height": 23,
-            "TextId": "change",
-            "TextRotation": "0",
-            "Color": {
-              "Red": 255,
-              "Green": 255,
-              "Blue": 255
-            }
-          },
-          {
-            "Type": "Image",
-            "Name": "enter",
-            "X": 178,
-            "Y": 231,
-            "Width": 30,
-            "Height": 30,
-            "RelativeFilename": "return.png"
-          },
-          {
-            "Type": "Image",
-            "Name": "image1",
-            "X": 120,
-            "Y": 94,
-            "Width": 21,
-            "Height": 10,
-            "RelativeFilename": "anglebracket.png"
-          },
-          {
-            "Type": "Image",
-            "Name": "image2",
-            "X": 62,
-            "Y": 140,
-            "Width": 6,
-            "Height": 16,
-            "RelativeFilename": "backslash.png"
-          },
-          {
-            "Type": "Image",
-            "Name": "space",
-            "X": 100,
-            "Y": 226,
-            "Width": 40,
-            "Height": 40,
-            "RelativeFilename": "space.png"
-          }
-        ],
-        "Interactions": [
-          {
-            "InteractionName": "changeCharactertoEnglish",
-            "Trigger": {
-              "Type": "TriggerClicked",
-              "TriggerComponent": "btn10"
-            },
-            "Action": {
-              "Type": "ActionGotoScreen",
-              "ScreenTransitionType": "ScreenTransitionNone",
-              "ActionComponent": "englishKeyboard"
-            }
-          }
-        ]
-      },
-      {
-        "Name": "dispatchorwait",
-        "Components": [
-          {
-            "Type": "Image",
-            "Name": "background",
-            "Width": 240,
-            "Height": 280,
-            "RelativeFilename": "background.png"
-          },
-          {
-            "Type": "TextArea",
-            "Name": "typeofdisaster",
-            "Y": 6,
-            "Width": 240,
-            "Height": 25,
-            "TextId": "dispatchorwaitLabel",
-            "TextRotation": "0",
-            "Color": {
-              "Red": 255,
-              "Green": 255,
-              "Blue": 255
-            },
-            "Wildcard1": {
-              "TextId": "type_of_disaster",
-              "UseBuffer": true,
-              "BufferSize": 10
-            }
-          },
-          {
-            "Type": "ImageProgress",
-            "Name": "batteryprogress",
-            "X": 197,
-            "Y": 8,
-            "Width": 33,
-            "Height": 15,
-            "FileNameProgress": "battpercentage.png",
-            "AnchorAtZero": true,
-            "Direction": "Right",
-            "FileNameBackground": "Group 6.png",
-            "IndicatorPositionX": 2,
-            "IndicatorPositionY": 2,
-            "IndicatorPositionWidth": 27,
-            "IndicatorPositionHeight": 11,
-            "ProgressRangeMax": 100,
-            "ProgressInitialValue": 90
-          },
-          {
-            "Type": "TextArea",
-            "Name": "textArea1",
-            "Y": 67,
-            "Width": 240,
-            "Height": 17,
-            "TextId": "disaster_add",
-            "TextRotation": "0",
-            "Color": {
-              "Red": 255,
-              "Green": 255,
-              "Blue": 255
-            },
-            "Wildcard1": {
-              "TextId": "address"
             }
           },
           {
             "Type": "Button",
-            "Name": "button1",
+            "Name": "no_button",
             "X": 20,
             "Y": 125,
             "Width": 200,
@@ -4521,7 +3310,7 @@
           },
           {
             "Type": "Button",
-            "Name": "button2",
+            "Name": "yes_button",
             "X": 20,
             "Y": 198,
             "Width": 200,
@@ -4531,12 +3320,12 @@
           },
           {
             "Type": "TextArea",
-            "Name": "textArea2",
+            "Name": "yes_label",
             "X": 20,
-            "Y": 141,
+            "Y": 214,
             "Width": 200,
             "Height": 29,
-            "TextId": "dispatch_label",
+            "TextId": "off_yes",
             "TextRotation": "0",
             "Color": {
               "Red": 255,
@@ -4546,12 +3335,12 @@
           },
           {
             "Type": "TextArea",
-            "Name": "textArea2_1",
+            "Name": "no_label",
             "X": 20,
-            "Y": 214,
+            "Y": 141,
             "Width": 200,
             "Height": 29,
-            "TextId": "wait_label",
+            "TextId": "off_no",
             "TextRotation": "0",
             "Color": {
               "Red": 255,
@@ -4560,7 +3349,20 @@
             }
           }
         ],
-        "Interactions": []
+        "Interactions": [
+          {
+            "InteractionName": "Interaction1",
+            "Trigger": {
+              "Type": "TriggerClicked",
+              "TriggerComponent": "no_button"
+            },
+            "Action": {
+              "Type": "ActionGotoScreen",
+              "ScreenTransitionType": "ScreenTransitionNone",
+              "ActionComponent": "HomeScreenWithBiodata"
+            }
+          }
+        ]
       },
       {
         "Name": "fallDetected",
@@ -4574,7 +3376,7 @@
           },
           {
             "Type": "TextArea",
-            "Name": "falldetectiontext",
+            "Name": "textArea1",
             "Y": 6,
             "Width": 240,
             "Height": 25,
@@ -4615,7 +3417,7 @@
           },
           {
             "Type": "TextArea",
-            "Name": "textArea1",
+            "Name": "textArea2",
             "Y": 208,
             "Width": 240,
             "Height": 29,
@@ -4626,12 +3428,124 @@
               "Green": 255,
               "Blue": 255
             }
+          },
+          {
+            "Type": "Box",
+            "Name": "topleft_box",
+            "Width": 65,
+            "Height": 33
+          },
+          {
+            "Type": "Image",
+            "Name": "image2",
+            "X": 11,
+            "Y": 11,
+            "Width": 15,
+            "Height": 12,
+            "RelativeFilename": "lte_notconnected.png"
           }
         ],
-        "Interactions": []
+        "Interactions": [
+          {
+            "InteractionName": "Interaction1",
+            "Trigger": {
+              "Type": "TriggerWhen",
+              "ActionCustomTypeName": "Call fallDetected changeToFallDetected"
+            },
+            "Action": {
+              "Type": "ActionGotoScreen",
+              "ScreenTransitionType": "ScreenTransitionNone",
+              "ActionComponent": "fallDetected"
+            }
+          }
+        ],
+        "CustomActions": [
+          {
+            "Name": "changeToFallDetected"
+          }
+        ]
       },
       {
-        "Name": "inout",
+        "Name": "initBlackScreen",
+        "Components": [
+          {
+            "Type": "Image",
+            "Name": "background",
+            "Width": 240,
+            "Height": 280,
+            "RelativeFilename": "background.png"
+          },
+          {
+            "Type": "FlexButton",
+            "Name": "flexButton1",
+            "Width": 240,
+            "Height": 280,
+            "Alpha": 0,
+            "ButtonTrigger": {
+              "Type": "ClickButtonTrigger"
+            },
+            "ButtonStyles": [
+              {
+                "Type": "BoxWithBorderButtonStyle",
+                "Width": 240,
+                "Height": 280,
+                "LockToFlexButtonSize": true,
+                "BorderSize": 5,
+                "ColorReleased": {
+                  "Green": 102,
+                  "Blue": 153
+                },
+                "ColorPressed": {
+                  "Green": 153,
+                  "Blue": 204
+                },
+                "ColorBorderReleased": {
+                  "Green": 51,
+                  "Blue": 102
+                },
+                "ColorBorderPressed": {
+                  "Red": 51,
+                  "Green": 102,
+                  "Blue": 153
+                }
+              }
+            ]
+          }
+        ],
+        "Interactions": [
+          {
+            "InteractionName": "Interaction1",
+            "Trigger": {
+              "Type": "TriggerClicked",
+              "TriggerComponent": "flexButton1"
+            },
+            "Action": {
+              "Type": "ActionGotoScreen",
+              "ScreenTransitionType": "ScreenTransitionNone",
+              "ActionComponent": "HomeScreenWithBiodata"
+            }
+          },
+          {
+            "InteractionName": "Interaction2",
+            "Trigger": {
+              "Type": "TriggerWhen",
+              "ActionCustomTypeName": "Call initBlackScreen changeToInitBlackScreen"
+            },
+            "Action": {
+              "Type": "ActionGotoScreen",
+              "ScreenTransitionType": "ScreenTransitionNone",
+              "ActionComponent": "initBlackScreen"
+            }
+          }
+        ],
+        "CustomActions": [
+          {
+            "Name": "changeToInitBlackScreen"
+          }
+        ]
+      },
+      {
+        "Name": "tempHome",
         "Components": [
           {
             "Type": "Image",
@@ -4641,42 +3555,28 @@
             "RelativeFilename": "background.png"
           }
         ],
-        "Interactions": []
-      }
-    ],
-    "CustomContainerDefinitions": [
-      {
-        "Name": "setting_communicationcycle_notselected",
-        "Width": 197,
-        "Height": 46,
-        "Components": [
+        "Interactions": [
           {
-            "Type": "Box",
-            "Name": "box1",
-            "Width": 197,
-            "Height": 46
-          },
-          {
-            "Type": "TextArea",
-            "Name": "textArea1",
-            "Width": 197,
-            "Height": 46,
-            "TextId": "__SingleUse_DVDQ",
-            "TextRotation": "0",
-            "Color": {
-              "Red": 118,
-              "Green": 118,
-              "Blue": 118
+            "InteractionName": "Interaction1",
+            "Trigger": {
+              "Type": "TriggerWhen",
+              "ActionCustomTypeName": "Call tempHome changeToHomeScreen"
             },
-            "Wildcard1": {
-              "TextId": "notSelected_cycle",
-              "UseBuffer": true,
-              "BufferSize": 3
+            "Action": {
+              "Type": "ActionGotoScreen",
+              "ScreenTransitionType": "ScreenTransitionNone",
+              "ActionComponent": "HomeScreenWithBiodata"
             }
           }
         ],
-        "Interactions": []
-      },
+        "CustomActions": [
+          {
+            "Name": "changeToHomeScreen"
+          }
+        ]
+      }
+    ],
+    "CustomContainerDefinitions": [
       {
         "Name": "setting_screenontime_notselected",
         "Width": 197,
@@ -4702,39 +3602,6 @@
             },
             "Wildcard1": {
               "TextId": "notSelected",
-              "UseBuffer": true,
-              "BufferSize": 3
-            }
-          }
-        ],
-        "Interactions": []
-      },
-      {
-        "Name": "setting_communicationcycle_selected",
-        "Width": 197,
-        "Height": 46,
-        "Components": [
-          {
-            "Type": "Box",
-            "Name": "box1",
-            "Width": 197,
-            "Height": 46
-          },
-          {
-            "Type": "TextArea",
-            "Name": "textArea1",
-            "Y": 3,
-            "Width": 197,
-            "Height": 43,
-            "TextId": "__SingleUse_0KCQ",
-            "TextRotation": "0",
-            "Color": {
-              "Red": 255,
-              "Green": 255,
-              "Blue": 255
-            },
-            "Wildcard1": {
-              "TextId": "selected_cycle",
               "UseBuffer": true,
               "BufferSize": 3
             }
@@ -4776,7 +3643,7 @@
         "Interactions": []
       }
     ],
-    "Name": "MyApplication",
+    "Name": "demo_eHG4",
     "Resolution": {
       "Width": 240,
       "Height": 280
@@ -4786,11 +3653,19 @@
     "SelectedStartupLanguage": "GB",
     "TouchGfxPath": "../Middlewares/ST/touchgfx",
     "UIPath": ".",
+    "ApplicationTemplateName": "Simulator",
+    "ApplicationTemplateVersion": "2.0.0",
+    "ApplicationTemplateDescription": "Simulator Application Template",
     "AvailableColorDepths": [
       16
     ],
     "AvailableLCDs": {
-      "16": "LCD16bpp"
+      "1": "LCD1bpp",
+      "2": "LCD2bpp",
+      "4": "LCD4bpp",
+      "8": "LCD8bpp_ARGB2222",
+      "16": "LCD16bpp",
+      "24": "LCD24bpp"
     },
     "AvailableSections": [
       "ExtFlashSection",
@@ -4806,25 +3681,7 @@
     "FrameworkFeatures": {
       "LCD16bpp": {
         "Id": "LCD16bpp",
-        "Features": [
-          {
-            "Id": "TextureMapperImageFormats",
-            "Features": [
-              {
-                "Id": "RGB565",
-                "IsEnabled": true
-              },
-              {
-                "Id": "A4",
-                "IsEnabled": true
-              }
-            ]
-          },
-          {
-            "Id": "L8Compression",
-            "IsEnabled": true
-          }
-        ]
+        "IsEnabled": true
       }
     },
     "GenerateAssetsCommand": "make -f simulator/gcc/Makefile assets -j8",
@@ -4832,6 +3689,8 @@
     "PostGenerateTargetCommand": "touchgfx update_project",
     "CompileSimulatorCommand": "make -f simulator/gcc/Makefile -j8",
     "RunSimulatorCommand": "build\\bin\\simulator.exe",
+    "CompileTargetCommand": "",
+    "FlashTargetCommand": "",
     "LandscapeSkinX": 0,
     "LandscapeSkinY": 0,
     "PortraitSkinX": 0,
@@ -4846,5 +3705,6 @@
     "OptionalComponents": [],
     "AdditionalFeatures": []
   },
-  "Version": "4.23.2"
+  "Version": "4.23.2",
+  "CreatedBy": "4.23.2"
 }

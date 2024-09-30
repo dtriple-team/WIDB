@@ -20,7 +20,7 @@ public:
     virtual void scrollWheel1UpdateItem(setting_screenontime_notselected& item, int16_t itemIndex);
     virtual void scrollWheel1UpdateCenterItem(setting_screenontime_selected& item, int16_t itemIndex);
 
-    virtual void changeScreenOnTime(); // jh
+    virtual void changeScreenOnTime();
 protected:
     Callback<screenontimeSettingView, int16_t>scrollWheel1AnimateToCallback;
     void scrollWheel1AnimateToHandler(int16_t item);

@@ -17,31 +17,41 @@ languageSettingViewBase::languageSettingViewBase() :
     background.setBitmap(touchgfx::Bitmap(BITMAP_BACKGROUND_ID));
     add(background);
 
-    Screen.setPosition(0, 6, 240, 25);
-    Screen.setColor(touchgfx::Color::getColorFromRGB(255, 255, 255));
-    Screen.setLinespacing(0);
-    Screen.setTypedText(touchgfx::TypedText(T_LANGUAGESCREEN));
-    add(Screen);
+    language_label.setPosition(0, 6, 240, 25);
+    language_label.setColor(touchgfx::Color::getColorFromRGB(255, 255, 255));
+    language_label.setLinespacing(0);
+    language_label.setTypedText(touchgfx::TypedText(T_LANGUAGESCREEN));
+    add(language_label);
 
-    image1.setXY(14, 48);
-    image1.setBitmap(touchgfx::Bitmap(BITMAP_RECTANGLE_26_ID));
-    add(image1);
+    korean_icon_back.setXY(14, 48);
+    korean_icon_back.setBitmap(touchgfx::Bitmap(BITMAP_SET_SETTING_ICONBACK_ID));
+    add(korean_icon_back);
 
-    image1_1.setXY(14, 109);
-    image1_1.setBitmap(touchgfx::Bitmap(BITMAP_RECTANGLE_26_ID));
-    add(image1_1);
+    english_icon_back.setXY(14, 109);
+    english_icon_back.setBitmap(touchgfx::Bitmap(BITMAP_SET_SETTING_ICONBACK_ID));
+    add(english_icon_back);
 
-    textArea1.setPosition(66, 59, 107, 20);
-    textArea1.setColor(touchgfx::Color::getColorFromRGB(255, 255, 255));
-    textArea1.setLinespacing(0);
-    textArea1.setTypedText(touchgfx::TypedText(T_KOREAN));
-    add(textArea1);
+    spanish_icon_back.setXY(14, 170);
+    spanish_icon_back.setBitmap(touchgfx::Bitmap(BITMAP_SET_SETTING_ICONBACK_ID));
+    add(spanish_icon_back);
 
-    textArea2.setPosition(66, 120, 107, 20);
-    textArea2.setColor(touchgfx::Color::getColorFromRGB(255, 255, 255));
-    textArea2.setLinespacing(0);
-    textArea2.setTypedText(touchgfx::TypedText(T_ENGLISH));
-    add(textArea2);
+    korean_label.setPosition(66, 59, 107, 20);
+    korean_label.setColor(touchgfx::Color::getColorFromRGB(255, 255, 255));
+    korean_label.setLinespacing(0);
+    korean_label.setTypedText(touchgfx::TypedText(T_KOREAN));
+    add(korean_label);
+
+    english_label.setPosition(66, 120, 107, 20);
+    english_label.setColor(touchgfx::Color::getColorFromRGB(255, 255, 255));
+    english_label.setLinespacing(0);
+    english_label.setTypedText(touchgfx::TypedText(T_ENGLISH));
+    add(english_label);
+
+    spanish_label.setPosition(66, 180, 107, 20);
+    spanish_label.setColor(touchgfx::Color::getColorFromRGB(255, 255, 255));
+    spanish_label.setLinespacing(0);
+    spanish_label.setTypedText(touchgfx::TypedText(T_SPANISH));
+    add(spanish_label);
 
     radioButtonGroup1.setRadioButtonSelectedHandler(radioButtonSelectedCallback);
     
@@ -59,6 +69,13 @@ languageSettingViewBase::languageSettingViewBase() :
     radioButtonGroup1.add(radioButton2);
     add(radioButton2);
 
+    radioButton3.setXY(191, 178);
+    radioButton3.setBitmaps(touchgfx::Bitmap(BITMAP_RADIONFILL_ID), touchgfx::Bitmap(BITMAP_RADIONFILL_ID), touchgfx::Bitmap(BITMAP_RADIOFILL_ID), touchgfx::Bitmap(BITMAP_RADIOFILL_ID));
+    radioButton3.setSelected(false);
+    radioButton3.setDeselectionEnabled(false);
+    radioButtonGroup1.add(radioButton3);
+    add(radioButton3);
+
     batteryprogress.setXY(197, 8);
     batteryprogress.setProgressIndicatorPosition(2, 2, 27, 11);
     batteryprogress.setRange(0, 100);
@@ -68,6 +85,18 @@ languageSettingViewBase::languageSettingViewBase() :
     batteryprogress.setValue(90);
     batteryprogress.setAnchorAtZero(true);
     add(batteryprogress);
+
+    korean_image.setXY(22, 55);
+    korean_image.setBitmap(touchgfx::Bitmap(BITMAP_SET_SETTING_KOREAN_ICON_ID));
+    add(korean_image);
+
+    english_image.setXY(16, 111);
+    english_image.setBitmap(touchgfx::Bitmap(BITMAP_SET_SETTING_ENGLISH_ICON_ID));
+    add(english_image);
+
+    spanish_image.setXY(17, 178);
+    spanish_image.setBitmap(touchgfx::Bitmap(BITMAP_SET_SETTING_SPANISH_ICON_ID));
+    add(spanish_image);
 }
 
 languageSettingViewBase::~languageSettingViewBase()
@@ -96,6 +125,14 @@ void languageSettingViewBase::radioButtonSelectedCallbackHandler(const touchgfx:
         //When radioButton2 selected set language GB
         //Change language to GB
         Texts::setLanguage(GB);
+        invalidate();
+    }
+    if (&src == &radioButton3)
+    {
+        //setLanguageToSpanish
+        //When radioButton3 selected set language Spanish
+        //Change language to Spanish
+        Texts::setLanguage(SPANISH);
         invalidate();
     }
 }

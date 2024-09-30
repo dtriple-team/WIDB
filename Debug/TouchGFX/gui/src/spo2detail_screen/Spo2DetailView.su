@@ -1,9 +1,14 @@
+../Middlewares/ST/touchgfx/framework/include/touchgfx/events/GestureEvent.hpp:74:13:int16_t touchgfx::GestureEvent::getVelocity() const	16	static
+../Middlewares/ST/touchgfx/framework/include/touchgfx/events/GestureEvent.hpp:84:22:touchgfx::GestureEvent::GestureEventType touchgfx::GestureEvent::getType() const	16	static
 ../Middlewares/ST/touchgfx/framework/include/touchgfx/Screen.hpp:104:18:virtual void touchgfx::Screen::afterTransition()	16	static
 ../Middlewares/ST/touchgfx/framework/include/touchgfx/Screen.hpp:115:18:virtual void touchgfx::Screen::tearDownScreen()	16	static
 ../Middlewares/ST/touchgfx/framework/include/touchgfx/Screen.hpp:144:18:virtual void touchgfx::Screen::handleTickEvent()	16	static
 ../Middlewares/ST/touchgfx/framework/include/touchgfx/Screen.hpp:154:18:virtual void touchgfx::Screen::handleKeyEvent(uint8_t)	16	static
+../TouchGFX/generated/gui_generated/include/gui_generated/spo2detail_screen/Spo2DetailViewBase.hpp:27:26:FrontendApplication& Spo2DetailViewBase::application()	16	static
 ../TouchGFX/gui/include/gui/spo2detail_screen/Spo2DetailView.hpp:11:13:Spo2DetailView::~Spo2DetailView()	16	static
 ../TouchGFX/gui/include/gui/spo2detail_screen/Spo2DetailView.hpp:11:13:virtual Spo2DetailView::~Spo2DetailView()	16	static
-../TouchGFX/gui/src/spo2detail_screen/Spo2DetailView.cpp:3:1:Spo2DetailView::Spo2DetailView()	16	static
-../TouchGFX/gui/src/spo2detail_screen/Spo2DetailView.cpp:8:6:virtual void Spo2DetailView::setupScreen()	16	static
-../TouchGFX/gui/src/spo2detail_screen/Spo2DetailView.cpp:13:6:virtual void Spo2DetailView::tearDownScreen()	16	static
+../TouchGFX/gui/src/spo2detail_screen/Spo2DetailView.cpp:6:1:Spo2DetailView::Spo2DetailView()	16	static
+../TouchGFX/gui/src/spo2detail_screen/Spo2DetailView.cpp:11:6:virtual void Spo2DetailView::setupScreen()	16	static
+../TouchGFX/gui/src/spo2detail_screen/Spo2DetailView.cpp:16:6:virtual void Spo2DetailView::tearDownScreen()	16	static
+../TouchGFX/gui/src/spo2detail_screen/Spo2DetailView.cpp:21:6:virtual void Spo2DetailView::handleGestureEvent(const touchgfx::GestureEvent&)	24	static
+../TouchGFX/gui/src/spo2detail_screen/Spo2DetailView.cpp:39:6:void Spo2DetailView::handleSwipeRight()	16	static

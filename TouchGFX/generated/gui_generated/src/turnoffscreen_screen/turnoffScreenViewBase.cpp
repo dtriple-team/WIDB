@@ -6,7 +6,8 @@
 #include <images/BitmapDatabase.hpp>
 #include <texts/TextKeysAndLanguages.hpp>
 
-turnoffScreenViewBase::turnoffScreenViewBase()
+turnoffScreenViewBase::turnoffScreenViewBase() :
+    buttonCallback(this, &turnoffScreenViewBase::buttonCallbackHandler)
 {
     __background.setPosition(0, 0, 240, 280);
     __background.setColor(touchgfx::Color::getColorFromRGB(0, 0, 0));
@@ -16,12 +17,32 @@ turnoffScreenViewBase::turnoffScreenViewBase()
     background.setBitmap(touchgfx::Bitmap(BITMAP_BACKGROUND_ID));
     add(background);
 
-    textArea1.setPosition(0, 111, 240, 60);
-    textArea1.setColor(touchgfx::Color::getColorFromRGB(255, 255, 255));
-    textArea1.setLinespacing(0);
-    textArea1.setWildcard(touchgfx::TypedText(T_OFFCOUNTDOWN).getText());
-    textArea1.setTypedText(touchgfx::TypedText(T_OFFTEXT));
-    add(textArea1);
+    yousure_label.setPosition(0, 21, 240, 90);
+    yousure_label.setColor(touchgfx::Color::getColorFromRGB(255, 255, 255));
+    yousure_label.setLinespacing(0);
+    yousure_label.setTypedText(touchgfx::TypedText(T_OFFTEXT));
+    add(yousure_label);
+
+    no_button.setXY(20, 125);
+    no_button.setBitmaps(touchgfx::Bitmap(BITMAP_DISPATCH_NOTPRESSED_ID), touchgfx::Bitmap(BITMAP_DISPATCH_PRESSED_ID));
+    no_button.setAction(buttonCallback);
+    add(no_button);
+
+    yes_button.setXY(20, 198);
+    yes_button.setBitmaps(touchgfx::Bitmap(BITMAP_RECTANGLE_31_ID), touchgfx::Bitmap(BITMAP_RECTANGLE_31_D_ID));
+    add(yes_button);
+
+    yes_label.setPosition(20, 214, 200, 29);
+    yes_label.setColor(touchgfx::Color::getColorFromRGB(255, 255, 255));
+    yes_label.setLinespacing(0);
+    yes_label.setTypedText(touchgfx::TypedText(T_OFF_YES));
+    add(yes_label);
+
+    no_label.setPosition(20, 141, 200, 29);
+    no_label.setColor(touchgfx::Color::getColorFromRGB(255, 255, 255));
+    no_label.setLinespacing(0);
+    no_label.setTypedText(touchgfx::TypedText(T_OFF_NO));
+    add(no_label);
 }
 
 turnoffScreenViewBase::~turnoffScreenViewBase()
@@ -32,4 +53,15 @@ turnoffScreenViewBase::~turnoffScreenViewBase()
 void turnoffScreenViewBase::setupScreen()
 {
 
+}
+
+void turnoffScreenViewBase::buttonCallbackHandler(const touchgfx::AbstractButton& src)
+{
+    if (&src == &no_button)
+    {
+        //Interaction1
+        //When no_button clicked change screen to HomeScreenWithBiodata
+        //Go to HomeScreenWithBiodata with no screen transition
+        application().gotoHomeScreenWithBiodataScreenNoTransition();
+    }
 }

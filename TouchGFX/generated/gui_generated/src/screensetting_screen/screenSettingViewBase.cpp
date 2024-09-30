@@ -17,51 +17,51 @@ screenSettingViewBase::screenSettingViewBase() :
     background.setBitmap(touchgfx::Bitmap(BITMAP_BACKGROUND_ID));
     add(background);
 
-    Screen.setPosition(0, 6, 240, 25);
-    Screen.setColor(touchgfx::Color::getColorFromRGB(255, 255, 255));
-    Screen.setLinespacing(0);
-    Screen.setTypedText(touchgfx::TypedText(T_SCREEN));
-    add(Screen);
+    screen_label.setPosition(0, 6, 240, 25);
+    screen_label.setColor(touchgfx::Color::getColorFromRGB(255, 255, 255));
+    screen_label.setLinespacing(0);
+    screen_label.setTypedText(touchgfx::TypedText(T_SCREEN));
+    add(screen_label);
 
-    image1.setXY(14, 48);
-    image1.setBitmap(touchgfx::Bitmap(BITMAP_RECTANGLE_26_ID));
-    add(image1);
+    ontimebutton_icon_back.setXY(14, 48);
+    ontimebutton_icon_back.setBitmap(touchgfx::Bitmap(BITMAP_SET_SETTING_ICONBACK_ID));
+    add(ontimebutton_icon_back);
 
-    image1_1.setXY(14, 109);
-    image1_1.setBitmap(touchgfx::Bitmap(BITMAP_RECTANGLE_26_ID));
-    add(image1_1);
+    brightnessbutton_icon_back.setXY(14, 109);
+    brightnessbutton_icon_back.setBitmap(touchgfx::Bitmap(BITMAP_SET_SETTING_ICONBACK_ID));
+    add(brightnessbutton_icon_back);
 
-    textArea1.setPosition(66, 59, 140, 25);
-    textArea1.setColor(touchgfx::Color::getColorFromRGB(255, 255, 255));
-    textArea1.setLinespacing(0);
-    textArea1.setTypedText(touchgfx::TypedText(T_SCREENONTIMETEXT));
-    add(textArea1);
+    ontime_label.setPosition(66, 59, 140, 25);
+    ontime_label.setColor(touchgfx::Color::getColorFromRGB(255, 255, 255));
+    ontime_label.setLinespacing(0);
+    ontime_label.setTypedText(touchgfx::TypedText(T_SCREENONTIMETEXT));
+    add(ontime_label);
 
-    textArea1_1.setPosition(66, 120, 140, 25);
-    textArea1_1.setColor(touchgfx::Color::getColorFromRGB(255, 255, 255));
-    textArea1_1.setLinespacing(0);
-    textArea1_1.setTypedText(touchgfx::TypedText(T_SCREENBRIGHTNESSTEXT));
-    add(textArea1_1);
+    brightness_label.setPosition(66, 120, 140, 25);
+    brightness_label.setColor(touchgfx::Color::getColorFromRGB(255, 255, 255));
+    brightness_label.setLinespacing(0);
+    brightness_label.setTypedText(touchgfx::TypedText(T_SCREENBRIGHTNESSTEXT));
+    add(brightness_label);
 
-    image2.setXY(211, 58);
-    image2.setBitmap(touchgfx::Bitmap(BITMAP_RIGHT_ID));
-    add(image2);
+    ontime_arrow_image.setXY(211, 58);
+    ontime_arrow_image.setBitmap(touchgfx::Bitmap(BITMAP_RIGHT_ID));
+    add(ontime_arrow_image);
 
-    image2_1.setXY(211, 120);
-    image2_1.setBitmap(touchgfx::Bitmap(BITMAP_RIGHT_ID));
-    add(image2_1);
+    brightness_arrow_image.setXY(211, 120);
+    brightness_arrow_image.setBitmap(touchgfx::Bitmap(BITMAP_RIGHT_ID));
+    add(brightness_arrow_image);
 
-    button1.setXY(56, 43);
-    button1.setBitmaps(touchgfx::Bitmap(BITMAP_ALTERNATE_THEME_IMAGES_WIDGETS_BUTTON_REGULAR_HEIGHT_50_SMALL_ROUNDED_INACTIVE_ID), touchgfx::Bitmap(BITMAP_ALTERNATE_THEME_IMAGES_WIDGETS_BUTTON_REGULAR_HEIGHT_50_SMALL_ROUNDED_INACTIVE_ID));
-    button1.setAlpha(0);
-    button1.setAction(buttonCallback);
-    add(button1);
+    ontime_button.setXY(56, 43);
+    ontime_button.setBitmaps(touchgfx::Bitmap(BITMAP_ALTERNATE_THEME_IMAGES_WIDGETS_BUTTON_REGULAR_HEIGHT_50_SMALL_ROUNDED_INACTIVE_ID), touchgfx::Bitmap(BITMAP_ALTERNATE_THEME_IMAGES_WIDGETS_BUTTON_REGULAR_HEIGHT_50_SMALL_ROUNDED_INACTIVE_ID));
+    ontime_button.setAlpha(0);
+    ontime_button.setAction(buttonCallback);
+    add(ontime_button);
 
-    button2.setXY(56, 104);
-    button2.setBitmaps(touchgfx::Bitmap(BITMAP_ALTERNATE_THEME_IMAGES_WIDGETS_BUTTON_REGULAR_HEIGHT_50_SMALL_ROUNDED_INACTIVE_ID), touchgfx::Bitmap(BITMAP_ALTERNATE_THEME_IMAGES_WIDGETS_BUTTON_REGULAR_HEIGHT_50_SMALL_ROUNDED_INACTIVE_ID));
-    button2.setAlpha(0);
-    button2.setAction(buttonCallback);
-    add(button2);
+    brightness_button.setXY(56, 104);
+    brightness_button.setBitmaps(touchgfx::Bitmap(BITMAP_ALTERNATE_THEME_IMAGES_WIDGETS_BUTTON_REGULAR_HEIGHT_50_SMALL_ROUNDED_INACTIVE_ID), touchgfx::Bitmap(BITMAP_ALTERNATE_THEME_IMAGES_WIDGETS_BUTTON_REGULAR_HEIGHT_50_SMALL_ROUNDED_INACTIVE_ID));
+    brightness_button.setAlpha(0);
+    brightness_button.setAction(buttonCallback);
+    add(brightness_button);
 
     batteryprogress.setXY(197, 8);
     batteryprogress.setProgressIndicatorPosition(2, 2, 27, 11);
@@ -73,11 +73,19 @@ screenSettingViewBase::screenSettingViewBase() :
     batteryprogress.setAnchorAtZero(true);
     add(batteryprogress);
 
-    button3.setXY(0, 0);
-    button3.setBitmaps(touchgfx::Bitmap(BITMAP_ALTERNATE_THEME_IMAGES_WIDGETS_BUTTON_REGULAR_HEIGHT_50_MEDIUM_ROUNDED_NORMAL_ID), touchgfx::Bitmap(BITMAP_ALTERNATE_THEME_IMAGES_WIDGETS_BUTTON_REGULAR_HEIGHT_50_MEDIUM_ROUNDED_PRESSED_ID));
-    button3.setVisible(false);
-    button3.setAction(buttonCallback);
-    add(button3);
+    buttonfornothing.setXY(0, 0);
+    buttonfornothing.setBitmaps(touchgfx::Bitmap(BITMAP_ALTERNATE_THEME_IMAGES_WIDGETS_BUTTON_REGULAR_HEIGHT_50_MEDIUM_ROUNDED_NORMAL_ID), touchgfx::Bitmap(BITMAP_ALTERNATE_THEME_IMAGES_WIDGETS_BUTTON_REGULAR_HEIGHT_50_MEDIUM_ROUNDED_PRESSED_ID));
+    buttonfornothing.setVisible(false);
+    buttonfornothing.setAction(buttonCallback);
+    add(buttonfornothing);
+
+    ontime_image.setXY(16, 50);
+    ontime_image.setBitmap(touchgfx::Bitmap(BITMAP_SET_SETTING_ONTIME_ICON_ID));
+    add(ontime_image);
+
+    brightness_image.setXY(17, 112);
+    brightness_image.setBitmap(touchgfx::Bitmap(BITMAP_SET_SETTING_BRIGHTNESS_ICON_ID));
+    add(brightness_image);
 }
 
 screenSettingViewBase::~screenSettingViewBase()
@@ -92,24 +100,24 @@ void screenSettingViewBase::setupScreen()
 
 void screenSettingViewBase::buttonCallbackHandler(const touchgfx::AbstractButton& src)
 {
-    if (&src == &button1)
+    if (&src == &ontime_button)
     {
         //setscreenontime
-        //When button1 clicked change screen to screenontimeSetting
+        //When ontime_button clicked change screen to screenontimeSetting
         //Go to screenontimeSetting with screen transition towards East
         application().gotoscreenontimeSettingScreenCoverTransitionEast();
     }
-    if (&src == &button2)
+    if (&src == &brightness_button)
     {
         //setscreenbrightness
-        //When button2 clicked change screen to screenbrightnessSetting
+        //When brightness_button clicked change screen to screenbrightnessSetting
         //Go to screenbrightnessSetting with screen transition towards East
         application().gotoscreenbrightnessSettingScreenCoverTransitionEast();
     }
-    if (&src == &button3)
+    if (&src == &buttonfornothing)
     {
         //Interaction1
-        //When button3 clicked change screen to SettingScreen
+        //When buttonfornothing clicked change screen to SettingScreen
         //Go to SettingScreen with screen transition towards West
         application().gotoSettingScreenScreenWipeTransitionWest();
     }

@@ -14,11 +14,11 @@
 ../TouchGFX/gui/src/soundnhapticssetting_screen/soundnhapticsSettingView.cpp:15:6:virtual void soundnhapticsSettingView::setupScreen()	24	static
 ../TouchGFX/gui/src/soundnhapticssetting_screen/soundnhapticsSettingView.cpp:24:6:virtual void soundnhapticsSettingView::tearDownScreen()	16	static
 ../TouchGFX/gui/src/soundnhapticssetting_screen/soundnhapticsSettingView.cpp:29:6:virtual void soundnhapticsSettingView::handleGestureEvent(const touchgfx::GestureEvent&)	24	static
-../TouchGFX/gui/src/soundnhapticssetting_screen/soundnhapticsSettingView.cpp:42:6:void soundnhapticsSettingView::handleSwipeRight()	16	static
-../TouchGFX/gui/src/soundnhapticssetting_screen/soundnhapticsSettingView.cpp:47:6:void soundnhapticsSettingView::toggleButton1Clicked(const touchgfx::AbstractButton&)	24	static
-../TouchGFX/gui/src/soundnhapticssetting_screen/soundnhapticsSettingView.cpp:53:6:void soundnhapticsSettingView::updateToggleButton1State(bool)	16	static
-../TouchGFX/gui/src/soundnhapticssetting_screen/soundnhapticsSettingView.cpp:58:6:void soundnhapticsSettingView::toggleButton2Clicked(const touchgfx::AbstractButton&)	24	static
-../TouchGFX/gui/src/soundnhapticssetting_screen/soundnhapticsSettingView.cpp:64:6:void soundnhapticsSettingView::updateToggleButton2State(bool)	16	static
+../TouchGFX/gui/src/soundnhapticssetting_screen/soundnhapticsSettingView.cpp:47:6:void soundnhapticsSettingView::handleSwipeRight()	16	static
+../TouchGFX/gui/src/soundnhapticssetting_screen/soundnhapticsSettingView.cpp:52:6:void soundnhapticsSettingView::toggleButton1Clicked(const touchgfx::AbstractButton&)	24	static
+../TouchGFX/gui/src/soundnhapticssetting_screen/soundnhapticsSettingView.cpp:58:6:void soundnhapticsSettingView::updateToggleButton1State(bool)	16	static
+../TouchGFX/gui/src/soundnhapticssetting_screen/soundnhapticsSettingView.cpp:63:6:void soundnhapticsSettingView::toggleButton2Clicked(const touchgfx::AbstractButton&)	24	static
+../TouchGFX/gui/src/soundnhapticssetting_screen/soundnhapticsSettingView.cpp:69:6:void soundnhapticsSettingView::updateToggleButton2State(bool)	16	static
 ../Middlewares/ST/touchgfx/framework/include/touchgfx/Callback.hpp:134:7:constexpr touchgfx::GenericCallback<const touchgfx::AbstractButton&>::GenericCallback()	16	static
 ../Middlewares/ST/touchgfx/framework/include/touchgfx/Callback.hpp:373:5:touchgfx::Callback<dest_type, T1, void, void>::Callback(dest_type*, void (dest_type::*)(T1)) [with dest_type = soundnhapticsSettingView; T1 = const touchgfx::AbstractButton&]	24	static
 ../Middlewares/ST/touchgfx/framework/include/touchgfx/Callback.hpp:138:13:touchgfx::GenericCallback<T1, void, void>::~GenericCallback() [with T1 = const touchgfx::AbstractButton&]	16	static

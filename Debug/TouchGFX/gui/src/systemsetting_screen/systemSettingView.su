@@ -11,4 +11,4 @@
 ../TouchGFX/gui/src/systemsetting_screen/systemSettingView.cpp:12:6:virtual void systemSettingView::setupScreen()	16	static
 ../TouchGFX/gui/src/systemsetting_screen/systemSettingView.cpp:17:6:virtual void systemSettingView::tearDownScreen()	16	static
 ../TouchGFX/gui/src/systemsetting_screen/systemSettingView.cpp:22:6:virtual void systemSettingView::handleGestureEvent(const touchgfx::GestureEvent&)	24	static
-../TouchGFX/gui/src/systemsetting_screen/systemSettingView.cpp:36:6:void systemSettingView::handleSwipeRight()	16	static
+../TouchGFX/gui/src/systemsetting_screen/systemSettingView.cpp:40:6:void systemSettingView::handleSwipeRight()	16	static

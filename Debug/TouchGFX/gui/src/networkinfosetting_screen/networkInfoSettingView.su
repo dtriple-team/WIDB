@@ -11,4 +11,4 @@
 ../TouchGFX/gui/src/networkinfosetting_screen/networkInfoSettingView.cpp:12:6:virtual void networkInfoSettingView::setupScreen()	16	static
 ../TouchGFX/gui/src/networkinfosetting_screen/networkInfoSettingView.cpp:17:6:virtual void networkInfoSettingView::tearDownScreen()	16	static
 ../TouchGFX/gui/src/networkinfosetting_screen/networkInfoSettingView.cpp:22:6:virtual void networkInfoSettingView::handleGestureEvent(const touchgfx::GestureEvent&)	24	static
-../TouchGFX/gui/src/networkinfosetting_screen/networkInfoSettingView.cpp:36:6:void networkInfoSettingView::handleSwipeRight()	16	static
+../TouchGFX/gui/src/networkinfosetting_screen/networkInfoSettingView.cpp:40:6:void networkInfoSettingView::handleSwipeRight()	16	static

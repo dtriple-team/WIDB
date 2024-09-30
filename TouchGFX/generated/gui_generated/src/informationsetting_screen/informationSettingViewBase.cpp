@@ -17,51 +17,51 @@ informationSettingViewBase::informationSettingViewBase() :
     background.setBitmap(touchgfx::Bitmap(BITMAP_BACKGROUND_ID));
     add(background);
 
-    Information.setPosition(0, 6, 240, 25);
-    Information.setColor(touchgfx::Color::getColorFromRGB(255, 255, 255));
-    Information.setLinespacing(0);
-    Information.setTypedText(touchgfx::TypedText(T_INFORMATION));
-    add(Information);
+    information_label.setPosition(0, 6, 240, 25);
+    information_label.setColor(touchgfx::Color::getColorFromRGB(255, 255, 255));
+    information_label.setLinespacing(0);
+    information_label.setTypedText(touchgfx::TypedText(T_INFORMATION));
+    add(information_label);
 
-    image1.setXY(14, 48);
-    image1.setBitmap(touchgfx::Bitmap(BITMAP_RECTANGLE_26_ID));
-    add(image1);
+    device_icon_back.setXY(14, 48);
+    device_icon_back.setBitmap(touchgfx::Bitmap(BITMAP_SET_SETTING_ICONBACK_ID));
+    add(device_icon_back);
 
-    image1_1.setXY(14, 109);
-    image1_1.setBitmap(touchgfx::Bitmap(BITMAP_RECTANGLE_26_ID));
-    add(image1_1);
+    network_icon_back.setXY(14, 109);
+    network_icon_back.setBitmap(touchgfx::Bitmap(BITMAP_SET_SETTING_ICONBACK_ID));
+    add(network_icon_back);
 
-    textArea1.setPosition(66, 59, 140, 25);
-    textArea1.setColor(touchgfx::Color::getColorFromRGB(255, 255, 255));
-    textArea1.setLinespacing(0);
-    textArea1.setTypedText(touchgfx::TypedText(T_DEVICEINFOTEXT));
-    add(textArea1);
+    device_label.setPosition(66, 59, 140, 25);
+    device_label.setColor(touchgfx::Color::getColorFromRGB(255, 255, 255));
+    device_label.setLinespacing(0);
+    device_label.setTypedText(touchgfx::TypedText(T_DEVICEINFOTEXT));
+    add(device_label);
 
-    textArea1_1.setPosition(66, 120, 140, 25);
-    textArea1_1.setColor(touchgfx::Color::getColorFromRGB(255, 255, 255));
-    textArea1_1.setLinespacing(0);
-    textArea1_1.setTypedText(touchgfx::TypedText(T_NETWORKINFOTEXT));
-    add(textArea1_1);
+    network_label.setPosition(66, 120, 140, 25);
+    network_label.setColor(touchgfx::Color::getColorFromRGB(255, 255, 255));
+    network_label.setLinespacing(0);
+    network_label.setTypedText(touchgfx::TypedText(T_NETWORKINFOTEXT));
+    add(network_label);
 
-    image2.setXY(211, 58);
-    image2.setBitmap(touchgfx::Bitmap(BITMAP_RIGHT_ID));
-    add(image2);
+    device_arrow_image.setXY(211, 58);
+    device_arrow_image.setBitmap(touchgfx::Bitmap(BITMAP_RIGHT_ID));
+    add(device_arrow_image);
 
-    image2_1.setXY(211, 120);
-    image2_1.setBitmap(touchgfx::Bitmap(BITMAP_RIGHT_ID));
-    add(image2_1);
+    network_arrow_image.setXY(211, 120);
+    network_arrow_image.setBitmap(touchgfx::Bitmap(BITMAP_RIGHT_ID));
+    add(network_arrow_image);
 
-    button1.setXY(56, 43);
-    button1.setBitmaps(touchgfx::Bitmap(BITMAP_ALTERNATE_THEME_IMAGES_WIDGETS_BUTTON_REGULAR_HEIGHT_50_SMALL_ROUNDED_INACTIVE_ID), touchgfx::Bitmap(BITMAP_ALTERNATE_THEME_IMAGES_WIDGETS_BUTTON_REGULAR_HEIGHT_50_SMALL_ROUNDED_INACTIVE_ID));
-    button1.setAlpha(0);
-    button1.setAction(buttonCallback);
-    add(button1);
+    device_button.setXY(56, 43);
+    device_button.setBitmaps(touchgfx::Bitmap(BITMAP_ALTERNATE_THEME_IMAGES_WIDGETS_BUTTON_REGULAR_HEIGHT_50_SMALL_ROUNDED_INACTIVE_ID), touchgfx::Bitmap(BITMAP_ALTERNATE_THEME_IMAGES_WIDGETS_BUTTON_REGULAR_HEIGHT_50_SMALL_ROUNDED_INACTIVE_ID));
+    device_button.setAlpha(0);
+    device_button.setAction(buttonCallback);
+    add(device_button);
 
-    button2.setXY(56, 104);
-    button2.setBitmaps(touchgfx::Bitmap(BITMAP_ALTERNATE_THEME_IMAGES_WIDGETS_BUTTON_REGULAR_HEIGHT_50_SMALL_ROUNDED_INACTIVE_ID), touchgfx::Bitmap(BITMAP_ALTERNATE_THEME_IMAGES_WIDGETS_BUTTON_REGULAR_HEIGHT_50_SMALL_ROUNDED_INACTIVE_ID));
-    button2.setAlpha(0);
-    button2.setAction(buttonCallback);
-    add(button2);
+    network_button.setXY(56, 104);
+    network_button.setBitmaps(touchgfx::Bitmap(BITMAP_ALTERNATE_THEME_IMAGES_WIDGETS_BUTTON_REGULAR_HEIGHT_50_SMALL_ROUNDED_INACTIVE_ID), touchgfx::Bitmap(BITMAP_ALTERNATE_THEME_IMAGES_WIDGETS_BUTTON_REGULAR_HEIGHT_50_SMALL_ROUNDED_INACTIVE_ID));
+    network_button.setAlpha(0);
+    network_button.setAction(buttonCallback);
+    add(network_button);
 
     batteryprogress.setXY(197, 8);
     batteryprogress.setProgressIndicatorPosition(2, 2, 27, 11);
@@ -72,6 +72,14 @@ informationSettingViewBase::informationSettingViewBase() :
     batteryprogress.setValue(90);
     batteryprogress.setAnchorAtZero(true);
     add(batteryprogress);
+
+    device_image.setXY(14, 48);
+    device_image.setBitmap(touchgfx::Bitmap(BITMAP_SET_SETTING_DEVICE_ICON_ID));
+    add(device_image);
+
+    network_image.setXY(19, 114);
+    network_image.setBitmap(touchgfx::Bitmap(BITMAP_SET_SETTING_NETWORK_ICON_ID));
+    add(network_image);
 }
 
 informationSettingViewBase::~informationSettingViewBase()
@@ -86,17 +94,17 @@ void informationSettingViewBase::setupScreen()
 
 void informationSettingViewBase::buttonCallbackHandler(const touchgfx::AbstractButton& src)
 {
-    if (&src == &button1)
+    if (&src == &device_button)
     {
         //movetoDeviceInfo
-        //When button1 clicked change screen to deviceInfoSetting
+        //When device_button clicked change screen to deviceInfoSetting
         //Go to deviceInfoSetting with screen transition towards East
         application().gotodeviceInfoSettingScreenCoverTransitionEast();
     }
-    if (&src == &button2)
+    if (&src == &network_button)
     {
         //movetoNetworkInfo
-        //When button2 clicked change screen to networkInfoSetting
+        //When network_button clicked change screen to networkInfoSetting
         //Go to networkInfoSetting with screen transition towards East
         application().gotonetworkInfoSettingScreenCoverTransitionEast();
     }

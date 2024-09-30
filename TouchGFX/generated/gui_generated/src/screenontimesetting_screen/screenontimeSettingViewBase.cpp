@@ -18,11 +18,11 @@ screenontimeSettingViewBase::screenontimeSettingViewBase() :
     background.setBitmap(touchgfx::Bitmap(BITMAP_BACKGROUND_ID));
     add(background);
 
-    screenontime.setPosition(0, 6, 240, 25);
-    screenontime.setColor(touchgfx::Color::getColorFromRGB(255, 255, 255));
-    screenontime.setLinespacing(0);
-    screenontime.setTypedText(touchgfx::TypedText(T_SCREENONTIME));
-    add(screenontime);
+    ontime_label.setPosition(0, 6, 240, 25);
+    ontime_label.setColor(touchgfx::Color::getColorFromRGB(255, 255, 255));
+    ontime_label.setLinespacing(0);
+    ontime_label.setTypedText(touchgfx::TypedText(T_SCREENONTIME));
+    add(ontime_label);
 
     scrollWheel1.setPosition(22, 54, 197, 153);
     scrollWheel1.setHorizontal(false);
@@ -42,20 +42,20 @@ screenontimeSettingViewBase::screenontimeSettingViewBase() :
     scrollWheel1.animateToItem(3, 0);
     add(scrollWheel1);
 
-    image1.setXY(22, 107);
-    image1.setBitmap(touchgfx::Bitmap(BITMAP_SELECTLINE_ID));
-    add(image1);
+    scrollwheel_contour_image.setXY(22, 107);
+    scrollwheel_contour_image.setBitmap(touchgfx::Bitmap(BITMAP_SELECTLINE_ID));
+    add(scrollwheel_contour_image);
 
-    button1.setXY(48, 215);
-    button1.setBitmaps(touchgfx::Bitmap(BITMAP_RECTANGLE_14_ID), touchgfx::Bitmap(BITMAP_RECTANGLEPRESSED_ID));
-    button1.setAction(buttonCallback);
-    add(button1);
+    ontime_done_button.setXY(48, 215);
+    ontime_done_button.setBitmaps(touchgfx::Bitmap(BITMAP_RECTANGLE_14_ID), touchgfx::Bitmap(BITMAP_RECTANGLEPRESSED_ID));
+    ontime_done_button.setAction(buttonCallback);
+    add(ontime_done_button);
 
-    textArea2.setPosition(48, 222, 144, 29);
-    textArea2.setColor(touchgfx::Color::getColorFromRGB(255, 255, 255));
-    textArea2.setLinespacing(0);
-    textArea2.setTypedText(touchgfx::TypedText(T_SCREENONTIMEAPPLY));
-    add(textArea2);
+    ontime_done_label.setPosition(48, 222, 144, 29);
+    ontime_done_label.setColor(touchgfx::Color::getColorFromRGB(255, 255, 255));
+    ontime_done_label.setLinespacing(0);
+    ontime_done_label.setTypedText(touchgfx::TypedText(T_SCREENONTIMEAPPLY));
+    add(ontime_done_label);
 
     batteryprogress.setXY(197, 8);
     batteryprogress.setProgressIndicatorPosition(2, 2, 27, 11);
@@ -67,11 +67,11 @@ screenontimeSettingViewBase::screenontimeSettingViewBase() :
     batteryprogress.setAnchorAtZero(true);
     add(batteryprogress);
 
-    button2.setXY(0, 0);
-    button2.setBitmaps(touchgfx::Bitmap(BITMAP_ALTERNATE_THEME_IMAGES_WIDGETS_BUTTON_REGULAR_HEIGHT_50_MEDIUM_ROUNDED_NORMAL_ID), touchgfx::Bitmap(BITMAP_ALTERNATE_THEME_IMAGES_WIDGETS_BUTTON_REGULAR_HEIGHT_50_MEDIUM_ROUNDED_PRESSED_ID));
-    button2.setVisible(false);
-    button2.setAction(buttonCallback);
-    add(button2);
+    buttonfornothing.setXY(0, 0);
+    buttonfornothing.setBitmaps(touchgfx::Bitmap(BITMAP_ALTERNATE_THEME_IMAGES_WIDGETS_BUTTON_REGULAR_HEIGHT_50_MEDIUM_ROUNDED_NORMAL_ID), touchgfx::Bitmap(BITMAP_ALTERNATE_THEME_IMAGES_WIDGETS_BUTTON_REGULAR_HEIGHT_50_MEDIUM_ROUNDED_PRESSED_ID));
+    buttonfornothing.setVisible(false);
+    buttonfornothing.setAction(buttonCallback);
+    add(buttonfornothing);
 }
 
 screenontimeSettingViewBase::~screenontimeSettingViewBase()
@@ -94,17 +94,21 @@ void screenontimeSettingViewBase::setupScreen()
 
 void screenontimeSettingViewBase::buttonCallbackHandler(const touchgfx::AbstractButton& src)
 {
-    if (&src == &button2)
+    if (&src == &buttonfornothing)
     {
         //Interaction1
-        //When button2 clicked change screen to screenSetting
+        //When buttonfornothing clicked change screen to screenSetting
         //Go to screenSetting with screen transition towards West
         application().gotoscreenSettingScreenWipeTransitionWest();
     }
-    if (&src == &button1)
+    if (&src == &ontime_done_button)
     {
-        //call_changeScreenOnTime
-        //When button1 clicked call virtual function
+        //Interaction2
+        //When ontime_done_button clicked change screen to screenSetting
+        //Go to screenSetting with screen transition towards West
+        application().gotoscreenSettingScreenWipeTransitionWest();
+        //callFunction
+        //When ontime_done_button clicked call changeScreenOnTime on screenontimeSetting
         //Call changeScreenOnTime
         changeScreenOnTime();
     }

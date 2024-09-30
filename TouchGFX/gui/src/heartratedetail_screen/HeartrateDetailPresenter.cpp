@@ -16,3 +16,8 @@ void HeartrateDetailPresenter::deactivate()
 {
 
 }
+
+void HeartrateDetailPresenter::notifySwipeRight()
+{
+	view.handleSwipeRight();
+}

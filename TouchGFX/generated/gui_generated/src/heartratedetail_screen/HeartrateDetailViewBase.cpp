@@ -19,22 +19,31 @@ HeartrateDetailViewBase::HeartrateDetailViewBase()
     background.setBitmap(touchgfx::Bitmap(BITMAP_BACKGROUND_ID));
     add(background);
 
-    Heartrate.setPosition(0, 6, 240, 25);
-    Heartrate.setColor(touchgfx::Color::getColorFromRGB(255, 255, 255));
-    Heartrate.setLinespacing(0);
-    Heartrate.setTypedText(touchgfx::TypedText(T_HEARTRATETEXT));
-    add(Heartrate);
+    heartrate_label.setPosition(0, 6, 240, 25);
+    heartrate_label.setColor(touchgfx::Color::getColorFromRGB(255, 255, 255));
+    heartrate_label.setLinespacing(0);
+    heartrate_label.setTypedText(touchgfx::TypedText(T_HEARTRATETEXT));
+    add(heartrate_label);
 
-    image1.setXY(20, 41);
-    image1.setBitmap(touchgfx::Bitmap(BITMAP_HEART_ID));
-    add(image1);
+    heartrate_image.setXY(20, 41);
+    heartrate_image.setBitmap(touchgfx::Bitmap(BITMAP_HEART_ID));
+    add(heartrate_image);
 
-    curhrdetail.setPosition(49, 42, 180, 25);
-    curhrdetail.setColor(touchgfx::Color::getColorFromRGB(255, 255, 255));
-    curhrdetail.setLinespacing(0);
-    curhrdetail.setWildcard(touchgfx::TypedText(T_CURHRVALUE).getText());
-    curhrdetail.setTypedText(touchgfx::TypedText(T_CURHRDETAIL));
-    add(curhrdetail);
+    heartrate_value.setPosition(49, 42, 180, 25);
+    heartrate_value.setColor(touchgfx::Color::getColorFromRGB(255, 255, 255));
+    heartrate_value.setLinespacing(0);
+    Unicode::snprintf(heartrate_valueBuffer, HEARTRATE_VALUE_SIZE, "%s", touchgfx::TypedText(T_CURHRVALUE).getText());
+    heartrate_value.setWildcard(heartrate_valueBuffer);
+    heartrate_value.setTypedText(touchgfx::TypedText(T_CURHRDETAIL));
+    add(heartrate_value);
+
+    topright_box.setPosition(175, 0, 65, 33);
+    topright_box.setColor(touchgfx::Color::getColorFromRGB(0, 0, 0));
+    add(topright_box);
+
+    topleft_box.setPosition(0, 0, 65, 33);
+    topleft_box.setColor(touchgfx::Color::getColorFromRGB(0, 0, 0));
+    add(topleft_box);
 
     batteryprogress.setXY(197, 8);
     batteryprogress.setProgressIndicatorPosition(2, 2, 27, 11);
@@ -46,18 +55,22 @@ HeartrateDetailViewBase::HeartrateDetailViewBase()
     batteryprogress.setAnchorAtZero(true);
     add(batteryprogress);
 
-    dynamicGraph1.setPosition(20, 95, 200, 165);
-    dynamicGraph1.setScale(1);
-    dynamicGraph1.setGraphAreaMargin(0, 0, 0, 0);
-    dynamicGraph1.setGraphAreaPadding(0, 0, 0, 0);
-    dynamicGraph1.setGraphRangeY(0, 200);
-    dynamicGraph1Line1Painter.setColor(touchgfx::Color::getColorFromRGB(201, 60, 50));
-    dynamicGraph1Line1.setPainter(dynamicGraph1Line1Painter);
-    dynamicGraph1Line1.setLineWidth(2);
-    dynamicGraph1.addGraphElement(dynamicGraph1Line1);
+    heartrate_detail_graph.setPosition(20, 95, 200, 165);
+    heartrate_detail_graph.setScale(1);
+    heartrate_detail_graph.setGraphAreaMargin(0, 0, 0, 0);
+    heartrate_detail_graph.setGraphAreaPadding(0, 0, 0, 0);
+    heartrate_detail_graph.setGraphRangeY(0, 200);
+    heartrate_detail_graphLine1Painter.setColor(touchgfx::Color::getColorFromRGB(201, 60, 50));
+    heartrate_detail_graphLine1.setPainter(heartrate_detail_graphLine1Painter);
+    heartrate_detail_graphLine1.setLineWidth(2);
+    heartrate_detail_graph.addGraphElement(heartrate_detail_graphLine1);
 
 
-    add(dynamicGraph1);
+    add(heartrate_detail_graph);
+
+    catm1_image.setXY(11, 11);
+    catm1_image.setBitmap(touchgfx::Bitmap(BITMAP_LTE_NOTCONNECTED_ID));
+    add(catm1_image);
 }
 
 HeartrateDetailViewBase::~HeartrateDetailViewBase()

@@ -30,9 +30,9 @@ protected:
      */
     touchgfx::Box __background;
     touchgfx::Image background;
-    touchgfx::TextArea screenbrightness;
+    touchgfx::TextArea screenbrightness_label;
     touchgfx::Slider slider1;
-    touchgfx::Image image1;
+    touchgfx::Image brightness_image;
     touchgfx::ImageProgress batteryprogress;
 
 private:

@@ -21,136 +21,130 @@ SettingScreenViewBase::SettingScreenViewBase() :
     settingscrollablecontainer.enableHorizontalScroll(false);
     settingscrollablecontainer.setScrollbarsColor(touchgfx::Color::getColorFromRGB(96, 96, 96));
     settingscrollablecontainer.setScrollbarsAlpha(255);
-    button1.setXY(14, 7);
-    button1.setBitmaps(touchgfx::Bitmap(BITMAP_RECTANGLE_21_ID), touchgfx::Bitmap(BITMAP_RECTANGLE_30_ID));
-    button1.setAction(buttonCallback);
-    settingscrollablecontainer.add(button1);
+    screen_button.setXY(14, 7);
+    screen_button.setBitmaps(touchgfx::Bitmap(BITMAP_RECTANGLE_21_ID), touchgfx::Bitmap(BITMAP_RECTANGLE_30_ID));
+    screen_button.setAction(buttonCallback);
+    settingscrollablecontainer.add(screen_button);
 
-    image1.setXY(20, 14);
-    image1.setBitmap(touchgfx::Bitmap(BITMAP_RECTANGLE_26_ID));
-    settingscrollablecontainer.add(image1);
+    soundnhaptics_button.setXY(14, 70);
+    soundnhaptics_button.setBitmaps(touchgfx::Bitmap(BITMAP_RECTANGLE_21_ID), touchgfx::Bitmap(BITMAP_RECTANGLE_30_ID));
+    soundnhaptics_button.setAction(buttonCallback);
+    settingscrollablecontainer.add(soundnhaptics_button);
 
-    Screen.setPosition(66, 23, 155, 25);
-    Screen.setColor(touchgfx::Color::getColorFromRGB(217, 217, 217));
-    Screen.setLinespacing(0);
-    Screen.setTypedText(touchgfx::TypedText(T_SCREENTEXT));
-    settingscrollablecontainer.add(Screen);
+    language_button.setXY(14, 133);
+    language_button.setBitmaps(touchgfx::Bitmap(BITMAP_RECTANGLE_21_ID), touchgfx::Bitmap(BITMAP_RECTANGLE_30_ID));
+    language_button.setAction(buttonCallback);
+    settingscrollablecontainer.add(language_button);
 
-    button2.setXY(14, 70);
-    button2.setBitmaps(touchgfx::Bitmap(BITMAP_RECTANGLE_21_ID), touchgfx::Bitmap(BITMAP_RECTANGLE_30_ID));
-    button2.setAction(buttonCallback);
-    settingscrollablecontainer.add(button2);
+    findmyphone_button.setXY(14, 196);
+    findmyphone_button.setBitmaps(touchgfx::Bitmap(BITMAP_RECTANGLE_21_ID), touchgfx::Bitmap(BITMAP_RECTANGLE_30_ID));
+    settingscrollablecontainer.add(findmyphone_button);
 
-    image2.setXY(20, 77);
-    image2.setBitmap(touchgfx::Bitmap(BITMAP_RECTANGLE_26_ID));
-    settingscrollablecontainer.add(image2);
+    information_button.setXY(14, 259);
+    information_button.setBitmaps(touchgfx::Bitmap(BITMAP_RECTANGLE_21_ID), touchgfx::Bitmap(BITMAP_RECTANGLE_30_ID));
+    information_button.setAction(buttonCallback);
+    settingscrollablecontainer.add(information_button);
 
-    SoundnHaptics.setPosition(66, 86, 155, 25);
-    SoundnHaptics.setColor(touchgfx::Color::getColorFromRGB(217, 217, 217));
-    SoundnHaptics.setLinespacing(0);
-    SoundnHaptics.setTypedText(touchgfx::TypedText(T_SOUNDNHAPTICSTEXT));
-    settingscrollablecontainer.add(SoundnHaptics);
+    system_button.setXY(14, 322);
+    system_button.setBitmaps(touchgfx::Bitmap(BITMAP_RECTANGLE_21_ID), touchgfx::Bitmap(BITMAP_RECTANGLE_30_ID));
+    system_button.setAction(buttonCallback);
+    settingscrollablecontainer.add(system_button);
 
-    button3.setXY(14, 133);
-    button3.setBitmaps(touchgfx::Bitmap(BITMAP_RECTANGLE_21_ID), touchgfx::Bitmap(BITMAP_RECTANGLE_30_ID));
-    button3.setAction(buttonCallback);
-    settingscrollablecontainer.add(button3);
+    screenbutton_icon_back.setXY(20, 14);
+    screenbutton_icon_back.setBitmap(touchgfx::Bitmap(BITMAP_SETTING_ICONBACK_ID));
+    settingscrollablecontainer.add(screenbutton_icon_back);
 
-    image3.setXY(20, 140);
-    image3.setBitmap(touchgfx::Bitmap(BITMAP_RECTANGLE_26_ID));
-    settingscrollablecontainer.add(image3);
+    snhbutton_icon_back.setXY(20, 77);
+    snhbutton_icon_back.setBitmap(touchgfx::Bitmap(BITMAP_SETTING_ICONBACK_ID));
+    settingscrollablecontainer.add(snhbutton_icon_back);
 
-    Language.setPosition(66, 149, 155, 25);
-    Language.setColor(touchgfx::Color::getColorFromRGB(217, 217, 217));
-    Language.setLinespacing(0);
-    Language.setTypedText(touchgfx::TypedText(T_LANGUAGETEXT));
-    settingscrollablecontainer.add(Language);
+    languagebutton_icon_back.setXY(20, 140);
+    languagebutton_icon_back.setBitmap(touchgfx::Bitmap(BITMAP_SETTING_ICONBACK_ID));
+    settingscrollablecontainer.add(languagebutton_icon_back);
 
-    button4.setXY(14, 196);
-    button4.setBitmaps(touchgfx::Bitmap(BITMAP_RECTANGLE_21_ID), touchgfx::Bitmap(BITMAP_RECTANGLE_30_ID));
-    button4.setAction(buttonCallback);
-    settingscrollablecontainer.add(button4);
+    phonebutton_icon_back.setXY(20, 203);
+    phonebutton_icon_back.setBitmap(touchgfx::Bitmap(BITMAP_SETTING_ICONBACK_ID));
+    settingscrollablecontainer.add(phonebutton_icon_back);
 
-    image4.setXY(20, 203);
-    image4.setBitmap(touchgfx::Bitmap(BITMAP_RECTANGLE_26_ID));
-    settingscrollablecontainer.add(image4);
+    informationbutton_icon_back.setXY(20, 266);
+    informationbutton_icon_back.setBitmap(touchgfx::Bitmap(BITMAP_SETTING_ICONBACK_ID));
+    settingscrollablecontainer.add(informationbutton_icon_back);
 
-    WiFiSetting.setPosition(66, 212, 155, 25);
-    WiFiSetting.setColor(touchgfx::Color::getColorFromRGB(217, 217, 217));
-    WiFiSetting.setLinespacing(0);
-    WiFiSetting.setTypedText(touchgfx::TypedText(T_WIFISETTINGTEXT));
-    settingscrollablecontainer.add(WiFiSetting);
+    systembutton_icon_back.setXY(20, 329);
+    systembutton_icon_back.setBitmap(touchgfx::Bitmap(BITMAP_SETTING_ICONBACK_ID));
+    settingscrollablecontainer.add(systembutton_icon_back);
 
-    button5.setXY(14, 259);
-    button5.setBitmaps(touchgfx::Bitmap(BITMAP_RECTANGLE_21_ID), touchgfx::Bitmap(BITMAP_RECTANGLE_30_ID));
-    settingscrollablecontainer.add(button5);
+    screen_label.setPosition(66, 23, 155, 25);
+    screen_label.setColor(touchgfx::Color::getColorFromRGB(217, 217, 217));
+    screen_label.setLinespacing(0);
+    screen_label.setTypedText(touchgfx::TypedText(T_SCREENTEXT));
+    settingscrollablecontainer.add(screen_label);
 
-    image5.setXY(20, 266);
-    image5.setBitmap(touchgfx::Bitmap(BITMAP_RECTANGLE_26_ID));
-    settingscrollablecontainer.add(image5);
+    soundnhaptics_label.setPosition(66, 86, 155, 25);
+    soundnhaptics_label.setColor(touchgfx::Color::getColorFromRGB(217, 217, 217));
+    soundnhaptics_label.setLinespacing(0);
+    soundnhaptics_label.setTypedText(touchgfx::TypedText(T_SOUNDNHAPTICSTEXT));
+    settingscrollablecontainer.add(soundnhaptics_label);
 
-    Findmyphone.setPosition(66, 275, 155, 25);
-    Findmyphone.setColor(touchgfx::Color::getColorFromRGB(217, 217, 217));
-    Findmyphone.setLinespacing(0);
-    Findmyphone.setTypedText(touchgfx::TypedText(T_FINDMYPHONETEXT));
-    settingscrollablecontainer.add(Findmyphone);
+    language_label.setPosition(66, 149, 155, 25);
+    language_label.setColor(touchgfx::Color::getColorFromRGB(217, 217, 217));
+    language_label.setLinespacing(0);
+    language_label.setTypedText(touchgfx::TypedText(T_LANGUAGETEXT));
+    settingscrollablecontainer.add(language_label);
 
-    button6.setXY(14, 322);
-    button6.setBitmaps(touchgfx::Bitmap(BITMAP_RECTANGLE_21_ID), touchgfx::Bitmap(BITMAP_RECTANGLE_30_ID));
-    button6.setAction(buttonCallback);
-    settingscrollablecontainer.add(button6);
+    findmyphone_label.setPosition(66, 212, 155, 25);
+    findmyphone_label.setColor(touchgfx::Color::getColorFromRGB(217, 217, 217));
+    findmyphone_label.setLinespacing(0);
+    findmyphone_label.setTypedText(touchgfx::TypedText(T_FINDMYPHONETEXT));
+    settingscrollablecontainer.add(findmyphone_label);
 
-    image6.setXY(20, 329);
-    image6.setBitmap(touchgfx::Bitmap(BITMAP_RECTANGLE_26_ID));
-    settingscrollablecontainer.add(image6);
+    information_label.setPosition(66, 275, 155, 25);
+    information_label.setColor(touchgfx::Color::getColorFromRGB(217, 217, 217));
+    information_label.setLinespacing(0);
+    information_label.setTypedText(touchgfx::TypedText(T_INFORMATIONTEXT));
+    settingscrollablecontainer.add(information_label);
 
-    Information.setPosition(66, 338, 155, 25);
-    Information.setColor(touchgfx::Color::getColorFromRGB(217, 217, 217));
-    Information.setLinespacing(0);
-    Information.setTypedText(touchgfx::TypedText(T_INFORMATIONTEXT));
-    settingscrollablecontainer.add(Information);
+    system_label.setPosition(66, 338, 155, 25);
+    system_label.setColor(touchgfx::Color::getColorFromRGB(217, 217, 217));
+    system_label.setLinespacing(0);
+    system_label.setTypedText(touchgfx::TypedText(T_SYSTEMTEXT));
+    settingscrollablecontainer.add(system_label);
 
-    button7.setXY(296, 385);
-    button7.setBitmaps(touchgfx::Bitmap(BITMAP_RECTANGLE_21_ID), touchgfx::Bitmap(BITMAP_RECTANGLE_30_ID));
-    button7.setAction(buttonCallback);
-    settingscrollablecontainer.add(button7);
+    bottom_padding_box.setPosition(14, 376, 212, 9);
+    bottom_padding_box.setColor(touchgfx::Color::getColorFromRGB(0, 0, 0));
+    settingscrollablecontainer.add(bottom_padding_box);
 
-    image7.setXY(302, 392);
-    image7.setBitmap(touchgfx::Bitmap(BITMAP_RECTANGLE_26_ID));
-    settingscrollablecontainer.add(image7);
+    screen_image.setXY(23, 18);
+    screen_image.setBitmap(touchgfx::Bitmap(BITMAP_SETTING_SCREEN_ICON_ID));
+    settingscrollablecontainer.add(screen_image);
 
-    commu_cycle.setPosition(348, 389, 155, 47);
-    commu_cycle.setColor(touchgfx::Color::getColorFromRGB(217, 217, 217));
-    commu_cycle.setLinespacing(0);
-    commu_cycle.setTypedText(touchgfx::TypedText(T_COMMUNICATION_CYCLE_TEXT));
-    settingscrollablecontainer.add(commu_cycle);
+    sound_image.setXY(23, 81);
+    sound_image.setBitmap(touchgfx::Bitmap(BITMAP_SETTING_SOUND_ICON_ID));
+    settingscrollablecontainer.add(sound_image);
 
-    button8.setXY(14, 385);
-    button8.setBitmaps(touchgfx::Bitmap(BITMAP_RECTANGLE_21_ID), touchgfx::Bitmap(BITMAP_RECTANGLE_30_ID));
-    button8.setAction(buttonCallback);
-    settingscrollablecontainer.add(button8);
+    language_image.setXY(22, 143);
+    language_image.setBitmap(touchgfx::Bitmap(BITMAP_SETTING_LANGUAGE_ICON_ID));
+    settingscrollablecontainer.add(language_image);
 
-    image8.setXY(20, 392);
-    image8.setBitmap(touchgfx::Bitmap(BITMAP_RECTANGLE_26_ID));
-    settingscrollablecontainer.add(image8);
+    phone_image.setXY(22, 206);
+    phone_image.setBitmap(touchgfx::Bitmap(BITMAP_SETTING_PHONE_ICON_ID));
+    settingscrollablecontainer.add(phone_image);
 
-    System.setPosition(66, 401, 155, 25);
-    System.setColor(touchgfx::Color::getColorFromRGB(217, 217, 217));
-    System.setLinespacing(0);
-    System.setTypedText(touchgfx::TypedText(T_SYSTEMTEXT));
-    settingscrollablecontainer.add(System);
+    information_image.setXY(22, 268);
+    information_image.setBitmap(touchgfx::Bitmap(BITMAP_SETTING_INFORMATION_ICON_ID));
+    settingscrollablecontainer.add(information_image);
 
-    box1.setPosition(14, 439, 212, 9);
-    box1.setColor(touchgfx::Color::getColorFromRGB(0, 0, 0));
-    settingscrollablecontainer.add(box1);
+    system_image.setXY(22, 329);
+    system_image.setBitmap(touchgfx::Bitmap(BITMAP_SETTING_SYSTEM_ICON_ID));
+    settingscrollablecontainer.add(system_image);
 
     add(settingscrollablecontainer);
 
-    Setting.setPosition(0, 6, 240, 25);
-    Setting.setColor(touchgfx::Color::getColorFromRGB(255, 255, 255));
-    Setting.setLinespacing(0);
-    Setting.setTypedText(touchgfx::TypedText(T_SETTINGLABLE));
-    add(Setting);
+    setting_label.setPosition(0, 6, 240, 25);
+    setting_label.setColor(touchgfx::Color::getColorFromRGB(255, 255, 255));
+    setting_label.setLinespacing(0);
+    setting_label.setTypedText(touchgfx::TypedText(T_SETTINGLABEL));
+    add(setting_label);
 
     batteryprogress.setXY(197, 8);
     batteryprogress.setProgressIndicatorPosition(2, 2, 27, 11);
@@ -162,11 +156,15 @@ SettingScreenViewBase::SettingScreenViewBase() :
     batteryprogress.setAnchorAtZero(true);
     add(batteryprogress);
 
-    button0.setXY(0, 0);
-    button0.setBitmaps(touchgfx::Bitmap(BITMAP_ALTERNATE_THEME_IMAGES_WIDGETS_BUTTON_REGULAR_HEIGHT_50_MEDIUM_ROUNDED_NORMAL_ID), touchgfx::Bitmap(BITMAP_ALTERNATE_THEME_IMAGES_WIDGETS_BUTTON_REGULAR_HEIGHT_50_MEDIUM_ROUNDED_PRESSED_ID));
-    button0.setVisible(false);
-    button0.setAction(buttonCallback);
-    add(button0);
+    buttonfornothing.setXY(0, 0);
+    buttonfornothing.setBitmaps(touchgfx::Bitmap(BITMAP_ALTERNATE_THEME_IMAGES_WIDGETS_BUTTON_REGULAR_HEIGHT_50_MEDIUM_ROUNDED_NORMAL_ID), touchgfx::Bitmap(BITMAP_ALTERNATE_THEME_IMAGES_WIDGETS_BUTTON_REGULAR_HEIGHT_50_MEDIUM_ROUNDED_PRESSED_ID));
+    buttonfornothing.setVisible(false);
+    buttonfornothing.setAction(buttonCallback);
+    add(buttonfornothing);
+
+    catm1_image.setXY(11, 11);
+    catm1_image.setBitmap(touchgfx::Bitmap(BITMAP_LTE_NOTCONNECTED_ID));
+    add(catm1_image);
 }
 
 SettingScreenViewBase::~SettingScreenViewBase()
@@ -181,60 +179,46 @@ void SettingScreenViewBase::setupScreen()
 
 void SettingScreenViewBase::buttonCallbackHandler(const touchgfx::AbstractButton& src)
 {
-    if (&src == &button1)
+    if (&src == &screen_button)
     {
         //screenSettingInteraction
-        //When button1 clicked change screen to screenSetting
+        //When screen_button clicked change screen to screenSetting
         //Go to screenSetting with screen transition towards East
         application().gotoscreenSettingScreenCoverTransitionEast();
     }
-    if (&src == &button2)
+    if (&src == &soundnhaptics_button)
     {
         //snhSettingInteraction
-        //When button2 clicked change screen to soundnhapticsSetting
+        //When soundnhaptics_button clicked change screen to soundnhapticsSetting
         //Go to soundnhapticsSetting with screen transition towards East
         application().gotosoundnhapticsSettingScreenCoverTransitionEast();
     }
-    if (&src == &button3)
+    if (&src == &language_button)
     {
         //languageSettingInteraction
-        //When button3 clicked change screen to languageSetting
+        //When language_button clicked change screen to languageSetting
         //Go to languageSetting with screen transition towards East
         application().gotolanguageSettingScreenCoverTransitionEast();
     }
-    if (&src == &button6)
+    if (&src == &information_button)
     {
         //infoSettingInteraction
-        //When button6 clicked change screen to informationSetting
+        //When information_button clicked change screen to informationSetting
         //Go to informationSetting with screen transition towards East
         application().gotoinformationSettingScreenCoverTransitionEast();
     }
-    if (&src == &button8)
+    if (&src == &system_button)
     {
         //systemSettingInteraction
-        //When button8 clicked change screen to systemSetting
+        //When system_button clicked change screen to systemSetting
         //Go to systemSetting with screen transition towards East
         application().gotosystemSettingScreenCoverTransitionEast();
     }
-    if (&src == &button4)
-    {
-        //wifiSettingInteraction
-        //When button4 clicked change screen to wifiSetting
-        //Go to wifiSetting with screen transition towards East
-        application().gotowifiSettingScreenCoverTransitionEast();
-    }
-    if (&src == &button0)
+    if (&src == &buttonfornothing)
     {
         //Interaction1
-        //When button0 clicked change screen to swipedownfromHome
+        //When buttonfornothing clicked change screen to swipedownfromHome
         //Go to swipedownfromHome with screen transition towards West
         application().gotoswipedownfromHomeScreenWipeTransitionWest();
-    }
-    if (&src == &button7)
-    {
-        //CycleSettingInteraction
-        //When button7 clicked change screen to communicationCycleSetting
-        //Go to communicationCycleSetting with screen transition towards East
-        application().gotocommunicationCycleSettingScreenCoverTransitionEast();
     }
 }

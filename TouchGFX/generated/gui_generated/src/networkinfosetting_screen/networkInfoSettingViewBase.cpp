@@ -16,51 +16,27 @@ networkInfoSettingViewBase::networkInfoSettingViewBase()
     background.setBitmap(touchgfx::Bitmap(BITMAP_BACKGROUND_ID));
     add(background);
 
-    NetworkInfo.setPosition(0, 6, 240, 25);
-    NetworkInfo.setColor(touchgfx::Color::getColorFromRGB(255, 255, 255));
-    NetworkInfo.setLinespacing(0);
-    NetworkInfo.setTypedText(touchgfx::TypedText(T_NETWORKINFO));
-    add(NetworkInfo);
+    networkinfo_label.setPosition(0, 6, 240, 25);
+    networkinfo_label.setColor(touchgfx::Color::getColorFromRGB(255, 255, 255));
+    networkinfo_label.setLinespacing(0);
+    networkinfo_label.setTypedText(touchgfx::TypedText(T_NETWORKINFO));
+    add(networkinfo_label);
 
-    textArea1.setPosition(0, 53, 240, 29);
-    textArea1.setColor(touchgfx::Color::getColorFromRGB(239, 140, 48));
-    textArea1.setLinespacing(0);
-    textArea1.setTypedText(touchgfx::TypedText(T_BLEMACADDLABLE));
-    add(textArea1);
+    imei_label.setPosition(0, 53, 240, 29);
+    imei_label.setColor(touchgfx::Color::getColorFromRGB(255, 255, 255));
+    imei_label.setLinespacing(0);
+    Unicode::snprintf(imei_labelBuffer, IMEI_LABEL_SIZE, "%s", touchgfx::TypedText(T_IMEIVALUE).getText());
+    imei_label.setWildcard(imei_labelBuffer);
+    imei_label.setTypedText(touchgfx::TypedText(T_IMEI));
+    add(imei_label);
 
-    textArea1_1.setXY(33, 109);
-    textArea1_1.setColor(touchgfx::Color::getColorFromRGB(239, 140, 48));
-    textArea1_1.setLinespacing(0);
-    textArea1_1.setTypedText(touchgfx::TypedText(T_WIFIMACADDLABEL));
-    add(textArea1_1);
-
-    textArea2.setPosition(0, 80, 240, 29);
-    textArea2.setColor(touchgfx::Color::getColorFromRGB(255, 255, 255));
-    textArea2.setLinespacing(0);
-    textArea2.setWildcard(touchgfx::TypedText(T_BLEMACADDVALUE).getText());
-    textArea2.setTypedText(touchgfx::TypedText(T_BLEMACADDTEXT));
-    add(textArea2);
-
-    textArea2_1.setPosition(0, 136, 240, 29);
-    textArea2_1.setColor(touchgfx::Color::getColorFromRGB(255, 255, 255));
-    textArea2_1.setLinespacing(0);
-    textArea2_1.setWildcard(touchgfx::TypedText(T_WIFIMACADDVALUE).getText());
-    textArea2_1.setTypedText(touchgfx::TypedText(T_WIFIMACADDTEXT));
-    add(textArea2_1);
-
-    textArea3.setPosition(0, 167, 240, 29);
-    textArea3.setColor(touchgfx::Color::getColorFromRGB(255, 255, 255));
-    textArea3.setLinespacing(0);
-    textArea3.setWildcard(touchgfx::TypedText(T_IMEIVALUE).getText());
-    textArea3.setTypedText(touchgfx::TypedText(T_IMEI));
-    add(textArea3);
-
-    textArea3_1.setPosition(0, 198, 240, 29);
-    textArea3_1.setColor(touchgfx::Color::getColorFromRGB(255, 255, 255));
-    textArea3_1.setLinespacing(0);
-    textArea3_1.setWildcard(touchgfx::TypedText(T_ICCIDVALUE).getText());
-    textArea3_1.setTypedText(touchgfx::TypedText(T_ICCID));
-    add(textArea3_1);
+    iccid_label.setPosition(0, 80, 240, 29);
+    iccid_label.setColor(touchgfx::Color::getColorFromRGB(255, 255, 255));
+    iccid_label.setLinespacing(0);
+    Unicode::snprintf(iccid_labelBuffer, ICCID_LABEL_SIZE, "%s", touchgfx::TypedText(T_ICCIDVALUE).getText());
+    iccid_label.setWildcard(iccid_labelBuffer);
+    iccid_label.setTypedText(touchgfx::TypedText(T_ICCID));
+    add(iccid_label);
 
     batteryprogress.setXY(197, 8);
     batteryprogress.setProgressIndicatorPosition(2, 2, 27, 11);

@@ -16,41 +16,41 @@ soundnhapticsSettingViewBase::soundnhapticsSettingViewBase()
     background.setBitmap(touchgfx::Bitmap(BITMAP_BACKGROUND_ID));
     add(background);
 
-    Screen.setPosition(0, 6, 240, 25);
-    Screen.setColor(touchgfx::Color::getColorFromRGB(255, 255, 255));
-    Screen.setLinespacing(0);
-    Screen.setTypedText(touchgfx::TypedText(T_SOUNDNHAPTICS));
-    add(Screen);
+    soundnhaptics_label.setPosition(0, 6, 240, 25);
+    soundnhaptics_label.setColor(touchgfx::Color::getColorFromRGB(255, 255, 255));
+    soundnhaptics_label.setLinespacing(0);
+    soundnhaptics_label.setTypedText(touchgfx::TypedText(T_SOUNDNHAPTICS));
+    add(soundnhaptics_label);
 
-    image1.setXY(14, 48);
-    image1.setBitmap(touchgfx::Bitmap(BITMAP_RECTANGLE_26_ID));
-    add(image1);
+    haptic_icon_back.setXY(14, 48);
+    haptic_icon_back.setBitmap(touchgfx::Bitmap(BITMAP_SET_SETTING_ICONBACK_ID));
+    add(haptic_icon_back);
 
-    image1_1.setXY(14, 109);
-    image1_1.setBitmap(touchgfx::Bitmap(BITMAP_RECTANGLE_26_ID));
-    add(image1_1);
+    sound_icon_back.setXY(14, 109);
+    sound_icon_back.setBitmap(touchgfx::Bitmap(BITMAP_SET_SETTING_ICONBACK_ID));
+    add(sound_icon_back);
 
-    textArea1.setXY(66, 59);
-    textArea1.setColor(touchgfx::Color::getColorFromRGB(255, 255, 255));
-    textArea1.setLinespacing(0);
-    textArea1.setTypedText(touchgfx::TypedText(T_HAPTICTEXT));
-    add(textArea1);
+    haptic_label.setXY(66, 59);
+    haptic_label.setColor(touchgfx::Color::getColorFromRGB(255, 255, 255));
+    haptic_label.setLinespacing(0);
+    haptic_label.setTypedText(touchgfx::TypedText(T_HAPTICTEXT));
+    add(haptic_label);
 
-    textArea2.setXY(66, 120);
-    textArea2.setColor(touchgfx::Color::getColorFromRGB(255, 255, 255));
-    textArea2.setLinespacing(0);
-    textArea2.setTypedText(touchgfx::TypedText(T_SOUNDTEXT));
-    add(textArea2);
+    sound_label.setXY(66, 120);
+    sound_label.setColor(touchgfx::Color::getColorFromRGB(255, 255, 255));
+    sound_label.setLinespacing(0);
+    sound_label.setTypedText(touchgfx::TypedText(T_SOUNDTEXT));
+    add(sound_label);
 
-    toggleButton1.setXY(182, 48);
-    toggleButton1.setBitmaps(touchgfx::Bitmap(BITMAP_TOGGLEOFF_ID), touchgfx::Bitmap(BITMAP_TOGGLEON_ID));
-    toggleButton1.forceState(true);
-    add(toggleButton1);
+    haptic_togglebutton.setXY(182, 48);
+    haptic_togglebutton.setBitmaps(touchgfx::Bitmap(BITMAP_TOGGLEOFF_ID), touchgfx::Bitmap(BITMAP_TOGGLEON_ID));
+    haptic_togglebutton.forceState(true);
+    add(haptic_togglebutton);
 
-    toggleButton2.setXY(182, 109);
-    toggleButton2.setBitmaps(touchgfx::Bitmap(BITMAP_TOGGLEOFF_ID), touchgfx::Bitmap(BITMAP_TOGGLEON_ID));
-    toggleButton2.forceState(true);
-    add(toggleButton2);
+    sound_togglebutton.setXY(182, 109);
+    sound_togglebutton.setBitmaps(touchgfx::Bitmap(BITMAP_TOGGLEOFF_ID), touchgfx::Bitmap(BITMAP_TOGGLEON_ID));
+    sound_togglebutton.forceState(true);
+    add(sound_togglebutton);
 
     batteryprogress.setXY(197, 8);
     batteryprogress.setProgressIndicatorPosition(2, 2, 27, 11);
@@ -61,6 +61,14 @@ soundnhapticsSettingViewBase::soundnhapticsSettingViewBase()
     batteryprogress.setValue(90);
     batteryprogress.setAnchorAtZero(true);
     add(batteryprogress);
+
+    haptic_image.setXY(15, 55);
+    haptic_image.setBitmap(touchgfx::Bitmap(BITMAP_SET_SETTING_HAPTIC_ICON_ID));
+    add(haptic_image);
+
+    sound_image.setXY(17, 112);
+    sound_image.setBitmap(touchgfx::Bitmap(BITMAP_SET_SETTING_SOUND_ICON_ID));
+    add(sound_image);
 }
 
 soundnhapticsSettingViewBase::~soundnhapticsSettingViewBase()

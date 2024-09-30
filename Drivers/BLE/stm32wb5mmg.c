@@ -52,6 +52,20 @@ void stm32wb5mmg_adv_setting(stm32wb_at_BLE_ADV_DATA_t* param_BLE_DATA)
 void stm32wb5mmg_adv(stm32wb_at_BLE_ADV_DATA_t* param_BLE_DATA)
 {
 	// ADV
-	param_BLE_DATA->adv_data[30] += 1;
+	param_BLE_DATA->adv_data[16] = 1; // acc
+	param_BLE_DATA->adv_data[17] = 1;
+	param_BLE_DATA->adv_data[18] = 1;
+	param_BLE_DATA->adv_data[19] = 1;
+	param_BLE_DATA->adv_data[20] = 1;
+	param_BLE_DATA->adv_data[21] = 1;
+	param_BLE_DATA->adv_data[22] = 1; // gyro
+	param_BLE_DATA->adv_data[23] = 1;
+	param_BLE_DATA->adv_data[24] = 1;
+	param_BLE_DATA->adv_data[25] = 1;
+	param_BLE_DATA->adv_data[26] = 1;
+	param_BLE_DATA->adv_data[27] = 1;
+	param_BLE_DATA->adv_data[28] = 1; // step
+	param_BLE_DATA->adv_data[29] = 1;
+	param_BLE_DATA->adv_data[30] = 1; // press
 	stm32wb_at_client_Set(BLE_ADV_DATA, param_BLE_DATA); // wait RX data from BLE chip
 }

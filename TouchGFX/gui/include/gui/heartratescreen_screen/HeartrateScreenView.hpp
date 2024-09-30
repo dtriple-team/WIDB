@@ -15,15 +15,11 @@ public:
     virtual void handleGestureEvent(const GestureEvent& evt); //rkdalfks
 
     void handleSwipeRight(); //rkdalfks
-
-    virtual void changeHRVal();
 protected:
 
 private: //rkdalfks
     int initialX; //rkdalfks
     int initialY; //rkdalfks
-
-    uint8_t timeTick;
 };
 
 #endif // HEARTRATESCREENVIEW_HPP

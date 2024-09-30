@@ -31,14 +31,28 @@ protected:
      */
     touchgfx::Box __background;
     touchgfx::Image background;
-    touchgfx::TextArea DeviceInfo;
-    touchgfx::TextAreaWithOneWildcard textArea1;
-    touchgfx::TextAreaWithOneWildcard textArea2;
-    touchgfx::TextAreaWithOneWildcard textArea3;
-    touchgfx::TextAreaWithOneWildcard textArea4;
-    touchgfx::TextAreaWithOneWildcard textArea5;
+    touchgfx::TextArea deviceinfo_label;
+    touchgfx::TextAreaWithOneWildcard model_label;
+    touchgfx::TextAreaWithOneWildcard version_label;
+    touchgfx::TextAreaWithOneWildcard id_label;
+    touchgfx::TextAreaWithOneWildcard serialnumber_label;
+    touchgfx::TextAreaWithOneWildcard servicenumber_label;
     touchgfx::ImageProgress batteryprogress;
-    touchgfx::Button button1;
+    touchgfx::Button buttonfornothing;
+
+    /*
+     * Wildcard Buffers
+     */
+    static const uint16_t MODEL_LABEL_SIZE = 20;
+    touchgfx::Unicode::UnicodeChar model_labelBuffer[MODEL_LABEL_SIZE];
+    static const uint16_t VERSION_LABEL_SIZE = 20;
+    touchgfx::Unicode::UnicodeChar version_labelBuffer[VERSION_LABEL_SIZE];
+    static const uint16_t ID_LABEL_SIZE = 20;
+    touchgfx::Unicode::UnicodeChar id_labelBuffer[ID_LABEL_SIZE];
+    static const uint16_t SERIALNUMBER_LABEL_SIZE = 20;
+    touchgfx::Unicode::UnicodeChar serialnumber_labelBuffer[SERIALNUMBER_LABEL_SIZE];
+    static const uint16_t SERVICENUMBER_LABEL_SIZE = 20;
+    touchgfx::Unicode::UnicodeChar servicenumber_labelBuffer[SERVICENUMBER_LABEL_SIZE];
 
 private:
 

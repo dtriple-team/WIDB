@@ -3,69 +3,84 @@ build/MINGW32_NT-6.2/gui/src/homescreenwithbiodata_screen/HomeScreenWithBiodataV
  gui/include/gui/homescreenwithbiodata_screen/HomeScreenWithBiodataView.hpp \
  generated/gui_generated/include/gui_generated/homescreenwithbiodata_screen/HomeScreenWithBiodataViewBase.hpp \
  gui/include/gui/common/FrontendApplication.hpp \
- ../Middlewares/ST/touchgfx/framework/include/mvp/View.hpp \
- ../Middlewares/ST/touchgfx/framework/include/touchgfx/Screen.hpp \
- ../Middlewares/ST/touchgfx/framework/include/touchgfx/containers/Container.hpp \
- ../Middlewares/ST/touchgfx/framework/include/touchgfx/Callback.hpp \
- ../Middlewares/ST/touchgfx/framework/include/touchgfx/Drawable.hpp \
- ../Middlewares/ST/touchgfx/framework/include/touchgfx/Bitmap.hpp \
- ../Middlewares/ST/touchgfx/framework/include/touchgfx/hal/Types.hpp \
- ../Middlewares/ST/touchgfx/framework/include/touchgfx/hal/Config.hpp \
- ../Middlewares/ST/touchgfx/framework/include/touchgfx/events/ClickEvent.hpp \
- ../Middlewares/ST/touchgfx/framework/include/touchgfx/Event.hpp \
- ../Middlewares/ST/touchgfx/framework/include/touchgfx/events/DragEvent.hpp \
- ../Middlewares/ST/touchgfx/framework/include/touchgfx/events/GestureEvent.hpp \
- ../Middlewares/ST/touchgfx/framework/include/touchgfx/hal/HAL.hpp \
- ../Middlewares/ST/touchgfx/framework/include/platform/core/MCUInstrumentation.hpp \
- ../Middlewares/ST/touchgfx/framework/include/platform/driver/button/ButtonController.hpp \
- ../Middlewares/ST/touchgfx/framework/include/platform/driver/touch/TouchController.hpp \
- ../Middlewares/ST/touchgfx/framework/include/touchgfx/hal/BlitOp.hpp \
- ../Middlewares/ST/touchgfx/framework/include/touchgfx/hal/DMA.hpp \
- ../Middlewares/ST/touchgfx/framework/include/touchgfx/hal/Atomic.hpp \
- ../Middlewares/ST/touchgfx/framework/include/touchgfx/hal/FrameBufferAllocator.hpp \
- ../Middlewares/ST/touchgfx/framework/include/touchgfx/hal/Gestures.hpp \
- ../Middlewares/ST/touchgfx/framework/include/touchgfx/UIEventListener.hpp \
- ../Middlewares/ST/touchgfx/framework/include/touchgfx/lcd/LCD.hpp \
- ../Middlewares/ST/touchgfx/framework/include/touchgfx/Font.hpp \
- ../Middlewares/ST/touchgfx/framework/include/touchgfx/Unicode.hpp \
- ../Middlewares/ST/touchgfx/framework/include/touchgfx/TextProvider.hpp \
- ../Middlewares/ST/touchgfx/framework/include/touchgfx/TextureMapTypes.hpp \
- ../Middlewares/ST/touchgfx/framework/include/touchgfx/hal/VectorFontRenderer.hpp \
- ../Middlewares/ST/touchgfx/framework/include/touchgfx/hal/VectorRenderer.hpp \
- ../Middlewares/ST/touchgfx/framework/include/touchgfx/Matrix3x3.hpp \
- ../Middlewares/ST/touchgfx/framework/include/touchgfx/hal/VGData.hpp \
- ../Middlewares/ST/touchgfx/framework/include/touchgfx/widgets/Widget.hpp \
- ../Middlewares/ST/touchgfx/framework/include/touchgfx/lcd/DebugPrinter.hpp \
- ../Middlewares/ST/touchgfx/framework/include/mvp/Presenter.hpp \
- ../Middlewares/ST/touchgfx/framework/include/touchgfx/Application.hpp \
+ touchgfx/framework/include/mvp/View.hpp \
+ touchgfx/framework/include/touchgfx/Screen.hpp \
+ touchgfx/framework/include/touchgfx/containers/Container.hpp \
+ touchgfx/framework/include/touchgfx/Callback.hpp \
+ touchgfx/framework/include/touchgfx/Drawable.hpp \
+ touchgfx/framework/include/touchgfx/Bitmap.hpp \
+ touchgfx/framework/include/touchgfx/hal/Types.hpp \
+ touchgfx/framework/include/touchgfx/hal/Config.hpp \
+ touchgfx/framework/include/touchgfx/events/ClickEvent.hpp \
+ touchgfx/framework/include/touchgfx/Event.hpp \
+ touchgfx/framework/include/touchgfx/events/DragEvent.hpp \
+ touchgfx/framework/include/touchgfx/events/GestureEvent.hpp \
+ touchgfx/framework/include/touchgfx/hal/HAL.hpp \
+ touchgfx/framework/include/platform/core/MCUInstrumentation.hpp \
+ touchgfx/framework/include/platform/driver/button/ButtonController.hpp \
+ touchgfx/framework/include/platform/driver/touch/TouchController.hpp \
+ touchgfx/framework/include/touchgfx/hal/BlitOp.hpp \
+ touchgfx/framework/include/touchgfx/hal/DMA.hpp \
+ touchgfx/framework/include/touchgfx/hal/Atomic.hpp \
+ touchgfx/framework/include/touchgfx/hal/FrameBufferAllocator.hpp \
+ touchgfx/framework/include/touchgfx/hal/Gestures.hpp \
+ touchgfx/framework/include/touchgfx/UIEventListener.hpp \
+ touchgfx/framework/include/touchgfx/lcd/LCD.hpp \
+ touchgfx/framework/include/touchgfx/Font.hpp \
+ touchgfx/framework/include/touchgfx/Unicode.hpp \
+ touchgfx/framework/include/touchgfx/TextProvider.hpp \
+ touchgfx/framework/include/touchgfx/TextureMapTypes.hpp \
+ touchgfx/framework/include/touchgfx/hal/VectorFontRenderer.hpp \
+ touchgfx/framework/include/touchgfx/hal/VectorRenderer.hpp \
+ touchgfx/framework/include/touchgfx/Matrix3x3.hpp \
+ touchgfx/framework/include/touchgfx/hal/VGData.hpp \
+ touchgfx/framework/include/touchgfx/widgets/Widget.hpp \
+ touchgfx/framework/include/touchgfx/lcd/DebugPrinter.hpp \
+ touchgfx/framework/include/mvp/Presenter.hpp \
+ touchgfx/framework/include/touchgfx/Application.hpp \
  generated/gui_generated/include/gui_generated/common/FrontendApplicationBase.hpp \
- ../Middlewares/ST/touchgfx/framework/include/mvp/MVPApplication.hpp \
- ../Middlewares/ST/touchgfx/framework/include/common/AbstractPartition.hpp \
- ../Middlewares/ST/touchgfx/framework/include/mvp/MVPHeap.hpp \
- ../Middlewares/ST/touchgfx/framework/include/touchgfx/transitions/Transition.hpp \
+ touchgfx/framework/include/mvp/MVPApplication.hpp \
+ touchgfx/framework/include/common/AbstractPartition.hpp \
+ touchgfx/framework/include/mvp/MVPHeap.hpp \
+ touchgfx/framework/include/touchgfx/transitions/Transition.hpp \
  gui/include/gui/model/Model.hpp \
- ../Middlewares/ST/touchgfx/framework/include/touchgfx/Utils.hpp \
+ touchgfx/framework/include/touchgfx/Utils.hpp \
  generated/texts/include/texts/TextKeysAndLanguages.hpp \
  gui/include/gui/homescreenwithbiodata_screen/HomeScreenWithBiodataPresenter.hpp \
  gui/include/gui/model/ModelListener.hpp \
- ../Middlewares/ST/touchgfx/framework/include/touchgfx/widgets/Box.hpp \
- ../Middlewares/ST/touchgfx/framework/include/touchgfx/widgets/Image.hpp \
- ../Middlewares/ST/touchgfx/framework/include/touchgfx/containers/SwipeContainer.hpp \
- ../Middlewares/ST/touchgfx/framework/include/touchgfx/containers/ListLayout.hpp \
- ../Middlewares/ST/touchgfx/framework/include/touchgfx/widgets/TiledImage.hpp \
- ../Middlewares/ST/touchgfx/framework/include/touchgfx/widgets/Button.hpp \
- ../Middlewares/ST/touchgfx/framework/include/touchgfx/widgets/AbstractButton.hpp \
- ../Middlewares/ST/touchgfx/framework/include/touchgfx/widgets/TextArea.hpp \
- ../Middlewares/ST/touchgfx/framework/include/touchgfx/TypedText.hpp \
- ../Middlewares/ST/touchgfx/framework/include/touchgfx/Texts.hpp \
- ../Middlewares/ST/touchgfx/framework/include/touchgfx/widgets/TextAreaWithWildcard.hpp \
- ../Middlewares/ST/touchgfx/framework/include/touchgfx/containers/clock/DigitalClock.hpp \
- ../Middlewares/ST/touchgfx/framework/include/touchgfx/containers/clock/AbstractClock.hpp \
- ../Middlewares/ST/touchgfx/framework/include/touchgfx/containers/progress_indicators/ImageProgress.hpp \
- ../Middlewares/ST/touchgfx/framework/include/touchgfx/containers/progress_indicators/AbstractDirectionProgress.hpp \
- ../Middlewares/ST/touchgfx/framework/include/touchgfx/containers/progress_indicators/AbstractProgressIndicator.hpp \
- ../Middlewares/ST/touchgfx/framework/include/touchgfx/EasingEquations.hpp \
- ../Middlewares/ST/touchgfx/framework/include/touchgfx/Color.hpp
+ touchgfx/framework/include/touchgfx/widgets/Box.hpp \
+ touchgfx/framework/include/touchgfx/widgets/Image.hpp \
+ touchgfx/framework/include/touchgfx/containers/SwipeContainer.hpp \
+ touchgfx/framework/include/touchgfx/containers/ListLayout.hpp \
+ touchgfx/framework/include/touchgfx/widgets/TiledImage.hpp \
+ touchgfx/framework/include/touchgfx/containers/clock/DigitalClock.hpp \
+ touchgfx/framework/include/touchgfx/TypedText.hpp \
+ touchgfx/framework/include/touchgfx/Texts.hpp \
+ touchgfx/framework/include/touchgfx/containers/clock/AbstractClock.hpp \
+ touchgfx/framework/include/touchgfx/widgets/TextAreaWithWildcard.hpp \
+ touchgfx/framework/include/touchgfx/widgets/TextArea.hpp \
+ touchgfx/framework/include/touchgfx/containers/progress_indicators/CircleProgress.hpp \
+ touchgfx/framework/include/touchgfx/containers/progress_indicators/AbstractProgressIndicator.hpp \
+ touchgfx/framework/include/touchgfx/EasingEquations.hpp \
+ touchgfx/framework/include/touchgfx/widgets/canvas/AbstractPainter.hpp \
+ touchgfx/framework/include/touchgfx/transforms/DisplayTransformation.hpp \
+ touchgfx/framework/include/touchgfx/widgets/canvas/Circle.hpp \
+ touchgfx/framework/include/touchgfx/widgets/canvas/CWRUtil.hpp \
+ touchgfx/framework/include/touchgfx/canvas_widget_renderer/Rasterizer.hpp \
+ touchgfx/framework/include/touchgfx/canvas_widget_renderer/Outline.hpp \
+ touchgfx/framework/include/touchgfx/canvas_widget_renderer/Cell.hpp \
+ touchgfx/framework/include/touchgfx/widgets/canvas/Canvas.hpp \
+ touchgfx/framework/include/touchgfx/widgets/canvas/CanvasWidget.hpp \
+ touchgfx/framework/include/touchgfx/widgets/canvas/PainterRGB565.hpp \
+ touchgfx/framework/include/platform/driver/lcd/LCD16bpp.hpp \
+ touchgfx/framework/include/touchgfx/lcd/LCD16DebugPrinter.hpp \
+ touchgfx/framework/include/touchgfx/widgets/canvas/AbstractPainterColor.hpp \
+ touchgfx/framework/include/touchgfx/widgets/canvas/AbstractPainterRGB565.hpp \
+ touchgfx/framework/include/touchgfx/widgets/Button.hpp \
+ touchgfx/framework/include/touchgfx/widgets/AbstractButton.hpp \
+ touchgfx/framework/include/touchgfx/containers/progress_indicators/ImageProgress.hpp \
+ touchgfx/framework/include/touchgfx/containers/progress_indicators/AbstractDirectionProgress.hpp \
+ touchgfx/framework/include/touchgfx/Color.hpp
 
 gui/include/gui/homescreenwithbiodata_screen/HomeScreenWithBiodataView.hpp:
 
@@ -73,89 +88,89 @@ generated/gui_generated/include/gui_generated/homescreenwithbiodata_screen/HomeS
 
 gui/include/gui/common/FrontendApplication.hpp:
 
-../Middlewares/ST/touchgfx/framework/include/mvp/View.hpp:
+touchgfx/framework/include/mvp/View.hpp:
 
-../Middlewares/ST/touchgfx/framework/include/touchgfx/Screen.hpp:
+touchgfx/framework/include/touchgfx/Screen.hpp:
 
-../Middlewares/ST/touchgfx/framework/include/touchgfx/containers/Container.hpp:
+touchgfx/framework/include/touchgfx/containers/Container.hpp:
 
-../Middlewares/ST/touchgfx/framework/include/touchgfx/Callback.hpp:
+touchgfx/framework/include/touchgfx/Callback.hpp:
 
-../Middlewares/ST/touchgfx/framework/include/touchgfx/Drawable.hpp:
+touchgfx/framework/include/touchgfx/Drawable.hpp:
 
-../Middlewares/ST/touchgfx/framework/include/touchgfx/Bitmap.hpp:
+touchgfx/framework/include/touchgfx/Bitmap.hpp:
 
-../Middlewares/ST/touchgfx/framework/include/touchgfx/hal/Types.hpp:
+touchgfx/framework/include/touchgfx/hal/Types.hpp:
 
-../Middlewares/ST/touchgfx/framework/include/touchgfx/hal/Config.hpp:
+touchgfx/framework/include/touchgfx/hal/Config.hpp:
 
-../Middlewares/ST/touchgfx/framework/include/touchgfx/events/ClickEvent.hpp:
+touchgfx/framework/include/touchgfx/events/ClickEvent.hpp:
 
-../Middlewares/ST/touchgfx/framework/include/touchgfx/Event.hpp:
+touchgfx/framework/include/touchgfx/Event.hpp:
 
-../Middlewares/ST/touchgfx/framework/include/touchgfx/events/DragEvent.hpp:
+touchgfx/framework/include/touchgfx/events/DragEvent.hpp:
 
-../Middlewares/ST/touchgfx/framework/include/touchgfx/events/GestureEvent.hpp:
+touchgfx/framework/include/touchgfx/events/GestureEvent.hpp:
 
-../Middlewares/ST/touchgfx/framework/include/touchgfx/hal/HAL.hpp:
+touchgfx/framework/include/touchgfx/hal/HAL.hpp:
 
-../Middlewares/ST/touchgfx/framework/include/platform/core/MCUInstrumentation.hpp:
+touchgfx/framework/include/platform/core/MCUInstrumentation.hpp:
 
-../Middlewares/ST/touchgfx/framework/include/platform/driver/button/ButtonController.hpp:
+touchgfx/framework/include/platform/driver/button/ButtonController.hpp:
 
-../Middlewares/ST/touchgfx/framework/include/platform/driver/touch/TouchController.hpp:
+touchgfx/framework/include/platform/driver/touch/TouchController.hpp:
 
-../Middlewares/ST/touchgfx/framework/include/touchgfx/hal/BlitOp.hpp:
+touchgfx/framework/include/touchgfx/hal/BlitOp.hpp:
 
-../Middlewares/ST/touchgfx/framework/include/touchgfx/hal/DMA.hpp:
+touchgfx/framework/include/touchgfx/hal/DMA.hpp:
 
-../Middlewares/ST/touchgfx/framework/include/touchgfx/hal/Atomic.hpp:
+touchgfx/framework/include/touchgfx/hal/Atomic.hpp:
 
-../Middlewares/ST/touchgfx/framework/include/touchgfx/hal/FrameBufferAllocator.hpp:
+touchgfx/framework/include/touchgfx/hal/FrameBufferAllocator.hpp:
 
-../Middlewares/ST/touchgfx/framework/include/touchgfx/hal/Gestures.hpp:
+touchgfx/framework/include/touchgfx/hal/Gestures.hpp:
 
-../Middlewares/ST/touchgfx/framework/include/touchgfx/UIEventListener.hpp:
+touchgfx/framework/include/touchgfx/UIEventListener.hpp:
 
-../Middlewares/ST/touchgfx/framework/include/touchgfx/lcd/LCD.hpp:
+touchgfx/framework/include/touchgfx/lcd/LCD.hpp:
 
-../Middlewares/ST/touchgfx/framework/include/touchgfx/Font.hpp:
+touchgfx/framework/include/touchgfx/Font.hpp:
 
-../Middlewares/ST/touchgfx/framework/include/touchgfx/Unicode.hpp:
+touchgfx/framework/include/touchgfx/Unicode.hpp:
 
-../Middlewares/ST/touchgfx/framework/include/touchgfx/TextProvider.hpp:
+touchgfx/framework/include/touchgfx/TextProvider.hpp:
 
-../Middlewares/ST/touchgfx/framework/include/touchgfx/TextureMapTypes.hpp:
+touchgfx/framework/include/touchgfx/TextureMapTypes.hpp:
 
-../Middlewares/ST/touchgfx/framework/include/touchgfx/hal/VectorFontRenderer.hpp:
+touchgfx/framework/include/touchgfx/hal/VectorFontRenderer.hpp:
 
-../Middlewares/ST/touchgfx/framework/include/touchgfx/hal/VectorRenderer.hpp:
+touchgfx/framework/include/touchgfx/hal/VectorRenderer.hpp:
 
-../Middlewares/ST/touchgfx/framework/include/touchgfx/Matrix3x3.hpp:
+touchgfx/framework/include/touchgfx/Matrix3x3.hpp:
 
-../Middlewares/ST/touchgfx/framework/include/touchgfx/hal/VGData.hpp:
+touchgfx/framework/include/touchgfx/hal/VGData.hpp:
 
-../Middlewares/ST/touchgfx/framework/include/touchgfx/widgets/Widget.hpp:
+touchgfx/framework/include/touchgfx/widgets/Widget.hpp:
 
-../Middlewares/ST/touchgfx/framework/include/touchgfx/lcd/DebugPrinter.hpp:
+touchgfx/framework/include/touchgfx/lcd/DebugPrinter.hpp:
 
-../Middlewares/ST/touchgfx/framework/include/mvp/Presenter.hpp:
+touchgfx/framework/include/mvp/Presenter.hpp:
 
-../Middlewares/ST/touchgfx/framework/include/touchgfx/Application.hpp:
+touchgfx/framework/include/touchgfx/Application.hpp:
 
 generated/gui_generated/include/gui_generated/common/FrontendApplicationBase.hpp:
 
-../Middlewares/ST/touchgfx/framework/include/mvp/MVPApplication.hpp:
+touchgfx/framework/include/mvp/MVPApplication.hpp:
 
-../Middlewares/ST/touchgfx/framework/include/common/AbstractPartition.hpp:
+touchgfx/framework/include/common/AbstractPartition.hpp:
 
-../Middlewares/ST/touchgfx/framework/include/mvp/MVPHeap.hpp:
+touchgfx/framework/include/mvp/MVPHeap.hpp:
 
-../Middlewares/ST/touchgfx/framework/include/touchgfx/transitions/Transition.hpp:
+touchgfx/framework/include/touchgfx/transitions/Transition.hpp:
 
 gui/include/gui/model/Model.hpp:
 
-../Middlewares/ST/touchgfx/framework/include/touchgfx/Utils.hpp:
+touchgfx/framework/include/touchgfx/Utils.hpp:
 
 generated/texts/include/texts/TextKeysAndLanguages.hpp:
 
@@ -163,38 +178,68 @@ gui/include/gui/homescreenwithbiodata_screen/HomeScreenWithBiodataPresenter.hpp:
 
 gui/include/gui/model/ModelListener.hpp:
 
-../Middlewares/ST/touchgfx/framework/include/touchgfx/widgets/Box.hpp:
+touchgfx/framework/include/touchgfx/widgets/Box.hpp:
 
-../Middlewares/ST/touchgfx/framework/include/touchgfx/widgets/Image.hpp:
+touchgfx/framework/include/touchgfx/widgets/Image.hpp:
 
-../Middlewares/ST/touchgfx/framework/include/touchgfx/containers/SwipeContainer.hpp:
+touchgfx/framework/include/touchgfx/containers/SwipeContainer.hpp:
 
-../Middlewares/ST/touchgfx/framework/include/touchgfx/containers/ListLayout.hpp:
+touchgfx/framework/include/touchgfx/containers/ListLayout.hpp:
 
-../Middlewares/ST/touchgfx/framework/include/touchgfx/widgets/TiledImage.hpp:
+touchgfx/framework/include/touchgfx/widgets/TiledImage.hpp:
 
-../Middlewares/ST/touchgfx/framework/include/touchgfx/widgets/Button.hpp:
+touchgfx/framework/include/touchgfx/containers/clock/DigitalClock.hpp:
 
-../Middlewares/ST/touchgfx/framework/include/touchgfx/widgets/AbstractButton.hpp:
+touchgfx/framework/include/touchgfx/TypedText.hpp:
 
-../Middlewares/ST/touchgfx/framework/include/touchgfx/widgets/TextArea.hpp:
+touchgfx/framework/include/touchgfx/Texts.hpp:
 
-../Middlewares/ST/touchgfx/framework/include/touchgfx/TypedText.hpp:
+touchgfx/framework/include/touchgfx/containers/clock/AbstractClock.hpp:
 
-../Middlewares/ST/touchgfx/framework/include/touchgfx/Texts.hpp:
+touchgfx/framework/include/touchgfx/widgets/TextAreaWithWildcard.hpp:
 
-../Middlewares/ST/touchgfx/framework/include/touchgfx/widgets/TextAreaWithWildcard.hpp:
+touchgfx/framework/include/touchgfx/widgets/TextArea.hpp:
 
-../Middlewares/ST/touchgfx/framework/include/touchgfx/containers/clock/DigitalClock.hpp:
+touchgfx/framework/include/touchgfx/containers/progress_indicators/CircleProgress.hpp:
 
-../Middlewares/ST/touchgfx/framework/include/touchgfx/containers/clock/AbstractClock.hpp:
+touchgfx/framework/include/touchgfx/containers/progress_indicators/AbstractProgressIndicator.hpp:
 
-../Middlewares/ST/touchgfx/framework/include/touchgfx/containers/progress_indicators/ImageProgress.hpp:
+touchgfx/framework/include/touchgfx/EasingEquations.hpp:
 
-../Middlewares/ST/touchgfx/framework/include/touchgfx/containers/progress_indicators/AbstractDirectionProgress.hpp:
+touchgfx/framework/include/touchgfx/widgets/canvas/AbstractPainter.hpp:
 
-../Middlewares/ST/touchgfx/framework/include/touchgfx/containers/progress_indicators/AbstractProgressIndicator.hpp:
+touchgfx/framework/include/touchgfx/transforms/DisplayTransformation.hpp:
 
-../Middlewares/ST/touchgfx/framework/include/touchgfx/EasingEquations.hpp:
+touchgfx/framework/include/touchgfx/widgets/canvas/Circle.hpp:
 
-../Middlewares/ST/touchgfx/framework/include/touchgfx/Color.hpp:
+touchgfx/framework/include/touchgfx/widgets/canvas/CWRUtil.hpp:
+
+touchgfx/framework/include/touchgfx/canvas_widget_renderer/Rasterizer.hpp:
+
+touchgfx/framework/include/touchgfx/canvas_widget_renderer/Outline.hpp:
+
+touchgfx/framework/include/touchgfx/canvas_widget_renderer/Cell.hpp:
+
+touchgfx/framework/include/touchgfx/widgets/canvas/Canvas.hpp:
+
+touchgfx/framework/include/touchgfx/widgets/canvas/CanvasWidget.hpp:
+
+touchgfx/framework/include/touchgfx/widgets/canvas/PainterRGB565.hpp:
+
+touchgfx/framework/include/platform/driver/lcd/LCD16bpp.hpp:
+
+touchgfx/framework/include/touchgfx/lcd/LCD16DebugPrinter.hpp:
+
+touchgfx/framework/include/touchgfx/widgets/canvas/AbstractPainterColor.hpp:
+
+touchgfx/framework/include/touchgfx/widgets/canvas/AbstractPainterRGB565.hpp:
+
+touchgfx/framework/include/touchgfx/widgets/Button.hpp:
+
+touchgfx/framework/include/touchgfx/widgets/AbstractButton.hpp:
+
+touchgfx/framework/include/touchgfx/containers/progress_indicators/ImageProgress.hpp:
+
+touchgfx/framework/include/touchgfx/containers/progress_indicators/AbstractDirectionProgress.hpp:
+
+touchgfx/framework/include/touchgfx/Color.hpp:

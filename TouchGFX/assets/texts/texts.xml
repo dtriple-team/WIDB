@@ -3,622 +3,742 @@
   <Languages>
     <Language Id="GB" />
     <Language Id="Korean" />
+    <Language Id="Spanish" />
   </Languages>
   <Texts>
     <TextGroup Id="Biometric">
       <Text Id="curSleepMvalue" Alignment="Center" TypographyId="size24">
         <Translation Language="GB">00</Translation>
         <Translation Language="Korean">00</Translation>
+        <Translation Language="Spanish">00</Translation>
       </Text>
       <Text Id="curSleepHvalue" Alignment="Center" TypographyId="size24">
         <Translation Language="GB">0</Translation>
         <Translation Language="Korean">0</Translation>
+        <Translation Language="Spanish">0</Translation>
       </Text>
       <Text Id="curSleep" Alignment="Center" TypographyId="size24">
         <Translation Language="GB">&lt;value&gt;h &lt;value&gt;m</Translation>
         <Translation Language="Korean">&lt;value&gt;시간 &lt;value&gt;분</Translation>
+        <Translation Language="Spanish">&lt;value&gt;h &lt;value&gt;m</Translation>
       </Text>
       <Text Id="sleepText" Alignment="Center" TypographyId="size16">
         <Translation Language="GB">Sleep</Translation>
         <Translation Language="Korean">수면</Translation>
+        <Translation Language="Spanish">Dormir</Translation>
       </Text>
       <Text Id="curSpo2Detail" Alignment="Left" TypographyId="size18">
         <Translation Language="GB"> &lt;value&gt; %</Translation>
         <Translation Language="Korean">&lt;value&gt; %</Translation>
+        <Translation Language="Spanish">&lt;value&gt; %</Translation>
       </Text>
       <Text Id="curSpo2value" Alignment="Left" TypographyId="size24">
         <Translation Language="GB">00</Translation>
         <Translation Language="Korean">00</Translation>
+        <Translation Language="Spanish">00</Translation>
       </Text>
       <Text Id="curSpo2" Alignment="Center" TypographyId="size24">
         <Translation Language="GB">&lt;value&gt; %</Translation>
         <Translation Language="Korean">&lt;value&gt; %</Translation>
+        <Translation Language="Spanish">&lt;value&gt; %</Translation>
       </Text>
       <Text Id="spo2Text" Alignment="Center" TypographyId="size16">
         <Translation Language="GB">Spo2</Translation>
         <Translation Language="Korean">산소포화도</Translation>
+        <Translation Language="Spanish">Spo2</Translation>
       </Text>
       <Text Id="curHrDetail" Alignment="Left" TypographyId="size18">
         <Translation Language="GB"> &lt;value&gt; bpm</Translation>
         <Translation Language="Korean">&lt;value&gt;bpm</Translation>
+        <Translation Language="Spanish">&lt;value&gt;bpm</Translation>
       </Text>
       <Text Id="curHrvalue" Alignment="Left" TypographyId="size24">
         <Translation Language="GB">00</Translation>
         <Translation Language="Korean">00</Translation>
+        <Translation Language="Spanish">00</Translation>
       </Text>
       <Text Id="curHr" Alignment="Center" TypographyId="size24">
         <Translation Language="GB">&lt;value&gt; bpm</Translation>
         <Translation Language="Korean">&lt;value&gt;bpm</Translation>
+        <Translation Language="Spanish">&lt;value&gt;bpm</Translation>
       </Text>
       <Text Id="heartrateText" Alignment="Center" TypographyId="size16">
         <Translation Language="GB">Heartrate</Translation>
         <Translation Language="Korean">심박수</Translation>
+        <Translation Language="Spanish">Frecuencia&#10;cardíaca</Translation>
       </Text>
       <Text Id="curStepsvalue" Alignment="Left" TypographyId="size24">
-        <Translation Language="GB">0000</Translation>
-        <Translation Language="Korean">1234</Translation>
+        <Translation Language="GB">0</Translation>
+        <Translation Language="Korean">0</Translation>
+        <Translation Language="Spanish">0</Translation>
       </Text>
       <Text Id="curSteps" Alignment="Center" TypographyId="size24">
         <Translation Language="GB">&lt;value&gt; steps</Translation>
-        <Translation Language="Korean">&lt;value&gt;걸음</Translation>
+        <Translation Language="Korean">&lt;value&gt; 걸음</Translation>
+        <Translation Language="Spanish">&lt;value&gt; pasos</Translation>
       </Text>
       <Text Id="stepsText" Alignment="Center" TypographyId="size16">
         <Translation Language="GB">Steps</Translation>
         <Translation Language="Korean">걸음 수</Translation>
+        <Translation Language="Spanish">Pasos</Translation>
       </Text>
       <Text Id="biometricdataText" Alignment="Center" TypographyId="size16">
         <Translation Language="GB">Biometric data</Translation>
         <Translation Language="Korean">생체 정보</Translation>
+        <Translation Language="Spanish">Información biométrica</Translation>
       </Text>
       <Text Id="B_sleep" Alignment="Center" TypographyId="size28_Bold">
         <Translation Language="GB">&lt;value&gt;h&#10;&lt;value&gt;m</Translation>
         <Translation Language="Korean">&lt;value&gt;시간&#10;&lt;value&gt;분</Translation>
+        <Translation Language="Spanish">&lt;value&gt;h&#10;&lt;value&gt;m</Translation>
       </Text>
       <Text Id="B_spo2" Alignment="Center" TypographyId="size32_Bold">
         <Translation Language="GB">&lt;value&gt;</Translation>
         <Translation Language="Korean">&lt;value&gt;</Translation>
+        <Translation Language="Spanish">&lt;value&gt;</Translation>
       </Text>
       <Text Id="B_curHr" Alignment="Center" TypographyId="size32_Bold">
         <Translation Language="GB">&lt;value&gt;</Translation>
         <Translation Language="Korean">&lt;value&gt;</Translation>
+        <Translation Language="Spanish">&lt;value&gt;</Translation>
       </Text>
       <Text Id="B_curSteps" Alignment="Center" TypographyId="size32_Bold">
         <Translation Language="GB">&lt;value&gt;</Translation>
         <Translation Language="Korean">&lt;value&gt;</Translation>
+        <Translation Language="Spanish">&lt;value&gt;</Translation>
       </Text>
       <Text Id="B_sleepMvalue" Alignment="Left" TypographyId="size28_Bold">
         <Translation Language="GB">00</Translation>
         <Translation Language="Korean">00</Translation>
+        <Translation Language="Spanish">00</Translation>
       </Text>
       <Text Id="B_sleepHvalue" Alignment="Left" TypographyId="size28_Bold">
         <Translation Language="GB">0</Translation>
         <Translation Language="Korean">0</Translation>
+        <Translation Language="Spanish">0</Translation>
       </Text>
       <Text Id="B_curSpo2value" Alignment="Left" TypographyId="size32_Bold">
         <Translation Language="GB">00</Translation>
         <Translation Language="Korean">00</Translation>
+        <Translation Language="Spanish">00</Translation>
       </Text>
       <Text Id="B_curHrvalue" Alignment="Left" TypographyId="size32_Bold">
         <Translation Language="GB">00</Translation>
         <Translation Language="Korean">00</Translation>
+        <Translation Language="Spanish">00</Translation>
       </Text>
       <Text Id="B_curStepsvalue" Alignment="Left" TypographyId="size32_Bold">
-        <Translation Language="GB">0000</Translation>
-        <Translation Language="Korean">1234</Translation>
+        <Translation Language="GB">0</Translation>
+        <Translation Language="Korean">0</Translation>
+        <Translation Language="Spanish">0</Translation>
       </Text>
       <Text Id="homeHr" Alignment="Left" TypographyId="size16">
         <Translation Language="GB">&lt;value&gt; bpm</Translation>
         <Translation Language="Korean">&lt;value&gt; bpm</Translation>
+        <Translation Language="Spanish">&lt;value&gt; bpm</Translation>
       </Text>
       <Text Id="homeSpo2" Alignment="Left" TypographyId="size16">
         <Translation Language="GB">&lt;value&gt; %</Translation>
         <Translation Language="Korean">&lt;value&gt; %</Translation>
+        <Translation Language="Spanish">&lt;value&gt; %</Translation>
       </Text>
       <Text Id="homeSteps" Alignment="Left" TypographyId="size16">
         <Translation Language="GB">&lt;value&gt; steps</Translation>
         <Translation Language="Korean">&lt;value&gt; 걸음</Translation>
+        <Translation Language="Spanish">&lt;value&gt; pasos</Translation>
       </Text>
       <Text Id="H_curStepsvalue" Alignment="Left" TypographyId="size16">
-        <Translation Language="GB">1234</Translation>
-        <Translation Language="Korean">1234</Translation>
+        <Translation Language="GB">0</Translation>
+        <Translation Language="Korean">0</Translation>
+        <Translation Language="Spanish">0</Translation>
       </Text>
       <Text Id="H_curSpo2value" Alignment="Left" TypographyId="size16">
         <Translation Language="GB">00</Translation>
         <Translation Language="Korean">00</Translation>
+        <Translation Language="Spanish">00</Translation>
       </Text>
       <Text Id="H_curHrvalue" Alignment="Left" TypographyId="size16">
         <Translation Language="GB">00</Translation>
         <Translation Language="Korean">00</Translation>
+        <Translation Language="Spanish">00</Translation>
       </Text>
     </TextGroup>
     <TextGroup Id="Setting">
       <Text Id="curMonthday" Alignment="Left" TypographyId="size20">
         <Translation Language="GB">&lt;value&gt;-&lt;value&gt;</Translation>
         <Translation Language="Korean">&lt;value&gt;월 &lt;value&gt;일</Translation>
+        <Translation Language="Spanish">&lt;value&gt;-&lt;value&gt;</Translation>
       </Text>
       <Text Id="curMonth" Alignment="Left" TypographyId="size18">
         <Translation Language="GB">00</Translation>
         <Translation Language="Korean">00</Translation>
+        <Translation Language="Spanish">00</Translation>
       </Text>
       <Text Id="curYear" Alignment="Right" TypographyId="size20">
         <Translation Language="GB">&lt;value&gt;</Translation>
         <Translation Language="Korean">&lt;value&gt;</Translation>
+        <Translation Language="Spanish">&lt;value&gt;</Translation>
       </Text>
       <Text Id="curYearvalue" Alignment="Left" TypographyId="size20">
         <Translation Language="GB">0000</Translation>
         <Translation Language="Korean">0000</Translation>
+        <Translation Language="Spanish">0000</Translation>
       </Text>
       <Text Id="curDate" Alignment="Left" TypographyId="size18">
         <Translation Language="GB">00</Translation>
         <Translation Language="Korean">00</Translation>
+        <Translation Language="Spanish">00</Translation>
       </Text>
       <Text Id="screenontime" Alignment="Center" TypographyId="size16">
         <Translation Language="GB">Screen on time</Translation>
         <Translation Language="Korean">화면 꺼짐 시간</Translation>
+        <Translation Language="Spanish">Pantalla a tiempo</Translation>
       </Text>
       <Text Id="soundnhapticsText" Alignment="Left" TypographyId="size18">
         <Translation Language="GB">Sound &amp; Haptics</Translation>
         <Translation Language="Korean">소리 및 진동</Translation>
+        <Translation Language="Spanish">Sonido y hápticos</Translation>
       </Text>
       <Text Id="languageText" Alignment="Left" TypographyId="size18">
         <Translation Language="GB">Language</Translation>
         <Translation Language="Korean">언어</Translation>
+        <Translation Language="Spanish">Idioma</Translation>
       </Text>
       <Text Id="wifisettingText" Alignment="Left" TypographyId="size18">
         <Translation Language="GB">WiFi setting</Translation>
         <Translation Language="Korean">WiFi 설정</Translation>
+        <Translation Language="Spanish">Configuración WiFi</Translation>
       </Text>
       <Text Id="findmyphoneText" Alignment="Left" TypographyId="size18">
         <Translation Language="GB">Find my phone</Translation>
         <Translation Language="Korean">내 휴대폰 찾기</Translation>
+        <Translation Language="Spanish">Encuentra mi teléfono</Translation>
       </Text>
       <Text Id="informationText" Alignment="Left" TypographyId="size18">
         <Translation Language="GB">Information</Translation>
         <Translation Language="Korean">정보</Translation>
+        <Translation Language="Spanish">Información</Translation>
       </Text>
       <Text Id="communication_cycle_text" Alignment="Left" TypographyId="size18">
         <Translation Language="GB">Communication&#10;Cycle</Translation>
         <Translation Language="Korean">통신 주기</Translation>
+        <Translation Language="Spanish">Ciclo de&#10;comunicacion</Translation>
       </Text>
       <Text Id="systemText" Alignment="Left" TypographyId="size18">
         <Translation Language="GB">System</Translation>
         <Translation Language="Korean">시스템</Translation>
+        <Translation Language="Spanish">Sistema</Translation>
       </Text>
       <Text Id="screenText" Alignment="Left" TypographyId="size18">
         <Translation Language="GB">Screen</Translation>
         <Translation Language="Korean">화면</Translation>
+        <Translation Language="Spanish">Pantalla</Translation>
       </Text>
-      <Text Id="settingLable" Alignment="Center" TypographyId="size16">
+      <Text Id="settingLabel" Alignment="Center" TypographyId="size16">
         <Translation Language="GB">Setting</Translation>
         <Translation Language="Korean">설정</Translation>
+        <Translation Language="Spanish">Configuración</Translation>
       </Text>
       <Text Id="selected" Alignment="Left" TypographyId="size18">
         <Translation Language="GB">0</Translation>
         <Translation Language="Korean">0</Translation>
+        <Translation Language="Spanish">0</Translation>
       </Text>
       <Text Id="notSelected" Alignment="Left" TypographyId="size18">
         <Translation Language="GB">0</Translation>
         <Translation Language="Korean">0</Translation>
+        <Translation Language="Spanish">0</Translation>
       </Text>
       <Text Id="soundnhaptics" Alignment="Center" TypographyId="size16">
         <Translation Language="GB">Sound &amp; Haptics</Translation>
         <Translation Language="Korean">소리 및 진동</Translation>
+        <Translation Language="Spanish">Sonido y hápticos</Translation>
       </Text>
       <Text Id="soundText" Alignment="Left" TypographyId="size16">
         <Translation Language="GB">Sound</Translation>
         <Translation Language="Korean">소리</Translation>
+        <Translation Language="Spanish">Sonido</Translation>
       </Text>
       <Text Id="hapticText" Alignment="Left" TypographyId="size16">
         <Translation Language="GB">Haptic</Translation>
         <Translation Language="Korean">진동</Translation>
+        <Translation Language="Spanish">Hápticos</Translation>
       </Text>
       <Text Id="screen" Alignment="Center" TypographyId="size16">
         <Translation Language="GB">Screen</Translation>
         <Translation Language="Korean">화면</Translation>
+        <Translation Language="Spanish">Pantalla</Translation>
       </Text>
       <Text Id="screenBrightnessText" Alignment="Left" TypographyId="size16">
         <Translation Language="GB">Screen brightness</Translation>
         <Translation Language="Korean">화면 밝기 조절</Translation>
+        <Translation Language="Spanish">Brillo de la pantalla</Translation>
       </Text>
       <Text Id="screenOnTimeText" Alignment="Left" TypographyId="size16">
         <Translation Language="GB">Screen on time</Translation>
         <Translation Language="Korean">화면 꺼짐 시간</Translation>
+        <Translation Language="Spanish">Pantalla a tiempo</Translation>
       </Text>
       <Text Id="languageScreen" Alignment="Center" TypographyId="size16">
         <Translation Language="GB">Language</Translation>
         <Translation Language="Korean">언어</Translation>
+        <Translation Language="Spanish">Idioma</Translation>
       </Text>
       <Text Id="English" Alignment="Left" TypographyId="size16">
         <Translation Language="GB">English</Translation>
         <Translation Language="Korean">English</Translation>
+        <Translation Language="Spanish">English</Translation>
       </Text>
       <Text Id="korean" Alignment="Left" TypographyId="size16">
         <Translation Language="GB">한국어</Translation>
         <Translation Language="Korean">한국어</Translation>
+        <Translation Language="Spanish">한국어</Translation>
+      </Text>
+      <Text Id="Spanish" Alignment="Left" TypographyId="size16">
+        <Translation Language="GB">Español</Translation>
+        <Translation Language="Korean">Español</Translation>
+        <Translation Language="Spanish">Español</Translation>
       </Text>
       <Text Id="poweroffText" Alignment="Center" TypographyId="size24">
         <Translation Language="GB">Power off</Translation>
         <Translation Language="Korean">전원 끄기</Translation>
+        <Translation Language="Spanish">Apagado</Translation>
       </Text>
       <Text Id="resetText" Alignment="Center" TypographyId="size24">
         <Translation Language="GB">Reset</Translation>
         <Translation Language="Korean">초기화</Translation>
+        <Translation Language="Spanish">Reiniciar</Translation>
       </Text>
       <Text Id="system" Alignment="Center" TypographyId="size16">
         <Translation Language="GB">System</Translation>
         <Translation Language="Korean">시스템</Translation>
+        <Translation Language="Spanish">Sistema</Translation>
       </Text>
       <Text Id="networkInfo" Alignment="Center" TypographyId="size16">
         <Translation Language="GB">Network Info</Translation>
         <Translation Language="Korean">네트워크 정보</Translation>
+        <Translation Language="Spanish">Información de red</Translation>
       </Text>
       <Text Id="deviceInfo" Alignment="Center" TypographyId="size16">
         <Translation Language="GB">Device Info</Translation>
         <Translation Language="Korean">기기 정보</Translation>
+        <Translation Language="Spanish">Información del dispositivo</Translation>
       </Text>
       <Text Id="networkInfoText" Alignment="Left" TypographyId="size16">
         <Translation Language="GB">Network Info</Translation>
         <Translation Language="Korean">네트워크 정보</Translation>
+        <Translation Language="Spanish">Información de red</Translation>
       </Text>
       <Text Id="deviceInfoText" Alignment="Left" TypographyId="size16">
         <Translation Language="GB">Device Info</Translation>
         <Translation Language="Korean">기기 정보</Translation>
+        <Translation Language="Spanish">Información del dispositivo</Translation>
       </Text>
       <Text Id="screenontimeapply" Alignment="Center" TypographyId="size24">
         <Translation Language="GB">Done</Translation>
         <Translation Language="Korean">완료</Translation>
+        <Translation Language="Spanish">Hecho</Translation>
       </Text>
       <Text Id="offCountdown" Alignment="Left" TypographyId="size24">
         <Translation Language="GB">12</Translation>
         <Translation Language="Korean">12</Translation>
+        <Translation Language="Spanish">12</Translation>
       </Text>
       <Text Id="offText" Alignment="Center" TypographyId="size24">
-        <Translation Language="GB">Device turns off&#10;after &lt;value&gt; seconds.</Translation>
-        <Translation Language="Korean">&lt;value&gt;초 후에&#10;장치가 꺼집니다.</Translation>
+        <Translation Language="GB">Are you sure you&#10;want to turn off&#10;this device?</Translation>
+        <Translation Language="Korean">이 기기를&#10;종료하시겠습니까?</Translation>
+        <Translation Language="Spanish">&#10;Estás seguro de que&#10;tú quiero apagar&#10;¿este dispositivo?</Translation>
+      </Text>
+      <Text Id="off_no" Alignment="Center" TypographyId="size24_Bold">
+        <Translation Language="GB">No</Translation>
+        <Translation Language="Korean">취소</Translation>
+        <Translation Language="Spanish">No</Translation>
+      </Text>
+      <Text Id="off_yes" Alignment="Center" TypographyId="size24_Bold">
+        <Translation Language="GB">Yes</Translation>
+        <Translation Language="Korean">종료</Translation>
+        <Translation Language="Spanish">Sí</Translation>
       </Text>
       <Text Id="__SingleUse_3KO8" Alignment="Center" TypographyId="scrollWheelselected">
         <Translation Language="GB">&lt;value&gt;s</Translation>
         <Translation Language="Korean">&lt;value&gt;초</Translation>
+        <Translation Language="Spanish">&lt;value&gt;s</Translation>
       </Text>
       <Text Id="__SingleUse_K9CO" Alignment="Center" TypographyId="scrollWheelnotselected">
         <Translation Language="GB">&lt;value&gt;s</Translation>
         <Translation Language="Korean">&lt;value&gt;초</Translation>
+        <Translation Language="Spanish">&lt;value&gt;s</Translation>
       </Text>
       <Text Id="homescreenClock" Alignment="Center" TypographyId="size65">
         <Translation Language="GB">&lt;&gt;</Translation>
         <Translation Language="Korean">&lt;&gt;</Translation>
+        <Translation Language="Spanish">&lt;&gt;</Translation>
       </Text>
       <Text Id="searchingwifi" Alignment="Left" TypographyId="size16">
         <Translation Language="GB">Searching WiFi...</Translation>
         <Translation Language="Korean">WiFi 검색</Translation>
+        <Translation Language="Spanish">Buscando WiFi...</Translation>
       </Text>
       <Text Id="wifisetting" Alignment="Center" TypographyId="size16">
         <Translation Language="GB">WiFi setting</Translation>
         <Translation Language="Korean">WiFi 설정</Translation>
+        <Translation Language="Spanish">configuración WiFi</Translation>
       </Text>
       <Text Id="nonoti" Alignment="Center" TypographyId="size16">
         <Translation Language="GB">No notifications</Translation>
         <Translation Language="Korean">알림 없음</Translation>
+        <Translation Language="Spanish">No Notificaciones</Translation>
       </Text>
       <Text Id="notification" Alignment="Center" TypographyId="size16">
         <Translation Language="GB">Notification</Translation>
         <Translation Language="Korean">알림</Translation>
+        <Translation Language="Spanish">Notificación</Translation>
       </Text>
       <Text Id="screenbrightness" Alignment="Center" TypographyId="size16">
         <Translation Language="GB">Screen brightness</Translation>
         <Translation Language="Korean">화면 밝기 조절</Translation>
+        <Translation Language="Spanish">Brillo de la pantalla</Translation>
       </Text>
       <Text Id="communicationcycleApply" Alignment="Center" TypographyId="size24">
         <Translation Language="GB">Done</Translation>
         <Translation Language="Korean">완료</Translation>
+        <Translation Language="Spanish">Hecho</Translation>
       </Text>
       <Text Id="notSelected_cycle" Alignment="Left" TypographyId="size10">
         <Translation Language="GB">0</Translation>
         <Translation Language="Korean">0</Translation>
+        <Translation Language="Spanish">0</Translation>
       </Text>
       <Text Id="selected_cycle" Alignment="Left" TypographyId="size10">
         <Translation Language="GB">0</Translation>
         <Translation Language="Korean">0</Translation>
-      </Text>
-      <Text Id="__SingleUse_DVDQ" Alignment="Center" TypographyId="scrollWheelnotselected">
-        <Translation Language="GB">&lt;value&gt;s</Translation>
-        <Translation Language="Korean">&lt;value&gt;초</Translation>
-      </Text>
-      <Text Id="__SingleUse_0KCQ" Alignment="Center" TypographyId="scrollWheelselected">
-        <Translation Language="GB">&lt;value&gt;s</Translation>
-        <Translation Language="Korean">&lt;value&gt;초</Translation>
+        <Translation Language="Spanish">0</Translation>
       </Text>
       <Text Id="communicationcycleLabel" Alignment="Center" TypographyId="size16">
         <Translation Language="GB">Communication&#10;Cycle</Translation>
         <Translation Language="Korean">통신 주기 설정</Translation>
+        <Translation Language="Spanish">Ciclo de comunicacion</Translation>
       </Text>
     </TextGroup>
     <TextGroup Id="Information">
       <Text Id="Information" Alignment="Center" TypographyId="size16">
         <Translation Language="GB">Information</Translation>
         <Translation Language="Korean">정보</Translation>
+        <Translation Language="Spanish">Información</Translation>
       </Text>
       <Text Id="servicenumberValue" Alignment="Left" TypographyId="size24">
         <Translation Language="GB">service number</Translation>
-        <Translation Language="Korean">(서비스 번호)</Translation>
+        <Translation Language="Korean">서비스 번호</Translation>
+        <Translation Language="Spanish">número de servicio</Translation>
       </Text>
       <Text Id="servicenumber" Alignment="Center" TypographyId="size24">
         <Translation Language="GB">&lt;value&gt;</Translation>
         <Translation Language="Korean">&lt;value&gt;</Translation>
+        <Translation Language="Spanish">&lt;value&gt;</Translation>
       </Text>
       <Text Id="serialnumberValue" Alignment="Left" TypographyId="size24">
         <Translation Language="GB">serial number</Translation>
-        <Translation Language="Korean">(시리얼 번호)</Translation>
+        <Translation Language="Korean">시리얼 번호</Translation>
+        <Translation Language="Spanish">número de serie</Translation>
       </Text>
       <Text Id="serialnumber" Alignment="Center" TypographyId="size24">
         <Translation Language="GB">&lt;value&gt;</Translation>
         <Translation Language="Korean">&lt;value&gt;</Translation>
+        <Translation Language="Spanish">&lt;value&gt;</Translation>
       </Text>
       <Text Id="idinfoValue" Alignment="Left" TypographyId="size24">
         <Translation Language="GB">id information</Translation>
-        <Translation Language="Korean">(식별 정보)</Translation>
+        <Translation Language="Korean">식별 정보</Translation>
+        <Translation Language="Spanish">id información</Translation>
       </Text>
       <Text Id="idinfo" Alignment="Center" TypographyId="size24">
         <Translation Language="GB">&lt;value&gt;</Translation>
         <Translation Language="Korean">&lt;value&gt;</Translation>
+        <Translation Language="Spanish">&lt;value&gt;</Translation>
       </Text>
       <Text Id="fwversionValue" Alignment="Left" TypographyId="size24">
         <Translation Language="GB">version info</Translation>
-        <Translation Language="Korean">(버전 정보)</Translation>
+        <Translation Language="Korean">버전 정보</Translation>
+        <Translation Language="Spanish">versión info</Translation>
       </Text>
       <Text Id="fwversion" Alignment="Center" TypographyId="size24">
         <Translation Language="GB">&lt;value&gt;</Translation>
         <Translation Language="Korean">&lt;value&gt;</Translation>
+        <Translation Language="Spanish">&lt;value&gt;</Translation>
       </Text>
       <Text Id="modelnameValue" Alignment="Left" TypographyId="size24">
         <Translation Language="GB">model name</Translation>
-        <Translation Language="Korean">(모델명)</Translation>
+        <Translation Language="Korean">모델명</Translation>
+        <Translation Language="Spanish">nombre del modelo</Translation>
       </Text>
       <Text Id="modelname" Alignment="Center" TypographyId="size24">
         <Translation Language="GB">&lt;value&gt;</Translation>
         <Translation Language="Korean">&lt;value&gt;</Translation>
+        <Translation Language="Spanish">&lt;value&gt;</Translation>
       </Text>
       <Text Id="iccidValue" Alignment="Left" TypographyId="size24">
         <Translation Language="GB">ICCID</Translation>
-        <Translation Language="Korean">(ICCID)</Translation>
+        <Translation Language="Korean">ICCID</Translation>
+        <Translation Language="Spanish">ICCID</Translation>
       </Text>
       <Text Id="iccid" Alignment="Center" TypographyId="size24">
         <Translation Language="GB">&lt;value&gt;</Translation>
         <Translation Language="Korean">&lt;value&gt;</Translation>
+        <Translation Language="Spanish">&lt;value&gt;</Translation>
       </Text>
       <Text Id="imeiValue" Alignment="Left" TypographyId="size24">
         <Translation Language="GB">IMEI</Translation>
-        <Translation Language="Korean">(IMEI)</Translation>
+        <Translation Language="Korean">IMEI</Translation>
+        <Translation Language="Spanish">IMEI</Translation>
       </Text>
       <Text Id="imei" Alignment="Center" TypographyId="size24">
         <Translation Language="GB">&lt;value&gt;</Translation>
         <Translation Language="Korean">&lt;value&gt;</Translation>
+        <Translation Language="Spanish">&lt;value&gt;</Translation>
       </Text>
       <Text Id="wifimacaddValue" Alignment="Left" TypographyId="size24">
         <Translation Language="GB">WiFi MAC ADD</Translation>
-        <Translation Language="Korean">(WiFi MAC ADD)</Translation>
+        <Translation Language="Korean">WiFi MAC ADD</Translation>
+        <Translation Language="Spanish">WiFi MAC ADD</Translation>
       </Text>
       <Text Id="wifimacaddText" Alignment="Center" TypographyId="size24">
         <Translation Language="GB">&lt;value&gt;</Translation>
         <Translation Language="Korean">&lt;value&gt;</Translation>
+        <Translation Language="Spanish">&lt;value&gt;</Translation>
       </Text>
       <Text Id="blemacaddValue" Alignment="Left" TypographyId="size24">
         <Translation Language="GB">BLE MAC ADD</Translation>
-        <Translation Language="Korean">(BLE MAC ADD)</Translation>
+        <Translation Language="Korean">BLE MAC ADD</Translation>
+        <Translation Language="Spanish">BLE MAC ADD</Translation>
       </Text>
       <Text Id="blemacaddText" Alignment="Center" TypographyId="size24">
         <Translation Language="GB">&lt;value&gt;</Translation>
         <Translation Language="Korean">&lt;value&gt;</Translation>
+        <Translation Language="Spanish">&lt;value&gt;</Translation>
       </Text>
-      <Text Id="wifimacaddLabel" Alignment="Left" TypographyId="size24">
+      <Text Id="wifimacaddLabel" Alignment="Center" TypographyId="size24">
         <Translation Language="GB">WiFi MAC ADD</Translation>
         <Translation Language="Korean">WiFi MAC ADD</Translation>
+        <Translation Language="Spanish">WiFi MAC ADD</Translation>
       </Text>
       <Text Id="blemacaddLable" Alignment="Center" TypographyId="size24">
         <Translation Language="GB">BLE MAC ADD</Translation>
         <Translation Language="Korean">BLE MAC ADD</Translation>
+        <Translation Language="Spanish">BLE MAC ADD</Translation>
       </Text>
     </TextGroup>
     <TextGroup Id="keyboard">
       <Text Id="0" Alignment="Center" TypographyId="size18">
         <Translation Language="GB">0</Translation>
         <Translation Language="Korean">0</Translation>
+        <Translation Language="Spanish"></Translation>
       </Text>
       <Text Id="9" Alignment="Center" TypographyId="size18">
         <Translation Language="GB">9</Translation>
         <Translation Language="Korean">9</Translation>
+        <Translation Language="Spanish"></Translation>
       </Text>
       <Text Id="8" Alignment="Center" TypographyId="size18">
         <Translation Language="GB">8</Translation>
         <Translation Language="Korean">8</Translation>
+        <Translation Language="Spanish"></Translation>
       </Text>
       <Text Id="7" Alignment="Center" TypographyId="size18">
         <Translation Language="GB">7</Translation>
         <Translation Language="Korean">7</Translation>
+        <Translation Language="Spanish"></Translation>
       </Text>
       <Text Id="6" Alignment="Center" TypographyId="size18">
         <Translation Language="GB">6</Translation>
         <Translation Language="Korean">6</Translation>
+        <Translation Language="Spanish"></Translation>
       </Text>
       <Text Id="5" Alignment="Center" TypographyId="size18">
         <Translation Language="GB">5</Translation>
         <Translation Language="Korean">5</Translation>
+        <Translation Language="Spanish"></Translation>
       </Text>
       <Text Id="4" Alignment="Center" TypographyId="size18">
         <Translation Language="GB">4</Translation>
         <Translation Language="Korean">4</Translation>
+        <Translation Language="Spanish"></Translation>
       </Text>
       <Text Id="3" Alignment="Center" TypographyId="size18">
         <Translation Language="GB">3</Translation>
         <Translation Language="Korean">3</Translation>
+        <Translation Language="Spanish"></Translation>
       </Text>
       <Text Id="2" Alignment="Center" TypographyId="size18">
         <Translation Language="GB">2</Translation>
         <Translation Language="Korean">2</Translation>
+        <Translation Language="Spanish"></Translation>
       </Text>
       <Text Id="1" Alignment="Center" TypographyId="size18">
         <Translation Language="GB">1</Translation>
         <Translation Language="Korean">1</Translation>
+        <Translation Language="Spanish"></Translation>
       </Text>
       <Text Id="change" Alignment="Center" TypographyId="size18">
         <Translation Language="GB">a/1/!</Translation>
         <Translation Language="Korean">a/1/!</Translation>
+        <Translation Language="Spanish"></Translation>
       </Text>
       <Text Id="yz" Alignment="Center" TypographyId="size18">
         <Translation Language="GB">yz</Translation>
         <Translation Language="Korean">yz</Translation>
+        <Translation Language="Spanish"></Translation>
       </Text>
       <Text Id="vwx" Alignment="Center" TypographyId="size18">
         <Translation Language="GB">vwx</Translation>
         <Translation Language="Korean">vwx</Translation>
+        <Translation Language="Spanish"></Translation>
       </Text>
       <Text Id="stu" Alignment="Center" TypographyId="size18">
         <Translation Language="GB">stu</Translation>
         <Translation Language="Korean">stu</Translation>
+        <Translation Language="Spanish"></Translation>
       </Text>
       <Text Id="pqr" Alignment="Center" TypographyId="size18">
         <Translation Language="GB">pqr</Translation>
         <Translation Language="Korean">pqr</Translation>
+        <Translation Language="Spanish"></Translation>
       </Text>
       <Text Id="mno" Alignment="Center" TypographyId="size18">
         <Translation Language="GB">mno</Translation>
         <Translation Language="Korean">mno</Translation>
+        <Translation Language="Spanish"></Translation>
       </Text>
       <Text Id="jkl" Alignment="Center" TypographyId="size18">
         <Translation Language="GB">jkl</Translation>
         <Translation Language="Korean">jkl</Translation>
+        <Translation Language="Spanish"></Translation>
       </Text>
       <Text Id="ghi" Alignment="Center" TypographyId="size18">
         <Translation Language="GB">ghi</Translation>
         <Translation Language="Korean">ghi</Translation>
+        <Translation Language="Spanish"></Translation>
       </Text>
       <Text Id="def" Alignment="Center" TypographyId="size18">
         <Translation Language="GB">def</Translation>
         <Translation Language="Korean">def</Translation>
+        <Translation Language="Spanish"></Translation>
       </Text>
       <Text Id="abc" Alignment="Center" TypographyId="size18">
         <Translation Language="GB">abc</Translation>
         <Translation Language="Korean">abc</Translation>
+        <Translation Language="Spanish"></Translation>
       </Text>
       <Text Id="C_group9" Alignment="Center" TypographyId="size18">
         <Translation Language="GB">% ` /</Translation>
         <Translation Language="Korean">% ` /</Translation>
+        <Translation Language="Spanish"></Translation>
       </Text>
       <Text Id="C_group8" Alignment="Center" TypographyId="size18">
         <Translation Language="GB">: ; ^</Translation>
         <Translation Language="Korean">: ; ^</Translation>
+        <Translation Language="Spanish"></Translation>
       </Text>
       <Text Id="C_group7" Alignment="Center" TypographyId="size18">
         <Translation Language="GB">&amp;* _</Translation>
         <Translation Language="Korean">&amp;* _</Translation>
+        <Translation Language="Spanish"></Translation>
       </Text>
       <Text Id="C_group6" Alignment="Center" TypographyId="size18">
         <Translation Language="GB">@ # $</Translation>
         <Translation Language="Korean">@ # $</Translation>
+        <Translation Language="Spanish"></Translation>
       </Text>
       <Text Id="C_group5" Alignment="Center" TypographyId="size18">
         <Translation Language="GB">~=-+</Translation>
         <Translation Language="Korean">~=-+</Translation>
+        <Translation Language="Spanish"></Translation>
       </Text>
       <Text Id="C_group4" Alignment="Center" TypographyId="size18">
         <Translation Language="GB">( ) |   </Translation>
         <Translation Language="Korean">( ) |   </Translation>
+        <Translation Language="Spanish"></Translation>
       </Text>
       <Text Id="C_group3" Alignment="Center" TypographyId="size18">
         <Translation Language="GB">{ }[ ]</Translation>
         <Translation Language="Korean">{ }[ ]</Translation>
+        <Translation Language="Spanish"></Translation>
       </Text>
       <Text Id="C_group2" Alignment="Center" TypographyId="size18">
         <Translation Language="GB">' "      </Translation>
         <Translation Language="Korean">' "      </Translation>
+        <Translation Language="Spanish"></Translation>
       </Text>
       <Text Id="C_group1" Alignment="Center" TypographyId="size18">
         <Translation Language="GB">. ,?!</Translation>
         <Translation Language="Korean">. ,?!</Translation>
+        <Translation Language="Spanish"></Translation>
       </Text>
     </TextGroup>
     <TextGroup Id="FFWB">
-      <Text Id="type_of_disaster" Alignment="Left" TypographyId="size10">
-        <Translation Language="GB">Disaster</Translation>
-        <Translation Language="Korean">재난</Translation>
-      </Text>
       <Text Id="dispatchorwaitLabel" Alignment="Center" TypographyId="size16">
         <Translation Language="GB">&lt;value&gt;</Translation>
         <Translation Language="Korean">&lt;value&gt;</Translation>
+        <Translation Language="Spanish">&lt;value&gt;</Translation>
       </Text>
       <Text Id="falldetectionText" Alignment="Center" TypographyId="size24">
         <Translation Language="GB">Falls Detected</Translation>
         <Translation Language="Korean">낙상 감지</Translation>
+        <Translation Language="Spanish">Caídas detectadas</Translation>
       </Text>
       <Text Id="fallsOccurLabel" Alignment="Center" TypographyId="size16">
         <Translation Language="GB">Falls occur</Translation>
         <Translation Language="Korean">낙상 발생</Translation>
-      </Text>
-      <Text Id="wait_label" Alignment="Center" TypographyId="size24_Bold">
-        <Translation Language="GB">Wait</Translation>
-        <Translation Language="Korean">대기</Translation>
-      </Text>
-      <Text Id="dispatch_label" Alignment="Center" TypographyId="size24_Bold">
-        <Translation Language="GB">Dispatch</Translation>
-        <Translation Language="Korean">출동</Translation>
-      </Text>
-      <Text Id="address" Alignment="Left" TypographyId="size15_Bold">
-        <Translation Language="GB">경상북도 구미시 산호대로 253</Translation>
-        <Translation Language="Korean">경상북도 구미시 산호대로 253</Translation>
-      </Text>
-      <Text Id="disaster_add" Alignment="Center" TypographyId="size15_Bold">
-        <Translation Language="GB">&lt;value&gt;</Translation>
-        <Translation Language="Korean">&lt;value&gt;</Translation>
+        <Translation Language="Spanish">Ocurren caídas</Translation>
       </Text>
     </TextGroup>
     <TextGroup Id="Unsorted" />
   </Texts>
   <Typographies>
-    <Typography Id="size10" Font="Pretendard-Regular.ttf" Size="10" Bpp="4" IsVector="no" Direction="LTR" FallbackCharacter="?">
-      <LanguageSetting Language="GB" Font="Pretendard-Regular.ttf" Size="10" Bpp="4" IsVector="no" Direction="LTR" FallbackCharacter="?" />
-      <LanguageSetting Language="Korean" Font="Pretendard-Regular.ttf" Size="10" Bpp="4" IsVector="no" Direction="LTR" FallbackCharacter="?" />
+    <Typography Id="size10" Font="Pretendard-Regular.ttf" Size="10" Bpp="4" IsVector="no" Direction="LTR" FallbackCharacter="?" WildcardCharacterRanges="0-9,a-z,A-Z">
+      <LanguageSetting Language="GB" Font="Pretendard-Regular.ttf" Size="10" Bpp="4" IsVector="no" Direction="LTR" FallbackCharacter="?" WildcardCharacterRanges="0-9,a-z,A-Z" />
+      <LanguageSetting Language="Korean" Font="Pretendard-Regular.ttf" Size="10" Bpp="4" IsVector="no" Direction="LTR" FallbackCharacter="?" WildcardCharacterRanges="0-9,a-z,A-Z" />
     </Typography>
-    <Typography Id="size16" Font="Pretendard-Regular.ttf" Size="16" Bpp="4" IsVector="no" Direction="LTR" FallbackCharacter="?" WildcardCharacterRanges="0-9">
-      <LanguageSetting Language="GB" Font="Pretendard-Regular.ttf" Size="16" Bpp="4" IsVector="no" Direction="LTR" FallbackCharacter="?" />
-      <LanguageSetting Language="Korean" Font="Pretendard-Regular.ttf" Size="16" Bpp="4" IsVector="no" Direction="LTR" FallbackCharacter="?" />
+    <Typography Id="size16" Font="Pretendard-Regular.ttf" Size="16" Bpp="4" IsVector="no" Direction="LTR" FallbackCharacter="?" WildcardCharacterRanges="0-9,a-z,A-Z">
+      <LanguageSetting Language="GB" Font="Pretendard-Regular.ttf" Size="16" Bpp="4" IsVector="no" Direction="LTR" FallbackCharacter="?" WildcardCharacterRanges="0-9,a-z,A-Z" />
+      <LanguageSetting Language="Korean" Font="Pretendard-Regular.ttf" Size="16" Bpp="4" IsVector="no" Direction="LTR" FallbackCharacter="?" WildcardCharacterRanges="0-9,a-z,A-Z" />
     </Typography>
-    <Typography Id="size18" Font="Pretendard-Regular.ttf" Size="18" Bpp="4" IsVector="no" Direction="LTR" FallbackCharacter="?">
-      <LanguageSetting Language="GB" Font="Pretendard-Regular.ttf" Size="18" Bpp="4" IsVector="no" Direction="LTR" FallbackCharacter="?" />
-      <LanguageSetting Language="Korean" Font="Pretendard-Regular.ttf" Size="18" Bpp="4" IsVector="no" Direction="LTR" FallbackCharacter="?" />
+    <Typography Id="size18" Font="Pretendard-Regular.ttf" Size="18" Bpp="4" IsVector="no" Direction="LTR" FallbackCharacter="?" WildcardCharacterRanges="0-9,a-z,A-Z">
+      <LanguageSetting Language="GB" Font="Pretendard-Regular.ttf" Size="18" Bpp="4" IsVector="no" Direction="LTR" FallbackCharacter="?" WildcardCharacterRanges="0-9,a-z,A-Z" />
+      <LanguageSetting Language="Korean" Font="Pretendard-Regular.ttf" Size="18" Bpp="4" IsVector="no" Direction="LTR" FallbackCharacter="?" WildcardCharacterRanges="0-9,a-z,A-Z" />
     </Typography>
-    <Typography Id="size20" Font="Pretendard-Regular.ttf" Size="20" Bpp="4" IsVector="no" Direction="LTR" FallbackCharacter="?" WildcardCharacterRanges="0-9">
-      <LanguageSetting Language="GB" Font="Pretendard-Regular.ttf" Size="20" Bpp="4" IsVector="no" Direction="LTR" FallbackCharacter="?" />
-      <LanguageSetting Language="Korean" Font="Pretendard-Regular.ttf" Size="20" Bpp="4" IsVector="no" Direction="LTR" FallbackCharacter="?" />
+    <Typography Id="size20" Font="Pretendard-Regular.ttf" Size="20" Bpp="4" IsVector="no" Direction="LTR" FallbackCharacter="?" WildcardCharacterRanges="0-9,a-z,A-Z">
+      <LanguageSetting Language="GB" Font="Pretendard-Regular.ttf" Size="20" Bpp="4" IsVector="no" Direction="LTR" FallbackCharacter="?" WildcardCharacterRanges="0-9,a-z,A-Z" />
+      <LanguageSetting Language="Korean" Font="Pretendard-Regular.ttf" Size="20" Bpp="4" IsVector="no" Direction="LTR" FallbackCharacter="?" WildcardCharacterRanges="0-9,a-z,A-Z" />
     </Typography>
-    <Typography Id="size24" Font="Pretendard-Regular.ttf" Size="24" Bpp="4" IsVector="no" Direction="LTR" FallbackCharacter="?" WildcardCharacterRanges="0-9">
-      <LanguageSetting Language="GB" Font="Pretendard-Regular.ttf" Size="24" Bpp="4" IsVector="no" Direction="LTR" FallbackCharacter="?" />
-      <LanguageSetting Language="Korean" Font="Pretendard-Regular.ttf" Size="24" Bpp="4" IsVector="no" Direction="LTR" FallbackCharacter="?" />
+    <Typography Id="size24" Font="Pretendard-Regular.ttf" Size="24" Bpp="4" IsVector="no" Direction="LTR" FallbackCharacter="?" WildcardCharacterRanges="0-9,a-z,A-Z">
+      <LanguageSetting Language="GB" Font="Pretendard-Regular.ttf" Size="24" Bpp="4" IsVector="no" Direction="LTR" FallbackCharacter="?" WildcardCharacterRanges="0-9,a-z,A-Z" />
+      <LanguageSetting Language="Korean" Font="Pretendard-Regular.ttf" Size="24" Bpp="4" IsVector="no" Direction="LTR" FallbackCharacter="?" WildcardCharacterRanges="0-9,a-z,A-Z" />
     </Typography>
-    <Typography Id="size28_Bold" Font="Pretendard-Bold.ttf" Size="28" Bpp="4" IsVector="no" Direction="LTR" FallbackCharacter="?">
-      <LanguageSetting Language="GB" Font="Pretendard-Bold.ttf" Size="28" Bpp="4" IsVector="no" Direction="LTR" FallbackCharacter="?" />
-      <LanguageSetting Language="Korean" Font="Pretendard-Bold.ttf" Size="28" Bpp="4" IsVector="no" Direction="LTR" FallbackCharacter="?" />
+    <Typography Id="size28_Bold" Font="Pretendard-Bold.ttf" Size="28" Bpp="4" IsVector="no" Direction="LTR" FallbackCharacter="?" WildcardCharacterRanges="0-9,a-z,A-Z">
+      <LanguageSetting Language="GB" Font="Pretendard-Bold.ttf" Size="28" Bpp="4" IsVector="no" Direction="LTR" FallbackCharacter="?" WildcardCharacterRanges="0-9,a-z,A-Z" />
+      <LanguageSetting Language="Korean" Font="Pretendard-Bold.ttf" Size="28" Bpp="4" IsVector="no" Direction="LTR" FallbackCharacter="?" WildcardCharacterRanges="0-9,a-z,A-Z" />
     </Typography>
-    <Typography Id="size32" Font="Pretendard-Regular.ttf" Size="32" Bpp="4" IsVector="no" Direction="LTR" FallbackCharacter="?" WildcardCharacters="0-9">
-      <LanguageSetting Language="GB" Font="Pretendard-Regular.ttf" Size="32" Bpp="4" IsVector="no" Direction="LTR" FallbackCharacter="?" />
-      <LanguageSetting Language="Korean" Font="Pretendard-Regular.ttf" Size="32" Bpp="4" IsVector="no" Direction="LTR" FallbackCharacter="?" />
+    <Typography Id="size32" Font="Pretendard-Regular.ttf" Size="32" Bpp="4" IsVector="no" Direction="LTR" FallbackCharacter="?" WildcardCharacters="0-9" WildcardCharacterRanges="0-9,a-z,A-Z">
+      <LanguageSetting Language="GB" Font="Pretendard-Regular.ttf" Size="32" Bpp="4" IsVector="no" Direction="LTR" FallbackCharacter="?" WildcardCharacterRanges="0-9,a-z,A-Z" />
+      <LanguageSetting Language="Korean" Font="Pretendard-Regular.ttf" Size="32" Bpp="4" IsVector="no" Direction="LTR" FallbackCharacter="?" WildcardCharacterRanges="0-9,a-z,A-Z" />
     </Typography>
-    <Typography Id="size32_Bold" Font="Pretendard-Bold.ttf" Size="32" Bpp="4" IsVector="no" Direction="LTR" FallbackCharacter="?" WildcardCharacterRanges="0-9">
-      <LanguageSetting Language="GB" Font="Pretendard-Bold.ttf" Size="32" Bpp="4" IsVector="no" Direction="LTR" FallbackCharacter="?" />
-      <LanguageSetting Language="Korean" Font="Pretendard-Bold.ttf" Size="32" Bpp="4" IsVector="no" Direction="LTR" FallbackCharacter="?" />
+    <Typography Id="size32_Bold" Font="Pretendard-Bold.ttf" Size="32" Bpp="4" IsVector="no" Direction="LTR" FallbackCharacter="?" WildcardCharacterRanges="0-9,a-z,A-Z">
+      <LanguageSetting Language="GB" Font="Pretendard-Bold.ttf" Size="32" Bpp="4" IsVector="no" Direction="LTR" FallbackCharacter="?" WildcardCharacterRanges="0-9,a-z,A-Z" />
+      <LanguageSetting Language="Korean" Font="Pretendard-Bold.ttf" Size="32" Bpp="4" IsVector="no" Direction="LTR" FallbackCharacter="?" WildcardCharacterRanges="0-9,a-z,A-Z" />
     </Typography>
-    <Typography Id="size65" Font="Pretendard-Bold.ttf" Size="70" Bpp="4" IsVector="no" Direction="LTR" FallbackCharacter="?" WidgetWildcardCharacters="0123456789 :APM">
-      <LanguageSetting Language="GB" Font="Pretendard-Bold.ttf" Size="70" Bpp="4" IsVector="no" Direction="LTR" FallbackCharacter="?" />
-      <LanguageSetting Language="Korean" Font="Pretendard-Bold.ttf" Size="70" Bpp="4" IsVector="no" Direction="LTR" FallbackCharacter="?" />
+    <Typography Id="size65" Font="Pretendard-Bold.ttf" Size="70" Bpp="4" IsVector="no" Direction="LTR" FallbackCharacter="?" WidgetWildcardCharacters="0123456789 :APM" WildcardCharacterRanges="0-9,a-z,A-Z">
+      <LanguageSetting Language="GB" Font="Pretendard-Bold.ttf" Size="70" Bpp="4" IsVector="no" Direction="LTR" FallbackCharacter="?" WildcardCharacterRanges="0-9,a-z,A-Z" />
+      <LanguageSetting Language="Korean" Font="Pretendard-Bold.ttf" Size="70" Bpp="4" IsVector="no" Direction="LTR" FallbackCharacter="?" WildcardCharacterRanges="0-9,a-z,A-Z" />
     </Typography>
-    <Typography Id="scrollWheelnotselected" Font="Pretendard-Regular.ttf" Size="32" Bpp="4" IsVector="no" Direction="LTR" FallbackCharacter="?" WildcardCharacterRanges="0-9">
-      <LanguageSetting Language="GB" Font="Pretendard-Regular.ttf" Size="32" Bpp="4" IsVector="no" Direction="LTR" FallbackCharacter="?" WildcardCharacterRanges="0-9" />
-      <LanguageSetting Language="Korean" Font="Pretendard-Regular.ttf" Size="32" Bpp="4" IsVector="no" Direction="LTR" FallbackCharacter="?" WildcardCharacterRanges="0-9" />
+    <Typography Id="scrollWheelnotselected" Font="Pretendard-Regular.ttf" Size="32" Bpp="4" IsVector="no" Direction="LTR" FallbackCharacter="?" WildcardCharacterRanges="0-9,a-z,A-Z">
+      <LanguageSetting Language="GB" Font="Pretendard-Regular.ttf" Size="32" Bpp="4" IsVector="no" Direction="LTR" FallbackCharacter="?" WildcardCharacterRanges="0-9,a-z,A-Z" />
+      <LanguageSetting Language="Korean" Font="Pretendard-Regular.ttf" Size="32" Bpp="4" IsVector="no" Direction="LTR" FallbackCharacter="?" WildcardCharacterRanges="0-9,a-z,A-Z" />
     </Typography>
-    <Typography Id="scrollWheelselected" Font="Pretendard-Bold.ttf" Size="32" Bpp="4" IsVector="no" Direction="LTR" FallbackCharacter="?" WildcardCharacterRanges="0-9">
-      <LanguageSetting Language="GB" Font="Pretendard-Bold.ttf" Size="32" Bpp="4" IsVector="no" Direction="LTR" FallbackCharacter="?" WildcardCharacterRanges="0-9" />
-      <LanguageSetting Language="Korean" Font="Pretendard-Bold.ttf" Size="32" Bpp="4" IsVector="no" Direction="LTR" FallbackCharacter="?" WildcardCharacterRanges="0-9" />
+    <Typography Id="scrollWheelselected" Font="Pretendard-Bold.ttf" Size="32" Bpp="4" IsVector="no" Direction="LTR" FallbackCharacter="?" WildcardCharacterRanges="0-9,a-z,A-Z">
+      <LanguageSetting Language="GB" Font="Pretendard-Bold.ttf" Size="32" Bpp="4" IsVector="no" Direction="LTR" FallbackCharacter="?" WildcardCharacterRanges="0-9,a-z,A-Z" />
+      <LanguageSetting Language="Korean" Font="Pretendard-Bold.ttf" Size="32" Bpp="4" IsVector="no" Direction="LTR" FallbackCharacter="?" WildcardCharacterRanges="0-9,a-z,A-Z" />
     </Typography>
-    <Typography Id="size15_Bold" Font="Pretendard-Bold.ttf" Size="15" Bpp="4" IsVector="no" Direction="LTR" FallbackCharacter="?" />
-    <Typography Id="size24_Bold" Font="Pretendard-Bold.ttf" Size="24" Bpp="4" IsVector="no" Direction="LTR" FallbackCharacter="?" />
+    <Typography Id="size15_Bold" Font="Pretendard-Bold.ttf" Size="15" Bpp="4" IsVector="no" Direction="LTR" FallbackCharacter="?" WildcardCharacterRanges="0-9,a-z,A-Z" />
+    <Typography Id="size24_Bold" Font="Pretendard-Bold.ttf" Size="24" Bpp="4" IsVector="no" Direction="LTR" FallbackCharacter="?" WildcardCharacterRanges="0-9,a-z,A-Z" />
   </Typographies>
 </TextDatabase>

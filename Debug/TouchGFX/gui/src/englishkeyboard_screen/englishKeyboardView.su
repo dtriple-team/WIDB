@@ -1,9 +1,0 @@
-../Middlewares/ST/touchgfx/framework/include/touchgfx/Screen.hpp:104:18:virtual void touchgfx::Screen::afterTransition()	16	static
-../Middlewares/ST/touchgfx/framework/include/touchgfx/Screen.hpp:115:18:virtual void touchgfx::Screen::tearDownScreen()	16	static
-../Middlewares/ST/touchgfx/framework/include/touchgfx/Screen.hpp:144:18:virtual void touchgfx::Screen::handleTickEvent()	16	static
-../Middlewares/ST/touchgfx/framework/include/touchgfx/Screen.hpp:154:18:virtual void touchgfx::Screen::handleKeyEvent(uint8_t)	16	static
-../TouchGFX/gui/include/gui/englishkeyboard_screen/englishKeyboardView.hpp:11:13:englishKeyboardView::~englishKeyboardView()	16	static
-../TouchGFX/gui/include/gui/englishkeyboard_screen/englishKeyboardView.hpp:11:13:virtual englishKeyboardView::~englishKeyboardView()	16	static
-../TouchGFX/gui/src/englishkeyboard_screen/englishKeyboardView.cpp:3:1:englishKeyboardView::englishKeyboardView()	16	static
-../TouchGFX/gui/src/englishkeyboard_screen/englishKeyboardView.cpp:8:6:virtual void englishKeyboardView::setupScreen()	16	static
-../TouchGFX/gui/src/englishkeyboard_screen/englishKeyboardView.cpp:13:6:virtual void englishKeyboardView::tearDownScreen()	16	static

@@ -30,11 +30,11 @@ protected:
      */
     touchgfx::Box __background;
     touchgfx::Image background;
-    touchgfx::TextArea NetworkInfo;
-    touchgfx::Button button1;
-    touchgfx::Button button2;
-    touchgfx::TextArea textArea1;
-    touchgfx::TextArea textArea2;
+    touchgfx::TextArea system_label;
+    touchgfx::Button reset_button;
+    touchgfx::Button poweroff_button;
+    touchgfx::TextArea reset_label;
+    touchgfx::TextArea poweroff_label;
     touchgfx::ImageProgress batteryprogress;
 
 private:

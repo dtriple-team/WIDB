@@ -16,22 +16,22 @@ screenbrightnessSettingViewBase::screenbrightnessSettingViewBase()
     background.setBitmap(touchgfx::Bitmap(BITMAP_BACKGROUND_ID));
     add(background);
 
-    screenbrightness.setPosition(0, 6, 240, 25);
-    screenbrightness.setColor(touchgfx::Color::getColorFromRGB(255, 255, 255));
-    screenbrightness.setLinespacing(0);
-    screenbrightness.setTypedText(touchgfx::TypedText(T_SCREENBRIGHTNESS));
-    add(screenbrightness);
+    screenbrightness_label.setPosition(0, 6, 240, 25);
+    screenbrightness_label.setColor(touchgfx::Color::getColorFromRGB(255, 255, 255));
+    screenbrightness_label.setLinespacing(0);
+    screenbrightness_label.setTypedText(touchgfx::TypedText(T_SCREENBRIGHTNESS));
+    add(screenbrightness_label);
 
     slider1.setXY(67, 39);
-    slider1.setBitmaps(touchgfx::Bitmap(BITMAP_RECTANGLE_40_ID), touchgfx::Bitmap(BITMAP_RECTANGLE_41_ID), touchgfx::Bitmap(BITMAP_LINE_10_ID));
+    slider1.setBitmaps(touchgfx::Bitmap(BITMAP_SET_BRIGHTNESS_BACK_ID), touchgfx::Bitmap(BITMAP_SET_BRIGNTNESS_ID), touchgfx::Bitmap(BITMAP_SWIPEDOWN_BRIGHTNESS_INDICATOR_ID));
     slider1.setupVerticalSlider(0, 0, 31, 0, 226);
-    slider1.setValueRange(0, 15);
-    slider1.setValue(15);
+    slider1.setValueRange(0, 100);
+    slider1.setValue(50);
     add(slider1);
 
-    image1.setXY(87, 179);
-    image1.setBitmap(touchgfx::Bitmap(BITMAP_BRIGHTNESS2_ID));
-    add(image1);
+    brightness_image.setXY(87, 179);
+    brightness_image.setBitmap(touchgfx::Bitmap(BITMAP_SET_SETTING_SLIDER_ICON_ID));
+    add(brightness_image);
 
     batteryprogress.setXY(197, 8);
     batteryprogress.setProgressIndicatorPosition(2, 2, 27, 11);

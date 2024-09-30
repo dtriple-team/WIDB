@@ -17,46 +17,51 @@ deviceInfoSettingViewBase::deviceInfoSettingViewBase() :
     background.setBitmap(touchgfx::Bitmap(BITMAP_BACKGROUND_ID));
     add(background);
 
-    DeviceInfo.setPosition(0, 6, 240, 25);
-    DeviceInfo.setColor(touchgfx::Color::getColorFromRGB(255, 255, 255));
-    DeviceInfo.setLinespacing(0);
-    DeviceInfo.setTypedText(touchgfx::TypedText(T_DEVICEINFO));
-    add(DeviceInfo);
+    deviceinfo_label.setPosition(0, 6, 240, 25);
+    deviceinfo_label.setColor(touchgfx::Color::getColorFromRGB(255, 255, 255));
+    deviceinfo_label.setLinespacing(0);
+    deviceinfo_label.setTypedText(touchgfx::TypedText(T_DEVICEINFO));
+    add(deviceinfo_label);
 
-    textArea1.setPosition(0, 67, 240, 29);
-    textArea1.setColor(touchgfx::Color::getColorFromRGB(255, 255, 255));
-    textArea1.setLinespacing(0);
-    textArea1.setWildcard(touchgfx::TypedText(T_MODELNAMEVALUE).getText());
-    textArea1.setTypedText(touchgfx::TypedText(T_MODELNAME));
-    add(textArea1);
+    model_label.setPosition(0, 67, 240, 29);
+    model_label.setColor(touchgfx::Color::getColorFromRGB(255, 255, 255));
+    model_label.setLinespacing(0);
+    Unicode::snprintf(model_labelBuffer, MODEL_LABEL_SIZE, "%s", touchgfx::TypedText(T_MODELNAMEVALUE).getText());
+    model_label.setWildcard(model_labelBuffer);
+    model_label.setTypedText(touchgfx::TypedText(T_MODELNAME));
+    add(model_label);
 
-    textArea2.setPosition(0, 98, 240, 29);
-    textArea2.setColor(touchgfx::Color::getColorFromRGB(255, 255, 255));
-    textArea2.setLinespacing(0);
-    textArea2.setWildcard(touchgfx::TypedText(T_FWVERSIONVALUE).getText());
-    textArea2.setTypedText(touchgfx::TypedText(T_FWVERSION));
-    add(textArea2);
+    version_label.setPosition(0, 98, 240, 29);
+    version_label.setColor(touchgfx::Color::getColorFromRGB(255, 255, 255));
+    version_label.setLinespacing(0);
+    Unicode::snprintf(version_labelBuffer, VERSION_LABEL_SIZE, "%s", touchgfx::TypedText(T_FWVERSIONVALUE).getText());
+    version_label.setWildcard(version_labelBuffer);
+    version_label.setTypedText(touchgfx::TypedText(T_FWVERSION));
+    add(version_label);
 
-    textArea3.setPosition(0, 129, 240, 29);
-    textArea3.setColor(touchgfx::Color::getColorFromRGB(255, 255, 255));
-    textArea3.setLinespacing(0);
-    textArea3.setWildcard(touchgfx::TypedText(T_IDINFOVALUE).getText());
-    textArea3.setTypedText(touchgfx::TypedText(T_IDINFO));
-    add(textArea3);
+    id_label.setPosition(0, 129, 240, 29);
+    id_label.setColor(touchgfx::Color::getColorFromRGB(255, 255, 255));
+    id_label.setLinespacing(0);
+    Unicode::snprintf(id_labelBuffer, ID_LABEL_SIZE, "%s", touchgfx::TypedText(T_IDINFOVALUE).getText());
+    id_label.setWildcard(id_labelBuffer);
+    id_label.setTypedText(touchgfx::TypedText(T_IDINFO));
+    add(id_label);
 
-    textArea4.setPosition(0, 160, 240, 29);
-    textArea4.setColor(touchgfx::Color::getColorFromRGB(255, 255, 255));
-    textArea4.setLinespacing(0);
-    textArea4.setWildcard(touchgfx::TypedText(T_SERIALNUMBERVALUE).getText());
-    textArea4.setTypedText(touchgfx::TypedText(T_SERIALNUMBER));
-    add(textArea4);
+    serialnumber_label.setPosition(0, 160, 240, 29);
+    serialnumber_label.setColor(touchgfx::Color::getColorFromRGB(255, 255, 255));
+    serialnumber_label.setLinespacing(0);
+    Unicode::snprintf(serialnumber_labelBuffer, SERIALNUMBER_LABEL_SIZE, "%s", touchgfx::TypedText(T_SERIALNUMBERVALUE).getText());
+    serialnumber_label.setWildcard(serialnumber_labelBuffer);
+    serialnumber_label.setTypedText(touchgfx::TypedText(T_SERIALNUMBER));
+    add(serialnumber_label);
 
-    textArea5.setPosition(0, 191, 240, 29);
-    textArea5.setColor(touchgfx::Color::getColorFromRGB(255, 255, 255));
-    textArea5.setLinespacing(0);
-    textArea5.setWildcard(touchgfx::TypedText(T_SERVICENUMBERVALUE).getText());
-    textArea5.setTypedText(touchgfx::TypedText(T_SERVICENUMBER));
-    add(textArea5);
+    servicenumber_label.setPosition(0, 191, 240, 29);
+    servicenumber_label.setColor(touchgfx::Color::getColorFromRGB(255, 255, 255));
+    servicenumber_label.setLinespacing(0);
+    Unicode::snprintf(servicenumber_labelBuffer, SERVICENUMBER_LABEL_SIZE, "%s", touchgfx::TypedText(T_SERVICENUMBERVALUE).getText());
+    servicenumber_label.setWildcard(servicenumber_labelBuffer);
+    servicenumber_label.setTypedText(touchgfx::TypedText(T_SERVICENUMBER));
+    add(servicenumber_label);
 
     batteryprogress.setXY(197, 8);
     batteryprogress.setProgressIndicatorPosition(2, 2, 27, 11);
@@ -68,11 +73,11 @@ deviceInfoSettingViewBase::deviceInfoSettingViewBase() :
     batteryprogress.setAnchorAtZero(true);
     add(batteryprogress);
 
-    button1.setXY(0, 0);
-    button1.setBitmaps(touchgfx::Bitmap(BITMAP_ALTERNATE_THEME_IMAGES_WIDGETS_BUTTON_REGULAR_HEIGHT_50_MEDIUM_ROUNDED_NORMAL_ID), touchgfx::Bitmap(BITMAP_ALTERNATE_THEME_IMAGES_WIDGETS_BUTTON_REGULAR_HEIGHT_50_MEDIUM_ROUNDED_PRESSED_ID));
-    button1.setVisible(false);
-    button1.setAction(buttonCallback);
-    add(button1);
+    buttonfornothing.setXY(0, 0);
+    buttonfornothing.setBitmaps(touchgfx::Bitmap(BITMAP_ALTERNATE_THEME_IMAGES_WIDGETS_BUTTON_REGULAR_HEIGHT_50_MEDIUM_ROUNDED_NORMAL_ID), touchgfx::Bitmap(BITMAP_ALTERNATE_THEME_IMAGES_WIDGETS_BUTTON_REGULAR_HEIGHT_50_MEDIUM_ROUNDED_PRESSED_ID));
+    buttonfornothing.setVisible(false);
+    buttonfornothing.setAction(buttonCallback);
+    add(buttonfornothing);
 }
 
 deviceInfoSettingViewBase::~deviceInfoSettingViewBase()
@@ -87,10 +92,10 @@ void deviceInfoSettingViewBase::setupScreen()
 
 void deviceInfoSettingViewBase::buttonCallbackHandler(const touchgfx::AbstractButton& src)
 {
-    if (&src == &button1)
+    if (&src == &buttonfornothing)
     {
         //Interaction1
-        //When button1 clicked change screen to informationSetting
+        //When buttonfornothing clicked change screen to informationSetting
         //Go to informationSetting with screen transition towards West
         application().gotoinformationSettingScreenWipeTransitionWest();
     }

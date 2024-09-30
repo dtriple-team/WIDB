@@ -11,7 +11,15 @@ public:
     virtual ~HeartrateDetailView() {}
     virtual void setupScreen();
     virtual void tearDownScreen();
+
+    virtual void handleGestureEvent(const GestureEvent& evt); //rkdalfks
+
+    void handleSwipeRight(); //rkdalfks
 protected:
+
+private:
+    int initialX;
+    int initialY;
 };
 
 #endif // HEARTRATEDETAILVIEW_HPP

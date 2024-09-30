@@ -16,3 +16,8 @@ void Spo2DetailPresenter::deactivate()
 {
 
 }
+
+void Spo2DetailPresenter::notifySwipeRight()
+{
+	view.handleSwipeRight();
+}

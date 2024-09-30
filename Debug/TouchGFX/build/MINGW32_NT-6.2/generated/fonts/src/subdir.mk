@@ -17,6 +17,8 @@ O_SRCS += \
 ../TouchGFX/build/MINGW32_NT-6.2/generated/fonts/src/Font_Pretendard_Bold_24_4bpp_0.o \
 ../TouchGFX/build/MINGW32_NT-6.2/generated/fonts/src/Font_Pretendard_Bold_24_4bpp_21.o \
 ../TouchGFX/build/MINGW32_NT-6.2/generated/fonts/src/Font_Pretendard_Bold_24_4bpp_22.o \
+../TouchGFX/build/MINGW32_NT-6.2/generated/fonts/src/Font_Pretendard_Bold_24_4bpp_23.o \
+../TouchGFX/build/MINGW32_NT-6.2/generated/fonts/src/Font_Pretendard_Bold_24_4bpp_24.o \
 ../TouchGFX/build/MINGW32_NT-6.2/generated/fonts/src/Font_Pretendard_Bold_24_4bpp_25.o \
 ../TouchGFX/build/MINGW32_NT-6.2/generated/fonts/src/Font_Pretendard_Bold_28_4bpp_0.o \
 ../TouchGFX/build/MINGW32_NT-6.2/generated/fonts/src/Font_Pretendard_Bold_28_4bpp_21.o \

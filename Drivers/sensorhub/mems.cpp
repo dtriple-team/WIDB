@@ -9,6 +9,8 @@
 #include "mems.h"
 #include "i2c.h"
 
+//#include "app_FreeFallDetection.h"
+
 void init_iis2mdc(){
 	uint8_t err = 0;
 	uint8_t tx_data[2] = {0,};
@@ -66,27 +68,73 @@ void read_iis2mdc(double* magnetX, double* magnetY, double* magnetZ, double* tem
 
 	return;
 }
+//
+//void init_ism330dhcx(){
+//	uint8_t err = 0;
+//	uint8_t tx_data[2] = {0,};
+//
+//	tx_data[0] = ISM330DHCX_CTRL3_C;
+//	tx_data[1] = 0x01; // SW reset
+//	err |= HAL_I2C_Master_Transmit(&hi2c1, ISM330DHCX_ADDR_W, tx_data, 2, 100);
+//
+//	tx_data[0] = ISM330DHCX_CTRL9_XL;
+//	tx_data[1] = 0x02; // Device Configuration Enable (0: disable)
+//	err |= HAL_I2C_Master_Transmit(&hi2c1, ISM330DHCX_ADDR_W, tx_data, 2, 100);
+//
+//	tx_data[0] = ISM330DHCX_CTRL1_XL;
+//	tx_data[1] = 0x62; // 416Hz ODR | LPF2_XL_EN
+//	err |= HAL_I2C_Master_Transmit(&hi2c1, ISM330DHCX_ADDR_W, tx_data, 2, 100);
+//
+//	tx_data[0] = ISM330DHCX_CTRL2_G;
+//	tx_data[1] = 0x62; // 416Hz ODR | DFull Scale +-125dps
+//	err |= HAL_I2C_Master_Transmit(&hi2c1, ISM330DHCX_ADDR_W, tx_data, 2, 100);
+//}
 
-void init_ism330dhcx(){
+void init_ism330dhcx(){ // 주석 설명 필요
 	uint8_t err = 0;
 	uint8_t tx_data[2] = {0,};
 
 	tx_data[0] = ISM330DHCX_CTRL3_C;
-	tx_data[1] = 0x01;
+	tx_data[1] = 0x41;
 	err |= HAL_I2C_Master_Transmit(&hi2c1, ISM330DHCX_ADDR_W, tx_data, 2, 100);
 
 	tx_data[0] = ISM330DHCX_CTRL9_XL;
 	tx_data[1] = 0x02;
 	err |= HAL_I2C_Master_Transmit(&hi2c1, ISM330DHCX_ADDR_W, tx_data, 2, 100);
 
-	tx_data[0] = ISM330DHCX_CTRL1_XL;
-	tx_data[1] = 0x62;
+
+
+	tx_data[0] = ISM330DHCX_WAKE_UP_DUR;
+	tx_data[1] = 0x06;
+	err |= HAL_I2C_Master_Transmit(&hi2c1, ISM330DHCX_ADDR_W, tx_data, 2, 100);
+
+	tx_data[0] = ISM330DHCX_FREE_FALL;
+	tx_data[1] = 0x33;
+	err |= HAL_I2C_Master_Transmit(&hi2c1, ISM330DHCX_ADDR_W, tx_data, 2, 100);
+
+	tx_data[0] = ISM330DHCX_MD1_CFG;
+	tx_data[1] = 0x10;
+	err |= HAL_I2C_Master_Transmit(&hi2c1, ISM330DHCX_ADDR_W, tx_data, 2, 100);
+
+	tx_data[0] = ISM330DHCX_INT1_CTRL;
+	tx_data[1] = 0x10;
+	err |= HAL_I2C_Master_Transmit(&hi2c1, ISM330DHCX_ADDR_W, tx_data, 2, 100);
+
+	tx_data[0] = ISM330DHCX_TAP_CFG2;
+	tx_data[1] = 0x80; // interrupt enable
+	err |= HAL_I2C_Master_Transmit(&hi2c1, ISM330DHCX_ADDR_W, tx_data, 2, 100);
+
+	tx_data[0] = ISM330DHCX_TAP_THS_6D;
+	tx_data[1] = 0x80; // interrupt enable
 	err |= HAL_I2C_Master_Transmit(&hi2c1, ISM330DHCX_ADDR_W, tx_data, 2, 100);
 
 	tx_data[0] = ISM330DHCX_CTRL2_G;
 	tx_data[1] = 0x62;
 	err |= HAL_I2C_Master_Transmit(&hi2c1, ISM330DHCX_ADDR_W, tx_data, 2, 100);
 
+	tx_data[0] = ISM330DHCX_CTRL1_XL;
+	tx_data[1] = 0x62;
+	err |= HAL_I2C_Master_Transmit(&hi2c1, ISM330DHCX_ADDR_W, tx_data, 2, 100);
 }
 
 void read_ism330dhcx(uint16_t gyroSensi, uint8_t accSensi, double* temp, double* gyroX, double* gyroY, double* gyroZ, double* accX, double* accY, double* accZ){
@@ -131,6 +179,35 @@ void read_ism330dhcx(uint16_t gyroSensi, uint8_t accSensi, double* temp, double*
 	*accZ = (1.0*accValueZ)*(1.0*unitAccSensitivity/1000.0)*accSensi/2.0;
 
 	return;
+}
+
+//void ism330dhcxINTEnable(){
+//
+//	// free-fall detect
+//	uint8_t intrr_data[1] = {0,};
+//	uint8_t is_free_fall_in_reg = 0;
+//	HAL_I2C_Mem_Read(&hi2c1, ISM330DHCX_ADDR_W+1, (uint16_t)ISM330DHCX_ALL_INT_SRC, 1, intrr_data, sizeof(intrr_data), 100);
+//	if((uint8_t)intrr_data[0] & 0x01 == 0x01){
+//		is_free_fall_in_reg = 1;
+//	}
+//
+//	return;
+//}
+
+uint8_t whatKindInterrupt(){
+	uint8_t intrr_data[1] = {0,};
+	HAL_I2C_Mem_Read(&hi2c1, ISM330DHCX_ADDR_W+1, (uint16_t)ISM330DHCX_ALL_INT_SRC, 1, intrr_data, sizeof(intrr_data), 100);
+
+	return intrr_data[0];
+	/*
+	 * In intrr_data[0]
+	 * bit[5] change activity/inactivity
+	 * bit[4] change position change ( position of portrait, landscape, face-up, face-down)
+	 * bit[3] double tap
+	 * bit[2] single tap
+	 * bit[1] wake-up
+	 * bit[0] free-fall
+	 */
 }
 
 void init_lps22hh(){

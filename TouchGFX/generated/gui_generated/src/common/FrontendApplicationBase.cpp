@@ -25,8 +25,6 @@
 #include <gui/spo2detail_screen/Spo2DetailPresenter.hpp>
 #include <gui/swipedownfromhome_screen/swipedownfromHomeView.hpp>
 #include <gui/swipedownfromhome_screen/swipedownfromHomePresenter.hpp>
-#include <gui/notificationscreen_screen/NotificationScreenView.hpp>
-#include <gui/notificationscreen_screen/NotificationScreenPresenter.hpp>
 #include <gui/settingscreen_screen/SettingScreenView.hpp>
 #include <gui/settingscreen_screen/SettingScreenPresenter.hpp>
 #include <gui/screensetting_screen/screenSettingView.hpp>
@@ -39,32 +37,22 @@
 #include <gui/soundnhapticssetting_screen/soundnhapticsSettingPresenter.hpp>
 #include <gui/languagesetting_screen/languageSettingView.hpp>
 #include <gui/languagesetting_screen/languageSettingPresenter.hpp>
-#include <gui/wifisetting_screen/wifiSettingView.hpp>
-#include <gui/wifisetting_screen/wifiSettingPresenter.hpp>
 #include <gui/informationsetting_screen/informationSettingView.hpp>
 #include <gui/informationsetting_screen/informationSettingPresenter.hpp>
 #include <gui/deviceinfosetting_screen/deviceInfoSettingView.hpp>
 #include <gui/deviceinfosetting_screen/deviceInfoSettingPresenter.hpp>
 #include <gui/networkinfosetting_screen/networkInfoSettingView.hpp>
 #include <gui/networkinfosetting_screen/networkInfoSettingPresenter.hpp>
-#include <gui/communicationcyclesetting_screen/communicationCycleSettingView.hpp>
-#include <gui/communicationcyclesetting_screen/communicationCycleSettingPresenter.hpp>
 #include <gui/systemsetting_screen/systemSettingView.hpp>
 #include <gui/systemsetting_screen/systemSettingPresenter.hpp>
 #include <gui/turnoffscreen_screen/turnoffScreenView.hpp>
 #include <gui/turnoffscreen_screen/turnoffScreenPresenter.hpp>
-#include <gui/englishkeyboard_screen/englishKeyboardView.hpp>
-#include <gui/englishkeyboard_screen/englishKeyboardPresenter.hpp>
-#include <gui/numberkeyboard_screen/numberKeyboardView.hpp>
-#include <gui/numberkeyboard_screen/numberKeyboardPresenter.hpp>
-#include <gui/characterkeyboard_screen/characterKeyboardView.hpp>
-#include <gui/characterkeyboard_screen/characterKeyboardPresenter.hpp>
-#include <gui/dispatchorwait_screen/dispatchorwaitView.hpp>
-#include <gui/dispatchorwait_screen/dispatchorwaitPresenter.hpp>
 #include <gui/falldetected_screen/fallDetectedView.hpp>
 #include <gui/falldetected_screen/fallDetectedPresenter.hpp>
-#include <gui/inout_screen/inoutView.hpp>
-#include <gui/inout_screen/inoutPresenter.hpp>
+#include <gui/initblackscreen_screen/initBlackScreenView.hpp>
+#include <gui/initblackscreen_screen/initBlackScreenPresenter.hpp>
+#include <gui/temphome_screen/tempHomeView.hpp>
+#include <gui/temphome_screen/tempHomePresenter.hpp>
 
 using namespace touchgfx;
 
@@ -76,8 +64,7 @@ FrontendApplicationBase::FrontendApplicationBase(Model& m, FrontendHeap& heap)
 {
     touchgfx::HAL::getInstance()->setDisplayOrientation(touchgfx::ORIENTATION_PORTRAIT);
     touchgfx::Texts::setLanguage(GB);
-    reinterpret_cast<touchgfx::LCD16bpp&>(touchgfx::HAL::lcd()).enableTextureMapperRGB565();
-    reinterpret_cast<touchgfx::LCD16bpp&>(touchgfx::HAL::lcd()).enableTextureMapperA4();
+    reinterpret_cast<touchgfx::LCD16bpp&>(touchgfx::HAL::lcd()).enableTextureMapperAll();
     reinterpret_cast<touchgfx::LCD16bpp&>(touchgfx::HAL::lcd()).enableDecompressorL8_All();
 }
 
@@ -120,67 +107,52 @@ void FrontendApplicationBase::gotoHomeScreenWithBiodataScreenWipeTransitionSouth
     touchgfx::makeTransition<HomeScreenWithBiodataView, HomeScreenWithBiodataPresenter, touchgfx::WipeTransition<SOUTH>, Model >(&currentScreen, &currentPresenter, frontendHeap, &currentTransition, &model);
 }
 
-void FrontendApplicationBase::gotoHomeScreenWithBiodataScreenWipeTransitionNorth()
+// HeartrateDetail
+
+void FrontendApplicationBase::gotoHeartrateDetailScreenCoverTransitionEast()
 {
-    transitionCallback = touchgfx::Callback<FrontendApplicationBase>(this, &FrontendApplicationBase::gotoHomeScreenWithBiodataScreenWipeTransitionNorthImpl);
+    transitionCallback = touchgfx::Callback<FrontendApplicationBase>(this, &FrontendApplicationBase::gotoHeartrateDetailScreenCoverTransitionEastImpl);
     pendingScreenTransitionCallback = &transitionCallback;
 }
 
-void FrontendApplicationBase::gotoHomeScreenWithBiodataScreenWipeTransitionNorthImpl()
+void FrontendApplicationBase::gotoHeartrateDetailScreenCoverTransitionEastImpl()
 {
-    touchgfx::makeTransition<HomeScreenWithBiodataView, HomeScreenWithBiodataPresenter, touchgfx::WipeTransition<NORTH>, Model >(&currentScreen, &currentPresenter, frontendHeap, &currentTransition, &model);
+    touchgfx::makeTransition<HeartrateDetailView, HeartrateDetailPresenter, touchgfx::CoverTransition<EAST>, Model >(&currentScreen, &currentPresenter, frontendHeap, &currentTransition, &model);
 }
 
-// SleepScreen
-
-void FrontendApplicationBase::gotoSleepScreenScreenCoverTransitionEast()
+void FrontendApplicationBase::gotoHeartrateDetailScreenWipeTransitionSouth()
 {
-    transitionCallback = touchgfx::Callback<FrontendApplicationBase>(this, &FrontendApplicationBase::gotoSleepScreenScreenCoverTransitionEastImpl);
+    transitionCallback = touchgfx::Callback<FrontendApplicationBase>(this, &FrontendApplicationBase::gotoHeartrateDetailScreenWipeTransitionSouthImpl);
     pendingScreenTransitionCallback = &transitionCallback;
 }
 
-void FrontendApplicationBase::gotoSleepScreenScreenCoverTransitionEastImpl()
+void FrontendApplicationBase::gotoHeartrateDetailScreenWipeTransitionSouthImpl()
 {
-    touchgfx::makeTransition<SleepScreenView, SleepScreenPresenter, touchgfx::CoverTransition<EAST>, Model >(&currentScreen, &currentPresenter, frontendHeap, &currentTransition, &model);
+    touchgfx::makeTransition<HeartrateDetailView, HeartrateDetailPresenter, touchgfx::WipeTransition<SOUTH>, Model >(&currentScreen, &currentPresenter, frontendHeap, &currentTransition, &model);
 }
 
-// Spo2Screen
+// Spo2Detail
 
-void FrontendApplicationBase::gotoSpo2ScreenScreenCoverTransitionEast()
+void FrontendApplicationBase::gotoSpo2DetailScreenCoverTransitionEast()
 {
-    transitionCallback = touchgfx::Callback<FrontendApplicationBase>(this, &FrontendApplicationBase::gotoSpo2ScreenScreenCoverTransitionEastImpl);
+    transitionCallback = touchgfx::Callback<FrontendApplicationBase>(this, &FrontendApplicationBase::gotoSpo2DetailScreenCoverTransitionEastImpl);
     pendingScreenTransitionCallback = &transitionCallback;
 }
 
-void FrontendApplicationBase::gotoSpo2ScreenScreenCoverTransitionEastImpl()
+void FrontendApplicationBase::gotoSpo2DetailScreenCoverTransitionEastImpl()
 {
-    touchgfx::makeTransition<Spo2ScreenView, Spo2ScreenPresenter, touchgfx::CoverTransition<EAST>, Model >(&currentScreen, &currentPresenter, frontendHeap, &currentTransition, &model);
+    touchgfx::makeTransition<Spo2DetailView, Spo2DetailPresenter, touchgfx::CoverTransition<EAST>, Model >(&currentScreen, &currentPresenter, frontendHeap, &currentTransition, &model);
 }
 
-// HeartrateScreen
-
-void FrontendApplicationBase::gotoHeartrateScreenScreenCoverTransitionEast()
+void FrontendApplicationBase::gotoSpo2DetailScreenWipeTransitionSouth()
 {
-    transitionCallback = touchgfx::Callback<FrontendApplicationBase>(this, &FrontendApplicationBase::gotoHeartrateScreenScreenCoverTransitionEastImpl);
+    transitionCallback = touchgfx::Callback<FrontendApplicationBase>(this, &FrontendApplicationBase::gotoSpo2DetailScreenWipeTransitionSouthImpl);
     pendingScreenTransitionCallback = &transitionCallback;
 }
 
-void FrontendApplicationBase::gotoHeartrateScreenScreenCoverTransitionEastImpl()
+void FrontendApplicationBase::gotoSpo2DetailScreenWipeTransitionSouthImpl()
 {
-    touchgfx::makeTransition<HeartrateScreenView, HeartrateScreenPresenter, touchgfx::CoverTransition<EAST>, Model >(&currentScreen, &currentPresenter, frontendHeap, &currentTransition, &model);
-}
-
-// StepsScreen
-
-void FrontendApplicationBase::gotoStepsScreenScreenCoverTransitionEast()
-{
-    transitionCallback = touchgfx::Callback<FrontendApplicationBase>(this, &FrontendApplicationBase::gotoStepsScreenScreenCoverTransitionEastImpl);
-    pendingScreenTransitionCallback = &transitionCallback;
-}
-
-void FrontendApplicationBase::gotoStepsScreenScreenCoverTransitionEastImpl()
-{
-    touchgfx::makeTransition<StepsScreenView, StepsScreenPresenter, touchgfx::CoverTransition<EAST>, Model >(&currentScreen, &currentPresenter, frontendHeap, &currentTransition, &model);
+    touchgfx::makeTransition<Spo2DetailView, Spo2DetailPresenter, touchgfx::WipeTransition<SOUTH>, Model >(&currentScreen, &currentPresenter, frontendHeap, &currentTransition, &model);
 }
 
 // swipedownfromHome
@@ -205,19 +177,6 @@ void FrontendApplicationBase::gotoswipedownfromHomeScreenWipeTransitionWest()
 void FrontendApplicationBase::gotoswipedownfromHomeScreenWipeTransitionWestImpl()
 {
     touchgfx::makeTransition<swipedownfromHomeView, swipedownfromHomePresenter, touchgfx::WipeTransition<WEST>, Model >(&currentScreen, &currentPresenter, frontendHeap, &currentTransition, &model);
-}
-
-// NotificationScreen
-
-void FrontendApplicationBase::gotoNotificationScreenScreenCoverTransitionSouth()
-{
-    transitionCallback = touchgfx::Callback<FrontendApplicationBase>(this, &FrontendApplicationBase::gotoNotificationScreenScreenCoverTransitionSouthImpl);
-    pendingScreenTransitionCallback = &transitionCallback;
-}
-
-void FrontendApplicationBase::gotoNotificationScreenScreenCoverTransitionSouthImpl()
-{
-    touchgfx::makeTransition<NotificationScreenView, NotificationScreenPresenter, touchgfx::CoverTransition<SOUTH>, Model >(&currentScreen, &currentPresenter, frontendHeap, &currentTransition, &model);
 }
 
 // SettingScreen
@@ -320,20 +279,18 @@ void FrontendApplicationBase::gotolanguageSettingScreenCoverTransitionEastImpl()
     touchgfx::makeTransition<languageSettingView, languageSettingPresenter, touchgfx::CoverTransition<EAST>, Model >(&currentScreen, &currentPresenter, frontendHeap, &currentTransition, &model);
 }
 
-// wifiSetting
+// informationSetting
 
-void FrontendApplicationBase::gotowifiSettingScreenCoverTransitionEast()
+void FrontendApplicationBase::gotoinformationSettingScreenWipeTransitionNorth()
 {
-    transitionCallback = touchgfx::Callback<FrontendApplicationBase>(this, &FrontendApplicationBase::gotowifiSettingScreenCoverTransitionEastImpl);
+    transitionCallback = touchgfx::Callback<FrontendApplicationBase>(this, &FrontendApplicationBase::gotoinformationSettingScreenWipeTransitionNorthImpl);
     pendingScreenTransitionCallback = &transitionCallback;
 }
 
-void FrontendApplicationBase::gotowifiSettingScreenCoverTransitionEastImpl()
+void FrontendApplicationBase::gotoinformationSettingScreenWipeTransitionNorthImpl()
 {
-    touchgfx::makeTransition<wifiSettingView, wifiSettingPresenter, touchgfx::CoverTransition<EAST>, Model >(&currentScreen, &currentPresenter, frontendHeap, &currentTransition, &model);
+    touchgfx::makeTransition<informationSettingView, informationSettingPresenter, touchgfx::WipeTransition<NORTH>, Model >(&currentScreen, &currentPresenter, frontendHeap, &currentTransition, &model);
 }
-
-// informationSetting
 
 void FrontendApplicationBase::gotoinformationSettingScreenCoverTransitionEast()
 {
@@ -383,19 +340,6 @@ void FrontendApplicationBase::gotonetworkInfoSettingScreenCoverTransitionEastImp
     touchgfx::makeTransition<networkInfoSettingView, networkInfoSettingPresenter, touchgfx::CoverTransition<EAST>, Model >(&currentScreen, &currentPresenter, frontendHeap, &currentTransition, &model);
 }
 
-// communicationCycleSetting
-
-void FrontendApplicationBase::gotocommunicationCycleSettingScreenCoverTransitionEast()
-{
-    transitionCallback = touchgfx::Callback<FrontendApplicationBase>(this, &FrontendApplicationBase::gotocommunicationCycleSettingScreenCoverTransitionEastImpl);
-    pendingScreenTransitionCallback = &transitionCallback;
-}
-
-void FrontendApplicationBase::gotocommunicationCycleSettingScreenCoverTransitionEastImpl()
-{
-    touchgfx::makeTransition<communicationCycleSettingView, communicationCycleSettingPresenter, touchgfx::CoverTransition<EAST>, Model >(&currentScreen, &currentPresenter, frontendHeap, &currentTransition, &model);
-}
-
 // systemSetting
 
 void FrontendApplicationBase::gotosystemSettingScreenCoverTransitionEast()
@@ -422,41 +366,28 @@ void FrontendApplicationBase::gototurnoffScreenScreenNoTransitionImpl()
     touchgfx::makeTransition<turnoffScreenView, turnoffScreenPresenter, touchgfx::NoTransition, Model >(&currentScreen, &currentPresenter, frontendHeap, &currentTransition, &model);
 }
 
-// englishKeyboard
+// fallDetected
 
-void FrontendApplicationBase::gotoenglishKeyboardScreenNoTransition()
+void FrontendApplicationBase::gotofallDetectedScreenNoTransition()
 {
-    transitionCallback = touchgfx::Callback<FrontendApplicationBase>(this, &FrontendApplicationBase::gotoenglishKeyboardScreenNoTransitionImpl);
+    transitionCallback = touchgfx::Callback<FrontendApplicationBase>(this, &FrontendApplicationBase::gotofallDetectedScreenNoTransitionImpl);
     pendingScreenTransitionCallback = &transitionCallback;
 }
 
-void FrontendApplicationBase::gotoenglishKeyboardScreenNoTransitionImpl()
+void FrontendApplicationBase::gotofallDetectedScreenNoTransitionImpl()
 {
-    touchgfx::makeTransition<englishKeyboardView, englishKeyboardPresenter, touchgfx::NoTransition, Model >(&currentScreen, &currentPresenter, frontendHeap, &currentTransition, &model);
+    touchgfx::makeTransition<fallDetectedView, fallDetectedPresenter, touchgfx::NoTransition, Model >(&currentScreen, &currentPresenter, frontendHeap, &currentTransition, &model);
 }
 
-// numberKeyboard
+// initBlackScreen
 
-void FrontendApplicationBase::gotonumberKeyboardScreenNoTransition()
+void FrontendApplicationBase::gotoinitBlackScreenScreenNoTransition()
 {
-    transitionCallback = touchgfx::Callback<FrontendApplicationBase>(this, &FrontendApplicationBase::gotonumberKeyboardScreenNoTransitionImpl);
+    transitionCallback = touchgfx::Callback<FrontendApplicationBase>(this, &FrontendApplicationBase::gotoinitBlackScreenScreenNoTransitionImpl);
     pendingScreenTransitionCallback = &transitionCallback;
 }
 
-void FrontendApplicationBase::gotonumberKeyboardScreenNoTransitionImpl()
+void FrontendApplicationBase::gotoinitBlackScreenScreenNoTransitionImpl()
 {
-    touchgfx::makeTransition<numberKeyboardView, numberKeyboardPresenter, touchgfx::NoTransition, Model >(&currentScreen, &currentPresenter, frontendHeap, &currentTransition, &model);
-}
-
-// characterKeyboard
-
-void FrontendApplicationBase::gotocharacterKeyboardScreenNoTransition()
-{
-    transitionCallback = touchgfx::Callback<FrontendApplicationBase>(this, &FrontendApplicationBase::gotocharacterKeyboardScreenNoTransitionImpl);
-    pendingScreenTransitionCallback = &transitionCallback;
-}
-
-void FrontendApplicationBase::gotocharacterKeyboardScreenNoTransitionImpl()
-{
-    touchgfx::makeTransition<characterKeyboardView, characterKeyboardPresenter, touchgfx::NoTransition, Model >(&currentScreen, &currentPresenter, frontendHeap, &currentTransition, &model);
+    touchgfx::makeTransition<initBlackScreenView, initBlackScreenPresenter, touchgfx::NoTransition, Model >(&currentScreen, &currentPresenter, frontendHeap, &currentTransition, &model);
 }

@@ -19,22 +19,31 @@ Spo2DetailViewBase::Spo2DetailViewBase()
     background.setBitmap(touchgfx::Bitmap(BITMAP_BACKGROUND_ID));
     add(background);
 
-    Spo2.setPosition(0, 6, 240, 25);
-    Spo2.setColor(touchgfx::Color::getColorFromRGB(255, 255, 255));
-    Spo2.setLinespacing(0);
-    Spo2.setTypedText(touchgfx::TypedText(T_SPO2TEXT));
-    add(Spo2);
+    spo2_label.setPosition(0, 6, 240, 25);
+    spo2_label.setColor(touchgfx::Color::getColorFromRGB(255, 255, 255));
+    spo2_label.setLinespacing(0);
+    spo2_label.setTypedText(touchgfx::TypedText(T_SPO2TEXT));
+    add(spo2_label);
 
-    image1.setXY(15, 33);
-    image1.setBitmap(touchgfx::Bitmap(BITMAP_WATERDROP_ID));
-    add(image1);
+    spo2_image.setXY(15, 33);
+    spo2_image.setBitmap(touchgfx::Bitmap(BITMAP_WATERDROP_ID));
+    add(spo2_image);
 
-    curspo2detail.setPosition(55, 42, 170, 25);
-    curspo2detail.setColor(touchgfx::Color::getColorFromRGB(255, 255, 255));
-    curspo2detail.setLinespacing(0);
-    curspo2detail.setWildcard(touchgfx::TypedText(T_CURSPO2VALUE).getText());
-    curspo2detail.setTypedText(touchgfx::TypedText(T_CURSPO2DETAIL));
-    add(curspo2detail);
+    spo2_value.setPosition(55, 42, 170, 25);
+    spo2_value.setColor(touchgfx::Color::getColorFromRGB(255, 255, 255));
+    spo2_value.setLinespacing(0);
+    Unicode::snprintf(spo2_valueBuffer, SPO2_VALUE_SIZE, "%s", touchgfx::TypedText(T_CURSPO2VALUE).getText());
+    spo2_value.setWildcard(spo2_valueBuffer);
+    spo2_value.setTypedText(touchgfx::TypedText(T_CURSPO2DETAIL));
+    add(spo2_value);
+
+    topright_image.setPosition(175, 0, 65, 33);
+    topright_image.setColor(touchgfx::Color::getColorFromRGB(0, 0, 0));
+    add(topright_image);
+
+    topleft_image.setPosition(0, 0, 65, 33);
+    topleft_image.setColor(touchgfx::Color::getColorFromRGB(0, 0, 0));
+    add(topleft_image);
 
     batteryprogress.setXY(197, 8);
     batteryprogress.setProgressIndicatorPosition(2, 2, 27, 11);
@@ -46,18 +55,22 @@ Spo2DetailViewBase::Spo2DetailViewBase()
     batteryprogress.setAnchorAtZero(true);
     add(batteryprogress);
 
-    dynamicGraph1.setPosition(20, 95, 200, 165);
-    dynamicGraph1.setScale(1);
-    dynamicGraph1.setGraphAreaMargin(0, 0, 0, 0);
-    dynamicGraph1.setGraphAreaPadding(0, 0, 0, 0);
-    dynamicGraph1.setGraphRangeY(0, 200);
-    dynamicGraph1Line1Painter.setColor(touchgfx::Color::getColorFromRGB(50, 142, 199));
-    dynamicGraph1Line1.setPainter(dynamicGraph1Line1Painter);
-    dynamicGraph1Line1.setLineWidth(2);
-    dynamicGraph1.addGraphElement(dynamicGraph1Line1);
+    spo2_detail_graph.setPosition(20, 95, 200, 165);
+    spo2_detail_graph.setScale(1);
+    spo2_detail_graph.setGraphAreaMargin(0, 0, 0, 0);
+    spo2_detail_graph.setGraphAreaPadding(0, 0, 0, 0);
+    spo2_detail_graph.setGraphRangeY(0, 200);
+    spo2_detail_graphLine1Painter.setColor(touchgfx::Color::getColorFromRGB(50, 142, 199));
+    spo2_detail_graphLine1.setPainter(spo2_detail_graphLine1Painter);
+    spo2_detail_graphLine1.setLineWidth(2);
+    spo2_detail_graph.addGraphElement(spo2_detail_graphLine1);
 
 
-    add(dynamicGraph1);
+    add(spo2_detail_graph);
+
+    catm1_image.setXY(11, 11);
+    catm1_image.setBitmap(touchgfx::Bitmap(BITMAP_LTE_NOTCONNECTED_ID));
+    add(catm1_image);
 }
 
 Spo2DetailViewBase::~Spo2DetailViewBase()

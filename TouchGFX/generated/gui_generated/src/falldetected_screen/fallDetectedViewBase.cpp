@@ -16,11 +16,11 @@ fallDetectedViewBase::fallDetectedViewBase()
     background.setBitmap(touchgfx::Bitmap(BITMAP_BACKGROUND_ID));
     add(background);
 
-    falldetectiontext.setPosition(0, 6, 240, 25);
-    falldetectiontext.setColor(touchgfx::Color::getColorFromRGB(255, 255, 255));
-    falldetectiontext.setLinespacing(0);
-    falldetectiontext.setTypedText(touchgfx::TypedText(T_FALLSOCCURLABEL));
-    add(falldetectiontext);
+    textArea1.setPosition(0, 6, 240, 25);
+    textArea1.setColor(touchgfx::Color::getColorFromRGB(255, 255, 255));
+    textArea1.setLinespacing(0);
+    textArea1.setTypedText(touchgfx::TypedText(T_FALLSOCCURLABEL));
+    add(textArea1);
 
     batteryprogress.setXY(197, 8);
     batteryprogress.setProgressIndicatorPosition(2, 2, 27, 11);
@@ -36,11 +36,19 @@ fallDetectedViewBase::fallDetectedViewBase()
     image1.setBitmap(touchgfx::Bitmap(BITMAP_FALL_DETECTED_ICON_ID));
     add(image1);
 
-    textArea1.setPosition(0, 208, 240, 29);
-    textArea1.setColor(touchgfx::Color::getColorFromRGB(255, 255, 255));
-    textArea1.setLinespacing(0);
-    textArea1.setTypedText(touchgfx::TypedText(T_FALLDETECTIONTEXT));
-    add(textArea1);
+    textArea2.setPosition(0, 208, 240, 29);
+    textArea2.setColor(touchgfx::Color::getColorFromRGB(255, 255, 255));
+    textArea2.setLinespacing(0);
+    textArea2.setTypedText(touchgfx::TypedText(T_FALLDETECTIONTEXT));
+    add(textArea2);
+
+    topleft_box.setPosition(0, 0, 65, 33);
+    topleft_box.setColor(touchgfx::Color::getColorFromRGB(0, 0, 0));
+    add(topleft_box);
+
+    image2.setXY(11, 11);
+    image2.setBitmap(touchgfx::Bitmap(BITMAP_LTE_NOTCONNECTED_ID));
+    add(image2);
 }
 
 fallDetectedViewBase::~fallDetectedViewBase()
@@ -51,4 +59,12 @@ fallDetectedViewBase::~fallDetectedViewBase()
 void fallDetectedViewBase::setupScreen()
 {
 
+}
+
+void fallDetectedViewBase::changeToFallDetected()
+{
+    //Interaction1
+    //When changeToFallDetected is called change screen to fallDetected
+    //Go to fallDetected with no screen transition
+    application().gotofallDetectedScreenNoTransition();
 }
