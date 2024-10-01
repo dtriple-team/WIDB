@@ -185,6 +185,9 @@ TouchGFX/target/generated/TouchGFXConfiguration.o: \
  ../TouchGFX/gui/include/gui/temphome_screen/tempHomeView.hpp \
  ../TouchGFX/generated/gui_generated/include/gui_generated/temphome_screen/tempHomeViewBase.hpp \
  ../TouchGFX/gui/include/gui/temphome_screen/tempHomePresenter.hpp \
+ ../TouchGFX/gui/include/gui/flashlight_screen_screen/flashlight_screenView.hpp \
+ ../TouchGFX/generated/gui_generated/include/gui_generated/flashlight_screen_screen/flashlight_screenViewBase.hpp \
+ ../TouchGFX/gui/include/gui/flashlight_screen_screen/flashlight_screenPresenter.hpp \
  ../TouchGFX/generated/images/include/BitmapDatabase.hpp \
  ../TouchGFX/generated/images/include/images/BitmapDatabase.hpp \
  ../TouchGFX/target/TouchGFXDMA.hpp ../TouchGFX/target/TouchGFXHAL.hpp \
@@ -420,6 +423,9 @@ TouchGFX/target/generated/TouchGFXConfiguration.o: \
 ../TouchGFX/gui/include/gui/temphome_screen/tempHomeView.hpp:
 ../TouchGFX/generated/gui_generated/include/gui_generated/temphome_screen/tempHomeViewBase.hpp:
 ../TouchGFX/gui/include/gui/temphome_screen/tempHomePresenter.hpp:
+../TouchGFX/gui/include/gui/flashlight_screen_screen/flashlight_screenView.hpp:
+../TouchGFX/generated/gui_generated/include/gui_generated/flashlight_screen_screen/flashlight_screenViewBase.hpp:
+../TouchGFX/gui/include/gui/flashlight_screen_screen/flashlight_screenPresenter.hpp:
 ../TouchGFX/generated/images/include/BitmapDatabase.hpp:
 ../TouchGFX/generated/images/include/images/BitmapDatabase.hpp:
 ../TouchGFX/target/TouchGFXDMA.hpp:

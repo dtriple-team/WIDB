@@ -42,6 +42,8 @@ public:
 
     void gotoswipedownfromHomeScreenWipeTransitionWest();
 
+    void gotoswipedownfromHomeScreenNoTransition();
+
     // SettingScreen
     void gotoSettingScreenScreenWipeTransitionNorth();
 
@@ -89,6 +91,9 @@ public:
     // initBlackScreen
     void gotoinitBlackScreenScreenNoTransition();
 
+    // flashlight_screen
+    void gotoflashlight_screenScreenNoTransition();
+
 protected:
     touchgfx::Callback<FrontendApplicationBase> transitionCallback;
     FrontendHeap& frontendHeap;
@@ -115,6 +120,8 @@ protected:
     void gotoswipedownfromHomeScreenCoverTransitionNorthImpl();
 
     void gotoswipedownfromHomeScreenWipeTransitionWestImpl();
+
+    void gotoswipedownfromHomeScreenNoTransitionImpl();
 
     // SettingScreen
     void gotoSettingScreenScreenWipeTransitionNorthImpl();
@@ -162,6 +169,9 @@ protected:
 
     // initBlackScreen
     void gotoinitBlackScreenScreenNoTransitionImpl();
+
+    // flashlight_screen
+    void gotoflashlight_screenScreenNoTransitionImpl();
 };
 
 #endif // FRONTENDAPPLICATIONBASE_HPP

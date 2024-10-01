@@ -143,6 +143,7 @@ TouchGFX/generated/gui_generated/src/common \
 TouchGFX/generated/gui_generated/src/containers \
 TouchGFX/generated/gui_generated/src/deviceinfosetting_screen \
 TouchGFX/generated/gui_generated/src/falldetected_screen \
+TouchGFX/generated/gui_generated/src/flashlight_screen_screen \
 TouchGFX/generated/gui_generated/src/heartratedetail_screen \
 TouchGFX/generated/gui_generated/src/heartratescreen_screen \
 TouchGFX/generated/gui_generated/src/homescreenwithbiodata_screen \
@@ -170,6 +171,7 @@ TouchGFX/gui/src/common \
 TouchGFX/gui/src/containers \
 TouchGFX/gui/src/deviceinfosetting_screen \
 TouchGFX/gui/src/falldetected_screen \
+TouchGFX/gui/src/flashlight_screen_screen \
 TouchGFX/gui/src/heartratedetail_screen \
 TouchGFX/gui/src/heartratescreen_screen \
 TouchGFX/gui/src/homescreenwithbiodata_screen \

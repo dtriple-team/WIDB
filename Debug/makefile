@@ -32,6 +32,7 @@ RM := rm -rf
 -include TouchGFX/gui/src/homescreenwithbiodata_screen/subdir.mk
 -include TouchGFX/gui/src/heartratescreen_screen/subdir.mk
 -include TouchGFX/gui/src/heartratedetail_screen/subdir.mk
+-include TouchGFX/gui/src/flashlight_screen_screen/subdir.mk
 -include TouchGFX/gui/src/falldetected_screen/subdir.mk
 -include TouchGFX/gui/src/deviceinfosetting_screen/subdir.mk
 -include TouchGFX/gui/src/containers/subdir.mk
@@ -59,6 +60,7 @@ RM := rm -rf
 -include TouchGFX/generated/gui_generated/src/homescreenwithbiodata_screen/subdir.mk
 -include TouchGFX/generated/gui_generated/src/heartratescreen_screen/subdir.mk
 -include TouchGFX/generated/gui_generated/src/heartratedetail_screen/subdir.mk
+-include TouchGFX/generated/gui_generated/src/flashlight_screen_screen/subdir.mk
 -include TouchGFX/generated/gui_generated/src/falldetected_screen/subdir.mk
 -include TouchGFX/generated/gui_generated/src/deviceinfosetting_screen/subdir.mk
 -include TouchGFX/generated/gui_generated/src/containers/subdir.mk

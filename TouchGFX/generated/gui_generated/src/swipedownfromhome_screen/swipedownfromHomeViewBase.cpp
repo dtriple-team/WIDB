@@ -42,9 +42,10 @@ swipedownfromHomeViewBase::swipedownfromHomeViewBase() :
     information_button.setAction(buttonCallback);
     add(information_button);
 
-    flashlight_togglebutton.setXY(87, 197);
-    flashlight_togglebutton.setBitmaps(touchgfx::Bitmap(BITMAP_SWIPEDOWN_BUTTON_PRESSED_ID), touchgfx::Bitmap(BITMAP_SWIPEDOWN_BUTTON_ID));
-    add(flashlight_togglebutton);
+    flashlight_button.setXY(87, 197);
+    flashlight_button.setBitmaps(touchgfx::Bitmap(BITMAP_SWIPEDOWN_BUTTON_ID), touchgfx::Bitmap(BITMAP_SWIPEDOWN_BUTTON_PRESSED_ID));
+    flashlight_button.setAction(buttonCallback);
+    add(flashlight_button);
 
     slider1.setXY(161, 124);
     slider1.setBitmaps(touchgfx::Bitmap(BITMAP_SWIPEDOWN_BRIGHTNESS_BACK_ID), touchgfx::Bitmap(BITMAP_SWIPEDOWN_BRIGHTNESS_ID), touchgfx::Bitmap(BITMAP_SWIPEDOWN_BRIGHTNESS_INDICATOR_ID));
@@ -138,5 +139,12 @@ void swipedownfromHomeViewBase::buttonCallbackHandler(const touchgfx::AbstractBu
         //When information_button clicked change screen to informationSetting
         //Go to informationSetting with screen transition towards North
         application().gotoinformationSettingScreenWipeTransitionNorth();
+    }
+    if (&src == &flashlight_button)
+    {
+        //flashlight
+        //When flashlight_button clicked change screen to flashlight_screen
+        //Go to flashlight_screen with no screen transition
+        application().gotoflashlight_screenScreenNoTransition();
     }
 }

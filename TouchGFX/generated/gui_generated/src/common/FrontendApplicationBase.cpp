@@ -53,6 +53,8 @@
 #include <gui/initblackscreen_screen/initBlackScreenPresenter.hpp>
 #include <gui/temphome_screen/tempHomeView.hpp>
 #include <gui/temphome_screen/tempHomePresenter.hpp>
+#include <gui/flashlight_screen_screen/flashlight_screenView.hpp>
+#include <gui/flashlight_screen_screen/flashlight_screenPresenter.hpp>
 
 using namespace touchgfx;
 
@@ -177,6 +179,17 @@ void FrontendApplicationBase::gotoswipedownfromHomeScreenWipeTransitionWest()
 void FrontendApplicationBase::gotoswipedownfromHomeScreenWipeTransitionWestImpl()
 {
     touchgfx::makeTransition<swipedownfromHomeView, swipedownfromHomePresenter, touchgfx::WipeTransition<WEST>, Model >(&currentScreen, &currentPresenter, frontendHeap, &currentTransition, &model);
+}
+
+void FrontendApplicationBase::gotoswipedownfromHomeScreenNoTransition()
+{
+    transitionCallback = touchgfx::Callback<FrontendApplicationBase>(this, &FrontendApplicationBase::gotoswipedownfromHomeScreenNoTransitionImpl);
+    pendingScreenTransitionCallback = &transitionCallback;
+}
+
+void FrontendApplicationBase::gotoswipedownfromHomeScreenNoTransitionImpl()
+{
+    touchgfx::makeTransition<swipedownfromHomeView, swipedownfromHomePresenter, touchgfx::NoTransition, Model >(&currentScreen, &currentPresenter, frontendHeap, &currentTransition, &model);
 }
 
 // SettingScreen
@@ -390,4 +403,17 @@ void FrontendApplicationBase::gotoinitBlackScreenScreenNoTransition()
 void FrontendApplicationBase::gotoinitBlackScreenScreenNoTransitionImpl()
 {
     touchgfx::makeTransition<initBlackScreenView, initBlackScreenPresenter, touchgfx::NoTransition, Model >(&currentScreen, &currentPresenter, frontendHeap, &currentTransition, &model);
+}
+
+// flashlight_screen
+
+void FrontendApplicationBase::gotoflashlight_screenScreenNoTransition()
+{
+    transitionCallback = touchgfx::Callback<FrontendApplicationBase>(this, &FrontendApplicationBase::gotoflashlight_screenScreenNoTransitionImpl);
+    pendingScreenTransitionCallback = &transitionCallback;
+}
+
+void FrontendApplicationBase::gotoflashlight_screenScreenNoTransitionImpl()
+{
+    touchgfx::makeTransition<flashlight_screenView, flashlight_screenPresenter, touchgfx::NoTransition, Model >(&currentScreen, &currentPresenter, frontendHeap, &currentTransition, &model);
 }

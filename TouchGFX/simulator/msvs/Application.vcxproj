@@ -91,6 +91,9 @@
     <ClCompile Include="..\..\gui\src\temphome_screen\tempHomePresenter.cpp"/>
     <ClCompile Include="..\..\gui\src\temphome_screen\tempHomeView.cpp"/>
     <ClCompile Include="..\..\generated\gui_generated\src\temphome_screen\tempHomeViewBase.cpp"/>
+    <ClCompile Include="..\..\gui\src\flashlight_screen_screen\flashlight_screenPresenter.cpp"/>
+    <ClCompile Include="..\..\gui\src\flashlight_screen_screen\flashlight_screenView.cpp"/>
+    <ClCompile Include="..\..\generated\gui_generated\src\flashlight_screen_screen\flashlight_screenViewBase.cpp"/>
   </ItemGroup>
   <ItemGroup>
     <None Include="$(ApplicationRoot)\assets\texts\texts.xml"/>
@@ -311,6 +314,9 @@
     <ClInclude Include="..\..\gui\include\gui\temphome_screen\tempHomePresenter.hpp"/>
     <ClInclude Include="..\..\gui\include\gui\temphome_screen\tempHomeView.hpp"/>
     <ClInclude Include="..\..\generated\gui_generated\include\gui_generated\temphome_screen\tempHomeViewBase.hpp"/>
+    <ClInclude Include="..\..\gui\include\gui\flashlight_screen_screen\flashlight_screenPresenter.hpp"/>
+    <ClInclude Include="..\..\gui\include\gui\flashlight_screen_screen\flashlight_screenView.hpp"/>
+    <ClInclude Include="..\..\generated\gui_generated\include\gui_generated\flashlight_screen_screen\flashlight_screenViewBase.hpp"/>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="$(ApplicationRoot)\generated\simulator\touchgfx.rc"/>

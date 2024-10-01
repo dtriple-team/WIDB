@@ -37,7 +37,7 @@ protected:
     touchgfx::ToggleButton wifi_togglebutton;
     touchgfx::ToggleButton bluetooth_togglebutton;
     touchgfx::Button information_button;
-    touchgfx::ToggleButton flashlight_togglebutton;
+    touchgfx::Button flashlight_button;
     touchgfx::Slider slider1;
     touchgfx::Image haptic_image;
     touchgfx::Image sound_image;

@@ -1395,14 +1395,14 @@
             "Released": "swipedown_button.png"
           },
           {
-            "Type": "ToggleButton",
-            "Name": "flashlight_togglebutton",
+            "Type": "Button",
+            "Name": "flashlight_button",
             "X": 87,
             "Y": 197,
             "Width": 66,
             "Height": 66,
-            "Pressed": "swipedown_button.png",
-            "Released": "swipedown_button_pressed.png"
+            "Pressed": "swipedown_button_pressed.png",
+            "Released": "swipedown_button.png"
           },
           {
             "Type": "Slider",
@@ -1563,6 +1563,18 @@
               "ScreenTransitionType": "ScreenTransitionWipe",
               "ScreenTransitionDirection": "North",
               "ActionComponent": "informationSetting"
+            }
+          },
+          {
+            "InteractionName": "flashlight",
+            "Trigger": {
+              "Type": "TriggerClicked",
+              "TriggerComponent": "flashlight_button"
+            },
+            "Action": {
+              "Type": "ActionGotoScreen",
+              "ScreenTransitionType": "ScreenTransitionNone",
+              "ActionComponent": "flashlight_screen"
             }
           }
         ]
@@ -3600,6 +3612,113 @@
         "CustomActions": [
           {
             "Name": "changeToHomeScreen"
+          }
+        ]
+      },
+      {
+        "Name": "flashlight_screen",
+        "Components": [
+          {
+            "Type": "Box",
+            "Name": "box1",
+            "Width": 240,
+            "Height": 280,
+            "Color": {
+              "Red": 255,
+              "Green": 255,
+              "Blue": 255
+            }
+          },
+          {
+            "Type": "Image",
+            "Name": "flashlight_image",
+            "X": 98,
+            "Y": 118,
+            "Width": 45,
+            "Height": 45,
+            "RelativeFilename": "swipedown_flashlighticon.png"
+          },
+          {
+            "Type": "FlexButton",
+            "Name": "flashlightBackBTN",
+            "Width": 240,
+            "Height": 280,
+            "Visible": false,
+            "Alpha": 0,
+            "ButtonTrigger": {
+              "Type": "ClickButtonTrigger"
+            },
+            "ButtonStyles": [
+              {
+                "Type": "BoxWithBorderButtonStyle",
+                "Width": 240,
+                "Height": 280,
+                "LockToFlexButtonSize": true,
+                "BorderSize": 5,
+                "ColorReleased": {
+                  "Green": 102,
+                  "Blue": 153
+                },
+                "ColorPressed": {
+                  "Green": 153,
+                  "Blue": 204
+                },
+                "ColorBorderReleased": {
+                  "Green": 51,
+                  "Blue": 102
+                },
+                "ColorBorderPressed": {
+                  "Red": 51,
+                  "Green": 102,
+                  "Blue": 153
+                }
+              }
+            ]
+          }
+        ],
+        "Interactions": [
+          {
+            "InteractionName": "flashlightBack",
+            "Trigger": {
+              "Type": "TriggerClicked",
+              "TriggerComponent": "flashlightBackBTN"
+            },
+            "Action": {
+              "Type": "ActionGotoScreen",
+              "ScreenTransitionType": "ScreenTransitionNone",
+              "ActionComponent": "swipedownfromHome"
+            }
+          },
+          {
+            "InteractionName": "maxBrightness",
+            "Trigger": {
+              "Type": "TriggerScreenTransitionBegins"
+            },
+            "Action": {
+              "Type": "ActionCustom2",
+              "ActionCustomTypeName": "Call flashlight_screen changeMaxBrightness",
+              "ActionComponent": "flashlight_screen"
+            }
+          },
+          {
+            "InteractionName": "beforeBright",
+            "Trigger": {
+              "Type": "TriggerClicked",
+              "TriggerComponent": "flashlightBackBTN"
+            },
+            "Action": {
+              "Type": "ActionCustom2",
+              "ActionCustomTypeName": "Call flashlight_screen changeBeforeBrightness",
+              "ActionComponent": "flashlight_screen"
+            }
+          }
+        ],
+        "CustomActions": [
+          {
+            "Name": "changeMaxBrightness"
+          },
+          {
+            "Name": "changeBeforeBrightness"
           }
         ]
       }

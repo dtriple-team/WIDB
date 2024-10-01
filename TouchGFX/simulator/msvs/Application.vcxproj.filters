@@ -448,6 +448,18 @@
     <Filter Include="Header Files\generated\gui_generated\temphome_screen">
       <UniqueIdentifier>A2B2AEC1-0F8F-DC4B-0103-D28B2BAB6D1A</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\gui\flashlight_screen_screen">
+      <UniqueIdentifier>D5CEB29A-73DC-0821-5AFD-7AAABC0B721C</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\gui\flashlight_screen_screen">
+      <UniqueIdentifier>2ABA852A-B03D-E800-765B-4947EBF4BBAF</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\generated\gui_generated\flashlight_screen_screen">
+      <UniqueIdentifier>97ED4650-E613-9E99-14E2-060264EF47F2</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\generated\gui_generated\flashlight_screen_screen">
+      <UniqueIdentifier>4825BFFE-12AB-B86E-CF4E-6BF8495D4FD1</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="$(TouchGFXReleasePath)\framework\source\platform\driver\touch\SDL2TouchController.cpp">
@@ -689,6 +701,15 @@
     </ClCompile>
     <ClCompile Include="..\..\generated\gui_generated\src\temphome_screen\tempHomeViewBase.cpp">
       <Filter>Source Files\generated\gui_generated\temphome_screen</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\gui\src\flashlight_screen_screen\flashlight_screenPresenter.cpp">
+      <Filter>Source Files\gui\flashlight_screen_screen</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\gui\src\flashlight_screen_screen\flashlight_screenView.cpp">
+      <Filter>Source Files\gui\flashlight_screen_screen</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\generated\gui_generated\src\flashlight_screen_screen\flashlight_screenViewBase.cpp">
+      <Filter>Source Files\generated\gui_generated\flashlight_screen_screen</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -1341,6 +1362,15 @@
     </ClInclude>
     <ClInclude Include="..\..\generated\gui_generated\include\gui_generated\temphome_screen\tempHomeViewBase.hpp">
       <Filter>Header Files\generated\gui_generated\temphome_screen</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\gui\include\gui\flashlight_screen_screen\flashlight_screenPresenter.hpp">
+      <Filter>Header Files\gui\flashlight_screen_screen</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\gui\include\gui\flashlight_screen_screen\flashlight_screenView.hpp">
+      <Filter>Header Files\gui\flashlight_screen_screen</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\generated\gui_generated\include\gui_generated\flashlight_screen_screen\flashlight_screenViewBase.hpp">
+      <Filter>Header Files\generated\gui_generated\flashlight_screen_screen</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
