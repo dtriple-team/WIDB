@@ -240,8 +240,8 @@ all: main-build
 main-build: WIDB_jh.elf secondary-outputs
 
 # Tool invocations
-WIDB_jh.elf WIDB_jh.map: $(OBJS) $(USER_OBJS) C:\Users\D-triple\Desktop\WIDB_prj\WIDB_FFWB_GUI_backup_internalmemory\STM32U585AIIXQ_FLASH.ld makefile objects.list $(OPTIONAL_TOOL_DEPS)
-	arm-none-eabi-g++ -o "WIDB_jh.elf" @"objects.list" $(USER_OBJS) $(LIBS) -mcpu=cortex-m33 -T"C:\Users\D-triple\Desktop\WIDB_prj\WIDB_FFWB_GUI_backup_internalmemory\STM32U585AIIXQ_FLASH.ld" -Wl,-Map="WIDB_jh.map" -Wl,--gc-sections -static -L"C:\Users\D-triple\Desktop\WIDB_prj\WIDB_FFWB_GUI_backup_internalmemory\Middlewares\ST\touchgfx\lib\core\cortex_m33\gcc" --specs=nano.specs -mfpu=fpv5-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -lstdc++ -lsupc++ -Wl,--end-group
+WIDB_jh.elf WIDB_jh.map: $(OBJS) $(USER_OBJS) C:\Users\D-triple\Desktop\WIDB_prj\WIDB\STM32U585AIIXQ_FLASH.ld makefile objects.list $(OPTIONAL_TOOL_DEPS)
+	arm-none-eabi-g++ -o "WIDB_jh.elf" @"objects.list" $(USER_OBJS) $(LIBS) -mcpu=cortex-m33 -T"C:\Users\D-triple\Desktop\WIDB_prj\WIDB\STM32U585AIIXQ_FLASH.ld" -Wl,-Map="WIDB_jh.map" -Wl,--gc-sections -static -L"C:\Users\D-triple\Desktop\WIDB_prj\WIDB\Middlewares\ST\touchgfx\lib\core\cortex_m33\gcc" --specs=nano.specs -mfpu=fpv5-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -lstdc++ -lsupc++ -Wl,--end-group
 	@echo 'Finished building target: $@'
 	@echo ' '
 

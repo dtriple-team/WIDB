@@ -506,17 +506,11 @@ uint16_t ssHr = 0;
 uint16_t ssSpo2 = 0;
 uint32_t ssWalk = 0;
 
-//#include <gui/spo2screen_screen/Spo2ScreenView.hpp>
-//Spo2ScreenView mySpo2Screen;
-
-//#include <gui_generated/spo2screen_screen/Spo2ScreenViewBase.hpp>
-//Spo2ScreenViewBase mySpo2ScreenView;
-
 void read_ppg()
 {
 	uint8_t data[76+1] = {0,}; // +1: status byte
 	if(-1 == ssRead(data, sizeof(data))){
-//		osDelay(100);
+		osDelay(100);
 		return;
 	}
 
@@ -544,8 +538,6 @@ void read_ppg()
 //	printf("HR:%d,\t SpO2:%d\t ", ssHr/10, ssSpo2/10);
 //	printf("\r\n");
 	free(ssDataEx);
-
-//	mySpo2Screen.changeSpo2Val();
 }
 
 

@@ -5,6 +5,16 @@
 #include <touchgfx/Utils.hpp> //rkdalfks
 #include <ctime> //rkdalfks
 
+#include "main.h"
+extern RTC_TimeTypeDef sTime;
+extern RTC_DateTypeDef sDate;
+
+extern uint16_t ssHr;
+extern uint16_t ssSpo2;
+extern uint32_t ssWalk;
+
+#include <cstdlib>
+
 HomeScreenWithBiodataView::HomeScreenWithBiodataView()
 	: tickCounter(0), lastUpdateTime(0), digitalHours(0), digitalMinutes(0), digitalSeconds(0),
 	  initialX(0), initialY(0)
@@ -53,6 +63,24 @@ void HomeScreenWithBiodataView::handleTickEvent()
 
 			lastUpdateTime = currentTime; // 업데이트된 시간 저장
 		}
+
+		////////////////// jh ///////////////////
+//		digitalClock.setTime24Hour(sTime.Hours, sTime.Minutes, sTime.Seconds);
+//		digitalClock.invalidate();
+
+		touchgfx::Unicode::snprintf(home_heartrate_valueBuffer, HOME_HEARTRATE_VALUE_SIZE, "%02u", ssHr);
+		home_heartrate_value.invalidate();
+		touchgfx::Unicode::snprintf(home_spo2_valueBuffer, HOME_SPO2_VALUE_SIZE, "%02u", ssSpo2);
+		home_spo2_value.invalidate();
+		touchgfx::Unicode::snprintf(home_steps_valueBuffer, HOME_STEPS_VALUE_SIZE, "%u", ssWalk);
+		home_steps_value.invalidate();
+
+		touchgfx::Unicode::snprintf(heartrate_valueBuffer, HEARTRATE_VALUE_SIZE, "%02u", ssHr);
+		heartrate_value.invalidate();
+		touchgfx::Unicode::snprintf(spo2_valueBuffer, SPO2_VALUE_SIZE, "%02u", ssSpo2);
+		spo2_value.invalidate();
+		touchgfx::Unicode::snprintf(step_valueBuffer, STEP_VALUE_SIZE, "%u", ssWalk);
+		step_value.invalidate();
 	}
 }
 
