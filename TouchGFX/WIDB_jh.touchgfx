@@ -818,6 +818,11 @@
               "ActionComponent": "Spo2Detail"
             }
           }
+        ],
+        "CustomActions": [
+          {
+            "Name": "changeSpo2Val"
+          }
         ]
       },
       {
@@ -927,6 +932,11 @@
               "ScreenTransitionDirection": "South",
               "ActionComponent": "HeartrateDetail"
             }
+          }
+        ],
+        "CustomActions": [
+          {
+            "Name": "changeHRVal"
           }
         ]
       },
@@ -1046,7 +1056,25 @@
             "ProgressInitialValue": 60
           }
         ],
-        "Interactions": []
+        "Interactions": [
+          {
+            "InteractionName": "changeStepVal",
+            "Trigger": {
+              "Type": "TriggerOnEveryTick",
+              "TickCount": 1
+            },
+            "Action": {
+              "Type": "ActionCustom2",
+              "ActionCustomTypeName": "Call StepsScreen changeStepVal",
+              "ActionComponent": "StepsScreen"
+            }
+          }
+        ],
+        "CustomActions": [
+          {
+            "Name": "changeStepVal"
+          }
+        ]
       },
       {
         "Name": "HeartrateDetail",

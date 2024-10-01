@@ -41,3 +41,9 @@ void StepsScreenView::handleSwipeRight() //rkdalfks
 {
 	application().gotoHomeScreenWithBiodataScreenWipeTransitionWest();
 }
+
+extern uint32_t ssWalk;
+void StepsScreenView::changeStepVal(){
+	touchgfx::Unicode::snprintf(steps_valueBuffer, STEPS_VALUE_SIZE, "%02u", ssWalk);
+	steps_value.invalidate();
+}

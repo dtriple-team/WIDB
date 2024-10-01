@@ -14,6 +14,8 @@ public:
     virtual void handleGestureEvent(const GestureEvent& evt); //rkdalfks
 
     void handleSwipeRight(); //rkdalfks
+
+    virtual void changeStepVal();
 protected:
 
 private: //rkdalfks

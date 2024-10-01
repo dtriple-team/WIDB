@@ -21,6 +21,15 @@ public:
     virtual ~HeartrateScreenViewBase();
     virtual void setupScreen();
 
+    /*
+     * Custom Actions
+     */
+    virtual void changeHRVal()
+    {
+        // Override and implement this function in Screen1
+    }
+    
+
 protected:
     FrontendApplication& application() {
         return *static_cast<FrontendApplication*>(touchgfx::Application::getInstance());

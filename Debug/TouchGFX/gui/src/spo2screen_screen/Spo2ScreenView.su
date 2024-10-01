@@ -4,11 +4,12 @@
 ../Middlewares/ST/touchgfx/framework/include/touchgfx/Screen.hpp:115:18:virtual void touchgfx::Screen::tearDownScreen()	16	static
 ../Middlewares/ST/touchgfx/framework/include/touchgfx/Screen.hpp:144:18:virtual void touchgfx::Screen::handleTickEvent()	16	static
 ../Middlewares/ST/touchgfx/framework/include/touchgfx/Screen.hpp:154:18:virtual void touchgfx::Screen::handleKeyEvent(uint8_t)	16	static
-../TouchGFX/generated/gui_generated/include/gui_generated/spo2screen_screen/Spo2ScreenViewBase.hpp:25:26:FrontendApplication& Spo2ScreenViewBase::application()	16	static
+../TouchGFX/generated/gui_generated/include/gui_generated/spo2screen_screen/Spo2ScreenViewBase.hpp:34:26:FrontendApplication& Spo2ScreenViewBase::application()	16	static
 ../TouchGFX/gui/include/gui/spo2screen_screen/Spo2ScreenView.hpp:11:13:Spo2ScreenView::~Spo2ScreenView()	16	static
 ../TouchGFX/gui/include/gui/spo2screen_screen/Spo2ScreenView.hpp:11:13:virtual Spo2ScreenView::~Spo2ScreenView()	16	static
-../TouchGFX/gui/src/spo2screen_screen/Spo2ScreenView.cpp:6:1:Spo2ScreenView::Spo2ScreenView()	16	static
-../TouchGFX/gui/src/spo2screen_screen/Spo2ScreenView.cpp:11:6:virtual void Spo2ScreenView::setupScreen()	16	static
-../TouchGFX/gui/src/spo2screen_screen/Spo2ScreenView.cpp:16:6:virtual void Spo2ScreenView::tearDownScreen()	16	static
-../TouchGFX/gui/src/spo2screen_screen/Spo2ScreenView.cpp:21:6:virtual void Spo2ScreenView::handleGestureEvent(const touchgfx::GestureEvent&)	24	static
-../TouchGFX/gui/src/spo2screen_screen/Spo2ScreenView.cpp:39:6:void Spo2ScreenView::handleSwipeRight()	16	static
+../TouchGFX/gui/src/spo2screen_screen/Spo2ScreenView.cpp:7:1:Spo2ScreenView::Spo2ScreenView()	16	static
+../TouchGFX/gui/src/spo2screen_screen/Spo2ScreenView.cpp:12:6:virtual void Spo2ScreenView::setupScreen()	16	static
+../TouchGFX/gui/src/spo2screen_screen/Spo2ScreenView.cpp:17:6:virtual void Spo2ScreenView::tearDownScreen()	16	static
+../TouchGFX/gui/src/spo2screen_screen/Spo2ScreenView.cpp:22:6:virtual void Spo2ScreenView::handleGestureEvent(const touchgfx::GestureEvent&)	24	static
+../TouchGFX/gui/src/spo2screen_screen/Spo2ScreenView.cpp:40:6:void Spo2ScreenView::handleSwipeRight()	16	static
+../TouchGFX/gui/src/spo2screen_screen/Spo2ScreenView.cpp:47:6:virtual void Spo2ScreenView::changeSpo2Val()	16	static

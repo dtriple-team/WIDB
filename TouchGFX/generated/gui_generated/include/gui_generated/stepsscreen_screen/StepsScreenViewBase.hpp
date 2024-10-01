@@ -21,6 +21,16 @@ public:
     StepsScreenViewBase();
     virtual ~StepsScreenViewBase();
     virtual void setupScreen();
+    virtual void handleTickEvent();
+
+    /*
+     * Custom Actions
+     */
+    virtual void changeStepVal()
+    {
+        // Override and implement this function in Screen1
+    }
+    
 
 protected:
     FrontendApplication& application() {

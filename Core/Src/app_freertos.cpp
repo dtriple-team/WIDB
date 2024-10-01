@@ -42,6 +42,7 @@ extern "C" {
 #include <gui_generated/initblackscreen_screen/initBlackScreenViewBase.hpp>
 #include <gui_generated/falldetected_screen/fallDetectedViewBase.hpp>
 #include <gui_generated/temphome_screen/tempHomeViewBase.hpp>
+//#include <gui/spo2screen_screen/Spo2ScreenView.hpp>
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -110,13 +111,13 @@ osThreadId_t secTimerTaskHandle;
 const osThreadAttr_t secTimerTask_attributes = {
   .name = "secTimerTask",
   .stack_size = 128 * 4,
-  .priority = (osPriority_t) osPriorityLow
+  .priority = (osPriority_t) osPriorityNormal
 };
 /* Definitions for checkINTTask */
 osThreadId_t checkINTTaskHandle;
 const osThreadAttr_t checkINTTask_attributes = {
   .name = "checkINTTask",
-  .stack_size = 4096 * 4,
+  .stack_size = 128 * 4,
   .priority = (osPriority_t) osPriorityNormal
 };
 
@@ -124,7 +125,6 @@ const osThreadAttr_t checkINTTask_attributes = {
 /* USER CODE BEGIN FunctionPrototypes */
 extern void touchgfxSignalVSync(void);
 uint8_t ssRunFlag = 0;
-uint8_t initFlag = 0;
 uint8_t pmicInitFlag = 0;
 
 double test_mag_data[15] = {0,};
@@ -214,51 +214,9 @@ stm32wb_at_BLE_ADV_DATA_t param_BLE_DATA;
 void StartInitTask(void *argument)
 {
   /* USER CODE BEGIN initTask */
-//	// I2C test code
-//	for(;;){
-//		uint8_t arr[3] = {0,};
-//			arr[0] = 0xD6; // acc
-//			arr[1] = 0xBA; // pressure
-//			arr[2] = 0x3C; // magnet
-////		for (uint8_t i=0; i<3; i++)
-////		{
-////		  uint8_t err = HAL_I2C_IsDeviceReady(&hi2c1, arr[i], 1, 1);
-////		  err = 0;
-////		}
-//		uint8_t err = HAL_I2C_IsDeviceReady(&hi2c1, arr[1], 1, 1);
-//
-//		osDelay(5);
-//	}
-
-	// PMIC init
-	pmic_init();
-	pmicInitFlag = 1;
-
-	// Smart Sensor Hub init
-	ssInit();
-	ssBegin();
-	ssRead_setting();
-	ssRunFlag = 1;
-
-	init_iis2mdc();
-	init_ism330dhcx();
-	init_lps22hh();
-
-//	ism330dhcxINTEnable();
-
-	// CatM1 init
-	bg770a_gl_init();
-
-	// BLE init
-//	HAL_GPIO_WritePin(GPIOD, GPIO_PIN_14, GPIO_PIN_SET);
-//	HAL_Delay(30000);
-	stm32wb5mmg_init();
-	stm32wb5mmg_adv_setting(&param_BLE_DATA);
-
-	// WiFi-BLE init
-	nora_w10_init();
-
-	initFlag = 1;
+//	// PMIC init
+//	pmic_init();
+//	pmicInitFlag = 1;
 
 	// finish Task
 	vTaskDelete(NULL);
@@ -275,6 +233,9 @@ void StartInitTask(void *argument)
 void StartlcdTask(void *argument)
 {
   /* USER CODE BEGIN lcdTask */
+	pmic_init();
+	pmicInitFlag = 1;
+
 	while(!pmicInitFlag);
 	ST7789_gpio_setting();
 	ST7789_brightness_setting(16);
@@ -297,18 +258,17 @@ void StartlcdTask(void *argument)
 void StartPPMTask(void *argument)
 {
   /* USER CODE BEGIN ppmTask */
+	while(!pmicInitFlag);
+
+//  BLE init
+	stm32wb5mmg_init();
+	stm32wb5mmg_adv_setting(&param_BLE_DATA);
+
   /* Infinite loop */
   for(;;)
   {
     osDelay(1);
-    if(initFlag){
-    	stm32wb5mmg_adv(&param_BLE_DATA);
-    }
-//    if(FreeFallDetection_GetState()==1)
-//	{
-//		HAL_Delay(1000);
-//		FreeFallDetection_SetState(0);
-//	}
+	stm32wb5mmg_adv(&param_BLE_DATA);
   }
   /* USER CODE END ppmTask */
 }
@@ -323,12 +283,18 @@ void StartPPMTask(void *argument)
 void StartWPMTask(void *argument)
 {
   /* USER CODE BEGIN wpmTask */
+	while(!pmicInitFlag);
+
+	// CatM1 init
+	bg770a_gl_init();
+
+//	// WiFi-BLE init
+//	nora_w10_init();
+
   /* Infinite loop */
   for(;;)
   {
     osDelay(10000);
-    if(initFlag){
-    }
   }
   /* USER CODE END wpmTask */
 }
@@ -343,13 +309,17 @@ void StartWPMTask(void *argument)
 void StartSPMTask(void *argument)
 {
   /* USER CODE BEGIN spmTask */
-	// using parameter init (default val)
-	uint8_t now_bLevel = 15;
-	uint8_t bLevelCtrlTimCount = 0;
+	while(!pmicInitFlag);
 
-	uint8_t pre_secTime = 0;
-	screenOnTime = 20;
-	uint8_t pre_brightness_count = 0;
+	// Smart Sensor Hub init
+	ssInit();
+	ssBegin();
+	ssRead_setting();
+	ssRunFlag = 1; // start read PPG, using Timer
+
+	init_iis2mdc();
+	init_ism330dhcx();
+	init_lps22hh();
 
 //	double pre_pressure[PRESSURE_VAL_LEN] = {0,};
 
@@ -357,89 +327,41 @@ void StartSPMTask(void *argument)
   for(;;)
   {
     osDelay(100);
-    if(initFlag){
-    	// read sensor
-    	double magnetX, magnetY, magnetZ, iisTemp;
-    	read_iis2mdc(&magnetX, &magnetY, &magnetZ, &iisTemp);
+	// read sensor
+	double magnetX, magnetY, magnetZ, iisTemp;
+	read_iis2mdc(&magnetX, &magnetY, &magnetZ, &iisTemp);
 
-    	uint16_t gyroSensi = 125;
-    	uint8_t accSensi = 2;
-    	double ismTemp, gyroX, gyroY, gyroZ, accX, accY, accZ;
-		read_ism330dhcx(gyroSensi, accSensi, &ismTemp, &gyroX, &gyroY, &gyroZ, &accX, &accY, &accZ);
+	uint16_t gyroSensi = 125;
+	uint8_t accSensi = 2;
+	double ismTemp, gyroX, gyroY, gyroZ, accX, accY, accZ;
+	read_ism330dhcx(gyroSensi, accSensi, &ismTemp, &gyroX, &gyroY, &gyroZ, &accX, &accY, &accZ);
 
-		double pressure, lpsTemp;
-		read_lps22hh(&pressure, &lpsTemp);
+	double pressure, lpsTemp;
+	read_lps22hh(&pressure, &lpsTemp);
 //		for(int i=0; i<PRESSURE_VAL_LEN-1; i++){
 //			pre_pressure[i] = pre_pressure[i+1];
 //		}
 //		pre_pressure[PRESSURE_VAL_LEN-1] = pressure;
 
-    	test_mag_data[0] = magnetX/10; 	// mgauss -> uT
-    	test_mag_data[1] = magnetY/10; 	// mgauss -> uT
-    	test_mag_data[2] = magnetZ/10; 	// mgauss -> uT
-    	test_mag_data[3] = iisTemp;		// degC
+	test_mag_data[0] = magnetX/10; 	// mgauss -> uT
+	test_mag_data[1] = magnetY/10; 	// mgauss -> uT
+	test_mag_data[2] = magnetZ/10; 	// mgauss -> uT
+	test_mag_data[3] = iisTemp;		// degC
 
-    	test_mag_data[4] = 0;
+	test_mag_data[4] = 0;
 
-    	test_mag_data[5] = ismTemp;		// degC
-		test_mag_data[6] = gyroX/1000; 	// mdeg/s -> deg/s
-		test_mag_data[7] = gyroY/1000; 	// mdeg/s -> deg/s
-    	test_mag_data[8] = gyroZ/1000; 	// mdeg/s -> deg/s
-		test_mag_data[9] = accX/1000;  	// mg -> g
-		test_mag_data[10] = accY/1000; 	// mg -> g
-		test_mag_data[11] = accZ/1000; 	// mg -> g
+	test_mag_data[5] = ismTemp;		// degC
+	test_mag_data[6] = gyroX/1000; 	// mdeg/s -> deg/s
+	test_mag_data[7] = gyroY/1000; 	// mdeg/s -> deg/s
+	test_mag_data[8] = gyroZ/1000; 	// mdeg/s -> deg/s
+	test_mag_data[9] = accX/1000;  	// mg -> g
+	test_mag_data[10] = accY/1000; 	// mg -> g
+	test_mag_data[11] = accZ/1000; 	// mg -> g
 
-		test_mag_data[12] = 0;
+	test_mag_data[12] = 0;
 
-		test_mag_data[13] = pressure; 	// hPa
-		test_mag_data[14] = lpsTemp;  	// degC
-
-//		if(bLevelCtrlTimCount*100 > 300){ // bright ctrl add delay
-			bLevelCtrlTimCount = 0;
-			// change parameter val
-			if(now_bLevel != set_bLevel){
-				now_bLevel = set_bLevel;
-				ST7789_brightness_setting(now_bLevel);
-			}
-//		}
-//		bLevelCtrlTimCount++;
-    }
-
-//    if(pre_secTime != secTime && secTime%1 == 0){ // 1sec
-//    	// turn off LCD backlight
-//		if(brightness_count == 0){
-//			ST7789_brightness_setting(set_bLevel);
-//		}
-//		else{
-//			if(brightness_count > screenOnTime){
-//				ST7789_brightness_setting(0);
-//			}
-//			else{
-//				brightness_count++;
-//			}
-//		}
-//		pre_brightness_count = brightness_count;
-//		pre_secTime = secTime;
-//    }
-
-    // screenOnTime == brightness_count�??? ?���??? ?���??? 꺼라
-    // brightness_count == 0?���??? 바�?�면 백라?��?���??? 켜라
-    if(pre_secTime != secTime && secTime%1 == 0){ // 1sec
-		// turn off LCD backlight
-		if(brightness_count == 0 && pre_brightness_count >= screenOnTime){
-			ST7789_brightness_setting(set_bLevel);
-			now_sleepmode = 0;
-		}
-		else if(brightness_count >= screenOnTime && pre_brightness_count < screenOnTime){
-			ST7789_brightness_setting(0);
-			myBlackScreenView.changeToInitBlackScreen();
-			now_sleepmode = 1;
-		}
-		pre_brightness_count = brightness_count;
-		pre_secTime = secTime;
-		brightness_count++;
-	}
-
+	test_mag_data[13] = pressure; 	// hPa
+	test_mag_data[14] = lpsTemp;  	// degC
   }
   /* USER CODE END spmTask */
 }
@@ -454,23 +376,47 @@ void StartSPMTask(void *argument)
 void StartSecTimerTask(void *argument)
 {
   /* USER CODE BEGIN secTimerTask */
-//	screenOnTime = 20; // default screen on time;
+	while(!pmicInitFlag);
+
+	// using parameter init (default val)
+	uint8_t now_bLevel = 15;
+	uint8_t bLevelCtrlTimCount = 0;
+
+	uint8_t pre_secTime = 0;
+	screenOnTime = 20;
+	uint8_t pre_brightness_count = 0;
+
   /* Infinite loop */
   for(;;)
   {
-    osDelay(1000*5);
+	osDelay(100);
 
-//    // turn off LCD backlight
-//    if(brightness_count == 0){
-//    	ST7789_brightness_setting(set_bLevel);
-//    }
-//
-//    if(brightness_count > screenOnTime/5){
-//    	ST7789_brightness_setting(0);
-//    }
-//    else{
-//        brightness_count++;
-//    }
+
+//		if(bLevelCtrlTimCount*100 > 300){ // bright ctrl add delay
+	bLevelCtrlTimCount = 0;
+	// change parameter val
+	if(now_bLevel != set_bLevel){
+		now_bLevel = set_bLevel;
+		ST7789_brightness_setting(now_bLevel);
+	}
+
+	// screenOnTime == brightness_count�??? ?���??? ?���??? 꺼라
+	// brightness_count == 0?���??? 바�?�면 백라?��?���??? 켜라
+	if(pre_secTime != secTime && secTime%1 == 0){ // 1sec
+		// turn off LCD backlight
+		if(brightness_count == 0 && pre_brightness_count >= screenOnTime){
+			ST7789_brightness_setting(set_bLevel);
+			now_sleepmode = 0;
+		}
+		else if(brightness_count >= screenOnTime && pre_brightness_count < screenOnTime){
+			ST7789_brightness_setting(0);
+			myBlackScreenView.changeToInitBlackScreen();
+			now_sleepmode = 1;
+		}
+		pre_brightness_count = brightness_count;
+		pre_secTime = secTime;
+		brightness_count++;
+	}
   }
   /* USER CODE END secTimerTask */
 }
@@ -498,6 +444,8 @@ double calculateAltitudeDifference(double P1, double P2) {
 void StartCheckINTTask(void *argument)
 {
   /* USER CODE BEGIN checkINTTask */
+	while(!pmicInitFlag);
+
 	double before_falling_pressure[PRESSURE_VAL_LEN] = {0,};
 	double after_falling_pressure[PRESSURE_VAL_LEN] = {0,};
 
@@ -558,11 +506,17 @@ uint16_t ssHr = 0;
 uint16_t ssSpo2 = 0;
 uint32_t ssWalk = 0;
 
+//#include <gui/spo2screen_screen/Spo2ScreenView.hpp>
+//Spo2ScreenView mySpo2Screen;
+
+//#include <gui_generated/spo2screen_screen/Spo2ScreenViewBase.hpp>
+//Spo2ScreenViewBase mySpo2ScreenView;
+
 void read_ppg()
 {
 	uint8_t data[76+1] = {0,}; // +1: status byte
 	if(-1 == ssRead(data, sizeof(data))){
-		osDelay(100);
+//		osDelay(100);
 		return;
 	}
 
@@ -571,6 +525,7 @@ void read_ppg()
 
 	if(ssDataEx->readStatus != 0){
 		// err status check
+		free(ssDataEx);
 		return;
 	}
 
@@ -589,6 +544,8 @@ void read_ppg()
 //	printf("HR:%d,\t SpO2:%d\t ", ssHr/10, ssSpo2/10);
 //	printf("\r\n");
 	free(ssDataEx);
+
+//	mySpo2Screen.changeSpo2Val();
 }
 
 

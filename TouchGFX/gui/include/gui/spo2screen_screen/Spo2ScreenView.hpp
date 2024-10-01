@@ -15,6 +15,7 @@ public:
 
     void handleSwipeRight(); //rkdalfks
 
+    virtual void changeSpo2Val();
 protected:
 
 private: //rkdalfks

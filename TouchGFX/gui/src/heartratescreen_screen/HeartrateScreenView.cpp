@@ -41,3 +41,9 @@ void HeartrateScreenView::handleSwipeRight() //rkdalfks
 {
 	application().gotoHomeScreenWithBiodataScreenWipeTransitionWest();
 }
+
+extern uint16_t ssHr;
+void HeartrateScreenView::changeHRVal(){
+	touchgfx::Unicode::snprintf(heartrate_valueBuffer, HEARTRATE_VALUE_SIZE, "%02u", ssHr);
+	heartrate_value.invalidate();
+}

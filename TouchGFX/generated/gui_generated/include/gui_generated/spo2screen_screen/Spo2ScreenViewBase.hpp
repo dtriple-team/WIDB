@@ -21,6 +21,15 @@ public:
     virtual ~Spo2ScreenViewBase();
     virtual void setupScreen();
 
+    /*
+     * Custom Actions
+     */
+    virtual void changeSpo2Val()
+    {
+        // Override and implement this function in Screen1
+    }
+    
+
 protected:
     FrontendApplication& application() {
         return *static_cast<FrontendApplication*>(touchgfx::Application::getInstance());

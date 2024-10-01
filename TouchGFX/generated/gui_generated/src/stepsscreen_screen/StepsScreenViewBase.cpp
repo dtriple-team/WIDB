@@ -83,3 +83,11 @@ void StepsScreenViewBase::setupScreen()
 {
 
 }
+
+void StepsScreenViewBase::handleTickEvent()
+{
+    //changeStepVal
+    //When every N tick call changeStepVal on StepsScreen
+    //Call changeStepVal
+    changeStepVal();
+}
