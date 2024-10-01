@@ -13,6 +13,8 @@ extern uint16_t ssHr;
 extern uint16_t ssSpo2;
 extern uint32_t ssWalk;
 
+extern uint8_t canDisplayPPG;
+
 #include <cstdlib>
 
 HomeScreenWithBiodataView::HomeScreenWithBiodataView()
@@ -67,6 +69,10 @@ void HomeScreenWithBiodataView::handleTickEvent()
 		////////////////// jh ///////////////////
 //		digitalClock.setTime24Hour(sTime.Hours, sTime.Minutes, sTime.Seconds);
 //		digitalClock.invalidate();
+
+		if(!canDisplayPPG) return;
+
+		canDisplayPPG = 0;
 
 		touchgfx::Unicode::snprintf(home_heartrate_valueBuffer, HOME_HEARTRATE_VALUE_SIZE, "%02u", ssHr);
 		home_heartrate_value.invalidate();

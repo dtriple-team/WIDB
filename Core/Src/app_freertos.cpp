@@ -506,8 +506,12 @@ uint16_t ssHr = 0;
 uint16_t ssSpo2 = 0;
 uint32_t ssWalk = 0;
 
+uint8_t canDisplayPPG = 0;
+
 void read_ppg()
 {
+	if(canDisplayPPG) return; // full buffer => can display UI
+
 	uint8_t data[76+1] = {0,}; // +1: status byte
 	if(-1 == ssRead(data, sizeof(data))){
 		osDelay(100);
@@ -538,6 +542,8 @@ void read_ppg()
 //	printf("HR:%d,\t SpO2:%d\t ", ssHr/10, ssSpo2/10);
 //	printf("\r\n");
 	free(ssDataEx);
+
+	canDisplayPPG = 1;
 }
 
 
