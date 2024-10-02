@@ -106,7 +106,7 @@ languageSettingViewBase::~languageSettingViewBase()
 
 void languageSettingViewBase::setupScreen()
 {
-
+    transitionBegins();
 }
 
 void languageSettingViewBase::radioButtonSelectedCallbackHandler(const touchgfx::AbstractButton& src)
@@ -135,4 +135,13 @@ void languageSettingViewBase::radioButtonSelectedCallbackHandler(const touchgfx:
         Texts::setLanguage(SPANISH);
         invalidate();
     }
+}
+
+void languageSettingViewBase::transitionBegins()
+{
+    //resetBATT
+    //When screen transition begins execute C++ code
+    //Execute C++ code
+    extern uint8_t battVal;
+    batteryprogress.setValue(battVal);
 }

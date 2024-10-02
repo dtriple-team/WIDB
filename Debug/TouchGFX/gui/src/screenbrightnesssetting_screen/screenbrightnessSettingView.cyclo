@@ -5,7 +5,7 @@
 ../Middlewares/ST/touchgfx/framework/include/touchgfx/Screen.hpp:144:18:virtual void touchgfx::Screen::handleTickEvent()	1
 ../Middlewares/ST/touchgfx/framework/include/touchgfx/Screen.hpp:154:18:virtual void touchgfx::Screen::handleKeyEvent(uint8_t)	1
 ../Middlewares/ST/touchgfx/framework/include/touchgfx/containers/Slider.hpp:112:10:void touchgfx::Slider::setNewValueCallback(touchgfx::GenericCallback<const touchgfx::Slider&, int>&)	1
-../TouchGFX/generated/gui_generated/include/gui_generated/screenbrightnesssetting_screen/screenbrightnessSettingViewBase.hpp:24:26:FrontendApplication& screenbrightnessSettingViewBase::application()	1
+../TouchGFX/generated/gui_generated/include/gui_generated/screenbrightnesssetting_screen/screenbrightnessSettingViewBase.hpp:25:26:FrontendApplication& screenbrightnessSettingViewBase::application()	1
 ../TouchGFX/gui/include/gui/screenbrightnesssetting_screen/screenbrightnessSettingView.hpp:11:13:screenbrightnessSettingView::~screenbrightnessSettingView()	1
 ../TouchGFX/gui/include/gui/screenbrightnesssetting_screen/screenbrightnessSettingView.hpp:11:13:virtual screenbrightnessSettingView::~screenbrightnessSettingView()	1
 ../TouchGFX/gui/src/screenbrightnesssetting_screen/screenbrightnessSettingView.cpp:7:1:screenbrightnessSettingView::screenbrightnessSettingView()	1

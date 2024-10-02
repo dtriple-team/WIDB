@@ -174,7 +174,7 @@ SettingScreenViewBase::~SettingScreenViewBase()
 
 void SettingScreenViewBase::setupScreen()
 {
-
+    transitionBegins();
 }
 
 void SettingScreenViewBase::buttonCallbackHandler(const touchgfx::AbstractButton& src)
@@ -221,4 +221,13 @@ void SettingScreenViewBase::buttonCallbackHandler(const touchgfx::AbstractButton
         //Go to swipedownfromHome with screen transition towards West
         application().gotoswipedownfromHomeScreenWipeTransitionWest();
     }
+}
+
+void SettingScreenViewBase::transitionBegins()
+{
+    //resetBATT
+    //When screen transition begins execute C++ code
+    //Execute C++ code
+    extern uint8_t battVal;
+    batteryprogress.setValue(battVal);
 }

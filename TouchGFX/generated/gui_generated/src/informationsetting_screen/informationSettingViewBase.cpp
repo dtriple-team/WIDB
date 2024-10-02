@@ -89,7 +89,7 @@ informationSettingViewBase::~informationSettingViewBase()
 
 void informationSettingViewBase::setupScreen()
 {
-
+    transitionBegins();
 }
 
 void informationSettingViewBase::buttonCallbackHandler(const touchgfx::AbstractButton& src)
@@ -108,4 +108,13 @@ void informationSettingViewBase::buttonCallbackHandler(const touchgfx::AbstractB
         //Go to networkInfoSetting with screen transition towards East
         application().gotonetworkInfoSettingScreenCoverTransitionEast();
     }
+}
+
+void informationSettingViewBase::transitionBegins()
+{
+    //resetBATT
+    //When screen transition begins execute C++ code
+    //Execute C++ code
+    extern uint8_t battVal;
+    batteryprogress.setValue(battVal);
 }

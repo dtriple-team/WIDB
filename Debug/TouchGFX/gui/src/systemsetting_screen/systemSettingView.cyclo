@@ -4,7 +4,7 @@
 ../Middlewares/ST/touchgfx/framework/include/touchgfx/Screen.hpp:115:18:virtual void touchgfx::Screen::tearDownScreen()	1
 ../Middlewares/ST/touchgfx/framework/include/touchgfx/Screen.hpp:144:18:virtual void touchgfx::Screen::handleTickEvent()	1
 ../Middlewares/ST/touchgfx/framework/include/touchgfx/Screen.hpp:154:18:virtual void touchgfx::Screen::handleKeyEvent(uint8_t)	1
-../TouchGFX/generated/gui_generated/include/gui_generated/systemsetting_screen/systemSettingViewBase.hpp:24:26:FrontendApplication& systemSettingViewBase::application()	1
+../TouchGFX/generated/gui_generated/include/gui_generated/systemsetting_screen/systemSettingViewBase.hpp:25:26:FrontendApplication& systemSettingViewBase::application()	1
 ../TouchGFX/gui/include/gui/systemsetting_screen/systemSettingView.hpp:11:13:systemSettingView::~systemSettingView()	1
 ../TouchGFX/gui/include/gui/systemsetting_screen/systemSettingView.hpp:11:13:virtual systemSettingView::~systemSettingView()	1
 ../TouchGFX/gui/src/systemsetting_screen/systemSettingView.cpp:6:1:systemSettingView::systemSettingView()	1

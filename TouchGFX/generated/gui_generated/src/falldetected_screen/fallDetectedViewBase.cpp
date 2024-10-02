@@ -58,7 +58,7 @@ fallDetectedViewBase::~fallDetectedViewBase()
 
 void fallDetectedViewBase::setupScreen()
 {
-
+    transitionBegins();
 }
 
 void fallDetectedViewBase::changeToFallDetected()
@@ -67,4 +67,13 @@ void fallDetectedViewBase::changeToFallDetected()
     //When changeToFallDetected is called change screen to fallDetected
     //Go to fallDetected with no screen transition
     application().gotofallDetectedScreenNoTransition();
+}
+
+void fallDetectedViewBase::transitionBegins()
+{
+    //resetBATT
+    //When screen transition begins execute C++ code
+    //Execute C++ code
+    extern uint8_t battVal;
+    batteryprogress.setValue(battVal);
 }

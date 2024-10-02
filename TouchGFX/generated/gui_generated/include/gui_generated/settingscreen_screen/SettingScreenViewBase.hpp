@@ -20,6 +20,7 @@ public:
     SettingScreenViewBase();
     virtual ~SettingScreenViewBase();
     virtual void setupScreen();
+    virtual void transitionBegins();
 
 protected:
     FrontendApplication& application() {

@@ -90,6 +90,7 @@ void screenontimeSettingViewBase::setupScreen()
     {
         scrollWheel1SelectedListItems[i].initialize();
     }
+    transitionBegins();
 }
 
 void screenontimeSettingViewBase::buttonCallbackHandler(const touchgfx::AbstractButton& src)
@@ -112,6 +113,15 @@ void screenontimeSettingViewBase::buttonCallbackHandler(const touchgfx::Abstract
         //Call changeScreenOnTime
         changeScreenOnTime();
     }
+}
+
+void screenontimeSettingViewBase::transitionBegins()
+{
+    //resetBATT
+    //When screen transition begins execute C++ code
+    //Execute C++ code
+    extern uint8_t battVal;
+    batteryprogress.setValue(battVal);
 }
 
 void screenontimeSettingViewBase::updateItemCallbackHandler(touchgfx::DrawableListItemsInterface* items, int16_t containerIndex, int16_t itemIndex)

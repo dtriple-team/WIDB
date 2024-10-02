@@ -32,6 +32,7 @@ public:
     {
         // Override and implement this function in screenontimeSetting
     }
+    virtual void transitionBegins();
 
     /*
      * Custom Actions

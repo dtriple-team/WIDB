@@ -18,6 +18,7 @@ public:
     turnoffScreenViewBase();
     virtual ~turnoffScreenViewBase();
     virtual void setupScreen();
+    virtual void transitionBegins();
 
 protected:
     FrontendApplication& application() {

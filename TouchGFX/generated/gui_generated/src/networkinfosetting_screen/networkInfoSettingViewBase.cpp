@@ -56,5 +56,14 @@ networkInfoSettingViewBase::~networkInfoSettingViewBase()
 
 void networkInfoSettingViewBase::setupScreen()
 {
+    transitionBegins();
+}
 
+void networkInfoSettingViewBase::transitionBegins()
+{
+    //resetBATT
+    //When screen transition begins execute C++ code
+    //Execute C++ code
+    extern uint8_t battVal;
+    batteryprogress.setValue(battVal);
 }

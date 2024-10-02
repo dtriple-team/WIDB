@@ -5,7 +5,7 @@
 ../Middlewares/ST/touchgfx/framework/include/touchgfx/Screen.hpp:144:18:virtual void touchgfx::Screen::handleTickEvent()	16	static
 ../Middlewares/ST/touchgfx/framework/include/touchgfx/Screen.hpp:154:18:virtual void touchgfx::Screen::handleKeyEvent(uint8_t)	16	static
 ../Middlewares/ST/touchgfx/framework/include/touchgfx/Texts.hpp:48:23:static touchgfx::LanguageId touchgfx::Texts::getLanguage()	4	static
-../TouchGFX/generated/gui_generated/include/gui_generated/languagesetting_screen/languageSettingViewBase.hpp:25:26:FrontendApplication& languageSettingViewBase::application()	16	static
+../TouchGFX/generated/gui_generated/include/gui_generated/languagesetting_screen/languageSettingViewBase.hpp:26:26:FrontendApplication& languageSettingViewBase::application()	16	static
 ../TouchGFX/gui/include/gui/languagesetting_screen/languageSettingView.hpp:12:13:languageSettingView::~languageSettingView()	16	static
 ../TouchGFX/gui/include/gui/languagesetting_screen/languageSettingView.hpp:12:13:virtual languageSettingView::~languageSettingView()	16	static
 ../TouchGFX/gui/src/languagesetting_screen/languageSettingView.cpp:7:1:languageSettingView::languageSettingView()	16	static

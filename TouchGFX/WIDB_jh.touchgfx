@@ -1620,6 +1620,16 @@
               "ScreenTransitionType": "ScreenTransitionNone",
               "ActionComponent": "flashlight_screen"
             }
+          },
+          {
+            "InteractionName": "resetBATT",
+            "Trigger": {
+              "Type": "TriggerScreenTransitionBegins"
+            },
+            "Action": {
+              "Type": "ActionExecuteCode",
+              "Code": "extern uint8_t battVal;\r\nbatteryprogress.setValue(battVal);"
+            }
           }
         ]
       },
@@ -2046,6 +2056,16 @@
               "ScreenTransitionDirection": "West",
               "ActionComponent": "swipedownfromHome"
             }
+          },
+          {
+            "InteractionName": "resetBATT",
+            "Trigger": {
+              "Type": "TriggerScreenTransitionBegins"
+            },
+            "Action": {
+              "Type": "ActionExecuteCode",
+              "Code": "extern uint8_t battVal;\r\nbatteryprogress.setValue(battVal);"
+            }
           }
         ]
       },
@@ -2247,6 +2267,16 @@
               "ScreenTransitionDirection": "West",
               "ActionComponent": "SettingScreen"
             }
+          },
+          {
+            "InteractionName": "resetBATT",
+            "Trigger": {
+              "Type": "TriggerScreenTransitionBegins"
+            },
+            "Action": {
+              "Type": "ActionExecuteCode",
+              "Code": "extern uint8_t battVal;\r\nbatteryprogress.setValue(battVal);"
+            }
           }
         ]
       },
@@ -2394,6 +2424,16 @@
               "ActionCustomTypeName": "Call screenontimeSetting changeScreenOnTime",
               "ActionComponent": "screenontimeSetting"
             }
+          },
+          {
+            "InteractionName": "resetBATT",
+            "Trigger": {
+              "Type": "TriggerScreenTransitionBegins"
+            },
+            "Action": {
+              "Type": "ActionExecuteCode",
+              "Code": "extern uint8_t battVal;\r\nbatteryprogress.setValue(battVal);"
+            }
           }
         ],
         "CustomActions": [
@@ -2469,7 +2509,18 @@
             "ProgressInitialValue": 90
           }
         ],
-        "Interactions": []
+        "Interactions": [
+          {
+            "InteractionName": "resetBATT",
+            "Trigger": {
+              "Type": "TriggerScreenTransitionBegins"
+            },
+            "Action": {
+              "Type": "ActionExecuteCode",
+              "Code": "extern uint8_t battVal;\r\nbatteryprogress.setValue(battVal);"
+            }
+          }
+        ]
       },
       {
         "Name": "soundnhapticsSetting",
@@ -2604,7 +2655,18 @@
             "RelativeFilename": "set_setting_sound_icon.png"
           }
         ],
-        "Interactions": []
+        "Interactions": [
+          {
+            "InteractionName": "resetBATT",
+            "Trigger": {
+              "Type": "TriggerScreenTransitionBegins"
+            },
+            "Action": {
+              "Type": "ActionExecuteCode",
+              "Code": "extern uint8_t battVal;\r\nbatteryprogress.setValue(battVal);"
+            }
+          }
+        ]
       },
       {
         "Name": "languageSetting",
@@ -2822,6 +2884,16 @@
               "Type": "ActionSetLanguage",
               "Language": "Spanish"
             }
+          },
+          {
+            "InteractionName": "resetBATT",
+            "Trigger": {
+              "Type": "TriggerScreenTransitionBegins"
+            },
+            "Action": {
+              "Type": "ActionExecuteCode",
+              "Code": "extern uint8_t battVal;\r\nbatteryprogress.setValue(battVal);"
+            }
           }
         ]
       },
@@ -3000,6 +3072,16 @@
               "ScreenTransitionDirection": "East",
               "ActionComponent": "networkInfoSetting"
             }
+          },
+          {
+            "InteractionName": "resetBATT",
+            "Trigger": {
+              "Type": "TriggerScreenTransitionBegins"
+            },
+            "Action": {
+              "Type": "ActionExecuteCode",
+              "Code": "extern uint8_t battVal;\r\nbatteryprogress.setValue(battVal);"
+            }
           }
         ]
       },
@@ -3164,6 +3246,16 @@
               "ScreenTransitionDirection": "West",
               "ActionComponent": "informationSetting"
             }
+          },
+          {
+            "InteractionName": "resetBATT",
+            "Trigger": {
+              "Type": "TriggerScreenTransitionBegins"
+            },
+            "Action": {
+              "Type": "ActionExecuteCode",
+              "Code": "extern uint8_t battVal;\r\nbatteryprogress.setValue(battVal);"
+            }
           }
         ]
       },
@@ -3248,7 +3340,18 @@
             "ProgressInitialValue": 90
           }
         ],
-        "Interactions": []
+        "Interactions": [
+          {
+            "InteractionName": "resetBATT",
+            "Trigger": {
+              "Type": "TriggerScreenTransitionBegins"
+            },
+            "Action": {
+              "Type": "ActionExecuteCode",
+              "Code": "extern uint8_t battVal;\r\nbatteryprogress.setValue(battVal);"
+            }
+          }
+        ]
       },
       {
         "Name": "systemSetting",
@@ -3355,6 +3458,16 @@
               "ScreenTransitionType": "ScreenTransitionNone",
               "ActionComponent": "turnoffScreen"
             }
+          },
+          {
+            "InteractionName": "resetBATT",
+            "Trigger": {
+              "Type": "TriggerScreenTransitionBegins"
+            },
+            "Action": {
+              "Type": "ActionExecuteCode",
+              "Code": "extern uint8_t battVal;\r\nbatteryprogress.setValue(battVal);"
+            }
           }
         ]
       },
@@ -3444,6 +3557,16 @@
               "Type": "ActionGotoScreen",
               "ScreenTransitionType": "ScreenTransitionNone",
               "ActionComponent": "HomeScreenWithBiodata"
+            }
+          },
+          {
+            "InteractionName": "resetBATT",
+            "Trigger": {
+              "Type": "TriggerScreenTransitionBegins"
+            },
+            "Action": {
+              "Type": "ActionExecuteCode",
+              "Code": "extern uint8_t battVal;\r\nbatteryprogress.setValue(battVal);"
             }
           }
         ]
@@ -3540,6 +3663,16 @@
               "Type": "ActionGotoScreen",
               "ScreenTransitionType": "ScreenTransitionNone",
               "ActionComponent": "fallDetected"
+            }
+          },
+          {
+            "InteractionName": "resetBATT",
+            "Trigger": {
+              "Type": "TriggerScreenTransitionBegins"
+            },
+            "Action": {
+              "Type": "ActionExecuteCode",
+              "Code": "extern uint8_t battVal;\r\nbatteryprogress.setValue(battVal);"
             }
           }
         ],

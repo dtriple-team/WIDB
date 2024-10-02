@@ -52,7 +52,7 @@
 ../Middlewares/ST/touchgfx/framework/include/touchgfx/widgets/Button.hpp:34:5:touchgfx::Button::Button()	16	static
 ../Middlewares/ST/touchgfx/framework/include/touchgfx/widgets/Image.hpp:38:7:touchgfx::Image::~Image()	16	static
 ../Middlewares/ST/touchgfx/framework/include/touchgfx/widgets/Image.hpp:38:7:virtual touchgfx::Image::~Image()	16	static
-../TouchGFX/generated/gui_generated/include/gui_generated/systemsetting_screen/systemSettingViewBase.hpp:24:26:FrontendApplication& systemSettingViewBase::application()	16	static
+../TouchGFX/generated/gui_generated/include/gui_generated/systemsetting_screen/systemSettingViewBase.hpp:25:26:FrontendApplication& systemSettingViewBase::application()	16	static
 ../Middlewares/ST/touchgfx/framework/include/mvp/View.hpp:36:7:touchgfx::View<systemSettingPresenter>::~View()	16	static
 ../Middlewares/ST/touchgfx/framework/include/mvp/View.hpp:36:7:virtual touchgfx::View<systemSettingPresenter>::~View()	16	static
 ../TouchGFX/generated/gui_generated/src/systemsetting_screen/systemSettingViewBase.cpp:9:1:systemSettingViewBase::systemSettingViewBase()	192	static
@@ -60,6 +60,7 @@
 ../TouchGFX/generated/gui_generated/src/systemsetting_screen/systemSettingViewBase.cpp:58:1:virtual systemSettingViewBase::~systemSettingViewBase()	16	static
 ../TouchGFX/generated/gui_generated/src/systemsetting_screen/systemSettingViewBase.cpp:63:6:virtual void systemSettingViewBase::setupScreen()	16	static
 ../TouchGFX/generated/gui_generated/src/systemsetting_screen/systemSettingViewBase.cpp:68:6:void systemSettingViewBase::buttonCallbackHandler(const touchgfx::AbstractButton&)	16	static
+../TouchGFX/generated/gui_generated/src/systemsetting_screen/systemSettingViewBase.cpp:79:6:virtual void systemSettingViewBase::transitionBegins()	16	static
 ../Middlewares/ST/touchgfx/framework/include/mvp/View.hpp:39:5:touchgfx::View<T>::View() [with T = systemSettingPresenter]	16	static
 ../Middlewares/ST/touchgfx/framework/include/touchgfx/Callback.hpp:134:7:constexpr touchgfx::GenericCallback<const touchgfx::AbstractButton&>::GenericCallback()	16	static
 ../Middlewares/ST/touchgfx/framework/include/touchgfx/Callback.hpp:373:5:touchgfx::Callback<dest_type, T1, void, void>::Callback(dest_type*, void (dest_type::*)(T1)) [with dest_type = systemSettingViewBase; T1 = const touchgfx::AbstractButton&]	24	static

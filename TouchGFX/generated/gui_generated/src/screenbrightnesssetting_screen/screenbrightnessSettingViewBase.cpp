@@ -51,5 +51,14 @@ screenbrightnessSettingViewBase::~screenbrightnessSettingViewBase()
 
 void screenbrightnessSettingViewBase::setupScreen()
 {
+    transitionBegins();
+}
 
+void screenbrightnessSettingViewBase::transitionBegins()
+{
+    //resetBATT
+    //When screen transition begins execute C++ code
+    //Execute C++ code
+    extern uint8_t battVal;
+    batteryprogress.setValue(battVal);
 }

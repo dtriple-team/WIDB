@@ -19,6 +19,7 @@ public:
     systemSettingViewBase();
     virtual ~systemSettingViewBase();
     virtual void setupScreen();
+    virtual void transitionBegins();
 
 protected:
     FrontendApplication& application() {

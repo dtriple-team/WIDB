@@ -19,6 +19,7 @@ public:
     networkInfoSettingViewBase();
     virtual ~networkInfoSettingViewBase();
     virtual void setupScreen();
+    virtual void transitionBegins();
 
 protected:
     FrontendApplication& application() {

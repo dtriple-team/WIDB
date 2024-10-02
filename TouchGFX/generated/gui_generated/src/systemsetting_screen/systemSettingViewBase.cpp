@@ -62,7 +62,7 @@ systemSettingViewBase::~systemSettingViewBase()
 
 void systemSettingViewBase::setupScreen()
 {
-
+    transitionBegins();
 }
 
 void systemSettingViewBase::buttonCallbackHandler(const touchgfx::AbstractButton& src)
@@ -74,4 +74,13 @@ void systemSettingViewBase::buttonCallbackHandler(const touchgfx::AbstractButton
         //Go to turnoffScreen with no screen transition
         application().gototurnoffScreenScreenNoTransition();
     }
+}
+
+void systemSettingViewBase::transitionBegins()
+{
+    //resetBATT
+    //When screen transition begins execute C++ code
+    //Execute C++ code
+    extern uint8_t battVal;
+    batteryprogress.setValue(battVal);
 }

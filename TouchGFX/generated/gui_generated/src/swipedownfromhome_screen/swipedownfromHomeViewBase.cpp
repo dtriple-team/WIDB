@@ -114,7 +114,7 @@ swipedownfromHomeViewBase::~swipedownfromHomeViewBase()
 
 void swipedownfromHomeViewBase::setupScreen()
 {
-
+    transitionBegins();
 }
 
 void swipedownfromHomeViewBase::buttonCallbackHandler(const touchgfx::AbstractButton& src)
@@ -147,4 +147,13 @@ void swipedownfromHomeViewBase::buttonCallbackHandler(const touchgfx::AbstractBu
         //Go to flashlight_screen with no screen transition
         application().gotoflashlight_screenScreenNoTransition();
     }
+}
+
+void swipedownfromHomeViewBase::transitionBegins()
+{
+    //resetBATT
+    //When screen transition begins execute C++ code
+    //Execute C++ code
+    extern uint8_t battVal;
+    batteryprogress.setValue(battVal);
 }

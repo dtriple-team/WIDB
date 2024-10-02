@@ -20,6 +20,7 @@ public:
     deviceInfoSettingViewBase();
     virtual ~deviceInfoSettingViewBase();
     virtual void setupScreen();
+    virtual void transitionBegins();
 
 protected:
     FrontendApplication& application() {

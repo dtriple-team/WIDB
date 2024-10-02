@@ -87,7 +87,7 @@ deviceInfoSettingViewBase::~deviceInfoSettingViewBase()
 
 void deviceInfoSettingViewBase::setupScreen()
 {
-
+    transitionBegins();
 }
 
 void deviceInfoSettingViewBase::buttonCallbackHandler(const touchgfx::AbstractButton& src)
@@ -99,4 +99,13 @@ void deviceInfoSettingViewBase::buttonCallbackHandler(const touchgfx::AbstractBu
         //Go to informationSetting with screen transition towards West
         application().gotoinformationSettingScreenWipeTransitionWest();
     }
+}
+
+void deviceInfoSettingViewBase::transitionBegins()
+{
+    //resetBATT
+    //When screen transition begins execute C++ code
+    //Execute C++ code
+    extern uint8_t battVal;
+    batteryprogress.setValue(battVal);
 }

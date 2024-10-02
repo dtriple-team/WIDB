@@ -18,6 +18,7 @@ public:
     fallDetectedViewBase();
     virtual ~fallDetectedViewBase();
     virtual void setupScreen();
+    virtual void transitionBegins();
 
     /*
      * Custom Actions

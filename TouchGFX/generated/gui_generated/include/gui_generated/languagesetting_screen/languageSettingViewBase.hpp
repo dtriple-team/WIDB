@@ -20,6 +20,7 @@ public:
     languageSettingViewBase();
     virtual ~languageSettingViewBase();
     virtual void setupScreen();
+    virtual void transitionBegins();
 
 protected:
     FrontendApplication& application() {
