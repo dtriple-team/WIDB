@@ -3643,7 +3643,6 @@
             "Name": "flashlightBackBTN",
             "Width": 240,
             "Height": 280,
-            "Visible": false,
             "Alpha": 0,
             "ButtonTrigger": {
               "Type": "ClickButtonTrigger"
@@ -3710,6 +3709,17 @@
               "Type": "ActionCustom2",
               "ActionCustomTypeName": "Call flashlight_screen changeBeforeBrightness",
               "ActionComponent": "flashlight_screen"
+            }
+          },
+          {
+            "InteractionName": "resetScreenOnTime",
+            "Trigger": {
+              "Type": "TriggerOnEveryTick",
+              "TickCount": 1
+            },
+            "Action": {
+              "Type": "ActionExecuteCode",
+              "Code": "extern uint8_t brightness_count;\r\nbrightness_count = 0;"
             }
           }
         ],

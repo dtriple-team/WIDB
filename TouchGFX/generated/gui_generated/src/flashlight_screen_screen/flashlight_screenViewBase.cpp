@@ -24,7 +24,6 @@ flashlight_screenViewBase::flashlight_screenViewBase() :
     flashlightBackBTN.setBorderSize(5);
     flashlightBackBTN.setBoxWithBorderColors(touchgfx::Color::getColorFromRGB(0, 102, 153), touchgfx::Color::getColorFromRGB(0, 153, 204), touchgfx::Color::getColorFromRGB(0, 51, 102), touchgfx::Color::getColorFromRGB(51, 102, 153));
     flashlightBackBTN.setAlpha(0);
-    flashlightBackBTN.setVisible(false);
     flashlightBackBTN.setAction(flexButtonCallback);
     flashlightBackBTN.setPosition(0, 0, 240, 280);
     add(flashlightBackBTN);
@@ -61,4 +60,13 @@ void flashlight_screenViewBase::transitionBegins()
     //When screen transition begins call changeMaxBrightness on flashlight_screen
     //Call changeMaxBrightness
     changeMaxBrightness();
+}
+
+void flashlight_screenViewBase::handleTickEvent()
+{
+    //resetScreenOnTime
+    //When every N tick execute C++ code
+    //Execute C++ code
+    extern uint8_t brightness_count;
+    brightness_count = 0;
 }

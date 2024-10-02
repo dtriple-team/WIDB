@@ -15,6 +15,8 @@ extern uint32_t ssWalk;
 
 extern uint8_t canDisplayPPG;
 
+extern uint8_t battVal;
+
 #include <cstdlib>
 
 HomeScreenWithBiodataView::HomeScreenWithBiodataView()
@@ -69,6 +71,8 @@ void HomeScreenWithBiodataView::handleTickEvent()
 		////////////////// jh ///////////////////
 //		digitalClock.setTime24Hour(sTime.Hours, sTime.Minutes, sTime.Seconds);
 //		digitalClock.invalidate();
+
+		batteryprogress.setValue(battVal);
 
 		if(!canDisplayPPG) return;
 

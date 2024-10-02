@@ -18,6 +18,7 @@ public:
     virtual ~flashlight_screenViewBase();
     virtual void setupScreen();
     virtual void transitionBegins();
+    virtual void handleTickEvent();
 
     /*
      * Custom Actions

@@ -129,6 +129,8 @@ uint8_t pmicInitFlag = 0;
 
 double test_mag_data[15] = {0,};
 uint8_t set_bLevel = 15;
+uint8_t before_bLevel = 0;
+uint8_t flashlightOn = 0;
 
 initBlackScreenViewBase myBlackScreenView;
 fallDetectedViewBase myFallDetectedView;
@@ -430,6 +432,7 @@ void StartSecTimerTask(void *argument)
 uint8_t interrupt_kind = 0;
 #define PRESSURE_VAL_LEN 10
 #include <math.h>
+uint8_t battVal = 0;
 double calculateAltitudeDifference(double P1, double P2) {
     const double R = 8.314;       // 기체 ?��?�� (J/(mol·K))
     const double T = 273.15+25;   // ?���? ?��?�� (K) - ?���? ??�? 조건 15°C
@@ -439,6 +442,10 @@ double calculateAltitudeDifference(double P1, double P2) {
     double altitudeDifference = (R * T) / (g * M) * log(P1 / P2);
 
     return altitudeDifference;
+}
+uint8_t updateBattVal(){
+	uint8_t batt = 0;
+	return batt;
 }
 /* USER CODE END Header_StartCheckINTTask */
 void StartCheckINTTask(void *argument)
@@ -493,8 +500,15 @@ void StartCheckINTTask(void *argument)
     // MCU GPIO button click => change to home screen & backlight on
     if(HAL_GPIO_ReadPin(GPIOB, GPIO_PIN_12) == GPIO_PIN_RESET){
     	brightness_count = 0;
+    	if(flashlightOn){
+    		flashlightOn = 0;
+    		set_bLevel = before_bLevel; // turn off flash light : brightness
+    	}
     	myTempHomeView.changeToHomeScreen();
     }
+
+    // check Battery
+    battVal = updateBattVal();
   }
   /* USER CODE END checkINTTask */
 }
@@ -510,11 +524,11 @@ uint8_t canDisplayPPG = 0;
 
 void read_ppg()
 {
-	if(canDisplayPPG) return; // full buffer => can display UI
+//	if(canDisplayPPG) return; // full buffer => can display UI // occur timing problem
 
 	uint8_t data[76+1] = {0,}; // +1: status byte
 	if(-1 == ssRead(data, sizeof(data))){
-		osDelay(100);
+//		osDelay(100);
 		return;
 	}
 

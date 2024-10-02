@@ -16,12 +16,15 @@ void flashlight_screenView::tearDownScreen()
 }
 
 extern uint8_t set_bLevel;
-uint8_t before_bLevel = 0;
+extern uint8_t before_bLevel;
+extern uint8_t flashlightOn;
 void flashlight_screenView::changeMaxBrightness(){
 	before_bLevel = set_bLevel;
 	set_bLevel = 16;
+	flashlightOn = 1;
 }
 
 void flashlight_screenView::changeBeforeBrightness(){
 	set_bLevel = before_bLevel;
+	flashlightOn = 0;
 }

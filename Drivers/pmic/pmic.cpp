@@ -25,3 +25,9 @@ int pmic_init()
 
     return 0;
 }
+
+//uint16_t pmicSOCRead(){
+//	uint16_t socVal = 0;
+//	max20303.Battery_Status_Charger();
+//	return socVal;
+//}
