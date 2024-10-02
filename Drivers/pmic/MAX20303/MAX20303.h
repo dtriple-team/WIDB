@@ -129,6 +129,8 @@ public:
 		REG_NULL = 0x1E,   ///< Reserved 0x1E
 		REG_PWR_OFF = 0x1F,   ///< Power Off Register
 		*/
+
+//		MAX20303_I2C_ADDR_FUEL_GAUGE = 0x6C
 	};
 
 	/**

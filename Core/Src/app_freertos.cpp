@@ -433,6 +433,7 @@ uint8_t interrupt_kind = 0;
 #define PRESSURE_VAL_LEN 10
 #include <math.h>
 uint8_t battVal = 0;
+unsigned char batterylevel;
 double calculateAltitudeDifference(double P1, double P2) {
     const double R = 8.314;       // 기체 ?��?�� (J/(mol·K))
     const double T = 273.15+25;   // ?���? ?��?�� (K) - ?���? ??�? 조건 15°C
@@ -459,7 +460,7 @@ void StartCheckINTTask(void *argument)
   /* Infinite loop */
   for(;;)
   {
-    osDelay(1);
+    osDelay(100);
 
     if(occurred_imuInterrupt){
     	occurred_imuInterrupt = 0;
@@ -508,7 +509,10 @@ void StartCheckINTTask(void *argument)
     }
 
     // check Battery
-    battVal = updateBattVal();
+    if(pmicSOCRead(&batterylevel) != 0x00){ // occur err
+    	MX_I2C3_Init(); // occur err...
+    }
+    battVal = batterylevel;
   }
   /* USER CODE END checkINTTask */
 }

@@ -9,3 +9,4 @@
 ../Drivers/pmic/MAX20303/MAX20303.cpp:135:5:int MAX20303::AppWrite(uint8_t)	2
 ../Drivers/pmic/MAX20303/MAX20303.cpp:151:5:int MAX20303::AppRead(uint8_t)	2
 ../Drivers/pmic/MAX20303/MAX20303.cpp:164:5:int MAX20303::BuckBoostEnable()	2
+../Drivers/pmic/MAX20303/MAX20303.cpp:185:5:int MAX20303::Max20303_BatteryGauge(unsigned char*)	4

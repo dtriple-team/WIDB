@@ -180,3 +180,74 @@ int MAX20303::BuckBoostEnable(void)
 
 	return MAX20303_NO_ERROR;
 }
+
+//******************************************************************************
+int MAX20303::Max20303_BatteryGauge(unsigned char *batterylevel)
+{
+	int ret = 0;
+	uint8_t data[2];
+
+	data[0] = 0x04; data[1] = 0x04;
+	ret = HAL_I2C_Master_Transmit(&hi2c3, MAX20303_I2C_ADDR_FUEL_GAUGE,   data, 1, 1);
+	if (ret != 0)
+		return MAX20303_ERROR;
+	ret = HAL_I2C_Master_Receive (&hi2c3, MAX20303_I2C_ADDR_FUEL_GAUGE+1, data, 2, 1);
+	if (ret != 0)
+		return MAX20303_ERROR;
+
+	if(data[0]>100){
+		data[0] = 100;
+	} else if(data[0]<0){
+		data[0] = 0;
+	}
+	*batterylevel = data[0];
+
+	return 0;
+}
+
+//int MAX20303::readReg(registers_t reg, uint8_t &value)
+//{
+//	int ret;
+//
+//	char data = reg;
+//
+//	ret = m_i2c->write(m_writeAddress, &data, sizeof(data));
+//	if (ret != 0) {
+//		printf("%s - failed - ret: %d\n", __func__, ret);
+//		return MAX20303_ERROR;
+//	}
+//
+//	ret = m_i2c->read(m_readAddress, &data, sizeof(data));
+//	if (ret != 0) {
+//		printf("%s - failed - ret: %d\n", __func__, ret);
+//		return MAX20303_ERROR;
+//	}
+//
+//	value = data;
+//	printf("MAX20303 read reg[0x%X]=0x%X, ret=%d\r\n", (unsigned int)reg,  (unsigned int)value, ret);
+//	return MAX20303_NO_ERROR;
+//}
+//
+//int MAX20303::Max20303_BatteryGauge(unsigned char *batterylevel){
+//	int ret;
+//	char data[2];
+//
+//	data[0] = 0x04;
+//	ret = m_i2c->write(MAX20303_I2C_ADDR_FUEL_GAUGE, data, 1);
+//	if(ret != 0){
+//		printf("Max20303_FuelGauge has failed\r\n");
+//	}
+//
+//	ret = m_i2c->read(MAX20303_I2C_ADDR_FUEL_GAUGE | 1, data, 2);
+//	if(ret != 0){
+//		printf("Max20303_FuelGauge has failed\r\n");
+//	}
+//	if(data[0]>100){
+//		data[0] = 100;
+//	} else if(data[0]<0){
+//		data[0] = 0;
+//	}
+//	*batterylevel = data[0];
+//
+//	return 0;
+//}
