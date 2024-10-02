@@ -1,5 +1,6 @@
 ../Drivers/pmic/pmic.cpp:8:5:int pmic_init()	8	static
 ../Drivers/pmic/pmic.cpp:29:5:int pmicSOCRead(unsigned char*)	24	static
-../Drivers/pmic/pmic.cpp:33:1:void __static_initialization_and_destruction_0(int, int)	16	static
-../Drivers/pmic/pmic.cpp:33:1:cpp)	8	static
-../Drivers/pmic/pmic.cpp:33:1:cpp)	8	static
+../Drivers/pmic/pmic.cpp:35:6:bool isBATTCharging()	16	static
+../Drivers/pmic/pmic.cpp:38:1:void __static_initialization_and_destruction_0(int, int)	16	static
+../Drivers/pmic/pmic.cpp:38:1:cpp)	8	static
+../Drivers/pmic/pmic.cpp:38:1:cpp)	8	static

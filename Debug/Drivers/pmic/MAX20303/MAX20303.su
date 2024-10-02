@@ -10,3 +10,4 @@
 ../Drivers/pmic/MAX20303/MAX20303.cpp:151:5:int MAX20303::AppRead(uint8_t)	24	static
 ../Drivers/pmic/MAX20303/MAX20303.cpp:164:5:int MAX20303::BuckBoostEnable()	24	static
 ../Drivers/pmic/MAX20303/MAX20303.cpp:185:5:int MAX20303::Max20303_BatteryGauge(unsigned char*)	32	static
+../Drivers/pmic/MAX20303/MAX20303.cpp:209:6:bool MAX20303::Battery_Status_Charger()	24	static

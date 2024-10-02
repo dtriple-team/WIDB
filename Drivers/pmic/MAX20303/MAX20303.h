@@ -188,7 +188,7 @@ public:
     // check if the battery is connected.
     // Warning: that function has 1000ms delay
     char Max20303_IsBattery_Connected();
-	char Battery_Status_Charger();
+	bool Battery_Status_Charger();
 
 
 private:

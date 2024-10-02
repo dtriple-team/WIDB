@@ -3656,6 +3656,30 @@
             "Name": "changeBATTVal"
           }
         ]
+      },
+      {
+        "Name": "batteryCharging",
+        "Width": 240,
+        "Height": 23,
+        "Components": [],
+        "Interactions": [
+          {
+            "InteractionName": "updateBATT",
+            "Trigger": {
+              "Type": "TriggerWhen",
+              "ActionCustomTypeName": "Call batteryCharging changeBATTVal"
+            },
+            "Action": {
+              "Type": "ActionExecuteCode",
+              "Code": "extern uint8_t battVal;\r\nbatteryprogress.setValue(battVal);"
+            }
+          }
+        ],
+        "CustomActions": [
+          {
+            "Name": "changeBATTVal"
+          }
+        ]
       }
     ],
     "Name": "demo_eHG4",

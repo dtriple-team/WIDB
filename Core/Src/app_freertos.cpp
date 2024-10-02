@@ -137,6 +137,7 @@ fallDetectedViewBase myFallDetectedView;
 tempHomeViewBase myTempHomeView;
 
 extern uint8_t occurred_imuInterrupt;
+extern uint8_t occurred_PMICBUTTInterrupt;
 
 /* USER CODE END FunctionPrototypes */
 
@@ -402,8 +403,8 @@ void StartSecTimerTask(void *argument)
 		ST7789_brightness_setting(now_bLevel);
 	}
 
-	// screenOnTime == brightness_count�??? ?���??? ?���??? 꺼라
-	// brightness_count == 0?���??? 바�?�면 백라?��?���??? 켜라
+	// screenOnTime == brightness_count�???? ?���???? ?���???? 꺼라
+	// brightness_count == 0?���???? 바�?�면 백라?��?���???? 켜라
 	if(pre_secTime != secTime && secTime%1 == 0){ // 1sec
 		// turn off LCD backlight
 		if(brightness_count == 0 && pre_brightness_count >= screenOnTime){
@@ -437,9 +438,9 @@ uint8_t battVal = 0;
 unsigned char batterylevel;
 double calculateAltitudeDifference(double P1, double P2) {
     const double R = 8.314;       // 기체 ?��?�� (J/(mol·K))
-    const double T = 273.15+25;   // ?���? ?��?�� (K) - ?���? ??�? 조건 15°C
-    const double g = 9.80665;     // 중력 �??��?�� (m/s²)
-    const double M = 0.02896;     // 공기?�� �? 질량 (kg/mol)
+    const double T = 273.15+25;   // ?���?? ?��?�� (K) - ?���?? ??�?? 조건 15°C
+    const double g = 9.80665;     // 중력 �???��?�� (m/s²)
+    const double M = 0.02896;     // 공기?�� �?? 질량 (kg/mol)
 
     double altitudeDifference = (R * T) / (g * M) * log(P1 / P2);
 
@@ -515,6 +516,16 @@ void StartCheckINTTask(void *argument)
     }
     battVal = batterylevel;
     myBatteryprogress_container.changeBATTVal();
+
+    // check and update Battery Charging value
+    if(isBATTCharging()){
+    	//
+    }
+
+    // PMIC interrupt occur => emergency signal send to Web (CATM1)
+    if(occurred_PMICBUTTInterrupt){
+    	occurred_PMICBUTTInterrupt = 0;
+    }
   }
   /* USER CODE END checkINTTask */
 }

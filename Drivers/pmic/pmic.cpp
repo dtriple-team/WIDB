@@ -31,3 +31,8 @@ int pmicSOCRead(unsigned char *batterylevel){
 	ret = max20303.Max20303_BatteryGauge(batterylevel);
 	return ret;
 }
+
+bool isBATTCharging(){
+	bool BatteryChgEn = max20303.Battery_Status_Charger();
+	return BatteryChgEn;
+}
