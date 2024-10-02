@@ -85,15 +85,15 @@ void HeartrateDetailViewBase::handleTickEvent()
         //updateHr
         //When every N tick execute C++ code
         //Execute C++ code
-        //extern uint8_t canDisplayPPG;
-        //if(!canDisplayPPG) return;
+        extern uint8_t canDisplayPPG;
+        if(!canDisplayPPG) return;
         
-        //canDisplayPPG = 0;
+        canDisplayPPG = 0;
         
-        //extern uint16_t ssHr;
+        extern uint16_t ssHr;
         
-        //touchgfx::Unicode::snprintf(heartrate_valueBuffer, HEARTRATE_VALUE_SIZE, "%02u", ssHr);
-        //heartrate_value.invalidate();
+        touchgfx::Unicode::snprintf(heartrate_valueBuffer, HEARTRATE_VALUE_SIZE, "%02u", ssHr);
+        heartrate_value.invalidate();
         frameCountUpdateHrInterval = 0;
     }
 }

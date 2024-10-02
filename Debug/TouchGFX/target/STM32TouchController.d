@@ -4,7 +4,7 @@ TouchGFX/target/STM32TouchController.o: \
  ../Middlewares/ST/touchgfx/framework/include/platform/driver/touch/TouchController.hpp \
  ../Middlewares/ST/touchgfx/framework/include/touchgfx/hal/Types.hpp \
  ../Middlewares/ST/touchgfx/framework/include/touchgfx/hal/Config.hpp \
- C:/Users/user/Desktop/WIDB/WIDB/Drivers/BL6133/bl6133.h \
+ C:/Users/D-triple/Desktop/WIDB_prj/WIDB/Drivers/BL6133/bl6133.h \
  ../Core/Inc/i2c.h ../Core/Inc/main.h \
  ../Drivers/STM32U5xx_HAL_Driver/Inc/stm32u5xx_hal.h \
  ../Core/Inc/stm32u5xx_hal_conf.h \
@@ -51,14 +51,14 @@ TouchGFX/target/STM32TouchController.o: \
  ../Drivers/STM32U5xx_HAL_Driver/Inc/stm32u5xx_hal_uart_ex.h \
  ../Drivers/STM32U5xx_HAL_Driver/Inc/stm32u5xx_hal_exti.h \
  ../Drivers/STM32U5xx_HAL_Driver/Inc/stm32u5xx_hal_mdf.h \
- C:/Users/user/Desktop/WIDB/WIDB/Drivers/ST7789/st7789.h \
- C:/Users/user/Desktop/WIDB/WIDB/Drivers/ST7789/fonts.h \
+ C:/Users/D-triple/Desktop/WIDB_prj/WIDB/Drivers/ST7789/st7789.h \
+ C:/Users/D-triple/Desktop/WIDB_prj/WIDB/Drivers/ST7789/fonts.h \
  ../Core/Inc/main.h
 ../TouchGFX/target/STM32TouchController.hpp:
 ../Middlewares/ST/touchgfx/framework/include/platform/driver/touch/TouchController.hpp:
 ../Middlewares/ST/touchgfx/framework/include/touchgfx/hal/Types.hpp:
 ../Middlewares/ST/touchgfx/framework/include/touchgfx/hal/Config.hpp:
-C:/Users/user/Desktop/WIDB/WIDB/Drivers/BL6133/bl6133.h:
+C:/Users/D-triple/Desktop/WIDB_prj/WIDB/Drivers/BL6133/bl6133.h:
 ../Core/Inc/i2c.h:
 ../Core/Inc/main.h:
 ../Drivers/STM32U5xx_HAL_Driver/Inc/stm32u5xx_hal.h:
@@ -106,6 +106,6 @@ C:/Users/user/Desktop/WIDB/WIDB/Drivers/BL6133/bl6133.h:
 ../Drivers/STM32U5xx_HAL_Driver/Inc/stm32u5xx_hal_uart_ex.h:
 ../Drivers/STM32U5xx_HAL_Driver/Inc/stm32u5xx_hal_exti.h:
 ../Drivers/STM32U5xx_HAL_Driver/Inc/stm32u5xx_hal_mdf.h:
-C:/Users/user/Desktop/WIDB/WIDB/Drivers/ST7789/st7789.h:
-C:/Users/user/Desktop/WIDB/WIDB/Drivers/ST7789/fonts.h:
+C:/Users/D-triple/Desktop/WIDB_prj/WIDB/Drivers/ST7789/st7789.h:
+C:/Users/D-triple/Desktop/WIDB_prj/WIDB/Drivers/ST7789/fonts.h:
 ../Core/Inc/main.h:

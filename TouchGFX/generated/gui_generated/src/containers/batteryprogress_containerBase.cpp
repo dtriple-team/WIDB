@@ -4,8 +4,7 @@
 #include <gui_generated/containers/batteryprogress_containerBase.hpp>
 #include <images/BitmapDatabase.hpp>
 
-batteryprogress_containerBase::batteryprogress_containerBase() :
-    progressIndicatorValueUpdatedCallback(this, &batteryprogress_containerBase::progressIndicatorValueUpdatedCallbackHandler)
+batteryprogress_containerBase::batteryprogress_containerBase()
 {
     setWidth(240);
     setHeight(23);
@@ -17,8 +16,10 @@ batteryprogress_containerBase::batteryprogress_containerBase() :
     batteryprogress.setBitmap(BITMAP_BATTPERCENTAGE_ID);
     batteryprogress.setValue(90);
     batteryprogress.setAnchorAtZero(true);
-    batteryprogress.setValueSetAction(progressIndicatorValueUpdatedCallback);
     add(batteryprogress);
+
+    extern uint8_t battVal;
+	batteryprogress.setValue(battVal);
 }
 
 batteryprogress_containerBase::~batteryprogress_containerBase()
@@ -31,14 +32,11 @@ void batteryprogress_containerBase::initialize()
 
 }
 
-void batteryprogress_containerBase::progressIndicatorValueUpdatedCallbackHandler(const touchgfx::AbstractProgressIndicator& src)
+void batteryprogress_containerBase::changeBATTVal()
 {
-    if (&src == &batteryprogress)
-    {
-        //updateBATT
-        //When batteryprogress progress indicator value updated execute C++ code
-        //Execute C++ code
-        //extern uint8_t battVal;
-        //batteryprogress.setValue(battVal);
-    }
+    //updateBATT
+    //When changeBATTVal is called execute C++ code
+    //Execute C++ code
+    extern uint8_t battVal;
+    batteryprogress.setValue(battVal);
 }

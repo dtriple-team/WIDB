@@ -85,15 +85,15 @@ void Spo2DetailViewBase::handleTickEvent()
         //updateSpo2
         //When every N tick execute C++ code
         //Execute C++ code
-        //extern uint8_t canDisplayPPG;
-        //if(!canDisplayPPG) return;
+        extern uint8_t canDisplayPPG;
+        if(!canDisplayPPG) return;
         
-        //canDisplayPPG = 0;
+        canDisplayPPG = 0;
         
-        //extern uint16_t ssSpo2;
+        extern uint16_t ssSpo2;
         
-        //touchgfx::Unicode::snprintf(spo2_valueBuffer, SPO2_VALUE_SIZE, "%02u", ssSpo2);
-        //spo2_value.invalidate();
+        touchgfx::Unicode::snprintf(spo2_valueBuffer, SPO2_VALUE_SIZE, "%02u", ssSpo2);
+        spo2_value.invalidate();
         frameCountUpdateSpo2Interval = 0;
     }
 }

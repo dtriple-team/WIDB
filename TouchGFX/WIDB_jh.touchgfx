@@ -3642,13 +3642,18 @@
           {
             "InteractionName": "updateBATT",
             "Trigger": {
-              "Type": "TriggerProgressIndicatorValueUpdated",
-              "TriggerComponent": "batteryprogress"
+              "Type": "TriggerWhen",
+              "ActionCustomTypeName": "Call batteryprogress_container changeBATTVal"
             },
             "Action": {
               "Type": "ActionExecuteCode",
               "Code": "extern uint8_t battVal;\r\nbatteryprogress.setValue(battVal);"
             }
+          }
+        ],
+        "CustomActions": [
+          {
+            "Name": "changeBATTVal"
           }
         ]
       }

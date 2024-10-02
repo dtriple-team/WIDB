@@ -2,10 +2,10 @@
 ../Drivers/pmic/MAX20303/MAX20303.cpp:54:1:MAX20303::~MAX20303()	1
 ../Drivers/pmic/MAX20303/MAX20303.cpp:61:5:int MAX20303::LDO1Config()	1
 ../Drivers/pmic/MAX20303/MAX20303.cpp:73:5:int MAX20303::LDO2Config()	1
-../Drivers/pmic/MAX20303/MAX20303.cpp:86:5:int MAX20303::writeReg(registers_t, uint8_t)	1
-../Drivers/pmic/MAX20303/MAX20303.cpp:101:5:int MAX20303::readReg(registers_t, uint8_t&)	1
-../Drivers/pmic/MAX20303/MAX20303.cpp:113:5:int MAX20303::readRegMulti(registers_t, uint8_t*, uint8_t)	1
-../Drivers/pmic/MAX20303/MAX20303.cpp:124:5:int MAX20303::writeRegMulti(registers_t, uint8_t*, uint8_t)	1
+../Drivers/pmic/MAX20303/MAX20303.cpp:86:5:int MAX20303::writeReg(MAX20303::registers_t, uint8_t)	1
+../Drivers/pmic/MAX20303/MAX20303.cpp:101:5:int MAX20303::readReg(MAX20303::registers_t, uint8_t&)	1
+../Drivers/pmic/MAX20303/MAX20303.cpp:113:5:int MAX20303::readRegMulti(MAX20303::registers_t, uint8_t*, uint8_t)	1
+../Drivers/pmic/MAX20303/MAX20303.cpp:124:5:int MAX20303::writeRegMulti(MAX20303::registers_t, uint8_t*, uint8_t)	1
 ../Drivers/pmic/MAX20303/MAX20303.cpp:135:5:int MAX20303::AppWrite(uint8_t)	2
 ../Drivers/pmic/MAX20303/MAX20303.cpp:151:5:int MAX20303::AppRead(uint8_t)	2
 ../Drivers/pmic/MAX20303/MAX20303.cpp:164:5:int MAX20303::BuckBoostEnable()	2

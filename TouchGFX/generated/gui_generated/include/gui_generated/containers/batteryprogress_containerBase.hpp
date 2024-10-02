@@ -15,6 +15,11 @@ public:
     virtual ~batteryprogress_containerBase();
     virtual void initialize();
 
+    /*
+     * Custom Actions
+     */
+    virtual void changeBATTVal();
+
 protected:
     FrontendApplication& application() {
         return *static_cast<FrontendApplication*>(touchgfx::Application::getInstance());
@@ -26,16 +31,6 @@ protected:
     touchgfx::ImageProgress batteryprogress;
 
 private:
-
-    /*
-     * Callback Declarations
-     */
-    touchgfx::Callback<batteryprogress_containerBase, const touchgfx::AbstractProgressIndicator&> progressIndicatorValueUpdatedCallback;
-
-    /*
-     * Callback Handler Declarations
-     */
-    void progressIndicatorValueUpdatedCallbackHandler(const touchgfx::AbstractProgressIndicator& src);
 
 };
 

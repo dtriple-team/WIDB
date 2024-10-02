@@ -42,7 +42,7 @@ extern "C" {
 #include <gui_generated/initblackscreen_screen/initBlackScreenViewBase.hpp>
 #include <gui_generated/falldetected_screen/fallDetectedViewBase.hpp>
 #include <gui_generated/temphome_screen/tempHomeViewBase.hpp>
-//#include <gui/spo2screen_screen/Spo2ScreenView.hpp>
+#include <gui_generated/containers/batteryprogress_containerBase.hpp>
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -117,7 +117,7 @@ const osThreadAttr_t secTimerTask_attributes = {
 osThreadId_t checkINTTaskHandle;
 const osThreadAttr_t checkINTTask_attributes = {
   .name = "checkINTTask",
-  .stack_size = 128 * 4,
+  .stack_size = 512 * 4,
   .priority = (osPriority_t) osPriorityNormal
 };
 
@@ -429,6 +429,7 @@ void StartSecTimerTask(void *argument)
 * @param argument: Not used
 * @retval None
 */
+batteryprogress_containerBase myBatteryprogress_container;
 uint8_t interrupt_kind = 0;
 #define PRESSURE_VAL_LEN 10
 #include <math.h>
@@ -508,11 +509,12 @@ void StartCheckINTTask(void *argument)
     	myTempHomeView.changeToHomeScreen();
     }
 
-    // check Battery
+    // update Battery value
     if(pmicSOCRead(&batterylevel) != 0x00){ // occur err
     	MX_I2C3_Init(); // occur err...
     }
     battVal = batterylevel;
+    myBatteryprogress_container.changeBATTVal();
   }
   /* USER CODE END checkINTTask */
 }
