@@ -9,14 +9,6 @@
 extern RTC_TimeTypeDef sTime;
 extern RTC_DateTypeDef sDate;
 
-extern uint16_t ssHr;
-extern uint16_t ssSpo2;
-extern uint32_t ssWalk;
-
-extern uint8_t canDisplayPPG;
-
-extern uint8_t battVal;
-
 #include <cstdlib>
 
 HomeScreenWithBiodataView::HomeScreenWithBiodataView()
@@ -41,6 +33,9 @@ void HomeScreenWithBiodataView::setupScreen()
 
 	digitalClock.setTime24Hour(timeinfo->tm_hour, timeinfo->tm_min, timeinfo->tm_sec);
 	digitalClock.invalidate();
+
+	extern uint8_t battVal;
+	batteryprogress.setValue(battVal);
 }
 
 void HomeScreenWithBiodataView::tearDownScreen()
@@ -72,11 +67,17 @@ void HomeScreenWithBiodataView::handleTickEvent()
 //		digitalClock.setTime24Hour(sTime.Hours, sTime.Minutes, sTime.Seconds);
 //		digitalClock.invalidate();
 
+		extern uint8_t battVal;
 		batteryprogress.setValue(battVal);
 
+		extern uint8_t canDisplayPPG;
 		if(!canDisplayPPG) return;
 
 		canDisplayPPG = 0;
+
+		extern uint16_t ssHr;
+		extern uint16_t ssSpo2;
+		extern uint32_t ssWalk;
 
 		touchgfx::Unicode::snprintf(home_heartrate_valueBuffer, HOME_HEARTRATE_VALUE_SIZE, "%02u", ssHr);
 		home_heartrate_value.invalidate();

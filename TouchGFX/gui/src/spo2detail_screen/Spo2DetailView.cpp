@@ -40,3 +40,4 @@ void Spo2DetailView::handleSwipeRight() //rkdalfks
 {
 	application().gotoHomeScreenWithBiodataScreenWipeTransitionWest();
 }
+

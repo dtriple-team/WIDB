@@ -7,7 +7,8 @@
 #include <images/BitmapDatabase.hpp>
 #include <texts/TextKeysAndLanguages.hpp>
 
-HeartrateDetailViewBase::HeartrateDetailViewBase()
+HeartrateDetailViewBase::HeartrateDetailViewBase() :
+    frameCountUpdateHrInterval(0)
 {
     touchgfx::CanvasWidgetRenderer::setupBuffer(canvasBuffer, CANVAS_BUFFER_SIZE);
     
@@ -80,5 +81,38 @@ HeartrateDetailViewBase::~HeartrateDetailViewBase()
 
 void HeartrateDetailViewBase::setupScreen()
 {
+    transitionBegins();
+}
 
+void HeartrateDetailViewBase::handleTickEvent()
+{
+    frameCountUpdateHrInterval++;
+    if(frameCountUpdateHrInterval == TICK_UPDATEHR_INTERVAL)
+    {
+        //updateHr
+        //When every N tick execute C++ code
+        //Execute C++ code
+        extern uint8_t battVal;
+        batteryprogress.setValue(battVal);
+        
+        extern uint8_t canDisplayPPG;
+        if(!canDisplayPPG) return;
+        
+        canDisplayPPG = 0;
+        
+        extern uint16_t ssHr;
+        
+        touchgfx::Unicode::snprintf(heartrate_valueBuffer, HEARTRATE_VALUE_SIZE, "%02u", ssHr);
+        heartrate_value.invalidate();
+        frameCountUpdateHrInterval = 0;
+    }
+}
+
+void HeartrateDetailViewBase::transitionBegins()
+{
+    //resetBATT
+    //When screen transition begins execute C++ code
+    //Execute C++ code
+    extern uint8_t battVal;
+    batteryprogress.setValue(battVal);
 }

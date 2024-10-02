@@ -7,7 +7,8 @@
 #include <images/BitmapDatabase.hpp>
 #include <texts/TextKeysAndLanguages.hpp>
 
-Spo2DetailViewBase::Spo2DetailViewBase()
+Spo2DetailViewBase::Spo2DetailViewBase() :
+    frameCountUpdateSpo2Interval(0)
 {
     touchgfx::CanvasWidgetRenderer::setupBuffer(canvasBuffer, CANVAS_BUFFER_SIZE);
     
@@ -80,5 +81,38 @@ Spo2DetailViewBase::~Spo2DetailViewBase()
 
 void Spo2DetailViewBase::setupScreen()
 {
+    transitionBegins();
+}
 
+void Spo2DetailViewBase::handleTickEvent()
+{
+    frameCountUpdateSpo2Interval++;
+    if(frameCountUpdateSpo2Interval == TICK_UPDATESPO2_INTERVAL)
+    {
+        //updateSpo2
+        //When every N tick execute C++ code
+        //Execute C++ code
+        extern uint8_t battVal;
+        batteryprogress.setValue(battVal);
+        
+        extern uint8_t canDisplayPPG;
+        if(!canDisplayPPG) return;
+        
+        canDisplayPPG = 0;
+        
+        extern uint16_t ssSpo2;
+        
+        touchgfx::Unicode::snprintf(spo2_valueBuffer, SPO2_VALUE_SIZE, "%02u", ssSpo2);
+        spo2_value.invalidate();
+        frameCountUpdateSpo2Interval = 0;
+    }
+}
+
+void Spo2DetailViewBase::transitionBegins()
+{
+    //resetBATT
+    //When screen transition begins execute C++ code
+    //Execute C++ code
+    extern uint8_t battVal;
+    batteryprogress.setValue(battVal);
 }

@@ -22,6 +22,8 @@ public:
     HeartrateDetailViewBase();
     virtual ~HeartrateDetailViewBase();
     virtual void setupScreen();
+    virtual void handleTickEvent();
+    virtual void transitionBegins();
 
 protected:
     FrontendApplication& application() {
@@ -57,6 +59,12 @@ private:
      */
     static const uint32_t CANVAS_BUFFER_SIZE = 3600;
     uint8_t canvasBuffer[CANVAS_BUFFER_SIZE];
+
+    /*
+     * Tick Counter Declarations
+     */
+    static const uint32_t TICK_UPDATEHR_INTERVAL = 60;
+    uint32_t frameCountUpdateHrInterval;
 
 };
 

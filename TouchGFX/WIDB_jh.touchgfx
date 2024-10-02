@@ -1198,7 +1198,29 @@
             "RelativeFilename": "lte_notconnected.png"
           }
         ],
-        "Interactions": []
+        "Interactions": [
+          {
+            "InteractionName": "updateHr",
+            "Trigger": {
+              "Type": "TriggerOnEveryTick",
+              "TickCount": 60
+            },
+            "Action": {
+              "Type": "ActionExecuteCode",
+              "Code": "extern uint8_t battVal;\r\nbatteryprogress.setValue(battVal);\r\n\r\nextern uint8_t canDisplayPPG;\r\nif(!canDisplayPPG) return;\r\n\r\ncanDisplayPPG = 0;\r\n\r\nextern uint16_t ssHr;\r\n\r\ntouchgfx::Unicode::snprintf(heartrate_valueBuffer, HEARTRATE_VALUE_SIZE, \"%02u\", ssHr);\r\nheartrate_value.invalidate();\r\n"
+            }
+          },
+          {
+            "InteractionName": "resetBATT",
+            "Trigger": {
+              "Type": "TriggerScreenTransitionBegins"
+            },
+            "Action": {
+              "Type": "ActionExecuteCode",
+              "Code": "extern uint8_t battVal;\r\nbatteryprogress.setValue(battVal);"
+            }
+          }
+        ]
       },
       {
         "Name": "Spo2Detail",
@@ -1322,7 +1344,29 @@
             "RelativeFilename": "lte_notconnected.png"
           }
         ],
-        "Interactions": []
+        "Interactions": [
+          {
+            "InteractionName": "updateSpo2",
+            "Trigger": {
+              "Type": "TriggerOnEveryTick",
+              "TickCount": 60
+            },
+            "Action": {
+              "Type": "ActionExecuteCode",
+              "Code": "extern uint8_t battVal;\r\nbatteryprogress.setValue(battVal);\r\n\r\nextern uint8_t canDisplayPPG;\r\nif(!canDisplayPPG) return;\r\n\r\ncanDisplayPPG = 0;\r\n\r\nextern uint16_t ssSpo2;\r\n\r\ntouchgfx::Unicode::snprintf(spo2_valueBuffer, SPO2_VALUE_SIZE, \"%02u\", ssSpo2);\r\nspo2_value.invalidate();"
+            }
+          },
+          {
+            "InteractionName": "resetBATT",
+            "Trigger": {
+              "Type": "TriggerScreenTransitionBegins"
+            },
+            "Action": {
+              "Type": "ActionExecuteCode",
+              "Code": "extern uint8_t battVal;\r\nbatteryprogress.setValue(battVal);"
+            }
+          }
+        ]
       },
       {
         "Name": "swipedownfromHome",
