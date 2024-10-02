@@ -25,7 +25,7 @@ extern "C" {
 #endif
 
 /* Includes ------------------------------------------------------------------*/
-#include "stm32wb_at.h"
+#include "../../BLE/stm32wb_at/stm32wb_at.h"
 
 /* Private includes ----------------------------------------------------------*/
 #define FOREACH_AT_BLE_CMD(AT_BLE_CMD)\

@@ -11,7 +11,7 @@
 #include <touchgfx/widgets/Image.hpp>
 #include <touchgfx/widgets/TextArea.hpp>
 #include <touchgfx/widgets/ToggleButton.hpp>
-#include <touchgfx/containers/progress_indicators/ImageProgress.hpp>
+#include <gui/containers/batteryprogress_container.hpp>
 
 class soundnhapticsSettingViewBase : public touchgfx::View<soundnhapticsSettingPresenter>
 {
@@ -19,7 +19,6 @@ public:
     soundnhapticsSettingViewBase();
     virtual ~soundnhapticsSettingViewBase();
     virtual void setupScreen();
-    virtual void transitionBegins();
 
 protected:
     FrontendApplication& application() {
@@ -38,9 +37,9 @@ protected:
     touchgfx::TextArea sound_label;
     touchgfx::ToggleButton haptic_togglebutton;
     touchgfx::ToggleButton sound_togglebutton;
-    touchgfx::ImageProgress batteryprogress;
     touchgfx::Image haptic_image;
     touchgfx::Image sound_image;
+    batteryprogress_container batteryprogress_container1;
 
 private:
 

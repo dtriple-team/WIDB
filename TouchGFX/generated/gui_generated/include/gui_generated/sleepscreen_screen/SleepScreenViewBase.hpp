@@ -12,9 +12,9 @@
 #include <touchgfx/widgets/TextArea.hpp>
 #include <touchgfx/widgets/TextAreaWithWildcard.hpp>
 #include <touchgfx/widgets/Button.hpp>
-#include <touchgfx/containers/progress_indicators/ImageProgress.hpp>
 #include <touchgfx/containers/progress_indicators/CircleProgress.hpp>
 #include <touchgfx/widgets/canvas/PainterRGB565.hpp>
+#include <gui/containers/batteryprogress_container.hpp>
 
 class SleepScreenViewBase : public touchgfx::View<SleepScreenPresenter>
 {
@@ -38,11 +38,11 @@ protected:
     touchgfx::Button buttonfornothing;
     touchgfx::Box topright_box;
     touchgfx::Box topleft_box;
-    touchgfx::ImageProgress batteryprogress;
     touchgfx::Image catm1_image;
     touchgfx::Image sleep_image;
     touchgfx::CircleProgress sleep_progress;
     touchgfx::PainterRGB565 sleep_progressPainter;
+    batteryprogress_container batteryprogress_container1;
 
     /*
      * Wildcard Buffers

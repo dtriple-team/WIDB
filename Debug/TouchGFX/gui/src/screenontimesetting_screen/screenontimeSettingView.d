@@ -65,6 +65,8 @@ TouchGFX/gui/src/screenontimesetting_screen/screenontimeSettingView.o: \
  ../TouchGFX/generated/gui_generated/include/gui_generated/containers/setting_screenontime_selectedBase.hpp \
  ../Middlewares/ST/touchgfx/framework/include/touchgfx/widgets/Button.hpp \
  ../Middlewares/ST/touchgfx/framework/include/touchgfx/widgets/AbstractButton.hpp \
+ ../TouchGFX/gui/include/gui/containers/batteryprogress_container.hpp \
+ ../TouchGFX/generated/gui_generated/include/gui_generated/containers/batteryprogress_containerBase.hpp \
  ../Middlewares/ST/touchgfx/framework/include/touchgfx/containers/progress_indicators/ImageProgress.hpp \
  ../Middlewares/ST/touchgfx/framework/include/touchgfx/containers/progress_indicators/AbstractDirectionProgress.hpp \
  ../Middlewares/ST/touchgfx/framework/include/touchgfx/containers/progress_indicators/AbstractProgressIndicator.hpp \
@@ -135,6 +137,8 @@ TouchGFX/gui/src/screenontimesetting_screen/screenontimeSettingView.o: \
 ../TouchGFX/generated/gui_generated/include/gui_generated/containers/setting_screenontime_selectedBase.hpp:
 ../Middlewares/ST/touchgfx/framework/include/touchgfx/widgets/Button.hpp:
 ../Middlewares/ST/touchgfx/framework/include/touchgfx/widgets/AbstractButton.hpp:
+../TouchGFX/gui/include/gui/containers/batteryprogress_container.hpp:
+../TouchGFX/generated/gui_generated/include/gui_generated/containers/batteryprogress_containerBase.hpp:
 ../Middlewares/ST/touchgfx/framework/include/touchgfx/containers/progress_indicators/ImageProgress.hpp:
 ../Middlewares/ST/touchgfx/framework/include/touchgfx/containers/progress_indicators/AbstractDirectionProgress.hpp:
 ../Middlewares/ST/touchgfx/framework/include/touchgfx/containers/progress_indicators/AbstractProgressIndicator.hpp:

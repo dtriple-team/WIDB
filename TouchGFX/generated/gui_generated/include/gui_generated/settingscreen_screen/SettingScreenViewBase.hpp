@@ -12,7 +12,7 @@
 #include <touchgfx/containers/ScrollableContainer.hpp>
 #include <touchgfx/widgets/Button.hpp>
 #include <touchgfx/widgets/TextArea.hpp>
-#include <touchgfx/containers/progress_indicators/ImageProgress.hpp>
+#include <gui/containers/batteryprogress_container.hpp>
 
 class SettingScreenViewBase : public touchgfx::View<SettingScreenPresenter>
 {
@@ -20,7 +20,6 @@ public:
     SettingScreenViewBase();
     virtual ~SettingScreenViewBase();
     virtual void setupScreen();
-    virtual void transitionBegins();
 
 protected:
     FrontendApplication& application() {
@@ -59,9 +58,9 @@ protected:
     touchgfx::Image information_image;
     touchgfx::Image system_image;
     touchgfx::TextArea setting_label;
-    touchgfx::ImageProgress batteryprogress;
     touchgfx::Button buttonfornothing;
     touchgfx::Image catm1_image;
+    batteryprogress_container batteryprogress_container1;
 
 private:
 

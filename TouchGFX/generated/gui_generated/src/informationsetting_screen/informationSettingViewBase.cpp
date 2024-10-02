@@ -63,16 +63,6 @@ informationSettingViewBase::informationSettingViewBase() :
     network_button.setAction(buttonCallback);
     add(network_button);
 
-    batteryprogress.setXY(197, 8);
-    batteryprogress.setProgressIndicatorPosition(2, 2, 27, 11);
-    batteryprogress.setRange(0, 100);
-    batteryprogress.setDirection(touchgfx::AbstractDirectionProgress::RIGHT);
-    batteryprogress.setBackground(touchgfx::Bitmap(BITMAP_GROUP_6_ID));
-    batteryprogress.setBitmap(BITMAP_BATTPERCENTAGE_ID);
-    batteryprogress.setValue(90);
-    batteryprogress.setAnchorAtZero(true);
-    add(batteryprogress);
-
     device_image.setXY(14, 48);
     device_image.setBitmap(touchgfx::Bitmap(BITMAP_SET_SETTING_DEVICE_ICON_ID));
     add(device_image);
@@ -80,6 +70,9 @@ informationSettingViewBase::informationSettingViewBase() :
     network_image.setXY(19, 114);
     network_image.setBitmap(touchgfx::Bitmap(BITMAP_SET_SETTING_NETWORK_ICON_ID));
     add(network_image);
+
+    batteryprogress_container1.setXY(0, 0);
+    add(batteryprogress_container1);
 }
 
 informationSettingViewBase::~informationSettingViewBase()
@@ -89,7 +82,7 @@ informationSettingViewBase::~informationSettingViewBase()
 
 void informationSettingViewBase::setupScreen()
 {
-    transitionBegins();
+    batteryprogress_container1.initialize();
 }
 
 void informationSettingViewBase::buttonCallbackHandler(const touchgfx::AbstractButton& src)
@@ -108,13 +101,4 @@ void informationSettingViewBase::buttonCallbackHandler(const touchgfx::AbstractB
         //Go to networkInfoSetting with screen transition towards East
         application().gotonetworkInfoSettingScreenCoverTransitionEast();
     }
-}
-
-void informationSettingViewBase::transitionBegins()
-{
-    //resetBATT
-    //When screen transition begins execute C++ code
-    //Execute C++ code
-    extern uint8_t battVal;
-    batteryprogress.setValue(battVal);
 }

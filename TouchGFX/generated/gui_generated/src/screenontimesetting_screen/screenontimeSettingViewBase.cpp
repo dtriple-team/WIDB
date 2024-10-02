@@ -57,21 +57,14 @@ screenontimeSettingViewBase::screenontimeSettingViewBase() :
     ontime_done_label.setTypedText(touchgfx::TypedText(T_SCREENONTIMEAPPLY));
     add(ontime_done_label);
 
-    batteryprogress.setXY(197, 8);
-    batteryprogress.setProgressIndicatorPosition(2, 2, 27, 11);
-    batteryprogress.setRange(0, 100);
-    batteryprogress.setDirection(touchgfx::AbstractDirectionProgress::RIGHT);
-    batteryprogress.setBackground(touchgfx::Bitmap(BITMAP_GROUP_6_ID));
-    batteryprogress.setBitmap(BITMAP_BATTPERCENTAGE_ID);
-    batteryprogress.setValue(90);
-    batteryprogress.setAnchorAtZero(true);
-    add(batteryprogress);
-
     buttonfornothing.setXY(0, 0);
     buttonfornothing.setBitmaps(touchgfx::Bitmap(BITMAP_ALTERNATE_THEME_IMAGES_WIDGETS_BUTTON_REGULAR_HEIGHT_50_MEDIUM_ROUNDED_NORMAL_ID), touchgfx::Bitmap(BITMAP_ALTERNATE_THEME_IMAGES_WIDGETS_BUTTON_REGULAR_HEIGHT_50_MEDIUM_ROUNDED_PRESSED_ID));
     buttonfornothing.setVisible(false);
     buttonfornothing.setAction(buttonCallback);
     add(buttonfornothing);
+
+    batteryprogress_container1.setXY(0, 0);
+    add(batteryprogress_container1);
 }
 
 screenontimeSettingViewBase::~screenontimeSettingViewBase()
@@ -90,7 +83,7 @@ void screenontimeSettingViewBase::setupScreen()
     {
         scrollWheel1SelectedListItems[i].initialize();
     }
-    transitionBegins();
+    batteryprogress_container1.initialize();
 }
 
 void screenontimeSettingViewBase::buttonCallbackHandler(const touchgfx::AbstractButton& src)
@@ -113,15 +106,6 @@ void screenontimeSettingViewBase::buttonCallbackHandler(const touchgfx::Abstract
         //Call changeScreenOnTime
         changeScreenOnTime();
     }
-}
-
-void screenontimeSettingViewBase::transitionBegins()
-{
-    //resetBATT
-    //When screen transition begins execute C++ code
-    //Execute C++ code
-    extern uint8_t battVal;
-    batteryprogress.setValue(battVal);
 }
 
 void screenontimeSettingViewBase::updateItemCallbackHandler(touchgfx::DrawableListItemsInterface* items, int16_t containerIndex, int16_t itemIndex)

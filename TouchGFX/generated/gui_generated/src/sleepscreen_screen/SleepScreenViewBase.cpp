@@ -50,16 +50,6 @@ SleepScreenViewBase::SleepScreenViewBase() :
     topleft_box.setColor(touchgfx::Color::getColorFromRGB(0, 0, 0));
     add(topleft_box);
 
-    batteryprogress.setXY(197, 8);
-    batteryprogress.setProgressIndicatorPosition(2, 2, 27, 11);
-    batteryprogress.setRange(0, 100);
-    batteryprogress.setDirection(touchgfx::AbstractDirectionProgress::RIGHT);
-    batteryprogress.setBackground(touchgfx::Bitmap(BITMAP_GROUP_6_ID));
-    batteryprogress.setBitmap(BITMAP_BATTPERCENTAGE_ID);
-    batteryprogress.setValue(90);
-    batteryprogress.setAnchorAtZero(true);
-    add(batteryprogress);
-
     catm1_image.setXY(11, 11);
     catm1_image.setBitmap(touchgfx::Bitmap(BITMAP_LTE_NOTCONNECTED_ID));
     add(catm1_image);
@@ -81,6 +71,9 @@ SleepScreenViewBase::SleepScreenViewBase() :
     sleep_progress.setPainter(sleep_progressPainter);
     sleep_progress.setValue(75);
     add(sleep_progress);
+
+    batteryprogress_container1.setXY(0, 0);
+    add(batteryprogress_container1);
 }
 
 SleepScreenViewBase::~SleepScreenViewBase()
@@ -90,7 +83,7 @@ SleepScreenViewBase::~SleepScreenViewBase()
 
 void SleepScreenViewBase::setupScreen()
 {
-
+    batteryprogress_container1.initialize();
 }
 
 void SleepScreenViewBase::buttonCallbackHandler(const touchgfx::AbstractButton& src)

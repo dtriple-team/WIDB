@@ -484,24 +484,6 @@
             "Height": 33
           },
           {
-            "Type": "ImageProgress",
-            "Name": "batteryprogress",
-            "X": 197,
-            "Y": 8,
-            "Width": 33,
-            "Height": 15,
-            "FileNameProgress": "battpercentage.png",
-            "AnchorAtZero": true,
-            "Direction": "Right",
-            "FileNameBackground": "Group 6.png",
-            "IndicatorPositionX": 2,
-            "IndicatorPositionY": 2,
-            "IndicatorPositionWidth": 27,
-            "IndicatorPositionHeight": 11,
-            "ProgressRangeMax": 100,
-            "ProgressInitialValue": 90
-          },
-          {
             "Type": "Button",
             "Name": "buttonfornothing",
             "Width": 240,
@@ -519,6 +501,13 @@
             "Width": 15,
             "Height": 12,
             "RelativeFilename": "lte_notconnected.png"
+          },
+          {
+            "Type": "CustomContainerInstance",
+            "Name": "batteryprogress_container1",
+            "Width": 240,
+            "Height": 23,
+            "CustomContainerDefinitionName": "batteryprogress_container"
           }
         ],
         "Interactions": [
@@ -636,24 +625,6 @@
             "Height": 33
           },
           {
-            "Type": "ImageProgress",
-            "Name": "batteryprogress",
-            "X": 197,
-            "Y": 8,
-            "Width": 33,
-            "Height": 15,
-            "FileNameProgress": "battpercentage.png",
-            "AnchorAtZero": true,
-            "Direction": "Right",
-            "FileNameBackground": "Group 6.png",
-            "IndicatorPositionX": 2,
-            "IndicatorPositionY": 2,
-            "IndicatorPositionWidth": 27,
-            "IndicatorPositionHeight": 11,
-            "ProgressRangeMax": 100,
-            "ProgressInitialValue": 90
-          },
-          {
             "Type": "Image",
             "Name": "catm1_image",
             "X": 11,
@@ -692,6 +663,13 @@
             "FileNameBackground": "sleep_time_progressbar_back.png",
             "ProgressRangeMax": 100,
             "ProgressInitialValue": 75
+          },
+          {
+            "Type": "CustomContainerInstance",
+            "Name": "batteryprogress_container1",
+            "Width": 240,
+            "Height": 23,
+            "CustomContainerDefinitionName": "batteryprogress_container"
           }
         ],
         "Interactions": [
@@ -767,24 +745,6 @@
             "Height": 33
           },
           {
-            "Type": "ImageProgress",
-            "Name": "batteryprogress",
-            "X": 197,
-            "Y": 8,
-            "Width": 33,
-            "Height": 15,
-            "FileNameProgress": "battpercentage.png",
-            "AnchorAtZero": true,
-            "Direction": "Right",
-            "FileNameBackground": "Group 6.png",
-            "IndicatorPositionX": 2,
-            "IndicatorPositionY": 2,
-            "IndicatorPositionWidth": 27,
-            "IndicatorPositionHeight": 11,
-            "ProgressRangeMax": 100,
-            "ProgressInitialValue": 90
-          },
-          {
             "Type": "Image",
             "Name": "catm1_image",
             "X": 11,
@@ -802,6 +762,13 @@
             "Height": 100,
             "Pressed": "spo2_icon.png",
             "Released": "spo2_icon.png"
+          },
+          {
+            "Type": "CustomContainerInstance",
+            "Name": "batteryprogress_container1",
+            "Width": 240,
+            "Height": 23,
+            "CustomContainerDefinitionName": "batteryprogress_container"
           }
         ],
         "Interactions": [
@@ -882,24 +849,6 @@
             "Height": 33
           },
           {
-            "Type": "ImageProgress",
-            "Name": "batteryprogress",
-            "X": 197,
-            "Y": 8,
-            "Width": 33,
-            "Height": 15,
-            "FileNameProgress": "battpercentage.png",
-            "AnchorAtZero": true,
-            "Direction": "Right",
-            "FileNameBackground": "Group 6.png",
-            "IndicatorPositionX": 2,
-            "IndicatorPositionY": 2,
-            "IndicatorPositionWidth": 27,
-            "IndicatorPositionHeight": 11,
-            "ProgressRangeMax": 100,
-            "ProgressInitialValue": 90
-          },
-          {
             "Type": "Image",
             "Name": "catm1_button",
             "X": 11,
@@ -917,6 +866,13 @@
             "Height": 100,
             "Pressed": "hr_icon.png",
             "Released": "hr_icon.png"
+          },
+          {
+            "Type": "CustomContainerInstance",
+            "Name": "batteryprogress_container1",
+            "Width": 240,
+            "Height": 23,
+            "CustomContainerDefinitionName": "batteryprogress_container"
           }
         ],
         "Interactions": [
@@ -998,24 +954,6 @@
             "Height": 33
           },
           {
-            "Type": "ImageProgress",
-            "Name": "batteryprogress",
-            "X": 197,
-            "Y": 8,
-            "Width": 33,
-            "Height": 15,
-            "FileNameProgress": "battpercentage.png",
-            "AnchorAtZero": true,
-            "Direction": "Right",
-            "FileNameBackground": "Group 6.png",
-            "IndicatorPositionX": 2,
-            "IndicatorPositionY": 2,
-            "IndicatorPositionWidth": 27,
-            "IndicatorPositionHeight": 11,
-            "ProgressRangeMax": 100,
-            "ProgressInitialValue": 90
-          },
-          {
             "Type": "Image",
             "Name": "catm1_image",
             "X": 11,
@@ -1054,6 +992,13 @@
             "FileNameBackground": "footprint_progressbar_back.png",
             "ProgressRangeMax": 100,
             "ProgressInitialValue": 60
+          },
+          {
+            "Type": "CustomContainerInstance",
+            "Name": "batteryprogress_container1",
+            "Width": 240,
+            "Height": 23,
+            "CustomContainerDefinitionName": "batteryprogress_container"
           }
         ],
         "Interactions": [
@@ -1144,24 +1089,6 @@
             "Height": 33
           },
           {
-            "Type": "ImageProgress",
-            "Name": "batteryprogress",
-            "X": 197,
-            "Y": 8,
-            "Width": 33,
-            "Height": 15,
-            "FileNameProgress": "battpercentage.png",
-            "AnchorAtZero": true,
-            "Direction": "Right",
-            "FileNameBackground": "Group 6.png",
-            "IndicatorPositionX": 2,
-            "IndicatorPositionY": 2,
-            "IndicatorPositionWidth": 27,
-            "IndicatorPositionHeight": 11,
-            "ProgressRangeMax": 100,
-            "ProgressInitialValue": 90
-          },
-          {
             "Type": "DynamicGraph",
             "Name": "heartrate_detail_graph",
             "X": 20,
@@ -1196,6 +1123,13 @@
             "Width": 15,
             "Height": 12,
             "RelativeFilename": "lte_notconnected.png"
+          },
+          {
+            "Type": "CustomContainerInstance",
+            "Name": "batteryprogress_container1",
+            "Width": 240,
+            "Height": 23,
+            "CustomContainerDefinitionName": "batteryprogress_container"
           }
         ],
         "Interactions": [
@@ -1207,17 +1141,7 @@
             },
             "Action": {
               "Type": "ActionExecuteCode",
-              "Code": "extern uint8_t battVal;\r\nbatteryprogress.setValue(battVal);\r\n\r\nextern uint8_t canDisplayPPG;\r\nif(!canDisplayPPG) return;\r\n\r\ncanDisplayPPG = 0;\r\n\r\nextern uint16_t ssHr;\r\n\r\ntouchgfx::Unicode::snprintf(heartrate_valueBuffer, HEARTRATE_VALUE_SIZE, \"%02u\", ssHr);\r\nheartrate_value.invalidate();\r\n"
-            }
-          },
-          {
-            "InteractionName": "resetBATT",
-            "Trigger": {
-              "Type": "TriggerScreenTransitionBegins"
-            },
-            "Action": {
-              "Type": "ActionExecuteCode",
-              "Code": "extern uint8_t battVal;\r\nbatteryprogress.setValue(battVal);"
+              "Code": "extern uint8_t canDisplayPPG;\r\nif(!canDisplayPPG) return;\r\n\r\ncanDisplayPPG = 0;\r\n\r\nextern uint16_t ssHr;\r\n\r\ntouchgfx::Unicode::snprintf(heartrate_valueBuffer, HEARTRATE_VALUE_SIZE, \"%02u\", ssHr);\r\nheartrate_value.invalidate();\r\n"
             }
           }
         ]
@@ -1290,24 +1214,6 @@
             "Height": 33
           },
           {
-            "Type": "ImageProgress",
-            "Name": "batteryprogress",
-            "X": 197,
-            "Y": 8,
-            "Width": 33,
-            "Height": 15,
-            "FileNameProgress": "battpercentage.png",
-            "AnchorAtZero": true,
-            "Direction": "Right",
-            "FileNameBackground": "Group 6.png",
-            "IndicatorPositionX": 2,
-            "IndicatorPositionY": 2,
-            "IndicatorPositionWidth": 27,
-            "IndicatorPositionHeight": 11,
-            "ProgressRangeMax": 100,
-            "ProgressInitialValue": 90
-          },
-          {
             "Type": "DynamicGraph",
             "Name": "spo2_detail_graph",
             "X": 20,
@@ -1342,6 +1248,13 @@
             "Width": 15,
             "Height": 12,
             "RelativeFilename": "lte_notconnected.png"
+          },
+          {
+            "Type": "CustomContainerInstance",
+            "Name": "batteryprogress_container1",
+            "Width": 240,
+            "Height": 23,
+            "CustomContainerDefinitionName": "batteryprogress_container"
           }
         ],
         "Interactions": [
@@ -1353,17 +1266,7 @@
             },
             "Action": {
               "Type": "ActionExecuteCode",
-              "Code": "extern uint8_t battVal;\r\nbatteryprogress.setValue(battVal);\r\n\r\nextern uint8_t canDisplayPPG;\r\nif(!canDisplayPPG) return;\r\n\r\ncanDisplayPPG = 0;\r\n\r\nextern uint16_t ssSpo2;\r\n\r\ntouchgfx::Unicode::snprintf(spo2_valueBuffer, SPO2_VALUE_SIZE, \"%02u\", ssSpo2);\r\nspo2_value.invalidate();"
-            }
-          },
-          {
-            "InteractionName": "resetBATT",
-            "Trigger": {
-              "Type": "TriggerScreenTransitionBegins"
-            },
-            "Action": {
-              "Type": "ActionExecuteCode",
-              "Code": "extern uint8_t battVal;\r\nbatteryprogress.setValue(battVal);"
+              "Code": "extern uint8_t canDisplayPPG;\r\nif(!canDisplayPPG) return;\r\n\r\ncanDisplayPPG = 0;\r\n\r\nextern uint16_t ssSpo2;\r\n\r\ntouchgfx::Unicode::snprintf(spo2_valueBuffer, SPO2_VALUE_SIZE, \"%02u\", ssSpo2);\r\nspo2_value.invalidate();"
             }
           }
         ]
@@ -1532,24 +1435,6 @@
             "Height": 33
           },
           {
-            "Type": "ImageProgress",
-            "Name": "batteryprogress",
-            "X": 197,
-            "Y": 8,
-            "Width": 33,
-            "Height": 15,
-            "FileNameProgress": "battpercentage.png",
-            "AnchorAtZero": true,
-            "Direction": "Right",
-            "FileNameBackground": "Group 6.png",
-            "IndicatorPositionX": 2,
-            "IndicatorPositionY": 2,
-            "IndicatorPositionWidth": 27,
-            "IndicatorPositionHeight": 11,
-            "ProgressRangeMax": 100,
-            "ProgressInitialValue": 90
-          },
-          {
             "Type": "Button",
             "Name": "buttonfornothing",
             "Width": 240,
@@ -1567,6 +1452,13 @@
             "Width": 15,
             "Height": 12,
             "RelativeFilename": "lte_notconnected.png"
+          },
+          {
+            "Type": "CustomContainerInstance",
+            "Name": "batteryprogress_container1",
+            "Width": 240,
+            "Height": 23,
+            "CustomContainerDefinitionName": "batteryprogress_container"
           }
         ],
         "Interactions": [
@@ -1619,16 +1511,6 @@
               "Type": "ActionGotoScreen",
               "ScreenTransitionType": "ScreenTransitionNone",
               "ActionComponent": "flashlight_screen"
-            }
-          },
-          {
-            "InteractionName": "resetBATT",
-            "Trigger": {
-              "Type": "TriggerScreenTransitionBegins"
-            },
-            "Action": {
-              "Type": "ActionExecuteCode",
-              "Code": "extern uint8_t battVal;\r\nbatteryprogress.setValue(battVal);"
             }
           }
         ]
@@ -1941,24 +1823,6 @@
             }
           },
           {
-            "Type": "ImageProgress",
-            "Name": "batteryprogress",
-            "X": 197,
-            "Y": 8,
-            "Width": 33,
-            "Height": 15,
-            "FileNameProgress": "battpercentage.png",
-            "AnchorAtZero": true,
-            "Direction": "Right",
-            "FileNameBackground": "Group 6.png",
-            "IndicatorPositionX": 2,
-            "IndicatorPositionY": 2,
-            "IndicatorPositionWidth": 27,
-            "IndicatorPositionHeight": 11,
-            "ProgressRangeMax": 100,
-            "ProgressInitialValue": 90
-          },
-          {
             "Type": "Button",
             "Name": "buttonfornothing",
             "Width": 240,
@@ -1976,6 +1840,13 @@
             "Width": 15,
             "Height": 12,
             "RelativeFilename": "lte_notconnected.png"
+          },
+          {
+            "Type": "CustomContainerInstance",
+            "Name": "batteryprogress_container1",
+            "Width": 240,
+            "Height": 23,
+            "CustomContainerDefinitionName": "batteryprogress_container"
           }
         ],
         "Interactions": [
@@ -2055,16 +1926,6 @@
               "ScreenTransitionType": "ScreenTransitionWipe",
               "ScreenTransitionDirection": "West",
               "ActionComponent": "swipedownfromHome"
-            }
-          },
-          {
-            "InteractionName": "resetBATT",
-            "Trigger": {
-              "Type": "TriggerScreenTransitionBegins"
-            },
-            "Action": {
-              "Type": "ActionExecuteCode",
-              "Code": "extern uint8_t battVal;\r\nbatteryprogress.setValue(battVal);"
             }
           }
         ]
@@ -2182,24 +2043,6 @@
             "Alpha": 0
           },
           {
-            "Type": "ImageProgress",
-            "Name": "batteryprogress",
-            "X": 197,
-            "Y": 8,
-            "Width": 33,
-            "Height": 15,
-            "FileNameProgress": "battpercentage.png",
-            "AnchorAtZero": true,
-            "Direction": "Right",
-            "FileNameBackground": "Group 6.png",
-            "IndicatorPositionX": 2,
-            "IndicatorPositionY": 2,
-            "IndicatorPositionWidth": 27,
-            "IndicatorPositionHeight": 11,
-            "ProgressRangeMax": 100,
-            "ProgressInitialValue": 90
-          },
-          {
             "Type": "Button",
             "Name": "buttonfornothing",
             "Width": 240,
@@ -2226,6 +2069,13 @@
             "Width": 33,
             "Height": 33,
             "RelativeFilename": "set_setting_brightness_icon.png"
+          },
+          {
+            "Type": "CustomContainerInstance",
+            "Name": "batteryprogress_container1",
+            "Width": 240,
+            "Height": 23,
+            "CustomContainerDefinitionName": "batteryprogress_container"
           }
         ],
         "Interactions": [
@@ -2266,16 +2116,6 @@
               "ScreenTransitionType": "ScreenTransitionWipe",
               "ScreenTransitionDirection": "West",
               "ActionComponent": "SettingScreen"
-            }
-          },
-          {
-            "InteractionName": "resetBATT",
-            "Trigger": {
-              "Type": "TriggerScreenTransitionBegins"
-            },
-            "Action": {
-              "Type": "ActionExecuteCode",
-              "Code": "extern uint8_t battVal;\r\nbatteryprogress.setValue(battVal);"
             }
           }
         ]
@@ -2358,24 +2198,6 @@
             }
           },
           {
-            "Type": "ImageProgress",
-            "Name": "batteryprogress",
-            "X": 197,
-            "Y": 8,
-            "Width": 33,
-            "Height": 15,
-            "FileNameProgress": "battpercentage.png",
-            "AnchorAtZero": true,
-            "Direction": "Right",
-            "FileNameBackground": "Group 6.png",
-            "IndicatorPositionX": 2,
-            "IndicatorPositionY": 2,
-            "IndicatorPositionWidth": 27,
-            "IndicatorPositionHeight": 11,
-            "ProgressRangeMax": 100,
-            "ProgressInitialValue": 90
-          },
-          {
             "Type": "Button",
             "Name": "buttonfornothing",
             "Width": 240,
@@ -2384,6 +2206,13 @@
             "Pressed": "__generated\\alternate_theme_images_widgets_button_regular_height_50_medium_rounded_pressed.png",
             "Released": "__generated\\alternate_theme_images_widgets_button_regular_height_50_medium_rounded_normal.png",
             "Preset": "alternate_theme\\presets\\button\\regular\\height_50\\medium_rounded_normal.json"
+          },
+          {
+            "Type": "CustomContainerInstance",
+            "Name": "batteryprogress_container1",
+            "Width": 240,
+            "Height": 23,
+            "CustomContainerDefinitionName": "batteryprogress_container"
           }
         ],
         "Interactions": [
@@ -2423,16 +2252,6 @@
               "Type": "ActionCustom2",
               "ActionCustomTypeName": "Call screenontimeSetting changeScreenOnTime",
               "ActionComponent": "screenontimeSetting"
-            }
-          },
-          {
-            "InteractionName": "resetBATT",
-            "Trigger": {
-              "Type": "TriggerScreenTransitionBegins"
-            },
-            "Action": {
-              "Type": "ActionExecuteCode",
-              "Code": "extern uint8_t battVal;\r\nbatteryprogress.setValue(battVal);"
             }
           }
         ],
@@ -2491,36 +2310,14 @@
             "RelativeFilename": "set_setting_slider_icon.png"
           },
           {
-            "Type": "ImageProgress",
-            "Name": "batteryprogress",
-            "X": 197,
-            "Y": 8,
-            "Width": 33,
-            "Height": 15,
-            "FileNameProgress": "battpercentage.png",
-            "AnchorAtZero": true,
-            "Direction": "Right",
-            "FileNameBackground": "Group 6.png",
-            "IndicatorPositionX": 2,
-            "IndicatorPositionY": 2,
-            "IndicatorPositionWidth": 27,
-            "IndicatorPositionHeight": 11,
-            "ProgressRangeMax": 100,
-            "ProgressInitialValue": 90
+            "Type": "CustomContainerInstance",
+            "Name": "batteryprogress_container1",
+            "Width": 240,
+            "Height": 23,
+            "CustomContainerDefinitionName": "batteryprogress_container"
           }
         ],
-        "Interactions": [
-          {
-            "InteractionName": "resetBATT",
-            "Trigger": {
-              "Type": "TriggerScreenTransitionBegins"
-            },
-            "Action": {
-              "Type": "ActionExecuteCode",
-              "Code": "extern uint8_t battVal;\r\nbatteryprogress.setValue(battVal);"
-            }
-          }
-        ]
+        "Interactions": []
       },
       {
         "Name": "soundnhapticsSetting",
@@ -2619,24 +2416,6 @@
             "Released": "toggleoff.png"
           },
           {
-            "Type": "ImageProgress",
-            "Name": "batteryprogress",
-            "X": 197,
-            "Y": 8,
-            "Width": 33,
-            "Height": 15,
-            "FileNameProgress": "battpercentage.png",
-            "AnchorAtZero": true,
-            "Direction": "Right",
-            "FileNameBackground": "Group 6.png",
-            "IndicatorPositionX": 2,
-            "IndicatorPositionY": 2,
-            "IndicatorPositionWidth": 27,
-            "IndicatorPositionHeight": 11,
-            "ProgressRangeMax": 100,
-            "ProgressInitialValue": 90
-          },
-          {
             "Type": "Image",
             "Name": "haptic_image",
             "X": 15,
@@ -2653,20 +2432,16 @@
             "Width": 33,
             "Height": 33,
             "RelativeFilename": "set_setting_sound_icon.png"
+          },
+          {
+            "Type": "CustomContainerInstance",
+            "Name": "batteryprogress_container1",
+            "Width": 240,
+            "Height": 23,
+            "CustomContainerDefinitionName": "batteryprogress_container"
           }
         ],
-        "Interactions": [
-          {
-            "InteractionName": "resetBATT",
-            "Trigger": {
-              "Type": "TriggerScreenTransitionBegins"
-            },
-            "Action": {
-              "Type": "ActionExecuteCode",
-              "Code": "extern uint8_t battVal;\r\nbatteryprogress.setValue(battVal);"
-            }
-          }
-        ]
+        "Interactions": []
       },
       {
         "Name": "languageSetting",
@@ -2805,24 +2580,6 @@
             "RadioButtonGroup": "radioButtonGroup1"
           },
           {
-            "Type": "ImageProgress",
-            "Name": "batteryprogress",
-            "X": 197,
-            "Y": 8,
-            "Width": 33,
-            "Height": 15,
-            "FileNameProgress": "battpercentage.png",
-            "AnchorAtZero": true,
-            "Direction": "Right",
-            "FileNameBackground": "Group 6.png",
-            "IndicatorPositionX": 2,
-            "IndicatorPositionY": 2,
-            "IndicatorPositionWidth": 27,
-            "IndicatorPositionHeight": 11,
-            "ProgressRangeMax": 100,
-            "ProgressInitialValue": 90
-          },
-          {
             "Type": "Image",
             "Name": "korean_image",
             "X": 22,
@@ -2848,6 +2605,13 @@
             "Width": 33,
             "Height": 25,
             "RelativeFilename": "set_setting_spanish_icon.png"
+          },
+          {
+            "Type": "CustomContainerInstance",
+            "Name": "batteryprogress_container1",
+            "Width": 240,
+            "Height": 23,
+            "CustomContainerDefinitionName": "batteryprogress_container"
           }
         ],
         "Interactions": [
@@ -2883,16 +2647,6 @@
             "Action": {
               "Type": "ActionSetLanguage",
               "Language": "Spanish"
-            }
-          },
-          {
-            "InteractionName": "resetBATT",
-            "Trigger": {
-              "Type": "TriggerScreenTransitionBegins"
-            },
-            "Action": {
-              "Type": "ActionExecuteCode",
-              "Code": "extern uint8_t battVal;\r\nbatteryprogress.setValue(battVal);"
             }
           }
         ]
@@ -3010,24 +2764,6 @@
             "Alpha": 0
           },
           {
-            "Type": "ImageProgress",
-            "Name": "batteryprogress",
-            "X": 197,
-            "Y": 8,
-            "Width": 33,
-            "Height": 15,
-            "FileNameProgress": "battpercentage.png",
-            "AnchorAtZero": true,
-            "Direction": "Right",
-            "FileNameBackground": "Group 6.png",
-            "IndicatorPositionX": 2,
-            "IndicatorPositionY": 2,
-            "IndicatorPositionWidth": 27,
-            "IndicatorPositionHeight": 11,
-            "ProgressRangeMax": 100,
-            "ProgressInitialValue": 90
-          },
-          {
             "Type": "Image",
             "Name": "device_image",
             "X": 14,
@@ -3044,6 +2780,13 @@
             "Width": 30,
             "Height": 30,
             "RelativeFilename": "set_setting_network_icon.png"
+          },
+          {
+            "Type": "CustomContainerInstance",
+            "Name": "batteryprogress_container1",
+            "Width": 240,
+            "Height": 23,
+            "CustomContainerDefinitionName": "batteryprogress_container"
           }
         ],
         "Interactions": [
@@ -3071,16 +2814,6 @@
               "ScreenTransitionType": "ScreenTransitionCover",
               "ScreenTransitionDirection": "East",
               "ActionComponent": "networkInfoSetting"
-            }
-          },
-          {
-            "InteractionName": "resetBATT",
-            "Trigger": {
-              "Type": "TriggerScreenTransitionBegins"
-            },
-            "Action": {
-              "Type": "ActionExecuteCode",
-              "Code": "extern uint8_t battVal;\r\nbatteryprogress.setValue(battVal);"
             }
           }
         ]
@@ -3205,24 +2938,6 @@
             }
           },
           {
-            "Type": "ImageProgress",
-            "Name": "batteryprogress",
-            "X": 197,
-            "Y": 8,
-            "Width": 33,
-            "Height": 15,
-            "FileNameProgress": "battpercentage.png",
-            "AnchorAtZero": true,
-            "Direction": "Right",
-            "FileNameBackground": "Group 6.png",
-            "IndicatorPositionX": 2,
-            "IndicatorPositionY": 2,
-            "IndicatorPositionWidth": 27,
-            "IndicatorPositionHeight": 11,
-            "ProgressRangeMax": 100,
-            "ProgressInitialValue": 90
-          },
-          {
             "Type": "Button",
             "Name": "buttonfornothing",
             "Width": 240,
@@ -3231,6 +2946,13 @@
             "Pressed": "__generated\\alternate_theme_images_widgets_button_regular_height_50_medium_rounded_pressed.png",
             "Released": "__generated\\alternate_theme_images_widgets_button_regular_height_50_medium_rounded_normal.png",
             "Preset": "alternate_theme\\presets\\button\\regular\\height_50\\medium_rounded_normal.json"
+          },
+          {
+            "Type": "CustomContainerInstance",
+            "Name": "batteryprogress_container1",
+            "Width": 240,
+            "Height": 23,
+            "CustomContainerDefinitionName": "batteryprogress_container"
           }
         ],
         "Interactions": [
@@ -3245,16 +2967,6 @@
               "ScreenTransitionType": "ScreenTransitionWipe",
               "ScreenTransitionDirection": "West",
               "ActionComponent": "informationSetting"
-            }
-          },
-          {
-            "InteractionName": "resetBATT",
-            "Trigger": {
-              "Type": "TriggerScreenTransitionBegins"
-            },
-            "Action": {
-              "Type": "ActionExecuteCode",
-              "Code": "extern uint8_t battVal;\r\nbatteryprogress.setValue(battVal);"
             }
           }
         ]
@@ -3322,36 +3034,14 @@
             }
           },
           {
-            "Type": "ImageProgress",
-            "Name": "batteryprogress",
-            "X": 197,
-            "Y": 8,
-            "Width": 33,
-            "Height": 15,
-            "FileNameProgress": "battpercentage.png",
-            "AnchorAtZero": true,
-            "Direction": "Right",
-            "FileNameBackground": "Group 6.png",
-            "IndicatorPositionX": 2,
-            "IndicatorPositionY": 2,
-            "IndicatorPositionWidth": 27,
-            "IndicatorPositionHeight": 11,
-            "ProgressRangeMax": 100,
-            "ProgressInitialValue": 90
+            "Type": "CustomContainerInstance",
+            "Name": "batteryprogress_container1",
+            "Width": 240,
+            "Height": 23,
+            "CustomContainerDefinitionName": "batteryprogress_container"
           }
         ],
-        "Interactions": [
-          {
-            "InteractionName": "resetBATT",
-            "Trigger": {
-              "Type": "TriggerScreenTransitionBegins"
-            },
-            "Action": {
-              "Type": "ActionExecuteCode",
-              "Code": "extern uint8_t battVal;\r\nbatteryprogress.setValue(battVal);"
-            }
-          }
-        ]
+        "Interactions": []
       },
       {
         "Name": "systemSetting",
@@ -3428,22 +3118,11 @@
             }
           },
           {
-            "Type": "ImageProgress",
-            "Name": "batteryprogress",
-            "X": 197,
-            "Y": 8,
-            "Width": 33,
-            "Height": 15,
-            "FileNameProgress": "battpercentage.png",
-            "AnchorAtZero": true,
-            "Direction": "Right",
-            "FileNameBackground": "Group 6.png",
-            "IndicatorPositionX": 2,
-            "IndicatorPositionY": 2,
-            "IndicatorPositionWidth": 27,
-            "IndicatorPositionHeight": 11,
-            "ProgressRangeMax": 100,
-            "ProgressInitialValue": 90
+            "Type": "CustomContainerInstance",
+            "Name": "batteryprogress_container1",
+            "Width": 240,
+            "Height": 23,
+            "CustomContainerDefinitionName": "batteryprogress_container"
           }
         ],
         "Interactions": [
@@ -3457,16 +3136,6 @@
               "Type": "ActionGotoScreen",
               "ScreenTransitionType": "ScreenTransitionNone",
               "ActionComponent": "turnoffScreen"
-            }
-          },
-          {
-            "InteractionName": "resetBATT",
-            "Trigger": {
-              "Type": "TriggerScreenTransitionBegins"
-            },
-            "Action": {
-              "Type": "ActionExecuteCode",
-              "Code": "extern uint8_t battVal;\r\nbatteryprogress.setValue(battVal);"
             }
           }
         ]
@@ -3558,16 +3227,6 @@
               "ScreenTransitionType": "ScreenTransitionNone",
               "ActionComponent": "HomeScreenWithBiodata"
             }
-          },
-          {
-            "InteractionName": "resetBATT",
-            "Trigger": {
-              "Type": "TriggerScreenTransitionBegins"
-            },
-            "Action": {
-              "Type": "ActionExecuteCode",
-              "Code": "extern uint8_t battVal;\r\nbatteryprogress.setValue(battVal);"
-            }
           }
         ]
       },
@@ -3594,24 +3253,6 @@
               "Green": 255,
               "Blue": 255
             }
-          },
-          {
-            "Type": "ImageProgress",
-            "Name": "batteryprogress",
-            "X": 197,
-            "Y": 8,
-            "Width": 33,
-            "Height": 15,
-            "FileNameProgress": "battpercentage.png",
-            "AnchorAtZero": true,
-            "Direction": "Right",
-            "FileNameBackground": "Group 6.png",
-            "IndicatorPositionX": 2,
-            "IndicatorPositionY": 2,
-            "IndicatorPositionWidth": 27,
-            "IndicatorPositionHeight": 11,
-            "ProgressRangeMax": 100,
-            "ProgressInitialValue": 90
           },
           {
             "Type": "Image",
@@ -3650,6 +3291,13 @@
             "Width": 15,
             "Height": 12,
             "RelativeFilename": "lte_notconnected.png"
+          },
+          {
+            "Type": "CustomContainerInstance",
+            "Name": "batteryprogress_container1",
+            "Width": 240,
+            "Height": 23,
+            "CustomContainerDefinitionName": "batteryprogress_container"
           }
         ],
         "Interactions": [
@@ -3663,16 +3311,6 @@
               "Type": "ActionGotoScreen",
               "ScreenTransitionType": "ScreenTransitionNone",
               "ActionComponent": "fallDetected"
-            }
-          },
-          {
-            "InteractionName": "resetBATT",
-            "Trigger": {
-              "Type": "TriggerScreenTransitionBegins"
-            },
-            "Action": {
-              "Type": "ActionExecuteCode",
-              "Code": "extern uint8_t battVal;\r\nbatteryprogress.setValue(battVal);"
             }
           }
         ],
@@ -3975,6 +3613,44 @@
           }
         ],
         "Interactions": []
+      },
+      {
+        "Name": "batteryprogress_container",
+        "Width": 240,
+        "Height": 23,
+        "Components": [
+          {
+            "Type": "ImageProgress",
+            "Name": "batteryprogress",
+            "X": 197,
+            "Y": 8,
+            "Width": 33,
+            "Height": 15,
+            "FileNameProgress": "battpercentage.png",
+            "AnchorAtZero": true,
+            "Direction": "Right",
+            "FileNameBackground": "Group 6.png",
+            "IndicatorPositionX": 2,
+            "IndicatorPositionY": 2,
+            "IndicatorPositionWidth": 27,
+            "IndicatorPositionHeight": 11,
+            "ProgressRangeMax": 100,
+            "ProgressInitialValue": 90
+          }
+        ],
+        "Interactions": [
+          {
+            "InteractionName": "updateBATT",
+            "Trigger": {
+              "Type": "TriggerProgressIndicatorValueUpdated",
+              "TriggerComponent": "batteryprogress"
+            },
+            "Action": {
+              "Type": "ActionExecuteCode",
+              "Code": "extern uint8_t battVal;\r\nbatteryprogress.setValue(battVal);"
+            }
+          }
+        ]
       }
     ],
     "Name": "demo_eHG4",

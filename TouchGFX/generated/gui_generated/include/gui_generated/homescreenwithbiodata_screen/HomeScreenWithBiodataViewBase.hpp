@@ -17,7 +17,7 @@
 #include <touchgfx/containers/progress_indicators/CircleProgress.hpp>
 #include <touchgfx/widgets/canvas/PainterRGB565.hpp>
 #include <touchgfx/widgets/Button.hpp>
-#include <touchgfx/containers/progress_indicators/ImageProgress.hpp>
+#include <gui/containers/batteryprogress_container.hpp>
 
 class HomeScreenWithBiodataViewBase : public touchgfx::View<HomeScreenWithBiodataPresenter>
 {
@@ -74,9 +74,9 @@ protected:
     touchgfx::PainterRGB565 sleep_progressPainter;
     touchgfx::Box topleft_box;
     touchgfx::Box topright_box;
-    touchgfx::ImageProgress batteryprogress;
     touchgfx::Button buttonfornothing;
     touchgfx::Image catm1_image;
+    batteryprogress_container batteryprogress_container1;
 
     /*
      * Wildcard Buffers

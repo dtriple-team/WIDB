@@ -34,8 +34,8 @@ void HomeScreenWithBiodataView::setupScreen()
 	digitalClock.setTime24Hour(timeinfo->tm_hour, timeinfo->tm_min, timeinfo->tm_sec);
 	digitalClock.invalidate();
 
-	extern uint8_t battVal;
-	batteryprogress.setValue(battVal);
+//	extern uint8_t battVal;
+//	batteryprogress.setValue(battVal);
 }
 
 void HomeScreenWithBiodataView::tearDownScreen()
@@ -67,8 +67,8 @@ void HomeScreenWithBiodataView::handleTickEvent()
 //		digitalClock.setTime24Hour(sTime.Hours, sTime.Minutes, sTime.Seconds);
 //		digitalClock.invalidate();
 
-		extern uint8_t battVal;
-		batteryprogress.setValue(battVal);
+//		extern uint8_t battVal;
+//		batteryprogress.setValue(battVal);
 
 		extern uint8_t canDisplayPPG;
 		if(!canDisplayPPG) return;

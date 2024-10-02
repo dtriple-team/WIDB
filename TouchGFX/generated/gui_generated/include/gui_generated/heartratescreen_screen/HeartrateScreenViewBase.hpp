@@ -11,8 +11,8 @@
 #include <touchgfx/widgets/Image.hpp>
 #include <touchgfx/widgets/TextArea.hpp>
 #include <touchgfx/widgets/TextAreaWithWildcard.hpp>
-#include <touchgfx/containers/progress_indicators/ImageProgress.hpp>
 #include <touchgfx/widgets/Button.hpp>
+#include <gui/containers/batteryprogress_container.hpp>
 
 class HeartrateScreenViewBase : public touchgfx::View<HeartrateScreenPresenter>
 {
@@ -44,9 +44,9 @@ protected:
     touchgfx::TextAreaWithOneWildcard heartrate_value;
     touchgfx::Box topright_box;
     touchgfx::Box topleft_box;
-    touchgfx::ImageProgress batteryprogress;
     touchgfx::Image catm1_button;
     touchgfx::Button heartrate_detail_button;
+    batteryprogress_container batteryprogress_container1;
 
     /*
      * Wildcard Buffers

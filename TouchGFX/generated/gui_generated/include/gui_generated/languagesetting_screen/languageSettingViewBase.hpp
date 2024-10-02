@@ -12,7 +12,7 @@
 #include <touchgfx/widgets/TextArea.hpp>
 #include <touchgfx/widgets/RadioButton.hpp>
 #include <touchgfx/widgets/RadioButtonGroup.hpp>
-#include <touchgfx/containers/progress_indicators/ImageProgress.hpp>
+#include <gui/containers/batteryprogress_container.hpp>
 
 class languageSettingViewBase : public touchgfx::View<languageSettingPresenter>
 {
@@ -20,7 +20,6 @@ public:
     languageSettingViewBase();
     virtual ~languageSettingViewBase();
     virtual void setupScreen();
-    virtual void transitionBegins();
 
 protected:
     FrontendApplication& application() {
@@ -43,10 +42,10 @@ protected:
     touchgfx::RadioButton radioButton1;
     touchgfx::RadioButton radioButton2;
     touchgfx::RadioButton radioButton3;
-    touchgfx::ImageProgress batteryprogress;
     touchgfx::Image korean_image;
     touchgfx::Image english_image;
     touchgfx::Image spanish_image;
+    batteryprogress_container batteryprogress_container1;
 
 private:
 

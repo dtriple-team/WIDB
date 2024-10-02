@@ -11,10 +11,10 @@
 #include <touchgfx/widgets/Image.hpp>
 #include <touchgfx/widgets/TextArea.hpp>
 #include <touchgfx/widgets/TextAreaWithWildcard.hpp>
-#include <touchgfx/containers/progress_indicators/ImageProgress.hpp>
 #include <touchgfx/widgets/graph/GraphWrapAndOverwrite.hpp>
 #include <touchgfx/widgets/graph/GraphElements.hpp>
 #include <touchgfx/widgets/canvas/PainterRGB565.hpp>
+#include <gui/containers/batteryprogress_container.hpp>
 
 class HeartrateDetailViewBase : public touchgfx::View<HeartrateDetailPresenter>
 {
@@ -23,7 +23,6 @@ public:
     virtual ~HeartrateDetailViewBase();
     virtual void setupScreen();
     virtual void handleTickEvent();
-    virtual void transitionBegins();
 
 protected:
     FrontendApplication& application() {
@@ -40,11 +39,11 @@ protected:
     touchgfx::TextAreaWithOneWildcard heartrate_value;
     touchgfx::Box topright_box;
     touchgfx::Box topleft_box;
-    touchgfx::ImageProgress batteryprogress;
     touchgfx::GraphWrapAndOverwrite<24> heartrate_detail_graph;
     touchgfx::GraphElementLine heartrate_detail_graphLine1;
     touchgfx::PainterRGB565 heartrate_detail_graphLine1Painter;
     touchgfx::Image catm1_image;
+    batteryprogress_container batteryprogress_container1;
 
     /*
      * Wildcard Buffers

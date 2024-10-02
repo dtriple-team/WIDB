@@ -41,16 +41,6 @@ StepsScreenViewBase::StepsScreenViewBase()
     topleft_image.setColor(touchgfx::Color::getColorFromRGB(0, 0, 0));
     add(topleft_image);
 
-    batteryprogress.setXY(197, 8);
-    batteryprogress.setProgressIndicatorPosition(2, 2, 27, 11);
-    batteryprogress.setRange(0, 100);
-    batteryprogress.setDirection(touchgfx::AbstractDirectionProgress::RIGHT);
-    batteryprogress.setBackground(touchgfx::Bitmap(BITMAP_GROUP_6_ID));
-    batteryprogress.setBitmap(BITMAP_BATTPERCENTAGE_ID);
-    batteryprogress.setValue(90);
-    batteryprogress.setAnchorAtZero(true);
-    add(batteryprogress);
-
     catm1_image.setXY(11, 11);
     catm1_image.setBitmap(touchgfx::Bitmap(BITMAP_LTE_NOTCONNECTED_ID));
     add(catm1_image);
@@ -72,6 +62,9 @@ StepsScreenViewBase::StepsScreenViewBase()
     steps_progress.setPainter(steps_progressPainter);
     steps_progress.setValue(60);
     add(steps_progress);
+
+    batteryprogress_container1.setXY(0, 0);
+    add(batteryprogress_container1);
 }
 
 StepsScreenViewBase::~StepsScreenViewBase()
@@ -81,7 +74,7 @@ StepsScreenViewBase::~StepsScreenViewBase()
 
 void StepsScreenViewBase::setupScreen()
 {
-
+    batteryprogress_container1.initialize();
 }
 
 void StepsScreenViewBase::handleTickEvent()

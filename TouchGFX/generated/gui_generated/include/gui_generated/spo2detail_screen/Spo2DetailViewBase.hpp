@@ -11,10 +11,10 @@
 #include <touchgfx/widgets/Image.hpp>
 #include <touchgfx/widgets/TextArea.hpp>
 #include <touchgfx/widgets/TextAreaWithWildcard.hpp>
-#include <touchgfx/containers/progress_indicators/ImageProgress.hpp>
 #include <touchgfx/widgets/graph/GraphWrapAndOverwrite.hpp>
 #include <touchgfx/widgets/graph/GraphElements.hpp>
 #include <touchgfx/widgets/canvas/PainterRGB565.hpp>
+#include <gui/containers/batteryprogress_container.hpp>
 
 class Spo2DetailViewBase : public touchgfx::View<Spo2DetailPresenter>
 {
@@ -23,7 +23,6 @@ public:
     virtual ~Spo2DetailViewBase();
     virtual void setupScreen();
     virtual void handleTickEvent();
-    virtual void transitionBegins();
 
 protected:
     FrontendApplication& application() {
@@ -40,11 +39,11 @@ protected:
     touchgfx::TextAreaWithOneWildcard spo2_value;
     touchgfx::Box topright_image;
     touchgfx::Box topleft_image;
-    touchgfx::ImageProgress batteryprogress;
     touchgfx::GraphWrapAndOverwrite<24> spo2_detail_graph;
     touchgfx::GraphElementLine spo2_detail_graphLine1;
     touchgfx::PainterRGB565 spo2_detail_graphLine1Painter;
     touchgfx::Image catm1_image;
+    batteryprogress_container batteryprogress_container1;
 
     /*
      * Wildcard Buffers

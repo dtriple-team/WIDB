@@ -11,8 +11,8 @@
 #include <touchgfx/widgets/Image.hpp>
 #include <touchgfx/widgets/TextArea.hpp>
 #include <touchgfx/widgets/TextAreaWithWildcard.hpp>
-#include <touchgfx/containers/progress_indicators/ImageProgress.hpp>
 #include <touchgfx/widgets/Button.hpp>
+#include <gui/containers/batteryprogress_container.hpp>
 
 class Spo2ScreenViewBase : public touchgfx::View<Spo2ScreenPresenter>
 {
@@ -44,9 +44,9 @@ protected:
     touchgfx::TextAreaWithOneWildcard spo2_value;
     touchgfx::Box topright_box;
     touchgfx::Box topleft_box;
-    touchgfx::ImageProgress batteryprogress;
     touchgfx::Image catm1_image;
     touchgfx::Button spo2_detail_button;
+    batteryprogress_container batteryprogress_container1;
 
     /*
      * Wildcard Buffers

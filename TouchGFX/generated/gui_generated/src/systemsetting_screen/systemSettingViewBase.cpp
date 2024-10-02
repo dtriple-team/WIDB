@@ -44,15 +44,8 @@ systemSettingViewBase::systemSettingViewBase() :
     poweroff_label.setTypedText(touchgfx::TypedText(T_POWEROFFTEXT));
     add(poweroff_label);
 
-    batteryprogress.setXY(197, 8);
-    batteryprogress.setProgressIndicatorPosition(2, 2, 27, 11);
-    batteryprogress.setRange(0, 100);
-    batteryprogress.setDirection(touchgfx::AbstractDirectionProgress::RIGHT);
-    batteryprogress.setBackground(touchgfx::Bitmap(BITMAP_GROUP_6_ID));
-    batteryprogress.setBitmap(BITMAP_BATTPERCENTAGE_ID);
-    batteryprogress.setValue(90);
-    batteryprogress.setAnchorAtZero(true);
-    add(batteryprogress);
+    batteryprogress_container1.setXY(0, 0);
+    add(batteryprogress_container1);
 }
 
 systemSettingViewBase::~systemSettingViewBase()
@@ -62,7 +55,7 @@ systemSettingViewBase::~systemSettingViewBase()
 
 void systemSettingViewBase::setupScreen()
 {
-    transitionBegins();
+    batteryprogress_container1.initialize();
 }
 
 void systemSettingViewBase::buttonCallbackHandler(const touchgfx::AbstractButton& src)
@@ -74,13 +67,4 @@ void systemSettingViewBase::buttonCallbackHandler(const touchgfx::AbstractButton
         //Go to turnoffScreen with no screen transition
         application().gototurnoffScreenScreenNoTransition();
     }
-}
-
-void systemSettingViewBase::transitionBegins()
-{
-    //resetBATT
-    //When screen transition begins execute C++ code
-    //Execute C++ code
-    extern uint8_t battVal;
-    batteryprogress.setValue(battVal);
 }

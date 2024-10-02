@@ -14,7 +14,7 @@
 ../Drivers/ST7789/st7789.c:391:6:ST7789_DrawCircle	40	static
 ../Drivers/ST7789/st7789.c:435:6:ST7789_DrawImage	24	static
 ../Drivers/ST7789/st7789.c:455:6:ST7789_InvertColors	16	static
-../Drivers/ST7789/st7789.c:471:6:ST7789_WriteChar	48	static
+../Drivers/ST7789/st7789.c:471:6:ST7789_WriteChar	40	static
 ../Drivers/ST7789/st7789.c:502:6:ST7789_WriteString	32	static
 ../Drivers/ST7789/st7789.c:533:6:ST7789_DrawFilledRectangle	40	static
 ../Drivers/ST7789/st7789.c:567:6:ST7789_DrawTriangle	32	static

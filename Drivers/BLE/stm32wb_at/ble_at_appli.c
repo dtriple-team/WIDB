@@ -16,10 +16,12 @@
   */
 
 /* Includes ------------------------------------------------------------------*/
-#include "ble_at_appli.h"
-#include "stm32wb_at.h"
-#include "stm32wb_at_ble.h"
-#include "stm32wb_at_client.h"
+#include "../../BLE/stm32wb_at/stm32wb_at.h"
+#include "../../BLE/stm32wb_at/ble_at_appli.h"
+
+#include "../../BLE/stm32wb_at/stm32wb_at.h"
+#include "../../BLE/stm32wb_at/stm32wb_at_ble.h"
+#include "../../BLE/stm32wb_at/stm32wb_at_client.h"
 
 #define WIDB
 

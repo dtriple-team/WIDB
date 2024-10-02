@@ -67,6 +67,6 @@ void flashlight_screenViewBase::handleTickEvent()
     //resetScreenOnTime
     //When every N tick execute C++ code
     //Execute C++ code
-    extern uint8_t brightness_count;
-    brightness_count = 0;
+    //extern uint8_t brightness_count;
+    //brightness_count = 0;
 }

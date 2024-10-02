@@ -32,28 +32,6 @@
 		<nature>org.eclipse.cdt.managedbuilder.core.ScannerConfigNature</nature>
 		<nature>org.eclipse.cdt.core.ccnature</nature>
 	</natures>
-	<linkedResources>
-		<link>
-			<name>Drivers/BLE/stm32wb_at/stm32wb_at.c</name>
-			<type>1</type>
-			<locationURI>copy_PARENT/Drivers/BSP/Components/stm32wb_at/stm32wb_at.c</locationURI>
-		</link>
-		<link>
-			<name>Drivers/BLE/stm32wb_at/stm32wb_at_ble.c</name>
-			<type>1</type>
-			<locationURI>copy_PARENT/Drivers/BSP/Components/stm32wb_at/stm32wb_at_ble.c</locationURI>
-		</link>
-		<link>
-			<name>Drivers/BLE/stm32wb_at/stm32wb_at_client.c</name>
-			<type>1</type>
-			<locationURI>copy_PARENT/Drivers/BSP/Components/stm32wb_at/stm32wb_at_client.c</locationURI>
-		</link>
-		<link>
-			<name>Drivers/BLE/stm32wb_at/stm32wb_at_ll.c</name>
-			<type>1</type>
-			<locationURI>copy_PARENT/Drivers/BSP/Components/stm32wb_at/stm32wb_at_ll.c</locationURI>
-		</link>
-	</linkedResources>
 	<variableList>
 		<variable>
 			<name>copy_PARENT</name>

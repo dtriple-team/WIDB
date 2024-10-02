@@ -52,7 +52,7 @@ turnoffScreenViewBase::~turnoffScreenViewBase()
 
 void turnoffScreenViewBase::setupScreen()
 {
-    transitionBegins();
+
 }
 
 void turnoffScreenViewBase::buttonCallbackHandler(const touchgfx::AbstractButton& src)
@@ -64,13 +64,4 @@ void turnoffScreenViewBase::buttonCallbackHandler(const touchgfx::AbstractButton
         //Go to HomeScreenWithBiodata with no screen transition
         application().gotoHomeScreenWithBiodataScreenNoTransition();
     }
-}
-
-void turnoffScreenViewBase::transitionBegins()
-{
-    //resetBATT
-    //When screen transition begins execute C++ code
-    //Execute C++ code
-    extern uint8_t battVal;
-    batteryprogress.setValue(battVal);
 }

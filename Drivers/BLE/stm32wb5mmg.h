@@ -8,7 +8,7 @@
 #ifndef BLE_STM32WB5MMG_H_
 #define BLE_STM32WB5MMG_H_
 
-#include "stm32wb_at_ble.h"
+#include "../BLE/stm32wb_at/stm32wb_at_ble.h"
 
 void stm32wb5mmg_init(void);
 void stm32wb5mmg_adv_setting(stm32wb_at_BLE_ADV_DATA_t* param_BLE_DATA);

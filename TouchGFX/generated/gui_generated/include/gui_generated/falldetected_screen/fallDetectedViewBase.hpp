@@ -10,7 +10,7 @@
 #include <touchgfx/widgets/Box.hpp>
 #include <touchgfx/widgets/Image.hpp>
 #include <touchgfx/widgets/TextArea.hpp>
-#include <touchgfx/containers/progress_indicators/ImageProgress.hpp>
+#include <gui/containers/batteryprogress_container.hpp>
 
 class fallDetectedViewBase : public touchgfx::View<fallDetectedPresenter>
 {
@@ -18,7 +18,6 @@ public:
     fallDetectedViewBase();
     virtual ~fallDetectedViewBase();
     virtual void setupScreen();
-    virtual void transitionBegins();
 
     /*
      * Custom Actions
@@ -36,11 +35,11 @@ protected:
     touchgfx::Box __background;
     touchgfx::Image background;
     touchgfx::TextArea textArea1;
-    touchgfx::ImageProgress batteryprogress;
     touchgfx::Image image1;
     touchgfx::TextArea textArea2;
     touchgfx::Box topleft_box;
     touchgfx::Image image2;
+    batteryprogress_container batteryprogress_container1;
 
 private:
 

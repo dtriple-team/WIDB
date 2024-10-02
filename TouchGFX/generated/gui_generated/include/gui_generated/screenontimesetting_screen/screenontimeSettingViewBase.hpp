@@ -14,7 +14,7 @@
 #include <gui/containers/setting_screenontime_notselected.hpp>
 #include <gui/containers/setting_screenontime_selected.hpp>
 #include <touchgfx/widgets/Button.hpp>
-#include <touchgfx/containers/progress_indicators/ImageProgress.hpp>
+#include <gui/containers/batteryprogress_container.hpp>
 
 class screenontimeSettingViewBase : public touchgfx::View<screenontimeSettingPresenter>
 {
@@ -32,7 +32,6 @@ public:
     {
         // Override and implement this function in screenontimeSetting
     }
-    virtual void transitionBegins();
 
     /*
      * Custom Actions
@@ -60,8 +59,8 @@ protected:
     touchgfx::Image scrollwheel_contour_image;
     touchgfx::Button ontime_done_button;
     touchgfx::TextArea ontime_done_label;
-    touchgfx::ImageProgress batteryprogress;
     touchgfx::Button buttonfornothing;
+    batteryprogress_container batteryprogress_container1;
 
 private:
 

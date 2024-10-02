@@ -1,6 +1,6 @@
 ################################################################################
 # Automatically-generated file. Do not edit!
-# Toolchain: GNU Tools for STM32 (11.3.rel1)
+# Toolchain: GNU Tools for STM32 (12.3.rel1)
 ################################################################################
 
 C++M_SRCS := 
@@ -59,24 +59,18 @@ Middlewares/Third_Party/FreeRTOS/Source/portable/GCC/ARM_CM33_NTZ/non_secure \
 Middlewares/Third_Party/FreeRTOS/Source/portable/MemMang \
 TouchGFX/App \
 TouchGFX/build/MINGW32_NT-6.2/generated/fonts/src \
-TouchGFX/build/MINGW32_NT-6.2/generated/gui_generated/src/characterkeyboard_screen \
 TouchGFX/build/MINGW32_NT-6.2/generated/gui_generated/src/common \
-TouchGFX/build/MINGW32_NT-6.2/generated/gui_generated/src/communicationcyclesetting_screen \
 TouchGFX/build/MINGW32_NT-6.2/generated/gui_generated/src/containers \
 TouchGFX/build/MINGW32_NT-6.2/generated/gui_generated/src/deviceinfosetting_screen \
-TouchGFX/build/MINGW32_NT-6.2/generated/gui_generated/src/dispatchorwait_screen \
-TouchGFX/build/MINGW32_NT-6.2/generated/gui_generated/src/englishkeyboard_screen \
 TouchGFX/build/MINGW32_NT-6.2/generated/gui_generated/src/falldetected_screen \
+TouchGFX/build/MINGW32_NT-6.2/generated/gui_generated/src/flashlight_screen_screen \
 TouchGFX/build/MINGW32_NT-6.2/generated/gui_generated/src/heartratedetail_screen \
 TouchGFX/build/MINGW32_NT-6.2/generated/gui_generated/src/heartratescreen_screen \
 TouchGFX/build/MINGW32_NT-6.2/generated/gui_generated/src/homescreenwithbiodata_screen \
 TouchGFX/build/MINGW32_NT-6.2/generated/gui_generated/src/informationsetting_screen \
 TouchGFX/build/MINGW32_NT-6.2/generated/gui_generated/src/initblackscreen_screen \
-TouchGFX/build/MINGW32_NT-6.2/generated/gui_generated/src/inout_screen \
 TouchGFX/build/MINGW32_NT-6.2/generated/gui_generated/src/languagesetting_screen \
 TouchGFX/build/MINGW32_NT-6.2/generated/gui_generated/src/networkinfosetting_screen \
-TouchGFX/build/MINGW32_NT-6.2/generated/gui_generated/src/notificationscreen_screen \
-TouchGFX/build/MINGW32_NT-6.2/generated/gui_generated/src/numberkeyboard_screen \
 TouchGFX/build/MINGW32_NT-6.2/generated/gui_generated/src/screenbrightnesssetting_screen \
 TouchGFX/build/MINGW32_NT-6.2/generated/gui_generated/src/screenontimesetting_screen \
 TouchGFX/build/MINGW32_NT-6.2/generated/gui_generated/src/screensetting_screen \
@@ -86,38 +80,28 @@ TouchGFX/build/MINGW32_NT-6.2/generated/gui_generated/src/soundnhapticssetting_s
 TouchGFX/build/MINGW32_NT-6.2/generated/gui_generated/src/spo2detail_screen \
 TouchGFX/build/MINGW32_NT-6.2/generated/gui_generated/src/spo2screen_screen \
 TouchGFX/build/MINGW32_NT-6.2/generated/gui_generated/src/stepsscreen_screen \
-TouchGFX/build/MINGW32_NT-6.2/generated/gui_generated/src/stimulation_select_screen \
-TouchGFX/build/MINGW32_NT-6.2/generated/gui_generated/src/stimulation_start_screen \
-TouchGFX/build/MINGW32_NT-6.2/generated/gui_generated/src/stimulation_strength_screen \
-TouchGFX/build/MINGW32_NT-6.2/generated/gui_generated/src/stimulation_time_setting_screen \
 TouchGFX/build/MINGW32_NT-6.2/generated/gui_generated/src/swipedownfromhome_screen \
 TouchGFX/build/MINGW32_NT-6.2/generated/gui_generated/src/systemsetting_screen \
+TouchGFX/build/MINGW32_NT-6.2/generated/gui_generated/src/temphome_screen \
 TouchGFX/build/MINGW32_NT-6.2/generated/gui_generated/src/turnoffscreen_screen \
-TouchGFX/build/MINGW32_NT-6.2/generated/gui_generated/src/wifisetting_screen \
 TouchGFX/build/MINGW32_NT-6.2/generated/images/src \
 TouchGFX/build/MINGW32_NT-6.2/generated/images/src/__generated \
 TouchGFX/build/MINGW32_NT-6.2/generated/simulator/src \
 TouchGFX/build/MINGW32_NT-6.2/generated/simulator/src/video \
 TouchGFX/build/MINGW32_NT-6.2/generated/texts/src \
-TouchGFX/build/MINGW32_NT-6.2/gui/src/characterkeyboard_screen \
 TouchGFX/build/MINGW32_NT-6.2/gui/src/common \
-TouchGFX/build/MINGW32_NT-6.2/gui/src/communicationcyclesetting_screen \
 TouchGFX/build/MINGW32_NT-6.2/gui/src/containers \
 TouchGFX/build/MINGW32_NT-6.2/gui/src/deviceinfosetting_screen \
-TouchGFX/build/MINGW32_NT-6.2/gui/src/dispatchorwait_screen \
-TouchGFX/build/MINGW32_NT-6.2/gui/src/englishkeyboard_screen \
 TouchGFX/build/MINGW32_NT-6.2/gui/src/falldetected_screen \
+TouchGFX/build/MINGW32_NT-6.2/gui/src/flashlight_screen_screen \
 TouchGFX/build/MINGW32_NT-6.2/gui/src/heartratedetail_screen \
 TouchGFX/build/MINGW32_NT-6.2/gui/src/heartratescreen_screen \
 TouchGFX/build/MINGW32_NT-6.2/gui/src/homescreenwithbiodata_screen \
 TouchGFX/build/MINGW32_NT-6.2/gui/src/informationsetting_screen \
 TouchGFX/build/MINGW32_NT-6.2/gui/src/initblackscreen_screen \
-TouchGFX/build/MINGW32_NT-6.2/gui/src/inout_screen \
 TouchGFX/build/MINGW32_NT-6.2/gui/src/languagesetting_screen \
 TouchGFX/build/MINGW32_NT-6.2/gui/src/model \
 TouchGFX/build/MINGW32_NT-6.2/gui/src/networkinfosetting_screen \
-TouchGFX/build/MINGW32_NT-6.2/gui/src/notificationscreen_screen \
-TouchGFX/build/MINGW32_NT-6.2/gui/src/numberkeyboard_screen \
 TouchGFX/build/MINGW32_NT-6.2/gui/src/screenbrightnesssetting_screen \
 TouchGFX/build/MINGW32_NT-6.2/gui/src/screenontimesetting_screen \
 TouchGFX/build/MINGW32_NT-6.2/gui/src/screensetting_screen \
@@ -127,14 +111,10 @@ TouchGFX/build/MINGW32_NT-6.2/gui/src/soundnhapticssetting_screen \
 TouchGFX/build/MINGW32_NT-6.2/gui/src/spo2detail_screen \
 TouchGFX/build/MINGW32_NT-6.2/gui/src/spo2screen_screen \
 TouchGFX/build/MINGW32_NT-6.2/gui/src/stepsscreen_screen \
-TouchGFX/build/MINGW32_NT-6.2/gui/src/stimulation_select_screen \
-TouchGFX/build/MINGW32_NT-6.2/gui/src/stimulation_start_screen \
-TouchGFX/build/MINGW32_NT-6.2/gui/src/stimulation_strength_screen \
-TouchGFX/build/MINGW32_NT-6.2/gui/src/stimulation_time_setting_screen \
 TouchGFX/build/MINGW32_NT-6.2/gui/src/swipedownfromhome_screen \
 TouchGFX/build/MINGW32_NT-6.2/gui/src/systemsetting_screen \
+TouchGFX/build/MINGW32_NT-6.2/gui/src/temphome_screen \
 TouchGFX/build/MINGW32_NT-6.2/gui/src/turnoffscreen_screen \
-TouchGFX/build/MINGW32_NT-6.2/gui/src/wifisetting_screen \
 TouchGFX/build/MINGW32_NT-6.2/simulator \
 TouchGFX/build/MINGW32_NT-6.2/touchgfx/framework/source/platform/driver/touch \
 TouchGFX/build/MINGW32_NT-6.2/touchgfx/framework/source/platform/hal/simulator/sdl2 \

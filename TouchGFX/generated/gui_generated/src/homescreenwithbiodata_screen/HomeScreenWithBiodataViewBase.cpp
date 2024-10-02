@@ -241,16 +241,6 @@ HomeScreenWithBiodataViewBase::HomeScreenWithBiodataViewBase() :
     topright_box.setColor(touchgfx::Color::getColorFromRGB(0, 0, 0));
     add(topright_box);
 
-    batteryprogress.setXY(197, 8);
-    batteryprogress.setProgressIndicatorPosition(2, 2, 27, 11);
-    batteryprogress.setRange(0, 100);
-    batteryprogress.setDirection(touchgfx::AbstractDirectionProgress::RIGHT);
-    batteryprogress.setBackground(touchgfx::Bitmap(BITMAP_GROUP_6_ID));
-    batteryprogress.setBitmap(BITMAP_BATTPERCENTAGE_ID);
-    batteryprogress.setValue(90);
-    batteryprogress.setAnchorAtZero(true);
-    add(batteryprogress);
-
     buttonfornothing.setXY(0, 0);
     buttonfornothing.setBitmaps(touchgfx::Bitmap(BITMAP_ALTERNATE_THEME_IMAGES_WIDGETS_BUTTON_REGULAR_HEIGHT_50_MEDIUM_ROUNDED_NORMAL_ID), touchgfx::Bitmap(BITMAP_ALTERNATE_THEME_IMAGES_WIDGETS_BUTTON_REGULAR_HEIGHT_50_MEDIUM_ROUNDED_PRESSED_ID));
     buttonfornothing.setVisible(false);
@@ -260,6 +250,9 @@ HomeScreenWithBiodataViewBase::HomeScreenWithBiodataViewBase() :
     catm1_image.setXY(11, 11);
     catm1_image.setBitmap(touchgfx::Bitmap(BITMAP_LTE_NOTCONNECTED_ID));
     add(catm1_image);
+
+    batteryprogress_container1.setXY(0, 0);
+    add(batteryprogress_container1);
 }
 
 HomeScreenWithBiodataViewBase::~HomeScreenWithBiodataViewBase()
@@ -269,7 +262,7 @@ HomeScreenWithBiodataViewBase::~HomeScreenWithBiodataViewBase()
 
 void HomeScreenWithBiodataViewBase::setupScreen()
 {
-
+    batteryprogress_container1.initialize();
 }
 
 void HomeScreenWithBiodataViewBase::buttonCallbackHandler(const touchgfx::AbstractButton& src)

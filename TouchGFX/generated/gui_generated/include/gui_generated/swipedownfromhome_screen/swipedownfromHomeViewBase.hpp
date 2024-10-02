@@ -12,7 +12,7 @@
 #include <touchgfx/widgets/ToggleButton.hpp>
 #include <touchgfx/widgets/Button.hpp>
 #include <touchgfx/containers/Slider.hpp>
-#include <touchgfx/containers/progress_indicators/ImageProgress.hpp>
+#include <gui/containers/batteryprogress_container.hpp>
 
 class swipedownfromHomeViewBase : public touchgfx::View<swipedownfromHomePresenter>
 {
@@ -20,7 +20,6 @@ public:
     swipedownfromHomeViewBase();
     virtual ~swipedownfromHomeViewBase();
     virtual void setupScreen();
-    virtual void transitionBegins();
 
 protected:
     FrontendApplication& application() {
@@ -48,9 +47,9 @@ protected:
     touchgfx::Image flashlight_image;
     touchgfx::Box topright_box;
     touchgfx::Box topleft_box;
-    touchgfx::ImageProgress batteryprogress;
     touchgfx::Button buttonfornothing;
     touchgfx::Image catm1_image;
+    batteryprogress_container batteryprogress_container1;
 
 private:
 

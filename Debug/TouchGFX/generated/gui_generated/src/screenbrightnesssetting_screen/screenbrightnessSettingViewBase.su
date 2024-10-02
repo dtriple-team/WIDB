@@ -46,13 +46,14 @@
 ../Middlewares/ST/touchgfx/framework/include/touchgfx/widgets/TextArea.hpp:429:9:touchgfx::TextArea::BoundingArea::BoundingArea()	24	static
 ../Middlewares/ST/touchgfx/framework/include/touchgfx/widgets/Image.hpp:38:7:touchgfx::Image::~Image()	16	static
 ../Middlewares/ST/touchgfx/framework/include/touchgfx/widgets/Image.hpp:38:7:virtual touchgfx::Image::~Image()	16	static
+../TouchGFX/gui/include/gui/containers/batteryprogress_container.hpp:10:13:batteryprogress_container::~batteryprogress_container()	16	static
+../TouchGFX/gui/include/gui/containers/batteryprogress_container.hpp:10:13:virtual batteryprogress_container::~batteryprogress_container()	16	static
 ../Middlewares/ST/touchgfx/framework/include/mvp/View.hpp:36:7:touchgfx::View<screenbrightnessSettingPresenter>::~View()	16	static
 ../Middlewares/ST/touchgfx/framework/include/mvp/View.hpp:36:7:virtual touchgfx::View<screenbrightnessSettingPresenter>::~View()	16	static
 ../TouchGFX/generated/gui_generated/src/screenbrightnesssetting_screen/screenbrightnessSettingViewBase.cpp:9:1:screenbrightnessSettingViewBase::screenbrightnessSettingViewBase()	120	static
-../TouchGFX/generated/gui_generated/src/screenbrightnesssetting_screen/screenbrightnessSettingViewBase.cpp:47:1:screenbrightnessSettingViewBase::~screenbrightnessSettingViewBase()	16	static
-../TouchGFX/generated/gui_generated/src/screenbrightnesssetting_screen/screenbrightnessSettingViewBase.cpp:47:1:virtual screenbrightnessSettingViewBase::~screenbrightnessSettingViewBase()	16	static
-../TouchGFX/generated/gui_generated/src/screenbrightnesssetting_screen/screenbrightnessSettingViewBase.cpp:52:6:virtual void screenbrightnessSettingViewBase::setupScreen()	16	static
-../TouchGFX/generated/gui_generated/src/screenbrightnesssetting_screen/screenbrightnessSettingViewBase.cpp:57:6:virtual void screenbrightnessSettingViewBase::transitionBegins()	16	static
+../TouchGFX/generated/gui_generated/src/screenbrightnesssetting_screen/screenbrightnessSettingViewBase.cpp:40:1:screenbrightnessSettingViewBase::~screenbrightnessSettingViewBase()	16	static
+../TouchGFX/generated/gui_generated/src/screenbrightnesssetting_screen/screenbrightnessSettingViewBase.cpp:40:1:virtual screenbrightnessSettingViewBase::~screenbrightnessSettingViewBase()	16	static
+../TouchGFX/generated/gui_generated/src/screenbrightnesssetting_screen/screenbrightnessSettingViewBase.cpp:45:6:virtual void screenbrightnessSettingViewBase::setupScreen()	16	static
 ../Middlewares/ST/touchgfx/framework/include/mvp/View.hpp:39:5:touchgfx::View<T>::View() [with T = screenbrightnessSettingPresenter]	16	static
 ../Middlewares/ST/touchgfx/framework/include/touchgfx/containers/Container.hpp:40:7:touchgfx::Container::~Container()	16	static
 ../Middlewares/ST/touchgfx/framework/include/touchgfx/containers/Container.hpp:40:7:virtual touchgfx::Container::~Container()	16	static
@@ -62,11 +63,3 @@
 ../Middlewares/ST/touchgfx/framework/include/touchgfx/widgets/TextArea.hpp:40:7:virtual touchgfx::TextArea::~TextArea()	16	static
 ../Middlewares/ST/touchgfx/framework/include/touchgfx/containers/Slider.hpp:40:7:touchgfx::Slider::~Slider()	16	static
 ../Middlewares/ST/touchgfx/framework/include/touchgfx/containers/Slider.hpp:40:7:virtual touchgfx::Slider::~Slider()	16	static
-../Middlewares/ST/touchgfx/framework/include/touchgfx/containers/progress_indicators/AbstractProgressIndicator.hpp:37:7:touchgfx::AbstractProgressIndicator::~AbstractProgressIndicator()	16	static
-../Middlewares/ST/touchgfx/framework/include/touchgfx/containers/progress_indicators/AbstractProgressIndicator.hpp:37:7:virtual touchgfx::AbstractProgressIndicator::~AbstractProgressIndicator()	16	static
-../Middlewares/ST/touchgfx/framework/include/touchgfx/containers/progress_indicators/AbstractDirectionProgress.hpp:29:7:touchgfx::AbstractDirectionProgress::~AbstractDirectionProgress()	16	static
-../Middlewares/ST/touchgfx/framework/include/touchgfx/containers/progress_indicators/AbstractDirectionProgress.hpp:29:7:virtual touchgfx::AbstractDirectionProgress::~AbstractDirectionProgress()	16	static
-../Middlewares/ST/touchgfx/framework/include/touchgfx/widgets/TiledImage.hpp:33:7:touchgfx::TiledImage::~TiledImage()	16	static
-../Middlewares/ST/touchgfx/framework/include/touchgfx/widgets/TiledImage.hpp:33:7:virtual touchgfx::TiledImage::~TiledImage()	16	static
-../Middlewares/ST/touchgfx/framework/include/touchgfx/containers/progress_indicators/ImageProgress.hpp:34:7:touchgfx::ImageProgress::~ImageProgress()	16	static
-../Middlewares/ST/touchgfx/framework/include/touchgfx/containers/progress_indicators/ImageProgress.hpp:34:7:virtual touchgfx::ImageProgress::~ImageProgress()	16	static

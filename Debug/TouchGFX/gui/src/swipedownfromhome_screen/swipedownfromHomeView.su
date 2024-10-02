@@ -10,7 +10,7 @@
 ../Middlewares/ST/touchgfx/framework/include/touchgfx/widgets/AbstractButton.hpp:63:10:void touchgfx::AbstractButton::setAction(touchgfx::GenericCallback<const touchgfx::AbstractButton&>&)	16	static
 ../Middlewares/ST/touchgfx/framework/include/touchgfx/widgets/ToggleButton.hpp:58:10:bool touchgfx::ToggleButton::getState() const	24	static
 ../Middlewares/ST/touchgfx/framework/include/touchgfx/containers/Slider.hpp:112:10:void touchgfx::Slider::setNewValueCallback(touchgfx::GenericCallback<const touchgfx::Slider&, int>&)	16	static
-../TouchGFX/generated/gui_generated/include/gui_generated/swipedownfromhome_screen/swipedownfromHomeViewBase.hpp:26:26:FrontendApplication& swipedownfromHomeViewBase::application()	16	static
+../TouchGFX/generated/gui_generated/include/gui_generated/swipedownfromhome_screen/swipedownfromHomeViewBase.hpp:25:26:FrontendApplication& swipedownfromHomeViewBase::application()	16	static
 ../TouchGFX/gui/include/gui/swipedownfromhome_screen/swipedownfromHomeView.hpp:12:13:swipedownfromHomeView::~swipedownfromHomeView()	16	static
 ../TouchGFX/gui/include/gui/swipedownfromhome_screen/swipedownfromHomeView.hpp:12:13:virtual swipedownfromHomeView::~swipedownfromHomeView()	16	static
 ../TouchGFX/gui/src/swipedownfromhome_screen/swipedownfromHomeView.cpp:10:1:swipedownfromHomeView::swipedownfromHomeView()	40	static

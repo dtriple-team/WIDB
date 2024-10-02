@@ -1,10 +1,11 @@
-#include <stm32wb5mmg.h>
+#include "../BLE/stm32wb5mmg.h"
+
 #include <main.h>
 
-#include "stm32wb_at.h"
-#include "stm32wb_at_ble.h"
-#include "stm32wb_at_client.h"
-#include "ble_at_appli.h"
+#include "../BLE/stm32wb_at/ble_at_appli.h"
+#include "../BLE/stm32wb_at/stm32wb_at.h"
+#include "../BLE/stm32wb_at/stm32wb_at_ble.h"
+#include "../BLE/stm32wb_at/stm32wb_at_client.h"
 
 void stm32wb5mmg_init()
 {

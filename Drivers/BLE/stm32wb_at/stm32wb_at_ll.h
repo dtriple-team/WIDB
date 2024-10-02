@@ -25,8 +25,8 @@ extern "C" {
 #endif
 
 /* Includes ------------------------------------------------------------------*/
-#include "stm32wb_at.h"
-#include "stm32wb_at_ll.h"
+#include "../../BLE/stm32wb_at/stm32wb_at.h"
+#include "../../BLE/stm32wb_at/stm32wb_at_ll.h"
 
 /* Private includes ----------------------------------------------------------*/
 

@@ -11,7 +11,7 @@
 #include <touchgfx/widgets/Image.hpp>
 #include <touchgfx/widgets/TextArea.hpp>
 #include <touchgfx/widgets/Button.hpp>
-#include <touchgfx/containers/progress_indicators/ImageProgress.hpp>
+#include <gui/containers/batteryprogress_container.hpp>
 
 class screenSettingViewBase : public touchgfx::View<screenSettingPresenter>
 {
@@ -19,7 +19,6 @@ public:
     screenSettingViewBase();
     virtual ~screenSettingViewBase();
     virtual void setupScreen();
-    virtual void transitionBegins();
 
 protected:
     FrontendApplication& application() {
@@ -40,10 +39,10 @@ protected:
     touchgfx::Image brightness_arrow_image;
     touchgfx::Button ontime_button;
     touchgfx::Button brightness_button;
-    touchgfx::ImageProgress batteryprogress;
     touchgfx::Button buttonfornothing;
     touchgfx::Image ontime_image;
     touchgfx::Image brightness_image;
+    batteryprogress_container batteryprogress_container1;
 
 private:
 

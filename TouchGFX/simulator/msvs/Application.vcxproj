@@ -94,6 +94,8 @@
     <ClCompile Include="..\..\gui\src\flashlight_screen_screen\flashlight_screenPresenter.cpp"/>
     <ClCompile Include="..\..\gui\src\flashlight_screen_screen\flashlight_screenView.cpp"/>
     <ClCompile Include="..\..\generated\gui_generated\src\flashlight_screen_screen\flashlight_screenViewBase.cpp"/>
+    <ClCompile Include="..\..\gui\src\containers\batteryprogress_container.cpp"/>
+    <ClCompile Include="..\..\generated\gui_generated\src\containers\batteryprogress_containerBase.cpp"/>
   </ItemGroup>
   <ItemGroup>
     <None Include="$(ApplicationRoot)\assets\texts\texts.xml"/>
@@ -317,6 +319,8 @@
     <ClInclude Include="..\..\gui\include\gui\flashlight_screen_screen\flashlight_screenPresenter.hpp"/>
     <ClInclude Include="..\..\gui\include\gui\flashlight_screen_screen\flashlight_screenView.hpp"/>
     <ClInclude Include="..\..\generated\gui_generated\include\gui_generated\flashlight_screen_screen\flashlight_screenViewBase.hpp"/>
+    <ClInclude Include="..\..\gui\include\gui\containers\batteryprogress_container.hpp"/>
+    <ClInclude Include="..\..\generated\gui_generated\include\gui_generated\containers\batteryprogress_containerBase.hpp"/>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="$(ApplicationRoot)\generated\simulator\touchgfx.rc"/>

@@ -11,7 +11,7 @@
 #include <touchgfx/widgets/Image.hpp>
 #include <touchgfx/widgets/TextArea.hpp>
 #include <touchgfx/widgets/Button.hpp>
-#include <touchgfx/containers/progress_indicators/ImageProgress.hpp>
+#include <gui/containers/batteryprogress_container.hpp>
 
 class systemSettingViewBase : public touchgfx::View<systemSettingPresenter>
 {
@@ -19,7 +19,6 @@ public:
     systemSettingViewBase();
     virtual ~systemSettingViewBase();
     virtual void setupScreen();
-    virtual void transitionBegins();
 
 protected:
     FrontendApplication& application() {
@@ -36,7 +35,7 @@ protected:
     touchgfx::Button poweroff_button;
     touchgfx::TextArea reset_label;
     touchgfx::TextArea poweroff_label;
-    touchgfx::ImageProgress batteryprogress;
+    batteryprogress_container batteryprogress_container1;
 
 private:
 

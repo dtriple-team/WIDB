@@ -11,7 +11,7 @@
 #include <touchgfx/widgets/Image.hpp>
 #include <touchgfx/widgets/TextArea.hpp>
 #include <touchgfx/containers/Slider.hpp>
-#include <touchgfx/containers/progress_indicators/ImageProgress.hpp>
+#include <gui/containers/batteryprogress_container.hpp>
 
 class screenbrightnessSettingViewBase : public touchgfx::View<screenbrightnessSettingPresenter>
 {
@@ -19,7 +19,6 @@ public:
     screenbrightnessSettingViewBase();
     virtual ~screenbrightnessSettingViewBase();
     virtual void setupScreen();
-    virtual void transitionBegins();
 
 protected:
     FrontendApplication& application() {
@@ -34,7 +33,7 @@ protected:
     touchgfx::TextArea screenbrightness_label;
     touchgfx::Slider slider1;
     touchgfx::Image brightness_image;
-    touchgfx::ImageProgress batteryprogress;
+    batteryprogress_container batteryprogress_container1;
 
 private:
 

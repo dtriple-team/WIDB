@@ -76,16 +76,6 @@ languageSettingViewBase::languageSettingViewBase() :
     radioButtonGroup1.add(radioButton3);
     add(radioButton3);
 
-    batteryprogress.setXY(197, 8);
-    batteryprogress.setProgressIndicatorPosition(2, 2, 27, 11);
-    batteryprogress.setRange(0, 100);
-    batteryprogress.setDirection(touchgfx::AbstractDirectionProgress::RIGHT);
-    batteryprogress.setBackground(touchgfx::Bitmap(BITMAP_GROUP_6_ID));
-    batteryprogress.setBitmap(BITMAP_BATTPERCENTAGE_ID);
-    batteryprogress.setValue(90);
-    batteryprogress.setAnchorAtZero(true);
-    add(batteryprogress);
-
     korean_image.setXY(22, 55);
     korean_image.setBitmap(touchgfx::Bitmap(BITMAP_SET_SETTING_KOREAN_ICON_ID));
     add(korean_image);
@@ -97,6 +87,9 @@ languageSettingViewBase::languageSettingViewBase() :
     spanish_image.setXY(17, 178);
     spanish_image.setBitmap(touchgfx::Bitmap(BITMAP_SET_SETTING_SPANISH_ICON_ID));
     add(spanish_image);
+
+    batteryprogress_container1.setXY(0, 0);
+    add(batteryprogress_container1);
 }
 
 languageSettingViewBase::~languageSettingViewBase()
@@ -106,7 +99,7 @@ languageSettingViewBase::~languageSettingViewBase()
 
 void languageSettingViewBase::setupScreen()
 {
-    transitionBegins();
+    batteryprogress_container1.initialize();
 }
 
 void languageSettingViewBase::radioButtonSelectedCallbackHandler(const touchgfx::AbstractButton& src)
@@ -135,13 +128,4 @@ void languageSettingViewBase::radioButtonSelectedCallbackHandler(const touchgfx:
         Texts::setLanguage(SPANISH);
         invalidate();
     }
-}
-
-void languageSettingViewBase::transitionBegins()
-{
-    //resetBATT
-    //When screen transition begins execute C++ code
-    //Execute C++ code
-    extern uint8_t battVal;
-    batteryprogress.setValue(battVal);
 }

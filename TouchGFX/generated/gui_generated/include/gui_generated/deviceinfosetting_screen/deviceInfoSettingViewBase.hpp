@@ -11,8 +11,8 @@
 #include <touchgfx/widgets/Image.hpp>
 #include <touchgfx/widgets/TextArea.hpp>
 #include <touchgfx/widgets/TextAreaWithWildcard.hpp>
-#include <touchgfx/containers/progress_indicators/ImageProgress.hpp>
 #include <touchgfx/widgets/Button.hpp>
+#include <gui/containers/batteryprogress_container.hpp>
 
 class deviceInfoSettingViewBase : public touchgfx::View<deviceInfoSettingPresenter>
 {
@@ -20,7 +20,6 @@ public:
     deviceInfoSettingViewBase();
     virtual ~deviceInfoSettingViewBase();
     virtual void setupScreen();
-    virtual void transitionBegins();
 
 protected:
     FrontendApplication& application() {
@@ -38,8 +37,8 @@ protected:
     touchgfx::TextAreaWithOneWildcard id_label;
     touchgfx::TextAreaWithOneWildcard serialnumber_label;
     touchgfx::TextAreaWithOneWildcard servicenumber_label;
-    touchgfx::ImageProgress batteryprogress;
     touchgfx::Button buttonfornothing;
+    batteryprogress_container batteryprogress_container1;
 
     /*
      * Wildcard Buffers

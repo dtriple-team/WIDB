@@ -11,7 +11,7 @@
 #include <touchgfx/widgets/Image.hpp>
 #include <touchgfx/widgets/TextArea.hpp>
 #include <touchgfx/widgets/TextAreaWithWildcard.hpp>
-#include <touchgfx/containers/progress_indicators/ImageProgress.hpp>
+#include <gui/containers/batteryprogress_container.hpp>
 
 class networkInfoSettingViewBase : public touchgfx::View<networkInfoSettingPresenter>
 {
@@ -19,7 +19,6 @@ public:
     networkInfoSettingViewBase();
     virtual ~networkInfoSettingViewBase();
     virtual void setupScreen();
-    virtual void transitionBegins();
 
 protected:
     FrontendApplication& application() {
@@ -34,7 +33,7 @@ protected:
     touchgfx::TextArea networkinfo_label;
     touchgfx::TextAreaWithOneWildcard imei_label;
     touchgfx::TextAreaWithOneWildcard iccid_label;
-    touchgfx::ImageProgress batteryprogress;
+    batteryprogress_container batteryprogress_container1;
 
     /*
      * Wildcard Buffers

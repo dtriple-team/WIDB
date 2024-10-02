@@ -46,16 +46,6 @@ Spo2DetailViewBase::Spo2DetailViewBase() :
     topleft_image.setColor(touchgfx::Color::getColorFromRGB(0, 0, 0));
     add(topleft_image);
 
-    batteryprogress.setXY(197, 8);
-    batteryprogress.setProgressIndicatorPosition(2, 2, 27, 11);
-    batteryprogress.setRange(0, 100);
-    batteryprogress.setDirection(touchgfx::AbstractDirectionProgress::RIGHT);
-    batteryprogress.setBackground(touchgfx::Bitmap(BITMAP_GROUP_6_ID));
-    batteryprogress.setBitmap(BITMAP_BATTPERCENTAGE_ID);
-    batteryprogress.setValue(90);
-    batteryprogress.setAnchorAtZero(true);
-    add(batteryprogress);
-
     spo2_detail_graph.setPosition(20, 95, 200, 165);
     spo2_detail_graph.setScale(1);
     spo2_detail_graph.setGraphAreaMargin(0, 0, 0, 0);
@@ -72,6 +62,9 @@ Spo2DetailViewBase::Spo2DetailViewBase() :
     catm1_image.setXY(11, 11);
     catm1_image.setBitmap(touchgfx::Bitmap(BITMAP_LTE_NOTCONNECTED_ID));
     add(catm1_image);
+
+    batteryprogress_container1.setXY(0, 0);
+    add(batteryprogress_container1);
 }
 
 Spo2DetailViewBase::~Spo2DetailViewBase()
@@ -81,7 +74,7 @@ Spo2DetailViewBase::~Spo2DetailViewBase()
 
 void Spo2DetailViewBase::setupScreen()
 {
-    transitionBegins();
+    batteryprogress_container1.initialize();
 }
 
 void Spo2DetailViewBase::handleTickEvent()
@@ -92,27 +85,15 @@ void Spo2DetailViewBase::handleTickEvent()
         //updateSpo2
         //When every N tick execute C++ code
         //Execute C++ code
-        extern uint8_t battVal;
-        batteryprogress.setValue(battVal);
+        //extern uint8_t canDisplayPPG;
+        //if(!canDisplayPPG) return;
         
-        extern uint8_t canDisplayPPG;
-        if(!canDisplayPPG) return;
+        //canDisplayPPG = 0;
         
-        canDisplayPPG = 0;
+        //extern uint16_t ssSpo2;
         
-        extern uint16_t ssSpo2;
-        
-        touchgfx::Unicode::snprintf(spo2_valueBuffer, SPO2_VALUE_SIZE, "%02u", ssSpo2);
-        spo2_value.invalidate();
+        //touchgfx::Unicode::snprintf(spo2_valueBuffer, SPO2_VALUE_SIZE, "%02u", ssSpo2);
+        //spo2_value.invalidate();
         frameCountUpdateSpo2Interval = 0;
     }
-}
-
-void Spo2DetailViewBase::transitionBegins()
-{
-    //resetBATT
-    //When screen transition begins execute C++ code
-    //Execute C++ code
-    extern uint8_t battVal;
-    batteryprogress.setValue(battVal);
 }
