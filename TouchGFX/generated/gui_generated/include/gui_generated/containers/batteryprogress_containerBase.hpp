@@ -7,6 +7,7 @@
 #include <gui/common/FrontendApplication.hpp>
 #include <touchgfx/containers/Container.hpp>
 #include <touchgfx/containers/progress_indicators/ImageProgress.hpp>
+#include <touchgfx/widgets/Image.hpp>
 
 class batteryprogress_containerBase : public touchgfx::Container
 {
@@ -18,7 +19,13 @@ public:
     /*
      * Custom Actions
      */
+    virtual void batteryNotCharging()
+    {
+        // Override and implement this function in Screen1
+    }
+    
     virtual void changeBATTVal();
+    virtual void batteryCharging();
 
 protected:
     FrontendApplication& application() {
@@ -29,6 +36,7 @@ protected:
      * Member Declarations
      */
     touchgfx::ImageProgress batteryprogress;
+    touchgfx::Image chargingIMG;
 
 private:
 

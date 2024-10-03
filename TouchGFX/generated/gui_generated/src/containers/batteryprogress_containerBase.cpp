@@ -14,12 +14,19 @@ batteryprogress_containerBase::batteryprogress_containerBase()
     batteryprogress.setDirection(touchgfx::AbstractDirectionProgress::RIGHT);
     batteryprogress.setBackground(touchgfx::Bitmap(BITMAP_GROUP_6_ID));
     batteryprogress.setBitmap(BITMAP_BATTPERCENTAGE_ID);
-    batteryprogress.setValue(90);
+    batteryprogress.setValue(0);
     batteryprogress.setAnchorAtZero(true);
     add(batteryprogress);
 
+    chargingIMG.setXY(182, 9);
+    chargingIMG.setBitmap(touchgfx::Bitmap(BITMAP_MINIHEART_COLOR_ID));
+    chargingIMG.setVisible(false);
+    add(chargingIMG);
+
     extern uint8_t battVal;
-	batteryprogress.setValue(battVal);
+    batteryprogress.setValue(battVal);
+    extern bool isCharging;
+	chargingIMG.setVisible(isCharging);
 }
 
 batteryprogress_containerBase::~batteryprogress_containerBase()
@@ -39,4 +46,21 @@ void batteryprogress_containerBase::changeBATTVal()
     //Execute C++ code
     extern uint8_t battVal;
     batteryprogress.setValue(battVal);
+}
+
+void batteryprogress_containerBase::batteryCharging()
+{
+    //charging
+    //When batteryCharging is called execute C++ code
+    //Execute C++ code
+	remove(chargingIMG);
+	setWidth(240);
+	setHeight(23);
+	chargingIMG.setXY(182, 9);
+	chargingIMG.setBitmap(touchgfx::Bitmap(BITMAP_MINIHEART_COLOR_ID));
+	extern bool isCharging;
+	chargingIMG.setVisible(isCharging);
+	add(chargingIMG);
+
+	chargingIMG.invalidate();
 }

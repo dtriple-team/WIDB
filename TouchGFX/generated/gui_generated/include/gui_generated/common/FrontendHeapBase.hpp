@@ -61,6 +61,10 @@
 #include <gui/temphome_screen/tempHomePresenter.hpp>
 #include <gui/flashlight_screen_screen/flashlight_screenView.hpp>
 #include <gui/flashlight_screen_screen/flashlight_screenPresenter.hpp>
+#include <gui/uncharging_screen_screen/unCharging_screenView.hpp>
+#include <gui/uncharging_screen_screen/unCharging_screenPresenter.hpp>
+#include <gui/charging_screen_screen/charging_screenView.hpp>
+#include <gui/charging_screen_screen/charging_screenPresenter.hpp>
 
 
 /**
@@ -106,7 +110,9 @@ public:
             touchgfx::meta::TypeList< initBlackScreenView,
             touchgfx::meta::TypeList< tempHomeView,
             touchgfx::meta::TypeList< flashlight_screenView,
-            touchgfx::meta::Nil > > > > > > > > > > > > > > > > > > > > > >
+            touchgfx::meta::TypeList< unCharging_screenView,
+            touchgfx::meta::TypeList< charging_screenView,
+            touchgfx::meta::Nil > > > > > > > > > > > > > > > > > > > > > > > >
             > GeneratedViewTypes;
 
     /**
@@ -141,7 +147,9 @@ public:
             touchgfx::meta::TypeList< initBlackScreenPresenter,
             touchgfx::meta::TypeList< tempHomePresenter,
             touchgfx::meta::TypeList< flashlight_screenPresenter,
-            touchgfx::meta::Nil > > > > > > > > > > > > > > > > > > > > > >
+            touchgfx::meta::TypeList< unCharging_screenPresenter,
+            touchgfx::meta::TypeList< charging_screenPresenter,
+            touchgfx::meta::Nil > > > > > > > > > > > > > > > > > > > > > > > >
             > GeneratedPresenterTypes;
 
     /**

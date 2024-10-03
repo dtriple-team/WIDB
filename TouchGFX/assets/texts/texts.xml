@@ -691,7 +691,18 @@
         <Translation Language="Spanish">Ocurren caídas</Translation>
       </Text>
     </TextGroup>
-    <TextGroup Id="Unsorted" />
+    <TextGroup Id="Unsorted">
+      <Text Id="__SingleUse_TWFH" Alignment="Center" TypographyId="size28_Bold">
+        <Translation Language="GB">unCharged</Translation>
+        <Translation Language="Korean">New Text</Translation>
+        <Translation Language="Spanish">New Text</Translation>
+      </Text>
+      <Text Id="__SingleUse_MNWB" Alignment="Center" TypographyId="size28_Bold">
+        <Translation Language="GB">Charging...</Translation>
+        <Translation Language="Korean">New Text</Translation>
+        <Translation Language="Spanish">New Text</Translation>
+      </Text>
+    </TextGroup>
   </Texts>
   <Typographies>
     <Typography Id="size10" Font="Pretendard-Regular.ttf" Size="10" Bpp="4" IsVector="no" Direction="LTR" FallbackCharacter="?" WildcardCharacterRanges="0-9,a-z,A-Z">

@@ -3546,6 +3546,124 @@
             "Name": "changeBeforeBrightness"
           }
         ]
+      },
+      {
+        "Name": "unCharging_screen",
+        "Components": [
+          {
+            "Type": "Image",
+            "Name": "background",
+            "Width": 240,
+            "Height": 280,
+            "RelativeFilename": "background.png"
+          },
+          {
+            "Type": "TextArea",
+            "Name": "textArea1",
+            "X": 46,
+            "Y": 123,
+            "Width": 148,
+            "Height": 34,
+            "TextId": "__SingleUse_TWFH",
+            "TextRotation": "0",
+            "Color": {
+              "Red": 255,
+              "Green": 255,
+              "Blue": 255
+            },
+            "AutoSize": true
+          }
+        ],
+        "Interactions": [
+          {
+            "InteractionName": "changeHomeScreen",
+            "Trigger": {
+              "Type": "TriggerOnEveryTick",
+              "TickCount": 120
+            },
+            "Action": {
+              "Type": "ActionGotoScreen",
+              "ScreenTransitionType": "ScreenTransitionNone",
+              "ActionComponent": "HomeScreenWithBiodata"
+            }
+          },
+          {
+            "InteractionName": "unchargingScreen",
+            "Trigger": {
+              "Type": "TriggerWhen",
+              "ActionCustomTypeName": "Call unCharging_screen changeUnChargeScreen"
+            },
+            "Action": {
+              "Type": "ActionGotoScreen",
+              "ScreenTransitionType": "ScreenTransitionNone",
+              "ActionComponent": "unCharging_screen"
+            }
+          }
+        ],
+        "CustomActions": [
+          {
+            "Name": "changeUnChargeScreen"
+          }
+        ]
+      },
+      {
+        "Name": "charging_screen",
+        "Components": [
+          {
+            "Type": "Image",
+            "Name": "background",
+            "Width": 240,
+            "Height": 280,
+            "RelativeFilename": "background.png"
+          },
+          {
+            "Type": "TextArea",
+            "Name": "textArea1",
+            "X": 47,
+            "Y": 123,
+            "Width": 146,
+            "Height": 34,
+            "TextId": "__SingleUse_MNWB",
+            "TextRotation": "0",
+            "Color": {
+              "Red": 93,
+              "Green": 211,
+              "Blue": 74
+            },
+            "AutoSize": true
+          }
+        ],
+        "Interactions": [
+          {
+            "InteractionName": "changeHomeScreen",
+            "Trigger": {
+              "Type": "TriggerOnEveryTick",
+              "TickCount": 120
+            },
+            "Action": {
+              "Type": "ActionGotoScreen",
+              "ScreenTransitionType": "ScreenTransitionNone",
+              "ActionComponent": "HomeScreenWithBiodata"
+            }
+          },
+          {
+            "InteractionName": "chargingScreen",
+            "Trigger": {
+              "Type": "TriggerWhen",
+              "ActionCustomTypeName": "Call charging_screen changeChargeScreen"
+            },
+            "Action": {
+              "Type": "ActionGotoScreen",
+              "ScreenTransitionType": "ScreenTransitionNone",
+              "ActionComponent": "charging_screen"
+            }
+          }
+        ],
+        "CustomActions": [
+          {
+            "Name": "changeChargeScreen"
+          }
+        ]
       }
     ],
     "CustomContainerDefinitions": [
@@ -3634,8 +3752,17 @@
             "IndicatorPositionY": 2,
             "IndicatorPositionWidth": 27,
             "IndicatorPositionHeight": 11,
-            "ProgressRangeMax": 100,
-            "ProgressInitialValue": 90
+            "ProgressRangeMax": 100
+          },
+          {
+            "Type": "Image",
+            "Name": "chargingIMG",
+            "X": 182,
+            "Y": 9,
+            "Width": 15,
+            "Height": 13,
+            "Visible": false,
+            "RelativeFilename": "miniheart_color.png"
           }
         ],
         "Interactions": [
@@ -3649,35 +3776,28 @@
               "Type": "ActionExecuteCode",
               "Code": "extern uint8_t battVal;\r\nbatteryprogress.setValue(battVal);"
             }
-          }
-        ],
-        "CustomActions": [
+          },
           {
-            "Name": "changeBATTVal"
-          }
-        ]
-      },
-      {
-        "Name": "batteryCharging",
-        "Width": 240,
-        "Height": 23,
-        "Components": [],
-        "Interactions": [
-          {
-            "InteractionName": "updateBATT",
+            "InteractionName": "charging",
             "Trigger": {
               "Type": "TriggerWhen",
-              "ActionCustomTypeName": "Call batteryCharging changeBATTVal"
+              "ActionCustomTypeName": "Call batteryprogress_container batteryCharging"
             },
             "Action": {
               "Type": "ActionExecuteCode",
-              "Code": "extern uint8_t battVal;\r\nbatteryprogress.setValue(battVal);"
+              "Code": "extern bool isCharging;\r\nchargingIMG.setVisible(isCharging);\r\nchargingIMG.invalidate();"
             }
           }
         ],
         "CustomActions": [
           {
             "Name": "changeBATTVal"
+          },
+          {
+            "Name": "batteryCharging"
+          },
+          {
+            "Name": "batteryNotCharging"
           }
         ]
       }

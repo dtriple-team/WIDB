@@ -119,6 +119,7 @@ TouchGFX/build/MINGW32_NT-6.2/simulator \
 TouchGFX/build/MINGW32_NT-6.2/touchgfx/framework/source/platform/driver/touch \
 TouchGFX/build/MINGW32_NT-6.2/touchgfx/framework/source/platform/hal/simulator/sdl2 \
 TouchGFX/generated/fonts/src \
+TouchGFX/generated/gui_generated/src/charging_screen_screen \
 TouchGFX/generated/gui_generated/src/common \
 TouchGFX/generated/gui_generated/src/containers \
 TouchGFX/generated/gui_generated/src/deviceinfosetting_screen \
@@ -144,9 +145,11 @@ TouchGFX/generated/gui_generated/src/swipedownfromhome_screen \
 TouchGFX/generated/gui_generated/src/systemsetting_screen \
 TouchGFX/generated/gui_generated/src/temphome_screen \
 TouchGFX/generated/gui_generated/src/turnoffscreen_screen \
+TouchGFX/generated/gui_generated/src/uncharging_screen_screen \
 TouchGFX/generated/images/src \
 TouchGFX/generated/images/src/__generated \
 TouchGFX/generated/texts/src \
+TouchGFX/gui/src/charging_screen_screen \
 TouchGFX/gui/src/common \
 TouchGFX/gui/src/containers \
 TouchGFX/gui/src/deviceinfosetting_screen \
@@ -173,6 +176,7 @@ TouchGFX/gui/src/swipedownfromhome_screen \
 TouchGFX/gui/src/systemsetting_screen \
 TouchGFX/gui/src/temphome_screen \
 TouchGFX/gui/src/turnoffscreen_screen \
+TouchGFX/gui/src/uncharging_screen_screen \
 TouchGFX/target \
 TouchGFX/target/generated \
 

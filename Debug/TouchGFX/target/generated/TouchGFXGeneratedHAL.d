@@ -189,6 +189,12 @@ TouchGFX/target/generated/TouchGFXGeneratedHAL.o: \
  ../TouchGFX/gui/include/gui/flashlight_screen_screen/flashlight_screenView.hpp \
  ../TouchGFX/generated/gui_generated/include/gui_generated/flashlight_screen_screen/flashlight_screenViewBase.hpp \
  ../TouchGFX/gui/include/gui/flashlight_screen_screen/flashlight_screenPresenter.hpp \
+ ../TouchGFX/gui/include/gui/uncharging_screen_screen/unCharging_screenView.hpp \
+ ../TouchGFX/generated/gui_generated/include/gui_generated/uncharging_screen_screen/unCharging_screenViewBase.hpp \
+ ../TouchGFX/gui/include/gui/uncharging_screen_screen/unCharging_screenPresenter.hpp \
+ ../TouchGFX/gui/include/gui/charging_screen_screen/charging_screenView.hpp \
+ ../TouchGFX/generated/gui_generated/include/gui_generated/charging_screen_screen/charging_screenViewBase.hpp \
+ ../TouchGFX/gui/include/gui/charging_screen_screen/charging_screenPresenter.hpp \
  ../Middlewares/ST/touchgfx/framework/include/touchgfx/hal/PaintImpl.hpp \
  ../Middlewares/ST/touchgfx/framework/include/touchgfx/hal/Paint.hpp \
  ../Middlewares/ST/touchgfx/framework/include/touchgfx/hal/PaintRGB565Impl.hpp \
@@ -427,6 +433,12 @@ TouchGFX/target/generated/TouchGFXGeneratedHAL.o: \
 ../TouchGFX/gui/include/gui/flashlight_screen_screen/flashlight_screenView.hpp:
 ../TouchGFX/generated/gui_generated/include/gui_generated/flashlight_screen_screen/flashlight_screenViewBase.hpp:
 ../TouchGFX/gui/include/gui/flashlight_screen_screen/flashlight_screenPresenter.hpp:
+../TouchGFX/gui/include/gui/uncharging_screen_screen/unCharging_screenView.hpp:
+../TouchGFX/generated/gui_generated/include/gui_generated/uncharging_screen_screen/unCharging_screenViewBase.hpp:
+../TouchGFX/gui/include/gui/uncharging_screen_screen/unCharging_screenPresenter.hpp:
+../TouchGFX/gui/include/gui/charging_screen_screen/charging_screenView.hpp:
+../TouchGFX/generated/gui_generated/include/gui_generated/charging_screen_screen/charging_screenViewBase.hpp:
+../TouchGFX/gui/include/gui/charging_screen_screen/charging_screenPresenter.hpp:
 ../Middlewares/ST/touchgfx/framework/include/touchgfx/hal/PaintImpl.hpp:
 ../Middlewares/ST/touchgfx/framework/include/touchgfx/hal/Paint.hpp:
 ../Middlewares/ST/touchgfx/framework/include/touchgfx/hal/PaintRGB565Impl.hpp:

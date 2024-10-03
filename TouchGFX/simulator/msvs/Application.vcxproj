@@ -96,6 +96,12 @@
     <ClCompile Include="..\..\generated\gui_generated\src\flashlight_screen_screen\flashlight_screenViewBase.cpp"/>
     <ClCompile Include="..\..\gui\src\containers\batteryprogress_container.cpp"/>
     <ClCompile Include="..\..\generated\gui_generated\src\containers\batteryprogress_containerBase.cpp"/>
+    <ClCompile Include="..\..\gui\src\charging_screen_screen\charging_screenPresenter.cpp"/>
+    <ClCompile Include="..\..\gui\src\charging_screen_screen\charging_screenView.cpp"/>
+    <ClCompile Include="..\..\generated\gui_generated\src\charging_screen_screen\charging_screenViewBase.cpp"/>
+    <ClCompile Include="..\..\gui\src\uncharging_screen_screen\unCharging_screenPresenter.cpp"/>
+    <ClCompile Include="..\..\gui\src\uncharging_screen_screen\unCharging_screenView.cpp"/>
+    <ClCompile Include="..\..\generated\gui_generated\src\uncharging_screen_screen\unCharging_screenViewBase.cpp"/>
   </ItemGroup>
   <ItemGroup>
     <None Include="$(ApplicationRoot)\assets\texts\texts.xml"/>
@@ -321,6 +327,12 @@
     <ClInclude Include="..\..\generated\gui_generated\include\gui_generated\flashlight_screen_screen\flashlight_screenViewBase.hpp"/>
     <ClInclude Include="..\..\gui\include\gui\containers\batteryprogress_container.hpp"/>
     <ClInclude Include="..\..\generated\gui_generated\include\gui_generated\containers\batteryprogress_containerBase.hpp"/>
+    <ClInclude Include="..\..\gui\include\gui\charging_screen_screen\charging_screenPresenter.hpp"/>
+    <ClInclude Include="..\..\gui\include\gui\charging_screen_screen\charging_screenView.hpp"/>
+    <ClInclude Include="..\..\generated\gui_generated\include\gui_generated\charging_screen_screen\charging_screenViewBase.hpp"/>
+    <ClInclude Include="..\..\gui\include\gui\uncharging_screen_screen\unCharging_screenPresenter.hpp"/>
+    <ClInclude Include="..\..\gui\include\gui\uncharging_screen_screen\unCharging_screenView.hpp"/>
+    <ClInclude Include="..\..\generated\gui_generated\include\gui_generated\uncharging_screen_screen\unCharging_screenViewBase.hpp"/>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="$(ApplicationRoot)\generated\simulator\touchgfx.rc"/>

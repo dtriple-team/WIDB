@@ -11,6 +11,7 @@ RM := rm -rf
 -include sources.mk
 -include TouchGFX/target/generated/subdir.mk
 -include TouchGFX/target/subdir.mk
+-include TouchGFX/gui/src/uncharging_screen_screen/subdir.mk
 -include TouchGFX/gui/src/turnoffscreen_screen/subdir.mk
 -include TouchGFX/gui/src/temphome_screen/subdir.mk
 -include TouchGFX/gui/src/systemsetting_screen/subdir.mk
@@ -37,9 +38,11 @@ RM := rm -rf
 -include TouchGFX/gui/src/deviceinfosetting_screen/subdir.mk
 -include TouchGFX/gui/src/containers/subdir.mk
 -include TouchGFX/gui/src/common/subdir.mk
+-include TouchGFX/gui/src/charging_screen_screen/subdir.mk
 -include TouchGFX/generated/texts/src/subdir.mk
 -include TouchGFX/generated/images/src/__generated/subdir.mk
 -include TouchGFX/generated/images/src/subdir.mk
+-include TouchGFX/generated/gui_generated/src/uncharging_screen_screen/subdir.mk
 -include TouchGFX/generated/gui_generated/src/turnoffscreen_screen/subdir.mk
 -include TouchGFX/generated/gui_generated/src/temphome_screen/subdir.mk
 -include TouchGFX/generated/gui_generated/src/systemsetting_screen/subdir.mk
@@ -65,6 +68,7 @@ RM := rm -rf
 -include TouchGFX/generated/gui_generated/src/deviceinfosetting_screen/subdir.mk
 -include TouchGFX/generated/gui_generated/src/containers/subdir.mk
 -include TouchGFX/generated/gui_generated/src/common/subdir.mk
+-include TouchGFX/generated/gui_generated/src/charging_screen_screen/subdir.mk
 -include TouchGFX/generated/fonts/src/subdir.mk
 -include TouchGFX/build/MINGW32_NT-6.2/touchgfx/framework/source/platform/hal/simulator/sdl2/subdir.mk
 -include TouchGFX/build/MINGW32_NT-6.2/touchgfx/framework/source/platform/driver/touch/subdir.mk

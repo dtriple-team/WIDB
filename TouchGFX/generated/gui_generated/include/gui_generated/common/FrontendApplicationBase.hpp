@@ -94,6 +94,12 @@ public:
     // flashlight_screen
     void gotoflashlight_screenScreenNoTransition();
 
+    // unCharging_screen
+    void gotounCharging_screenScreenNoTransition();
+
+    // charging_screen
+    void gotocharging_screenScreenNoTransition();
+
 protected:
     touchgfx::Callback<FrontendApplicationBase> transitionCallback;
     FrontendHeap& frontendHeap;
@@ -172,6 +178,12 @@ protected:
 
     // flashlight_screen
     void gotoflashlight_screenScreenNoTransitionImpl();
+
+    // unCharging_screen
+    void gotounCharging_screenScreenNoTransitionImpl();
+
+    // charging_screen
+    void gotocharging_screenScreenNoTransitionImpl();
 };
 
 #endif // FRONTENDAPPLICATIONBASE_HPP

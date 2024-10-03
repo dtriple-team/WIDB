@@ -43,6 +43,8 @@ extern "C" {
 #include <gui_generated/falldetected_screen/fallDetectedViewBase.hpp>
 #include <gui_generated/temphome_screen/tempHomeViewBase.hpp>
 #include <gui_generated/containers/batteryprogress_containerBase.hpp>
+#include <gui_generated/charging_screen_screen/charging_screenViewBase.hpp>
+#include <gui_generated/uncharging_screen_screen/unCharging_screenViewBase.hpp>
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -431,6 +433,9 @@ void StartSecTimerTask(void *argument)
 * @retval None
 */
 batteryprogress_containerBase myBatteryprogress_container;
+charging_screenViewBase myCharging_screenView;
+unCharging_screenViewBase myUnCharging_screenView;
+bool isCharging = 0;
 uint8_t interrupt_kind = 0;
 #define PRESSURE_VAL_LEN 10
 #include <math.h>
@@ -510,16 +515,31 @@ void StartCheckINTTask(void *argument)
     	myTempHomeView.changeToHomeScreen();
     }
 
-    // update Battery value
+    // update Battery
+    bool pmicBATTERR = 0;
     if(pmicSOCRead(&batterylevel) != 0x00){ // occur err
     	MX_I2C3_Init(); // occur err...
+    	pmicBATTERR = 1;
     }
-    battVal = batterylevel;
-    myBatteryprogress_container.changeBATTVal();
+    if(!pmicBATTERR){
+    	// update Battery value
+		battVal = batterylevel;
+		myBatteryprogress_container.changeBATTVal();
 
-    // check and update Battery Charging value
-    if(isBATTCharging()){
-    	//
+	    // check and update Battery Charging value
+//		isCharging = isBATTCharging();
+		bool isCharging_Now = isBATTCharging();
+		if(isCharging != isCharging_Now){
+			isCharging = isCharging_Now;
+			if(isCharging){
+				myBatteryprogress_container.batteryCharging();
+				myCharging_screenView.changeChargeScreen();
+			}
+			else{
+				myBatteryprogress_container.batteryNotCharging();
+				myUnCharging_screenView.changeUnChargeScreen();
+			}
+		}
     }
 
     // PMIC interrupt occur => emergency signal send to Web (CATM1)

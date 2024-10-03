@@ -55,6 +55,10 @@
 #include <gui/temphome_screen/tempHomePresenter.hpp>
 #include <gui/flashlight_screen_screen/flashlight_screenView.hpp>
 #include <gui/flashlight_screen_screen/flashlight_screenPresenter.hpp>
+#include <gui/uncharging_screen_screen/unCharging_screenView.hpp>
+#include <gui/uncharging_screen_screen/unCharging_screenPresenter.hpp>
+#include <gui/charging_screen_screen/charging_screenView.hpp>
+#include <gui/charging_screen_screen/charging_screenPresenter.hpp>
 
 using namespace touchgfx;
 
@@ -416,4 +420,30 @@ void FrontendApplicationBase::gotoflashlight_screenScreenNoTransition()
 void FrontendApplicationBase::gotoflashlight_screenScreenNoTransitionImpl()
 {
     touchgfx::makeTransition<flashlight_screenView, flashlight_screenPresenter, touchgfx::NoTransition, Model >(&currentScreen, &currentPresenter, frontendHeap, &currentTransition, &model);
+}
+
+// unCharging_screen
+
+void FrontendApplicationBase::gotounCharging_screenScreenNoTransition()
+{
+    transitionCallback = touchgfx::Callback<FrontendApplicationBase>(this, &FrontendApplicationBase::gotounCharging_screenScreenNoTransitionImpl);
+    pendingScreenTransitionCallback = &transitionCallback;
+}
+
+void FrontendApplicationBase::gotounCharging_screenScreenNoTransitionImpl()
+{
+    touchgfx::makeTransition<unCharging_screenView, unCharging_screenPresenter, touchgfx::NoTransition, Model >(&currentScreen, &currentPresenter, frontendHeap, &currentTransition, &model);
+}
+
+// charging_screen
+
+void FrontendApplicationBase::gotocharging_screenScreenNoTransition()
+{
+    transitionCallback = touchgfx::Callback<FrontendApplicationBase>(this, &FrontendApplicationBase::gotocharging_screenScreenNoTransitionImpl);
+    pendingScreenTransitionCallback = &transitionCallback;
+}
+
+void FrontendApplicationBase::gotocharging_screenScreenNoTransitionImpl()
+{
+    touchgfx::makeTransition<charging_screenView, charging_screenPresenter, touchgfx::NoTransition, Model >(&currentScreen, &currentPresenter, frontendHeap, &currentTransition, &model);
 }

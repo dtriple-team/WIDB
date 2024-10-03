@@ -460,6 +460,30 @@
     <Filter Include="Source Files\generated\gui_generated\flashlight_screen_screen">
       <UniqueIdentifier>4825BFFE-12AB-B86E-CF4E-6BF8495D4FD1</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\gui\charging_screen_screen">
+      <UniqueIdentifier>C17B0C3F-3FE6-A013-5917-020F887B70B1</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\gui\uncharging_screen_screen">
+      <UniqueIdentifier>65086D09-D7D2-51AB-AA37-2295E83A5392</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\gui\charging_screen_screen">
+      <UniqueIdentifier>E6C1F905-AD04-7981-75D0-3979822B43E9</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\gui\uncharging_screen_screen">
+      <UniqueIdentifier>0D7A0A14-D4CB-A002-1B86-F6772965CD9B</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\generated\gui_generated\charging_screen_screen">
+      <UniqueIdentifier>25303F0B-2304-98F5-AD0B-8D318F838C3A</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\generated\gui_generated\charging_screen_screen">
+      <UniqueIdentifier>B8E5CCE7-1299-F885-F552-3A68DBFE8821</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\generated\gui_generated\uncharging_screen_screen">
+      <UniqueIdentifier>02CB1F9C-C63D-2292-2F05-DC91854F91DE</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\generated\gui_generated\uncharging_screen_screen">
+      <UniqueIdentifier>24303219-B193-6E02-BD33-AB84DE1E9FFE</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="$(TouchGFXReleasePath)\framework\source\platform\driver\touch\SDL2TouchController.cpp">
@@ -716,6 +740,24 @@
     </ClCompile>
     <ClCompile Include="..\..\generated\gui_generated\src\containers\batteryprogress_containerBase.cpp">
       <Filter>Source Files\generated\gui_generated\containers</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\gui\src\charging_screen_screen\charging_screenPresenter.cpp">
+      <Filter>Source Files\gui\charging_screen_screen</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\gui\src\charging_screen_screen\charging_screenView.cpp">
+      <Filter>Source Files\gui\charging_screen_screen</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\generated\gui_generated\src\charging_screen_screen\charging_screenViewBase.cpp">
+      <Filter>Source Files\generated\gui_generated\charging_screen_screen</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\gui\src\uncharging_screen_screen\unCharging_screenPresenter.cpp">
+      <Filter>Source Files\gui\uncharging_screen_screen</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\gui\src\uncharging_screen_screen\unCharging_screenView.cpp">
+      <Filter>Source Files\gui\uncharging_screen_screen</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\generated\gui_generated\src\uncharging_screen_screen\unCharging_screenViewBase.cpp">
+      <Filter>Source Files\generated\gui_generated\uncharging_screen_screen</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -1383,6 +1425,24 @@
     </ClInclude>
     <ClInclude Include="..\..\generated\gui_generated\include\gui_generated\containers\batteryprogress_containerBase.hpp">
       <Filter>Header Files\generated\gui_generated\containers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\gui\include\gui\charging_screen_screen\charging_screenPresenter.hpp">
+      <Filter>Header Files\gui\charging_screen_screen</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\gui\include\gui\charging_screen_screen\charging_screenView.hpp">
+      <Filter>Header Files\gui\charging_screen_screen</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\generated\gui_generated\include\gui_generated\charging_screen_screen\charging_screenViewBase.hpp">
+      <Filter>Header Files\generated\gui_generated\charging_screen_screen</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\gui\include\gui\uncharging_screen_screen\unCharging_screenPresenter.hpp">
+      <Filter>Header Files\gui\uncharging_screen_screen</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\gui\include\gui\uncharging_screen_screen\unCharging_screenView.hpp">
+      <Filter>Header Files\gui\uncharging_screen_screen</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\generated\gui_generated\include\gui_generated\uncharging_screen_screen\unCharging_screenViewBase.hpp">
+      <Filter>Header Files\generated\gui_generated\uncharging_screen_screen</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
