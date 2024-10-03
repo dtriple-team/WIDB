@@ -32,7 +32,7 @@ int pmicSOCRead(unsigned char *batterylevel){
 	return ret;
 }
 
-bool isBATTCharging(){
-	bool BatteryChgEn = max20303.Battery_Status_Charger();
-	return BatteryChgEn;
+int isBATTCharging(){
+	int batteryChargeStatus = max20303.Battery_Status_Charger();
+	return batteryChargeStatus;
 }

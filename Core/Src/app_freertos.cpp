@@ -528,16 +528,19 @@ void StartCheckINTTask(void *argument)
 
 	    // check and update Battery Charging value
 //		isCharging = isBATTCharging();
-		bool isCharging_Now = isBATTCharging();
-		if(isCharging != isCharging_Now){
-			isCharging = isCharging_Now;
-			if(isCharging){
-				myBatteryprogress_container.batteryCharging();
-				myCharging_screenView.changeChargeScreen();
-			}
-			else{
-				myBatteryprogress_container.batteryNotCharging();
-				myUnCharging_screenView.changeUnChargeScreen();
+		uint8_t chargingStatus = (uint8_t)isBATTCharging();
+		if(chargingStatus != 0xFF){
+			bool isCharging_Now = chargingStatus;
+			if(isCharging != isCharging_Now){
+				isCharging = isCharging_Now;
+				if(isCharging){
+					myBatteryprogress_container.batteryCharging();
+					myCharging_screenView.changeChargeScreen();
+				}
+				else{
+					myBatteryprogress_container.batteryNotCharging();
+					myUnCharging_screenView.changeUnChargeScreen();
+				}
 			}
 		}
     }

@@ -101,12 +101,13 @@ int MAX20303::writeReg(registers_t reg, uint8_t value)
 int MAX20303::readReg(registers_t reg, uint8_t &value)
 {
 	uint8_t uint_reg = reg;
+	uint8_t ret = 0;
 
-	HAL_I2C_Master_Transmit(&hi2c3, m_writeAddress, &uint_reg, sizeof(uint8_t), 1);
-	HAL_I2C_Master_Receive(&hi2c3, m_readAddress, &uint_reg, sizeof(uint_reg), 1);
+	ret |= HAL_I2C_Master_Transmit(&hi2c3, m_writeAddress, &uint_reg, sizeof(uint8_t), 1);
+	ret |= HAL_I2C_Master_Receive(&hi2c3, m_readAddress, &uint_reg, sizeof(uint_reg), 1);
 	value = uint_reg;
 
-	return MAX20303_NO_ERROR;
+	return ret;
 }
 
 //******************************************************************************
@@ -206,11 +207,15 @@ int MAX20303::Max20303_BatteryGauge(unsigned char *batterylevel)
 }
 
 //******************************************************************************
-bool MAX20303::Battery_Status_Charger()
+uint8_t MAX20303::Battery_Status_Charger()
 {
 	uint8_t rxData;
+	uint8_t ret = 0;
 
-	readReg(MAX20303::REG_STATUS0, rxData);
+	ret |= readReg(MAX20303::REG_STATUS0, rxData);
+	if(ret != 0x00){
+		return 0xFF;
+	}
 
 	uint8_t Statuscharger = rxData & 0x07;
 

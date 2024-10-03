@@ -19,4 +19,4 @@ int pmic_init(void);
 //MAX20303 max20303;
 
 int pmicSOCRead(unsigned char *batterylevel);
-bool isBATTCharging();
+int isBATTCharging();
