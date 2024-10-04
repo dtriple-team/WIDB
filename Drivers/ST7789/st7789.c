@@ -217,6 +217,7 @@ void ST7789_Init(void)
 
 	HAL_Delay(50);
 	ST7789_Fill_Color(BLACK);				//	Fill with Black.
+	HAL_Delay(100);
 //	ST7789_Fill_Color(WHITE);				//	Fill with Black.
 }
 

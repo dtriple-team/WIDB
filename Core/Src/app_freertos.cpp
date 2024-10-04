@@ -134,6 +134,8 @@ uint8_t set_bLevel = 15;
 uint8_t before_bLevel = 0;
 uint8_t flashlightOn = 0;
 
+uint8_t lteRSSI_0_4 = 0; // CATM1 signal RSSI 0 to 4 value
+
 initBlackScreenViewBase myBlackScreenView;
 fallDetectedViewBase myFallDetectedView;
 tempHomeViewBase myTempHomeView;
@@ -243,8 +245,8 @@ void StartlcdTask(void *argument)
 
 	while(!pmicInitFlag);
 	ST7789_gpio_setting();
-	ST7789_brightness_setting(16);
 	ST7789_Init();
+	ST7789_brightness_setting(16);
 
 	touchgfxSignalVSync();
 	MX_TouchGFX_Process();

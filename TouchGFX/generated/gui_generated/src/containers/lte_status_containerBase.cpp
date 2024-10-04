@@ -26,6 +26,9 @@ lte_status_containerBase::lte_status_containerBase()
     imageProgress1.setValue(0);
     imageProgress1.setAnchorAtZero(true);
     add(imageProgress1);
+
+    extern uint8_t lteRSSI_0_4;
+    imageProgress1.setValue(lteRSSI_0_4);
 }
 
 lte_status_containerBase::~lte_status_containerBase()
