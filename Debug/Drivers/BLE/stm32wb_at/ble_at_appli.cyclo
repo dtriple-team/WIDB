@@ -1,6 +1,0 @@
-../Drivers/BLE/stm32wb_at/ble_at_appli.c:108:9:stm32wb_at_BLE_SVC_cb	1
-../Drivers/BLE/stm32wb_at/ble_at_appli.c:132:9:stm32wb_at_BLE_EVT_CONN_cb	2
-../Drivers/BLE/stm32wb_at/ble_at_appli.c:151:9:stm32wb_at_ll_Transmit	1
-../Drivers/BLE/stm32wb_at/ble_at_appli.c:172:6:stm32wb_at_ll_Async_receive	2
-../Drivers/BLE/stm32wb_at/ble_at_appli.c:190:6:HAL_UART_RxCpltCallback	2
-../Drivers/BLE/stm32wb_at/ble_at_appli.c:200:6:dt_ble_adv_data_update	4

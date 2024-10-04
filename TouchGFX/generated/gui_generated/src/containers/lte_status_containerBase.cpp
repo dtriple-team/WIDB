@@ -23,7 +23,7 @@ lte_status_containerBase::lte_status_containerBase()
     imageProgress1.setDirection(touchgfx::AbstractDirectionProgress::RIGHT);
     imageProgress1.setBackground(touchgfx::Bitmap(BITMAP_LTE_NOTCONNECTED_ID));
     imageProgress1.setBitmap(BITMAP_LTE_ID);
-    imageProgress1.setValue(4);
+    imageProgress1.setValue(0);
     imageProgress1.setAnchorAtZero(true);
     add(imageProgress1);
 }

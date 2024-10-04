@@ -1,3 +1,0 @@
-../Drivers/BLE/stm32wb5mmg.c:10:6:stm32wb5mmg_init	16	static
-../Drivers/BLE/stm32wb5mmg.c:39:6:stm32wb5mmg_adv_setting	56	static
-../Drivers/BLE/stm32wb5mmg.c:53:6:stm32wb5mmg_adv	16	static
