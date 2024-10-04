@@ -130,7 +130,7 @@ uint8_t ssRunFlag = 0;
 uint8_t pmicInitFlag = 0;
 
 double test_mag_data[15] = {0,};
-uint8_t set_bLevel = 15;
+uint8_t set_bLevel = 7; // GUI val 연동
 uint8_t before_bLevel = 0;
 uint8_t flashlightOn = 0;
 
@@ -246,7 +246,7 @@ void StartlcdTask(void *argument)
 	while(!pmicInitFlag);
 	ST7789_gpio_setting();
 	ST7789_Init();
-	ST7789_brightness_setting(16);
+	ST7789_brightness_setting(set_bLevel);
 
 	touchgfxSignalVSync();
 	MX_TouchGFX_Process();
@@ -386,7 +386,7 @@ void StartSecTimerTask(void *argument)
 	while(!pmicInitFlag);
 
 	// using parameter init (default val)
-	uint8_t now_bLevel = 15;
+	uint8_t now_bLevel = set_bLevel;
 	uint8_t bLevelCtrlTimCount = 0;
 
 	uint8_t pre_secTime = 0;
@@ -453,10 +453,10 @@ double calculateAltitudeDifference(double P1, double P2) {
 
     return altitudeDifference;
 }
-uint8_t updateBattVal(){
-	uint8_t batt = 0;
-	return batt;
-}
+//uint8_t updateBattVal(){
+//	uint8_t batt = 0;
+//	return batt;
+//}
 /* USER CODE END Header_StartCheckINTTask */
 void StartCheckINTTask(void *argument)
 {
@@ -525,25 +525,34 @@ void StartCheckINTTask(void *argument)
     }
     if(!pmicBATTERR){
     	// update Battery value
-		battVal = batterylevel;
-		myBatteryprogress_container.changeBATTVal();
+    	if(battVal != batterylevel){
+    		battVal = batterylevel;
+//    		myBatteryprogress_container.changeBATTVal();
+    	}
 
 	    // check and update Battery Charging value
 //		isCharging = isBATTCharging();
 		uint8_t chargingStatus = (uint8_t)isBATTCharging();
-		if(chargingStatus != 0xFF){
+		if(chargingStatus != 0xFF && battVal!=100){
 			bool isCharging_Now = chargingStatus;
 			if(isCharging != isCharging_Now){
 				isCharging = isCharging_Now;
 				if(isCharging){
-					myBatteryprogress_container.batteryCharging();
+//					myBatteryprogress_container.batteryCharging();
 					myCharging_screenView.changeChargeScreen();
+			    	brightness_count = 0;
 				}
 				else{
-					myBatteryprogress_container.batteryNotCharging();
+//					myBatteryprogress_container.batteryNotCharging();
 					myUnCharging_screenView.changeUnChargeScreen();
+			    	brightness_count = 0;
 				}
 			}
+		}
+		else if(battVal == 100 && isCharging == true){ // charging finish
+			isCharging = false;
+			myUnCharging_screenView.changeUnChargeScreen();
+	    	brightness_count = 0;
 		}
     }
 
