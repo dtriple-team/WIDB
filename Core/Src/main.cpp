@@ -22,6 +22,7 @@
 #include "adc.h"
 #include "mdf.h"
 #include "crc.h"
+#include "dac.h"
 #include "gpdma.h"
 #include "i2c.h"
 #include "icache.h"
@@ -128,6 +129,7 @@ int main(void)
   MX_TIM5_Init();
   MX_RTC_Init();
   MX_TIM17_Init();
+  MX_DAC1_Init();
   MX_TouchGFX_Init();
   /* Call PreOsInit function */
   MX_TouchGFX_PreOSInit();
@@ -135,6 +137,7 @@ int main(void)
   HAL_TIM_Base_Start(&htim15);
   HAL_TIM_Base_Start_IT(&htim4);
   HAL_TIM_Base_Start_IT(&htim17);
+  HAL_DAC_Start(&hdac1, DAC_CHANNEL_2);
   /* USER CODE END 2 */
 
   /* Init scheduler */
