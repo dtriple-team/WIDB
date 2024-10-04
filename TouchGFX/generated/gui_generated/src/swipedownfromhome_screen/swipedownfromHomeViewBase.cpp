@@ -82,22 +82,17 @@ swipedownfromHomeViewBase::swipedownfromHomeViewBase() :
     topright_box.setColor(touchgfx::Color::getColorFromRGB(0, 0, 0));
     add(topright_box);
 
-    topleft_box.setPosition(0, 0, 65, 33);
-    topleft_box.setColor(touchgfx::Color::getColorFromRGB(0, 0, 0));
-    add(topleft_box);
-
     buttonfornothing.setXY(0, 0);
     buttonfornothing.setBitmaps(touchgfx::Bitmap(BITMAP_ALTERNATE_THEME_IMAGES_WIDGETS_BUTTON_REGULAR_HEIGHT_50_MEDIUM_ROUNDED_NORMAL_ID), touchgfx::Bitmap(BITMAP_ALTERNATE_THEME_IMAGES_WIDGETS_BUTTON_REGULAR_HEIGHT_50_MEDIUM_ROUNDED_PRESSED_ID));
     buttonfornothing.setVisible(false);
     buttonfornothing.setAction(buttonCallback);
     add(buttonfornothing);
 
-    catm1_image.setXY(11, 11);
-    catm1_image.setBitmap(touchgfx::Bitmap(BITMAP_LTE_NOTCONNECTED_ID));
-    add(catm1_image);
-
     batteryprogress_container1.setXY(0, 0);
     add(batteryprogress_container1);
+
+    lte_status_container1.setXY(0, 0);
+    add(lte_status_container1);
 }
 
 swipedownfromHomeViewBase::~swipedownfromHomeViewBase()
@@ -108,6 +103,7 @@ swipedownfromHomeViewBase::~swipedownfromHomeViewBase()
 void swipedownfromHomeViewBase::setupScreen()
 {
     batteryprogress_container1.initialize();
+    lte_status_container1.initialize();
 }
 
 void swipedownfromHomeViewBase::buttonCallbackHandler(const touchgfx::AbstractButton& src)

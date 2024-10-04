@@ -14,6 +14,7 @@
 #include <touchgfx/containers/progress_indicators/CircleProgress.hpp>
 #include <touchgfx/widgets/canvas/PainterRGB565.hpp>
 #include <gui/containers/batteryprogress_container.hpp>
+#include <gui/containers/lte_status_container.hpp>
 
 class StepsScreenViewBase : public touchgfx::View<StepsScreenPresenter>
 {
@@ -45,12 +46,11 @@ protected:
     touchgfx::TextArea steps_label;
     touchgfx::TextAreaWithOneWildcard steps_value;
     touchgfx::Box topright_image;
-    touchgfx::Box topleft_image;
-    touchgfx::Image catm1_image;
     touchgfx::Image steps_image;
     touchgfx::CircleProgress steps_progress;
     touchgfx::PainterRGB565 steps_progressPainter;
     batteryprogress_container batteryprogress_container1;
+    lte_status_container lte_status_container1;
 
     /*
      * Wildcard Buffers

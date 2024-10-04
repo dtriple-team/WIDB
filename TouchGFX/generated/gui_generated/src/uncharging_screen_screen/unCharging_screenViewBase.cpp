@@ -17,11 +17,15 @@ unCharging_screenViewBase::unCharging_screenViewBase() :
     background.setBitmap(touchgfx::Bitmap(BITMAP_BACKGROUND_ID));
     add(background);
 
-    textArea1.setXY(46, 123);
+    textArea1.setPosition(0, 190, 240, 58);
     textArea1.setColor(touchgfx::Color::getColorFromRGB(255, 255, 255));
     textArea1.setLinespacing(0);
     textArea1.setTypedText(touchgfx::TypedText(T___SINGLEUSE_TWFH));
     add(textArea1);
+
+    image1.setXY(51, 40);
+    image1.setBitmap(touchgfx::Bitmap(BITMAP_UNCHARGING_ID));
+    add(image1);
 }
 
 unCharging_screenViewBase::~unCharging_screenViewBase()

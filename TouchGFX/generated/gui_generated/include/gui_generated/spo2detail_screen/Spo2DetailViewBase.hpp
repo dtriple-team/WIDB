@@ -15,6 +15,7 @@
 #include <touchgfx/widgets/graph/GraphElements.hpp>
 #include <touchgfx/widgets/canvas/PainterRGB565.hpp>
 #include <gui/containers/batteryprogress_container.hpp>
+#include <gui/containers/lte_status_container.hpp>
 
 class Spo2DetailViewBase : public touchgfx::View<Spo2DetailPresenter>
 {
@@ -38,12 +39,11 @@ protected:
     touchgfx::Image spo2_image;
     touchgfx::TextAreaWithOneWildcard spo2_value;
     touchgfx::Box topright_image;
-    touchgfx::Box topleft_image;
     touchgfx::GraphWrapAndOverwrite<24> spo2_detail_graph;
     touchgfx::GraphElementLine spo2_detail_graphLine1;
     touchgfx::PainterRGB565 spo2_detail_graphLine1Painter;
-    touchgfx::Image catm1_image;
     batteryprogress_container batteryprogress_container1;
+    lte_status_container lte_status_container1;
 
     /*
      * Wildcard Buffers

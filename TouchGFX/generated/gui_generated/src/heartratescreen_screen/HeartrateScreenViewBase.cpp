@@ -35,14 +35,6 @@ HeartrateScreenViewBase::HeartrateScreenViewBase() :
     topright_box.setColor(touchgfx::Color::getColorFromRGB(0, 0, 0));
     add(topright_box);
 
-    topleft_box.setPosition(0, 0, 65, 33);
-    topleft_box.setColor(touchgfx::Color::getColorFromRGB(0, 0, 0));
-    add(topleft_box);
-
-    catm1_button.setXY(11, 11);
-    catm1_button.setBitmap(touchgfx::Bitmap(BITMAP_LTE_NOTCONNECTED_ID));
-    add(catm1_button);
-
     heartrate_detail_button.setXY(70, 75);
     heartrate_detail_button.setBitmaps(touchgfx::Bitmap(BITMAP_HR_ICON_ID), touchgfx::Bitmap(BITMAP_HR_ICON_ID));
     heartrate_detail_button.setAction(buttonCallback);
@@ -50,6 +42,9 @@ HeartrateScreenViewBase::HeartrateScreenViewBase() :
 
     batteryprogress_container1.setXY(0, 0);
     add(batteryprogress_container1);
+
+    lte_status_container1.setXY(0, 0);
+    add(lte_status_container1);
 }
 
 HeartrateScreenViewBase::~HeartrateScreenViewBase()
@@ -60,6 +55,7 @@ HeartrateScreenViewBase::~HeartrateScreenViewBase()
 void HeartrateScreenViewBase::setupScreen()
 {
     batteryprogress_container1.initialize();
+    lte_status_container1.initialize();
 }
 
 void HeartrateScreenViewBase::buttonCallbackHandler(const touchgfx::AbstractButton& src)

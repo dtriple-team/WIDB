@@ -35,14 +35,6 @@ Spo2ScreenViewBase::Spo2ScreenViewBase() :
     topright_box.setColor(touchgfx::Color::getColorFromRGB(0, 0, 0));
     add(topright_box);
 
-    topleft_box.setPosition(0, 0, 65, 33);
-    topleft_box.setColor(touchgfx::Color::getColorFromRGB(0, 0, 0));
-    add(topleft_box);
-
-    catm1_image.setXY(11, 11);
-    catm1_image.setBitmap(touchgfx::Bitmap(BITMAP_LTE_NOTCONNECTED_ID));
-    add(catm1_image);
-
     spo2_detail_button.setXY(70, 75);
     spo2_detail_button.setBitmaps(touchgfx::Bitmap(BITMAP_SPO2_ICON_ID), touchgfx::Bitmap(BITMAP_SPO2_ICON_ID));
     spo2_detail_button.setAction(buttonCallback);
@@ -50,6 +42,9 @@ Spo2ScreenViewBase::Spo2ScreenViewBase() :
 
     batteryprogress_container1.setXY(0, 0);
     add(batteryprogress_container1);
+
+    lte_status_container1.setXY(0, 0);
+    add(lte_status_container1);
 }
 
 Spo2ScreenViewBase::~Spo2ScreenViewBase()
@@ -60,6 +55,7 @@ Spo2ScreenViewBase::~Spo2ScreenViewBase()
 void Spo2ScreenViewBase::setupScreen()
 {
     batteryprogress_container1.initialize();
+    lte_status_container1.initialize();
 }
 
 void Spo2ScreenViewBase::buttonCallbackHandler(const touchgfx::AbstractButton& src)

@@ -35,6 +35,7 @@ protected:
     touchgfx::Box __background;
     touchgfx::Image background;
     touchgfx::TextArea textArea1;
+    touchgfx::Image image1;
 
 private:
 

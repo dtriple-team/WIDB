@@ -692,15 +692,15 @@
       </Text>
     </TextGroup>
     <TextGroup Id="Unsorted">
-      <Text Id="__SingleUse_TWFH" Alignment="Center" TypographyId="size28_Bold">
-        <Translation Language="GB">unCharged</Translation>
-        <Translation Language="Korean">New Text</Translation>
-        <Translation Language="Spanish">New Text</Translation>
+      <Text Id="__SingleUse_TWFH" Alignment="Center" TypographyId="size24">
+        <Translation Language="GB">Charger&#10;disconnected.</Translation>
+        <Translation Language="Korean">충전기가&#10;해제되었습니다.</Translation>
+        <Translation Language="Spanish">Cargador&#10;desconectado.</Translation>
       </Text>
-      <Text Id="__SingleUse_MNWB" Alignment="Center" TypographyId="size28_Bold">
-        <Translation Language="GB">Charging...</Translation>
-        <Translation Language="Korean">New Text</Translation>
-        <Translation Language="Spanish">New Text</Translation>
+      <Text Id="__SingleUse_MNWB" Alignment="Center" TypographyId="size24">
+        <Translation Language="GB">Charger&#10;connected.</Translation>
+        <Translation Language="Korean">충전기가&#10;연결되었습니다.</Translation>
+        <Translation Language="Spanish">Cargador&#10;conectado.</Translation>
       </Text>
     </TextGroup>
   </Texts>

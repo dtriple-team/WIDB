@@ -13,6 +13,7 @@
 #include <touchgfx/widgets/Button.hpp>
 #include <touchgfx/widgets/TextArea.hpp>
 #include <gui/containers/batteryprogress_container.hpp>
+#include <gui/containers/lte_status_container.hpp>
 
 class SettingScreenViewBase : public touchgfx::View<SettingScreenPresenter>
 {
@@ -59,8 +60,8 @@ protected:
     touchgfx::Image system_image;
     touchgfx::TextArea setting_label;
     touchgfx::Button buttonfornothing;
-    touchgfx::Image catm1_image;
     batteryprogress_container batteryprogress_container1;
+    lte_status_container lte_status_container1;
 
 private:
 

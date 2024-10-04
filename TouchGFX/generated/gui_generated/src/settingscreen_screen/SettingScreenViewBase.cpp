@@ -152,12 +152,11 @@ SettingScreenViewBase::SettingScreenViewBase() :
     buttonfornothing.setAction(buttonCallback);
     add(buttonfornothing);
 
-    catm1_image.setXY(11, 11);
-    catm1_image.setBitmap(touchgfx::Bitmap(BITMAP_LTE_NOTCONNECTED_ID));
-    add(catm1_image);
-
     batteryprogress_container1.setXY(0, 0);
     add(batteryprogress_container1);
+
+    lte_status_container1.setXY(0, 0);
+    add(lte_status_container1);
 }
 
 SettingScreenViewBase::~SettingScreenViewBase()
@@ -168,6 +167,7 @@ SettingScreenViewBase::~SettingScreenViewBase()
 void SettingScreenViewBase::setupScreen()
 {
     batteryprogress_container1.initialize();
+    lte_status_container1.initialize();
 }
 
 void SettingScreenViewBase::buttonCallbackHandler(const touchgfx::AbstractButton& src)

@@ -472,12 +472,6 @@
           },
           {
             "Type": "Box",
-            "Name": "topleft_box",
-            "Width": 65,
-            "Height": 33
-          },
-          {
-            "Type": "Box",
             "Name": "topright_box",
             "X": 175,
             "Width": 65,
@@ -494,20 +488,18 @@
             "Preset": "alternate_theme\\presets\\button\\regular\\height_50\\medium_rounded_normal.json"
           },
           {
-            "Type": "Image",
-            "Name": "catm1_image",
-            "X": 11,
-            "Y": 11,
-            "Width": 15,
-            "Height": 12,
-            "RelativeFilename": "lte_notconnected.png"
-          },
-          {
             "Type": "CustomContainerInstance",
             "Name": "batteryprogress_container1",
             "Width": 240,
             "Height": 23,
             "CustomContainerDefinitionName": "batteryprogress_container"
+          },
+          {
+            "Type": "CustomContainerInstance",
+            "Name": "lte_status_container1",
+            "Width": 65,
+            "Height": 33,
+            "CustomContainerDefinitionName": "lte_status_container"
           }
         ],
         "Interactions": [
@@ -619,21 +611,6 @@
             "Height": 33
           },
           {
-            "Type": "Box",
-            "Name": "topleft_box",
-            "Width": 65,
-            "Height": 33
-          },
-          {
-            "Type": "Image",
-            "Name": "catm1_image",
-            "X": 11,
-            "Y": 11,
-            "Width": 15,
-            "Height": 12,
-            "RelativeFilename": "lte_notconnected.png"
-          },
-          {
             "Type": "Image",
             "Name": "sleep_image",
             "X": 87,
@@ -670,6 +647,13 @@
             "Width": 240,
             "Height": 23,
             "CustomContainerDefinitionName": "batteryprogress_container"
+          },
+          {
+            "Type": "CustomContainerInstance",
+            "Name": "lte_status_container1",
+            "Width": 65,
+            "Height": 33,
+            "CustomContainerDefinitionName": "lte_status_container"
           }
         ],
         "Interactions": [
@@ -739,21 +723,6 @@
             "Height": 33
           },
           {
-            "Type": "Box",
-            "Name": "topleft_box",
-            "Width": 65,
-            "Height": 33
-          },
-          {
-            "Type": "Image",
-            "Name": "catm1_image",
-            "X": 11,
-            "Y": 11,
-            "Width": 15,
-            "Height": 12,
-            "RelativeFilename": "lte_notconnected.png"
-          },
-          {
             "Type": "Button",
             "Name": "spo2_detail_button",
             "X": 70,
@@ -769,6 +738,13 @@
             "Width": 240,
             "Height": 23,
             "CustomContainerDefinitionName": "batteryprogress_container"
+          },
+          {
+            "Type": "CustomContainerInstance",
+            "Name": "lte_status_container1",
+            "Width": 65,
+            "Height": 33,
+            "CustomContainerDefinitionName": "lte_status_container"
           }
         ],
         "Interactions": [
@@ -843,21 +819,6 @@
             "Height": 33
           },
           {
-            "Type": "Box",
-            "Name": "topleft_box",
-            "Width": 65,
-            "Height": 33
-          },
-          {
-            "Type": "Image",
-            "Name": "catm1_button",
-            "X": 11,
-            "Y": 11,
-            "Width": 15,
-            "Height": 12,
-            "RelativeFilename": "lte_notconnected.png"
-          },
-          {
             "Type": "Button",
             "Name": "heartrate_detail_button",
             "X": 70,
@@ -873,6 +834,13 @@
             "Width": 240,
             "Height": 23,
             "CustomContainerDefinitionName": "batteryprogress_container"
+          },
+          {
+            "Type": "CustomContainerInstance",
+            "Name": "lte_status_container1",
+            "Width": 65,
+            "Height": 33,
+            "CustomContainerDefinitionName": "lte_status_container"
           }
         ],
         "Interactions": [
@@ -948,21 +916,6 @@
             "Height": 33
           },
           {
-            "Type": "Box",
-            "Name": "topleft_image",
-            "Width": 65,
-            "Height": 33
-          },
-          {
-            "Type": "Image",
-            "Name": "catm1_image",
-            "X": 11,
-            "Y": 11,
-            "Width": 15,
-            "Height": 12,
-            "RelativeFilename": "lte_notconnected.png"
-          },
-          {
             "Type": "Image",
             "Name": "steps_image",
             "X": 85,
@@ -999,6 +952,13 @@
             "Width": 240,
             "Height": 23,
             "CustomContainerDefinitionName": "batteryprogress_container"
+          },
+          {
+            "Type": "CustomContainerInstance",
+            "Name": "lte_status_container1",
+            "Width": 65,
+            "Height": 33,
+            "CustomContainerDefinitionName": "lte_status_container"
           }
         ],
         "Interactions": [
@@ -1083,12 +1043,6 @@
             "Height": 33
           },
           {
-            "Type": "Box",
-            "Name": "topleft_box",
-            "Width": 65,
-            "Height": 33
-          },
-          {
             "Type": "DynamicGraph",
             "Name": "heartrate_detail_graph",
             "X": 20,
@@ -1116,20 +1070,18 @@
             ]
           },
           {
-            "Type": "Image",
-            "Name": "catm1_image",
-            "X": 11,
-            "Y": 11,
-            "Width": 15,
-            "Height": 12,
-            "RelativeFilename": "lte_notconnected.png"
-          },
-          {
             "Type": "CustomContainerInstance",
             "Name": "batteryprogress_container1",
             "Width": 240,
             "Height": 23,
             "CustomContainerDefinitionName": "batteryprogress_container"
+          },
+          {
+            "Type": "CustomContainerInstance",
+            "Name": "lte_status_container1",
+            "Width": 65,
+            "Height": 33,
+            "CustomContainerDefinitionName": "lte_status_container"
           }
         ],
         "Interactions": [
@@ -1208,12 +1160,6 @@
             "Height": 33
           },
           {
-            "Type": "Box",
-            "Name": "topleft_image",
-            "Width": 65,
-            "Height": 33
-          },
-          {
             "Type": "DynamicGraph",
             "Name": "spo2_detail_graph",
             "X": 20,
@@ -1241,20 +1187,18 @@
             ]
           },
           {
-            "Type": "Image",
-            "Name": "catm1_image",
-            "X": 11,
-            "Y": 11,
-            "Width": 15,
-            "Height": 12,
-            "RelativeFilename": "lte_notconnected.png"
-          },
-          {
             "Type": "CustomContainerInstance",
             "Name": "batteryprogress_container1",
             "Width": 240,
             "Height": 23,
             "CustomContainerDefinitionName": "batteryprogress_container"
+          },
+          {
+            "Type": "CustomContainerInstance",
+            "Name": "lte_status_container1",
+            "Width": 65,
+            "Height": 33,
+            "CustomContainerDefinitionName": "lte_status_container"
           }
         ],
         "Interactions": [
@@ -1429,12 +1373,6 @@
             "Height": 33
           },
           {
-            "Type": "Box",
-            "Name": "topleft_box",
-            "Width": 65,
-            "Height": 33
-          },
-          {
             "Type": "Button",
             "Name": "buttonfornothing",
             "Width": 240,
@@ -1445,20 +1383,18 @@
             "Preset": "alternate_theme\\presets\\button\\regular\\height_50\\medium_rounded_normal.json"
           },
           {
-            "Type": "Image",
-            "Name": "catm1_image",
-            "X": 11,
-            "Y": 11,
-            "Width": 15,
-            "Height": 12,
-            "RelativeFilename": "lte_notconnected.png"
-          },
-          {
             "Type": "CustomContainerInstance",
             "Name": "batteryprogress_container1",
             "Width": 240,
             "Height": 23,
             "CustomContainerDefinitionName": "batteryprogress_container"
+          },
+          {
+            "Type": "CustomContainerInstance",
+            "Name": "lte_status_container1",
+            "Width": 65,
+            "Height": 33,
+            "CustomContainerDefinitionName": "lte_status_container"
           }
         ],
         "Interactions": [
@@ -1833,20 +1769,18 @@
             "Preset": "alternate_theme\\presets\\button\\regular\\height_50\\medium_rounded_normal.json"
           },
           {
-            "Type": "Image",
-            "Name": "catm1_image",
-            "X": 11,
-            "Y": 11,
-            "Width": 15,
-            "Height": 12,
-            "RelativeFilename": "lte_notconnected.png"
-          },
-          {
             "Type": "CustomContainerInstance",
             "Name": "batteryprogress_container1",
             "Width": 240,
             "Height": 23,
             "CustomContainerDefinitionName": "batteryprogress_container"
+          },
+          {
+            "Type": "CustomContainerInstance",
+            "Name": "lte_status_container1",
+            "Width": 65,
+            "Height": 33,
+            "CustomContainerDefinitionName": "lte_status_container"
           }
         ],
         "Interactions": [
@@ -3278,26 +3212,18 @@
             }
           },
           {
-            "Type": "Box",
-            "Name": "topleft_box",
-            "Width": 65,
-            "Height": 33
-          },
-          {
-            "Type": "Image",
-            "Name": "image2",
-            "X": 11,
-            "Y": 11,
-            "Width": 15,
-            "Height": 12,
-            "RelativeFilename": "lte_notconnected.png"
-          },
-          {
             "Type": "CustomContainerInstance",
             "Name": "batteryprogress_container1",
             "Width": 240,
             "Height": 23,
             "CustomContainerDefinitionName": "batteryprogress_container"
+          },
+          {
+            "Type": "CustomContainerInstance",
+            "Name": "lte_status_container1",
+            "Width": 65,
+            "Height": 33,
+            "CustomContainerDefinitionName": "lte_status_container"
           }
         ],
         "Interactions": [
@@ -3560,18 +3486,25 @@
           {
             "Type": "TextArea",
             "Name": "textArea1",
-            "X": 46,
-            "Y": 123,
-            "Width": 148,
-            "Height": 34,
+            "Y": 190,
+            "Width": 240,
+            "Height": 58,
             "TextId": "__SingleUse_TWFH",
             "TextRotation": "0",
             "Color": {
               "Red": 255,
               "Green": 255,
               "Blue": 255
-            },
-            "AutoSize": true
+            }
+          },
+          {
+            "Type": "Image",
+            "Name": "image1",
+            "X": 51,
+            "Y": 40,
+            "Width": 139,
+            "Height": 139,
+            "RelativeFilename": "uncharging.png"
           }
         ],
         "Interactions": [
@@ -3619,18 +3552,25 @@
           {
             "Type": "TextArea",
             "Name": "textArea1",
-            "X": 47,
-            "Y": 123,
-            "Width": 146,
-            "Height": 34,
+            "Y": 190,
+            "Width": 240,
+            "Height": 58,
             "TextId": "__SingleUse_MNWB",
             "TextRotation": "0",
             "Color": {
-              "Red": 93,
-              "Green": 211,
-              "Blue": 74
-            },
-            "AutoSize": true
+              "Red": 255,
+              "Green": 255,
+              "Blue": 255
+            }
+          },
+          {
+            "Type": "Image",
+            "Name": "image1",
+            "X": 51,
+            "Y": 40,
+            "Width": 139,
+            "Height": 139,
+            "RelativeFilename": "charging.png"
           }
         ],
         "Interactions": [
@@ -3740,7 +3680,7 @@
           {
             "Type": "ImageProgress",
             "Name": "batteryprogress",
-            "X": 197,
+            "X": 190,
             "Y": 8,
             "Width": 33,
             "Height": 15,
@@ -3757,12 +3697,12 @@
           {
             "Type": "Image",
             "Name": "chargingIMG",
-            "X": 182,
-            "Y": 9,
+            "X": 198,
+            "Y": 8,
             "Width": 15,
-            "Height": 13,
+            "Height": 15,
             "Visible": false,
-            "RelativeFilename": "miniheart_color.png"
+            "RelativeFilename": "charge_on_batt.png"
           }
         ],
         "Interactions": [
@@ -3800,6 +3740,45 @@
             "Name": "batteryNotCharging"
           }
         ]
+      },
+      {
+        "Name": "lte_status_container",
+        "Width": 65,
+        "Height": 33,
+        "Components": [
+          {
+            "Type": "Box",
+            "Name": "topleft_box",
+            "Width": 65,
+            "Height": 33
+          },
+          {
+            "Type": "Image",
+            "Name": "lte_image",
+            "X": 15,
+            "Y": 11,
+            "Width": 15,
+            "Height": 12,
+            "RelativeFilename": "lte_notconnected.png"
+          },
+          {
+            "Type": "ImageProgress",
+            "Name": "imageProgress1",
+            "X": 15,
+            "Y": 11,
+            "Width": 15,
+            "Height": 12,
+            "FileNameProgress": "lte.png",
+            "AnchorAtZero": true,
+            "Direction": "Right",
+            "FileNameBackground": "lte_notconnected.png",
+            "IndicatorPositionWidth": 15,
+            "IndicatorPositionHeight": 12,
+            "ProgressRangeMax": 4,
+            "ProgressInitialValue": 4
+          }
+        ],
+        "Interactions": []
       }
     ],
     "Name": "demo_eHG4",

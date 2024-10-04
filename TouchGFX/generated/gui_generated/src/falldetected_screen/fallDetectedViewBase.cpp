@@ -32,16 +32,11 @@ fallDetectedViewBase::fallDetectedViewBase()
     textArea2.setTypedText(touchgfx::TypedText(T_FALLDETECTIONTEXT));
     add(textArea2);
 
-    topleft_box.setPosition(0, 0, 65, 33);
-    topleft_box.setColor(touchgfx::Color::getColorFromRGB(0, 0, 0));
-    add(topleft_box);
-
-    image2.setXY(11, 11);
-    image2.setBitmap(touchgfx::Bitmap(BITMAP_LTE_NOTCONNECTED_ID));
-    add(image2);
-
     batteryprogress_container1.setXY(0, 0);
     add(batteryprogress_container1);
+
+    lte_status_container1.setXY(0, 0);
+    add(lte_status_container1);
 }
 
 fallDetectedViewBase::~fallDetectedViewBase()
@@ -52,6 +47,7 @@ fallDetectedViewBase::~fallDetectedViewBase()
 void fallDetectedViewBase::setupScreen()
 {
     batteryprogress_container1.initialize();
+    lte_status_container1.initialize();
 }
 
 void fallDetectedViewBase::changeToFallDetected()

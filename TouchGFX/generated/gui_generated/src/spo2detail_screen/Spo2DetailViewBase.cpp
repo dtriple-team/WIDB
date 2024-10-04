@@ -42,10 +42,6 @@ Spo2DetailViewBase::Spo2DetailViewBase() :
     topright_image.setColor(touchgfx::Color::getColorFromRGB(0, 0, 0));
     add(topright_image);
 
-    topleft_image.setPosition(0, 0, 65, 33);
-    topleft_image.setColor(touchgfx::Color::getColorFromRGB(0, 0, 0));
-    add(topleft_image);
-
     spo2_detail_graph.setPosition(20, 95, 200, 165);
     spo2_detail_graph.setScale(1);
     spo2_detail_graph.setGraphAreaMargin(0, 0, 0, 0);
@@ -59,12 +55,11 @@ Spo2DetailViewBase::Spo2DetailViewBase() :
 
     add(spo2_detail_graph);
 
-    catm1_image.setXY(11, 11);
-    catm1_image.setBitmap(touchgfx::Bitmap(BITMAP_LTE_NOTCONNECTED_ID));
-    add(catm1_image);
-
     batteryprogress_container1.setXY(0, 0);
     add(batteryprogress_container1);
+
+    lte_status_container1.setXY(0, 0);
+    add(lte_status_container1);
 }
 
 Spo2DetailViewBase::~Spo2DetailViewBase()
@@ -75,6 +70,7 @@ Spo2DetailViewBase::~Spo2DetailViewBase()
 void Spo2DetailViewBase::setupScreen()
 {
     batteryprogress_container1.initialize();
+    lte_status_container1.initialize();
 }
 
 void Spo2DetailViewBase::handleTickEvent()

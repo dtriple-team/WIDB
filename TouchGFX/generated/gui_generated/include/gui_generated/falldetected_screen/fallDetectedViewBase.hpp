@@ -11,6 +11,7 @@
 #include <touchgfx/widgets/Image.hpp>
 #include <touchgfx/widgets/TextArea.hpp>
 #include <gui/containers/batteryprogress_container.hpp>
+#include <gui/containers/lte_status_container.hpp>
 
 class fallDetectedViewBase : public touchgfx::View<fallDetectedPresenter>
 {
@@ -37,9 +38,8 @@ protected:
     touchgfx::TextArea textArea1;
     touchgfx::Image image1;
     touchgfx::TextArea textArea2;
-    touchgfx::Box topleft_box;
-    touchgfx::Image image2;
     batteryprogress_container batteryprogress_container1;
+    lte_status_container lte_status_container1;
 
 private:
 

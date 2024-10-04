@@ -42,10 +42,6 @@ HeartrateDetailViewBase::HeartrateDetailViewBase() :
     topright_box.setColor(touchgfx::Color::getColorFromRGB(0, 0, 0));
     add(topright_box);
 
-    topleft_box.setPosition(0, 0, 65, 33);
-    topleft_box.setColor(touchgfx::Color::getColorFromRGB(0, 0, 0));
-    add(topleft_box);
-
     heartrate_detail_graph.setPosition(20, 95, 200, 165);
     heartrate_detail_graph.setScale(1);
     heartrate_detail_graph.setGraphAreaMargin(0, 0, 0, 0);
@@ -59,12 +55,11 @@ HeartrateDetailViewBase::HeartrateDetailViewBase() :
 
     add(heartrate_detail_graph);
 
-    catm1_image.setXY(11, 11);
-    catm1_image.setBitmap(touchgfx::Bitmap(BITMAP_LTE_NOTCONNECTED_ID));
-    add(catm1_image);
-
     batteryprogress_container1.setXY(0, 0);
     add(batteryprogress_container1);
+
+    lte_status_container1.setXY(0, 0);
+    add(lte_status_container1);
 }
 
 HeartrateDetailViewBase::~HeartrateDetailViewBase()
@@ -75,6 +70,7 @@ HeartrateDetailViewBase::~HeartrateDetailViewBase()
 void HeartrateDetailViewBase::setupScreen()
 {
     batteryprogress_container1.initialize();
+    lte_status_container1.initialize();
 }
 
 void HeartrateDetailViewBase::handleTickEvent()

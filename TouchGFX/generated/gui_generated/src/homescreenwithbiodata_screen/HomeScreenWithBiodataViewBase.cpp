@@ -233,10 +233,6 @@ HomeScreenWithBiodataViewBase::HomeScreenWithBiodataViewBase() :
     swipeContainer1.setSelectedPage(0);
     add(swipeContainer1);
 
-    topleft_box.setPosition(0, 0, 65, 33);
-    topleft_box.setColor(touchgfx::Color::getColorFromRGB(0, 0, 0));
-    add(topleft_box);
-
     topright_box.setPosition(175, 0, 65, 33);
     topright_box.setColor(touchgfx::Color::getColorFromRGB(0, 0, 0));
     add(topright_box);
@@ -247,12 +243,11 @@ HomeScreenWithBiodataViewBase::HomeScreenWithBiodataViewBase() :
     buttonfornothing.setAction(buttonCallback);
     add(buttonfornothing);
 
-    catm1_image.setXY(11, 11);
-    catm1_image.setBitmap(touchgfx::Bitmap(BITMAP_LTE_NOTCONNECTED_ID));
-    add(catm1_image);
-
     batteryprogress_container1.setXY(0, 0);
     add(batteryprogress_container1);
+
+    lte_status_container1.setXY(0, 0);
+    add(lte_status_container1);
 }
 
 HomeScreenWithBiodataViewBase::~HomeScreenWithBiodataViewBase()
@@ -263,6 +258,7 @@ HomeScreenWithBiodataViewBase::~HomeScreenWithBiodataViewBase()
 void HomeScreenWithBiodataViewBase::setupScreen()
 {
     batteryprogress_container1.initialize();
+    lte_status_container1.initialize();
 }
 
 void HomeScreenWithBiodataViewBase::buttonCallbackHandler(const touchgfx::AbstractButton& src)

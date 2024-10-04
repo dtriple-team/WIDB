@@ -46,14 +46,6 @@ SleepScreenViewBase::SleepScreenViewBase() :
     topright_box.setColor(touchgfx::Color::getColorFromRGB(0, 0, 0));
     add(topright_box);
 
-    topleft_box.setPosition(0, 0, 65, 33);
-    topleft_box.setColor(touchgfx::Color::getColorFromRGB(0, 0, 0));
-    add(topleft_box);
-
-    catm1_image.setXY(11, 11);
-    catm1_image.setBitmap(touchgfx::Bitmap(BITMAP_LTE_NOTCONNECTED_ID));
-    add(catm1_image);
-
     sleep_image.setXY(87, 92);
     sleep_image.setBitmap(touchgfx::Bitmap(BITMAP_SLEEP_TIME_ICON_ID));
     add(sleep_image);
@@ -74,6 +66,9 @@ SleepScreenViewBase::SleepScreenViewBase() :
 
     batteryprogress_container1.setXY(0, 0);
     add(batteryprogress_container1);
+
+    lte_status_container1.setXY(0, 0);
+    add(lte_status_container1);
 }
 
 SleepScreenViewBase::~SleepScreenViewBase()
@@ -84,6 +79,7 @@ SleepScreenViewBase::~SleepScreenViewBase()
 void SleepScreenViewBase::setupScreen()
 {
     batteryprogress_container1.initialize();
+    lte_status_container1.initialize();
 }
 
 void SleepScreenViewBase::buttonCallbackHandler(const touchgfx::AbstractButton& src)

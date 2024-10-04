@@ -13,6 +13,7 @@
 #include <touchgfx/widgets/Button.hpp>
 #include <touchgfx/containers/Slider.hpp>
 #include <gui/containers/batteryprogress_container.hpp>
+#include <gui/containers/lte_status_container.hpp>
 
 class swipedownfromHomeViewBase : public touchgfx::View<swipedownfromHomePresenter>
 {
@@ -46,10 +47,9 @@ protected:
     touchgfx::Image brightness_image;
     touchgfx::Image flashlight_image;
     touchgfx::Box topright_box;
-    touchgfx::Box topleft_box;
     touchgfx::Button buttonfornothing;
-    touchgfx::Image catm1_image;
     batteryprogress_container batteryprogress_container1;
+    lte_status_container lte_status_container1;
 
 private:
 

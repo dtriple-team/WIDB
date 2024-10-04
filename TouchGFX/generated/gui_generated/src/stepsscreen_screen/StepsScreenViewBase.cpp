@@ -37,14 +37,6 @@ StepsScreenViewBase::StepsScreenViewBase()
     topright_image.setColor(touchgfx::Color::getColorFromRGB(0, 0, 0));
     add(topright_image);
 
-    topleft_image.setPosition(0, 0, 65, 33);
-    topleft_image.setColor(touchgfx::Color::getColorFromRGB(0, 0, 0));
-    add(topleft_image);
-
-    catm1_image.setXY(11, 11);
-    catm1_image.setBitmap(touchgfx::Bitmap(BITMAP_LTE_NOTCONNECTED_ID));
-    add(catm1_image);
-
     steps_image.setXY(85, 90);
     steps_image.setBitmap(touchgfx::Bitmap(BITMAP_FOOTPRINT_ICON_ID));
     add(steps_image);
@@ -65,6 +57,9 @@ StepsScreenViewBase::StepsScreenViewBase()
 
     batteryprogress_container1.setXY(0, 0);
     add(batteryprogress_container1);
+
+    lte_status_container1.setXY(0, 0);
+    add(lte_status_container1);
 }
 
 StepsScreenViewBase::~StepsScreenViewBase()
@@ -75,6 +70,7 @@ StepsScreenViewBase::~StepsScreenViewBase()
 void StepsScreenViewBase::setupScreen()
 {
     batteryprogress_container1.initialize();
+    lte_status_container1.initialize();
 }
 
 void StepsScreenViewBase::handleTickEvent()

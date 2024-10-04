@@ -15,6 +15,7 @@
 #include <touchgfx/widgets/graph/GraphElements.hpp>
 #include <touchgfx/widgets/canvas/PainterRGB565.hpp>
 #include <gui/containers/batteryprogress_container.hpp>
+#include <gui/containers/lte_status_container.hpp>
 
 class HeartrateDetailViewBase : public touchgfx::View<HeartrateDetailPresenter>
 {
@@ -38,12 +39,11 @@ protected:
     touchgfx::Image heartrate_image;
     touchgfx::TextAreaWithOneWildcard heartrate_value;
     touchgfx::Box topright_box;
-    touchgfx::Box topleft_box;
     touchgfx::GraphWrapAndOverwrite<24> heartrate_detail_graph;
     touchgfx::GraphElementLine heartrate_detail_graphLine1;
     touchgfx::PainterRGB565 heartrate_detail_graphLine1Painter;
-    touchgfx::Image catm1_image;
     batteryprogress_container batteryprogress_container1;
+    lte_status_container lte_status_container1;
 
     /*
      * Wildcard Buffers
