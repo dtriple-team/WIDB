@@ -1,7 +1,7 @@
 
 {
   "Application": {
-    "Name": "WIDB_jh",
+    "Name": "WIDB",
     "TouchGfxPath": "../Middlewares/ST/touchgfx",
     "AvailableColorDepths": [ 16 ],
     "AvailableLCDs":
@@ -19,7 +19,7 @@
     "SubFamily": "STM32U575/585",
     "Platform": "m33",
     "Toolchain": "STM32CubeIDE",
-    "ProjectFile": "../WIDB_jh.ioc",
+    "ProjectFile": "../WIDB.ioc",
     "OptionalComponentsRoot": "../Middlewares/ST/touchgfx_components",
     "OptionalComponents": [
     ],

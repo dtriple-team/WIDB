@@ -187,6 +187,8 @@ void stm32wb_at_ll_Async_receive(uint8_t new_frame)
   *         you can add your own implementation.
   * @retval None
   */
+
+/*//CatM1 UART RX Callback Duplication
 void HAL_UART_RxCpltCallback(UART_HandleTypeDef *UartHandle)
 {
   if((uint32_t)UartHandle->Instance == (uint32_t)USART2)
@@ -196,7 +198,7 @@ void HAL_UART_RxCpltCallback(UART_HandleTypeDef *UartHandle)
 
   return;
 }
-
+*/
 void dt_ble_adv_data_update(uint8_t adv_flag, char* device_name, uint8_t* manuf_data, stm32wb_at_BLE_ADV_DATA_t* param_BLE_DATA){
 	for(int i=0; i<sizeof(param_BLE_DATA->adv_data); i++){
 		param_BLE_DATA->adv_data[i] = 0x00;

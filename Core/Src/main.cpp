@@ -67,12 +67,18 @@ RTC_DateTypeDef sDate;
 void SystemClock_Config(void);
 void MX_FREERTOS_Init(void);
 /* USER CODE BEGIN PFP */
-
+extern "C" {
+    int _write(int file, uint8_t *p, int len);
+}
 /* USER CODE END PFP */
 
 /* Private user code ---------------------------------------------------------*/
 /* USER CODE BEGIN 0 */
-
+extern "C" int _write(int file, uint8_t *p, int len)
+{
+    HAL_UART_Transmit(&huart4, p, len, 10);
+    return len;
+}
 /* USER CODE END 0 */
 
 /**

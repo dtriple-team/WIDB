@@ -41,7 +41,7 @@ extern "C" {
 
 /* Exported constants --------------------------------------------------------*/
 /* USER CODE BEGIN EC */
-
+#define PRINT_INFO(format, arg...)      printf(format , ## arg)
 /* USER CODE END EC */
 
 /* Exported macro ------------------------------------------------------------*/

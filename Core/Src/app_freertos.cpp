@@ -32,12 +32,12 @@
 #include "i2c.h"
 #include <stdio.h>
 #include <string.h>
-#include "BG770A-GL.h"
 #include "NORA-W10.h"
 #include "mems.h"
 extern "C" {
 	#include "stm32wb5mmg.h"
 	#include "stm32wb_at_ble.h"
+	#include "nrf9160.h"
 }
 #include "speaker.h"
 
@@ -100,7 +100,7 @@ const osThreadAttr_t ppmTask_attributes = {
 osThreadId_t wpmTaskHandle;
 const osThreadAttr_t wpmTask_attributes = {
   .name = "wpmTask",
-  .stack_size = 128 * 4,
+  .stack_size = 512 * 4,
   .priority = (osPriority_t) osPriorityNormal
 };
 /* Definitions for spmTask */
@@ -116,6 +116,7 @@ const osThreadAttr_t secTimerTask_attributes = {
   .name = "secTimerTask",
   .stack_size = 128 * 4,
   .priority = (osPriority_t) osPriorityNormal
+
 };
 /* Definitions for checkINTTask */
 osThreadId_t checkINTTaskHandle;
@@ -124,12 +125,23 @@ const osThreadAttr_t checkINTTask_attributes = {
   .stack_size = 512 * 4,
   .priority = (osPriority_t) osPriorityNormal
 };
+/* Definitions for dataTask */
+osThreadId_t dataTaskHandle;
+const osThreadAttr_t dataTask_attributes = {
+  .name = "dataTask",
+  .stack_size = 512 * 4,
+  .priority = (osPriority_t) osPriorityNormal
+};
 
 /* Private function prototypes -----------------------------------------------*/
 /* USER CODE BEGIN FunctionPrototypes */
 extern void touchgfxSignalVSync(void);
 uint8_t ssRunFlag = 0;
+uint8_t initFlag = 0;
 uint8_t pmicInitFlag = 0;
+uint8_t wpmInitFlag = 0;
+
+extern bool nrf9160_checked;
 
 double test_mag_data[15] = {0,};
 uint8_t set_bLevel = 7; // GUI val ?��?��
@@ -154,6 +166,7 @@ void StartWPMTask(void *argument);
 void StartSPMTask(void *argument);
 void StartSecTimerTask(void *argument);
 void StartCheckINTTask(void *argument);
+void StartDATATask(void *argument);
 
 void MX_FREERTOS_Init(void); /* (MISRA C 2004 rule 8.1) */
 
@@ -202,6 +215,9 @@ void MX_FREERTOS_Init(void) {
 
   /* creation of checkINTTask */
   checkINTTaskHandle = osThreadNew(StartCheckINTTask, NULL, &checkINTTask_attributes);
+
+  /* creation of dataTask */
+  dataTaskHandle = osThreadNew(StartDATATask, NULL, &dataTask_attributes);
 
   /* USER CODE BEGIN RTOS_THREADS */
   /* add threads, ... */
@@ -306,7 +322,8 @@ void StartWPMTask(void *argument)
 	while(!pmicInitFlag);
 
 	// CatM1 init
-	bg770a_gl_init();
+	nrf9160_init();
+	nrf9160_ready();
 
 //	// WiFi-BLE init
 //	nora_w10_init();
@@ -314,7 +331,20 @@ void StartWPMTask(void *argument)
   /* Infinite loop */
   for(;;)
   {
-    osDelay(10000);
+	if(wpmInitFlag && nrf9160_checked == false)
+	{
+	  nrf9160_check(); // only TX
+	}
+	  osDelay(10);
+	//	if(wpmFlag ==1)
+	//	{
+
+	//		wpmFlag = 0;
+	//	}
+	//osDelay(10000);
+	if(initFlag){
+
+	}
   }
   /* USER CODE END wpmTask */
 }
@@ -420,8 +450,8 @@ void StartSecTimerTask(void *argument)
 		ST7789_brightness_setting(now_bLevel);
 	}
 
-	// screenOnTime == brightness_count�????? ?���????? ?���????? 꺼라
-	// brightness_count == 0?���????? 바�?�면 백라?��?���????? 켜라
+	// screenOnTime == brightness_count�?????? ?���?????? ?���?????? 꺼라
+	// brightness_count == 0?���?????? 바�?�면 백라?��?���?????? 켜라
 	if(pre_secTime != secTime && secTime%1 == 0){ // 1sec
 		// turn off LCD backlight
 		if(brightness_count == 0 && pre_brightness_count >= screenOnTime){
@@ -458,9 +488,9 @@ uint8_t battVal = 0;
 unsigned char batterylevel;
 double calculateAltitudeDifference(double P1, double P2) {
     const double R = 8.314;       // 기체 ?��?�� (J/(mol·K))
-    const double T = 273.15+25;   // ?���??? ?��?�� (K) - ?���??? ??�??? 조건 15°C
-    const double g = 9.80665;     // 중력 �????��?�� (m/s²)
-    const double M = 0.02896;     // 공기?�� �??? 질량 (kg/mol)
+    const double T = 273.15+25;   // ?���???? ?��?�� (K) - ?���???? ??�???? 조건 15°C
+    const double g = 9.80665;     // 중력 �?????��?�� (m/s²)
+    const double M = 0.02896;     // 공기?�� �???? 질량 (kg/mol)
 
     double altitudeDifference = (R * T) / (g * M) * log(P1 / P2);
 
@@ -575,6 +605,25 @@ void StartCheckINTTask(void *argument)
     }
   }
   /* USER CODE END checkINTTask */
+}
+
+/* USER CODE BEGIN Header_StartDATATask */
+/**
+* @brief Function implementing the dataTask thread.
+* @param argument: Not used
+* @retval None
+*/
+/* USER CODE END Header_StartDATATask */
+void StartDATATask(void *argument)
+{
+  /* USER CODE BEGIN dataTask */
+  /* Infinite loop */
+  for(;;)
+  {
+	 receive_response();// Cat-M1 Buffer parsing
+	 osDelay(10);
+  }
+  /* USER CODE END dataTask */
 }
 
 /* Private application code --------------------------------------------------*/
