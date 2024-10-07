@@ -261,3 +261,163 @@ uint8_t MAX20303::Battery_Status_Charger()
 		break;
 	}
 }
+
+//******************************Haptic****************************************
+int MAX20303::Max20303_HapticSetting(void) // 햅틱모드 설정 Dtriple yeh
+{
+	int32_t ret = 0;
+	appcmdoutvalue_ = REG_HPT_CONFIG_WRITE0;
+	HAL_Delay(100);
+	appdatainoutbuffer_[0] = 0x0A; // 리니어 모터 0x0E, dc모터 0x0A 로 설정
+	appdatainoutbuffer_[1] = 0xD0; // 역기전력 추측
+	appdatainoutbuffer_[2] = 0x17; // 제로크로싱 비교기 감속 활성화[7], 제로크로싱 이벤트 캡처 필터 활성화[4]
+	appdatainoutbuffer_[3] = 0x03; //
+	appdatainoutbuffer_[4] = 0x45;
+	appdatainoutbuffer_[5] = 0x01;
+	AppWrite(6);
+	return ret;
+}
+
+int MAX20303::Max20303_HapticSetFullScale(void) // 햅틱모드 설정 Dtriple yeh
+{
+	int32_t ret = 0;
+	appcmdoutvalue_ = REG_HPT_CONFIG_SETFULLCALE;
+	HAL_Delay(100);
+
+	appdatainoutbuffer_[0] = 0xBD; // 전압 조절
+	AppWrite(1);
+	return ret;
+}
+
+int MAX20303::Max20303_HapticDrive0(void) // 햅틱 드라이브모드 설정 Dtriple yeh
+{
+	writeReg(REG_HPT_DIRECT0, 0b00000001);
+}
+
+int MAX20303::Max20303_HapticDrive1(void) // 햅틱 드라이브모드 설정 Dtriple yeh
+{
+	writeReg(REG_HPT_DIRECT1, 0b00100110); // ExtTrig off, RamEn off, HptDrvEn on, Enable RTI2C mode Drivemod set[4:0]
+										   // writeReg(REG_HPT_DIRECT1, 0b01110010); // ExtTrig off, RamEn on, HptDrvEn on, Enable RAMHPI mode Drivemod set[4:0]
+}
+
+int MAX20303::Max20303_HapticStart(void) // 햅틱 구동 Dtriple yeh
+{
+	writeReg(REG_HPT_RTI2CAMP, 0b11100100); // 정방향 회전, 3V2
+}
+
+int MAX20303::Max20303_HapticStop(void) // 햅틱 구동 멈춤 Dtriple yeh
+{
+	writeReg(REG_HPT_RTI2CAMP, 0b10000000); // 정방향 회전, 0V
+}
+
+int MAX20303::Max20303_HapticStatus() // Dtriple yeh 햅틱 설정 레지스터 읽기
+{
+	int ret;
+	unsigned char data[6];
+	ret = writeReg(MAX20303::REG_AP_CMDOUT, 0xA1); //)0xA1 햅틱 설정 읽기 레지스터
+	HAL_Delay(9);
+	ret = readReg(MAX20303::REG_AP_DATAIN0, data[0]);
+	ret = readReg(MAX20303::REG_AP_DATAIN1, data[1]);
+	ret = readReg(MAX20303::REG_AP_DATAIN2, data[2]);
+	ret = readReg(MAX20303::REG_AP_DATAIN3, data[3]);
+	ret = readReg(MAX20303::REG_AP_DATAIN4, data[4]);
+	ret = readReg(MAX20303::REG_AP_DATAIN5, data[5]);
+	if (ret != 0)
+	{
+//		printf("Max20303_HapticStatus has failed\r\n");
+	}
+
+	return 0;
+}
+
+int MAX20303::Max20303_HapticDriveStatus() // 햅틱 드라이브모드 설정 읽기 Dtriple yeh
+{
+	int ret;
+	unsigned char data[4];
+
+	ret = readReg(MAX20303::REG_HPT_DIRECT1, data[0]);
+	ret |= readReg(MAX20303::REG_HPT_LOCK_CONFIG, data[1]);
+	ret |= readReg(MAX20303::REG_HPT_RTI2CAMP, data[2]);
+	ret |= readReg(MAX20303::REG_HPT_SET_MODE, data[3]);
+	if (ret != 0)
+	{
+//		printf("Max20303_Haptic Drive Status has failed\r\n");
+	}
+	return 0;
+}
+
+void MAX20303::Max20303_StartHapticPattern(int hapticFrequencyHz, int hapticDuration, int hapticContinue)
+{
+
+	for (int i = 0; i < hapticContinue; i++)
+	{
+
+		writeReg(REG_HPT_RTI2CAMP, 0b11111111);
+		HAL_Delay(hapticDuration);
+		writeReg(REG_HPT_RTI2CAMP, 0b10000000);
+
+		HAL_Delay(1000 / hapticFrequencyHz);
+	}
+}
+
+void MAX20303::setHapticPatternSample(const HapticPatternSample &sample)
+{
+	// Write data to the specified RAM address using the structure fields
+	writeReg(REG_HPT_RAM_ADDR, sample.HptRAMAddr);
+	writeReg(REG_HPT_RAM_DATA_H, ((sample.nLSx & 0b11) << 6) | ((sample.AmpSign & 0b1) << 5) | ((sample.Amp & 0b1111100) >> 2));
+	writeReg(REG_HPT_RAM_DATA_M, ((sample.Amp & 0b11) << 6) | ((sample.Dur & 0b111110) << 1) | ((sample.Wait & 0b1) << 7) | ((sample.Wait & 0b11110000) >> 4));
+	writeReg(REG_HPT_RAM_DATA_L, ((sample.Wait & 0b1111) << 4) | (sample.RPTx & 0b1111));
+}
+
+void MAX20303::createHapticPattern()
+{
+	writeReg(REG_HPT_DIRECT1, 0b01110010); // ExtTrig off, RamEn on, HptDrvEn on, Enable RAMHPI mode Drivemod set[4:0]
+	HAL_Delay(100);
+	writeReg(REG_HPT_RAM_ADDR, 0b00000001);
+	HAL_Delay(100);
+	writeReg(REG_HPT_RAM_DATA_H, 0b00010111);
+	HAL_Delay(100);
+	writeReg(REG_HPT_RAM_DATA_M, 0b01111100);
+	HAL_Delay(100);
+	writeReg(REG_HPT_RAM_DATA_L, 0b00101111);
+
+	// REG_HPT_RAM_DATA_H: 11 0 11111
+	// REG_HPT_RAM_DATA_M : 11 11110 0
+	// REG_HPT_RAM_DATA_L : 0001 1111
+
+	// HptVfs[7:0] : 10111101
+
+	// Define haptic pattern samples
+	// HapticPatternSample samples[] = {
+	// 	{0b00000001, 0b00, 0b0, 0b11111, 0b11110, 0b00001, 0b0001}, // Sample 1
+	// 	{0b00000010, 0b10, 0b1, 0b11000, 0b10000, 0b1010, 0b0001},	// Sample 2
+	// 	{0b00000011, 0b11, 0b0, 0b10000, 0b01000, 0b0110, 0b0001},	// Sample 3
+	// 	{0b00000100, 0b11, 0b1, 0b10000, 0b10000, 0b1010, 0b0001},	// Sample 4
+	// 	{0b00000101, 0b00, 0b0, 0b01000, 0b00100, 0b0000, 0b0001},	// Sample 5
+	// 	{0b00000110, 0b01, 0b1, 0b01110, 0b01000, 0b1010, 0b0001},	// Sample 6
+	// 	{0b00000111, 0b10, 0b0, 0b10010, 0b01100, 0b0101, 0b0001},	// Sample 7
+	// 	{0b00001000, 0b11, 0b1, 0b11010, 0b01010, 0b1101, 0b0001}	// Sample 8
+	// 																// Add more samples as needed
+	// };
+
+	// // Write samples to RAM at specified addresses
+	// for (int i = 0; i < sizeof(samples) / sizeof(samples[0]); ++i)
+	// {
+	// 	setHapticPatternSample(samples[i]);
+	// }
+}
+
+void MAX20303::startHapticPatternFromRAM(uint8_t ramAddress)
+{
+	// // Trigger the haptic pattern stored in the specified RAM address
+	// writeReg(REG_HPT_PATRAMADDR, ramAddress);
+
+	// readRegMulti(REG_HPT_RAM_DATA_H, i2cbuffer_, 3);
+	uint8_t haptic_data[2];
+	writeReg(REG_HPT_PATRAMADDR, ramAddress);
+	// wait_ms(100);
+	readRegMulti(REG_HPT_RAM_DATA_H, haptic_data, 3);
+
+	// writeReg(REG_HPT_DIRECT1, 0b11110010); // ExtTrig on, RamEn on, HptDrvEn on, Enable RAMHPI mode Drivemod set[4:0]
+}
+//******************************************************************************

@@ -105,7 +105,24 @@ public:
 		REG_LDO1_CONFIG_WRITE = 0x40,
 		REG_LDO1_CONFIG_READ  = 0x41,
 		REG_LDO2_CONFIG_WRITE = 0x42,
-		REG_LDO2_CONFIG_READ  = 0x43
+		REG_LDO2_CONFIG_READ  = 0x43,
+
+		// 레지스터 데이터 시트 참조 임의 추가 Dtriple yeh
+
+		REG_HPT_DIRECT0 = 0x30,
+		REG_HPT_DIRECT1 = 0x31,
+		REG_HPT_RTI2CAMP = 0x32,
+		REG_HPT_PATRAMADDR = 0x33,
+		REG_HPT_CONFIG_WRITE0 = 0xA0,
+		REG_HPT_CONFIG_SETFULLCALE = 0xB2,
+		REG_HPT_LOCK_CONFIG = 0xA8,
+		REG_HPT_LOCK_CONFIG_READ = 0xA9,
+		REG_HPT_SET_MODE = 0xAD,
+
+		REG_HPT_RAM_ADDR = 0x28,
+		REG_HPT_RAM_DATA_H = 0x29,
+		REG_HPT_RAM_DATA_M = 0x2A,
+		REG_HPT_RAM_DATA_L = 0x2B,
 
 		/*
 		REG_CHG_TMR = 0x0C,   ///< Charger Timers
@@ -131,6 +148,19 @@ public:
 		*/
 
 //		MAX20303_I2C_ADDR_FUEL_GAUGE = 0x6C
+	};
+
+	struct HapticPatternSample
+	{
+		uint8_t HptRAMAddr; // The RAM address in which the pattern sample is stored [7:0]
+		uint8_t nLSx;		// Amplitude of the sample [1:0]
+		uint8_t AmpSign;	// Sign of haptic amplitude in the current sample [1:0]
+		uint8_t Amp;		// Sets the amplitude of pattern sample x as a 7-bit percentage of VFS and a 1-bit direction.
+							// See HptVfs[7:0] in Table 131. [6:2]
+		uint8_t Dur;		// Sets the duration of time the driver outputs the amplitude of the current sample in increments of 5ms [4:0]
+		uint8_t Wait;		// Sets the duration of time the driver waits at zero amplitude before the next sample in increments of 5ms [4:0]
+		uint8_t RPTx;		// Sets the number of times to repeat the sample before moving to the next sample in the pattern. If nLSx[1:0] = 11,
+							// this sets the number of times to repeat the whole pattern. [3:0]
 	};
 
 	/**
@@ -190,6 +220,23 @@ public:
     char Max20303_IsBattery_Connected();
 	uint8_t Battery_Status_Charger();
 
+
+	// dtirple yeh 햅틱 변수 추가
+	int Max20303_HapticSetting();
+	int Max20303_HapticSetFullScale();
+	int Max20303_HapticDrive0();
+	int Max20303_HapticDrive1();
+	int Max20303_HapticStatus();
+	int Max20303_HapticDriveStatus();
+	int Max20303_HapticStart();
+	int Max20303_HapticStop();
+	int Max20303_HapticUnlock();
+
+	void Max20303_StartHapticPattern(int hapticFrequencyHz, int hapticDuration, int hapticContinue);
+	void writeHapticPatternSample(uint8_t ramAddress, HapticPatternSample sample);
+	void setHapticPatternSample(const HapticPatternSample &sample);
+	void createHapticPattern();
+	void startHapticPatternFromRAM(uint8_t ramAddress);
 
 private:
 

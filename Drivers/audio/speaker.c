@@ -8,9 +8,10 @@
 #include "speaker.h"
 #include <main.h>
 #include "dac.h"
+#include "tim.h"
 
 #define PI      3.141592
-#define SAMPLES 10 // 100Hz
+#define SAMPLES 1000 // 100Hz
 
 uint16_t IV[SAMPLES];
 
@@ -38,6 +39,6 @@ void speaker_test(){
 	for(int i=0; i < SAMPLES; i++)
 	{
 		HAL_DAC_SetValue(&hdac1, DAC_CHANNEL_2, DAC_ALIGN_12B_R, IV[i]);
-		HAL_Delay(1);
+		delay_us(100);
 	}
 }

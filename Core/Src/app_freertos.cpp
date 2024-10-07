@@ -233,11 +233,13 @@ void StartInitTask(void *argument)
 	for(;;)
 	{
 		speaker_test();
-		HAL_Delay(1);
 	}
 
+//	while(!pmicInitFlag);
+//	testHaptic();
+
 	// finish Task
-//	vTaskDelete(NULL);
+	vTaskDelete(NULL);
   /* USER CODE END initTask */
 }
 

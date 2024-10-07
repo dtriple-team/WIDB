@@ -36,3 +36,13 @@ int isBATTCharging(){
 	int batteryChargeStatus = max20303.Battery_Status_Charger();
 	return batteryChargeStatus;
 }
+
+void testHaptic(){
+	max20303.Max20303_HapticSetting();
+	max20303.Max20303_HapticSetFullScale();
+	max20303.Max20303_HapticDrive0();
+	max20303.Max20303_HapticDrive1();
+	max20303.Max20303_StartHapticPattern(20, 300, 3);
+
+	max20303.Max20303_StartHapticPattern(20, 300, 3000);
+}
