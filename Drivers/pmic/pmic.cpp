@@ -7,18 +7,19 @@ MAX20303 max20303;
 
 int pmic_init()
 {
+	uint8_t ret = 0;
 
 	/* Wait for pmic to settle down */
 	HAL_Delay(800);
 
 	/*Set LDO1 to 1.8v*/
-	max20303.LDO1Config();
+	ret |= max20303.LDO1Config();
 
 	/*Set LDO2 to 3v*/
-    max20303.LDO2Config();
+	ret |= max20303.LDO2Config();
 
 	//max20303.BoostEnable();
-	max20303.BuckBoostEnable();
+	ret |= max20303.BuckBoostEnable();
 
 	/* Wait for pmic to settle down */
 	HAL_Delay(200);
@@ -38,11 +39,14 @@ int isBATTCharging(){
 }
 
 void testHaptic(){
-	max20303.Max20303_HapticSetting();
-	max20303.Max20303_HapticSetFullScale();
-	max20303.Max20303_HapticDrive0();
-	max20303.Max20303_HapticDrive1();
-	max20303.Max20303_StartHapticPattern(20, 300, 3);
+	uint8_t ret = 0;
+	do{
+		ret = 0;
+		ret |= max20303.Max20303_HapticSetting();
+		ret |= max20303.Max20303_HapticSetFullScale();
+		ret |= max20303.Max20303_HapticDrive0();
+		ret |= max20303.Max20303_HapticDrive1();
+	} while(ret != 0x00);
 
 	max20303.Max20303_StartHapticPattern(20, 300, 3000);
 }

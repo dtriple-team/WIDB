@@ -88,12 +88,13 @@ int MAX20303::writeReg(registers_t reg, uint8_t value)
 	uint8_t uint_reg = reg;
 	i2cbuffer_[0] = reg;
 	i2cbuffer_[1] = value;
-	HAL_I2C_Master_Transmit(&hi2c3, m_writeAddress, (uint8_t *)i2cbuffer_, (1+1), 1);
+	uint8_t ret = 0;
+	ret = HAL_I2C_Master_Transmit(&hi2c3, m_writeAddress, (uint8_t *)i2cbuffer_, (1+1), 1);
 
 //	HAL_I2C_Master_Transmit(&hi2c3, m_writeAddress, &uint_reg, sizeof(uint8_t), 1);
 //	HAL_I2C_Master_Transmit(&hi2c3, m_writeAddress, &value, sizeof(uint8_t), 1);
 
-	return MAX20303_NO_ERROR;
+	return ret;
 }
 
 
@@ -114,11 +115,12 @@ int MAX20303::readReg(registers_t reg, uint8_t &value)
 int MAX20303::readRegMulti(registers_t reg, uint8_t *value, uint8_t len){
 
 	uint8_t uint_reg = reg;
+	uint8_t ret = 0;
 
-	HAL_I2C_Master_Transmit(&hi2c3, m_writeAddress, &uint_reg, sizeof(uint8_t), 1);
-	HAL_I2C_Master_Receive(&hi2c3, m_readAddress, (uint8_t *)value, len, 1);
+	ret |= HAL_I2C_Master_Transmit(&hi2c3, m_writeAddress, &uint_reg, sizeof(uint8_t), 1);
+	ret |= HAL_I2C_Master_Receive(&hi2c3, m_readAddress, (uint8_t *)value, len, 100);
 
-	return MAX20303_NO_ERROR;
+	return ret;
 }
 
 //******************************************************************************
@@ -126,10 +128,11 @@ int MAX20303::writeRegMulti(registers_t reg, uint8_t *value, uint8_t len){
 
 	i2cbuffer_[0] = reg;
 	memcpy(&i2cbuffer_[1], value, len);
+	uint8_t ret = 0;
 
-	HAL_I2C_Master_Transmit(&hi2c3, m_writeAddress, (uint8_t *)i2cbuffer_, (len+1), 1);
+	ret |= HAL_I2C_Master_Transmit(&hi2c3, m_writeAddress, (uint8_t *)i2cbuffer_, (len+1), 1);
 
-	return MAX20303_NO_ERROR;
+	return ret;
 }
 
 //******************************************************************************
@@ -274,7 +277,7 @@ int MAX20303::Max20303_HapticSetting(void) // 햅틱모드 설정 Dtriple yeh
 	appdatainoutbuffer_[3] = 0x03; //
 	appdatainoutbuffer_[4] = 0x45;
 	appdatainoutbuffer_[5] = 0x01;
-	AppWrite(6);
+	ret |= AppWrite(6);
 	return ret;
 }
 
@@ -291,23 +294,23 @@ int MAX20303::Max20303_HapticSetFullScale(void) // 햅틱모드 설정 Dtriple y
 
 int MAX20303::Max20303_HapticDrive0(void) // 햅틱 드라이브모드 설정 Dtriple yeh
 {
-	writeReg(REG_HPT_DIRECT0, 0b00000001);
+	return writeReg(REG_HPT_DIRECT0, 0b00000001);
 }
 
 int MAX20303::Max20303_HapticDrive1(void) // 햅틱 드라이브모드 설정 Dtriple yeh
 {
-	writeReg(REG_HPT_DIRECT1, 0b00100110); // ExtTrig off, RamEn off, HptDrvEn on, Enable RTI2C mode Drivemod set[4:0]
+	return writeReg(REG_HPT_DIRECT1, 0b00100110); // ExtTrig off, RamEn off, HptDrvEn on, Enable RTI2C mode Drivemod set[4:0]
 										   // writeReg(REG_HPT_DIRECT1, 0b01110010); // ExtTrig off, RamEn on, HptDrvEn on, Enable RAMHPI mode Drivemod set[4:0]
 }
 
 int MAX20303::Max20303_HapticStart(void) // 햅틱 구동 Dtriple yeh
 {
-	writeReg(REG_HPT_RTI2CAMP, 0b11100100); // 정방향 회전, 3V2
+	return writeReg(REG_HPT_RTI2CAMP, 0b11100100); // 정방향 회전, 3V2
 }
 
 int MAX20303::Max20303_HapticStop(void) // 햅틱 구동 멈춤 Dtriple yeh
 {
-	writeReg(REG_HPT_RTI2CAMP, 0b10000000); // 정방향 회전, 0V
+	return writeReg(REG_HPT_RTI2CAMP, 0b10000000); // 정방향 회전, 0V
 }
 
 int MAX20303::Max20303_HapticStatus() // Dtriple yeh 햅틱 설정 레지스터 읽기

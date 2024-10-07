@@ -235,6 +235,9 @@ void MX_FREERTOS_Init(void) {
 * @retval None
 */
 stm32wb_at_BLE_ADV_DATA_t param_BLE_DATA;
+#define MAX20303_I2C_ADDRESS  0x28 // MAX20303의 I2C 주소
+#define HAPTIC_REG_CONTROL    0x30 // 햅틱 제어 레지스터
+#define HAPTIC_REG_AMP        0x32 // 햅틱 진폭 설정 레지스터
 /* USER CODE END Header_StartInitTask */
 void StartInitTask(void *argument)
 {
@@ -243,17 +246,17 @@ void StartInitTask(void *argument)
 //	pmic_init();
 //	pmicInitFlag = 1;
 
-	while(!pmicInitFlag);
-	speaker_init();
-	speaker_test_init();
-	for(;;)
-	{
-		speaker_test();
-	}
-
 //	while(!pmicInitFlag);
+//	speaker_init();
+//	speaker_test_init();
+//	for(;;)
+//	{
+//		speaker_test();
+//	}
+
 //	testHaptic();
 
+	while(1);
 	// finish Task
 	vTaskDelete(NULL);
   /* USER CODE END initTask */
