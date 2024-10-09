@@ -61,4 +61,6 @@ void nrf9160_init(void);
 void nrf9160_ready(void);
 void nrf9160_check(void);
 
+void catM1PWRGPIOInit(void);
+
 #endif /* CATM1_NRF9160_H_ */

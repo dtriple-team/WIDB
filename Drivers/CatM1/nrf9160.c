@@ -107,7 +107,7 @@ bool receive_response(void)
             cat_m1_parse_cnt++;
 
             // 수신한 데이터를 출력 및 파싱
-            //PRINT_INFO("RX Data >>> %s\r\n", uart_cat_m1_buf);
+            PRINT_INFO("RX Data >>> %s\r\n", uart_cat_m1_buf);
             cat_m1_parse_process(uart_cat_m1_buf);
 
             // 버퍼 초기화 및 카운터 리셋
@@ -238,7 +238,7 @@ void nrf9160_ready(void)
 			PRINT_INFO("Cat.M1 already available\r\n");
 			wpmInitFlag = 1;
 		}
-		HAL_Delay(500);
+		HAL_Delay(1000);
 	}
 }
 
@@ -267,4 +267,11 @@ void nrf9160_check()
 //	PRINT_INFO("COPS result >>> %s\r\n", cat_m1_at_cmd_rst_rx.cops);
 //	PRINT_INFO("CGDCONT result >>> %s\r\n", cat_m1_at_cmd_rst_rx.cgdcont);
 //	PRINT_INFO("ICCID result >>> %s\r\n", cat_m1_at_cmd_rst_rx.iccid);
+}
+
+void catM1PWRGPIOInit(){
+	// PWR ON
+//	HAL_GPIO_WritePin(GPIOC, GPIO_PIN_6, GPIO_PIN_RESET);
+//	HAL_Delay(100);
+	HAL_GPIO_WritePin(GPIOC, GPIO_PIN_6, GPIO_PIN_SET);
 }

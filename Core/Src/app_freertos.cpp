@@ -256,7 +256,6 @@ void StartInitTask(void *argument)
 
 //	testHaptic();
 
-	while(1);
 	// finish Task
 	vTaskDelete(NULL);
   /* USER CODE END initTask */
@@ -324,8 +323,14 @@ void StartWPMTask(void *argument)
   /* USER CODE BEGIN wpmTask */
 	while(!pmicInitFlag);
 
-	// CatM1 init
+	// UART INT INIT, buffer init
 	nrf9160_init();
+
+	// CatM1 PWR GPIO ON
+	catM1PWRGPIOInit();
+//	HAL_Delay(1000);
+
+	// CatM1 init
 	nrf9160_ready();
 
 //	// WiFi-BLE init
