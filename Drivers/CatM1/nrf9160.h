@@ -61,6 +61,20 @@ void nrf9160_init(void);
 void nrf9160_ready(void);
 void nrf9160_check(void);
 
+void nrf9160_mqtt_setting(void);
+void nrf9160_mqtt_test(void);
+void test_send_json_publish(void);
+void send_json_publish(int shortAddress, unsigned long extAddressLow, unsigned long extAddressHigh,
+                             unsigned long capabilityInfoLow, unsigned long capabilityInfoHigh,
+                             bool active, const char *pid,
+                             int ambienceTemp, int objectTemp, int rawData,
+                             int batteryLevel, int hrConfidence, int spo2Confidence,
+                             int hr, int spo2,
+                             int motionFlag, int scdState, int activity,
+                             int walkSteps, int runSteps, int x, int y, int z,
+                             unsigned long t, unsigned long h,
+                             int rssi, int reportingInterval, const char *pollingInterval);
+
 void catM1PWRGPIOInit(void);
 
 #endif /* CATM1_NRF9160_H_ */

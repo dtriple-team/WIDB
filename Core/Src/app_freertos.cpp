@@ -141,7 +141,7 @@ uint8_t initFlag = 0;
 uint8_t pmicInitFlag = 0;
 uint8_t wpmInitFlag = 0;
 
-extern bool nrf9160_checked;
+extern uint8_t nrf9160_checked;
 
 double test_mag_data[15] = {0,};
 uint8_t set_bLevel = 7; // GUI val ?��?��
@@ -339,10 +339,16 @@ void StartWPMTask(void *argument)
   /* Infinite loop */
   for(;;)
   {
-	if(wpmInitFlag && nrf9160_checked == false)
+	if(wpmInitFlag && nrf9160_checked == 0)
 	{
 	  nrf9160_check(); // only TX
 	}
+	if(wpmInitFlag && nrf9160_checked == 1)
+	{
+	  nrf9160_mqtt_setting();
+	}
+	test_send_json_publish();
+
 	  osDelay(10);
 	//	if(wpmFlag ==1)
 	//	{
