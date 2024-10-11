@@ -77,7 +77,7 @@ bool send_at_command(const char *cmd)
 	HAL_UART_Transmit_IT(&huart1, (uint8_t*)cmd, strlen(cmd));
 	PRINT_INFO("TX CMD >>> %s\r\n",cmd);
 	//return true;
-	receive_at_command_ret();
+	return receive_at_command_ret();
 }
 
 bool receive_at_command_ret()
@@ -244,11 +244,21 @@ void nrf9160_ready(void)
 
 void nrf9160_check()
 {
+	HAL_Delay(100);
 	if (send_at_command("AT+CFUN=1\r\n"))
 	{
 		//return true;
 	}
-
+	if (send_at_command("AT+CFUN?\r\n"))
+	{
+		//return true;
+	}
+	HAL_Delay(100);
+	if (send_at_command("AT+COPS?\r\n"))
+	{
+		//return true;
+	}
+	HAL_Delay(10000);
 	if (send_at_command("AT+COPS?\r\n"))
 	{
 		//return true;
@@ -257,10 +267,12 @@ void nrf9160_check()
 	{
 		//return true;
 	}
+	HAL_Delay(100);
 	if (send_at_command("AT%XICCID\r\n"))
 	{
 		//return true;
 	}
+	HAL_Delay(1000);
 	nrf9160_checked = true;
 
 

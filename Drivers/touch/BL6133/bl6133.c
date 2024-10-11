@@ -10,15 +10,22 @@ uint8_t readTouchData(uint8_t* touchData, uint8_t len){
 	uint8_t data_addr = 0x01;
 	uint8_t i2c_err = 1;
 
-	uint8_t err_count = 5;
+//	uint16_t DevAddr = 88; // bl6133 touch IC
+	uint16_t DevAddr = 42; // cst816d touch IC
 
 	while(i2c_err == 1){
-		i2c_err = HAL_I2C_Master_Transmit(&hi2c4, 88, &data_addr, sizeof(data_addr), HAL_MAX_DELAY);
-		i2c_err |= HAL_I2C_Master_Receive(&hi2c4, 88+1, touchData, len, HAL_MAX_DELAY);
+//	for(DevAddr=41; DevAddr<=42; DevAddr++){
+		i2c_err = HAL_I2C_Master_Transmit(&hi2c4, DevAddr, &data_addr, sizeof(data_addr), 10);
+		i2c_err |= HAL_I2C_Master_Receive(&hi2c4, DevAddr+1, touchData, len, 10);
 
-		if(err_count == 0){
-			return 0;
-		}
+//		DevAddr++;
+
+//		if(err_count == 0){
+//			return 0;
+//		}
+//		if(i2c_err == 0){
+//			int a = DevAddr;
+//		}
 	}
 
 	return 1;
