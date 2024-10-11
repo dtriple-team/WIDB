@@ -100,7 +100,7 @@ const osThreadAttr_t ppmTask_attributes = {
 osThreadId_t wpmTaskHandle;
 const osThreadAttr_t wpmTask_attributes = {
   .name = "wpmTask",
-  .stack_size = 512 * 4,
+  .stack_size = 1024 * 4,
   .priority = (osPriority_t) osPriorityNormal
 };
 /* Definitions for spmTask */
@@ -341,14 +341,19 @@ void StartWPMTask(void *argument)
   {
 	if(wpmInitFlag && nrf9160_checked == 0)
 	{
-	  nrf9160_check(); // only TX
+		nrf9160_check(); // only TX
 	}
 	if(wpmInitFlag && nrf9160_checked == 1)
 	{
-	  nrf9160_mqtt_setting();
+		nrf9160_mqtt_setting();
 	}
-	test_send_json_publish();
 
+	if(wpmInitFlag && nrf9160_checked == 2)
+	{
+		//test_send_json_publish();
+		//	 send_json_publish(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 50, 0, 0, (int)ssHr, (int)ssSpo2, 0, (int)(lcd_ssDataEx.algo.SCDstate == 3), 0, (int)ssWalk, (int)ssWalk, (int)test_mag_data[9], (int)test_mag_data[10], (int)test_mag_data[11], (int)test_mag_data[3], (int)test_mag_data[13], 0, 0, 0);
+		send_json_publish(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 50, 0, 0, 1, 2, 0, 3, 0, 4, 5, 6, 7, 3, 1, 2, 0, 0, 0);
+	}
 	  osDelay(10);
 	//	if(wpmFlag ==1)
 	//	{

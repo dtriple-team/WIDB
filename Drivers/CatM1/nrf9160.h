@@ -65,16 +65,16 @@ void nrf9160_check(void);
 void nrf9160_mqtt_setting(void);
 void nrf9160_mqtt_test(void);
 void test_send_json_publish(void);
-void send_json_publish(int shortAddress, unsigned long extAddressLow, unsigned long extAddressHigh,
-                             unsigned long capabilityInfoLow, unsigned long capabilityInfoHigh,
-                             bool active, const char *pid,
-                             int ambienceTemp, int objectTemp, int rawData,
-                             int batteryLevel, int hrConfidence, int spo2Confidence,
-                             int hr, int spo2,
-                             int motionFlag, int scdState, int activity,
-                             int walkSteps, int runSteps, int x, int y, int z,
-                             unsigned long t, unsigned long h,
-                             int rssi, int reportingInterval, const char *pollingInterval);
+void send_json_publish(uint8_t shortAddress, uint8_t extAddressLow, uint8_t extAddressHigh,
+		uint8_t capabilityInfoLow, uint8_t capabilityInfoHigh,
+		uint8_t active, uint8_t pid,
+		uint8_t ambienceTemp, uint8_t objectTemp, uint8_t rawData,
+		uint8_t batteryLevel, uint8_t hrConfidence, uint8_t spo2Confidence,
+		uint8_t hr, uint8_t spo2,
+		uint8_t motionFlag, uint8_t scdState, uint8_t activity,
+		uint8_t walkSteps, uint8_t runSteps, uint8_t x, uint8_t y, uint8_t z,
+		uint8_t t, uint8_t h,
+		uint8_t rssi, uint8_t reportingInterval, uint8_t pollingInterval);
 
 void catM1PWRGPIOInit(void);
 
