@@ -223,6 +223,13 @@ void cat_m1_parse_result(const char *command, const char *value)
         strcpy(cat_m1_at_cmd_rst_rx.iccid, (const char *)value);
         PRINT_INFO("ICCID result >>> %s\r\n", cat_m1_at_cmd_rst_rx.iccid);
     }
+    if (strstr(command, "%XMONITOR") != NULL)
+    {
+        printf("4>>>\r\n");
+        strcpy(cat_m1_at_cmd_rst_rx.rssi, (const char *)value);
+        PRINT_INFO("ICCID result >>> %s\r\n", cat_m1_at_cmd_rst_rx.rssi);
+    }
+
 
 
 }
@@ -332,11 +339,15 @@ void nrf9160_mqtt_test()
 
 void test_send_json_publish(void)
 {
+	send_at_command("AT%XMONITOR\r\n");
     // AT command to publish to the MQTT topic
     const char *at_command = "AT#XMQTTPUB=\"/efwb/post/sync\"\r\n";
 
     // JSON message to be published
     const char *json_message = "{\"msg\":\"Let's go home\"}+++\r\n";
+
+    char json_message_rssi[180];
+    sprintf(json_message_rssi, "{\"rssi\": \"%s\"}+++\r\n", cat_m1_at_cmd_rst_rx.rssi);
 
 //	const char *mqtt_data = "{\"shortAddress\": 2,"
 //							"\"extAddress\": {\"low\": 285286663, \"high\": 0, \"unsigned\": true}+++\r\n";
@@ -382,7 +393,7 @@ void test_send_json_publish(void)
     }
 
     // Send the JSON message after the AT command is acknowledged
-    if (send_at_command(mqtt_data)) {
+    if (send_at_command(json_message_rssi)) {
         printf("JSON message sent successfully.\n");
     } else {
         printf("Failed to send JSON message.\n");

@@ -35,6 +35,7 @@ typedef struct {
   uint8_t cops[MAX_VALUE_LEN];
   uint8_t cgdcont[MAX_VALUE_LEN];
   uint8_t iccid[ICCID_LEN];
+  uint8_t rssi[180];
 } cat_m1_at_cmd_rst_t;
 
 extern uart_cat_m1_t uart_cat_m1_rx;
