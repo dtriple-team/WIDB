@@ -45,14 +45,14 @@ typedef struct {
   uint8_t pid[2];
   uint8_t rssi[1];
   uint8_t start_byte[1];
-  uint8_t hr[1];
-  uint8_t spo2[1];
+  uint8_t hr[2];
+  uint8_t spo2[2];
   uint8_t motionFlag[1];
   uint8_t scdState[1];
   uint8_t activity[1];
   uint8_t walk_steps[4];
   uint8_t run_steps[4];
-  uint8_t temperature[1];
+  uint8_t temperature[4];
   uint8_t pres[4];
   uint8_t battery_level[1];
 } cat_m1_Status_Band_t;

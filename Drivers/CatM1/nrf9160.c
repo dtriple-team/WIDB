@@ -189,6 +189,7 @@ bool cat_m1_parse_process(uint8_t *msg)
 				wpmInitFlag = 0;
 				nrf9160_checked = 0;
 				cat_m1_connection_status = 0;
+				cat_m1_boot_cnt = 0;
 				catM1PWRGPIOInit();
 				send_at_command("AT+CFUN=0\r\n");
 			}
@@ -473,6 +474,8 @@ void send_Status_Band(uint8_t* bid, uint8_t* pid, uint8_t* rssi,
                        uint8_t* walk_steps, uint8_t* run_steps, uint8_t* temperature,
                        uint8_t* pres, uint8_t* battery_level)
 {
+	//send_at_command("AT#XMQTTCON=1,\"\",\"\",\"t-vsm.com\",18831\r\n");
+	//HAL_Delay(300);
     char mqtt_data[1024];
     snprintf(mqtt_data, sizeof(mqtt_data),
         "{\"bid\": %d,"
@@ -510,8 +513,8 @@ void send_Status_Band(uint8_t* bid, uint8_t* pid, uint8_t* rssi,
     {
         printf("Failed to send JSON message.\n");
     }
-    send_at_command("AT#XMQTTCON=0\r\n");
-    HAL_Delay(4000);
+    //send_at_command("AT#XMQTTCON=0\r\n");
+    HAL_Delay(10000);
 }
 
 void send_Status_BandAlert(uint8_t* bid, uint8_t* hr_alert, uint8_t* spo2_alert)

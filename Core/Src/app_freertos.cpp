@@ -85,6 +85,9 @@ extern cat_m1_Status_Band_t cat_m1_Status_Band;
 uint16_t ssHr = 0;
 uint16_t ssSpo2 = 0;
 uint32_t ssWalk = 0;
+uint32_t imuTemp = 0;
+uint32_t press = 0;
+uint8_t battVal = 0;
 
 /* USER CODE END Variables */
 /* Definitions for initTask */
@@ -377,17 +380,17 @@ void StartWPMTask(void *argument)
 		        .bid = {1, 0, 0, 0, 0, 0, 0, 0, 0, 0},
 		        .pid = {2, 0},
 		        .rssi = {3},
-		        .start_byte = {170},
-		        .hr = {80},
-		        .spo2 = {95},
-		        .motionFlag = {1},
-		        .scdState = {0},
-		        .activity = {2},
-		        .walk_steps = {10, 0, 0, 0},
-		        .run_steps = {5, 0, 0, 0},
-		        .temperature = {36},
-		        .pres = {123, 0, 0, 0},
-		        .battery_level = {90}
+		        .start_byte = {0xAA},
+		        .hr = {ssHr >> 8, ssHr}, //
+		        .spo2 = {ssSpo2 >> 8, ssSpo2}, //
+		        .motionFlag = {lcd_ssDataEx.algo.spo2MotionFlag}, // ppg
+		        .scdState = {(lcd_ssDataEx.algo.SCDstate == 3)}, //
+		        .activity = {lcd_ssDataEx.algo.activity}, // ppg
+		        .walk_steps = {ssWalk >> 24, ssWalk >> 16, ssWalk >> 8, ssWalk}, //
+		        .run_steps = {0, 0, 0, 0}, //
+		        .temperature = {imuTemp >> 24, imuTemp >> 16, imuTemp >> 8, imuTemp}, //
+		        .pres = {press >> 24, press >> 16, press >> 8, press}, //
+		        .battery_level = {battVal} //
 		 };
 
 			send_Status_Band(cat_m1_Status_Band.bid, cat_m1_Status_Band.pid, cat_m1_Status_Band.rssi,
@@ -399,11 +402,11 @@ void StartWPMTask(void *argument)
 		}
 
 		//send_json_publish(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 50, 0, 0, 1, 2, 0, 3, 0, 4, 5, 6, 7, 3, 1, 2, 0, 0, 0);
-		if(gpsFlag)
-		{
-			nrf9160_Get_gps();
-			gpsFlag = false;
-		}
+//		if(gpsFlag)
+//		{
+//			nrf9160_Get_gps();
+//			gpsFlag = false;
+//		}
 	}
 	  osDelay(10);
 	//	if(wpmFlag ==1)
@@ -482,6 +485,9 @@ void StartSPMTask(void *argument)
 
 	test_mag_data[13] = pressure; 	// hPa
 	test_mag_data[14] = lpsTemp;  	// degC
+
+	imuTemp = ismTemp;
+	press = pressure;
   }
   /* USER CODE END spmTask */
 }
@@ -595,7 +601,6 @@ bool isCharging = 0;
 uint8_t interrupt_kind = 0;
 #define PRESSURE_VAL_LEN 10
 #include <math.h>
-uint8_t battVal = 0;
 unsigned char batterylevel;
 double calculateAltitudeDifference(double P1, double P2) {
     const double R = 8.314;       // 기체 ?��?�� (J/(mol·K))
@@ -607,6 +612,9 @@ double calculateAltitudeDifference(double P1, double P2) {
 
     return altitudeDifference;
 }
+
+extern cat_m1_Status_FallDetection_t cat_m1_Status_FallDetection;
+
 //uint8_t updateBattVal(){
 //	uint8_t batt = 0;
 //	return batt;
@@ -636,9 +644,12 @@ void StartCheckINTTask(void *argument)
     		 * haptic
     		 * send signal to web server using CatM1
     		 */
+    		cat_m1_Status_FallDetection.fall_detect[0] = 1;
+    		cat_m1_Status_FallDetection.type[0] = 0;
 
     		ST7789_brightness_setting(16);
 			myFallDetectedView.changeToFallDetected(); ////////////////////////
+			send_Status_FallDetection(cat_m1_Status_Band.bid, cat_m1_Status_FallDetection.type, cat_m1_Status_FallDetection.fall_detect); // should while loop
     	}
     	if((interrupt_kind & 0x02) == 0x02){
     		// wake-up
