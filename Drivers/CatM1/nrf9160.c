@@ -93,7 +93,7 @@ bool send_at_command(const char *cmd)
         {
             return true;
         }
-        HAL_Delay(1000);
+        osDelay(1000);
     }
     return false;
 }
@@ -320,17 +320,17 @@ void nrf9160_ready(void)
 			PRINT_INFO("Cat.M1 already available\r\n");
 			wpmInitFlag = 1;
 		}
-	//	HAL_Delay(1000);
+	//	osDelay(1000);
 	//}
 }
 
 void nrf9160_check()
 {
-	HAL_Delay(100);
+	osDelay(100);
 	send_at_command("AT%XSYSTEMMODE=1,0,1,0\r\n");
 	//send_at_command("AT%XSYSTEMMODE=0,0,1,0\r\n");
 //
-//	HAL_Delay(100);
+//	osDelay(100);
 	if (send_at_command("AT+CFUN=1\r\n"))
 	{
 		//return true;
@@ -339,23 +339,23 @@ void nrf9160_check()
 	{
 		//return true;
 	}
-	HAL_Delay(300);
+	osDelay(300);
 	while(!cat_m1_connection_status)
 	{
 		send_at_command("AT+COPS?\r\n");
-		HAL_Delay(500);
+		osDelay(500);
 	}
 
 	if (send_at_command("AT+CGDCONT?\r\n"))
 	{
 		//return true;
 	}
-	HAL_Delay(100);
+	osDelay(100);
 	if (send_at_command("AT%XICCID\r\n"))
 	{
 		//return true;
 	}
-	HAL_Delay(1000);
+	osDelay(1000);
 	nrf9160_checked = 1;
 
 
@@ -392,13 +392,13 @@ void nrf9160_mqtt_test()
 	{
 		//return true;
 	}
-	HAL_Delay(500);
+	osDelay(500);
 }
 
 void test_send_json_publish(void)
 {
 	send_at_command("AT#XMQTTCON=1,\"\",\"\",\"t-vsm.com\",18831\r\n");
-	HAL_Delay(300);
+	osDelay(300);
 	send_at_command("AT%XMONITOR\r\n");
 
 	// AT command to publish to the MQTT topic
@@ -464,7 +464,7 @@ void test_send_json_publish(void)
         printf("Failed to send JSON message.\n");
     }
     send_at_command("AT#XMQTTCON=0\r\n");
-    HAL_Delay(4000);
+    osDelay(4000);
 
 }
 
@@ -475,7 +475,7 @@ void send_Status_Band(uint8_t* bid, uint8_t* pid, uint8_t* rssi,
                        uint8_t* pres, uint8_t* battery_level)
 {
 	//send_at_command("AT#XMQTTCON=1,\"\",\"\",\"t-vsm.com\",18831\r\n");
-	//HAL_Delay(300);
+	//osDelay(300);
     char mqtt_data[1024];
     snprintf(mqtt_data, sizeof(mqtt_data),
         "{\"bid\": %d,"
@@ -514,7 +514,7 @@ void send_Status_Band(uint8_t* bid, uint8_t* pid, uint8_t* rssi,
         printf("Failed to send JSON message.\n");
     }
     //send_at_command("AT#XMQTTCON=0\r\n");
-    HAL_Delay(10000);
+    osDelay(10000);
 }
 
 void send_Status_BandAlert(uint8_t* bid, uint8_t* hr_alert, uint8_t* spo2_alert)
@@ -544,7 +544,7 @@ void send_Status_BandAlert(uint8_t* bid, uint8_t* hr_alert, uint8_t* spo2_alert)
         printf("Failed to send JSON message.\n");
     }
     send_at_command("AT#XMQTTCON=0\r\n");
-    HAL_Delay(4000);
+    osDelay(4000);
 }
 
 void send_Status_FallDetection(uint8_t* bid, uint8_t* type, uint8_t* fall_detect)
@@ -574,7 +574,7 @@ void send_Status_FallDetection(uint8_t* bid, uint8_t* type, uint8_t* fall_detect
         printf("Failed to send JSON message.\n");
     }
     send_at_command("AT#XMQTTCON=0\r\n");
-    HAL_Delay(4000);
+    osDelay(4000);
 }
 
 void send_GPS_Location(uint8_t* bid, uint8_t* lat, uint8_t* lng, uint8_t* alt, uint8_t* accuracy,
@@ -609,7 +609,7 @@ void send_GPS_Location(uint8_t* bid, uint8_t* lat, uint8_t* lng, uint8_t* alt, u
         printf("Failed to send JSON message.\n");
     }
     send_at_command("AT#XMQTTCON=0\r\n");
-    HAL_Delay(4000);
+    osDelay(4000);
 }
 
 void send_Status_IMU(uint8_t* bid, uint8_t* acc_x, uint8_t* acc_y, uint8_t* acc_z,
@@ -648,7 +648,7 @@ void send_Status_IMU(uint8_t* bid, uint8_t* acc_x, uint8_t* acc_y, uint8_t* acc_
         printf("Failed to send JSON message.\n");
     }
     send_at_command("AT#XMQTTCON=0\r\n");
-    HAL_Delay(4000);
+    osDelay(4000);
 }
 
 void nrf9160_Get_gps()
@@ -676,7 +676,7 @@ void nrf9160_Get_gps()
 void nrf9160_Get_gps_State()
 {
 	send_at_command("AT#XGPS?\r\n");
-	HAL_Delay(1000);
+	osDelay(1000);
 }
 
 void nrf9160_Get_time()
@@ -688,6 +688,6 @@ void catM1PWRGPIOInit()
 {
 	// PWR ON
 	HAL_GPIO_WritePin(GPIOC, GPIO_PIN_6, GPIO_PIN_RESET);
-	HAL_Delay(100);
+	osDelay(100);
 	HAL_GPIO_WritePin(GPIOC, GPIO_PIN_6, GPIO_PIN_SET);
 }

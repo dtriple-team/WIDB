@@ -11,6 +11,8 @@
 #include "stm32u5xx_hal.h"
 #include <stdbool.h>
 
+#include "cmsis_os2.h"
+
 // Constants
 #define MAX_CMD_LEN 100
 #define MAX_VALUE_LEN 100

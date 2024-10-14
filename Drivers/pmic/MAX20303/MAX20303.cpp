@@ -37,6 +37,8 @@
 #include <stdint.h>
 #include <string.h>
 
+#include "cmsis_os2.h"
+
 //******************************************************************************
 //MAX20303::MAX20303(I2C *i2c):
 //	m_i2c(i2c), m_writeAddress(MAX20303_SLAVE_WR_ADDR),
@@ -141,7 +143,7 @@ int MAX20303::AppWrite(uint8_t dataoutlen){
 
 	ret = writeRegMulti(MAX20303::REG_AP_DATOUT0, appdatainoutbuffer_, dataoutlen);
 	ret |= writeReg(MAX20303::REG_AP_CMDOUT, appcmdoutvalue_);
-	HAL_Delay(10);
+	osDelay(10);
 	ret |= readReg(MAX20303::REG_AP_RESPONSE, appcmdoutvalue_);
 
 	if(ret != 0)
@@ -156,7 +158,7 @@ int MAX20303::AppRead(uint8_t datainlen){
 	int ret;
 
 	ret = writeReg(MAX20303::REG_AP_CMDOUT, appcmdoutvalue_);
-	HAL_Delay(10);
+	osDelay(10);
 	ret |= readRegMulti(MAX20303::REG_AP_RESPONSE, i2cbuffer_, datainlen);
 	if(ret != 0)
 		return MAX20303_ERROR;
@@ -270,7 +272,7 @@ int MAX20303::Max20303_HapticSetting(void) // 햅틱모드 설정 Dtriple yeh
 {
 	int32_t ret = 0;
 	appcmdoutvalue_ = REG_HPT_CONFIG_WRITE0;
-	HAL_Delay(100);
+	osDelay(100);
 	appdatainoutbuffer_[0] = 0x0A; // 리니어 모터 0x0E, dc모터 0x0A 로 설정
 	appdatainoutbuffer_[1] = 0xD0; // 역기전력 추측
 	appdatainoutbuffer_[2] = 0x17; // 제로크로싱 비교기 감속 활성화[7], 제로크로싱 이벤트 캡처 필터 활성화[4]
@@ -285,7 +287,7 @@ int MAX20303::Max20303_HapticSetFullScale(void) // 햅틱모드 설정 Dtriple y
 {
 	int32_t ret = 0;
 	appcmdoutvalue_ = REG_HPT_CONFIG_SETFULLCALE;
-	HAL_Delay(100);
+	osDelay(100);
 
 	appdatainoutbuffer_[0] = 0xBD; // 전압 조절
 	AppWrite(1);
@@ -318,7 +320,7 @@ int MAX20303::Max20303_HapticStatus() // Dtriple yeh 햅틱 설정 레지스터 
 	int ret;
 	unsigned char data[6];
 	ret = writeReg(MAX20303::REG_AP_CMDOUT, 0xA1); //)0xA1 햅틱 설정 읽기 레지스터
-	HAL_Delay(9);
+	osDelay(9);
 	ret = readReg(MAX20303::REG_AP_DATAIN0, data[0]);
 	ret = readReg(MAX20303::REG_AP_DATAIN1, data[1]);
 	ret = readReg(MAX20303::REG_AP_DATAIN2, data[2]);
@@ -356,10 +358,10 @@ void MAX20303::Max20303_StartHapticPattern(int hapticFrequencyHz, int hapticDura
 	{
 
 		writeReg(REG_HPT_RTI2CAMP, 0b11111111);
-		HAL_Delay(hapticDuration);
+		osDelay(hapticDuration);
 		writeReg(REG_HPT_RTI2CAMP, 0b10000000);
 
-		HAL_Delay(1000 / hapticFrequencyHz);
+		osDelay(1000 / hapticFrequencyHz);
 	}
 }
 
@@ -375,13 +377,13 @@ void MAX20303::setHapticPatternSample(const HapticPatternSample &sample)
 void MAX20303::createHapticPattern()
 {
 	writeReg(REG_HPT_DIRECT1, 0b01110010); // ExtTrig off, RamEn on, HptDrvEn on, Enable RAMHPI mode Drivemod set[4:0]
-	HAL_Delay(100);
+	osDelay(100);
 	writeReg(REG_HPT_RAM_ADDR, 0b00000001);
-	HAL_Delay(100);
+	osDelay(100);
 	writeReg(REG_HPT_RAM_DATA_H, 0b00010111);
-	HAL_Delay(100);
+	osDelay(100);
 	writeReg(REG_HPT_RAM_DATA_M, 0b01111100);
-	HAL_Delay(100);
+	osDelay(100);
 	writeReg(REG_HPT_RAM_DATA_L, 0b00101111);
 
 	// REG_HPT_RAM_DATA_H: 11 0 11111

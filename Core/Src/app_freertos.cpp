@@ -221,7 +221,7 @@ void MX_FREERTOS_Init(void) {
   ppmTaskHandle = osThreadNew(StartPPMTask, NULL, &ppmTask_attributes);
 
   /* creation of wpmTask */
-  wpmTaskHandle = osThreadNew(StartWPMTask, NULL, &wpmTask_attributes);
+//  wpmTaskHandle = osThreadNew(StartWPMTask, NULL, &wpmTask_attributes);
 
   /* creation of spmTask */
   spmTaskHandle = osThreadNew(StartSPMTask, NULL, &spmTask_attributes);
@@ -347,7 +347,7 @@ void StartWPMTask(void *argument)
 
 	// CatM1 PWR GPIO ON
 	catM1PWRGPIOInit();
-//	HAL_Delay(1000);
+	osDelay(1000);
 
 	// CatM1 init
 	nrf9160_ready();

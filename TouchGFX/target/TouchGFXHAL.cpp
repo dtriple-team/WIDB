@@ -150,7 +150,7 @@ void TouchGFXHAL::flushFrameBuffer(const touchgfx::Rect& rect)
 
 	spiTxDMA_start((uint8_t*)spiDmaTxBuff, rect.height*rect.width*2);
 	while(spiDMACplt != 2){
-		HAL_Delay(10);
+		taskDelay(10);
 	}
 
 	ST7789_UnSelect();

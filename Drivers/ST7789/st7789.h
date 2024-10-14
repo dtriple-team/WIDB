@@ -3,6 +3,8 @@
 #include "fonts.h"
 #include "main.h"
 
+#include "cmsis_os2.h"
+
 /* choose a Hardware SPI port to use. */
 #define ST7789_SPI_PORT hspi1
 extern SPI_HandleTypeDef ST7789_SPI_PORT;

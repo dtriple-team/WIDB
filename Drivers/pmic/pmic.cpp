@@ -2,6 +2,8 @@
 #include <MAX20303.h>
 #include "main.h"
 
+#include "cmsis_os2.h"
+
 //******************************************************************************
 MAX20303 max20303;
 
@@ -10,7 +12,7 @@ int pmic_init()
 	uint8_t ret = 0;
 
 	/* Wait for pmic to settle down */
-	HAL_Delay(800);
+	osDelay(800);
 
 	/*Set LDO1 to 1.8v*/
 	ret |= max20303.LDO1Config(); // max 2V
@@ -25,7 +27,7 @@ int pmic_init()
 	ret |= max20303.BuckBoostEnable(); // 5V
 
 	/* Wait for pmic to settle down */
-	HAL_Delay(200);
+	osDelay(200);
 
     return 0;
 }

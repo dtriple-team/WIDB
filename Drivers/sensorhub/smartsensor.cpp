@@ -4,6 +4,8 @@
 #include "i2c.h"
 #include "tim.h"
 
+#include "cmsis_os2.h"
+
 #define slave_addr 	0b10101010
 #define write_bit 	0b0
 #define read_bit 	0b1
@@ -200,7 +202,7 @@ int read_ppg_9_setting (void){
 	// enable_algo
 	uint8_t mode[] = {0x02}; // extended algorithm report => 76byte(data) + 1byte(status)
 	set_command(0x52, 0x07, mode, sizeof(data_type)); // 1
-	HAL_Delay(320);
+	osDelay(320);
 	get_command(rxbuffer_1, sizeof(rxbuffer_1));
 
 	uint8_t algo_cfg[] = {0x18};
@@ -245,15 +247,15 @@ int read_ppg_9(uint8_t* rxdata, uint8_t rxbuff_len){
 int ssInit(){
 	HAL_GPIO_WritePin(RSTN_PORT, RSTN_PIN, GPIO_PIN_SET);	// RSTN
 	HAL_GPIO_WritePin(MFIO_PORT, MFIO_PIN, GPIO_PIN_RESET);	// MFIO
-	HAL_Delay(100);
+	osDelay(100);
 	HAL_GPIO_WritePin(RSTN_PORT, RSTN_PIN, GPIO_PIN_SET); 	// RSTN
 	HAL_GPIO_WritePin(RSTN_PORT, RSTN_PIN, GPIO_PIN_RESET);	// RSTN
-	HAL_Delay(5);
+	osDelay(5);
 	HAL_GPIO_WritePin(MFIO_PORT, MFIO_PIN, GPIO_PIN_SET);	// MFIO
-	HAL_Delay(5);
+	osDelay(5);
 	HAL_GPIO_WritePin(RSTN_PORT, RSTN_PIN, GPIO_PIN_SET); 	// RSTN
 
-	HAL_Delay(1500);
+	osDelay(1500);
 
 	return 0;
 }

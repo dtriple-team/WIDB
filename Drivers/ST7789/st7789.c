@@ -153,11 +153,11 @@ void ST7789_Init(void)
   memset(disp_buf, 0, sizeof(disp_buf));
 #endif
 
-  HAL_Delay(25);
+  osDelay(25);
   ST7789_RST_Clr();
-  HAL_Delay(25);
+  osDelay(25);
   ST7789_RST_Set();
-  HAL_Delay(50);
+  osDelay(50);
 
   ST7789_WriteCommand(ST7789_SWRESET);
   ST7789_WriteCommand(ST7789_DISPOFF);
@@ -215,10 +215,10 @@ void ST7789_Init(void)
   ST7789_WriteCommand(ST7789_INVON);
   ST7789_WriteCommand(ST7789_DISPON);
 
-	HAL_Delay(50);
+	osDelay(50);
 	ST7789_Fill_Color(BLACK);				//	Fill with Black.
 //	ST7789_Test();
-	HAL_Delay(100);
+	osDelay(100);
 //	ST7789_Fill_Color(WHITE);				//	Fill with Black.
 }
 
@@ -740,74 +740,74 @@ void ST7789_DrawBitmap(uint16_t x, uint16_t y, uint16_t w, uint16_t h, const uin
 void ST7789_Test(void)
 {
 	ST7789_Fill_Color(WHITE);
-	HAL_Delay(1000);
+	osDelay(1000);
 	ST7789_WriteString(10, 20, "Speed Test", Font_11x18, RED, WHITE);
-	HAL_Delay(1000);
+	osDelay(1000);
 	ST7789_Fill_Color(CYAN);
-    HAL_Delay(500);
+    osDelay(500);
 	ST7789_Fill_Color(RED);
-    HAL_Delay(500);
+    osDelay(500);
 	ST7789_Fill_Color(BLUE);
-    HAL_Delay(500);
+    osDelay(500);
 	ST7789_Fill_Color(GREEN);
-    HAL_Delay(500);
+    osDelay(500);
 	ST7789_Fill_Color(YELLOW);
-    HAL_Delay(500);
+    osDelay(500);
 	ST7789_Fill_Color(BROWN);
-    HAL_Delay(500);
+    osDelay(500);
 	ST7789_Fill_Color(DARKBLUE);
-    HAL_Delay(500);
+    osDelay(500);
 	ST7789_Fill_Color(MAGENTA);
-    HAL_Delay(500);
+    osDelay(500);
 	ST7789_Fill_Color(LIGHTGREEN);
-    HAL_Delay(500);
+    osDelay(500);
 	ST7789_Fill_Color(LGRAY);
-    HAL_Delay(500);
+    osDelay(500);
 	ST7789_Fill_Color(LBBLUE);
-    HAL_Delay(500);
+    osDelay(500);
 	ST7789_Fill_Color(WHITE);
-	HAL_Delay(500);
+	osDelay(500);
 
 	ST7789_WriteString(10, 10, "Font test.", Font_16x26, GBLUE, WHITE);
 	ST7789_WriteString(10, 50, "Hello Steve!", Font_7x10, RED, WHITE);
 	ST7789_WriteString(10, 75, "Hello Steve!", Font_11x18, YELLOW, WHITE);
 	ST7789_WriteString(10, 100, "Hello Steve!", Font_16x26, MAGENTA, WHITE);
-	HAL_Delay(1000);
+	osDelay(1000);
 
 	ST7789_Fill_Color(RED);
 	ST7789_WriteString(10, 10, "Rect./Line.", Font_11x18, YELLOW, BLACK);
 	ST7789_DrawRectangle(30, 30, 100, 100, WHITE);
-	HAL_Delay(1000);
+	osDelay(1000);
 
 	ST7789_Fill_Color(RED);
 	ST7789_WriteString(10, 10, "Filled Rect.", Font_11x18, YELLOW, BLACK);
 	ST7789_DrawFilledRectangle(30, 30, 50, 50, WHITE);
-	HAL_Delay(1000);
+	osDelay(1000);
 
 	ST7789_Fill_Color(RED);
 	ST7789_WriteString(10, 10, "Circle.", Font_11x18, YELLOW, BLACK);
 	ST7789_DrawCircle(60, 60, 25, WHITE);
-	HAL_Delay(1000);
+	osDelay(1000);
 
 	ST7789_Fill_Color(RED);
 	ST7789_WriteString(10, 10, "Filled Cir.", Font_11x18, YELLOW, BLACK);
 	ST7789_DrawFilledCircle(60, 60, 25, WHITE);
-	HAL_Delay(1000);
+	osDelay(1000);
 
 	ST7789_Fill_Color(RED);
 	ST7789_WriteString(10, 10, "Triangle", Font_11x18, YELLOW, BLACK);
 	ST7789_DrawTriangle(30, 30, 30, 70, 60, 40, WHITE);
-	HAL_Delay(1000);
+	osDelay(1000);
 
 	ST7789_Fill_Color(RED);
 	ST7789_WriteString(10, 10, "Filled Tri", Font_11x18, YELLOW, BLACK);
 	ST7789_DrawFilledTriangle(30, 30, 30, 70, 60, 40, WHITE);
-	HAL_Delay(1000);
+	osDelay(1000);
 
 	//	If FLASH cannot storage anymore datas, please delete codes below.
 	ST7789_Fill_Color(WHITE);
 	ST7789_DrawImage(0, 0, 128, 128, (uint16_t *)saber);
-	HAL_Delay(3000);
+	osDelay(3000);
 }
 
 void ST7789_gpio_setting(void)
