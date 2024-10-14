@@ -72,6 +72,14 @@ uint8_t brightness_count = 0;
 
 uint8_t now_sleepmode = 0;
 
+#define mqtt_operation_cycle 30
+uint8_t mqttTime = 0;
+bool mqttFlag = true;
+
+#define gps_operation_cycle 60*5
+uint8_t gpsTime = 0;
+bool gpsFlag = true;
+
 uint16_t ssHr = 0;
 uint16_t ssSpo2 = 0;
 uint32_t ssWalk = 0;
@@ -349,14 +357,23 @@ void StartWPMTask(void *argument)
 	if(wpmInitFlag && nrf9160_checked == 1)
 	{
 		nrf9160_mqtt_setting();
-		//nrf9160_Get_gps();
 	}
 
 	if(wpmInitFlag && nrf9160_checked == 2)
 	{
-		//test_send_json_publish();
-			 send_json_publish(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 50, 0, 0, ssHr, ssSpo2, 0, (lcd_ssDataEx.algo.SCDstate == 3), 0, ssWalk, ssWalk, test_mag_data[9], test_mag_data[10], test_mag_data[11], test_mag_data[3], test_mag_data[13], 0, 0, 0);
+		//nrf9160_Get_gps();
+		if(mqttFlag)
+		{	nrf9160_Get_gps_State();
+			test_send_json_publish();
+			mqttFlag = false;
+		}
+		//send_json_publish(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 50, 0, 0, ssHr, ssSpo2, 0, (lcd_ssDataEx.algo.SCDstate == 3), 0, ssWalk, ssWalk, test_mag_data[9], test_mag_data[10], test_mag_data[11], test_mag_data[3], test_mag_data[13], 0, 0, 0);
 //		send_json_publish(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 50, 0, 0, 1, 2, 0, 3, 0, 4, 5, 6, 7, 3, 1, 2, 0, 0, 0);
+		if(gpsFlag)
+		{
+			nrf9160_Get_gps();
+			gpsFlag = false;
+		}
 	}
 	  osDelay(10);
 	//	if(wpmFlag ==1)
@@ -510,6 +527,21 @@ void StartSecTimerTask(void *argument)
 			ST7789_brightness_setting(0);
 			myBlackScreenView.changeToInitBlackScreen();
 			now_sleepmode = 1;
+		}
+		mqttTime++;
+//		PRINT_INFO("mqttTime >>> %d\r\n",mqttTime);
+		if(mqttTime == mqtt_operation_cycle)
+		{
+			mqttFlag = true;
+			mqttTime = 0;
+		}
+
+		gpsTime++;
+//		PRINT_INFO("gpsTime >>> %d\r\n",gpsTime);
+		if(gpsTime == gps_operation_cycle)
+		{
+			gpsFlag = true;
+			gpsTime = 0;
 		}
 	}
   }

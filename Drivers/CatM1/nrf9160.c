@@ -85,7 +85,7 @@ bool send_at_command(const char *cmd)
         {
             return true;
         }
-        HAL_Delay(800);
+        HAL_Delay(1000);
     }
     return false;
 }
@@ -177,12 +177,12 @@ bool cat_m1_parse_process(uint8_t *msg)
 			printf("cat_m1_boot_cnt >>> %d\r\n",cat_m1_boot_cnt);
 			if (cat_m1_boot_cnt >= 2)
 			{
+				send_at_command("AT+CFUN=0\r\n");
 				wpmInitFlag = 0;
 				nrf9160_checked = 0;
 				cat_m1_connection_status = 0;
 				catM1PWRGPIOInit();
 				send_at_command("AT+CFUN=0\r\n");
-				send_at_command("AT+CFUN=1\r\n");
 			}
 		}
     	else if (strstr((char *)msg, "OK"))
@@ -198,12 +198,13 @@ bool cat_m1_parse_process(uint8_t *msg)
             cat_m1_error_cnt++;
 			if (cat_m1_error_cnt >= 5)
 			{
+				send_at_command("AT+CFUN=0\r\n");
 				wpmInitFlag = 0;
 				nrf9160_checked = 0;
 				cat_m1_connection_status = 0;
+				cat_m1_error_cnt = 0;
 				catM1PWRGPIOInit();
 				send_at_command("AT+CFUN=0\r\n");
-				send_at_command("AT+CFUN=1\r\n");
 			}
         }
     }
@@ -254,7 +255,7 @@ void cat_m1_parse_result(const char *command, const char *value)
 	{
 		printf("5>>>\r\n");
 		int gps_length = strlen(value);
-		if (gps_length > 10)
+		if (gps_length > 20)
         {
         	cat_m1_gps_ret = 1;
         }
@@ -311,6 +312,9 @@ void nrf9160_ready(void)
 void nrf9160_check()
 {
 	HAL_Delay(100);
+	send_at_command("AT%XSYSTEMMODE=1,0,1,0\r\n");
+
+	HAL_Delay(100);
 	if (send_at_command("AT+CFUN=1\r\n"))
 	{
 		//return true;
@@ -319,8 +323,7 @@ void nrf9160_check()
 	{
 		//return true;
 	}
-	HAL_Delay(100);
-
+	HAL_Delay(300);
 	while(!cat_m1_connection_status)
 	{
 		send_at_command("AT+COPS?\r\n");
@@ -351,7 +354,6 @@ void nrf9160_mqtt_setting()
 	{
 		//return true;
 	}
-
 //	if (send_at_command("AT#XMQTTCON=1,\"\",\"\",\"broker.hivemq.com\",1883\r\n"))
 //	{
 //		//return true;
@@ -360,10 +362,10 @@ void nrf9160_mqtt_setting()
 //	{
 //		//return true;
 //	}
-	if (send_at_command("AT#XMQTTCON=1,\"\",\"\",\"t-vsm.com\",18831\r\n"))
-	{
-		//return true;
-	}
+//	if (send_at_command("AT#XMQTTCON=1,\"\",\"\",\"t-vsm.com\",18831\r\n"))
+//	{
+//		//return true;
+//	}
 	nrf9160_checked = 2;
 }
 
@@ -378,8 +380,11 @@ void nrf9160_mqtt_test()
 
 void test_send_json_publish(void)
 {
+	send_at_command("AT#XMQTTCON=1,\"\",\"\",\"t-vsm.com\",18831\r\n");
+	HAL_Delay(100);
 	send_at_command("AT%XMONITOR\r\n");
-    // AT command to publish to the MQTT topic
+
+	// AT command to publish to the MQTT topic
     const char *at_command = "AT#XMQTTPUB=\"/efwb/post/sync\"\r\n";
 
     // JSON message to be published
@@ -442,6 +447,8 @@ void test_send_json_publish(void)
         printf("Failed to send JSON message.\n");
     }
     HAL_Delay(4000);
+    send_at_command("AT#XMQTTCON=0\r\n");
+
 }
 
 void send_json_publish(uint8_t shortAddress, uint8_t extAddressLow, uint8_t extAddressHigh,
@@ -527,20 +534,30 @@ void send_json_publish(uint8_t shortAddress, uint8_t extAddressLow, uint8_t extA
 
 void nrf9160_Get_gps()
 {
-	send_at_command("AT+CFUN=0\r\n");
-	send_at_command("AT%XSYSTEMMODE=0,0,1,0\r\n");
-	send_at_command("AT+CFUN=31\r\n");
-	send_at_command("AT#XGPS=1,0,0,0\r\n");
+	send_at_command("AT#XGPS=1,0,0,60\r\n");
+	//send_at_command("AT+CFUN=0\r\n");
+	//send_at_command("AT%XSYSTEMMODE=1,0,1,0\r\n");
+	//send_at_command("AT+CFUN=31\r\n");
+	//send_at_command("AT#XGPS=1,0,0,60\r\n");
+
+	//send_at_command("AT#XGPS?\r\n");
 	//위 과정 한번만 실행
 	if(cat_m1_gps_ret)
 	{
+		//send_at_command("AT#XGPS=1,0,0,60\r\n");
 		//#XGPS: 1,4 후 한번 더 #XGPS: 나오면 GPS 버퍼에 저장
-		send_at_command("AT+CFUN=0\r\n");
-		send_at_command("AT%XSYSTEMMODE=1,0,0,0\r\n");
-		send_at_command("AT+CFUN=1\r\n");
+		//send_at_command("AT+CFUN=0\r\n");
+		//send_at_command("AT%XSYSTEMMODE=1,0,1,0\r\n");
+		//send_at_command("AT+CFUN=1\r\n");
 	}
-	nrf9160_checked = 2;
+	//nrf9160_checked = 2;
 	//저장 이후 다시 AT+CFUN=1 변경
+}
+
+void nrf9160_Get_gps_State()
+{
+	send_at_command("AT#XGPS?\r\n");
+	HAL_Delay(1000);
 }
 
 void nrf9160_Get_time()
