@@ -519,7 +519,8 @@ void StartSecTimerTask(void *argument)
 
 		// turn on LCD backlight (in screenOnTime, active only one)
 		if(brightness_count == 0){
-			ST7789_brightness_setting(set_bLevel);
+			if(pre_brightness_count >= screenOnTime)
+				ST7789_brightness_setting(set_bLevel);
 			brightness_count++;
 			now_sleepmode = 0;
 		}
@@ -532,6 +533,8 @@ void StartSecTimerTask(void *argument)
 			myBlackScreenView.changeToInitBlackScreen();
 			now_sleepmode = 1;
 		}
+		pre_brightness_count = brightness_count;
+
 		mqttTime++;
 //		PRINT_INFO("mqttTime >>> %d\r\n",mqttTime);
 		if(mqttTime == mqtt_operation_cycle)
