@@ -28,7 +28,7 @@ uint8_t readTouchData(uint8_t* touchData, uint8_t len){
 //		}
 	}
 
-	return 1;
+	return 0;
 }
 
 uint8_t touchDetect(uint8_t* touchData){

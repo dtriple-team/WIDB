@@ -22,8 +22,8 @@ enum GESTURE
     SlideLeft = 0x03,
     SlideRight = 0x04,
     SingleTap = 0x05,
-//    DoubleTap = 0x0B,
-//    LongPress = 0x0C
+    DoubleTap = 0x0B,
+    LongPress = 0x0C
 };
 
 // readTouchData 함수 선언
