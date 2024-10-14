@@ -70,10 +70,10 @@ void send_json_publish(uint8_t shortAddress, uint8_t extAddressLow, uint8_t extA
 		uint8_t active, uint8_t pid,
 		uint8_t ambienceTemp, uint8_t objectTemp, uint8_t rawData,
 		uint8_t batteryLevel, uint8_t hrConfidence, uint8_t spo2Confidence,
-		uint8_t hr, uint8_t spo2,
+		uint16_t hr, uint16_t spo2,
 		uint8_t motionFlag, uint8_t scdState, uint8_t activity,
-		uint8_t walkSteps, uint8_t runSteps, uint8_t x, uint8_t y, uint8_t z,
-		uint8_t t, uint8_t h,
+		uint16_t walkSteps, uint16_t runSteps, double x, double y, double z,
+		double t, double h,
 		uint8_t rssi, uint8_t reportingInterval, uint8_t pollingInterval);
 
 void catM1PWRGPIOInit(void);

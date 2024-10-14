@@ -16,8 +16,8 @@
 //enum GESTURE
 //{
 //    None = 0x00,       //无手势
-//    SlideDown = 0x01,  //向下滑动
-//    SlideUp = 0x02,    //向上滑动
+//    SlideUp = 0x01,  //向下滑动
+//    SlideDown = 0x02,    //向上滑动
 //    SlideLeft = 0x03,  //向左滑动
 //    SlideRight = 0x04, //向右滑动
 //    SingleTap = 0x05,  //单击

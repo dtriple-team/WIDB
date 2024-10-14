@@ -37,6 +37,7 @@ void STM32TouchController::init()
      */
 }
 uint8_t touchData[6] = {0,};
+GESTURE gesture = None;
 bool STM32TouchController::sampleTouch(int32_t& x, int32_t& y)
 {
     /**
@@ -49,10 +50,14 @@ bool STM32TouchController::sampleTouch(int32_t& x, int32_t& y)
      * By default sampleTouch is called every tick, this can be adjusted by HAL::setTouchSampleRate(int8_t);
      *
      */
-//	uint8_t touchData[6] = {0,};
-	uint8_t err = readTouchData(&touchData[0], sizeof(touchData));
+	if(HAL_GPIO_ReadPin(GPIOC, GPIO_PIN_13) == 1) return false; // touch INT active low
 
-	HAL_Delay(10); // Debouncing
+	//	uint8_t touchData[6] = {0,};
+	uint8_t err = readTouchData(touchData, sizeof(touchData));
+
+	gesture = static_cast<GESTURE>(touchData[1]);
+
+//	HAL_Delay(1); // Debouncing
 	if(touchDetect(touchData) || !err){
 		x = read_x(touchData);
 		y = read_y(touchData);

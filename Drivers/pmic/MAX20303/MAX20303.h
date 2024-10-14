@@ -215,6 +215,8 @@ public:
 
     int Max20303_BatteryGauge(unsigned char *batterylevel);
 
+    int Buck2Config(void);
+
     // check if the battery is connected.
     // Warning: that function has 1000ms delay
     char Max20303_IsBattery_Connected();

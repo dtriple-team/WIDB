@@ -13,13 +13,16 @@ int pmic_init()
 	HAL_Delay(800);
 
 	/*Set LDO1 to 1.8v*/
-	ret |= max20303.LDO1Config();
+	ret |= max20303.LDO1Config(); // max 2V
 
 	/*Set LDO2 to 3v*/
 	ret |= max20303.LDO2Config();
 
+	/*Set BK2 to 3.3v*/
+	ret |= max20303.Buck2Config(); // LCD 3.3v
+
 	//max20303.BoostEnable();
-	ret |= max20303.BuckBoostEnable();
+	ret |= max20303.BuckBoostEnable(); // 5V
 
 	/* Wait for pmic to settle down */
 	HAL_Delay(200);

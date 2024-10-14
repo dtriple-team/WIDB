@@ -74,6 +74,10 @@ extern uint8_t secTime;
 
 uint8_t now_sleepmode = 0;
 
+uint16_t ssHr = 0;
+uint16_t ssSpo2 = 0;
+uint32_t ssWalk = 0;
+
 /* USER CODE END Variables */
 /* Definitions for initTask */
 osThreadId_t initTaskHandle;
@@ -275,6 +279,7 @@ void StartlcdTask(void *argument)
 	pmicInitFlag = 1;
 
 	while(!pmicInitFlag);
+//	HAL_Delay(5000); // 외부 전원 + 디버거 연결 시간
 	ST7789_gpio_setting();
 	ST7789_Init();
 	ST7789_brightness_setting(set_bLevel);
@@ -351,8 +356,8 @@ void StartWPMTask(void *argument)
 	if(wpmInitFlag && nrf9160_checked == 2)
 	{
 		//test_send_json_publish();
-		//	 send_json_publish(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 50, 0, 0, (int)ssHr, (int)ssSpo2, 0, (int)(lcd_ssDataEx.algo.SCDstate == 3), 0, (int)ssWalk, (int)ssWalk, (int)test_mag_data[9], (int)test_mag_data[10], (int)test_mag_data[11], (int)test_mag_data[3], (int)test_mag_data[13], 0, 0, 0);
-		send_json_publish(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 50, 0, 0, 1, 2, 0, 3, 0, 4, 5, 6, 7, 3, 1, 2, 0, 0, 0);
+			 send_json_publish(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 50, 0, 0, ssHr, ssSpo2, 0, (lcd_ssDataEx.algo.SCDstate == 3), 0, ssWalk, ssWalk, test_mag_data[9], test_mag_data[10], test_mag_data[11], test_mag_data[3], test_mag_data[13], 0, 0, 0);
+//		send_json_publish(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 50, 0, 0, 1, 2, 0, 3, 0, 4, 5, 6, 7, 3, 1, 2, 0, 0, 0);
 	}
 	  osDelay(10);
 	//	if(wpmFlag ==1)
@@ -648,9 +653,9 @@ void StartDATATask(void *argument)
 /* Private application code --------------------------------------------------*/
 /* USER CODE BEGIN Application */
 
-uint16_t ssHr = 0;
-uint16_t ssSpo2 = 0;
-uint32_t ssWalk = 0;
+//uint16_t ssHr = 0;
+//uint16_t ssSpo2 = 0;
+//uint32_t ssWalk = 0;
 
 uint8_t canDisplayPPG = 0;
 
