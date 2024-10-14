@@ -19,23 +19,23 @@ void HeartrateScreenView::tearDownScreen()
     HeartrateScreenViewBase::tearDownScreen();
 }
 
-void HeartrateScreenView::handleGestureEvent(const GestureEvent& evt) //rkdalfks
-{
-	if (evt.getType()==GestureEvent::SWIPE_HORIZONTAL)
-	{
-    	int deltaX = evt.getVelocity();
-        //int deltaY = evt.getVelocityY();
-
-        //if(abs(deltaX)>abs(deltaY))
-        //{
-			if(deltaX>0)
-			{
-				presenter->notifySwipeRight();
-			}
-        //}
-	}
-	HeartrateScreenViewBase::handleGestureEvent(evt);
-}
+//void HeartrateScreenView::handleGestureEvent(const GestureEvent& evt) //rkdalfks
+//{
+//	if (evt.getType()==GestureEvent::SWIPE_HORIZONTAL)
+//	{
+//    	int deltaX = evt.getVelocity();
+//        //int deltaY = evt.getVelocityY();
+//
+//        //if(abs(deltaX)>abs(deltaY))
+//        //{
+//			if(deltaX>0)
+//			{
+//				presenter->notifySwipeRight();
+//			}
+//        //}
+//	}
+//	HeartrateScreenViewBase::handleGestureEvent(evt);
+//}
 
 void HeartrateScreenView::handleSwipeRight() //rkdalfks
 {
@@ -46,4 +46,12 @@ extern uint16_t ssHr;
 void HeartrateScreenView::changeHRVal(){
 	touchgfx::Unicode::snprintf(heartrate_valueBuffer, HEARTRATE_VALUE_SIZE, "%02u", ssHr);
 	heartrate_value.invalidate();
+}
+
+#include "bl6133.h"
+extern GESTURE gesture;
+void HeartrateScreenView::handleTickEvent(){
+	if(gesture == SlideRight){
+		presenter->notifySwipeRight();
+	}
 }

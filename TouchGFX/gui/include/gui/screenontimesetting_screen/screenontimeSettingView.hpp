@@ -13,7 +13,7 @@ public:
     virtual void setupScreen();
     virtual void tearDownScreen();
 
-    virtual void handleGestureEvent(const GestureEvent& evt);
+//    virtual void handleGestureEvent(const GestureEvent& evt);
 
     void handleSwipeRight();
 
@@ -21,6 +21,8 @@ public:
     virtual void scrollWheel1UpdateCenterItem(setting_screenontime_selected& item, int16_t itemIndex);
 
     virtual void changeScreenOnTime();
+
+    virtual void handleTickEvent();
 protected:
     Callback<screenontimeSettingView, int16_t>scrollWheel1AnimateToCallback;
     void scrollWheel1AnimateToHandler(int16_t item);

@@ -43,6 +43,8 @@ void HomeScreenWithBiodataView::tearDownScreen()
     HomeScreenWithBiodataViewBase::tearDownScreen();
 }
 
+#include "bl6133.h"
+extern GESTURE gesture;
 void HomeScreenWithBiodataView::handleTickEvent()
 {
 	tickCounter++;
@@ -93,33 +95,37 @@ void HomeScreenWithBiodataView::handleTickEvent()
 		touchgfx::Unicode::snprintf(step_valueBuffer, STEP_VALUE_SIZE, "%u", ssWalk);
 		step_value.invalidate();
 	}
+
+    if(gesture == SlideDown){
+    	presenter->notifySwipeDown();
+    }
 }
 
-void HomeScreenWithBiodataView::handleGestureEvent(const GestureEvent& evt) //rkdalfks
-{
-	int deltaX = 0, deltaY = 0;
-	const int swipeThreshold = 20;
-    if (evt.getType() == GestureEvent::SWIPE_VERTICAL)
-    {
-        deltaY = evt.getVelocity();
-    }
-    if (evt.getType() == GestureEvent::SWIPE_HORIZONTAL)
-    {
-    	deltaX = evt.getVelocity();
-    }
-
-    if (evt.getType() == GestureEvent::SWIPE_VERTICAL && abs(deltaY)>abs(deltaX))
-    {
-    	if(abs(deltaY) > swipeThreshold)
-    	{
-			if (deltaY > 20)
-			{
-				presenter->notifySwipeDown();
-			}
-    	}
-    }
-    HomeScreenWithBiodataViewBase::handleGestureEvent(evt);
-}
+//void HomeScreenWithBiodataView::handleGestureEvent(const GestureEvent& evt) //rkdalfks
+//{
+////	int deltaX = 0, deltaY = 0;
+////	const int swipeThreshold = 20;
+////    if (evt.getType() == GestureEvent::SWIPE_VERTICAL)
+////    {
+////        deltaY = evt.getVelocity();
+////    }
+////    if (evt.getType() == GestureEvent::SWIPE_HORIZONTAL)
+////    {
+////    	deltaX = evt.getVelocity();
+////    }
+////
+////    if (evt.getType() == GestureEvent::SWIPE_VERTICAL && abs(deltaY)>abs(deltaX))
+////    {
+////    	if(abs(deltaY) > swipeThreshold)
+////    	{
+////			if (deltaY > 20)
+////			{
+////				presenter->notifySwipeDown();
+////			}
+////    	}
+////    }
+////    HomeScreenWithBiodataViewBase::handleGestureEvent(evt);
+//}
 
 void HomeScreenWithBiodataView::handleSwipeDown()
 {

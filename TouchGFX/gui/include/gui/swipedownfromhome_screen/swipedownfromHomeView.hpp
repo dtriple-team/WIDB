@@ -12,7 +12,7 @@ public:
     virtual ~swipedownfromHomeView() {}
     virtual void setupScreen();
     virtual void tearDownScreen();
-    virtual void handleGestureEvent(const GestureEvent& evt); //rkdalfks
+//    virtual void handleGestureEvent(const GestureEvent& evt); //rkdalfks
 
     void updateToggleButton1State(bool state); //test
     void updateToggleButton2State(bool state); //test
@@ -22,6 +22,7 @@ public:
     void slider1Changed(int value);
 
     virtual void handleDragEvent(const DragEvent& evt);
+    virtual void handleTickEvent();
 protected:
     Callback<swipedownfromHomeView, const touchgfx::AbstractButton&> toggleButton1ClickedCallback; //test
     Callback<swipedownfromHomeView, const touchgfx::AbstractButton&> toggleButton2ClickedCallback; //test

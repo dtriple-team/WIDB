@@ -16,7 +16,7 @@ public:
     virtual void setupScreen();
     virtual void tearDownScreen();
     virtual void handleTickEvent();
-    virtual void handleGestureEvent(const GestureEvent& evt); //rkdalfks
+//    virtual void handleGestureEvent(const GestureEvent& evt); //rkdalfks
 
     void handleSwipeDown(); //rkdalfks
 

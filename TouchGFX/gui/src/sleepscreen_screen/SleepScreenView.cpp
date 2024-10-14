@@ -18,26 +18,34 @@ void SleepScreenView::tearDownScreen()
     SleepScreenViewBase::tearDownScreen();
 }
 
-void SleepScreenView::handleGestureEvent(const GestureEvent& evt) //rkdalfks
-{
-    if (evt.getType() == GestureEvent::SWIPE_HORIZONTAL)
-    {
-    	int deltaX = evt.getVelocity();
-        //int deltaY = evt.getVelocityY();
-
-        //if(abs(deltaX)>abs(deltaY))
-        //{
-			if (deltaX > 0)
-			{
-				presenter->notifySwipeRight();
-			}
-        //}
-    }
-    SleepScreenViewBase::handleGestureEvent(evt);
-}
+//void SleepScreenView::handleGestureEvent(const GestureEvent& evt) //rkdalfks
+//{
+//    if (evt.getType() == GestureEvent::SWIPE_HORIZONTAL)
+//    {
+//    	int deltaX = evt.getVelocity();
+//        //int deltaY = evt.getVelocityY();
+//
+//        //if(abs(deltaX)>abs(deltaY))
+//        //{
+//			if (deltaX > 0)
+//			{
+//				presenter->notifySwipeRight();
+//			}
+//        //}
+//    }
+//    SleepScreenViewBase::handleGestureEvent(evt);
+//}
 
 void SleepScreenView::handleSwipeRight() //rkdalfks
 {
     // 화면 전환 코드
     application().gotoHomeScreenWithBiodataScreenWipeTransitionWest();
+}
+
+#include "bl6133.h"
+extern GESTURE gesture;
+void SleepScreenView::handleTickEvent(){
+	if(gesture == SlideRight){
+		presenter->notifySwipeRight();
+	}
 }

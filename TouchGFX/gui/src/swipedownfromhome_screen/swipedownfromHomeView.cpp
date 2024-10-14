@@ -32,23 +32,23 @@ void swipedownfromHomeView::tearDownScreen()
     swipedownfromHomeViewBase::tearDownScreen();
 }
 
-void swipedownfromHomeView::handleGestureEvent(const GestureEvent& evt)
-{
-    if (evt.getType() == GestureEvent::SWIPE_VERTICAL && isDeltaYGreaterThanDeltaX)
-    {
-    	//int deltaX = evt.getVelocityX();
-        int deltaY = evt.getVelocity();
-
-        //if(abs(deltaY)>abs(deltaX))
-        //{
-			if (deltaY < 0)
-			{
-				presenter->notifySwipeUp();
-			}
-        //}
-    }
-    swipedownfromHomeViewBase::handleGestureEvent(evt);
-}
+//void swipedownfromHomeView::handleGestureEvent(const GestureEvent& evt)
+//{
+//    if (evt.getType() == GestureEvent::SWIPE_VERTICAL && isDeltaYGreaterThanDeltaX)
+//    {
+//    	//int deltaX = evt.getVelocityX();
+//        int deltaY = evt.getVelocity();
+//
+//        //if(abs(deltaY)>abs(deltaX))
+//        //{
+//			if (deltaY < 0)
+//			{
+//				presenter->notifySwipeUp();
+//			}
+//        //}
+//    }
+//    swipedownfromHomeViewBase::handleGestureEvent(evt);
+//}
 
 void swipedownfromHomeView::handleSwipeUp()
 {
@@ -93,4 +93,12 @@ void swipedownfromHomeView::handleDragEvent(const DragEvent& evt)
 		isDeltaYGreaterThanDeltaX = 0;
 	}
     swipedownfromHomeViewBase::handleDragEvent(evt);
+}
+
+#include "bl6133.h"
+extern GESTURE gesture;
+void swipedownfromHomeView::handleTickEvent(){
+	if(gesture == SlideUp){
+		presenter->notifySwipeUp();
+	}
 }

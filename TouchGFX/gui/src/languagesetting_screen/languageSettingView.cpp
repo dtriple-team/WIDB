@@ -21,23 +21,23 @@ void languageSettingView::tearDownScreen()
     languageSettingViewBase::tearDownScreen();
 }
 
-void languageSettingView::handleGestureEvent(const GestureEvent& evt) //rkdalfks
-{
-    if (evt.getType() == GestureEvent::SWIPE_HORIZONTAL)
-    {
-    	int deltaX = evt.getVelocity();
-        //int deltaY = evt.getVelocityY();
-
-        //if(abs(deltaX)>abs(deltaY))
-        //{
-			if (deltaX > 0)
-			{
-				presenter->notifySwipeRight();
-			}
-        //}
-    }
-    languageSettingViewBase::handleGestureEvent(evt);
-}
+//void languageSettingView::handleGestureEvent(const GestureEvent& evt) //rkdalfks
+//{
+//    if (evt.getType() == GestureEvent::SWIPE_HORIZONTAL)
+//    {
+//    	int deltaX = evt.getVelocity();
+//        //int deltaY = evt.getVelocityY();
+//
+//        //if(abs(deltaX)>abs(deltaY))
+//        //{
+//			if (deltaX > 0)
+//			{
+//				presenter->notifySwipeRight();
+//			}
+//        //}
+//    }
+//    languageSettingViewBase::handleGestureEvent(evt);
+//}
 
 void languageSettingView::handleSwipeRight() //rkdalfks
 {
@@ -68,4 +68,12 @@ void languageSettingView::updateLanguageSelection()
 	radioButton1.invalidate();
 	radioButton2.invalidate();
 	radioButton3.invalidate();
+}
+
+#include "bl6133.h"
+extern GESTURE gesture;
+void languageSettingView::handleTickEvent(){
+	if(gesture == SlideRight){
+		presenter->notifySwipeRight();
+	}
 }

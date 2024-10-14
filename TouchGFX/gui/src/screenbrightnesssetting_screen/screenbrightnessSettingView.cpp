@@ -23,23 +23,23 @@ void screenbrightnessSettingView::tearDownScreen()
     screenbrightnessSettingViewBase::tearDownScreen();
 }
 
-void screenbrightnessSettingView::handleGestureEvent(const GestureEvent& evt)
-{
-    if (evt.getType() == GestureEvent::SWIPE_HORIZONTAL)
-    {
-    	int deltaX = evt.getVelocity();
-        //int deltaY = evt.getVelocityY();
-
-        //if(abs(deltaX)>abs(deltaY))
-        //{
-			if (deltaX > 0)
-			{
-				presenter->notifySwipeRight();
-			}
-        //}
-    }
-    screenbrightnessSettingViewBase::handleGestureEvent(evt);
-}
+//void screenbrightnessSettingView::handleGestureEvent(const GestureEvent& evt)
+//{
+//    if (evt.getType() == GestureEvent::SWIPE_HORIZONTAL)
+//    {
+//    	int deltaX = evt.getVelocity();
+//        //int deltaY = evt.getVelocityY();
+//
+//        //if(abs(deltaX)>abs(deltaY))
+//        //{
+//			if (deltaX > 0)
+//			{
+//				presenter->notifySwipeRight();
+//			}
+//        //}
+//    }
+//    screenbrightnessSettingViewBase::handleGestureEvent(evt);
+//}
 
 void screenbrightnessSettingView::handleSwipeRight()
 {
@@ -52,4 +52,12 @@ void screenbrightnessSettingView::slider1ChangedHandler(const Slider& src, int v
 {
     presenter->updateSlider1Value(value);
     set_bLevel = value/6.67+1;
+}
+
+#include "bl6133.h"
+extern GESTURE gesture;
+void screenbrightnessSettingView::handleTickEvent(){
+	if(gesture == SlideRight){
+		presenter->notifySwipeRight();
+	}
 }

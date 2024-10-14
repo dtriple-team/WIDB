@@ -11,9 +11,11 @@ public:
     virtual ~networkInfoSettingView() {}
     virtual void setupScreen();
     virtual void tearDownScreen();
-    virtual void handleGestureEvent(const GestureEvent& evt);
+//    virtual void handleGestureEvent(const GestureEvent& evt);
 
     void handleSwipeRight();
+
+    virtual void handleTickEvent();
 protected:
 
 private:

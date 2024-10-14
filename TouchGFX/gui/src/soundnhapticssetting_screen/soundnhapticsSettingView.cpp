@@ -26,23 +26,23 @@ void soundnhapticsSettingView::tearDownScreen()
     soundnhapticsSettingViewBase::tearDownScreen();
 }
 
-void soundnhapticsSettingView::handleGestureEvent(const GestureEvent& evt)
-{
-    if (evt.getType() == GestureEvent::SWIPE_HORIZONTAL)
-    {
-    	int deltaX = evt.getVelocity();
-        //int deltaY = evt.getVelocityY();
-
-        //if(abs(deltaX)>abs(deltaY))
-        //{
-			if (deltaX > 0)
-			{
-				presenter->notifySwipeRight();
-			}
-        //}
-    }
-    soundnhapticsSettingViewBase::handleGestureEvent(evt);
-}
+//void soundnhapticsSettingView::handleGestureEvent(const GestureEvent& evt)
+//{
+//    if (evt.getType() == GestureEvent::SWIPE_HORIZONTAL)
+//    {
+//    	int deltaX = evt.getVelocity();
+//        //int deltaY = evt.getVelocityY();
+//
+//        //if(abs(deltaX)>abs(deltaY))
+//        //{
+//			if (deltaX > 0)
+//			{
+//				presenter->notifySwipeRight();
+//			}
+//        //}
+//    }
+//    soundnhapticsSettingViewBase::handleGestureEvent(evt);
+//}
 
 void soundnhapticsSettingView::handleSwipeRight()
 {
@@ -69,4 +69,12 @@ void soundnhapticsSettingView::toggleButton2Clicked(const touchgfx::AbstractButt
 void soundnhapticsSettingView::updateToggleButton2State(bool state)
 {
 	sound_togglebutton.forceState(state);
+}
+
+#include "bl6133.h"
+extern GESTURE gesture;
+void soundnhapticsSettingView::handleTickEvent(){
+	if(gesture == SlideRight){
+		presenter->notifySwipeRight();
+	}
 }

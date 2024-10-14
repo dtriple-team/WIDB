@@ -19,23 +19,23 @@ void Spo2ScreenView::tearDownScreen()
     Spo2ScreenViewBase::tearDownScreen();
 }
 
-void Spo2ScreenView::handleGestureEvent(const GestureEvent& evt) //rkdalfks
-{
-    if (evt.getType() == GestureEvent::SWIPE_HORIZONTAL)
-    {
-    	int deltaX = evt.getVelocity();
-        //int deltaY = evt.getVelocityY();
-
-        //if(abs(deltaX)>abs(deltaY))
-        //{
-			if (deltaX > 0)
-			{
-				presenter->notifySwipeRight();
-			}
-        //}
-    }
-    Spo2ScreenViewBase::handleGestureEvent(evt);
-}
+//void Spo2ScreenView::handleGestureEvent(const GestureEvent& evt) //rkdalfks
+//{
+//    if (evt.getType() == GestureEvent::SWIPE_HORIZONTAL)
+//    {
+//    	int deltaX = evt.getVelocity();
+//        //int deltaY = evt.getVelocityY();
+//
+//        //if(abs(deltaX)>abs(deltaY))
+//        //{
+//			if (deltaX > 0)
+//			{
+//				presenter->notifySwipeRight();
+//			}
+//        //}
+//    }
+//    Spo2ScreenViewBase::handleGestureEvent(evt);
+//}
 
 void Spo2ScreenView::handleSwipeRight() //rkdalfks
 {
@@ -49,3 +49,10 @@ void Spo2ScreenView::changeSpo2Val(){
 	spo2_value.invalidate();
 }
 
+#include "bl6133.h"
+extern GESTURE gesture;
+void Spo2ScreenView::handleTickEvent(){
+	if(gesture == SlideRight){
+		presenter->notifySwipeRight();
+	}
+}

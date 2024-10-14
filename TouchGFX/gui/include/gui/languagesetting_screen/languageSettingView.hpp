@@ -12,10 +12,12 @@ public:
     virtual ~languageSettingView() {}
     virtual void setupScreen();
     virtual void tearDownScreen();
-    virtual void handleGestureEvent(const GestureEvent& evt);
+//    virtual void handleGestureEvent(const GestureEvent& evt);
 
     void handleSwipeRight();
     void updateLanguageSelection();
+
+    virtual void handleTickEvent();
 protected:
 
 private:

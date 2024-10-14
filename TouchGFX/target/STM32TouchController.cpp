@@ -38,6 +38,7 @@ void STM32TouchController::init()
 }
 uint8_t touchData[6] = {0,};
 GESTURE gesture = None;
+GESTURE lastGesture = None;
 extern uint8_t occurred_touchInterrupt;
 bool STM32TouchController::sampleTouch(int32_t& x, int32_t& y)
 {
@@ -52,7 +53,9 @@ bool STM32TouchController::sampleTouch(int32_t& x, int32_t& y)
      *
      */
 
-	if(!occurred_touchInterrupt) return false;
+	if(!occurred_touchInterrupt) return false; // 홀수 인터럽트 잘 동작,.. 짝수는 이상함
+
+	brightness_count = 0;
 
 	//	uint8_t touchData[6] = {0,};
 	uint8_t err = readTouchData(touchData, sizeof(touchData));
@@ -61,13 +64,19 @@ bool STM32TouchController::sampleTouch(int32_t& x, int32_t& y)
 	if(err) return false;
 
 	gesture = static_cast<GESTURE>(touchData[0]);
+	HAL_Delay(20); // debouncing
 	switch(gesture){
 		case None:
-			break;
-		default:
-			brightness_count = 0;
 			x = read_x(touchData);
 			y = read_y(touchData);
+			break;
+		case SingleTap:
+			x = read_x(touchData);
+			y = read_y(touchData);
+			lastGesture = gesture;
+			break;
+		default: // slide interrupt
+			lastGesture = gesture;
 	}
 	return true;
 

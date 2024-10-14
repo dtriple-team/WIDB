@@ -11,11 +11,13 @@ public:
     virtual ~screenbrightnessSettingView() {}
     virtual void setupScreen();
     virtual void tearDownScreen();
-    virtual void handleGestureEvent(const GestureEvent& evt);
+//    virtual void handleGestureEvent(const GestureEvent& evt);
 
     void handleSwipeRight();
 
     void slider1Changed(int value);
+
+    virtual void handleTickEvent();
 protected:
     Callback<screenbrightnessSettingView, const Slider&, int> slider1ChangedCallback;
     void slider1ChangedHandler(const Slider& src, int value);

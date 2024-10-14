@@ -25,23 +25,23 @@ void screenontimeSettingView::tearDownScreen()
     screenontimeSettingViewBase::tearDownScreen();
 }
 
-void screenontimeSettingView::handleGestureEvent(const GestureEvent& evt)
-{
-    if (evt.getType() == GestureEvent::SWIPE_HORIZONTAL)
-    {
-    	int deltaX = evt.getVelocity();
-        //int deltaY = evt.getVelocityY();
-
-        //if(abs(deltaX)>abs(deltaY))
-        //{
-			if (deltaX > 0)
-			{
-				presenter->notifySwipeRight();
-			}
-        //}
-    }
-    screenontimeSettingViewBase::handleGestureEvent(evt);
-}
+//void screenontimeSettingView::handleGestureEvent(const GestureEvent& evt)
+//{
+//    if (evt.getType() == GestureEvent::SWIPE_HORIZONTAL)
+//    {
+//    	int deltaX = evt.getVelocity();
+//        //int deltaY = evt.getVelocityY();
+//
+//        //if(abs(deltaX)>abs(deltaY))
+//        //{
+//			if (deltaX > 0)
+//			{
+//				presenter->notifySwipeRight();
+//			}
+//        //}
+//    }
+//    screenontimeSettingViewBase::handleGestureEvent(evt);
+//}
 
 void screenontimeSettingView::handleSwipeRight()
 {
@@ -69,4 +69,12 @@ void screenontimeSettingView::changeScreenOnTime(){
 		local_screenOnTime = 20;
 	}
 	screenOnTime = (uint8_t)local_screenOnTime;
+}
+
+#include "bl6133.h"
+extern GESTURE gesture;
+void screenontimeSettingView::handleTickEvent(){
+	if(gesture == SlideRight){
+		presenter->notifySwipeRight();
+	}
 }

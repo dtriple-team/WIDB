@@ -11,11 +11,12 @@ public:
     virtual ~StepsScreenView() {}
     virtual void setupScreen();
     virtual void tearDownScreen();
-    virtual void handleGestureEvent(const GestureEvent& evt); //rkdalfks
+//    virtual void handleGestureEvent(const GestureEvent& evt); //rkdalfks
 
     void handleSwipeRight(); //rkdalfks
 
     virtual void changeStepVal();
+    virtual void handleTickEvent();
 protected:
 
 private: //rkdalfks
