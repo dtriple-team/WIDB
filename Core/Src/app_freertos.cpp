@@ -142,6 +142,7 @@ uint8_t ssRunFlag = 0;
 uint8_t initFlag = 0;
 uint8_t pmicInitFlag = 0;
 uint8_t wpmInitFlag = 0;
+uint8_t lcdInitFlag = 0;
 
 extern uint8_t nrf9160_checked;
 
@@ -281,6 +282,8 @@ void StartlcdTask(void *argument)
 	ST7789_gpio_setting();
 	ST7789_Init();
 	ST7789_brightness_setting(set_bLevel);
+
+	lcdInitFlag = 1;
 
 	touchgfxSignalVSync();
 	MX_TouchGFX_Process();
@@ -461,6 +464,8 @@ void StartSecTimerTask(void *argument)
 
 	extern uint8_t secTime;
 
+	while(!lcdInitFlag);
+
   /* Infinite loop */
   for(;;)
   {
@@ -469,11 +474,10 @@ void StartSecTimerTask(void *argument)
 //		if(bLevelCtrlTimCount*100 > 300){ // bright ctrl add delay
 	bLevelCtrlTimCount = 0;
 	// change parameter val
-	uint8_t changeBLevel = 0;
 	if(now_bLevel != set_bLevel){
 		now_bLevel = set_bLevel;
+//		HAL_Delay(100);
 		ST7789_brightness_setting(now_bLevel);
-		changeBLevel = 1;
 	}
 
 	// screenOnTime == brightness_count�?????? ?���?????? ?���?????? 꺼라
@@ -497,13 +501,13 @@ void StartSecTimerTask(void *argument)
 		pre_secTime = secTime;
 
 		// turn on LCD backlight (in screenOnTime, active only one)
-		if(brightness_count < screenOnTime){
-			if(changeBLevel){
-				ST7789_brightness_setting(set_bLevel);
-				changeBLevel = 0;
-			}
+		if(brightness_count == 0){
+			ST7789_brightness_setting(set_bLevel);
 			brightness_count++;
 			now_sleepmode = 0;
+		}
+		else if(brightness_count < screenOnTime){
+			brightness_count++;
 		}
 		// turn off LCD backlight (out of screenOnTime)
 		else if(brightness_count >= screenOnTime){
