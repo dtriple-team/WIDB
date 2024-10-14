@@ -40,6 +40,69 @@ typedef struct {
   uint8_t time[30];
 } cat_m1_at_cmd_rst_t;
 
+typedef struct {
+  uint8_t bid[10];
+  uint8_t pid[2];
+  uint8_t rssi[1];
+  uint8_t start_byte[1];
+  uint8_t hr[1];
+  uint8_t spo2[1];
+  uint8_t motionFlag[1];
+  uint8_t scdState[1];
+  uint8_t activity[1];
+  uint8_t walk_steps[4];
+  uint8_t run_steps[4];
+  uint8_t temperature[1];
+  uint8_t pres[4];
+  uint8_t battery_level[1];
+} cat_m1_Status_Band_t;
+
+typedef struct {
+  uint8_t hr_alert[1];
+  uint8_t spo2_alert[1];
+} cat_m1_Status_BandAler_t;
+
+typedef struct {
+  uint8_t type[1];
+  uint8_t fall_detect[1];
+} cat_m1_Status_FallDetection_t;
+
+typedef struct {
+  uint8_t lat[1];
+  uint8_t lng[1];
+  uint8_t alt[1];
+  uint8_t accuracy[1];
+  uint8_t speed[1];
+  uint8_t heading[1];
+} cat_m1_Status_GPS_Location_t;
+
+typedef struct {
+  int8_t acc_x[2];
+  int8_t acc_y[2];
+  int8_t acc_z[2];
+
+  int8_t gyro_x[2];
+  int8_t gyro_y[2];
+  int8_t gyro_z[2];
+
+  int8_t mag_x[2];
+  int8_t mag_y[2];
+  int8_t mag_z[2];
+} cat_m1_Status_IMU_t;
+
+typedef struct {
+  uint8_t hr_min[1];
+  uint8_t hr_max[1];
+  uint8_t spo2_min[1];
+  uint8_t spo2_max[1];
+  uint8_t height[1];
+  uint8_t weight[1];
+} cat_m1_Status_BandSet_t;
+
+typedef struct {
+  uint8_t alert[1];
+} cat_m1_Status_ServerAlert_t;
+
 extern uart_cat_m1_t uart_cat_m1_rx;
 
 void clear_uart_buf(uart_cat_m1_t* u);
@@ -67,16 +130,19 @@ void nrf9160_check();
 void nrf9160_mqtt_setting();
 void nrf9160_mqtt_test();
 void test_send_json_publish();
-void send_json_publish(uint8_t shortAddress, uint8_t extAddressLow, uint8_t extAddressHigh,
-		uint8_t capabilityInfoLow, uint8_t capabilityInfoHigh,
-		uint8_t active, uint8_t pid,
-		uint8_t ambienceTemp, uint8_t objectTemp, uint8_t rawData,
-		uint8_t batteryLevel, uint8_t hrConfidence, uint8_t spo2Confidence,
-		uint8_t hr, uint8_t spo2,
-		uint8_t motionFlag, uint8_t scdState, uint8_t activity,
-		uint8_t walkSteps, uint8_t runSteps, uint8_t x, uint8_t y, uint8_t z,
-		uint8_t t, uint8_t h,
-		uint8_t rssi, uint8_t reportingInterval, uint8_t pollingInterval);
+void send_Status_Band(uint8_t* bid, uint8_t* pid, uint8_t* rssi,
+                       uint8_t* start_byte, uint8_t* hr, uint8_t* spo2,
+                       uint8_t* motionFlag, uint8_t* scdState, uint8_t* activity,
+                       uint8_t* walk_steps, uint8_t* run_steps, uint8_t* temperature,
+                       uint8_t* pres, uint8_t* battery_level);
+void send_Status_BandAlert(uint8_t* bid, uint8_t* hr_alert, uint8_t* spo2_alert);
+void send_Status_FallDetection(uint8_t* bid, uint8_t* type, uint8_t* fall_detect);
+void send_GPS_Location(uint8_t* bid, uint8_t* lat, uint8_t* lng, uint8_t* alt, uint8_t* accuracy,
+						uint8_t* speed, uint8_t* heading);
+void send_Status_IMU(uint8_t* bid, uint8_t* acc_x, uint8_t* acc_y, uint8_t* acc_z,
+		uint8_t* gyro_x, uint8_t* gyro_y, uint8_t* gyro_z,
+		uint8_t* mag_x, uint8_t* mag_y, uint8_t* mag_z);
+
 void nrf9160_Get_gps();
 void nrf9160_Get_gps_State();
 void nrf9160_Get_time();

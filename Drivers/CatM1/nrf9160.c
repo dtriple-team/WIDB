@@ -25,6 +25,14 @@ uint8_t cat_m1_gps_ret = 0;
 uart_cat_m1_t uart_cat_m1_rx;
 cat_m1_at_cmd_rst_t cat_m1_at_cmd_rst_rx;
 
+cat_m1_Status_Band_t cat_m1_Status_Band;
+cat_m1_Status_BandAler_t cat_m1_Status_BandAler;
+cat_m1_Status_FallDetection_t cat_m1_Status_FallDetection;
+cat_m1_Status_GPS_Location_t cat_m1_Status_GPS_Location;
+cat_m1_Status_IMU_t cat_m1_Status_IMU;
+cat_m1_Status_BandSet_t cat_m1_Status_BandSet;
+
+
 extern uint8_t wpmInitFlag;
 uint8_t nrf9160_checked = 0;
 
@@ -281,6 +289,12 @@ void uart_init()
 	clear_uart_buf(&uart_cat_m1_rx);
 	clear_uart_buf(&cat_m1_at_cmd_rst_rx);
 	clear_uart_buf(&uart_cat_m1_buf);
+	clear_uart_buf(&cat_m1_Status_Band);
+	clear_uart_buf(&cat_m1_Status_BandAler);
+	clear_uart_buf(&cat_m1_Status_FallDetection);
+	clear_uart_buf(&cat_m1_Status_GPS_Location);
+	clear_uart_buf(&cat_m1_Status_IMU);
+	clear_uart_buf(&cat_m1_Status_BandSet);
 }
 
 void nrf9160_init()
@@ -313,8 +327,9 @@ void nrf9160_check()
 {
 	HAL_Delay(100);
 	send_at_command("AT%XSYSTEMMODE=1,0,1,0\r\n");
-
-	HAL_Delay(100);
+	//send_at_command("AT%XSYSTEMMODE=0,0,1,0\r\n");
+//
+//	HAL_Delay(100);
 	if (send_at_command("AT+CFUN=1\r\n"))
 	{
 		//return true;
@@ -354,6 +369,7 @@ void nrf9160_mqtt_setting()
 	{
 		//return true;
 	}
+
 //	if (send_at_command("AT#XMQTTCON=1,\"\",\"\",\"broker.hivemq.com\",1883\r\n"))
 //	{
 //		//return true;
@@ -362,10 +378,10 @@ void nrf9160_mqtt_setting()
 //	{
 //		//return true;
 //	}
-//	if (send_at_command("AT#XMQTTCON=1,\"\",\"\",\"t-vsm.com\",18831\r\n"))
-//	{
-//		//return true;
-//	}
+	if (send_at_command("AT#XMQTTCON=1,\"\",\"\",\"t-vsm.com\",18831\r\n"))
+	{
+		//return true;
+	}
 	nrf9160_checked = 2;
 }
 
@@ -381,7 +397,7 @@ void nrf9160_mqtt_test()
 void test_send_json_publish(void)
 {
 	send_at_command("AT#XMQTTCON=1,\"\",\"\",\"t-vsm.com\",18831\r\n");
-	HAL_Delay(100);
+	HAL_Delay(300);
 	send_at_command("AT%XMONITOR\r\n");
 
 	// AT command to publish to the MQTT topic
@@ -446,73 +462,39 @@ void test_send_json_publish(void)
     {
         printf("Failed to send JSON message.\n");
     }
-    HAL_Delay(4000);
     send_at_command("AT#XMQTTCON=0\r\n");
+    HAL_Delay(4000);
 
 }
 
-void send_json_publish(uint8_t shortAddress, uint8_t extAddressLow, uint8_t extAddressHigh,
-		uint8_t capabilityInfoLow, uint8_t capabilityInfoHigh,
-		uint8_t active, uint8_t pid,
-		uint8_t ambienceTemp, uint8_t objectTemp, uint8_t rawData,
-		uint8_t batteryLevel, uint8_t hrConfidence, uint8_t spo2Confidence,
-		uint8_t hr, uint8_t spo2,
-		uint8_t motionFlag, uint8_t scdState, uint8_t activity,
-		uint8_t walkSteps, uint8_t runSteps, uint8_t x, uint8_t y, uint8_t z,
-		uint8_t t, uint8_t h,
-		uint8_t rssi, uint8_t reportingInterval, uint8_t pollingInterval)
+void send_Status_Band(uint8_t* bid, uint8_t* pid, uint8_t* rssi,
+                       uint8_t* start_byte, uint8_t* hr, uint8_t* spo2,
+                       uint8_t* motionFlag, uint8_t* scdState, uint8_t* activity,
+                       uint8_t* walk_steps, uint8_t* run_steps, uint8_t* temperature,
+                       uint8_t* pres, uint8_t* battery_level)
 {
-
-    // AT command to publish to the MQTT topic
-    const char *at_command = "AT#XMQTTPUB=\"/efwb/post/sync\"\r\n";
-
-    // Construct the JSON message dynamically
-    char mqtt_data[1024]; // Ensure this buffer is large enough for your JSON message
+    char mqtt_data[1024];
     snprintf(mqtt_data, sizeof(mqtt_data),
-        "{\"shortAddress\": %d,"
-        "\"extAddress\": {\"low\": %d, \"high\": %d, \"unsigned\": true},"
-        "\"capabilityInfo\": {\"low\": %d, \"high\": %d, \"unsigned\": true},"
-        "\"active\": \"%d\","
-        "\"pid\": \"%d\","
-        "\"temperaturesensor\": {\"ambienceTemp\": %d, \"objectTemp\": %d},"
-        "\"lightsensor\": {\"rawData\": %d},"
-        "\"bandData\": {"
-            "\"start_byte\": 170,"
-            "\"sample_count\": 6,"
-            "\"fall_detect\": 0,"
-            "\"battery_level\": %d,"
-            "\"hrConfidence\": %d,"
-            "\"spo2Confidence\": %d,"
-            "\"hr\": %d,"
-            "\"spo2\": %d,"
-            "\"motionFlag\": %d,"
-            "\"scdState\": %d,"
-            "\"activity\": %d,"
-            "\"walk_steps\": %d,"
-            "\"run_steps\": %d,"
-            "\"x\": %d,"
-            "\"y\": %d,"
-            "\"z\": %d,"
-            "\"t\": %d,"
-            "\"h\": %d"
-        "},"
+        "{\"bid\": %d,"
+        "\"pid\": %d,"
         "\"rssi\": %d,"
-        "\"reportingInterval\": %d,"
-        "\"pollingInterval\": \"%d\""
-        "}+++\r\n",
-        shortAddress, extAddressLow, extAddressHigh,
-        capabilityInfoLow, capabilityInfoHigh,
-        active, pid,
-        ambienceTemp, objectTemp, rawData,
-        batteryLevel, hrConfidence, spo2Confidence,
-        hr, spo2,
-        motionFlag, scdState, activity,
-        walkSteps, runSteps, x, y, z,
-        t, h,
-        rssi, reportingInterval, pollingInterval);
+        "\"start_byte\": %d,"
+        "\"hr\": %d,"
+        "\"spo2\": %d,"
+        "\"motionFlag\": %d,"
+        "\"scdState\": %d,"
+        "\"activity\": %d,"
+        "\"walk_steps\": %d,"
+        "\"run_steps\": %d,"
+        "\"temperature\": %d,"
+        "\"pres\": %d,"
+        "\"battery_level\": %d"
+    	"}+++\r\n",
+        bid[0], pid[0], rssi[0], start_byte[0], hr[0], spo2[0],
+        motionFlag[0], scdState[0], activity[0], walk_steps[0],
+        run_steps[0], temperature[0], pres[0], battery_level[0]);
 
-    // Send the AT command first
-    if (send_at_command(at_command))
+    if (send_at_command("AT#XMQTTPUB=\"/DT/eHG4/Status/Band\"\r\n"))
     {
         printf("AT command sent successfully.\n");
     } else
@@ -521,7 +503,6 @@ void send_json_publish(uint8_t shortAddress, uint8_t extAddressLow, uint8_t extA
         return;
     }
 
-    // Send the JSON message after the AT command is acknowledged
     if (send_at_command(mqtt_data))
     {
         printf("JSON message sent successfully.\n");
@@ -529,12 +510,147 @@ void send_json_publish(uint8_t shortAddress, uint8_t extAddressLow, uint8_t extA
     {
         printf("Failed to send JSON message.\n");
     }
+    send_at_command("AT#XMQTTCON=0\r\n");
+    HAL_Delay(4000);
+}
+
+void send_Status_BandAlert(uint8_t* bid, uint8_t* hr_alert, uint8_t* spo2_alert)
+{
+    char mqtt_data[1024];
+    snprintf(mqtt_data, sizeof(mqtt_data),
+        "{\"bid\": %d,"
+        "\"hr_alert\": %d,"
+        "\"spo2_alert\": %d,"
+    	"}+++\r\n",
+		bid[0], hr_alert[0], spo2_alert[0]);
+
+    if (send_at_command("AT#XMQTTPUB=\"/DT/eHG4/Status/BandAlert\"\r\n"))
+    {
+        printf("AT command sent successfully.\n");
+    } else
+    {
+        printf("Failed to send AT command.\n");
+        return;
+    }
+
+    if (send_at_command(mqtt_data))
+    {
+        printf("JSON message sent successfully.\n");
+    } else
+    {
+        printf("Failed to send JSON message.\n");
+    }
+    send_at_command("AT#XMQTTCON=0\r\n");
+    HAL_Delay(4000);
+}
+
+void send_Status_FallDetection(uint8_t* bid, uint8_t* type, uint8_t* fall_detect)
+{
+    char mqtt_data[1024];
+    snprintf(mqtt_data, sizeof(mqtt_data),
+        "{\"bid\": %d,"
+        "\"type\": %d,"
+        "\"fall_detect\": %d,"
+    	"}+++\r\n",
+		bid[0], type[0], fall_detect[0]);
+
+    if (send_at_command("AT#XMQTTPUB=\"/DT/eHG4/Status/FallDetection\"\r\n"))
+    {
+        printf("AT command sent successfully.\n");
+    } else
+    {
+        printf("Failed to send AT command.\n");
+        return;
+    }
+
+    if (send_at_command(mqtt_data))
+    {
+        printf("JSON message sent successfully.\n");
+    } else
+    {
+        printf("Failed to send JSON message.\n");
+    }
+    send_at_command("AT#XMQTTCON=0\r\n");
+    HAL_Delay(4000);
+}
+
+void send_GPS_Location(uint8_t* bid, uint8_t* lat, uint8_t* lng, uint8_t* alt, uint8_t* accuracy,
+						uint8_t* speed, uint8_t* heading)
+{
+    char mqtt_data[1024];
+    snprintf(mqtt_data, sizeof(mqtt_data),
+        "{\"bid\": %d,"
+        "\"lat\": %d,"
+        "\"lng\": %d,"
+		"\"alt\": %d,"
+		"\"accuracy\": %d,"
+		"\"speed\": %d,"
+		"\"heading\": %d,"
+    	"}+++\r\n",
+		bid[0], lat[0], lng[0], alt[0], accuracy[0], speed[0], heading[0]);
+
+    if (send_at_command("AT#XMQTTPUB=\"/DT/eHG4/GPS/Location\"\r\n"))
+    {
+        printf("AT command sent successfully.\n");
+    } else
+    {
+        printf("Failed to send AT command.\n");
+        return;
+    }
+
+    if (send_at_command(mqtt_data))
+    {
+        printf("JSON message sent successfully.\n");
+    } else
+    {
+        printf("Failed to send JSON message.\n");
+    }
+    send_at_command("AT#XMQTTCON=0\r\n");
+    HAL_Delay(4000);
+}
+
+void send_Status_IMU(uint8_t* bid, uint8_t* acc_x, uint8_t* acc_y, uint8_t* acc_z,
+		uint8_t* gyro_x, uint8_t* gyro_y, uint8_t* gyro_z,
+		uint8_t* mag_x, uint8_t* mag_y, uint8_t* mag_z)
+{
+    char mqtt_data[1024];
+    snprintf(mqtt_data, sizeof(mqtt_data),
+        "{\"bid\": %d,"
+        "\"acc_x\": %d,"
+        "\"acc_y\": %d,"
+		"\"acc_z\": %d,"
+		"\"gyro_x\": %d,"
+		"\"gyro_y\": %d,"
+		"\"gyro_z\": %d,"
+		"\"mag_x\": %d,"
+		"\"mag_y\": %d,"
+		"\"mag_z\": %d,"
+    	"}+++\r\n",
+		bid[0], acc_x[0], acc_y[0], acc_z[0], gyro_x[0], gyro_y[0], gyro_z[0], mag_x[0], mag_y[0], mag_z[0]);
+
+    if (send_at_command("AT#XMQTTPUB=\"/DT/eHG4/Status/IMU\"\r\n"))
+    {
+        printf("AT command sent successfully.\n");
+    } else
+    {
+        printf("Failed to send AT command.\n");
+        return;
+    }
+
+    if (send_at_command(mqtt_data))
+    {
+        printf("JSON message sent successfully.\n");
+    } else
+    {
+        printf("Failed to send JSON message.\n");
+    }
+    send_at_command("AT#XMQTTCON=0\r\n");
     HAL_Delay(4000);
 }
 
 void nrf9160_Get_gps()
 {
-	send_at_command("AT#XGPS=1,0,0,60\r\n");
+	send_at_command("AT#XGPS=1,0,0,180\r\n");
 	//send_at_command("AT+CFUN=0\r\n");
 	//send_at_command("AT%XSYSTEMMODE=1,0,1,0\r\n");
 	//send_at_command("AT+CFUN=31\r\n");

@@ -72,13 +72,15 @@ uint8_t brightness_count = 0;
 
 uint8_t now_sleepmode = 0;
 
-#define mqtt_operation_cycle 30
+#define mqtt_operation_cycle 60*1
 uint8_t mqttTime = 0;
-bool mqttFlag = true;
+bool mqttFlag = false;
 
 #define gps_operation_cycle 60*5
 uint8_t gpsTime = 0;
 bool gpsFlag = true;
+
+extern cat_m1_Status_Band_t cat_m1_Status_Band;
 
 uint16_t ssHr = 0;
 uint16_t ssSpo2 = 0;
@@ -363,12 +365,37 @@ void StartWPMTask(void *argument)
 	{
 		//nrf9160_Get_gps();
 		if(mqttFlag)
-		{	nrf9160_Get_gps_State();
-			test_send_json_publish();
+		{
+			nrf9160_Get_gps_State();
+			//test_send_json_publish();
+			//send_json_publish(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 50, 0, 0, ssHr, ssSpo2, 0, (lcd_ssDataEx.algo.SCDstate == 3), 0, ssWalk, ssWalk, test_mag_data[9], test_mag_data[10], test_mag_data[11], test_mag_data[3], test_mag_data[13], 0, 0, 0);
+		cat_m1_Status_Band_t cat_m1_Status_Band =
+		{
+		        .bid = {1, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+		        .pid = {2, 0},
+		        .rssi = {3},
+		        .start_byte = {170},
+		        .hr = {80},
+		        .spo2 = {95},
+		        .motionFlag = {1},
+		        .scdState = {0},
+		        .activity = {2},
+		        .walk_steps = {10, 0, 0, 0},
+		        .run_steps = {5, 0, 0, 0},
+		        .temperature = {36},
+		        .pres = {123, 0, 0, 0},
+		        .battery_level = {90}
+		 };
+
+			send_Status_Band(cat_m1_Status_Band.bid, cat_m1_Status_Band.pid, cat_m1_Status_Band.rssi,
+		                     cat_m1_Status_Band.start_byte, cat_m1_Status_Band.hr, cat_m1_Status_Band.spo2,
+		                     cat_m1_Status_Band.motionFlag, cat_m1_Status_Band.scdState, cat_m1_Status_Band.activity,
+		                     cat_m1_Status_Band.walk_steps, cat_m1_Status_Band.run_steps, cat_m1_Status_Band.temperature,
+		                     cat_m1_Status_Band.pres, cat_m1_Status_Band.battery_level);
 			mqttFlag = false;
 		}
-		//send_json_publish(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 50, 0, 0, ssHr, ssSpo2, 0, (lcd_ssDataEx.algo.SCDstate == 3), 0, ssWalk, ssWalk, test_mag_data[9], test_mag_data[10], test_mag_data[11], test_mag_data[3], test_mag_data[13], 0, 0, 0);
-//		send_json_publish(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 50, 0, 0, 1, 2, 0, 3, 0, 4, 5, 6, 7, 3, 1, 2, 0, 0, 0);
+
+		//send_json_publish(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 50, 0, 0, 1, 2, 0, 3, 0, 4, 5, 6, 7, 3, 1, 2, 0, 0, 0);
 		if(gpsFlag)
 		{
 			nrf9160_Get_gps();
