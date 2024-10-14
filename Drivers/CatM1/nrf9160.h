@@ -59,14 +59,14 @@ bool cat_m1_parse_process(uint8_t *msg);
 void cat_m1_parse_result(const char *command, const char *value);
 
 // nRF9160 Modem Interaction
-void uart_init(void);
-void nrf9160_init(void);
-void nrf9160_ready(void);
-void nrf9160_check(void);
+void uart_init();
+void nrf9160_init();
+void nrf9160_ready();
+void nrf9160_check();
 
-void nrf9160_mqtt_setting(void);
-void nrf9160_mqtt_test(void);
-void test_send_json_publish(void);
+void nrf9160_mqtt_setting();
+void nrf9160_mqtt_test();
+void test_send_json_publish();
 void send_json_publish(uint8_t shortAddress, uint8_t extAddressLow, uint8_t extAddressHigh,
 		uint8_t capabilityInfoLow, uint8_t capabilityInfoHigh,
 		uint8_t active, uint8_t pid,
@@ -78,7 +78,8 @@ void send_json_publish(uint8_t shortAddress, uint8_t extAddressLow, uint8_t extA
 		uint8_t t, uint8_t h,
 		uint8_t rssi, uint8_t reportingInterval, uint8_t pollingInterval);
 void nrf9160_Get_gps();
+void nrf9160_Get_gps_State();
 void nrf9160_Get_time();
-void catM1PWRGPIOInit(void);
+void catM1PWRGPIOInit();
 
 #endif /* CATM1_NRF9160_H_ */
