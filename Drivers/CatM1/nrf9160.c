@@ -17,7 +17,10 @@
 uint8_t uart_cat_m1_buf[MINMEA_MAX_SENTENCE_LENGTH] = {0, };
 uint8_t cat_m1_parse_cnt = 0;
 uint8_t cat_m1_parse_ret = 0;
+uint8_t cat_m1_boot_cnt = 0;
+uint8_t cat_m1_error_cnt = 0;
 uint8_t cat_m1_connection_status = 0;
+uint8_t cat_m1_gps_ret = 0;
 
 uart_cat_m1_t uart_cat_m1_rx;
 cat_m1_at_cmd_rst_t cat_m1_at_cmd_rst_rx;
@@ -63,7 +66,6 @@ uint8_t pop(uart_cat_m1_t* u)
   {
     u->tail = 0;
   }
-
   return data;
 }
 
@@ -83,9 +85,8 @@ bool send_at_command(const char *cmd)
         {
             return true;
         }
-        HAL_Delay(1000);
+        HAL_Delay(800);
     }
-
     return false;
 }
 
@@ -106,11 +107,13 @@ bool receive_at_command_ret()
 bool receive_response(void)
 {
     // 버퍼가 비어 있지 않으면 데이터를 처리
-    if (isEmpty(&uart_cat_m1_rx) == 0) {
+    if (isEmpty(&uart_cat_m1_rx) == 0)
+    {
         uart_cat_m1_rx.rxd = pop(&uart_cat_m1_rx);
 
         // '\r' 또는 '\n'이 수신되면 현재까지의 버퍼 내용을 처리
-        if (uart_cat_m1_rx.rxd == '\r' || uart_cat_m1_rx.rxd == '\n') {
+        if (uart_cat_m1_rx.rxd == '\r' || uart_cat_m1_rx.rxd == '\n')
+        {
             // '\r' 또는 '\n'도 버퍼에 추가
             uart_cat_m1_buf[cat_m1_parse_cnt] = uart_cat_m1_rx.rxd;
             cat_m1_parse_cnt++;
@@ -122,7 +125,8 @@ bool receive_response(void)
             // 버퍼 초기화 및 카운터 리셋
             memset(&uart_cat_m1_buf, 0, MINMEA_MAX_SENTENCE_LENGTH);
             cat_m1_parse_cnt = 0;
-        } else {
+        } else
+        {
             // '\r' 또는 '\n'이 아닌 문자들은 버퍼에 저장
             if (cat_m1_parse_cnt < MINMEA_MAX_SENTENCE_LENGTH - 1) {  // 버퍼 크기 제한 체크
                 uart_cat_m1_buf[cat_m1_parse_cnt] = uart_cat_m1_rx.rxd;
@@ -162,7 +166,6 @@ bool cat_m1_parse_process(uint8_t *msg)
         //printf("Value: %s\r\n", value);
 
         cat_m1_parse_result((char *)command, (char *)value);
-
     }
     else
     {
@@ -170,19 +173,40 @@ bool cat_m1_parse_process(uint8_t *msg)
 		{
 			printf("Response: Ready\r\n");
 			cat_m1_parse_ret = 1;
+			cat_m1_boot_cnt++;
+			printf("cat_m1_boot_cnt >>> %d\r\n",cat_m1_boot_cnt);
+			if (cat_m1_boot_cnt >= 2)
+			{
+				wpmInitFlag = 0;
+				nrf9160_checked = 0;
+				cat_m1_connection_status = 0;
+				catM1PWRGPIOInit();
+				send_at_command("AT+CFUN=0\r\n");
+				send_at_command("AT+CFUN=1\r\n");
+			}
 		}
     	else if (strstr((char *)msg, "OK"))
         {
             printf("Response: OK\r\n");
             cat_m1_parse_ret = 1;
+            cat_m1_error_cnt = 0;
         }
         else if (strstr((char *)msg, "ERROR"))
         {
             printf("Response: ERROR\r\n");
             cat_m1_parse_ret = 0;
+            cat_m1_error_cnt++;
+			if (cat_m1_error_cnt >= 5)
+			{
+				wpmInitFlag = 0;
+				nrf9160_checked = 0;
+				cat_m1_connection_status = 0;
+				catM1PWRGPIOInit();
+				send_at_command("AT+CFUN=0\r\n");
+				send_at_command("AT+CFUN=1\r\n");
+			}
         }
     }
-
     return false;
 }
 
@@ -206,10 +230,7 @@ void cat_m1_parse_result(const char *command, const char *value)
         {
             cat_m1_connection_status = 0;
         }
-
         strcpy(cat_m1_at_cmd_rst_rx.cops, (const char *)value);
-
-
     }
     if (strstr(command, "+CGDCONT") != NULL)
     {
@@ -226,12 +247,30 @@ void cat_m1_parse_result(const char *command, const char *value)
     if (strstr(command, "%XMONITOR") != NULL)
     {
         printf("4>>>\r\n");
-        strcpy(cat_m1_at_cmd_rst_rx.rssi, (const char *)value);
-        PRINT_INFO("ICCID result >>> %s\r\n", cat_m1_at_cmd_rst_rx.rssi);
+        strcpy(cat_m1_at_cmd_rst_rx.networkinfo, (const char *)value);
+        PRINT_INFO("ICCID result >>> %s\r\n", cat_m1_at_cmd_rst_rx.networkinfo);
     }
-
-
-
+    if (strstr(command, "#XGPS") != NULL)
+	{
+		printf("5>>>\r\n");
+		int gps_length = strlen(value);
+		if (gps_length > 10)
+        {
+        	cat_m1_gps_ret = 1;
+        }
+        else
+        {
+        	cat_m1_gps_ret = 0;
+        }
+		strcpy(cat_m1_at_cmd_rst_rx.gps, (const char *)value);
+		PRINT_INFO("GPS result >>> %s\r\n", cat_m1_at_cmd_rst_rx.gps);
+	}
+    if (strstr(command, "+CCLK") != NULL)
+    {
+        printf("6>>>\r\n");
+        strcpy(cat_m1_at_cmd_rst_rx.time, (const char *)value);
+        PRINT_INFO("CCLK result >>> %s\r\n", cat_m1_at_cmd_rst_rx.time);
+    }
 }
 
 // Initialize UART
@@ -240,6 +279,7 @@ void uart_init()
 	HAL_UART_Receive_IT(&huart1, &uart_cat_m1_rx.temp, 1);
 	clear_uart_buf(&uart_cat_m1_rx);
 	clear_uart_buf(&cat_m1_at_cmd_rst_rx);
+	clear_uart_buf(&uart_cat_m1_buf);
 }
 
 void nrf9160_init()
@@ -250,8 +290,8 @@ void nrf9160_init()
 
 void nrf9160_ready(void)
 {
-	while (!wpmInitFlag)
-	{
+//	while (!wpmInitFlag)
+//	{
 		//cat_m1_send("AT\r\n");
 		//cat_m1_recv("OK");
 		if (receive_at_command_ret())
@@ -264,8 +304,8 @@ void nrf9160_ready(void)
 			PRINT_INFO("Cat.M1 already available\r\n");
 			wpmInitFlag = 1;
 		}
-		HAL_Delay(1000);
-	}
+	//	HAL_Delay(1000);
+	//}
 }
 
 void nrf9160_check()
@@ -320,7 +360,6 @@ void nrf9160_mqtt_setting()
 //	{
 //		//return true;
 //	}
-
 	if (send_at_command("AT#XMQTTCON=1,\"\",\"\",\"t-vsm.com\",18831\r\n"))
 	{
 		//return true;
@@ -346,8 +385,8 @@ void test_send_json_publish(void)
     // JSON message to be published
     const char *json_message = "{\"msg\":\"Let's go home\"}+++\r\n";
 
-    char json_message_rssi[180];
-    sprintf(json_message_rssi, "{\"rssi\": \"%s\"}+++\r\n", cat_m1_at_cmd_rst_rx.rssi);
+    char json_message_networkinfo[180];
+    sprintf(json_message_networkinfo, "{\"networkinfo\": \"%s\"}+++\r\n", cat_m1_at_cmd_rst_rx.networkinfo);
 
 //	const char *mqtt_data = "{\"shortAddress\": 2,"
 //							"\"extAddress\": {\"low\": 285286663, \"high\": 0, \"unsigned\": true}+++\r\n";
@@ -385,17 +424,21 @@ void test_send_json_publish(void)
                             "}+++\r\n";
 
     // Send the AT command first
-    if (send_at_command(at_command)) {
+    if (send_at_command(at_command))
+    {
         printf("AT command sent successfully.\n");
-    } else {
+    } else
+    {
         printf("Failed to send AT command.\n");
         return;
     }
 
     // Send the JSON message after the AT command is acknowledged
-    if (send_at_command(json_message_rssi)) {
+    if (send_at_command(json_message_networkinfo))
+    {
         printf("JSON message sent successfully.\n");
-    } else {
+    } else
+    {
         printf("Failed to send JSON message.\n");
     }
     HAL_Delay(4000);
@@ -406,11 +449,12 @@ void send_json_publish(uint8_t shortAddress, uint8_t extAddressLow, uint8_t extA
 		uint8_t active, uint8_t pid,
 		uint8_t ambienceTemp, uint8_t objectTemp, uint8_t rawData,
 		uint8_t batteryLevel, uint8_t hrConfidence, uint8_t spo2Confidence,
-		uint16_t hr, uint16_t spo2,
+		uint8_t hr, uint8_t spo2,
 		uint8_t motionFlag, uint8_t scdState, uint8_t activity,
-		uint16_t walkSteps, uint16_t runSteps, double x, double y, double z,
-		double t, double h,
-		uint8_t rssi, uint8_t reportingInterval, uint8_t pollingInterval) {
+		uint8_t walkSteps, uint8_t runSteps, uint8_t x, uint8_t y, uint8_t z,
+		uint8_t t, uint8_t h,
+		uint8_t rssi, uint8_t reportingInterval, uint8_t pollingInterval)
+{
 
     // AT command to publish to the MQTT topic
     const char *at_command = "AT#XMQTTPUB=\"/efwb/post/sync\"\r\n";
@@ -461,26 +505,53 @@ void send_json_publish(uint8_t shortAddress, uint8_t extAddressLow, uint8_t extA
         rssi, reportingInterval, pollingInterval);
 
     // Send the AT command first
-    if (send_at_command(at_command)) {
+    if (send_at_command(at_command))
+    {
         printf("AT command sent successfully.\n");
-    } else {
+    } else
+    {
         printf("Failed to send AT command.\n");
         return;
     }
 
     // Send the JSON message after the AT command is acknowledged
-    if (send_at_command(mqtt_data)) {
+    if (send_at_command(mqtt_data))
+    {
         printf("JSON message sent successfully.\n");
-    } else {
+    } else
+    {
         printf("Failed to send JSON message.\n");
     }
-//    PRINT_INFO("%s\r\n", mqtt_data);
-    HAL_Delay(10000);
+    HAL_Delay(4000);
 }
 
-void catM1PWRGPIOInit(){
+void nrf9160_Get_gps()
+{
+	send_at_command("AT+CFUN=0\r\n");
+	send_at_command("AT%XSYSTEMMODE=0,0,1,0\r\n");
+	send_at_command("AT+CFUN=31\r\n");
+	send_at_command("AT#XGPS=1,0,0,0\r\n");
+	//위 과정 한번만 실행
+	if(cat_m1_gps_ret)
+	{
+		//#XGPS: 1,4 후 한번 더 #XGPS: 나오면 GPS 버퍼에 저장
+		send_at_command("AT+CFUN=0\r\n");
+		send_at_command("AT%XSYSTEMMODE=1,0,0,0\r\n");
+		send_at_command("AT+CFUN=1\r\n");
+	}
+	nrf9160_checked = 2;
+	//저장 이후 다시 AT+CFUN=1 변경
+}
+
+void nrf9160_Get_time()
+{
+	send_at_command("AT+CCLK?\r\n");
+}
+
+void catM1PWRGPIOInit()
+{
 	// PWR ON
-//	HAL_GPIO_WritePin(GPIOC, GPIO_PIN_6, GPIO_PIN_RESET);
-//	HAL_Delay(100);
+	HAL_GPIO_WritePin(GPIOC, GPIO_PIN_6, GPIO_PIN_RESET);
+	HAL_Delay(100);
 	HAL_GPIO_WritePin(GPIOC, GPIO_PIN_6, GPIO_PIN_SET);
 }

@@ -35,7 +35,9 @@ typedef struct {
   uint8_t cops[MAX_VALUE_LEN];
   uint8_t cgdcont[MAX_VALUE_LEN];
   uint8_t iccid[ICCID_LEN];
-  uint8_t rssi[180];
+  uint8_t networkinfo[180];
+  uint8_t gps[100];
+  uint8_t time[30];
 } cat_m1_at_cmd_rst_t;
 
 extern uart_cat_m1_t uart_cat_m1_rx;
@@ -70,12 +72,13 @@ void send_json_publish(uint8_t shortAddress, uint8_t extAddressLow, uint8_t extA
 		uint8_t active, uint8_t pid,
 		uint8_t ambienceTemp, uint8_t objectTemp, uint8_t rawData,
 		uint8_t batteryLevel, uint8_t hrConfidence, uint8_t spo2Confidence,
-		uint16_t hr, uint16_t spo2,
+		uint8_t hr, uint8_t spo2,
 		uint8_t motionFlag, uint8_t scdState, uint8_t activity,
-		uint16_t walkSteps, uint16_t runSteps, double x, double y, double z,
-		double t, double h,
+		uint8_t walkSteps, uint8_t runSteps, uint8_t x, uint8_t y, uint8_t z,
+		uint8_t t, uint8_t h,
 		uint8_t rssi, uint8_t reportingInterval, uint8_t pollingInterval);
-
+void nrf9160_Get_gps();
+void nrf9160_Get_time();
 void catM1PWRGPIOInit(void);
 
 #endif /* CATM1_NRF9160_H_ */

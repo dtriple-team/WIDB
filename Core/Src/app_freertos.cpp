@@ -351,6 +351,7 @@ void StartWPMTask(void *argument)
 	if(wpmInitFlag && nrf9160_checked == 1)
 	{
 		nrf9160_mqtt_setting();
+		//nrf9160_Get_gps();
 	}
 
 	if(wpmInitFlag && nrf9160_checked == 2)
@@ -464,7 +465,6 @@ void StartSecTimerTask(void *argument)
   for(;;)
   {
 	osDelay(100);
-
 
 //		if(bLevelCtrlTimCount*100 > 300){ // bright ctrl add delay
 	bLevelCtrlTimCount = 0;
