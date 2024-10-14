@@ -70,8 +70,6 @@ struct ssDataEx_format lcd_ssDataEx;
 uint8_t screenOnTime = 0;
 uint8_t brightness_count = 0;
 
-extern uint8_t secTime;
-
 uint8_t now_sleepmode = 0;
 
 uint16_t ssHr = 0;
@@ -461,6 +459,8 @@ void StartSecTimerTask(void *argument)
 	screenOnTime = 20;
 	uint8_t pre_brightness_count = 0;
 
+	extern uint8_t secTime;
+
   /* Infinite loop */
   for(;;)
   {
@@ -469,27 +469,48 @@ void StartSecTimerTask(void *argument)
 //		if(bLevelCtrlTimCount*100 > 300){ // bright ctrl add delay
 	bLevelCtrlTimCount = 0;
 	// change parameter val
+	uint8_t changeBLevel = 0;
 	if(now_bLevel != set_bLevel){
 		now_bLevel = set_bLevel;
 		ST7789_brightness_setting(now_bLevel);
+		changeBLevel = 1;
 	}
 
 	// screenOnTime == brightness_count�?????? ?���?????? ?���?????? 꺼라
 	// brightness_count == 0?���?????? 바�?�면 백라?��?���?????? 켜라
-	if(pre_secTime != secTime && secTime%1 == 0){ // 1sec
-		// turn off LCD backlight
-		if(brightness_count == 0 && pre_brightness_count >= screenOnTime){
-			ST7789_brightness_setting(set_bLevel);
+//	if(pre_secTime != secTime && secTime%1 == 0){ // 1sec
+//		// turn off LCD backlight
+//		if(brightness_count == 0 && pre_brightness_count >= screenOnTime){
+//			ST7789_brightness_setting(set_bLevel);
+//			now_sleepmode = 0;
+//		}
+//		else if(brightness_count >= screenOnTime && pre_brightness_count < screenOnTime){
+//			ST7789_brightness_setting(0);
+//			myBlackScreenView.changeToInitBlackScreen();
+//			now_sleepmode = 1;
+//		}
+//		pre_brightness_count = brightness_count;
+//		pre_secTime = secTime;
+//		brightness_count++;
+//	}
+	if(pre_secTime != secTime){ // 1sec
+		pre_secTime = secTime;
+
+		// turn on LCD backlight (in screenOnTime, active only one)
+		if(brightness_count < screenOnTime){
+			if(changeBLevel){
+				ST7789_brightness_setting(set_bLevel);
+				changeBLevel = 0;
+			}
+			brightness_count++;
 			now_sleepmode = 0;
 		}
-		else if(brightness_count >= screenOnTime && pre_brightness_count < screenOnTime){
+		// turn off LCD backlight (out of screenOnTime)
+		else if(brightness_count >= screenOnTime){
 			ST7789_brightness_setting(0);
 			myBlackScreenView.changeToInitBlackScreen();
 			now_sleepmode = 1;
 		}
-		pre_brightness_count = brightness_count;
-		pre_secTime = secTime;
-		brightness_count++;
 	}
   }
   /* USER CODE END secTimerTask */
