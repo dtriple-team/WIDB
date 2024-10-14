@@ -40,6 +40,7 @@ uint8_t touchData[6] = {0,};
 GESTURE gesture = None;
 GESTURE lastGesture = None;
 extern uint8_t occurred_touchInterrupt;
+uint8_t touchDetectFlag = 1;
 bool STM32TouchController::sampleTouch(int32_t& x, int32_t& y)
 {
     /**
@@ -55,7 +56,10 @@ bool STM32TouchController::sampleTouch(int32_t& x, int32_t& y)
 
 	if(!occurred_touchInterrupt) return false; // 홀수 인터럽트 잘 동작,.. 짝수는 이상함
 
-	brightness_count = 0;
+	touchDetectFlag = touchDetect(touchData);
+	if(!touchDetectFlag){
+		brightness_count = 0;
+	}
 
 	//	uint8_t touchData[6] = {0,};
 	uint8_t err = readTouchData(touchData, sizeof(touchData));
