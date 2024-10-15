@@ -221,7 +221,7 @@ void MX_FREERTOS_Init(void) {
   ppmTaskHandle = osThreadNew(StartPPMTask, NULL, &ppmTask_attributes);
 
   /* creation of wpmTask */
-//  wpmTaskHandle = osThreadNew(StartWPMTask, NULL, &wpmTask_attributes);
+  wpmTaskHandle = osThreadNew(StartWPMTask, NULL, &wpmTask_attributes);
 
   /* creation of spmTask */
   spmTaskHandle = osThreadNew(StartSPMTask, NULL, &spmTask_attributes);
@@ -290,7 +290,9 @@ void StartlcdTask(void *argument)
 	pmic_init();
 	pmicInitFlag = 1;
 
-	while(!pmicInitFlag);
+	while(!pmicInitFlag){
+		osDelay(10);
+	}
 //	HAL_Delay(5000); // 외부 전원 + 디버거 연결 시간
 	ST7789_gpio_setting();
 	ST7789_Init();
@@ -315,8 +317,9 @@ void StartlcdTask(void *argument)
 void StartPPMTask(void *argument)
 {
   /* USER CODE BEGIN ppmTask */
-	while(!pmicInitFlag);
-
+	while(!pmicInitFlag){
+		osDelay(10);
+	}
 //  BLE init
 	stm32wb5mmg_init();
 	stm32wb5mmg_adv_setting(&param_BLE_DATA);
@@ -340,14 +343,15 @@ void StartPPMTask(void *argument)
 void StartWPMTask(void *argument)
 {
   /* USER CODE BEGIN wpmTask */
-	while(!pmicInitFlag);
-
+	while(!pmicInitFlag){
+		osDelay(10);
+	}
 	// UART INT INIT, buffer init
 	nrf9160_init();
 
 	// CatM1 PWR GPIO ON
-	catM1PWRGPIOInit();
-	osDelay(1000);
+	catM1PWRGPIOInit(); // ->??
+	HAL_Delay(1000);
 
 	// CatM1 init
 	nrf9160_ready();
@@ -432,8 +436,9 @@ void StartWPMTask(void *argument)
 void StartSPMTask(void *argument)
 {
   /* USER CODE BEGIN spmTask */
-	while(!pmicInitFlag);
-
+	while(!pmicInitFlag){
+		osDelay(10);
+	}
 	// Smart Sensor Hub init
 	ssInit();
 	ssBegin();
@@ -502,8 +507,9 @@ void StartSPMTask(void *argument)
 void StartSecTimerTask(void *argument)
 {
   /* USER CODE BEGIN secTimerTask */
-	while(!pmicInitFlag);
-
+	while(!pmicInitFlag){
+		osDelay(10);
+	}
 	// using parameter init (default val)
 	uint8_t now_bLevel = set_bLevel;
 	uint8_t bLevelCtrlTimCount = 0;
@@ -514,8 +520,9 @@ void StartSecTimerTask(void *argument)
 
 	extern uint8_t secTime;
 
-	while(!lcdInitFlag);
-
+	while(!lcdInitFlag){
+		osDelay(10);
+	}
   /* Infinite loop */
   for(;;)
   {
@@ -623,8 +630,9 @@ extern cat_m1_Status_FallDetection_t cat_m1_Status_FallDetection;
 void StartCheckINTTask(void *argument)
 {
   /* USER CODE BEGIN checkINTTask */
-	while(!pmicInitFlag);
-
+	while(!pmicInitFlag){
+		osDelay(10);
+	}
 	double before_falling_pressure[PRESSURE_VAL_LEN] = {0,};
 	double after_falling_pressure[PRESSURE_VAL_LEN] = {0,};
 
@@ -739,6 +747,9 @@ void StartCheckINTTask(void *argument)
 void StartDATATask(void *argument)
 {
   /* USER CODE BEGIN dataTask */
+	while(!pmicInitFlag){
+		osDelay(10);
+	}
   /* Infinite loop */
   for(;;)
   {

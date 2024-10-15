@@ -85,8 +85,9 @@ uint8_t isEmpty(uart_cat_m1_t* u)
 
 bool send_at_command(const char *cmd)
 {
-	HAL_UART_Transmit_IT(&huart1, (uint8_t*)cmd, strlen(cmd));
-	PRINT_INFO("TX CMD >>> %s\r\n",cmd);
+	//HAL_UART_Transmit_IT(&huart1, (uint8_t*)cmd, strlen(cmd));
+	HAL_UART_Transmit(&huart1, (uint8_t*)cmd, strlen(cmd), 1000);
+//	PRINT_INFO("TX CMD >>> %s\r\n",cmd);
     for (int attempt = 0; attempt < 10; attempt++)
     {
         if (receive_at_command_ret())
@@ -688,6 +689,6 @@ void catM1PWRGPIOInit()
 {
 	// PWR ON
 	HAL_GPIO_WritePin(GPIOC, GPIO_PIN_6, GPIO_PIN_RESET);
-	osDelay(100);
+	HAL_Delay(100);
 	HAL_GPIO_WritePin(GPIOC, GPIO_PIN_6, GPIO_PIN_SET);
 }

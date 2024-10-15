@@ -15,13 +15,13 @@ void stm32wb5mmg_init()
 	// AT Client Example
 	uint8_t status = 0;
 
-	osDelay(2000);
+	HAL_Delay(2000);
 	status |= stm32wb_at_Init(&at_buffer[0], sizeof(at_buffer));
 	status |= stm32wb_at_client_Init();
 
 	/* Test the UART communication link with BLE module */
 	status |= stm32wb_at_client_Query(BLE_TEST);
-	osDelay(1000);
+	HAL_Delay(1000);
 
 	if(status != 0)
 	{
@@ -33,7 +33,7 @@ void stm32wb5mmg_init()
 	param_BLE_SVC.index = global_svc_index;
 	stm32wb_at_client_Set(BLE_SVC, &param_BLE_SVC); // wait RX data from BLE chip
 
-	osDelay(1000);
+	HAL_Delay(1000);
 }
 
 void stm32wb5mmg_adv_setting(stm32wb_at_BLE_ADV_DATA_t* param_BLE_DATA)

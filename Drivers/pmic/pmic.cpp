@@ -12,7 +12,7 @@ int pmic_init()
 	uint8_t ret = 0;
 
 	/* Wait for pmic to settle down */
-	osDelay(800);
+	HAL_Delay(800);
 
 	/*Set LDO1 to 1.8v*/
 	ret |= max20303.LDO1Config(); // max 2V
@@ -27,7 +27,7 @@ int pmic_init()
 	ret |= max20303.BuckBoostEnable(); // 5V
 
 	/* Wait for pmic to settle down */
-	osDelay(200);
+	HAL_Delay(200);
 
     return 0;
 }
