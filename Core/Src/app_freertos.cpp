@@ -379,29 +379,26 @@ void StartWPMTask(void *argument)
 			nrf9160_Get_gps_State();
 			//test_send_json_publish();
 			//send_json_publish(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 50, 0, 0, ssHr, ssSpo2, 0, (lcd_ssDataEx.algo.SCDstate == 3), 0, ssWalk, ssWalk, test_mag_data[9], test_mag_data[10], test_mag_data[11], test_mag_data[3], test_mag_data[13], 0, 0, 0);
-		cat_m1_Status_Band_t cat_m1_Status_Band =
-		{
-		        .bid = {1, 0, 0, 0, 0, 0, 0, 0, 0, 0},
-		        .pid = {2, 0},
-		        .rssi = {3},
-		        .start_byte = {0xAA},
-		        .hr = {ssHr >> 8, ssHr}, //
-		        .spo2 = {ssSpo2 >> 8, ssSpo2}, //
-		        .motionFlag = {lcd_ssDataEx.algo.spo2MotionFlag}, // ppg
-		        .scdState = {(lcd_ssDataEx.algo.SCDstate == 3)}, //
-		        .activity = {lcd_ssDataEx.algo.activity}, // ppg
-		        .walk_steps = {ssWalk >> 24, ssWalk >> 16, ssWalk >> 8, ssWalk}, //
-		        .run_steps = {0, 0, 0, 0}, //
-		        .temperature = {imuTemp >> 24, imuTemp >> 16, imuTemp >> 8, imuTemp}, //
-		        .pres = {press >> 24, press >> 16, press >> 8, press}, //
-		        .battery_level = {battVal} //
-		 };
+			cat_m1_Status_Band_t cat_m1_Status_Band =
+			{
+				.bid = 0x0102,
+				.pid = 0x0001,
+				.rssi = 3,
+				.start_byte = 0xAA,
+				.hr = ssHr,
+				.spo2 = ssSpo2,
+				.motionFlag = lcd_ssDataEx.algo.spo2MotionFlag,
+				.scdState = (lcd_ssDataEx.algo.SCDstate == 3),
+				.activity = lcd_ssDataEx.algo.activity,
+				.walk_steps = ssWalk,
+				.run_steps = 0,
+				.temperature = imuTemp,
+				.pres = press,
+				.battery_level = battVal
+			};
 
-			send_Status_Band(cat_m1_Status_Band.bid, cat_m1_Status_Band.pid, cat_m1_Status_Band.rssi,
-		                     cat_m1_Status_Band.start_byte, cat_m1_Status_Band.hr, cat_m1_Status_Band.spo2,
-		                     cat_m1_Status_Band.motionFlag, cat_m1_Status_Band.scdState, cat_m1_Status_Band.activity,
-		                     cat_m1_Status_Band.walk_steps, cat_m1_Status_Band.run_steps, cat_m1_Status_Band.temperature,
-		                     cat_m1_Status_Band.pres, cat_m1_Status_Band.battery_level);
+
+			send_Status_Band(&cat_m1_Status_Band); // 구조체 포인터를 전달
 			mqttFlag = false;
 		}
 
@@ -652,12 +649,15 @@ void StartCheckINTTask(void *argument)
     		 * haptic
     		 * send signal to web server using CatM1
     		 */
-    		cat_m1_Status_FallDetection.fall_detect[0] = 1;
-    		cat_m1_Status_FallDetection.type[0] = 0;
+    		cat_m1_Status_FallDetection_t cat_m1_Status_FallDetection = {
+    		    .bid = cat_m1_Status_Band.bid, // Band의 bid 값을 사용
+    		    .type = 0,
+    		    .fall_detect = 1
+    		};
 
     		ST7789_brightness_setting(16);
 			myFallDetectedView.changeToFallDetected(); ////////////////////////
-			send_Status_FallDetection(cat_m1_Status_Band.bid, cat_m1_Status_FallDetection.type, cat_m1_Status_FallDetection.fall_detect); // should while loop
+			send_Status_FallDetection(&cat_m1_Status_FallDetection);
     	}
     	if((interrupt_kind & 0x02) == 0x02){
     		// wake-up

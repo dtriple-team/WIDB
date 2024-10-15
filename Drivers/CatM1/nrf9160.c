@@ -87,7 +87,7 @@ bool send_at_command(const char *cmd)
 {
 	//HAL_UART_Transmit_IT(&huart1, (uint8_t*)cmd, strlen(cmd));
 	HAL_UART_Transmit(&huart1, (uint8_t*)cmd, strlen(cmd), 1000);
-//	PRINT_INFO("TX CMD >>> %s\r\n",cmd);
+	//PRINT_INFO("TX CMD >>> %s\r\n",cmd);
     for (int attempt = 0; attempt < 10; attempt++)
     {
         if (receive_at_command_ret())
@@ -186,13 +186,13 @@ bool cat_m1_parse_process(uint8_t *msg)
 			printf("cat_m1_boot_cnt >>> %d\r\n",cat_m1_boot_cnt);
 			if (cat_m1_boot_cnt >= 2)
 			{
+				catM1PWRGPIOInit();
 				send_at_command("AT+CFUN=0\r\n");
 				wpmInitFlag = 0;
 				nrf9160_checked = 0;
 				cat_m1_connection_status = 0;
 				cat_m1_boot_cnt = 0;
-				catM1PWRGPIOInit();
-				send_at_command("AT+CFUN=0\r\n");
+				nrf9160_ready();
 			}
 		}
     	else if (strstr((char *)msg, "OK"))
@@ -208,13 +208,13 @@ bool cat_m1_parse_process(uint8_t *msg)
             cat_m1_error_cnt++;
 			if (cat_m1_error_cnt >= 5)
 			{
+				catM1PWRGPIOInit();
 				send_at_command("AT+CFUN=0\r\n");
 				wpmInitFlag = 0;
 				nrf9160_checked = 0;
 				cat_m1_connection_status = 0;
 				cat_m1_error_cnt = 0;
-				catM1PWRGPIOInit();
-				send_at_command("AT+CFUN=0\r\n");
+				nrf9160_ready();
 			}
         }
     }
@@ -367,7 +367,7 @@ void nrf9160_check()
 
 void nrf9160_mqtt_setting()
 {
-	if (send_at_command("AT#XMQTTCFG="",300,1\r\n"))
+	if (send_at_command("AT#XMQTTCFG="",300,0\r\n"))
 	{
 		//return true;
 	}
@@ -469,64 +469,64 @@ void test_send_json_publish(void)
 
 }
 
-void send_Status_Band(uint8_t* bid, uint8_t* pid, uint8_t* rssi,
-                       uint8_t* start_byte, uint8_t* hr, uint8_t* spo2,
-                       uint8_t* motionFlag, uint8_t* scdState, uint8_t* activity,
-                       uint8_t* walk_steps, uint8_t* run_steps, uint8_t* temperature,
-                       uint8_t* pres, uint8_t* battery_level)
+void send_Status_Band(cat_m1_Status_Band_t *status)
 {
-	//send_at_command("AT#XMQTTCON=1,\"\",\"\",\"t-vsm.com\",18831\r\n");
-	//osDelay(300);
     char mqtt_data[1024];
-    snprintf(mqtt_data, sizeof(mqtt_data),
-        "{\"bid\": %d,"
-        "\"pid\": %d,"
-        "\"rssi\": %d,"
-        "\"start_byte\": %d,"
-        "\"hr\": %d,"
-        "\"spo2\": %d,"
-        "\"motionFlag\": %d,"
-        "\"scdState\": %d,"
-        "\"activity\": %d,"
-        "\"walk_steps\": %d,"
-        "\"run_steps\": %d,"
-        "\"temperature\": %d,"
-        "\"pres\": %d,"
-        "\"battery_level\": %d"
-    	"}+++\r\n",
-        bid[0], pid[0], rssi[0], start_byte[0], hr[0], spo2[0],
-        motionFlag[0], scdState[0], activity[0], walk_steps[0],
-        run_steps[0], temperature[0], pres[0], battery_level[0]);
 
+    // JSON 메시지 생성
+    snprintf(mqtt_data, sizeof(mqtt_data),
+        "{\"bid\": %u,"
+        "\"pid\": %u,"
+        "\"rssi\": %u,"
+        "\"start_byte\": %u,"
+        "\"hr\": %u,"
+        "\"spo2\": %u,"
+        "\"motionFlag\": %u,"
+        "\"scdState\": %u,"
+        "\"activity\": %u,"
+        "\"walk_steps\": %u,"
+        "\"run_steps\": %u,"
+        "\"temperature\": %u,"
+        "\"pres\": %u,"
+        "\"battery_level\": %u"
+        "}+++\r\n",
+        status->bid, status->pid, status->rssi, status->start_byte,
+        status->hr, status->spo2, status->motionFlag, status->scdState,
+        status->activity, status->walk_steps, status->run_steps,
+        status->temperature, status->pres, status->battery_level);
+
+    // MQTT Publish 명령 전송
     if (send_at_command("AT#XMQTTPUB=\"/DT/eHG4/Status/Band\"\r\n"))
     {
         printf("AT command sent successfully.\n");
-    } else
+    }
+    else
     {
         printf("Failed to send AT command.\n");
         return;
     }
 
+    // JSON 메시지 전송
     if (send_at_command(mqtt_data))
     {
         printf("JSON message sent successfully.\n");
-    } else
+    }
+    else
     {
         printf("Failed to send JSON message.\n");
     }
-    //send_at_command("AT#XMQTTCON=0\r\n");
     osDelay(10000);
 }
 
-void send_Status_BandAlert(uint8_t* bid, uint8_t* hr_alert, uint8_t* spo2_alert)
+void send_Status_BandAlert(cat_m1_Status_BandAler_t* alertData)
 {
     char mqtt_data[1024];
     snprintf(mqtt_data, sizeof(mqtt_data),
-        "{\"bid\": %d,"
+        "{\"bid\": %u,"
         "\"hr_alert\": %d,"
-        "\"spo2_alert\": %d,"
+        "\"spo2_alert\": %d"
     	"}+++\r\n",
-		bid[0], hr_alert[0], spo2_alert[0]);
+        alertData->bid, alertData->hr_alert, alertData->spo2_alert);
 
     if (send_at_command("AT#XMQTTPUB=\"/DT/eHG4/Status/BandAlert\"\r\n"))
     {
@@ -544,19 +544,18 @@ void send_Status_BandAlert(uint8_t* bid, uint8_t* hr_alert, uint8_t* spo2_alert)
     {
         printf("Failed to send JSON message.\n");
     }
-    send_at_command("AT#XMQTTCON=0\r\n");
     osDelay(4000);
 }
 
-void send_Status_FallDetection(uint8_t* bid, uint8_t* type, uint8_t* fall_detect)
+void send_Status_FallDetection(cat_m1_Status_FallDetection_t* fallData)
 {
     char mqtt_data[1024];
     snprintf(mqtt_data, sizeof(mqtt_data),
-        "{\"bid\": %d,"
+        "{\"bid\": %u,"
         "\"type\": %d,"
-        "\"fall_detect\": %d,"
+        "\"fall_detect\": %d"
     	"}+++\r\n",
-		bid[0], type[0], fall_detect[0]);
+        fallData->bid, fallData->type, fallData->fall_detect);
 
     if (send_at_command("AT#XMQTTPUB=\"/DT/eHG4/Status/FallDetection\"\r\n"))
     {
@@ -574,24 +573,24 @@ void send_Status_FallDetection(uint8_t* bid, uint8_t* type, uint8_t* fall_detect
     {
         printf("Failed to send JSON message.\n");
     }
-    send_at_command("AT#XMQTTCON=0\r\n");
     osDelay(4000);
 }
 
-void send_GPS_Location(uint8_t* bid, uint8_t* lat, uint8_t* lng, uint8_t* alt, uint8_t* accuracy,
-						uint8_t* speed, uint8_t* heading)
+void send_GPS_Location(cat_m1_Status_GPS_Location_t* location)
 {
     char mqtt_data[1024];
+
     snprintf(mqtt_data, sizeof(mqtt_data),
         "{\"bid\": %d,"
         "\"lat\": %d,"
         "\"lng\": %d,"
-		"\"alt\": %d,"
-		"\"accuracy\": %d,"
-		"\"speed\": %d,"
-		"\"heading\": %d,"
+        "\"alt\": %d,"
+        "\"accuracy\": %d,"
+        "\"speed\": %d,"
+        "\"heading\": %d,"
     	"}+++\r\n",
-		bid[0], lat[0], lng[0], alt[0], accuracy[0], speed[0], heading[0]);
+		location->bid, location->lat, location->lng, location->alt,
+        location->accuracy, location->speed, location->heading);
 
     if (send_at_command("AT#XMQTTPUB=\"/DT/eHG4/GPS/Location\"\r\n"))
     {
@@ -609,28 +608,30 @@ void send_GPS_Location(uint8_t* bid, uint8_t* lat, uint8_t* lng, uint8_t* alt, u
     {
         printf("Failed to send JSON message.\n");
     }
-    send_at_command("AT#XMQTTCON=0\r\n");
+
     osDelay(4000);
 }
 
-void send_Status_IMU(uint8_t* bid, uint8_t* acc_x, uint8_t* acc_y, uint8_t* acc_z,
-		uint8_t* gyro_x, uint8_t* gyro_y, uint8_t* gyro_z,
-		uint8_t* mag_x, uint8_t* mag_y, uint8_t* mag_z)
+void send_Status_IMU(cat_m1_Status_IMU_t* imu_data)
 {
-    char mqtt_data[1024];
+    char mqtt_data[1024];  // JSON 데이터를 저장할 배열
+
+    // MQTT 데이터 형식으로 JSON 문자열 생성
     snprintf(mqtt_data, sizeof(mqtt_data),
         "{\"bid\": %d,"
         "\"acc_x\": %d,"
         "\"acc_y\": %d,"
-		"\"acc_z\": %d,"
-		"\"gyro_x\": %d,"
-		"\"gyro_y\": %d,"
-		"\"gyro_z\": %d,"
-		"\"mag_x\": %d,"
-		"\"mag_y\": %d,"
-		"\"mag_z\": %d,"
+        "\"acc_z\": %d,"
+        "\"gyro_x\": %d,"
+        "\"gyro_y\": %d,"
+        "\"gyro_z\": %d,"
+        "\"mag_x\": %d,"
+        "\"mag_y\": %d,"
+        "\"mag_z\": %d,"
     	"}+++\r\n",
-		bid[0], acc_x[0], acc_y[0], acc_z[0], gyro_x[0], gyro_y[0], gyro_z[0], mag_x[0], mag_y[0], mag_z[0]);
+		imu_data->bid, imu_data->acc_x, imu_data->acc_y, imu_data->acc_z,
+		imu_data->gyro_x, imu_data->gyro_y, imu_data->gyro_z,
+		imu_data->mag_x, imu_data->mag_y, imu_data->mag_z);
 
     if (send_at_command("AT#XMQTTPUB=\"/DT/eHG4/Status/IMU\"\r\n"))
     {
@@ -648,7 +649,7 @@ void send_Status_IMU(uint8_t* bid, uint8_t* acc_x, uint8_t* acc_y, uint8_t* acc_
     {
         printf("Failed to send JSON message.\n");
     }
-    send_at_command("AT#XMQTTCON=0\r\n");
+
     osDelay(4000);
 }
 
@@ -689,6 +690,6 @@ void catM1PWRGPIOInit()
 {
 	// PWR ON
 	HAL_GPIO_WritePin(GPIOC, GPIO_PIN_6, GPIO_PIN_RESET);
-	HAL_Delay(100);
+	osDelay(100);
 	HAL_GPIO_WritePin(GPIOC, GPIO_PIN_6, GPIO_PIN_SET);
 }
