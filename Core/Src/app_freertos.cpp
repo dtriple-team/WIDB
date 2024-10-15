@@ -406,11 +406,11 @@ void StartWPMTask(void *argument)
 		}
 	}
 	  osDelay(10);
-	//	if(wpmFlag ==1)
-	//	{
+		if(wpmFlag ==1)
+		{
 
-	//		wpmFlag = 0;
-	//	}
+			wpmFlag = 0;
+		}
 	//osDelay(10000);
 	if(initFlag){
 
