@@ -190,7 +190,9 @@ bool cat_m1_parse_process(uint8_t *msg)
 				cat_m1_connection_status = 0;
 				cat_m1_subscribe_status = 0;
 				cat_m1_boot_cnt = 0;
-				nrf9160_ready();
+				cat_m1_gps_checking = 0;
+				cat_m1_mqtt_checking = 0;
+				wpmInitFlag = 1;
 			}
 		}
     	else if (strstr((char *)msg, "OK"))
@@ -209,12 +211,14 @@ bool cat_m1_parse_process(uint8_t *msg)
 			{
 				catM1PWRGPIOInit();
 				send_at_command("AT+CFUN=0\r\n");
-				wpmInitFlag = 0;
 				nrf9160_checked = 0;
 				cat_m1_connection_status = 0;
 				cat_m1_subscribe_status = 0;
+				cat_m1_boot_cnt = 0;
 				cat_m1_error_cnt = 0;
-				nrf9160_ready();
+				cat_m1_gps_checking = 0;
+				cat_m1_mqtt_checking = 0;
+				wpmInitFlag = 1;
 			}
         }
     }
