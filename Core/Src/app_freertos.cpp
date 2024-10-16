@@ -381,7 +381,7 @@ void StartWPMTask(void *argument)
 			//send_json_publish(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 50, 0, 0, ssHr, ssSpo2, 0, (lcd_ssDataEx.algo.SCDstate == 3), 0, ssWalk, ssWalk, test_mag_data[9], test_mag_data[10], test_mag_data[11], test_mag_data[3], test_mag_data[13], 0, 0, 0);
 			cat_m1_Status_Band_t cat_m1_Status_Band =
 			{
-				.bid = 0x0102,
+				.bid = 0xF102,
 				.pid = 0x0001,
 				.rssi = 3,
 				.start_byte = 0xAA,
@@ -396,7 +396,6 @@ void StartWPMTask(void *argument)
 				.pres = press,
 				.battery_level = battVal
 			};
-
 
 			send_Status_Band(&cat_m1_Status_Band); // 구조체 포인터를 전달
 			mqttFlag = false;

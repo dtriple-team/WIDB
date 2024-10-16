@@ -496,7 +496,7 @@ void send_Status_Band(cat_m1_Status_Band_t *status)
         status->temperature, status->pres, status->battery_level);
 
     // MQTT Publish 명령 전송
-    if (send_at_command("AT#XMQTTPUB=\"/DT/eHG4/Status/Band\"\r\n"))
+    if (send_at_command("AT#XMQTTPUB=\"/DT/eHG4/Status/Band3\"\r\n"))
     {
         printf("AT command sent successfully.\n");
     }
