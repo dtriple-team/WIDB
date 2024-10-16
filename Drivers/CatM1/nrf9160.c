@@ -611,9 +611,9 @@ void send_Status_FallDetection(cat_m1_Status_FallDetection_t* fallData)
 	cat_m1_mqtt_checking = 1;
     char mqtt_data[1024];
     snprintf(mqtt_data, sizeof(mqtt_data),
-        "{\"bid\": %u,"
+    	"{\"extAddress\": {\"low\": %u, \"high\": 0},"
         "\"type\": %d,"
-        "\"fall_detect\": %d"
+        "\"value\": %d"
     	"}+++\r\n",
         fallData->bid, fallData->type, fallData->fall_detect);
 
@@ -648,7 +648,7 @@ void send_GPS_Location(cat_m1_Status_GPS_Location_t* location)
     char mqtt_data[1024];
 
     snprintf(mqtt_data, sizeof(mqtt_data),
-        "{\"bid\": %d,"
+        "{\"bid\": %u,"
     	"\"data\": %s"
         "}+++\r\n",
         location->bid, cat_m1_at_cmd_rst_rx.gps);
@@ -680,7 +680,7 @@ void send_Status_IMU(cat_m1_Status_IMU_t* imu_data)
     char mqtt_data[1024];
 
     snprintf(mqtt_data, sizeof(mqtt_data),
-        "{\"bid\": %d,"
+        "{\"bid\": %u,"
         "\"acc_x\": %d,"
         "\"acc_y\": %d,"
         "\"acc_z\": %d,"
