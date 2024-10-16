@@ -43,7 +43,7 @@ typedef struct {
 } cat_m1_at_cmd_rst_t;
 
 typedef struct {
-  uint16_t bid;
+  uint32_t bid;
   uint16_t pid;
   uint8_t rssi;
   uint8_t start_byte;
@@ -60,29 +60,23 @@ typedef struct {
 } cat_m1_Status_Band_t;
 
 typedef struct {
-  uint16_t bid;
+  uint32_t bid;
   uint8_t hr_alert;
   uint8_t spo2_alert;
 } cat_m1_Status_BandAler_t;
 
 typedef struct {
-  uint16_t bid;
+  uint32_t bid;
   uint8_t type;
   uint8_t fall_detect;
 } cat_m1_Status_FallDetection_t;
 
 typedef struct {
-  uint16_t bid;
-  uint8_t lat;
-  uint8_t lng;
-  uint8_t alt;
-  uint8_t accuracy;
-  uint8_t speed;
-  uint8_t heading;
+  uint32_t bid;
 } cat_m1_Status_GPS_Location_t;
 
 typedef struct {
-  uint16_t bid;
+  uint32_t bid;
   int16_t acc_x;
   int16_t acc_y;
   int16_t acc_z;
@@ -97,7 +91,7 @@ typedef struct {
 } cat_m1_Status_IMU_t;
 
 typedef struct {
-  uint16_t bid;
+  uint32_t bid;
   uint8_t hr_min;
   uint8_t hr_max;
   uint8_t spo2_min;
@@ -107,7 +101,7 @@ typedef struct {
 } cat_m1_Status_BandSet_t;
 
 typedef struct {
-  uint16_t bid;
+  uint32_t bid;
   uint8_t alert;
 } cat_m1_Status_ServerAlert_t;
 
