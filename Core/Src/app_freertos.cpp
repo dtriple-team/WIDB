@@ -34,7 +34,6 @@
 #include <string.h>
 #include "NORA-W10.h"
 #include "mems.h"
-#include "stm32u5xx_hal.h"
 extern "C" {
 	#include "stm32wb5mmg.h"
 	#include "stm32wb_at_ble.h"
@@ -76,21 +75,12 @@ uint8_t now_sleepmode = 0;
 #define mqtt_operation_cycle 60*1
 uint8_t mqttTime = 0;
 bool mqttFlag = false;
-uint8_t mqttInitial_Send = 0;
 
-#define mqtt_RetryTime_cycle 11
-uint8_t mqttRetryTime = 0;
-bool mqttRetryTimeFlag = false;
-
-#define gps_operation_cycle 60*3
+#define gps_operation_cycle 60*5
 uint8_t gpsTime = 0;
-bool gpsFlag = false;
-
-extern uint8_t cat_m1_gps_checking;
-extern uint8_t cat_m1_mqtt_checking;
+bool gpsFlag = true;
 
 extern cat_m1_Status_Band_t cat_m1_Status_Band;
-extern cat_m1_at_cmd_rst_t cat_m1_at_cmd_rst_rx;
 
 uint16_t ssHr = 0;
 uint16_t ssSpo2 = 0;
@@ -337,7 +327,7 @@ void StartPPMTask(void *argument)
   /* Infinite loop */
   for(;;)
   {
-    osDelay(10);
+    osDelay(1);
 	stm32wb5mmg_adv(&param_BLE_DATA);
   }
   /* USER CODE END ppmTask */
@@ -363,17 +353,15 @@ void StartWPMTask(void *argument)
 	catM1PWRGPIOInit(); // ->??
 	HAL_Delay(1000);
 
+	// CatM1 init
+	nrf9160_ready();
+
 //	// WiFi-BLE init
 //	nora_w10_init();
 
   /* Infinite loop */
   for(;;)
   {
-	if(wpmInitFlag == 0)
-	{
-		// CatM1 init
-		nrf9160_ready();
-	}
 	if(wpmInitFlag && nrf9160_checked == 0)
 	{
 		nrf9160_check(); // only TX
@@ -385,15 +373,16 @@ void StartWPMTask(void *argument)
 
 	if(wpmInitFlag && nrf9160_checked == 2)
 	{
-		if ((mqttFlag && cat_m1_gps_checking == 0) || mqttInitial_Send == 0)
+		//nrf9160_Get_gps();
+		if(mqttFlag)
 		{
-			//nrf9160_Get_gps_State();
+			nrf9160_Get_gps_State();
 			//test_send_json_publish();
-
+			//send_json_publish(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 50, 0, 0, ssHr, ssSpo2, 0, (lcd_ssDataEx.algo.SCDstate == 3), 0, ssWalk, ssWalk, test_mag_data[9], test_mag_data[10], test_mag_data[11], test_mag_data[3], test_mag_data[13], 0, 0, 0);
 			cat_m1_Status_Band_t cat_m1_Status_Band =
 			{
-				.bid = HAL_GetUIDw2(),
-				.pid = 0xA021,
+				.bid = 0x0102,
+				.pid = 0x0001,
 				.rssi = 3,
 				.start_byte = 0xAA,
 				.hr = ssHr,
@@ -407,28 +396,18 @@ void StartWPMTask(void *argument)
 				.pres = press,
 				.battery_level = battVal
 			};
-			send_Status_Band(&cat_m1_Status_Band);
 
-			strncpy((char*)cat_m1_at_cmd_rst_rx.gps,
-						        "36.106335,128.384310,119.546387,7.287167,0.220983,0.000000,2024-09-25 08:33:25",
-						        sizeof(cat_m1_at_cmd_rst_rx.gps) - 1);
-						cat_m1_at_cmd_rst_rx.gps[sizeof(cat_m1_at_cmd_rst_rx.gps) - 1] = '\0';
 
-			if (strlen((const char*)cat_m1_at_cmd_rst_rx.gps))
-			{
-				cat_m1_Status_GPS_Location_t location;
-				location.bid = cat_m1_Status_Band.bid;
-				send_GPS_Location(&location);
-			}
+			send_Status_Band(&cat_m1_Status_Band); // 구조체 포인터를 전달
 			mqttFlag = false;
-			mqttInitial_Send = 1;
 		}
 
-		if(gpsFlag && cat_m1_mqtt_checking == 0)
-		{
-			nrf9160_Get_gps();
-			gpsFlag = false;
-		}
+		//send_json_publish(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 50, 0, 0, 1, 2, 0, 3, 0, 4, 5, 6, 7, 3, 1, 2, 0, 0, 0);
+//		if(gpsFlag)
+//		{
+//			nrf9160_Get_gps();
+//			gpsFlag = false;
+//		}
 	}
 	  osDelay(10);
 	//	if(wpmFlag ==1)
@@ -458,9 +437,9 @@ void StartSPMTask(void *argument)
 		osDelay(10);
 	}
 	// Smart Sensor Hub init
-	//ssInit();
-	//ssBegin();
-	//ssRead_setting();
+	ssInit();
+	ssBegin();
+	ssRead_setting();
 	ssRunFlag = 1; // start read PPG, using Timer
 
 	init_iis2mdc();
@@ -595,22 +574,15 @@ void StartSecTimerTask(void *argument)
 
 		mqttTime++;
 //		PRINT_INFO("mqttTime >>> %d\r\n",mqttTime);
-		if(mqttTime > mqtt_operation_cycle)
+		if(mqttTime == mqtt_operation_cycle)
 		{
 			mqttFlag = true;
 			mqttTime = 0;
 		}
 
-		mqttRetryTime++;
-//		PRINT_INFO("mqttRetryTime >>> %d\r\n",mqttRetryTime);
-		if(mqttRetryTime > 6)
-		{
-			mqttRetryTime = 0;
-		}
-
 		gpsTime++;
 //		PRINT_INFO("gpsTime >>> %d\r\n",gpsTime);
-		if(gpsTime > gps_operation_cycle)
+		if(gpsTime == gps_operation_cycle)
 		{
 			gpsFlag = true;
 			gpsTime = 0;
@@ -833,5 +805,8 @@ void read_ppg()
 
 	canDisplayPPG = 1;
 }
+
+
+
 /* USER CODE END Application */
 

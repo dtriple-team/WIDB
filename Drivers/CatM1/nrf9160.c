@@ -19,12 +19,8 @@ uint8_t cat_m1_parse_cnt = 0;
 uint8_t cat_m1_parse_ret = 0;
 uint8_t cat_m1_boot_cnt = 0;
 uint8_t cat_m1_error_cnt = 0;
-uint8_t cat_m1_no_response_cnt = 0;
 uint8_t cat_m1_connection_status = 0;
-uint8_t cat_m1_subscribe_status = 0;
-
-uint8_t cat_m1_mqtt_checking = 0;
-uint8_t cat_m1_gps_checking = 0;
+uint8_t cat_m1_gps_ret = 0;
 
 uart_cat_m1_t uart_cat_m1_rx;
 cat_m1_at_cmd_rst_t cat_m1_at_cmd_rst_rx;
@@ -39,7 +35,6 @@ cat_m1_Status_BandSet_t cat_m1_Status_BandSet;
 
 extern uint8_t wpmInitFlag;
 uint8_t nrf9160_checked = 0;
-extern uint8_t mqttRetryTime;
 
 void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart)
 {
@@ -92,9 +87,16 @@ bool send_at_command(const char *cmd)
 {
 	//HAL_UART_Transmit_IT(&huart1, (uint8_t*)cmd, strlen(cmd));
 	HAL_UART_Transmit(&huart1, (uint8_t*)cmd, strlen(cmd), 1000);
-	PRINT_INFO("TX CMD >>> %s\r\n",cmd);
-
-	return receive_at_command_ret();
+	//PRINT_INFO("TX CMD >>> %s\r\n",cmd);
+    for (int attempt = 0; attempt < 10; attempt++)
+    {
+        if (receive_at_command_ret())
+        {
+            return true;
+        }
+        osDelay(1000);
+    }
+    return false;
 }
 
 bool receive_at_command_ret()
@@ -108,32 +110,34 @@ bool receive_at_command_ret()
 	{
 		return true;
 	}
-	else if(cat_m1_parse_ret == 0)
-	{
-		return false;
-	}
-	return false;
+    return false;
 }
 
 bool receive_response(void)
 {
+    // 버퍼가 비어 있지 않으면 데이터를 처리
     if (isEmpty(&uart_cat_m1_rx) == 0)
     {
         uart_cat_m1_rx.rxd = pop(&uart_cat_m1_rx);
 
+        // '\r' 또는 '\n'이 수신되면 현재까지의 버퍼 내용을 처리
         if (uart_cat_m1_rx.rxd == '\r' || uart_cat_m1_rx.rxd == '\n')
         {
+            // '\r' 또는 '\n'도 버퍼에 추가
             uart_cat_m1_buf[cat_m1_parse_cnt] = uart_cat_m1_rx.rxd;
             cat_m1_parse_cnt++;
 
+            // 수신한 데이터를 출력 및 파싱
             PRINT_INFO("RX Data >>> %s\r\n", uart_cat_m1_buf);
             cat_m1_parse_process(uart_cat_m1_buf);
 
+            // 버퍼 초기화 및 카운터 리셋
             memset(&uart_cat_m1_buf, 0, MINMEA_MAX_SENTENCE_LENGTH);
             cat_m1_parse_cnt = 0;
         } else
         {
-            if (cat_m1_parse_cnt < MINMEA_MAX_SENTENCE_LENGTH - 1) {
+            // '\r' 또는 '\n'이 아닌 문자들은 버퍼에 저장
+            if (cat_m1_parse_cnt < MINMEA_MAX_SENTENCE_LENGTH - 1) {  // 버퍼 크기 제한 체크
                 uart_cat_m1_buf[cat_m1_parse_cnt] = uart_cat_m1_rx.rxd;
                 cat_m1_parse_cnt++;
             }
@@ -179,7 +183,6 @@ bool cat_m1_parse_process(uint8_t *msg)
 			printf("Response: Ready\r\n");
 			cat_m1_parse_ret = 1;
 			cat_m1_boot_cnt++;
-			wpmInitFlag = 1;
 			printf("cat_m1_boot_cnt >>> %d\r\n",cat_m1_boot_cnt);
 			if (cat_m1_boot_cnt >= 2)
 			{
@@ -188,7 +191,6 @@ bool cat_m1_parse_process(uint8_t *msg)
 				wpmInitFlag = 0;
 				nrf9160_checked = 0;
 				cat_m1_connection_status = 0;
-				cat_m1_subscribe_status = 0;
 				cat_m1_boot_cnt = 0;
 				nrf9160_ready();
 			}
@@ -198,7 +200,6 @@ bool cat_m1_parse_process(uint8_t *msg)
             printf("Response: OK\r\n");
             cat_m1_parse_ret = 1;
             cat_m1_error_cnt = 0;
-            wpmInitFlag = 1;
         }
         else if (strstr((char *)msg, "ERROR"))
         {
@@ -212,7 +213,6 @@ bool cat_m1_parse_process(uint8_t *msg)
 				wpmInitFlag = 0;
 				nrf9160_checked = 0;
 				cat_m1_connection_status = 0;
-				cat_m1_subscribe_status = 0;
 				cat_m1_error_cnt = 0;
 				nrf9160_ready();
 			}
@@ -228,12 +228,12 @@ void cat_m1_parse_result(const char *command, const char *value)
 
     if (strstr(command, "+COPS") != NULL)
     {
-        printf("COPS >>> OK\r\n");
+        printf("1>>>\r\n");
         int cops_length = strlen(value);
         //PRINT_INFO("COPS result >>> %d\r\n", cops_length);
-        //PRINT_INFO("COPS result >>> %s\r\n", cat_m1_at_cmd_rst_rx.cops);
+        PRINT_INFO("COPS result >>> %s\r\n", cat_m1_at_cmd_rst_rx.cops);
 
-        if (cops_length > 5)
+        if (cops_length == 14)
         {
             cat_m1_connection_status = 1;
         }
@@ -245,72 +245,40 @@ void cat_m1_parse_result(const char *command, const char *value)
     }
     if (strstr(command, "+CGDCONT") != NULL)
     {
-        printf("CGDCONT >>> OK\r\n");
+        printf("2>>>\r\n");
         strcpy(cat_m1_at_cmd_rst_rx.cgdcont, (const char *)value);
-        //PRINT_INFO("CGDCONT result >>> %s\r\n", cat_m1_at_cmd_rst_rx.cgdcont);
+        PRINT_INFO("CGDCONT result >>> %s\r\n", cat_m1_at_cmd_rst_rx.cgdcont);
     }
     if (strstr(command, "%XICCID") != NULL)
     {
-        printf("XICCID >>> OK\r\n");
+        printf("3>>>\r\n");
         strcpy(cat_m1_at_cmd_rst_rx.iccid, (const char *)value);
-        //PRINT_INFO("ICCID result >>> %s\r\n", cat_m1_at_cmd_rst_rx.iccid);
+        PRINT_INFO("ICCID result >>> %s\r\n", cat_m1_at_cmd_rst_rx.iccid);
     }
     if (strstr(command, "%XMONITOR") != NULL)
     {
-        printf("XMONITOR >>> OK\r\n");
+        printf("4>>>\r\n");
         strcpy(cat_m1_at_cmd_rst_rx.networkinfo, (const char *)value);
-        //PRINT_INFO("ICCID result >>> %s\r\n", cat_m1_at_cmd_rst_rx.networkinfo);
+        PRINT_INFO("ICCID result >>> %s\r\n", cat_m1_at_cmd_rst_rx.networkinfo);
     }
     if (strstr(command, "#XGPS") != NULL)
 	{
-		printf("XGPS >>> OK\r\n");
-		if (strstr(value, "1,4") != NULL)
+		printf("5>>>\r\n");
+		int gps_length = strlen(value);
+		if (gps_length > 20)
         {
-			printf("XGPS >>> 1,4\r\n");
-        	strcpy(cat_m1_at_cmd_rst_rx.gps, (const char *)value);
-        	//PRINT_INFO("GPS result >>> %s\r\n", cat_m1_at_cmd_rst_rx.gps);
-        	send_at_command("AT#XGPS=0\r\n");
-			send_at_command("AT+CFUN=0\r\n");
-			nrf9160_checked = 0;
-			cat_m1_connection_status = 0;
-			cat_m1_subscribe_status = 0;
-			cat_m1_gps_checking = 0;
-			wpmInitFlag = 1;
+        	cat_m1_gps_ret = 1;
         }
-		else if (strstr(value, "1,3") != NULL)
-		{
-			printf("XGPS >>> 1,3\r\n");
-			send_at_command("AT#XGPS=0\r\n");
-			send_at_command("AT+CFUN=0\r\n");
-			nrf9160_checked = 0;
-			cat_m1_connection_status = 0;
-			cat_m1_subscribe_status = 0;
-			cat_m1_gps_checking = 0;
-			wpmInitFlag = 1;
-		}
-	}
-    if (strstr(command, "#XMQTTEVT") != NULL)
-	{
-		printf("#XMQTTEVT >>> OK\r\n");
-		if (strstr(value, "1,-") != NULL)
-		{
-			printf("#XMQTTEVT >>> 1,-\r\n");
-			wpmInitFlag = 1;
-			nrf9160_checked = 1;
-		}
-		if (strstr(value, "7,0") != NULL)
-		{
-			printf("#XMQTTEVT >>> 7,0\r\n");
-			cat_m1_subscribe_status++;
-		}
-	}
-    if (strstr(command, "#XMQTTSERVERMSG") != NULL)
-	{
-
+        else
+        {
+        	cat_m1_gps_ret = 0;
+        }
+		strcpy(cat_m1_at_cmd_rst_rx.gps, (const char *)value);
+		PRINT_INFO("GPS result >>> %s\r\n", cat_m1_at_cmd_rst_rx.gps);
 	}
     if (strstr(command, "+CCLK") != NULL)
     {
-    	printf("CCLK >>> OK\r\n");
+        printf("6>>>\r\n");
         strcpy(cat_m1_at_cmd_rst_rx.time, (const char *)value);
         PRINT_INFO("CCLK result >>> %s\r\n", cat_m1_at_cmd_rst_rx.time);
     }
@@ -339,18 +307,28 @@ void nrf9160_init()
 
 void nrf9160_ready(void)
 {
-	while (!wpmInitFlag)
-	{
-		receive_at_command_ret();
-		send_at_command("AT\r\n");
-		osDelay(500);
-	}
+//	while (!wpmInitFlag)
+//	{
+		//cat_m1_send("AT\r\n");
+		//cat_m1_recv("OK");
+		if (receive_at_command_ret())
+		{
+			PRINT_INFO("Cat.M1 already available\r\n");
+			wpmInitFlag = 1;
+		}
+		else if (send_at_command("AT\r\n"))
+		{
+			PRINT_INFO("Cat.M1 already available\r\n");
+			wpmInitFlag = 1;
+		}
+	//	osDelay(1000);
+	//}
 }
 
 void nrf9160_check()
 {
-//	osDelay(100);
-	send_at_command("AT%XSYSTEMMODE=1,0,0,0\r\n");
+	osDelay(100);
+	send_at_command("AT%XSYSTEMMODE=1,0,1,0\r\n");
 	//send_at_command("AT%XSYSTEMMODE=0,0,1,0\r\n");
 //
 //	osDelay(100);
@@ -389,7 +367,10 @@ void nrf9160_check()
 
 void nrf9160_mqtt_setting()
 {
-	send_at_command("AT#XMQTTCFG=\"\",300,1\r\n");
+	if (send_at_command("AT#XMQTTCFG="",300,0\r\n"))
+	{
+		//return true;
+	}
 
 //	if (send_at_command("AT#XMQTTCON=1,\"\",\"\",\"broker.hivemq.com\",1883\r\n"))
 //	{
@@ -399,16 +380,9 @@ void nrf9160_mqtt_setting()
 //	{
 //		//return true;
 //	}
-	send_at_command("AT#XMQTTCON=1,\"\",\"\",\"t-vsm.com\",18831\r\n");
-	while(cat_m1_subscribe_status == 0)
+	if (send_at_command("AT#XMQTTCON=1,\"\",\"\",\"t-vsm.com\",18831\r\n"))
 	{
-		send_at_command("AT#XMQTTSUB=\"/DT/eHG4/Status/BandSet\",0\r\n");
-		osDelay(3000);
-	}
-	while (cat_m1_subscribe_status == 1)
-	{
-		send_at_command("AT#XMQTTSUB=\"/DT/eHG4/Status/ServerAlert\",0\r\n");
-		osDelay(3000);
+		//return true;
 	}
 	nrf9160_checked = 2;
 }
@@ -428,6 +402,7 @@ void test_send_json_publish(void)
 	osDelay(300);
 	send_at_command("AT%XMONITOR\r\n");
 
+	// AT command to publish to the MQTT topic
     const char *at_command = "AT#XMQTTPUB=\"/efwb/post/sync\"\r\n";
 
     // JSON message to be published
@@ -471,32 +446,34 @@ void test_send_json_publish(void)
                             "\"pollingInterval\": \"always on device\""
                             "}+++\r\n";
 
+    // Send the AT command first
     if (send_at_command(at_command))
     {
         printf("AT command sent successfully.\n");
-    }
-    else
+    } else
     {
         printf("Failed to send AT command.\n");
         return;
     }
 
+    // Send the JSON message after the AT command is acknowledged
     if (send_at_command(json_message_networkinfo))
     {
         printf("JSON message sent successfully.\n");
-    }
-    else
+    } else
     {
         printf("Failed to send JSON message.\n");
     }
     send_at_command("AT#XMQTTCON=0\r\n");
+    osDelay(4000);
+
 }
 
 void send_Status_Band(cat_m1_Status_Band_t *status)
 {
-	cat_m1_mqtt_checking = 1;
     char mqtt_data[1024];
-/*
+
+    // JSON 메시지 생성
     snprintf(mqtt_data, sizeof(mqtt_data),
         "{\"bid\": %u,"
         "\"pid\": %u,"
@@ -517,43 +494,9 @@ void send_Status_Band(cat_m1_Status_Band_t *status)
         status->hr, status->spo2, status->motionFlag, status->scdState,
         status->activity, status->walk_steps, status->run_steps,
         status->temperature, status->pres, status->battery_level);
-*/
-    snprintf(mqtt_data, sizeof(mqtt_data),
-        "{\"extAddress\": {\"low\": %u, \"high\": 0},"
-    	"\"pid\": \"0x%X\","
-        "\"bandData\": {"
-            "\"start_byte\": %u,"
-            "\"sample_count\": 0,"
-            "\"fall_detect\": 0,"
-            "\"battery_level\": %u,"
-            "\"hr\": %u,"
-            "\"spo2\": %u,"
-            "\"hrConfidence\": 100,"
-            "\"spo2Confidence\": 100,"
-            "\"motionFlag\": %u,"
-            "\"scdState\": %u,"
-            "\"activity\": %u,"
-            "\"walk_steps\": %u,"
-            "\"run_steps\": %u,"
-            "\"x\": 0,"
-            "\"y\": 0,"
-            "\"z\": 0,"
-            "\"t\": %u,"
-            "\"h\": %u"
-        "},"
-        "\"rssi\": %u"
-        "}+++\r\n",
-		(unsigned int)status->bid, status->pid, status->start_byte,
-        status->battery_level, status->hr, status->spo2,
-        status->motionFlag, status->scdState, status->activity,
-		(unsigned int)status->walk_steps, (unsigned int)status->run_steps, (unsigned int)status->temperature, (unsigned int)status->pres, status->rssi
-    );
 
-//    if (send_at_command("AT#XMQTTPUB=\"DT/eHG4/Status/Band\"\r\n"))
-//    {
-//        printf("AT command sent successfully.\n");
-//    }
-    if (send_at_command("AT#XMQTTPUB=\"/efwb/post/sync\"\r\n"))
+    // MQTT Publish 명령 전송
+    if (send_at_command("AT#XMQTTPUB=\"/DT/eHG4/Status/Band\"\r\n"))
     {
         printf("AT command sent successfully.\n");
     }
@@ -563,6 +506,7 @@ void send_Status_Band(cat_m1_Status_Band_t *status)
         return;
     }
 
+    // JSON 메시지 전송
     if (send_at_command(mqtt_data))
     {
         printf("JSON message sent successfully.\n");
@@ -571,12 +515,11 @@ void send_Status_Band(cat_m1_Status_Band_t *status)
     {
         printf("Failed to send JSON message.\n");
     }
-    cat_m1_mqtt_checking = 0;
+    osDelay(10000);
 }
 
 void send_Status_BandAlert(cat_m1_Status_BandAler_t* alertData)
 {
-	cat_m1_mqtt_checking = 1;
     char mqtt_data[1024];
     snprintf(mqtt_data, sizeof(mqtt_data),
         "{\"bid\": %u,"
@@ -588,8 +531,7 @@ void send_Status_BandAlert(cat_m1_Status_BandAler_t* alertData)
     if (send_at_command("AT#XMQTTPUB=\"/DT/eHG4/Status/BandAlert\"\r\n"))
     {
         printf("AT command sent successfully.\n");
-    }
-    else
+    } else
     {
         printf("Failed to send AT command.\n");
         return;
@@ -598,17 +540,15 @@ void send_Status_BandAlert(cat_m1_Status_BandAler_t* alertData)
     if (send_at_command(mqtt_data))
     {
         printf("JSON message sent successfully.\n");
-    }
-    else
+    } else
     {
         printf("Failed to send JSON message.\n");
     }
-    cat_m1_mqtt_checking = 0;
+    osDelay(4000);
 }
 
 void send_Status_FallDetection(cat_m1_Status_FallDetection_t* fallData)
 {
-	cat_m1_mqtt_checking = 1;
     char mqtt_data[1024];
     snprintf(mqtt_data, sizeof(mqtt_data),
         "{\"bid\": %u,"
@@ -617,15 +557,10 @@ void send_Status_FallDetection(cat_m1_Status_FallDetection_t* fallData)
     	"}+++\r\n",
         fallData->bid, fallData->type, fallData->fall_detect);
 
-//    if (send_at_command("AT#XMQTTPUB=\"DT/eHG4/Status/FallDetection\"\r\n"))
-//    {
-//        printf("AT command sent successfully.\n");
-//    }
-	if (send_at_command("AT#XMQTTPUB=\"/efwb/post/async\"\r\n"))
-	{
-		printf("AT command sent successfully.\n");
-	}
-    else
+    if (send_at_command("AT#XMQTTPUB=\"/DT/eHG4/Status/FallDetection\"\r\n"))
+    {
+        printf("AT command sent successfully.\n");
+    } else
     {
         printf("Failed to send AT command.\n");
         return;
@@ -634,30 +569,33 @@ void send_Status_FallDetection(cat_m1_Status_FallDetection_t* fallData)
     if (send_at_command(mqtt_data))
     {
         printf("JSON message sent successfully.\n");
-    }
-    else
+    } else
     {
         printf("Failed to send JSON message.\n");
     }
-    cat_m1_mqtt_checking = 0;
+    osDelay(4000);
 }
 
 void send_GPS_Location(cat_m1_Status_GPS_Location_t* location)
 {
-	cat_m1_mqtt_checking = 1;
     char mqtt_data[1024];
 
     snprintf(mqtt_data, sizeof(mqtt_data),
         "{\"bid\": %d,"
-    	"\"data\": %s"
-        "}+++\r\n",
-        location->bid, cat_m1_at_cmd_rst_rx.gps);
+        "\"lat\": %d,"
+        "\"lng\": %d,"
+        "\"alt\": %d,"
+        "\"accuracy\": %d,"
+        "\"speed\": %d,"
+        "\"heading\": %d,"
+    	"}+++\r\n",
+		location->bid, location->lat, location->lng, location->alt,
+        location->accuracy, location->speed, location->heading);
 
     if (send_at_command("AT#XMQTTPUB=\"/DT/eHG4/GPS/Location\"\r\n"))
     {
         printf("AT command sent successfully.\n");
-    }
-    else
+    } else
     {
         printf("Failed to send AT command.\n");
         return;
@@ -666,19 +604,19 @@ void send_GPS_Location(cat_m1_Status_GPS_Location_t* location)
     if (send_at_command(mqtt_data))
     {
         printf("JSON message sent successfully.\n");
-    }
-    else
+    } else
     {
         printf("Failed to send JSON message.\n");
     }
-    cat_m1_mqtt_checking = 0;
+
+    osDelay(4000);
 }
 
 void send_Status_IMU(cat_m1_Status_IMU_t* imu_data)
 {
-	cat_m1_mqtt_checking = 1;
-    char mqtt_data[1024];
+    char mqtt_data[1024];  // JSON 데이터를 저장할 배열
 
+    // MQTT 데이터 형식으로 JSON 문자열 생성
     snprintf(mqtt_data, sizeof(mqtt_data),
         "{\"bid\": %d,"
         "\"acc_x\": %d,"
@@ -711,25 +649,30 @@ void send_Status_IMU(cat_m1_Status_IMU_t* imu_data)
     {
         printf("Failed to send JSON message.\n");
     }
-    cat_m1_mqtt_checking = 0;
+
+    osDelay(4000);
 }
 
 void nrf9160_Get_gps()
 {
-	send_at_command("AT#XMQTTCON=0\r\n");
-	send_at_command("AT+CFUN=0\r\n");
-	send_at_command("AT%XSYSTEMMODE=0,0,1,0\r\n");
-	send_at_command("AT+CFUN=31\r\n");
-	send_at_command("AT#XGPS=1,0,0,60\r\n");
-
+	send_at_command("AT#XGPS=1,0,0,180\r\n");
 	//send_at_command("AT+CFUN=0\r\n");
 	//send_at_command("AT%XSYSTEMMODE=1,0,1,0\r\n");
 	//send_at_command("AT+CFUN=31\r\n");
 	//send_at_command("AT#XGPS=1,0,0,60\r\n");
 
 	//send_at_command("AT#XGPS?\r\n");
+	//위 과정 한번만 실행
+	if(cat_m1_gps_ret)
+	{
+		//send_at_command("AT#XGPS=1,0,0,60\r\n");
+		//#XGPS: 1,4 후 한번 더 #XGPS: 나오면 GPS 버퍼에 저장
+		//send_at_command("AT+CFUN=0\r\n");
+		//send_at_command("AT%XSYSTEMMODE=1,0,1,0\r\n");
+		//send_at_command("AT+CFUN=1\r\n");
+	}
 	//nrf9160_checked = 2;
-	cat_m1_gps_checking = 1;
+	//저장 이후 다시 AT+CFUN=1 변경
 }
 
 void nrf9160_Get_gps_State()
