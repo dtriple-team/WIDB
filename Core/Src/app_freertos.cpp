@@ -86,8 +86,8 @@ bool mqttRetryTimeFlag = false;
 uint8_t gpsTime = 0;
 bool gpsFlag = false;
 
-extern uint8_t cat_m1_gps_checking;
-extern uint8_t cat_m1_mqtt_checking;
+extern uint8_t catM1GpsChecking;
+extern uint8_t catM1MqttChecking;
 
 extern cat_m1_Status_Band_t cat_m1_Status_Band;
 extern cat_m1_at_cmd_rst_t cat_m1_at_cmd_rst_rx;
@@ -164,10 +164,10 @@ extern void touchgfxSignalVSync(void);
 uint8_t ssRunFlag = 0;
 uint8_t initFlag = 0;
 uint8_t pmicInitFlag = 0;
-uint8_t wpmInitFlag = 0;
+uint8_t wpmInitializationFlag = 0;
 uint8_t lcdInitFlag = 0;
 
-extern uint8_t nrf9160_checked;
+extern uint8_t nrf9160Checked;
 
 double test_mag_data[15] = {0,};
 uint8_t set_bLevel = 7; // GUI val ?��?��
@@ -369,23 +369,23 @@ void StartWPMTask(void *argument)
   /* Infinite loop */
   for(;;)
   {
-	if(wpmInitFlag == 0)
+	if(wpmInitializationFlag == 0)
 	{
 		// CatM1 init
 		nrf9160_ready();
 	}
-	if(wpmInitFlag && nrf9160_checked == 0)
+	if(wpmInitializationFlag && nrf9160Checked == 0)
 	{
 		nrf9160_check(); // only TX
 	}
-	if(wpmInitFlag && nrf9160_checked == 1)
+	if(wpmInitializationFlag && nrf9160Checked == 1)
 	{
 		nrf9160_mqtt_setting();
 	}
 
-	if(wpmInitFlag && nrf9160_checked == 2)
+	if(wpmInitializationFlag && nrf9160Checked == 2)
 	{
-		if ((mqttFlag && cat_m1_gps_checking == 0) || mqttInitial_Send == 0)
+		if ((mqttFlag && catM1GpsChecking == 0) || mqttInitial_Send == 0)
 		{
 			//nrf9160_Get_gps_State();
 			//test_send_json_publish();
@@ -424,7 +424,7 @@ void StartWPMTask(void *argument)
 			mqttInitial_Send = 1;
 		}
 
-		if(gpsFlag && cat_m1_mqtt_checking == 0)
+		if(gpsFlag && catM1MqttChecking == 0)
 		{
 			nrf9160_Get_gps();
 			gpsFlag = false;
