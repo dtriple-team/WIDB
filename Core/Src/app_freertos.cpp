@@ -88,6 +88,7 @@ bool gpsFlag = false;
 
 extern uint8_t catM1GpsChecking;
 extern uint8_t catM1MqttChecking;
+extern uint8_t catM1MqttConnectionStatus;
 uint8_t catM1MqttDangerMessage = 0;
 
 extern cat_m1_Status_Band_t cat_m1_Status_Band;
@@ -433,9 +434,9 @@ void StartWPMTask(void *argument)
 
 		if(gpsFlag && catM1MqttChecking == 0)
 		{
-			//catM1MqttDangerMessage = 1;
+			//scatM1MqttDangerMessage = 1;
 			nrf9160_Get_gps();
-			nrf9160_Get_gps_State();
+			//nrf9160_Get_gps_State();
 			gpsFlag = false;
 		}
 		if(catM1GpsChecking)
@@ -456,15 +457,12 @@ void StartWPMTask(void *argument)
 	{
 		if (cat_m1_Status_FallDetection.bid)
 		{
-			if (cat_m1_Status_FallDetection.bid)
+			if(catM1GpsChecking)
 			{
-				if(catM1GpsChecking)
-				{
-					nrf9160_Stop_gps();
-				}
-				send_Status_FallDetection(&cat_m1_Status_FallDetection);
-				memset(&cat_m1_Status_FallDetection, 0, sizeof(cat_m1_Status_FallDetection));
+				nrf9160_Stop_gps();
 			}
+			else if(catM1MqttConnectionStatus)
+			send_Status_FallDetection(&cat_m1_Status_FallDetection);
 		}
 	}
 	osDelay(10);
