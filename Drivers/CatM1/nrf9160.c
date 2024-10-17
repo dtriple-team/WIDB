@@ -23,6 +23,7 @@ uint8_t catM1RetryCount = 0;
 uint8_t catM1CfunStatus = 0;
 uint8_t catM1SystemModeStatus = 0;
 uint8_t catM1ConnectionStatus = 0;
+uint8_t catM1MqttSetStatus = 0;
 uint8_t catM1MqttConnectionStatus = 0;
 uint8_t catM1MqttSubscribeStatus = 0;
 uint8_t catM1GpsOn = 0;
@@ -259,6 +260,19 @@ void cat_m1_parse_result(const char *command, const char *value)
     		catM1SystemModeStatus = 2;
     	}
     }
+    if (strstr(command, "#XMQTTCFG") != NULL)
+    {
+        //printf("XMQTTCFG >>> OK\r\n");
+        int mqttcfg_length = strlen(value);
+        if (mqttcfg_length > 5)
+        {
+        	catM1MqttSetStatus = 1;
+        }
+        else
+        {
+        	catM1MqttSetStatus = 0;
+        }
+    }
     if (strstr(command, "+CGDCONT") != NULL)
     {
         printf("CGDCONT >>> OK\r\n");
@@ -380,26 +394,22 @@ void nrf9160_ready(void)
 
 void nrf9160_check()
 {
-	send_at_command("AT+CFUN=0\r\n");
-	send_at_command("AT%XSYSTEMMODE=1,0,0,0\r\n");
-	//send_at_command("AT%XSYSTEMMODE=0,0,1,0\r\n");
 	while(catM1SystemModeStatus == 0 || catM1SystemModeStatus == 2)
 	{
-		send_at_command("AT%XSYSTEMMODE?\r\n");
 		send_at_command("AT+CFUN=0\r\n");
 		send_at_command("AT%XSYSTEMMODE=1,0,0,0\r\n");
+		//send_at_command("AT%XSYSTEMMODE=0,0,1,0\r\n");
+		send_at_command("AT%XSYSTEMMODE?\r\n");
 		osDelay(100);
 
 		if (catM1RetryCount >= 300) {
 			break;
 		}
 	}
-	osDelay(100);
-	send_at_command("AT+CFUN=1\r\n");
 	while(!catM1CfunStatus)
 	{
-		send_at_command("AT+CFUN?\r\n");
 		send_at_command("AT+CFUN=1\r\n");
+		send_at_command("AT+CFUN?\r\n");
 		osDelay(100);
 
 	    if (catM1RetryCount >= 300) {
@@ -431,7 +441,18 @@ void nrf9160_check()
 
 void nrf9160_mqtt_setting()
 {
-	send_at_command("AT#XMQTTCFG=\"\",300,1\r\n");
+	while(!catM1MqttSetStatus)
+	{
+		send_at_command("AT#XMQTTCFG=\"\",300,1\r\n");
+		send_at_command("AT#XMQTTCFG?\r\n");
+		osDelay(1000);
+		catM1RetryCount++;
+
+		if (catM1RetryCount >= 500)
+		{
+			break;
+		}
+	}
 
 //	if (send_at_command("AT#XMQTTCON=1,\"\",\"\",\"broker.hivemq.com\",1883\r\n"))
 //	{
@@ -829,6 +850,7 @@ void nrf9160_Stop_gps()
 	wpmInitializationFlag = 1;
 	catM1GpsOn = 0;
 	catM1GpsOff = 0;
+	catM1MqttSetStatus = 0;
 }
 
 void nrf9160_Get_gps_State()
@@ -861,6 +883,7 @@ void catM1Reset()
 	catM1MqttInitialSend = 0;
 	catM1GpsOn = 0;
 	catM1GpsOff = 0;
+	catM1MqttSetStatus = 0;
 }
 
 void catM1PWRGPIOInit()
