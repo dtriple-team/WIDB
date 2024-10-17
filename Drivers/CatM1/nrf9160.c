@@ -21,7 +21,8 @@ uint8_t cat_m1_boot_cnt = 0;
 uint8_t cat_m1_error_cnt = 0;
 uint8_t cat_m1_retry_cnt = 0;
 uint8_t cat_m1_connection_status = 0;
-uint8_t cat_m1_subscribe_status = 0;
+uint8_t cat_m1_mqtt_connection_status = 0;
+uint8_t cat_m1_mqtt_subscribe_status = 0;
 
 uint8_t cat_m1_mqtt_checking = 0;
 uint8_t cat_m1_gps_checking = 0;
@@ -189,7 +190,8 @@ bool cat_m1_parse_process(uint8_t *msg)
 				wpmInitFlag = 0;
 				nrf9160_checked = 0;
 				cat_m1_connection_status = 0;
-				cat_m1_subscribe_status = 0;
+				cat_m1_mqtt_connection_status = 0;
+				cat_m1_mqtt_subscribe_status = 0;
 				cat_m1_boot_cnt = 0;
 				cat_m1_gps_checking = 0;
 				cat_m1_mqtt_checking = 0;
@@ -216,7 +218,8 @@ bool cat_m1_parse_process(uint8_t *msg)
 				send_at_command("AT+CFUN=0\r\n");
 				nrf9160_checked = 0;
 				cat_m1_connection_status = 0;
-				cat_m1_subscribe_status = 0;
+				cat_m1_mqtt_connection_status = 0;
+				cat_m1_mqtt_subscribe_status = 0;
 				cat_m1_boot_cnt = 0;
 				cat_m1_error_cnt = 0;
 				cat_m1_gps_checking = 0;
@@ -281,7 +284,8 @@ void cat_m1_parse_result(const char *command, const char *value)
 			send_at_command("AT+CFUN=0\r\n");
 			nrf9160_checked = 0;
 			cat_m1_connection_status = 0;
-			cat_m1_subscribe_status = 0;
+			cat_m1_mqtt_connection_status = 0;
+			cat_m1_mqtt_subscribe_status = 0;
 			cat_m1_gps_checking = 0;
 			wpmInitFlag = 1;
         }
@@ -292,7 +296,8 @@ void cat_m1_parse_result(const char *command, const char *value)
 			send_at_command("AT+CFUN=0\r\n");
 			nrf9160_checked = 0;
 			cat_m1_connection_status = 0;
-			cat_m1_subscribe_status = 0;
+			cat_m1_mqtt_connection_status = 0;
+			cat_m1_mqtt_subscribe_status = 0;
 			cat_m1_gps_checking = 0;
 			wpmInitFlag = 1;
 		}
@@ -309,7 +314,12 @@ void cat_m1_parse_result(const char *command, const char *value)
 		if (strstr(value, "7,0") != NULL)
 		{
 			printf("#XMQTTEVT >>> 7,0\r\n");
-			cat_m1_subscribe_status++;
+			cat_m1_mqtt_subscribe_status++;
+		}
+		if (strstr(value, "0,0") != NULL)
+		{
+			printf("#XMQTTEVT >>> 0,0\r\n");
+			cat_m1_mqtt_connection_status = 1;
 		}
 	}
     if (strstr(command, "#XMQTTSERVERMSG") != NULL)
@@ -407,8 +417,18 @@ void nrf9160_mqtt_setting()
 //	{
 //		//return true;
 //	}
-	send_at_command("AT#XMQTTCON=1,\"\",\"\",\"t-vsm.com\",18831\r\n");
-	while(cat_m1_subscribe_status == 0)
+	while(cat_m1_mqtt_connection_status == 0)
+	{
+		send_at_command("AT#XMQTTCON=1,\"\",\"\",\"t-vsm.com\",18831\r\n");
+		osDelay(5000);
+		cat_m1_retry_cnt++;
+
+		if (cat_m1_retry_cnt >= 5)
+		{
+			break;
+		}
+	}
+	while(cat_m1_mqtt_subscribe_status == 0)
 	{
 		send_at_command("AT#XMQTTSUB=\"/DT/eHG4/Status/BandSet\",0\r\n");
 		osDelay(5000);
@@ -419,7 +439,7 @@ void nrf9160_mqtt_setting()
 			break;
 		}
 	}
-	while (cat_m1_subscribe_status == 1)
+	while (cat_m1_mqtt_subscribe_status == 1)
 	{
 		send_at_command("AT#XMQTTSUB=\"/DT/eHG4/Status/ServerAlert\",0\r\n");
 		osDelay(5000);
@@ -566,14 +586,14 @@ void send_Status_Band(cat_m1_Status_Band_t *status)
 		(unsigned int)status->walk_steps, (unsigned int)status->run_steps, (unsigned int)status->temperature, (unsigned int)status->pres, status->rssi
     );
 
-//    if (send_at_command("AT#XMQTTPUB=\"DT/eHG4/Status/Band\"\r\n"))
-//    {
-//        printf("AT command sent successfully.\n");
-//    }
-    if (send_at_command("AT#XMQTTPUB=\"/efwb/post/sync\"\r\n"))
+    if (send_at_command("AT#XMQTTPUB=\"/DT/eHG4/Status/Band\"\r\n"))
     {
         printf("AT command sent successfully.\n");
     }
+//    if (send_at_command("AT#XMQTTPUB=\"/efwb/post/sync\"\r\n"))
+//    {
+//        printf("AT command sent successfully.\n");
+//    }
     else
     {
         printf("Failed to send AT command.\n");
