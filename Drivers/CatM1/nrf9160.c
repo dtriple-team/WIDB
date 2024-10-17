@@ -351,8 +351,13 @@ void cat_m1_parse_result(const char *command, const char *value)
 		}
 		if (strstr(value, "1,0") != NULL)
 		{
-			printf("#XMQTTEVT >>> 0,0\r\n");
+			printf("#XMQTTEVT >>> 1,0\r\n");
 			catM1MqttDisconnectStatus = 1;
+		}
+		if (strstr(value, "0,0") != NULL)
+		{
+			printf("#XMQTTEVT >>> 0,0\r\n");
+			catM1MqttConnectionStatus = 1;
 		}
 	}
     if (strstr(command, "#XMQTTSERVERMSG") != NULL)
