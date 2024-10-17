@@ -310,7 +310,7 @@ void cat_m1_parse_result(const char *command, const char *value)
 			//printf("XGPS >>> 1,3\r\n");
 			nrf9160_Stop_gps();
 		}
-		else if (strstr(value, "1,0") != NULL)
+		else if (strstr(value, "1,0") != NULL || strstr(value, "0,0") != NULL)
 		{
 			//printf("XGPS >>> 1,0\r\n");
 			catM1GpsOff = 1;
