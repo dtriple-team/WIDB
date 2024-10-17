@@ -76,7 +76,7 @@ uint8_t now_sleepmode = 0;
 #define mqtt_operation_cycle 60*1
 uint8_t mqttTime = 0;
 bool mqttFlag = false;
-uint8_t mqttInitial_Send = 0;
+uint8_t catM1MqttInitialSend = 0;
 
 #define mqtt_RetryTime_cycle 11
 uint8_t mqttRetryTime = 0;
@@ -385,7 +385,7 @@ void StartWPMTask(void *argument)
 
 	if(wpmInitializationFlag && nrf9160Checked == 2)
 	{
-		if ((mqttFlag && catM1GpsChecking == 0) || mqttInitial_Send == 0)
+		if ((mqttFlag && catM1GpsChecking == 0) || catM1MqttInitialSend == 0)
 		{
 			//nrf9160_Get_gps_State();
 			//test_send_json_publish();
@@ -421,7 +421,7 @@ void StartWPMTask(void *argument)
 				send_GPS_Location(&location);
 			}
 			mqttFlag = false;
-			mqttInitial_Send = 1;
+			catM1MqttInitialSend = 1;
 		}
 
 		if(gpsFlag && catM1MqttChecking == 0)
