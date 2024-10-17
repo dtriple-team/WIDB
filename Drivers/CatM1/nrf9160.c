@@ -20,8 +20,7 @@ uint8_t catM1ParseResult = 0;
 uint8_t catM1BootCount = 0;
 uint8_t catM1ErrorCount = 0;
 uint8_t catM1RetryCount = 0;
-uint8_t catM1CfunLte = 0;
-uint8_t catM1CfunGps = 0;
+uint8_t catM1CfunStatus = 0;
 uint8_t catM1SystemModeStatus = 0;
 uint8_t catM1ConnectionStatus = 0;
 uint8_t catM1MqttSetStatus = 0;
@@ -244,20 +243,12 @@ void cat_m1_parse_result(const char *command, const char *value)
     {
     	if (strcmp(value, " 1") == 0)
     	{
-    		catM1CfunLte = 1;
+    		catM1CfunStatus = 1;
     	}
     	else
     	{
-    		catM1CfunLte = 0;
+    		catM1CfunStatus = 0;
     	}
-    	if (strcmp(value, " 31") == 0)
-		{
-			catM1CfunGps = 1;
-		}
-		else
-		{
-			catM1CfunGps = 0;
-		}
     }
     if (strstr(command, "%XSYSTEMMODE") != NULL)
     {
@@ -427,7 +418,7 @@ void nrf9160_check()
 			break;
 		}
 	}
-	while(!catM1CfunLte)
+	while(!catM1CfunStatus)
 	{
 		send_at_command("AT+CFUN=1\r\n");
 		send_at_command("AT+CFUN?\r\n");
@@ -838,7 +829,7 @@ void nrf9160_Get_gps()
 			break;
 		}
 	}
-	while(!catM1CfunGps)
+	while(!catM1CfunStatus)
 	{
 		send_at_command("AT+CFUN=31\r\n");
 		send_at_command("AT+CFUN?\r\n");
@@ -887,8 +878,7 @@ void nrf9160_Stop_gps()
 	catM1MqttDisconnectStatus =0;
 	catM1MqttSubscribeStatus = 0;
 	catM1GpsChecking = 0;
-	catM1CfunLte = 0;
-	catM1CfunGps = 0;
+	catM1CfunStatus = 0;
 	catM1SystemModeStatus = 0;
 	wpmInitializationFlag = 1;
 	catM1GpsOn = 0;
@@ -921,8 +911,7 @@ void catM1Reset()
 	catM1ErrorCount = 0;
 	catM1GpsChecking = 0;
 	catM1MqttChecking = 0;
-	catM1CfunLte = 0;
-	catM1CfunGps = 0;
+	catM1CfunStatus = 0;
 	catM1SystemModeStatus = 0;
 	catM1RetryCount = 0;
 	catM1MqttInitialSend = 0;
