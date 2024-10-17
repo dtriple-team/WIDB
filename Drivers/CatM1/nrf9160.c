@@ -20,6 +20,8 @@ uint8_t catM1ParseResult = 0;
 uint8_t catM1BootCount = 0;
 uint8_t catM1ErrorCount = 0;
 uint8_t catM1RetryCount = 0;
+uint8_t catM1CfunStatus = 0;
+uint8_t catM1SystemModeStatus = 0;
 uint8_t catM1ConnectionStatus = 0;
 uint8_t catM1MqttConnectionStatus = 0;
 uint8_t catM1MqttSubscribeStatus = 0;
@@ -43,15 +45,6 @@ uint8_t nrf9160Checked = 0;
 extern uint8_t mqttRetryTime;
 extern uint8_t catM1MqttInitialSend;
 
-void HAL_UART_TxCpltCallback(UART_HandleTypeDef *huart)
-{
-    if (huart->Instance == USART1)
-    {
-    	//push(&uart_cat_m1_rx, uart_cat_m1_rx.temp);
-    	//HAL_UART_Receive_IT(&huart1, &uart_cat_m1_rx.temp, 1);
-    }
-}
-
 void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart)
 {
     if (huart->Instance == USART1)
@@ -61,7 +54,7 @@ void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart)
     }
 }
 
-void clear_uart_buf(uart_cat_m1_t* u)
+void clear_uart_buf(uart_cat_m1_t*u)
 {
   u->head = 0;
   u->tail = 0;
@@ -103,7 +96,7 @@ bool send_at_command(const char *cmd)
 {
 	//HAL_UART_Transmit_IT(&huart1, (uint8_t*)cmd, strlen(cmd));
 	HAL_UART_Transmit(&huart1, (uint8_t*)cmd, strlen(cmd), 1000);
-	//PRINT_INFO("TX CMD >>> %s\r\n",cmd);
+	PRINT_INFO("TX CMD >>> %s\r\n",cmd);
 
 	return receive_at_command_ret();
 }
@@ -242,6 +235,28 @@ void cat_m1_parse_result(const char *command, const char *value)
         }
         strcpy(cat_m1_at_cmd_rst_rx.cops, (const char *)value);
     }
+    if (strstr(command, "+CFUN") != NULL)
+    {
+    	if (strstr(value, "1") != NULL)
+    	{
+    		catM1CfunStatus = 1;
+    	}
+    	else
+    	{
+    		catM1CfunStatus = 0;
+    	}
+    }
+    if (strstr(command, "%XSYSTEMMODE") != NULL)
+    {
+    	if (strstr(value, "1,0,0,0") != NULL)
+    	{
+    		catM1SystemModeStatus = 1;
+    	}
+    	else if(strstr(value, "0,0,1,0") != NULL)
+    	{
+    		catM1SystemModeStatus = 2;
+    	}
+    }
     if (strstr(command, "+CGDCONT") != NULL)
     {
         printf("CGDCONT >>> OK\r\n");
@@ -311,19 +326,22 @@ void cat_m1_parse_result(const char *command, const char *value)
     }
 }
 
-// Initialize UART
 void uart_init()
 {
 	HAL_UART_Receive_IT(&huart1, &uart_cat_m1_rx.temp, 1);
+}
+
+void nrf9160_clear_buf()
+{
 	clear_uart_buf(&uart_cat_m1_rx);
-	clear_uart_buf(&cat_m1_at_cmd_rst_rx);
-	clear_uart_buf(&uart_cat_m1_buf);
-	clear_uart_buf(&cat_m1_Status_Band);
-	clear_uart_buf(&cat_m1_Status_BandAler);
-	clear_uart_buf(&cat_m1_Status_FallDetection);
-	clear_uart_buf(&cat_m1_Status_GPS_Location);
-	clear_uart_buf(&cat_m1_Status_IMU);
-	clear_uart_buf(&cat_m1_Status_BandSet);
+	memset(&cat_m1_at_cmd_rst_rx, 0, sizeof(cat_m1_at_cmd_rst_rx));
+	memset(&uart_cat_m1_buf, 0, sizeof(uart_cat_m1_buf));
+	memset(&cat_m1_Status_Band, 0, sizeof(cat_m1_Status_Band));
+	memset(&cat_m1_Status_BandAler, 0, sizeof(cat_m1_Status_BandAler));
+	memset(&cat_m1_Status_FallDetection, 0, sizeof(cat_m1_Status_FallDetection));
+	memset(&cat_m1_Status_GPS_Location, 0, sizeof(cat_m1_Status_GPS_Location));
+	memset(&cat_m1_Status_IMU, 0, sizeof(cat_m1_Status_IMU));
+	memset(&cat_m1_Status_BandSet, 0, sizeof(cat_m1_Status_BandSet));
 }
 
 void nrf9160_init()
@@ -351,14 +369,32 @@ void nrf9160_ready(void)
 
 void nrf9160_check()
 {
-//	osDelay(100);
+	send_at_command("AT+CFUN=0\r\n");
 	send_at_command("AT%XSYSTEMMODE=1,0,0,0\r\n");
 	//send_at_command("AT%XSYSTEMMODE=0,0,1,0\r\n");
-//
-//	osDelay(100);
+	while(catM1SystemModeStatus == 0 || catM1SystemModeStatus == 2)
+	{
+		send_at_command("AT%XSYSTEMMODE?\r\n");
+		send_at_command("AT+CFUN=0\r\n");
+		send_at_command("AT%XSYSTEMMODE=1,0,0,0\r\n");
+		osDelay(500);
+
+		if (catM1RetryCount >= 60*1) {
+			break;
+		}
+	}
+	osDelay(100);
 	send_at_command("AT+CFUN=1\r\n");
-	send_at_command("AT+CFUN?\r\n");
-	osDelay(300);
+	while(!catM1CfunStatus)
+	{
+		send_at_command("AT+CFUN?\r\n");
+		send_at_command("AT+CFUN=1\r\n");
+		osDelay(500);
+
+	    if (catM1RetryCount >= 60*1) {
+	        break;
+	    }
+	}
 	while(!catM1ConnectionStatus)
 	{
 		send_at_command("AT+COPS?\r\n");
@@ -630,14 +666,14 @@ void send_Status_FallDetection(cat_m1_Status_FallDetection_t* fallData)
     	"}+++\r\n",
 		(unsigned int)fallData->bid, fallData->type, fallData->fall_detect);
 
-//    if (send_at_command("AT#XMQTTPUB=\"DT/eHG4/Status/FallDetection\"\r\n"))
-//    {
-//        printf("AT command sent successfully.\n");
-//    }
-	if (send_at_command("AT#XMQTTPUB=\"/efwb/post/async\"\r\n"))
-	{
-		printf("AT command sent successfully.\n");
-	}
+    if (send_at_command("AT#XMQTTPUB=\"DT/eHG4/Status/FallDetection\"\r\n"))
+    {
+        printf("AT command sent successfully.\n");
+    }
+//	if (send_at_command("AT#XMQTTPUB=\"/efwb/post/async\"\r\n"))
+//	{
+//		printf("AT command sent successfully.\n");
+//	}
     else
     {
         printf("Failed to send AT command.\n");
@@ -732,6 +768,17 @@ void nrf9160_Get_gps()
 	send_at_command("AT#XMQTTCON=0\r\n");
 	send_at_command("AT+CFUN=0\r\n");
 	send_at_command("AT%XSYSTEMMODE=0,0,1,0\r\n");
+
+	while(catM1SystemModeStatus == 0 || catM1SystemModeStatus == 1)
+	{
+		send_at_command("AT%XSYSTEMMODE?\r\n");
+		send_at_command("AT+CFUN=0\r\n");
+		send_at_command("AT%XSYSTEMMODE=0,0,1,0\r\n");
+		osDelay(500);
+		if (catM1RetryCount >= 60*1) {
+			break;
+		}
+	}
 	send_at_command("AT+CFUN=31\r\n");
 	send_at_command("AT#XGPS=1,0,0,60\r\n");
 
@@ -754,6 +801,8 @@ void nrf9160_Stop_gps()
 	catM1MqttConnectionStatus = 0;
 	catM1MqttSubscribeStatus = 0;
 	catM1GpsChecking = 0;
+	catM1CfunStatus = 0;
+	catM1SystemModeStatus = 0;
 	wpmInitializationFlag = 1;
 }
 
@@ -781,6 +830,8 @@ void catM1Reset()
 	catM1ErrorCount = 0;
 	catM1GpsChecking = 0;
 	catM1MqttChecking = 0;
+	catM1CfunStatus = 0;
+	catM1SystemModeStatus = 0;
 	catM1RetryCount = 0;
 	catM1MqttInitialSend = 0;
 }

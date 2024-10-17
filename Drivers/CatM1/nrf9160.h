@@ -125,6 +125,7 @@ void cat_m1_parse_result(const char *command, const char *value);
 
 // nRF9160 Modem Interaction
 void uart_init();
+void nrf9160_clear_buf();
 void nrf9160_init();
 void nrf9160_ready();
 void nrf9160_check();

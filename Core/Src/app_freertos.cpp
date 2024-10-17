@@ -88,9 +88,11 @@ bool gpsFlag = false;
 
 extern uint8_t catM1GpsChecking;
 extern uint8_t catM1MqttChecking;
+uint8_t catM1MqttDangerMessage = 0;
 
 extern cat_m1_Status_Band_t cat_m1_Status_Band;
 extern cat_m1_at_cmd_rst_t cat_m1_at_cmd_rst_rx;
+extern cat_m1_Status_FallDetection_t cat_m1_Status_FallDetection;
 
 uint16_t ssHr = 0;
 uint16_t ssSpo2 = 0;
@@ -358,14 +360,18 @@ void StartWPMTask(void *argument)
 	}
 	// UART INT INIT, buffer init
 	nrf9160_init();
-
+	nrf9160_clear_buf();
 	// CatM1 PWR GPIO ON
 	catM1PWRGPIOInit(); // ->??
 	HAL_Delay(1000);
 
 //	// WiFi-BLE init
 //	nora_w10_init();
-
+//	cat_m1_Status_FallDetection_t cat_m1_Status_FallDetection = {
+//	    .bid = HAL_GetUIDw2(), // Band의 bid 값을 사용
+//	    .type = 0,
+//	    .fall_detect = 1
+//	};
   /* Infinite loop */
   for(;;)
   {
@@ -420,17 +426,23 @@ void StartWPMTask(void *argument)
 				location.bid = cat_m1_Status_Band.bid;
 				send_GPS_Location(&location);
 			}
+
 			mqttFlag = false;
 			catM1MqttInitialSend = 1;
 		}
 
 		if(gpsFlag && catM1MqttChecking == 0)
 		{
+			//catM1MqttDangerMessage = 1;
 			nrf9160_Get_gps();
+			nrf9160_Get_gps_State();
 			gpsFlag = false;
 		}
+		if(catM1GpsChecking)
+		{
+			nrf9160_Get_gps_State();
+		}
 	}
-	  osDelay(10);
 	//	if(wpmFlag ==1)
 	//	{
 
@@ -440,6 +452,22 @@ void StartWPMTask(void *argument)
 	if(initFlag){
 
 	}
+	if(catM1MqttDangerMessage && wpmInitializationFlag && nrf9160Checked == 2)
+	{
+		if (cat_m1_Status_FallDetection.bid)
+		{
+			if (cat_m1_Status_FallDetection.bid)
+			{
+				if(catM1GpsChecking)
+				{
+					nrf9160_Stop_gps();
+				}
+				send_Status_FallDetection(&cat_m1_Status_FallDetection);
+				memset(&cat_m1_Status_FallDetection, 0, sizeof(cat_m1_Status_FallDetection));
+			}
+		}
+	}
+	osDelay(10);
   }
   /* USER CODE END wpmTask */
 }
@@ -645,7 +673,7 @@ double calculateAltitudeDifference(double P1, double P2) {
     return altitudeDifference;
 }
 
-extern cat_m1_Status_FallDetection_t cat_m1_Status_FallDetection;
+
 
 //uint8_t updateBattVal(){
 //	uint8_t batt = 0;
@@ -684,8 +712,8 @@ void StartCheckINTTask(void *argument)
     		};
 
     		ST7789_brightness_setting(16);
-			myFallDetectedView.changeToFallDetected(); ////////////////////////
-			send_Status_FallDetection(&cat_m1_Status_FallDetection);
+    		catM1MqttDangerMessage = 1;
+
     	}
     	if((interrupt_kind & 0x02) == 0x02){
     		// wake-up
