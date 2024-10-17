@@ -310,9 +310,14 @@ void cat_m1_parse_result(const char *command, const char *value)
 			//printf("XGPS >>> 1,3\r\n");
 			nrf9160_Stop_gps();
 		}
-		else if (strstr(value, "1,0") != NULL || strstr(value, "0,0") != NULL)
+		else if (strstr(value, "1,0") != NULL)
 		{
 			//printf("XGPS >>> 1,0\r\n");
+			catM1GpsOff = 1;
+		}
+		else if (strstr(value, "0,0") != NULL)
+		{
+			//printf("XGPS >>> 0,0\r\n");
 			catM1GpsOff = 1;
 		}
 	}
@@ -834,6 +839,7 @@ void nrf9160_Stop_gps()
 	{
 		send_at_command("AT#XGPS=0\r\n");
 		send_at_command("AT+CFUN=0\r\n");
+		send_at_command("AT#XGPS?\r\n");
 		osDelay(500);
 		if (catM1RetryCount >= 60*1) {
 			break;
