@@ -428,7 +428,7 @@ void StartWPMTask(void *argument)
 				location.bid = cat_m1_Status_Band.bid;
 				send_GPS_Location(&location);
 			}
-
+			mqttTime = 0;
 			mqttFlag = false;
 			catM1MqttInitialSend = 1;
 		}
@@ -446,6 +446,7 @@ void StartWPMTask(void *argument)
 			if(catM1GpsOff)
 			{
 				nrf9160_Stop_gps();
+				gpsTime = 0;
 			}
 		}
 	}

@@ -98,7 +98,7 @@ uint8_t isEmpty(uart_cat_m1_t* u)
 bool send_at_command(const char *cmd)
 {
 	//HAL_UART_Transmit_IT(&huart1, (uint8_t*)cmd, strlen(cmd));
-	HAL_UART_Transmit(&huart1, (uint8_t*)cmd, strlen(cmd), 1000);
+	HAL_UART_Transmit(&huart1, (uint8_t*)cmd, strlen(cmd), 5000);
 	//PRINT_INFO("TX CMD >>> %s\r\n",cmd);
 
 	return receive_at_command_ret();
@@ -304,21 +304,25 @@ void cat_m1_parse_result(const char *command, const char *value)
         	strcpy(cat_m1_at_cmd_rst_rx.gps, (const char *)value);
         	//PRINT_INFO("GPS result >>> %s\r\n", cat_m1_at_cmd_rst_rx.gps);
         	catM1GpsOff = 1;
+        	catM1GpsChecking = 0;
         }
 		else if (strstr(value, "1,3") != NULL)
 		{
 			//printf("XGPS >>> 1,3\r\n");
 			catM1GpsOff = 1;
+			catM1GpsChecking = 0;
 		}
-		else if (strstr(value, "1,0") != NULL)
-		{
-			//printf("XGPS >>> 1,0\r\n");
-			catM1GpsOff = 1;
-		}
+//		else if (strstr(value, "1,0") != NULL)
+//		{
+//			//printf("XGPS >>> 1,0\r\n");
+//			catM1GpsOff = 1;
+//			catM1GpsChecking = 0;
+//		}
 		else if (strstr(value, "0,0") != NULL)
 		{
 			//printf("XGPS >>> 0,0\r\n");
 			catM1GpsOff = 1;
+			catM1GpsChecking = 0;
 		}
 	}
     if (strstr(command, "#XMQTTEVT") != NULL)
@@ -470,10 +474,10 @@ void nrf9160_mqtt_setting()
 	while(catM1MqttConnectionStatus == 0)
 	{
 		send_at_command("AT#XMQTTCON=1,\"\",\"\",\"t-vsm.com\",18831\r\n");
-		osDelay(4000);
+		osDelay(5000);
 		catM1RetryCount++;
 
-		if (catM1RetryCount >= 10)
+		if (catM1RetryCount >= 5)
 		{
 			break;
 		}
@@ -481,10 +485,10 @@ void nrf9160_mqtt_setting()
 	while(catM1MqttSubscribeStatus == 0)
 	{
 		send_at_command("AT#XMQTTSUB=\"/DT/eHG4/Status/BandSet\",0\r\n");
-		osDelay(4000);
+		osDelay(5000);
 		catM1RetryCount++;
 
-		if (catM1RetryCount >= 10)
+		if (catM1RetryCount >= 5)
 		{
 			break;
 		}
@@ -492,10 +496,10 @@ void nrf9160_mqtt_setting()
 	while (catM1MqttSubscribeStatus == 1)
 	{
 		send_at_command("AT#XMQTTSUB=\"/DT/eHG4/Status/ServerAlert\",0\r\n");
-		osDelay(4000);
+		osDelay(5000);
 
 		catM1RetryCount++;
-		if (catM1RetryCount >= 10)
+		if (catM1RetryCount >= 5)
 		{
 			break;
 		}
@@ -839,22 +843,12 @@ void nrf9160_Get_gps()
 
 void nrf9160_Stop_gps()
 {
+	send_at_command("AT#XGPS=0\r\n");
 	send_at_command("AT+CFUN=0\r\n");
-	while(!catM1GpsOff)
-	{
-		send_at_command("AT#XGPS=0\r\n");
-		send_at_command("AT#XGPS?\r\n");
-		osDelay(2000);
-		if (catM1RetryCount >= 60*1) {
-			break;
-		}
-	}
-
 	nrf9160Checked = 0;
 	catM1ConnectionStatus = 0;
 	catM1MqttConnectionStatus = 0;
 	catM1MqttSubscribeStatus = 0;
-	catM1GpsChecking = 0;
 	catM1CfunStatus = 0;
 	catM1SystemModeStatus = 0;
 	wpmInitializationFlag = 1;
@@ -876,15 +870,13 @@ void nrf9160_Get_time()
 
 void catM1Reset()
 {
-	catM1PWRGPIOInit();
-	send_at_command("AT+CFUN=0\r\n");
 	wpmInitializationFlag = 0;
 	nrf9160Checked = 0;
 	catM1ConnectionStatus = 0;
 	catM1MqttConnectionStatus = 0;
 	catM1MqttSubscribeStatus = 0;
 	catM1BootCount = 0;
-	catM1ErrorCount = 0;
+	catM1ErrorCount = 100;
 	catM1GpsChecking = 0;
 	catM1MqttChecking = 0;
 	catM1CfunStatus = 0;
@@ -894,6 +886,8 @@ void catM1Reset()
 	catM1GpsOn = 0;
 	catM1GpsOff = 0;
 	catM1MqttSetStatus = 0;
+	catM1PWRGPIOInit();
+	send_at_command("AT+CFUN=0\r\n");
 }
 
 void catM1PWRGPIOInit()
