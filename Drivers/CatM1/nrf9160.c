@@ -411,7 +411,7 @@ void nrf9160_mqtt_setting()
 	while(cat_m1_subscribe_status == 0)
 	{
 		send_at_command("AT#XMQTTSUB=\"/DT/eHG4/Status/BandSet\",0\r\n");
-		osDelay(3000);
+		osDelay(5000);
 		cat_m1_retry_cnt++;
 
 		if (cat_m1_retry_cnt >= 5)
@@ -422,7 +422,7 @@ void nrf9160_mqtt_setting()
 	while (cat_m1_subscribe_status == 1)
 	{
 		send_at_command("AT#XMQTTSUB=\"/DT/eHG4/Status/ServerAlert\",0\r\n");
-		osDelay(3000);
+		osDelay(5000);
 
 		cat_m1_retry_cnt++;
 		if (cat_m1_retry_cnt >= 5)
