@@ -89,6 +89,7 @@ bool gpsFlag = false;
 extern uint8_t catM1GpsChecking;
 extern uint8_t catM1MqttChecking;
 extern uint8_t catM1MqttConnectionStatus;
+extern uint8_t catM1GpsOff;
 uint8_t catM1MqttDangerMessage = 0;
 
 extern cat_m1_Status_Band_t cat_m1_Status_Band;
@@ -442,6 +443,10 @@ void StartWPMTask(void *argument)
 		if(catM1GpsChecking)
 		{
 			nrf9160_Get_gps_State();
+			if(catM1GpsOff)
+			{
+				nrf9160_Stop_gps();
+			}
 		}
 	}
 	//	if(wpmFlag ==1)

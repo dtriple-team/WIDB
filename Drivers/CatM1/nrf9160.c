@@ -303,12 +303,12 @@ void cat_m1_parse_result(const char *command, const char *value)
 			//printf("XGPS >>> 1,4\r\n");
         	strcpy(cat_m1_at_cmd_rst_rx.gps, (const char *)value);
         	//PRINT_INFO("GPS result >>> %s\r\n", cat_m1_at_cmd_rst_rx.gps);
-        	nrf9160_Stop_gps();
+        	catM1GpsOff = 1;
         }
 		else if (strstr(value, "1,3") != NULL)
 		{
 			//printf("XGPS >>> 1,3\r\n");
-			nrf9160_Stop_gps();
+			catM1GpsOff = 1;
 		}
 		else if (strstr(value, "1,0") != NULL)
 		{
