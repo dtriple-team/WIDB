@@ -603,7 +603,7 @@ void StartSecTimerTask(void *argument)
 
 		mqttRetryTime++;
 //		PRINT_INFO("mqttRetryTime >>> %d\r\n",mqttRetryTime);
-		if(mqttRetryTime > 6)
+		if(mqttRetryTime > 11)
 		{
 			mqttRetryTime = 0;
 		}

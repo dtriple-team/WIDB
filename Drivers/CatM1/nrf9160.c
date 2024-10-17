@@ -19,7 +19,7 @@ uint8_t cat_m1_parse_cnt = 0;
 uint8_t cat_m1_parse_ret = 0;
 uint8_t cat_m1_boot_cnt = 0;
 uint8_t cat_m1_error_cnt = 0;
-uint8_t cat_m1_no_response_cnt = 0;
+uint8_t cat_m1_retry_cnt = 0;
 uint8_t cat_m1_connection_status = 0;
 uint8_t cat_m1_subscribe_status = 0;
 
@@ -180,6 +180,7 @@ bool cat_m1_parse_process(uint8_t *msg)
 			cat_m1_parse_ret = 1;
 			cat_m1_boot_cnt++;
 			wpmInitFlag = 1;
+			cat_m1_retry_cnt = 0;
 			printf("cat_m1_boot_cnt >>> %d\r\n",cat_m1_boot_cnt);
 			if (cat_m1_boot_cnt >= 2)
 			{
@@ -192,6 +193,7 @@ bool cat_m1_parse_process(uint8_t *msg)
 				cat_m1_boot_cnt = 0;
 				cat_m1_gps_checking = 0;
 				cat_m1_mqtt_checking = 0;
+				cat_m1_retry_cnt = 0;
 				wpmInitFlag = 1;
 			}
 		}
@@ -201,6 +203,7 @@ bool cat_m1_parse_process(uint8_t *msg)
             cat_m1_parse_ret = 1;
             cat_m1_error_cnt = 0;
             wpmInitFlag = 1;
+            cat_m1_retry_cnt = 0;
         }
         else if (strstr((char *)msg, "ERROR"))
         {
@@ -218,6 +221,7 @@ bool cat_m1_parse_process(uint8_t *msg)
 				cat_m1_error_cnt = 0;
 				cat_m1_gps_checking = 0;
 				cat_m1_mqtt_checking = 0;
+				cat_m1_retry_cnt = 0;
 				wpmInitFlag = 1;
 			}
         }
@@ -348,6 +352,13 @@ void nrf9160_ready(void)
 		receive_at_command_ret();
 		send_at_command("AT\r\n");
 		osDelay(500);
+
+		if (cat_m1_error_cnt >= 5) {
+	        break;
+	    }
+		if (mqttRetryTime > 5) {
+			uart_init();
+		}
 	}
 }
 
@@ -358,30 +369,23 @@ void nrf9160_check()
 	//send_at_command("AT%XSYSTEMMODE=0,0,1,0\r\n");
 //
 //	osDelay(100);
-	if (send_at_command("AT+CFUN=1\r\n"))
-	{
-		//return true;
-	}
-	if (send_at_command("AT+CFUN?\r\n"))
-	{
-		//return true;
-	}
+	send_at_command("AT+CFUN=1\r\n");
+	send_at_command("AT+CFUN?\r\n");
 	osDelay(300);
 	while(!cat_m1_connection_status)
 	{
 		send_at_command("AT+COPS?\r\n");
 		osDelay(500);
+
+	    if (cat_m1_retry_cnt >= 60*10) {
+	        break;
+	    }
 	}
 
-	if (send_at_command("AT+CGDCONT?\r\n"))
-	{
-		//return true;
-	}
+	send_at_command("AT+CGDCONT?\r\n");
 	osDelay(100);
-	if (send_at_command("AT%XICCID\r\n"))
-	{
-		//return true;
-	}
+	send_at_command("AT%XICCID\r\n");
+
 	osDelay(1000);
 	nrf9160_checked = 1;
 
@@ -408,21 +412,30 @@ void nrf9160_mqtt_setting()
 	{
 		send_at_command("AT#XMQTTSUB=\"/DT/eHG4/Status/BandSet\",0\r\n");
 		osDelay(3000);
+		cat_m1_retry_cnt++;
+
+		if (cat_m1_retry_cnt >= 5)
+		{
+			break;
+		}
 	}
 	while (cat_m1_subscribe_status == 1)
 	{
 		send_at_command("AT#XMQTTSUB=\"/DT/eHG4/Status/ServerAlert\",0\r\n");
 		osDelay(3000);
+
+		cat_m1_retry_cnt++;
+		if (cat_m1_retry_cnt >= 5)
+		{
+			break;
+		}
 	}
 	nrf9160_checked = 2;
 }
 
 void nrf9160_mqtt_test()
 {
-	if (send_at_command("AT#XMQTTPUB=\"topic/slm/pub\",\"Hi~ from nRF9160\",0,0\r\n"))
-	{
-		//return true;
-	}
+	send_at_command("AT#XMQTTPUB=\"topic/slm/pub\",\"Hi~ from nRF9160\",0,0\r\n");
 	osDelay(500);
 }
 
