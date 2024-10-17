@@ -817,6 +817,8 @@ void nrf9160_Get_gps()
 	{
 		send_at_command("AT+CFUN=31\r\n");
 		send_at_command("AT#XGPS=1,0,0,60\r\n");
+		send_at_command("AT#XGPS?\r\n");
+
 		osDelay(500);
 		if (catM1RetryCount >= 60*1) {
 			break;
