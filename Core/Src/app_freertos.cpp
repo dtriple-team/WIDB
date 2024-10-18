@@ -93,7 +93,7 @@ uint8_t catM1MqttDangerMessage = 0;
 
 extern cat_m1_Status_t cat_m1_Status;
 extern cat_m1_Status_Band_t cat_m1_Status_Band;
-extern cat_m1_at_cmd_rst_t cat_m1_at_cmd_rst_rx;
+extern cat_m1_at_cmd_rst_t cat_m1_at_cmd_rst;
 extern cat_m1_Status_FallDetection_t cat_m1_Status_FallDetection;
 
 uint16_t ssHr = 0;
@@ -383,6 +383,7 @@ void StartWPMTask(void *argument)
 	if(wpmInitializationFlag && cat_m1_Status.Checked == 0)
 	{
 		nrf9160_check(); // only TX
+		nrf9160_Get_time();
 	}
 	if(wpmInitializationFlag && cat_m1_Status.Checked == 1)
 	{
@@ -393,6 +394,7 @@ void StartWPMTask(void *argument)
 	{
 		if ((mqttFlag && cat_m1_Status.gpsChecking == 0) || catM1MqttInitialSend == 0)
 		{
+			nrf9160_Get_rssi();
 			//nrf9160_Get_gps_State();
 			//test_send_json_publish();
 
@@ -400,7 +402,7 @@ void StartWPMTask(void *argument)
 			{
 				.bid = HAL_GetUIDw2(),
 				.pid = 0xA021,
-				.rssi = 3,
+				.rssi = (cat_m1_at_cmd_rst.rssi),
 				.start_byte = 0xAA,
 				.hr = ssHr,
 				.spo2 = ssSpo2,
@@ -415,12 +417,12 @@ void StartWPMTask(void *argument)
 			};
 			send_Status_Band(&cat_m1_Status_Band);
 
-			strncpy((char*)cat_m1_at_cmd_rst_rx.gps,
+			strncpy((char*)cat_m1_at_cmd_rst.gps,
 						        "36.106335,128.384310,119.546387,7.287167,0.220983,0.000000,2024-09-25 08:33:25",
-						        sizeof(cat_m1_at_cmd_rst_rx.gps) - 1);
-						cat_m1_at_cmd_rst_rx.gps[sizeof(cat_m1_at_cmd_rst_rx.gps) - 1] = '\0';
+						        sizeof(cat_m1_at_cmd_rst.gps) - 1);
+						cat_m1_at_cmd_rst.gps[sizeof(cat_m1_at_cmd_rst.gps) - 1] = '\0';
 
-			if (strlen((const char*)cat_m1_at_cmd_rst_rx.gps))
+			if (strlen((const char*)cat_m1_at_cmd_rst.gps))
 			{
 				cat_m1_Status_GPS_Location_t location;
 				location.bid = cat_m1_Status_Band.bid;
