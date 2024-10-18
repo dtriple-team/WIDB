@@ -395,6 +395,7 @@ void StartWPMTask(void *argument)
 		if ((mqttFlag && cat_m1_Status.gpsChecking == 0) || catM1MqttInitialSend == 0)
 		{
 			nrf9160_Get_rssi();
+			osDelay(1000);
 			//nrf9160_Get_gps_State();
 			//test_send_json_publish();
 
