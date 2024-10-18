@@ -647,7 +647,7 @@ void StartSecTimerTask(void *argument)
 			gpsFlag = true;
 			gpsTime = 0;
 		}
-		if(cat_m1_Status.mqttChecking)
+		if(cat_m1_Status.gpsChecking)
 		{
 			gpsOffCheckTime++;
 		}
