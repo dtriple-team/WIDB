@@ -860,7 +860,7 @@ void nrf9160_Stop_gps()
 	cat_m1_Status.gpsOff = 0;
 	cat_m1_Status.mqttSetStatus = 0;
 	cat_m1_Status.gpsChecking = 0;
-	wpmInitializationFlag = 1;
+	wpmInitializationFlag = 0;
 }
 
 void nrf9160_Get_gps_State()
