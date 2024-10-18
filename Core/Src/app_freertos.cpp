@@ -388,7 +388,7 @@ void StartWPMTask(void *argument)
 	{
 		nrf9160_mqtt_setting();
 	}
-
+	gpsTime = 0;
 	if(wpmInitializationFlag && cat_m1_Status.Checked == 2)
 	{
 		if ((mqttFlag && cat_m1_Status.gpsChecking == 0) || catM1MqttInitialSend == 0)
@@ -653,7 +653,7 @@ void StartSecTimerTask(void *argument)
 		}
 		if(gpsOffCheckTime > gps_offCheck_cycle)
 		{
-			nrf9160_Get_gps_State();
+			nrf9160_Stop_gps();
 			gpsOffCheckTime = 0;
 		}
 	}
