@@ -158,7 +158,9 @@ void TouchGFXHAL::flushFrameBuffer(const touchgfx::Rect& rect)
 	free(spiDmaTxBuff);
 
 	uint8_t max_fps = 40*1000000 / (240*280*16); // SPI Max Speed 40M < 64Mbit/s
-	uint8_t proc_fps = 1000/(HAL_GetTick() - millis);
+	uint nowMillis = HAL_GetTick();
+	if(nowMillis == millis) nowMillis++;
+	uint8_t proc_fps = 1000/(nowMillis - millis);
 	fps = proc_fps > max_fps ? max_fps : proc_fps;
 
 	//////////////// DMA 240px Line///////////////
