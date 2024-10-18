@@ -18,7 +18,7 @@ uint8_t uart_cat_m1_buf[MINMEA_MAX_SENTENCE_LENGTH] = {0, };
 
 cat_m1_Status_t cat_m1_Status;
 uart_cat_m1_t uart_cat_m1_rx;
-cat_m1_at_cmd_rst_t cat_m1_at_cmd_rst_rx;
+cat_m1_at_cmd_rst_t cat_m1_at_cmd_rst;
 cat_m1_Status_Band_t cat_m1_Status_Band;
 cat_m1_Status_BandAler_t cat_m1_Status_BandAler;
 cat_m1_Status_FallDetection_t cat_m1_Status_FallDetection;
@@ -221,6 +221,10 @@ void cat_m1_parse_result(const char *command, const char *value)
     {
         handle_monitor_command(value);
     }
+    else if (strstr(command, "+CESQ") != NULL)
+	{
+		handle_cesq_command(value);
+	}
     else if (strstr(command, "#XGPS") != NULL)
     {
         handle_gps_command(value);
@@ -240,8 +244,8 @@ void handle_cops_command(const char *value)
     int cops_length = strlen(value);
     cat_m1_Status.connectionStatus = (cops_length > 5) ? 1 : 0;
     cat_m1_Status.mqttChecking = (cops_length <= 5) ? 0 : cat_m1_Status.mqttChecking;
-    strncpy((char *)cat_m1_at_cmd_rst_rx.cops, (const char *)value, MAX_VALUE_LEN - 1);
-    cat_m1_at_cmd_rst_rx.cops[MAX_VALUE_LEN - 1] = '\0';
+    strncpy((char *)cat_m1_at_cmd_rst.cops, (const char *)value, MAX_VALUE_LEN - 1);
+    cat_m1_at_cmd_rst.cops[MAX_VALUE_LEN - 1] = '\0';
 }
 
 void handle_cfun_command(const char *value)
@@ -269,20 +273,50 @@ void handle_mqtt_cfg_command(const char *value)
 
 void handle_cgdcont_command(const char *value)
 {
-	strncpy((char *)cat_m1_at_cmd_rst_rx.cgdcont, (const char *)value, MAX_VALUE_LEN - 1);
-	cat_m1_at_cmd_rst_rx.cgdcont[MAX_VALUE_LEN - 1] = '\0';
+	strncpy((char *)cat_m1_at_cmd_rst.cgdcont, (const char *)value, MAX_VALUE_LEN - 1);
+	cat_m1_at_cmd_rst.cgdcont[MAX_VALUE_LEN - 1] = '\0';
 }
 
 void handle_iccid_command(const char *value)
 {
-	strncpy((char *)cat_m1_at_cmd_rst_rx.iccid, (const char *)value, ICCID_LEN - 1);
-	cat_m1_at_cmd_rst_rx.iccid[ICCID_LEN - 1] = '\0';
+	strncpy((char *)cat_m1_at_cmd_rst.iccid, (const char *)value, ICCID_LEN - 1);
+	cat_m1_at_cmd_rst.iccid[ICCID_LEN - 1] = '\0';
 }
 
 void handle_monitor_command(const char *value)
 {
-	strncpy((char *)cat_m1_at_cmd_rst_rx.networkinfo, (const char *)value, sizeof(cat_m1_at_cmd_rst_rx.networkinfo) - 1);
-	cat_m1_at_cmd_rst_rx.networkinfo[sizeof(cat_m1_at_cmd_rst_rx.networkinfo) - 1] = '\0';
+    strncpy((char *)cat_m1_at_cmd_rst.networkinfo, (const char *)value, sizeof(cat_m1_at_cmd_rst.networkinfo) - 1);
+    cat_m1_at_cmd_rst.networkinfo[sizeof(cat_m1_at_cmd_rst.networkinfo) - 1] = '\0';
+}
+
+void handle_cesq_command(const char *value)
+{
+    strncpy((char *)cat_m1_at_cmd_rst.cesq, (const char *)value, sizeof(cat_m1_at_cmd_rst.cesq) - 1);
+    cat_m1_at_cmd_rst.cesq[sizeof(cat_m1_at_cmd_rst.cesq) - 1] = '\0';
+
+    char *token;
+    char *str = strdup(value);
+    int count = 0;
+    int rssi_value = 0;
+
+    token = strtok(str, ",");
+    while (token != NULL)
+    {
+        count++;
+
+        if (count == 6)
+        {
+        	if((int)atoi(token) != 255)
+        	{
+            rssi_value = (int)atoi(token);
+            cat_m1_at_cmd_rst.rssi = rssi_value - 140;
+            break;
+        	}
+        }
+        token = strtok(NULL, ",");
+    }
+
+    free(str);
 }
 
 void handle_gps_command(const char *value)
@@ -293,8 +327,8 @@ void handle_gps_command(const char *value)
     }
     else if (strstr(value, "1,4") != NULL)
     {
-    	strncpy((char *)cat_m1_at_cmd_rst_rx.gps, (const char *)value, sizeof(cat_m1_at_cmd_rst_rx.gps) - 1);
-    	cat_m1_at_cmd_rst_rx.gps[sizeof(cat_m1_at_cmd_rst_rx.gps) - 1] = '\0';
+    	strncpy((char *)cat_m1_at_cmd_rst.gps, (const char *)value, sizeof(cat_m1_at_cmd_rst.gps) - 1);
+    	cat_m1_at_cmd_rst.gps[sizeof(cat_m1_at_cmd_rst.gps) - 1] = '\0';
     	cat_m1_Status.gpsOff = 1;
     }
     else if (strstr(value, "1,3") != NULL || strstr(value, "0,0") != NULL)
@@ -324,8 +358,8 @@ void handle_mqtt_event_command(const char *value)
 
 void handle_cclk_command(const char *value)
 {
-	strncpy((char *)cat_m1_at_cmd_rst_rx.time, (const char *)value, sizeof(cat_m1_at_cmd_rst_rx.time) - 1);
-	cat_m1_at_cmd_rst_rx.time[sizeof(cat_m1_at_cmd_rst_rx.time) - 1] = '\0';
+	strncpy((char *)cat_m1_at_cmd_rst.time, (const char *)value, sizeof(cat_m1_at_cmd_rst.time) - 1);
+	cat_m1_at_cmd_rst.time[sizeof(cat_m1_at_cmd_rst.time) - 1] = '\0';
 }
 
 void uart_init()
@@ -337,7 +371,7 @@ void nrf9160_clear_buf()
 {
 	clear_uart_buf(&uart_cat_m1_rx);
 	memset(&cat_m1_Status, 0, sizeof(cat_m1_Status));
-	memset(&cat_m1_at_cmd_rst_rx, 0, sizeof(cat_m1_at_cmd_rst_rx));
+	memset(&cat_m1_at_cmd_rst, 0, sizeof(cat_m1_at_cmd_rst));
 	memset(&uart_cat_m1_buf, 0, sizeof(uart_cat_m1_buf));
 	memset(&cat_m1_Status_Band, 0, sizeof(cat_m1_Status_Band));
 	memset(&cat_m1_Status_BandAler, 0, sizeof(cat_m1_Status_BandAler));
@@ -412,9 +446,9 @@ void nrf9160_check()
 	cat_m1_Status.Checked = 1;
 
 
-//	PRINT_INFO("COPS result >>> %s\r\n", cat_m1_at_cmd_rst_rx.cops);
-//	PRINT_INFO("CGDCONT result >>> %s\r\n", cat_m1_at_cmd_rst_rx.cgdcont);
-//	PRINT_INFO("ICCID result >>> %s\r\n", cat_m1_at_cmd_rst_rx.iccid);
+//	PRINT_INFO("COPS result >>> %s\r\n", cat_m1_at_cmd_rst.cops);
+//	PRINT_INFO("CGDCONT result >>> %s\r\n", cat_m1_at_cmd_rst.cgdcont);
+//	PRINT_INFO("ICCID result >>> %s\r\n", cat_m1_at_cmd_rst.iccid);
 }
 
 void nrf9160_mqtt_setting()
@@ -494,7 +528,7 @@ void test_send_json_publish(void)
     const char *json_message = "{\"msg\":\"Let's go home\"}+++\r\n";
 
     char json_message_networkinfo[180];
-    sprintf(json_message_networkinfo, "{\"networkinfo\": \"%s\"}+++\r\n", cat_m1_at_cmd_rst_rx.networkinfo);
+    sprintf(json_message_networkinfo, "{\"networkinfo\": \"%s\"}+++\r\n", cat_m1_at_cmd_rst.networkinfo);
 
 //	const char *mqtt_data = "{\"shortAddress\": 2,"
 //							"\"extAddress\": {\"low\": 285286663, \"high\": 0, \"unsigned\": true}+++\r\n";
@@ -554,6 +588,7 @@ void test_send_json_publish(void)
 
 void send_Status_Band(cat_m1_Status_Band_t *status)
 {
+	cat_m1_Status.mqttChecking = 1;
     char mqtt_data[1024];
 /*
     snprintf(mqtt_data, sizeof(mqtt_data),
@@ -600,7 +635,7 @@ void send_Status_Band(cat_m1_Status_Band_t *status)
             "\"t\": %u,"
             "\"h\": %u"
         "},"
-        "\"rssi\": %u"
+        "\"rssi\": %d"
         "}+++\r\n",
 		(unsigned int)status->bid, status->pid, status->start_byte,
         status->battery_level, status->hr, status->spo2,
@@ -630,6 +665,7 @@ void send_Status_Band(cat_m1_Status_Band_t *status)
     {
         printf("Failed to send JSON message.\n");
     }
+    cat_m1_Status.mqttChecking = 0;
 }
 
 void send_Status_BandAlert(cat_m1_Status_BandAler_t* alertData)
@@ -710,7 +746,7 @@ void send_GPS_Location(cat_m1_Status_GPS_Location_t* location)
     	"{\"extAddress\": {\"low\": %u, \"high\": 0},"
     	"\"data\": \"%s\""
         "}+++\r\n",
-		(unsigned int)location->bid, cat_m1_at_cmd_rst_rx.gps);
+		(unsigned int)location->bid, cat_m1_at_cmd_rst.gps);
 
     if (send_at_command("AT#XMQTTPUB=\"/DT/eHG4/GPS/Location\"\r\n"))
     {
@@ -831,6 +867,11 @@ void nrf9160_Get_gps_State()
 {
 	send_at_command("AT#XGPS?\r\n");
 	osDelay(1000);
+}
+
+void nrf9160_Get_rssi()
+{
+	send_at_command("AT+CESQ\r\n");
 }
 
 void nrf9160_Get_time()

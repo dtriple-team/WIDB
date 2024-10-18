@@ -73,6 +73,10 @@ uint8_t brightness_count = 0;
 
 uint8_t now_sleepmode = 0;
 
+#define cat_m1_rssi_cycle 40
+uint8_t cat_m1_rssi_cycleTime = 0;
+bool cat_m1_rssi_cycleFlag = false;
+
 #define mqtt_operation_cycle 60*1
 uint8_t mqttTime = 0;
 bool mqttFlag = false;
@@ -93,7 +97,7 @@ uint8_t catM1MqttDangerMessage = 0;
 
 extern cat_m1_Status_t cat_m1_Status;
 extern cat_m1_Status_Band_t cat_m1_Status_Band;
-extern cat_m1_at_cmd_rst_t cat_m1_at_cmd_rst_rx;
+extern cat_m1_at_cmd_rst_t cat_m1_at_cmd_rst;
 extern cat_m1_Status_FallDetection_t cat_m1_Status_FallDetection;
 
 uint16_t ssHr = 0;
@@ -383,11 +387,14 @@ void StartWPMTask(void *argument)
 	if(wpmInitializationFlag && cat_m1_Status.Checked == 0)
 	{
 		nrf9160_check(); // only TX
+		nrf9160_Get_time();
+		nrf9160_Get_rssi();
 	}
 	if(wpmInitializationFlag && cat_m1_Status.Checked == 1)
 	{
 		nrf9160_mqtt_setting();
 		gpsTime = 0;
+		cat_m1_rssi_cycleTime = 0;
 	}
 	if(wpmInitializationFlag && cat_m1_Status.Checked == 2)
 	{
@@ -400,7 +407,7 @@ void StartWPMTask(void *argument)
 			{
 				.bid = HAL_GetUIDw2(),
 				.pid = 0xA021,
-				.rssi = 3,
+				.rssi = (cat_m1_at_cmd_rst.rssi),
 				.start_byte = 0xAA,
 				.hr = ssHr,
 				.spo2 = ssSpo2,
@@ -415,12 +422,12 @@ void StartWPMTask(void *argument)
 			};
 			send_Status_Band(&cat_m1_Status_Band);
 
-			strncpy((char*)cat_m1_at_cmd_rst_rx.gps,
+			strncpy((char*)cat_m1_at_cmd_rst.gps,
 						        "36.106335,128.384310,119.546387,7.287167,0.220983,0.000000,2024-09-25 08:33:25",
-						        sizeof(cat_m1_at_cmd_rst_rx.gps) - 1);
-						cat_m1_at_cmd_rst_rx.gps[sizeof(cat_m1_at_cmd_rst_rx.gps) - 1] = '\0';
+						        sizeof(cat_m1_at_cmd_rst.gps) - 1);
+						cat_m1_at_cmd_rst.gps[sizeof(cat_m1_at_cmd_rst.gps) - 1] = '\0';
 
-			if (strlen((const char*)cat_m1_at_cmd_rst_rx.gps))
+			if (strlen((const char*)cat_m1_at_cmd_rst.gps))
 			{
 				cat_m1_Status_GPS_Location_t location;
 				location.bid = cat_m1_Status_Band.bid;
@@ -448,6 +455,12 @@ void StartWPMTask(void *argument)
 				gpsOffCheckTime = 0;
 			}
 		}
+		if(cat_m1_rssi_cycleFlag && cat_m1_Status.gpsChecking == 0)
+		{
+			nrf9160_Get_rssi();
+			cat_m1_rssi_cycleFlag = false;
+		}
+
 	}
 	//	if(wpmFlag ==1)
 	//	{
@@ -625,6 +638,14 @@ void StartSecTimerTask(void *argument)
 			now_sleepmode = 1;
 		}
 		pre_brightness_count = brightness_count;
+
+		cat_m1_rssi_cycleTime++;
+//		PRINT_INFO("mqttTime >>> %d\r\n",mqttTime);
+		if(cat_m1_rssi_cycleTime > cat_m1_rssi_cycle )
+		{
+			cat_m1_rssi_cycleFlag = true;
+			cat_m1_rssi_cycleTime = 0;
+		}
 
 		mqttTime++;
 //		PRINT_INFO("mqttTime >>> %d\r\n",mqttTime);

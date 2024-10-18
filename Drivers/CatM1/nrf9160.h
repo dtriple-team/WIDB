@@ -57,14 +57,16 @@ typedef struct {
   uint8_t cgdcont[MAX_VALUE_LEN];
   uint8_t iccid[ICCID_LEN];
   uint8_t networkinfo[180];
+  uint8_t cesq[100];
   uint8_t gps[100];
-  uint8_t time[30];
+  uint8_t time[100];
+  int  rssi;
 } cat_m1_at_cmd_rst_t;
 
 typedef struct {
   uint32_t bid;
   uint16_t pid;
-  uint8_t rssi;
+  int  rssi;
   uint8_t start_byte;
   uint16_t hr;
   uint16_t spo2;
@@ -148,6 +150,7 @@ void handle_mqtt_cfg_command(const char *value);
 void handle_cgdcont_command(const char *value);
 void handle_iccid_command(const char *value);
 void handle_monitor_command(const char *value);
+void handle_cesq_command(const char *value);
 void handle_gps_command(const char *value);
 void handle_mqtt_event_command(const char *value);
 void handle_cclk_command(const char *value);
@@ -171,6 +174,7 @@ void send_Status_IMU(cat_m1_Status_IMU_t* imu_data);
 void nrf9160_Get_gps();
 void nrf9160_Stop_gps();
 void nrf9160_Get_gps_State();
+void nrf9160_Get_rssi();
 void nrf9160_Get_time();
 void catM1Reset();
 void catM1PWRGPIOInit();
