@@ -504,9 +504,9 @@ void StartSPMTask(void *argument)
 		osDelay(10);
 	}
 	// Smart Sensor Hub init
-	//ssInit();
-	//ssBegin();
-	//ssRead_setting();
+	ssInit();
+	ssBegin();
+	ssRead_setting();
 	ssRunFlag = 1; // start read PPG, using Timer
 
 	init_iis2mdc();
