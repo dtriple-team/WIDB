@@ -257,7 +257,7 @@ void handle_cops_command(const char *value)
     int cops_length = strlen(value);
     catM1ConnectionStatus = (cops_length > 5) ? 1 : 0;
     catM1MqttChecking = (cops_length <= 5) ? 0 : catM1MqttChecking;
-    strncpy(cat_m1_at_cmd_rst_rx.cops, value, MAX_VALUE_LEN - 1);
+    strncpy((char *)cat_m1_at_cmd_rst_rx.cops, (const char *)value, MAX_VALUE_LEN - 1);
     cat_m1_at_cmd_rst_rx.cops[MAX_VALUE_LEN - 1] = '\0';
 }
 
@@ -286,20 +286,20 @@ void handle_mqtt_cfg_command(const char *value)
 
 void handle_cgdcont_command(const char *value)
 {
-    strncpy(cat_m1_at_cmd_rst_rx.cgdcont, value, MAX_VALUE_LEN - 1);
-    cat_m1_at_cmd_rst_rx.cgdcont[MAX_VALUE_LEN - 1] = '\0';
+	strncpy((char *)cat_m1_at_cmd_rst_rx.cgdcont, (const char *)value, MAX_VALUE_LEN - 1);
+	cat_m1_at_cmd_rst_rx.cgdcont[MAX_VALUE_LEN - 1] = '\0';
 }
 
 void handle_iccid_command(const char *value)
 {
-    strncpy(cat_m1_at_cmd_rst_rx.iccid, value, ICCID_LEN - 1);
-    cat_m1_at_cmd_rst_rx.iccid[ICCID_LEN - 1] = '\0';
+	strncpy((char *)cat_m1_at_cmd_rst_rx.iccid, (const char *)value, ICCID_LEN - 1);
+	cat_m1_at_cmd_rst_rx.iccid[ICCID_LEN - 1] = '\0';
 }
 
 void handle_monitor_command(const char *value)
 {
-    strncpy(cat_m1_at_cmd_rst_rx.networkinfo, value, sizeof(cat_m1_at_cmd_rst_rx.networkinfo) - 1);
-    cat_m1_at_cmd_rst_rx.networkinfo[sizeof(cat_m1_at_cmd_rst_rx.networkinfo) - 1] = '\0';
+	strncpy((char *)cat_m1_at_cmd_rst_rx.networkinfo, (const char *)value, sizeof(cat_m1_at_cmd_rst_rx.networkinfo) - 1);
+	cat_m1_at_cmd_rst_rx.networkinfo[sizeof(cat_m1_at_cmd_rst_rx.networkinfo) - 1] = '\0';
 }
 
 void handle_gps_command(const char *value)
@@ -310,8 +310,8 @@ void handle_gps_command(const char *value)
     }
     else if (strstr(value, "1,4") != NULL)
     {
-        strncpy(cat_m1_at_cmd_rst_rx.gps, value, sizeof(cat_m1_at_cmd_rst_rx.gps) - 1);
-        cat_m1_at_cmd_rst_rx.gps[sizeof(cat_m1_at_cmd_rst_rx.gps) - 1] = '\0';
+    	strncpy((char *)cat_m1_at_cmd_rst_rx.gps, (const char *)value, sizeof(cat_m1_at_cmd_rst_rx.gps) - 1);
+    	cat_m1_at_cmd_rst_rx.gps[sizeof(cat_m1_at_cmd_rst_rx.gps) - 1] = '\0';
         catM1GpsOff = 1;
     }
     else if (strstr(value, "1,3") != NULL || strstr(value, "0,0") != NULL)
@@ -341,8 +341,8 @@ void handle_mqtt_event_command(const char *value)
 
 void handle_cclk_command(const char *value)
 {
-    strncpy(cat_m1_at_cmd_rst_rx.time, value, sizeof(cat_m1_at_cmd_rst_rx.time) - 1);
-    cat_m1_at_cmd_rst_rx.time[sizeof(cat_m1_at_cmd_rst_rx.time) - 1] = '\0';
+	strncpy((char *)cat_m1_at_cmd_rst_rx.time, (const char *)value, sizeof(cat_m1_at_cmd_rst_rx.time) - 1);
+	cat_m1_at_cmd_rst_rx.time[sizeof(cat_m1_at_cmd_rst_rx.time) - 1] = '\0';
 }
 
 void uart_init()
