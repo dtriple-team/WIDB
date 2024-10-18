@@ -73,7 +73,7 @@ uint8_t brightness_count = 0;
 
 uint8_t now_sleepmode = 0;
 
-#define cat_m1_rssi_cycle 25
+#define cat_m1_rssi_cycle 40
 uint8_t cat_m1_rssi_cycleTime = 0;
 bool cat_m1_rssi_cycleFlag = false;
 
