@@ -442,7 +442,7 @@ void StartWPMTask(void *argument)
 		}
 		if(catM1GpsChecking)
 		{
-			nrf9160_Get_gps_State();
+			//nrf9160_Get_gps_State();
 			if(catM1GpsOff)
 			{
 				nrf9160_Stop_gps();
