@@ -81,7 +81,7 @@ uint8_t isEmpty(uart_cat_m1_t* u)
 bool send_at_command(const char *cmd)
 {
 	//HAL_UART_Transmit_IT(&huart1, (uint8_t*)cmd, strlen(cmd));
-	HAL_UART_Transmit(&huart1, (uint8_t*)cmd, strlen(cmd), 1000);
+	HAL_UART_Transmit(&huart1, (uint8_t*)cmd, strlen(cmd), 5000);
 	//PRINT_INFO("TX CMD >>> %s\r\n",cmd);
 
 	return receive_at_command_ret();
@@ -221,7 +221,7 @@ void cat_m1_parse_result(const char *command, const char *value)
     {
         handle_monitor_command(value);
     }
-    else if (strstr(command, "%CESQ") != NULL)
+    else if (strstr(command, "+CESQ") != NULL)
 	{
 		handle_cesq_command(value);
 	}
@@ -304,7 +304,7 @@ void handle_cesq_command(const char *value)
     {
         count++;
 
-        if (count == 5)
+        if (count == 6)
         {
         	if((int)atoi(token) != 255)
         	{

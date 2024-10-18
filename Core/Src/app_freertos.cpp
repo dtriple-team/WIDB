@@ -73,6 +73,10 @@ uint8_t brightness_count = 0;
 
 uint8_t now_sleepmode = 0;
 
+#define cat_m1_rssi_cycle 25
+uint8_t cat_m1_rssi_cycleTime = 0;
+bool cat_m1_rssi_cycleFlag = false;
+
 #define mqtt_operation_cycle 60*1
 uint8_t mqttTime = 0;
 bool mqttFlag = false;
@@ -384,17 +388,18 @@ void StartWPMTask(void *argument)
 	{
 		nrf9160_check(); // only TX
 		nrf9160_Get_time();
+		nrf9160_Get_rssi();
 	}
 	if(wpmInitializationFlag && cat_m1_Status.Checked == 1)
 	{
 		nrf9160_mqtt_setting();
 		gpsTime = 0;
+		cat_m1_rssi_cycleTime = 0;
 	}
 	if(wpmInitializationFlag && cat_m1_Status.Checked == 2)
 	{
 		if ((mqttFlag && cat_m1_Status.gpsChecking == 0) || catM1MqttInitialSend == 0)
 		{
-			nrf9160_Get_rssi();
 			//nrf9160_Get_gps_State();
 			//test_send_json_publish();
 
@@ -450,6 +455,12 @@ void StartWPMTask(void *argument)
 				gpsOffCheckTime = 0;
 			}
 		}
+		if(cat_m1_rssi_cycleFlag)
+		{
+			nrf9160_Get_rssi();
+			cat_m1_rssi_cycleFlag = false;
+		}
+
 	}
 	//	if(wpmFlag ==1)
 	//	{
@@ -627,6 +638,14 @@ void StartSecTimerTask(void *argument)
 			now_sleepmode = 1;
 		}
 		pre_brightness_count = brightness_count;
+
+		cat_m1_rssi_cycleTime++;
+//		PRINT_INFO("mqttTime >>> %d\r\n",mqttTime);
+		if(cat_m1_rssi_cycleTime > cat_m1_rssi_cycle )
+		{
+			cat_m1_rssi_cycleFlag = true;
+			cat_m1_rssi_cycleTime = 0;
+		}
 
 		mqttTime++;
 //		PRINT_INFO("mqttTime >>> %d\r\n",mqttTime);
