@@ -81,7 +81,7 @@ uint8_t isEmpty(uart_cat_m1_t* u)
 bool send_at_command(const char *cmd)
 {
 	//HAL_UART_Transmit_IT(&huart1, (uint8_t*)cmd, strlen(cmd));
-	HAL_UART_Transmit(&huart1, (uint8_t*)cmd, strlen(cmd), 5000);
+	HAL_UART_Transmit(&huart1, (uint8_t*)cmd, strlen(cmd), 1000);
 	//PRINT_INFO("TX CMD >>> %s\r\n",cmd);
 
 	return receive_at_command_ret();
