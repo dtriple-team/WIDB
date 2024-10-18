@@ -304,13 +304,11 @@ void cat_m1_parse_result(const char *command, const char *value)
         	strcpy(cat_m1_at_cmd_rst_rx.gps, (const char *)value);
         	//PRINT_INFO("GPS result >>> %s\r\n", cat_m1_at_cmd_rst_rx.gps);
         	catM1GpsOff = 1;
-        	catM1GpsChecking = 0;
         }
 		else if (strstr(value, "1,3") != NULL)
 		{
 			//printf("XGPS >>> 1,3\r\n");
 			catM1GpsOff = 1;
-			catM1GpsChecking = 0;
 		}
 //		else if (strstr(value, "1,0") != NULL)
 //		{
@@ -322,7 +320,6 @@ void cat_m1_parse_result(const char *command, const char *value)
 		{
 			//printf("XGPS >>> 0,0\r\n");
 			catM1GpsOff = 1;
-			catM1GpsChecking = 0;
 		}
 	}
     if (strstr(command, "#XMQTTEVT") != NULL)
@@ -855,6 +852,7 @@ void nrf9160_Stop_gps()
 	catM1GpsOn = 0;
 	catM1GpsOff = 0;
 	catM1MqttSetStatus = 0;
+	catM1GpsChecking = 0;
 }
 
 void nrf9160_Get_gps_State()
