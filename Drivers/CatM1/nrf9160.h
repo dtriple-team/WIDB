@@ -24,6 +24,25 @@
 #define CAT_M1_UART_BUF_SIZE 512
 
 typedef struct {
+	uint8_t Checked;
+    uint8_t parseCount;
+    uint8_t parseResult;
+    uint8_t bootCount;
+    uint8_t errorCount;
+    uint8_t retryCount;
+    uint8_t cfunStatus;
+    uint8_t systemModeStatus;
+    uint8_t connectionStatus;
+    uint8_t mqttSetStatus;
+    uint8_t mqttConnectionStatus;
+    uint8_t mqttSubscribeStatus;
+    uint8_t gpsOn;
+    uint8_t gpsOff;
+    uint8_t mqttChecking;
+    uint8_t gpsChecking;
+} cat_m1_Status_t;
+
+typedef struct {
   uint8_t head;
   uint8_t tail;
   uint8_t buffer[CAT_M1_UART_BUF_SIZE];

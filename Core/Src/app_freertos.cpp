@@ -89,12 +89,9 @@ bool gpsFlag = false;
 #define gps_offCheck_cycle 60
 uint8_t gpsOffCheckTime = 0;
 
-extern uint8_t catM1GpsChecking;
-extern uint8_t catM1MqttChecking;
-extern uint8_t catM1MqttConnectionStatus;
-extern uint8_t catM1GpsOff;
 uint8_t catM1MqttDangerMessage = 0;
 
+extern cat_m1_Status_t cat_m1_Status;
 extern cat_m1_Status_Band_t cat_m1_Status_Band;
 extern cat_m1_at_cmd_rst_t cat_m1_at_cmd_rst_rx;
 extern cat_m1_Status_FallDetection_t cat_m1_Status_FallDetection;
@@ -173,8 +170,6 @@ uint8_t initFlag = 0;
 uint8_t pmicInitFlag = 0;
 uint8_t wpmInitializationFlag = 0;
 uint8_t lcdInitFlag = 0;
-
-extern uint8_t nrf9160Checked;
 
 double test_mag_data[15] = {0,};
 uint8_t set_bLevel = 7; // GUI val ?��?��
@@ -385,18 +380,18 @@ void StartWPMTask(void *argument)
 		// CatM1 init
 		nrf9160_ready();
 	}
-	if(wpmInitializationFlag && nrf9160Checked == 0)
+	if(wpmInitializationFlag && cat_m1_Status.Checked == 0)
 	{
 		nrf9160_check(); // only TX
 	}
-	if(wpmInitializationFlag && nrf9160Checked == 1)
+	if(wpmInitializationFlag && cat_m1_Status.Checked == 1)
 	{
 		nrf9160_mqtt_setting();
 	}
 
-	if(wpmInitializationFlag && nrf9160Checked == 2)
+	if(wpmInitializationFlag && cat_m1_Status.Checked == 2)
 	{
-		if ((mqttFlag && catM1GpsChecking == 0) || catM1MqttInitialSend == 0)
+		if ((mqttFlag && cat_m1_Status.gpsChecking == 0) || catM1MqttInitialSend == 0)
 		{
 			//nrf9160_Get_gps_State();
 			//test_send_json_publish();
@@ -436,17 +431,17 @@ void StartWPMTask(void *argument)
 			catM1MqttInitialSend = 1;
 		}
 
-		if(gpsFlag && catM1MqttChecking == 0)
+		if(gpsFlag && cat_m1_Status.mqttChecking == 0)
 		{
 			//scatM1MqttDangerMessage = 1;
 			nrf9160_Get_gps();
 			//nrf9160_Get_gps_State();
 			gpsFlag = false;
 		}
-		if(catM1GpsChecking)
+		if(cat_m1_Status.gpsChecking)
 		{
 			//nrf9160_Get_gps_State();
-			if(catM1GpsOff)
+			if(cat_m1_Status.gpsOff)
 			{
 				nrf9160_Stop_gps();
 				gpsTime = 0;
@@ -462,16 +457,18 @@ void StartWPMTask(void *argument)
 	if(initFlag){
 
 	}
-	if(catM1MqttDangerMessage && wpmInitializationFlag && nrf9160Checked == 2)
+	if(catM1MqttDangerMessage && wpmInitializationFlag && cat_m1_Status.Checked == 2)
 	{
 		if (cat_m1_Status_FallDetection.bid)
 		{
-			if(catM1GpsChecking)
+			if(cat_m1_Status.gpsChecking)
 			{
 				nrf9160_Stop_gps();
 			}
-			else if(catM1MqttConnectionStatus)
-			send_Status_FallDetection(&cat_m1_Status_FallDetection);
+			else if(cat_m1_Status.mqttConnectionStatus)
+			{
+				send_Status_FallDetection(&cat_m1_Status_FallDetection);
+			}
 		}
 	}
 	osDelay(10);
@@ -650,15 +647,15 @@ void StartSecTimerTask(void *argument)
 			gpsFlag = true;
 			gpsTime = 0;
 		}
-//		if(catM1MqttChecking)
-//		{
-//			gpsOffCheckTime++;
-//		}
-//		if(gpsOffCheckTime > gps_offCheck_cycle)
-//		{
-//			nrf9160_Get_gps_State();
-//			gpsOffCheckTime = 0;
-//		}
+		if(cat_m1_Status.mqttChecking)
+		{
+			gpsOffCheckTime++;
+		}
+		if(gpsOffCheckTime > gps_offCheck_cycle)
+		{
+			nrf9160_Get_gps_State();
+			gpsOffCheckTime = 0;
+		}
 	}
   }
   /* USER CODE END secTimerTask */

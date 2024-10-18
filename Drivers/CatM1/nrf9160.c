@@ -15,26 +15,10 @@
 #define MINMEA_MAX_SENTENCE_LENGTH 256
 
 uint8_t uart_cat_m1_buf[MINMEA_MAX_SENTENCE_LENGTH] = {0, };
-uint8_t catM1ParseCount = 0;
-uint8_t catM1ParseResult = 0;
-uint8_t catM1BootCount = 0;
-uint8_t catM1ErrorCount = 0;
-uint8_t catM1RetryCount = 0;
-uint8_t catM1CfunStatus = 0;
-uint8_t catM1SystemModeStatus = 0;
-uint8_t catM1ConnectionStatus = 0;
-uint8_t catM1MqttSetStatus = 0;
-uint8_t catM1MqttConnectionStatus = 0;
-uint8_t catM1MqttSubscribeStatus = 0;
-uint8_t catM1GpsOn = 0;
-uint8_t catM1GpsOff = 0;
 
-uint8_t catM1MqttChecking = 0;
-uint8_t catM1GpsChecking = 0;
-
+cat_m1_Status_t cat_m1_Status;
 uart_cat_m1_t uart_cat_m1_rx;
 cat_m1_at_cmd_rst_t cat_m1_at_cmd_rst_rx;
-
 cat_m1_Status_Band_t cat_m1_Status_Band;
 cat_m1_Status_BandAler_t cat_m1_Status_BandAler;
 cat_m1_Status_FallDetection_t cat_m1_Status_FallDetection;
@@ -44,7 +28,6 @@ cat_m1_Status_BandSet_t cat_m1_Status_BandSet;
 
 
 extern uint8_t wpmInitializationFlag;
-uint8_t nrf9160Checked = 0;
 extern uint8_t mqttRetryTime;
 extern uint8_t catM1MqttInitialSend;
 
@@ -111,11 +94,11 @@ bool receive_at_command_ret()
 //        //PRINT_INFO("RX Data >>> %s\r\n", uart_cat_m1_buf);
 //        return true;
 //    }
-	if(catM1ParseResult)
+	if(cat_m1_Status.parseResult)
 	{
 		return true;
 	}
-	else if(catM1ParseResult == 0)
+	else if(cat_m1_Status.parseResult == 0)
 	{
 		return false;
 	}
@@ -130,19 +113,19 @@ bool receive_response(void)
 
         if (uart_cat_m1_rx.rxd == '\r' || uart_cat_m1_rx.rxd == '\n')
         {
-            uart_cat_m1_buf[catM1ParseCount] = uart_cat_m1_rx.rxd;
-            catM1ParseCount++;
+            uart_cat_m1_buf[cat_m1_Status.parseCount] = uart_cat_m1_rx.rxd;
+            cat_m1_Status.parseCount++;
 
             PRINT_INFO("RX Data >>> %s\r\n", uart_cat_m1_buf);
             cat_m1_parse_process(uart_cat_m1_buf);
 
             memset(&uart_cat_m1_buf, 0, MINMEA_MAX_SENTENCE_LENGTH);
-            catM1ParseCount = 0;
+            cat_m1_Status.parseCount = 0;
         } else
         {
-            if (catM1ParseCount < MINMEA_MAX_SENTENCE_LENGTH - 1) {
-                uart_cat_m1_buf[catM1ParseCount] = uart_cat_m1_rx.rxd;
-                catM1ParseCount++;
+            if (cat_m1_Status.parseCount < MINMEA_MAX_SENTENCE_LENGTH - 1) {
+                uart_cat_m1_buf[cat_m1_Status.parseCount] = uart_cat_m1_rx.rxd;
+                cat_m1_Status.parseCount++;
             }
         }
     }
@@ -175,26 +158,26 @@ bool cat_m1_parse_process(uint8_t *msg) {
     } else {
         if (strstr((char *)msg, "Ready")) {
             printf("Response: Ready\r\n");
-            catM1ParseResult = 1;
-            catM1BootCount++;
+            cat_m1_Status.parseResult = 1;
+            cat_m1_Status.bootCount++;
+            cat_m1_Status.retryCount = 0;
             wpmInitializationFlag = 1;
-            catM1RetryCount = 0;
 
-            printf("catM1BootCount >>> %d\r\n", catM1BootCount);
-            if (catM1BootCount >= 2) {
+            printf("cat_m1_Status.bootCount >>> %d\r\n", cat_m1_Status.bootCount);
+            if (cat_m1_Status.bootCount >= 2) {
                 catM1Reset();
             }
         } else if (strstr((char *)msg, "OK")) {
             printf("Response: OK\r\n");
-            catM1ParseResult = 1;
-            catM1ErrorCount = 0;
+            cat_m1_Status.parseResult = 1;
+            cat_m1_Status.errorCount = 0;
+            cat_m1_Status.retryCount = 0;
             wpmInitializationFlag = 1;
-            catM1RetryCount = 0;
         } else if (strstr((char *)msg, "ERROR")) {
             printf("Response: ERROR\r\n");
-            catM1ParseResult = 0;
-            catM1ErrorCount++;
-            if (catM1ErrorCount >= 10) {
+            cat_m1_Status.parseResult = 0;
+            cat_m1_Status.errorCount++;
+            if (cat_m1_Status.errorCount >= 10) {
                 catM1Reset();
             }
         }
@@ -255,33 +238,33 @@ void cat_m1_parse_result(const char *command, const char *value)
 void handle_cops_command(const char *value)
 {
     int cops_length = strlen(value);
-    catM1ConnectionStatus = (cops_length > 5) ? 1 : 0;
-    catM1MqttChecking = (cops_length <= 5) ? 0 : catM1MqttChecking;
+    cat_m1_Status.connectionStatus = (cops_length > 5) ? 1 : 0;
+    cat_m1_Status.mqttChecking = (cops_length <= 5) ? 0 : cat_m1_Status.mqttChecking;
     strncpy((char *)cat_m1_at_cmd_rst_rx.cops, (const char *)value, MAX_VALUE_LEN - 1);
     cat_m1_at_cmd_rst_rx.cops[MAX_VALUE_LEN - 1] = '\0';
 }
 
 void handle_cfun_command(const char *value)
 {
-    catM1CfunStatus = (strstr(value, "1") != NULL) ? 1 : 0;
+	cat_m1_Status.cfunStatus = (strstr(value, "1") != NULL) ? 1 : 0;
 }
 
 void handle_system_mode_command(const char *value)
 {
     if (strstr(value, "1,0,0,0") != NULL)
     {
-        catM1SystemModeStatus = 1;
+    	cat_m1_Status.systemModeStatus = 1;
     }
     else if (strstr(value, "0,0,1,0") != NULL)
     {
-        catM1SystemModeStatus = 2;
+    	cat_m1_Status.systemModeStatus = 2;
     }
 }
 
 void handle_mqtt_cfg_command(const char *value)
 {
     int mqttcfg_length = strlen(value);
-    catM1MqttSetStatus = (mqttcfg_length > 5) ? 1 : 0;
+    cat_m1_Status.mqttSetStatus = (mqttcfg_length > 5) ? 1 : 0;
 }
 
 void handle_cgdcont_command(const char *value)
@@ -306,17 +289,17 @@ void handle_gps_command(const char *value)
 {
     if (strstr(value, "1,1") != NULL)
     {
-        catM1GpsOn = 1;
+        cat_m1_Status.gpsOn = 1;
     }
     else if (strstr(value, "1,4") != NULL)
     {
     	strncpy((char *)cat_m1_at_cmd_rst_rx.gps, (const char *)value, sizeof(cat_m1_at_cmd_rst_rx.gps) - 1);
     	cat_m1_at_cmd_rst_rx.gps[sizeof(cat_m1_at_cmd_rst_rx.gps) - 1] = '\0';
-        catM1GpsOff = 1;
+    	cat_m1_Status.gpsOff = 1;
     }
     else if (strstr(value, "1,3") != NULL || strstr(value, "0,0") != NULL)
     {
-        catM1GpsOff = 1;
+    	cat_m1_Status.gpsOff = 1;
     }
 }
 
@@ -324,18 +307,18 @@ void handle_mqtt_event_command(const char *value)
 {
     if (strstr(value, "1,-") != NULL) {
         wpmInitializationFlag = 0;
-        nrf9160Checked = 0;
-        catM1ConnectionStatus = 0;
-        catM1MqttConnectionStatus = 0;
-        catM1MqttSubscribeStatus = 0;
+        cat_m1_Status.Checked = 0;
+        cat_m1_Status.connectionStatus = 0;
+        cat_m1_Status.mqttConnectionStatus = 0;
+        cat_m1_Status.mqttSubscribeStatus = 0;
     }
     else if (strstr(value, "7,0") != NULL)
     {
-        catM1MqttSubscribeStatus++;
+    	cat_m1_Status.mqttSubscribeStatus++;
     }
     else if (strstr(value, "0,0") != NULL)
     {
-        catM1MqttConnectionStatus = 1;
+    	cat_m1_Status.mqttConnectionStatus = 1;
     }
 }
 
@@ -353,6 +336,7 @@ void uart_init()
 void nrf9160_clear_buf()
 {
 	clear_uart_buf(&uart_cat_m1_rx);
+	memset(&cat_m1_Status, 0, sizeof(cat_m1_Status));
 	memset(&cat_m1_at_cmd_rst_rx, 0, sizeof(cat_m1_at_cmd_rst_rx));
 	memset(&uart_cat_m1_buf, 0, sizeof(uart_cat_m1_buf));
 	memset(&cat_m1_Status_Band, 0, sizeof(cat_m1_Status_Band));
@@ -377,7 +361,7 @@ void nrf9160_ready(void)
 		send_at_command("AT\r\n");
 		osDelay(500);
 
-		if (catM1ErrorCount >= 5) {
+		if (cat_m1_Status.errorCount >= 5) {
 	        break;
 	    }
 		if (mqttRetryTime > 3) {
@@ -388,7 +372,7 @@ void nrf9160_ready(void)
 
 void nrf9160_check()
 {
-	while(catM1SystemModeStatus == 0 || catM1SystemModeStatus == 2)
+	while(cat_m1_Status.systemModeStatus == 0 || cat_m1_Status.systemModeStatus == 2)
 	{
 		send_at_command("AT+CFUN=0\r\n");
 		send_at_command("AT%XSYSTEMMODE=1,0,0,0\r\n");
@@ -396,26 +380,26 @@ void nrf9160_check()
 		send_at_command("AT%XSYSTEMMODE?\r\n");
 		osDelay(2000);
 
-		if (catM1RetryCount >= 300) {
+		if (cat_m1_Status.retryCount >= 300) {
 			break;
 		}
 	}
-	while(!catM1CfunStatus)
+	while(!cat_m1_Status.cfunStatus)
 	{
 		send_at_command("AT+CFUN=1\r\n");
 		send_at_command("AT+CFUN?\r\n");
 		osDelay(2000);
 
-	    if (catM1RetryCount >= 300) {
+	    if (cat_m1_Status.retryCount >= 300) {
 	        break;
 	    }
 	}
-	while(!catM1ConnectionStatus)
+	while(!cat_m1_Status.connectionStatus)
 	{
 		send_at_command("AT+COPS?\r\n");
 		osDelay(500);
 
-	    if (catM1RetryCount >= 60*10) {
+	    if (cat_m1_Status.retryCount >= 60*10) {
 	        break;
 	    }
 	}
@@ -425,7 +409,7 @@ void nrf9160_check()
 	send_at_command("AT%XICCID\r\n");
 
 	osDelay(1000);
-	nrf9160Checked = 1;
+	cat_m1_Status.Checked = 1;
 
 
 //	PRINT_INFO("COPS result >>> %s\r\n", cat_m1_at_cmd_rst_rx.cops);
@@ -435,14 +419,14 @@ void nrf9160_check()
 
 void nrf9160_mqtt_setting()
 {
-	while(!catM1MqttSetStatus)
+	while(!cat_m1_Status.mqttSetStatus)
 	{
 		send_at_command("AT#XMQTTCFG=\"\",300,1\r\n");
 		send_at_command("AT#XMQTTCFG?\r\n");
 		osDelay(2000);
-		catM1RetryCount++;
+		cat_m1_Status.retryCount++;
 
-		if (catM1RetryCount >= 10)
+		if (cat_m1_Status.retryCount >= 10)
 		{
 			break;
 		}
@@ -456,40 +440,40 @@ void nrf9160_mqtt_setting()
 //	{
 //		//return true;
 //	}
-	while(catM1MqttConnectionStatus == 0)
+	while(cat_m1_Status.mqttConnectionStatus == 0)
 	{
 		send_at_command("AT#XMQTTCON=1,\"\",\"\",\"t-vsm.com\",18831\r\n");
 		osDelay(5000);
-		catM1RetryCount++;
+		cat_m1_Status.retryCount++;
 
-		if (catM1RetryCount >= 5)
+		if (cat_m1_Status.retryCount >= 5)
 		{
 			break;
 		}
 	}
-	while(catM1MqttSubscribeStatus == 0)
+	while(cat_m1_Status.mqttSubscribeStatus == 0)
 	{
 		send_at_command("AT#XMQTTSUB=\"/DT/eHG4/Status/BandSet\",0\r\n");
 		osDelay(5000);
-		catM1RetryCount++;
+		cat_m1_Status.retryCount++;
 
-		if (catM1RetryCount >= 5)
+		if (cat_m1_Status.retryCount >= 5)
 		{
 			break;
 		}
 	}
-	while (catM1MqttSubscribeStatus == 1)
+	while (cat_m1_Status.mqttSubscribeStatus == 1)
 	{
 		send_at_command("AT#XMQTTSUB=\"/DT/eHG4/Status/ServerAlert\",0\r\n");
 		osDelay(5000);
 
-		catM1RetryCount++;
-		if (catM1RetryCount >= 5)
+		cat_m1_Status.retryCount++;
+		if (cat_m1_Status.retryCount >= 5)
 		{
 			break;
 		}
 	}
-	nrf9160Checked = 2;
+	cat_m1_Status.Checked = 2;
 }
 
 void nrf9160_mqtt_test()
@@ -650,7 +634,7 @@ void send_Status_Band(cat_m1_Status_Band_t *status)
 
 void send_Status_BandAlert(cat_m1_Status_BandAler_t* alertData)
 {
-	catM1MqttChecking = 1;
+	cat_m1_Status.mqttChecking = 1;
     char mqtt_data[1024];
     snprintf(mqtt_data, sizeof(mqtt_data),
     	"{\"extAddress\": {\"low\": %u, \"high\": 0},"
@@ -677,12 +661,12 @@ void send_Status_BandAlert(cat_m1_Status_BandAler_t* alertData)
     {
         printf("Failed to send JSON message.\n");
     }
-    catM1MqttChecking = 0;
+    cat_m1_Status.mqttChecking = 0;
 }
 
 void send_Status_FallDetection(cat_m1_Status_FallDetection_t* fallData)
 {
-	catM1MqttChecking = 1;
+	cat_m1_Status.mqttChecking = 1;
     char mqtt_data[1024];
     snprintf(mqtt_data, sizeof(mqtt_data),
     	"{\"extAddress\": {\"low\": %u, \"high\": 0},"
@@ -714,12 +698,12 @@ void send_Status_FallDetection(cat_m1_Status_FallDetection_t* fallData)
     {
         printf("Failed to send JSON message.\n");
     }
-    catM1MqttChecking = 0;
+    cat_m1_Status.mqttChecking = 0;
 }
 
 void send_GPS_Location(cat_m1_Status_GPS_Location_t* location)
 {
-	catM1MqttChecking = 1;
+	cat_m1_Status.mqttChecking = 1;
     char mqtt_data[1024];
 
     snprintf(mqtt_data, sizeof(mqtt_data),
@@ -746,12 +730,12 @@ void send_GPS_Location(cat_m1_Status_GPS_Location_t* location)
     {
         printf("Failed to send JSON message.\n");
     }
-    catM1MqttChecking = 0;
+    cat_m1_Status.mqttChecking = 0;
 }
 
 void send_Status_IMU(cat_m1_Status_IMU_t* imu_data)
 {
-	catM1MqttChecking = 1;
+	cat_m1_Status.mqttChecking = 1;
     char mqtt_data[1024];
 
     snprintf(mqtt_data, sizeof(mqtt_data),
@@ -786,33 +770,33 @@ void send_Status_IMU(cat_m1_Status_IMU_t* imu_data)
     {
         printf("Failed to send JSON message.\n");
     }
-    catM1MqttChecking = 0;
+    cat_m1_Status.mqttChecking = 0;
 }
 
 void nrf9160_Get_gps()
 {
 	send_at_command("AT#XMQTTCON=0\r\n");
 
-	while(catM1SystemModeStatus == 0 || catM1SystemModeStatus == 1)
+	while(cat_m1_Status.systemModeStatus == 0 || cat_m1_Status.systemModeStatus == 1)
 	{
 
 		send_at_command("AT+CFUN=0\r\n");
 		send_at_command("AT%XSYSTEMMODE=0,0,1,0\r\n");
 		send_at_command("AT%XSYSTEMMODE?\r\n");
 		osDelay(2000);
-		if (catM1RetryCount >= 60*1) {
+		if (cat_m1_Status.retryCount >= 60*1) {
 			break;
 		}
 	}
 	send_at_command("AT+CFUN=31\r\n");
-	while(!catM1GpsOn)
+	while(!cat_m1_Status.gpsOn)
 	{
 		send_at_command("AT#XGPS=1,0,0,60\r\n");
 		osDelay(2000);
 		send_at_command("AT#XGPS?\r\n");
 
 		osDelay(500);
-		if (catM1RetryCount >= 30) {
+		if (cat_m1_Status.retryCount >= 30) {
 			break;
 		}
 	}
@@ -822,25 +806,25 @@ void nrf9160_Get_gps()
 	//send_at_command("AT#XGPS=1,0,0,60\r\n");
 
 	//send_at_command("AT#XGPS?\r\n");
-	//nrf9160Checked = 2;
-	catM1GpsChecking = 1;
+	//cat_m1_Status.Checked = 2;
+	cat_m1_Status.gpsChecking = 1;
 }
 
 void nrf9160_Stop_gps()
 {
 	send_at_command("AT#XGPS=0\r\n");
 	send_at_command("AT+CFUN=0\r\n");
-	nrf9160Checked = 0;
-	catM1ConnectionStatus = 0;
-	catM1MqttConnectionStatus = 0;
-	catM1MqttSubscribeStatus = 0;
-	catM1CfunStatus = 0;
-	catM1SystemModeStatus = 0;
+	cat_m1_Status.Checked = 0;
+	cat_m1_Status.connectionStatus = 0;
+	cat_m1_Status.mqttConnectionStatus = 0;
+	cat_m1_Status.mqttSubscribeStatus = 0;
+	cat_m1_Status.cfunStatus = 0;
+	cat_m1_Status.systemModeStatus = 0;
+	cat_m1_Status.gpsOn = 0;
+	cat_m1_Status.gpsOff = 0;
+	cat_m1_Status.mqttSetStatus = 0;
+	cat_m1_Status.gpsChecking = 0;
 	wpmInitializationFlag = 1;
-	catM1GpsOn = 0;
-	catM1GpsOff = 0;
-	catM1MqttSetStatus = 0;
-	catM1GpsChecking = 0;
 }
 
 void nrf9160_Get_gps_State()
@@ -857,21 +841,21 @@ void nrf9160_Get_time()
 void catM1Reset()
 {
 	wpmInitializationFlag = 0;
-	nrf9160Checked = 0;
-	catM1ConnectionStatus = 0;
-	catM1MqttConnectionStatus = 0;
-	catM1MqttSubscribeStatus = 0;
-	catM1BootCount = 0;
-	catM1ErrorCount = 100;
-	catM1GpsChecking = 0;
-	catM1MqttChecking = 0;
-	catM1CfunStatus = 0;
-	catM1SystemModeStatus = 0;
-	catM1RetryCount = 0;
+	cat_m1_Status.Checked = 0;
+	cat_m1_Status.connectionStatus = 0;
+	cat_m1_Status.mqttConnectionStatus = 0;
+	cat_m1_Status.mqttSubscribeStatus = 0;
+	cat_m1_Status.bootCount = 0;
+	cat_m1_Status.errorCount = 100;
+	cat_m1_Status.gpsChecking = 0;
+	cat_m1_Status.mqttChecking = 0;
+	cat_m1_Status.cfunStatus = 0;
+	cat_m1_Status.systemModeStatus = 0;
+	cat_m1_Status.retryCount = 0;
 	catM1MqttInitialSend = 0;
-	catM1GpsOn = 0;
-	catM1GpsOff = 0;
-	catM1MqttSetStatus = 0;
+	cat_m1_Status.gpsOn = 0;
+	cat_m1_Status.gpsOff = 0;
+	cat_m1_Status.mqttSetStatus = 0;
 	catM1PWRGPIOInit();
 	send_at_command("AT+CFUN=0\r\n");
 }
