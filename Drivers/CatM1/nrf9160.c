@@ -304,7 +304,7 @@ void handle_cesq_command(const char *value)
     {
         count++;
 
-        if (count == 1)
+        if (count == 5)
         {
         	if((int)atoi(token) != 255)
         	{
@@ -871,7 +871,7 @@ void nrf9160_Get_gps_State()
 
 void nrf9160_Get_rssi()
 {
-	send_at_command("AT%CESQ=1\r\n");
+	send_at_command("AT+CESQ\r\n");
 }
 
 void nrf9160_Get_time()

@@ -384,7 +384,6 @@ void StartWPMTask(void *argument)
 	{
 		nrf9160_check(); // only TX
 		nrf9160_Get_time();
-		nrf9160_Get_rssi();
 	}
 	if(wpmInitializationFlag && cat_m1_Status.Checked == 1)
 	{
@@ -395,6 +394,7 @@ void StartWPMTask(void *argument)
 	{
 		if ((mqttFlag && cat_m1_Status.gpsChecking == 0) || catM1MqttInitialSend == 0)
 		{
+			nrf9160_Get_rssi();
 			//nrf9160_Get_gps_State();
 			//test_send_json_publish();
 
