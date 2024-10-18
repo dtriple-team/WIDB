@@ -122,6 +122,16 @@ bool receive_at_command_ret(void);
 bool receive_response(void);
 bool cat_m1_parse_process(uint8_t *msg);
 void cat_m1_parse_result(const char *command, const char *value);
+void handle_cops_command(const char *value);
+void handle_cfun_command(const char *value);
+void handle_system_mode_command(const char *value);
+void handle_mqtt_cfg_command(const char *value);
+void handle_cgdcont_command(const char *value);
+void handle_iccid_command(const char *value);
+void handle_monitor_command(const char *value);
+void handle_gps_command(const char *value);
+void handle_mqtt_event_command(const char *value);
+void handle_cclk_command(const char *value);
 
 // nRF9160 Modem Interaction
 void uart_init();

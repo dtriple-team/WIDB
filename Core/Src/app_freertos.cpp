@@ -86,6 +86,9 @@ bool mqttRetryTimeFlag = false;
 uint8_t gpsTime = 0;
 bool gpsFlag = false;
 
+#define gps_offCheck_cycle 60
+uint8_t gpsOffCheckTime = 0;
+
 extern uint8_t catM1GpsChecking;
 extern uint8_t catM1MqttChecking;
 extern uint8_t catM1MqttConnectionStatus;
@@ -647,6 +650,15 @@ void StartSecTimerTask(void *argument)
 			gpsFlag = true;
 			gpsTime = 0;
 		}
+//		if(catM1MqttChecking)
+//		{
+//			gpsOffCheckTime++;
+//		}
+//		if(gpsOffCheckTime > gps_offCheck_cycle)
+//		{
+//			nrf9160_Get_gps_State();
+//			gpsOffCheckTime = 0;
+//		}
 	}
   }
   /* USER CODE END secTimerTask */

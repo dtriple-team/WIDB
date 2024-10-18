@@ -149,68 +149,54 @@ bool receive_response(void)
     return true;
 }
 
-bool cat_m1_parse_process(uint8_t *msg)
-{
+bool cat_m1_parse_process(uint8_t *msg) {
+    if (!msg) return false;
+
     char command[MAX_CMD_LEN] = {0};
     char value[MAX_VALUE_LEN] = {0};
 
     char *colon_pos = strchr((char *)msg, ':');
 
-    if (colon_pos != NULL)
-    {
-        int cmd_len = colon_pos - (char *)msg;
-        strncpy(command, (char *)msg, cmd_len);
-        command[cmd_len] = '\0';
+    if (colon_pos) {
+        size_t cmd_len = colon_pos - (char *)msg;
+        strncpy(command, (char *)msg, cmd_len < MAX_CMD_LEN ? cmd_len : MAX_CMD_LEN - 1);
+        command[cmd_len < MAX_CMD_LEN ? cmd_len : MAX_CMD_LEN - 1] = '\0';
 
         colon_pos++;
         int i = 0;
-
-        while (i < MAX_VALUE_LEN - 1 && strncmp(colon_pos, "OK", 2) != 0 && strncmp(colon_pos, "ERROR", 5) != 0 && strncmp(colon_pos, "Ready", 5) != 0)
-        {
-            if (*colon_pos == '\0' || *colon_pos == '\r' || *colon_pos == '\n')
-            {
-                break;
-            }
+        while (i < MAX_VALUE_LEN - 1 && strncmp(colon_pos, "OK", 2) != 0 &&
+               strncmp(colon_pos, "ERROR", 5) != 0 && strncmp(colon_pos, "Ready", 5) != 0) {
+            if (*colon_pos == '\0' || *colon_pos == '\r' || *colon_pos == '\n') break;
             value[i++] = *colon_pos++;
         }
         value[i] = '\0';
-        //printf("AT Command: %s\r\n", command);
-        //printf("Value: %s\r\n", value);
 
-        cat_m1_parse_result((char *)command, (char *)value);
-    }
-    else
-    {
-    	if (strstr((char *)msg, "Ready"))
-		{
-			printf("Response: Ready\r\n");
-			catM1ParseResult = 1;
-			catM1BootCount++;
-			wpmInitializationFlag = 1;
-			catM1RetryCount = 0;
-			printf("catM1BootCount >>> %d\r\n",catM1BootCount);
-			if (catM1BootCount >= 2)
-			{
-				catM1Reset();
-			}
-		}
-    	else if (strstr((char *)msg, "OK"))
-        {
+        cat_m1_parse_result(command, value);
+    } else {
+        if (strstr((char *)msg, "Ready")) {
+            printf("Response: Ready\r\n");
+            catM1ParseResult = 1;
+            catM1BootCount++;
+            wpmInitializationFlag = 1;
+            catM1RetryCount = 0;
+
+            printf("catM1BootCount >>> %d\r\n", catM1BootCount);
+            if (catM1BootCount >= 2) {
+                catM1Reset();
+            }
+        } else if (strstr((char *)msg, "OK")) {
             printf("Response: OK\r\n");
             catM1ParseResult = 1;
             catM1ErrorCount = 0;
             wpmInitializationFlag = 1;
             catM1RetryCount = 0;
-        }
-        else if (strstr((char *)msg, "ERROR"))
-        {
+        } else if (strstr((char *)msg, "ERROR")) {
             printf("Response: ERROR\r\n");
             catM1ParseResult = 0;
             catM1ErrorCount++;
-			if (catM1ErrorCount >= 10)
-			{
-				catM1Reset();
-			}
+            if (catM1ErrorCount >= 10) {
+                catM1Reset();
+            }
         }
     }
     return false;
@@ -218,143 +204,145 @@ bool cat_m1_parse_process(uint8_t *msg)
 
 void cat_m1_parse_result(const char *command, const char *value)
 {
-    //printf("Command: %s\r\n", command);
-    //printf("Value: %s\r\n", value);
+	//printf("Command: %s\r\n", command);
+	//printf("Value: %s\r\n", value);
+
+	if (!command || !value)
+    	return;
 
     if (strstr(command, "+COPS") != NULL)
     {
-        printf("COPS >>> OK\r\n");
-        int cops_length = strlen(value);
-        //PRINT_INFO("COPS result >>> %d\r\n", cops_length);
-        //PRINT_INFO("COPS result >>> %s\r\n", cat_m1_at_cmd_rst_rx.cops);
-        if (cops_length > 5)
-        {
-            catM1ConnectionStatus = 1;
-        }
-        else
-        {
-            catM1ConnectionStatus = 0;
-            catM1MqttChecking = 0;
-        }
-        strcpy(cat_m1_at_cmd_rst_rx.cops, (const char *)value);
+        handle_cops_command(value);
     }
-    if (strstr(command, "+CFUN") != NULL)
+    else if (strstr(command, "+CFUN") != NULL)
     {
-    	if (strstr(value, "1") != NULL)
-    	{
-    		catM1CfunStatus = 1;
-    	}
-    	else
-    	{
-    		catM1CfunStatus = 0;
-    	}
+        handle_cfun_command(value);
     }
-    if (strstr(command, "%XSYSTEMMODE") != NULL)
+    else if (strstr(command, "%XSYSTEMMODE") != NULL)
     {
-    	if (strstr(value, "1,0,0,0") != NULL)
-    	{
-    		catM1SystemModeStatus = 1;
-    	}
-    	else if(strstr(value, "0,0,1,0") != NULL)
-    	{
-    		catM1SystemModeStatus = 2;
-    	}
+        handle_system_mode_command(value);
     }
-    if (strstr(command, "#XMQTTCFG") != NULL)
+    else if (strstr(command, "#XMQTTCFG") != NULL)
     {
-        //printf("XMQTTCFG >>> OK\r\n");
-        int mqttcfg_length = strlen(value);
-        if (mqttcfg_length > 5)
-        {
-        	catM1MqttSetStatus = 1;
-        }
-        else
-        {
-        	catM1MqttSetStatus = 0;
-        }
+        handle_mqtt_cfg_command(value);
     }
-    if (strstr(command, "+CGDCONT") != NULL)
+    else if (strstr(command, "+CGDCONT") != NULL)
     {
-        printf("CGDCONT >>> OK\r\n");
-        strcpy(cat_m1_at_cmd_rst_rx.cgdcont, (const char *)value);
-        //PRINT_INFO("CGDCONT result >>> %s\r\n", cat_m1_at_cmd_rst_rx.cgdcont);
+        handle_cgdcont_command(value);
     }
-    if (strstr(command, "%XICCID") != NULL)
+    else if (strstr(command, "%XICCID") != NULL)
     {
-        printf("XICCID >>> OK\r\n");
-        strcpy(cat_m1_at_cmd_rst_rx.iccid, (const char *)value);
-        //PRINT_INFO("ICCID result >>> %s\r\n", cat_m1_at_cmd_rst_rx.iccid);
+        handle_iccid_command(value);
     }
-    if (strstr(command, "%XMONITOR") != NULL)
+    else if (strstr(command, "%XMONITOR") != NULL)
     {
-        printf("XMONITOR >>> OK\r\n");
-        strcpy(cat_m1_at_cmd_rst_rx.networkinfo, (const char *)value);
-        //PRINT_INFO("ICCID result >>> %s\r\n", cat_m1_at_cmd_rst_rx.networkinfo);
+        handle_monitor_command(value);
     }
-    if (strstr(command, "#XGPS") != NULL)
-	{
-		//printf("XGPS >>> OK\r\n");
-		if (strstr(value, "1,1") != NULL)
-        {
-			catM1GpsOn = 1;
-        }
-		if (strstr(value, "1,4") != NULL)
-        {
-			//printf("XGPS >>> 1,4\r\n");
-        	strcpy(cat_m1_at_cmd_rst_rx.gps, (const char *)value);
-        	//PRINT_INFO("GPS result >>> %s\r\n", cat_m1_at_cmd_rst_rx.gps);
-        	catM1GpsOff = 1;
-        }
-		else if (strstr(value, "1,3") != NULL)
-		{
-			//printf("XGPS >>> 1,3\r\n");
-			catM1GpsOff = 1;
-		}
-//		else if (strstr(value, "1,0") != NULL)
-//		{
-//			//printf("XGPS >>> 1,0\r\n");
-//			catM1GpsOff = 1;
-//			catM1GpsChecking = 0;
-//		}
-		else if (strstr(value, "0,0") != NULL)
-		{
-			//printf("XGPS >>> 0,0\r\n");
-			catM1GpsOff = 1;
-		}
-	}
-    if (strstr(command, "#XMQTTEVT") != NULL)
-	{
-		printf("#XMQTTEVT >>> OK\r\n");
-		if (strstr(value, "1,-") != NULL)
-		{
-			printf("#XMQTTEVT >>> 1,-\r\n");
-			wpmInitializationFlag = 0;
-			nrf9160Checked = 0;
-			catM1ConnectionStatus = 0;
-			catM1MqttConnectionStatus = 0;
-			catM1MqttSubscribeStatus = 0;
-		}
-		if (strstr(value, "7,0") != NULL)
-		{
-			printf("#XMQTTEVT >>> 7,0\r\n");
-			catM1MqttSubscribeStatus++;
-		}
-		if (strstr(value, "0,0") != NULL)
-		{
-			printf("#XMQTTEVT >>> 0,0\r\n");
-			catM1MqttConnectionStatus = 1;
-		}
-	}
-    if (strstr(command, "#XMQTTSERVERMSG") != NULL)
-	{
+    else if (strstr(command, "#XGPS") != NULL)
+    {
+        handle_gps_command(value);
+    }
+    else if (strstr(command, "#XMQTTEVT") != NULL)
+    {
+        handle_mqtt_event_command(value);
+    }
+    else if (strstr(command, "+CCLK") != NULL)
+    {
+        handle_cclk_command(value);
+    }
+}
 
-	}
-    if (strstr(command, "+CCLK") != NULL)
+void handle_cops_command(const char *value)
+{
+    int cops_length = strlen(value);
+    catM1ConnectionStatus = (cops_length > 5) ? 1 : 0;
+    catM1MqttChecking = (cops_length <= 5) ? 0 : catM1MqttChecking;
+    strncpy(cat_m1_at_cmd_rst_rx.cops, value, MAX_VALUE_LEN - 1);
+    cat_m1_at_cmd_rst_rx.cops[MAX_VALUE_LEN - 1] = '\0';
+}
+
+void handle_cfun_command(const char *value)
+{
+    catM1CfunStatus = (strstr(value, "1") != NULL) ? 1 : 0;
+}
+
+void handle_system_mode_command(const char *value)
+{
+    if (strstr(value, "1,0,0,0") != NULL)
     {
-    	printf("CCLK >>> OK\r\n");
-        strcpy(cat_m1_at_cmd_rst_rx.time, (const char *)value);
-        PRINT_INFO("CCLK result >>> %s\r\n", cat_m1_at_cmd_rst_rx.time);
+        catM1SystemModeStatus = 1;
     }
+    else if (strstr(value, "0,0,1,0") != NULL)
+    {
+        catM1SystemModeStatus = 2;
+    }
+}
+
+void handle_mqtt_cfg_command(const char *value)
+{
+    int mqttcfg_length = strlen(value);
+    catM1MqttSetStatus = (mqttcfg_length > 5) ? 1 : 0;
+}
+
+void handle_cgdcont_command(const char *value)
+{
+    strncpy(cat_m1_at_cmd_rst_rx.cgdcont, value, MAX_VALUE_LEN - 1);
+    cat_m1_at_cmd_rst_rx.cgdcont[MAX_VALUE_LEN - 1] = '\0';
+}
+
+void handle_iccid_command(const char *value)
+{
+    strncpy(cat_m1_at_cmd_rst_rx.iccid, value, ICCID_LEN - 1);
+    cat_m1_at_cmd_rst_rx.iccid[ICCID_LEN - 1] = '\0';
+}
+
+void handle_monitor_command(const char *value)
+{
+    strncpy(cat_m1_at_cmd_rst_rx.networkinfo, value, sizeof(cat_m1_at_cmd_rst_rx.networkinfo) - 1);
+    cat_m1_at_cmd_rst_rx.networkinfo[sizeof(cat_m1_at_cmd_rst_rx.networkinfo) - 1] = '\0';
+}
+
+void handle_gps_command(const char *value)
+{
+    if (strstr(value, "1,1") != NULL)
+    {
+        catM1GpsOn = 1;
+    }
+    else if (strstr(value, "1,4") != NULL)
+    {
+        strncpy(cat_m1_at_cmd_rst_rx.gps, value, sizeof(cat_m1_at_cmd_rst_rx.gps) - 1);
+        cat_m1_at_cmd_rst_rx.gps[sizeof(cat_m1_at_cmd_rst_rx.gps) - 1] = '\0';
+        catM1GpsOff = 1;
+    }
+    else if (strstr(value, "1,3") != NULL || strstr(value, "0,0") != NULL)
+    {
+        catM1GpsOff = 1;
+    }
+}
+
+void handle_mqtt_event_command(const char *value)
+{
+    if (strstr(value, "1,-") != NULL) {
+        wpmInitializationFlag = 0;
+        nrf9160Checked = 0;
+        catM1ConnectionStatus = 0;
+        catM1MqttConnectionStatus = 0;
+        catM1MqttSubscribeStatus = 0;
+    }
+    else if (strstr(value, "7,0") != NULL)
+    {
+        catM1MqttSubscribeStatus++;
+    }
+    else if (strstr(value, "0,0") != NULL)
+    {
+        catM1MqttConnectionStatus = 1;
+    }
+}
+
+void handle_cclk_command(const char *value)
+{
+    strncpy(cat_m1_at_cmd_rst_rx.time, value, sizeof(cat_m1_at_cmd_rst_rx.time) - 1);
+    cat_m1_at_cmd_rst_rx.time[sizeof(cat_m1_at_cmd_rst_rx.time) - 1] = '\0';
 }
 
 void uart_init()
