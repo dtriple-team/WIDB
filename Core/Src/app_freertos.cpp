@@ -445,6 +445,7 @@ void StartWPMTask(void *argument)
 			{
 				nrf9160_Stop_gps();
 				gpsTime = 0;
+				gpsOffCheckTime = 0;
 			}
 		}
 	}
