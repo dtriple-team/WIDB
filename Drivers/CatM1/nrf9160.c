@@ -207,7 +207,7 @@ bool cat_m1_parse_process(uint8_t *msg)
             printf("Response: ERROR\r\n");
             catM1ParseResult = 0;
             catM1ErrorCount++;
-			if (catM1ErrorCount >= 5)
+			if (catM1ErrorCount >= 10)
 			{
 				catM1Reset();
 			}
