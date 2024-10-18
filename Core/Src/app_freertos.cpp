@@ -642,7 +642,7 @@ void StartSecTimerTask(void *argument)
 		}
 
 		gpsTime++;
-		PRINT_INFO("gpsTime >>> %d\r\n",gpsTime);
+//		PRINT_INFO("gpsTime >>> %d\r\n",gpsTime);
 		if(gpsTime > gps_operation_cycle)
 		{
 			gpsFlag = true;
