@@ -362,11 +362,7 @@ void handle_gps_command(const char *value)
 void handle_mqtt_event_command(const char *value)
 {
     if (strstr(value, "1,-") != NULL) {
-        wpmInitializationFlag = 0;
-        cat_m1_Status.Checked = 0;
-        cat_m1_Status.connectionStatus = 0;
-        cat_m1_Status.mqttConnectionStatus = 0;
-        cat_m1_Status.mqttSubscribeStatus = 0;
+    	catM1Reset();
     }
     else if (strstr(value, "7,0") != NULL)
     {
