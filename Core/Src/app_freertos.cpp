@@ -140,7 +140,7 @@ const osThreadAttr_t wpmTask_attributes = {
 osThreadId_t spmTaskHandle;
 const osThreadAttr_t spmTask_attributes = {
   .name = "spmTask",
-  .stack_size = 128 * 4,
+  .stack_size = 512 * 4,
   .priority = (osPriority_t) osPriorityNormal
 };
 /* Definitions for secTimerTask */
@@ -513,9 +513,9 @@ void StartSPMTask(void *argument)
 	ssRead_setting();
 	ssRunFlag = 1; // start read PPG, using Timer
 
-//	init_iis2mdc();
-//	init_ism330dhcx();
-//	init_lps22hh();
+	init_iis2mdc();
+	init_ism330dhcx();
+	init_lps22hh();
 
 //	double pre_pressure[PRESSURE_VAL_LEN] = {0,};
 
@@ -523,44 +523,44 @@ void StartSPMTask(void *argument)
   for(;;)
   {
     osDelay(100);
-//	// read sensor
-//	double magnetX, magnetY, magnetZ, iisTemp;
-//	read_iis2mdc(&magnetX, &magnetY, &magnetZ, &iisTemp);
-//
-//	uint16_t gyroSensi = 125;
-//	uint8_t accSensi = 2;
-//	double ismTemp, gyroX, gyroY, gyroZ, accX, accY, accZ;
-//	read_ism330dhcx(gyroSensi, accSensi, &ismTemp, &gyroX, &gyroY, &gyroZ, &accX, &accY, &accZ);
-//
-//	double pressure, lpsTemp;
-//	read_lps22hh(&pressure, &lpsTemp);
-////		for(int i=0; i<PRESSURE_VAL_LEN-1; i++){
-////			pre_pressure[i] = pre_pressure[i+1];
-////		}
-////		pre_pressure[PRESSURE_VAL_LEN-1] = pressure;
-//
-//	test_mag_data[0] = magnetX/10; 	// mgauss -> uT
-//	test_mag_data[1] = magnetY/10; 	// mgauss -> uT
-//	test_mag_data[2] = magnetZ/10; 	// mgauss -> uT
-//	test_mag_data[3] = iisTemp;		// degC
-//
-//	test_mag_data[4] = 0;
-//
-//	test_mag_data[5] = ismTemp;		// degC
-//	test_mag_data[6] = gyroX/1000; 	// mdeg/s -> deg/s
-//	test_mag_data[7] = gyroY/1000; 	// mdeg/s -> deg/s
-//	test_mag_data[8] = gyroZ/1000; 	// mdeg/s -> deg/s
-//	test_mag_data[9] = accX/1000;  	// mg -> g
-//	test_mag_data[10] = accY/1000; 	// mg -> g
-//	test_mag_data[11] = accZ/1000; 	// mg -> g
-//
-//	test_mag_data[12] = 0;
-//
-//	test_mag_data[13] = pressure; 	// hPa
-//	test_mag_data[14] = lpsTemp;  	// degC
-//
-//	imuTemp = ismTemp;
-//	press = pressure;
+	// read sensor
+	double magnetX, magnetY, magnetZ, iisTemp;
+	read_iis2mdc(&magnetX, &magnetY, &magnetZ, &iisTemp);
+
+	uint16_t gyroSensi = 125;
+	uint8_t accSensi = 2;
+	double ismTemp, gyroX, gyroY, gyroZ, accX, accY, accZ;
+	read_ism330dhcx(gyroSensi, accSensi, &ismTemp, &gyroX, &gyroY, &gyroZ, &accX, &accY, &accZ);
+
+	double pressure, lpsTemp;
+	read_lps22hh(&pressure, &lpsTemp);
+//		for(int i=0; i<PRESSURE_VAL_LEN-1; i++){
+//			pre_pressure[i] = pre_pressure[i+1];
+//		}
+//		pre_pressure[PRESSURE_VAL_LEN-1] = pressure;
+
+	test_mag_data[0] = magnetX/10; 	// mgauss -> uT
+	test_mag_data[1] = magnetY/10; 	// mgauss -> uT
+	test_mag_data[2] = magnetZ/10; 	// mgauss -> uT
+	test_mag_data[3] = iisTemp;		// degC
+
+	test_mag_data[4] = 0;
+
+	test_mag_data[5] = ismTemp;		// degC
+	test_mag_data[6] = gyroX/1000; 	// mdeg/s -> deg/s
+	test_mag_data[7] = gyroY/1000; 	// mdeg/s -> deg/s
+	test_mag_data[8] = gyroZ/1000; 	// mdeg/s -> deg/s
+	test_mag_data[9] = accX/1000;  	// mg -> g
+	test_mag_data[10] = accY/1000; 	// mg -> g
+	test_mag_data[11] = accZ/1000; 	// mg -> g
+
+	test_mag_data[12] = 0;
+
+	test_mag_data[13] = pressure; 	// hPa
+	test_mag_data[14] = lpsTemp;  	// degC
+
+	imuTemp = ismTemp;
+	press = pressure;
   }
   /* USER CODE END spmTask */
 }
