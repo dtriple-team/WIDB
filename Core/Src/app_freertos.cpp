@@ -80,7 +80,6 @@ bool cat_m1_rssi_cycleFlag = false;
 #define mqtt_operation_cycle 60*1
 uint8_t mqttTime = 0;
 bool mqttFlag = false;
-uint8_t catM1MqttInitialSend = 0;
 
 #define mqtt_RetryTime_cycle 11
 uint8_t mqttRetryTime = 0;
@@ -402,7 +401,7 @@ void StartWPMTask(void *argument)
 	}
 	if(wpmInitializationFlag && cat_m1_Status.Checked == 2)
 	{
-		if ((mqttFlag && cat_m1_Status.gpsChecking == 0) || catM1MqttInitialSend == 0)
+		if ((mqttFlag && cat_m1_Status.gpsChecking == 0))
 		{
 			//nrf9160_Get_gps_State();
 			//test_send_json_publish();
@@ -437,13 +436,12 @@ void StartWPMTask(void *argument)
 				location.bid = cat_m1_Status_Band.bid;
 				send_GPS_Location(&location);
 			}
-			mqttTime = 0;
 			mqttFlag = false;
-			catM1MqttInitialSend = 1;
 		}
 
 		if(gpsFlag && cat_m1_Status.mqttChecking == 0)
 		{
+			mqttTime = 0;
 			//scatM1MqttDangerMessage = 1;
 			nrf9160_Get_gps();
 			//nrf9160_Get_gps_State();

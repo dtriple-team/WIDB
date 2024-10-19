@@ -468,6 +468,7 @@ void nrf9160_check()
             }
             else
             {
+            	cat_m1_Status.cfunStatus = 0;
                 currentCheckState = CONNECTION_CHECK;
                 cat_m1_Status.retryCount = 0;
             }
@@ -916,7 +917,16 @@ void nrf9160_Get_gps()
 			break;
 		}
 	}
-	send_at_command("AT+CFUN=31\r\n");
+	while(!cat_m1_Status.cfunStatus)
+	{
+		send_at_command("AT+CFUN=31\r\n");
+		send_at_command("AT+CFUN?\r\n");
+		osDelay(2000);
+		if (cat_m1_Status.retryCount >= 60*1) {
+			break;
+		}
+	}
+	cat_m1_Status.cfunStatus = 0;
 	while(!cat_m1_Status.gpsOn)
 	{
 		send_at_command("AT#XGPS=1,0,0,60\r\n");
