@@ -539,6 +539,7 @@ void StartSPMTask(void *argument)
 //		}
 //		pre_pressure[PRESSURE_VAL_LEN-1] = pressure;
 
+
 	test_mag_data[0] = magnetX/10; 	// mgauss -> uT
 	test_mag_data[1] = magnetY/10; 	// mgauss -> uT
 	test_mag_data[2] = magnetZ/10; 	// mgauss -> uT
