@@ -860,7 +860,7 @@ void nrf9160_Stop_gps()
 	cat_m1_Status.gpsOff = 0;
 	cat_m1_Status.mqttSetStatus = 0;
 	cat_m1_Status.gpsChecking = 0;
-	wpmInitializationFlag = 0;
+	wpmInitializationFlag = 1;
 }
 
 void nrf9160_Get_gps_State()
@@ -887,7 +887,7 @@ void catM1Reset()
 	cat_m1_Status.mqttConnectionStatus = 0;
 	cat_m1_Status.mqttSubscribeStatus = 0;
 	cat_m1_Status.bootCount = 0;
-	cat_m1_Status.errorCount = 100;
+	cat_m1_Status.errorCount = 0;
 	cat_m1_Status.gpsChecking = 0;
 	cat_m1_Status.mqttChecking = 0;
 	cat_m1_Status.cfunStatus = 0;
@@ -898,7 +898,7 @@ void catM1Reset()
 	cat_m1_Status.gpsOff = 0;
 	cat_m1_Status.mqttSetStatus = 0;
 	catM1PWRGPIOInit();
-	send_at_command("AT+CFUN=0\r\n");
+	//send_at_command("AT+CFUN=0\r\n");
 }
 
 void catM1PWRGPIOInit()
