@@ -701,7 +701,7 @@ void send_Status_Band(cat_m1_Status_Band_t *status)
         status->activity, status->walk_steps, status->run_steps,
         status->temperature, status->pres, status->battery_level);
 */
-    snPRINT_INFO(mqtt_data, sizeof(mqtt_data),
+    snprintf(mqtt_data, sizeof(mqtt_data),
         "{\"extAddress\": {\"low\": %u, \"high\": 0},"
     	"\"pid\": \"0x%X\","
         "\"bandData\": {"
@@ -793,7 +793,7 @@ void send_Status_FallDetection(cat_m1_Status_FallDetection_t* fallData)
 {
 	cat_m1_Status.mqttChecking = 1;
     char mqtt_data[1024];
-    snPRINT_INFO(mqtt_data, sizeof(mqtt_data),
+    snprintf(mqtt_data, sizeof(mqtt_data),
     	"{\"extAddress\": {\"low\": %u, \"high\": 0},"
         "\"type\": %d,"
         "\"value\": %d"
@@ -831,7 +831,7 @@ void send_GPS_Location(cat_m1_Status_GPS_Location_t* location)
 	cat_m1_Status.mqttChecking = 1;
     char mqtt_data[1024];
 
-    snPRINT_INFO(mqtt_data, sizeof(mqtt_data),
+    snprintf(mqtt_data, sizeof(mqtt_data),
     	"{\"extAddress\": {\"low\": %u, \"high\": 0},"
     	"\"data\": \"%s\""
         "}+++\r\n",
