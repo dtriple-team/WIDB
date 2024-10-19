@@ -441,7 +441,6 @@ void StartWPMTask(void *argument)
 
 		if(gpsFlag && cat_m1_Status.mqttChecking == 0)
 		{
-			mqttTime = 0;
 			//scatM1MqttDangerMessage = 1;
 			nrf9160_Get_gps();
 			//nrf9160_Get_gps_State();
