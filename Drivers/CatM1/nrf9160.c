@@ -26,6 +26,10 @@ cat_m1_Status_GPS_Location_t cat_m1_Status_GPS_Location;
 cat_m1_Status_IMU_t cat_m1_Status_IMU;
 cat_m1_Status_BandSet_t cat_m1_Status_BandSet;
 
+WpmState currentWpmState = WPM_INIT_CHECK;
+CheckState currentCheckState = SYSTEM_MODE_CHECK;
+MqttState currentMqttState = MQTT_INIT;
+GpsState currentGpsState = GPS_INIT;
 
 extern uint8_t wpmInitializationFlag;
 extern uint8_t mqttRetryTime;
@@ -387,127 +391,172 @@ void nrf9160_init()
     PRINT_INFO("nRF9160 initialized\r\n");
 }
 
-void nrf9160_ready(void)
-{
-	while (!wpmInitializationFlag)
-	{
-		receive_at_command_ret();
-		send_at_command("AT\r\n");
-		osDelay(500);
+void nrf9160_ready(void) {
+    switch (currentWpmState) {
+        case WPM_INIT_CHECK:
+            if (!wpmInitializationFlag) {
+                receive_at_command_ret();
+                send_at_command("AT\r\n");
+                osDelay(500);
 
-		if (cat_m1_Status.errorCount >= 5) {
-	        break;
-	    }
-		if (mqttRetryTime > 3) {
-			uart_init();
-		}
-	}
+                if (cat_m1_Status.errorCount >= 5) {
+                    PRINT_INFO("Error count exceeded. Initialization failed.\n");
+                    currentWpmState = WPM_INIT_COMPLETE;
+                } else if (mqttRetryTime > 3) {
+                    uart_init();
+                }
+            } else {
+                currentWpmState = WPM_INIT_COMPLETE;
+            }
+            break;
+
+        case WPM_INIT_COMPLETE:
+            PRINT_INFO("WPM initialization completed successfully.\n");
+            break;
+    }
 }
 
-void nrf9160_check()
-{
-	while(cat_m1_Status.systemModeStatus == 0 || cat_m1_Status.systemModeStatus == 2)
-	{
-		send_at_command("AT+CFUN=0\r\n");
-		send_at_command("AT%XSYSTEMMODE=1,0,0,0\r\n");
-		//send_at_command("AT%XSYSTEMMODE=0,0,1,0\r\n");
-		send_at_command("AT%XSYSTEMMODE?\r\n");
-		osDelay(2000);
+void nrf9160_check() {
+    switch (currentCheckState) {
+        case SYSTEM_MODE_CHECK:
+            if (cat_m1_Status.systemModeStatus == 0 || cat_m1_Status.systemModeStatus == 2) {
+                send_at_command("AT+CFUN=0\r\n");
+                send_at_command("AT%XSYSTEMMODE=1,0,0,0\r\n");
+                send_at_command("AT%XSYSTEMMODE?\r\n");
+                osDelay(2000);
 
-		if (cat_m1_Status.retryCount >= 300) {
-			break;
-		}
-	}
-	while(!cat_m1_Status.cfunStatus)
-	{
-		send_at_command("AT+CFUN=1\r\n");
-		send_at_command("AT+CFUN?\r\n");
-		osDelay(2000);
+                cat_m1_Status.retryCount++;
+                if (cat_m1_Status.retryCount >= 300) {
+                    PRINT_INFO("System mode check failed.\n");
+                    currentCheckState = CHECK_COMPLETE;
+                    break;
+                }
+            } else {
+                currentCheckState = CFUN_CHECK;
+                cat_m1_Status.retryCount = 0;
+            }
+            break;
 
-	    if (cat_m1_Status.retryCount >= 300) {
-	        break;
-	    }
-	}
-	while(!cat_m1_Status.connectionStatus)
-	{
-		send_at_command("AT+COPS?\r\n");
-		osDelay(500);
+        case CFUN_CHECK:
+            if (!cat_m1_Status.cfunStatus) {
+                send_at_command("AT+CFUN=1\r\n");
+                send_at_command("AT+CFUN?\r\n");
+                osDelay(2000);
 
-	    if (cat_m1_Status.retryCount >= 60*10) {
-	        break;
-	    }
-	}
+                cat_m1_Status.retryCount++;
+                if (cat_m1_Status.retryCount >= 300) {
+                    PRINT_INFO("CFUN check failed.\n");
+                    currentCheckState = CHECK_COMPLETE;
+                    break;
+                }
+            } else {
+                currentCheckState = CONNECTION_CHECK;
+                cat_m1_Status.retryCount = 0;
+            }
+            break;
 
-	send_at_command("AT+CGDCONT?\r\n");
-	osDelay(100);
-	send_at_command("AT%XICCID\r\n");
+        case CONNECTION_CHECK:
+            if (!cat_m1_Status.connectionStatus) {
+                send_at_command("AT+COPS?\r\n");
+                osDelay(500);
 
-	osDelay(1000);
-	cat_m1_Status.Checked = 1;
+                cat_m1_Status.retryCount++;
+                if (cat_m1_Status.retryCount >= 60 * 10) {
+                    PRINT_INFO("Connection check failed.\n");
+                    currentCheckState = CHECK_COMPLETE;
+                    break;
+                }
+            } else {
+                currentCheckState = FINAL_COMMANDS;
+                cat_m1_Status.retryCount = 0;
+            }
+            break;
 
+        case FINAL_COMMANDS:
+            send_at_command("AT+CGDCONT?\r\n");
+            osDelay(100);
+            send_at_command("AT%XICCID\r\n");
+            osDelay(1000);
 
-//	PRINT_INFO("COPS result >>> %s\r\n", cat_m1_at_cmd_rst.cops);
-//	PRINT_INFO("CGDCONT result >>> %s\r\n", cat_m1_at_cmd_rst.cgdcont);
-//	PRINT_INFO("ICCID result >>> %s\r\n", cat_m1_at_cmd_rst.iccid);
+            cat_m1_Status.Checked = 1;
+            currentCheckState = CHECK_COMPLETE;
+
+            PRINT_INFO("All checks completed.\n");
+            break;
+
+        case CHECK_COMPLETE:
+            break;
+    }
 }
 
-void nrf9160_mqtt_setting()
-{
-	while(!cat_m1_Status.mqttSetStatus)
-	{
-		send_at_command("AT#XMQTTCFG=\"\",300,1\r\n");
-		send_at_command("AT#XMQTTCFG?\r\n");
-		osDelay(2000);
-		cat_m1_Status.retryCount++;
+void nrf9160_mqtt_setting() {
+    switch (currentMqttState) {
+        case MQTT_INIT:
+            cat_m1_Status.retryCount = 0;
+            currentMqttState = MQTT_CONFIG;
+            break;
 
-		if (cat_m1_Status.retryCount >= 10)
-		{
-			break;
-		}
-	}
+        case MQTT_CONFIG:
+            if (!cat_m1_Status.mqttSetStatus) {
+                send_at_command("AT#XMQTTCFG=\"\",300,1\r\n");
+                send_at_command("AT#XMQTTCFG?\r\n");
+                osDelay(2000);
+                cat_m1_Status.retryCount++;
 
-//	if (send_at_command("AT#XMQTTCON=1,\"\",\"\",\"broker.hivemq.com\",1883\r\n"))
-//	{
-//		//return true;
-//	}
-//	if (send_at_command("AT#XMQTTSUB=\"topic/slm/sub\",0\r\n"))
-//	{
-//		//return true;
-//	}
-	while(cat_m1_Status.mqttConnectionStatus == 0)
-	{
-		send_at_command("AT#XMQTTCON=1,\"\",\"\",\"t-vsm.com\",18831\r\n");
-		osDelay(5000);
-		cat_m1_Status.retryCount++;
+                if (cat_m1_Status.retryCount >= 10) {
+                    currentMqttState = MQTT_COMPLETE;
+                }
+            } else {
+                currentMqttState = MQTT_CONNECT;
+            }
+            break;
 
-		if (cat_m1_Status.retryCount >= 5)
-		{
-			break;
-		}
-	}
-	while(cat_m1_Status.mqttSubscribeStatus == 0)
-	{
-		send_at_command("AT#XMQTTSUB=\"/DT/eHG4/Status/BandSet\",0\r\n");
-		osDelay(5000);
-		cat_m1_Status.retryCount++;
+        case MQTT_CONNECT:
+            if (cat_m1_Status.mqttConnectionStatus == 0) {
+                send_at_command("AT#XMQTTCON=1,\"\",\"\",\"t-vsm.com\",18831\r\n");
+                osDelay(5000);
+                cat_m1_Status.retryCount++;
 
-		if (cat_m1_Status.retryCount >= 5)
-		{
-			break;
-		}
-	}
-	while (cat_m1_Status.mqttSubscribeStatus == 1)
-	{
-		send_at_command("AT#XMQTTSUB=\"/DT/eHG4/Status/ServerAlert\",0\r\n");
-		osDelay(5000);
+                if (cat_m1_Status.retryCount >= 5) {
+                    currentMqttState = MQTT_COMPLETE;
+                }
+            } else {
+                currentMqttState = MQTT_SUBSCRIBE_STATUS;
+            }
+            break;
 
-		cat_m1_Status.retryCount++;
-		if (cat_m1_Status.retryCount >= 5)
-		{
-			break;
-		}
-	}
-	cat_m1_Status.Checked = 2;
+        case MQTT_SUBSCRIBE_STATUS:
+            if (cat_m1_Status.mqttSubscribeStatus == 0) {
+                send_at_command("AT#XMQTTSUB=\"/DT/eHG4/Status/BandSet\",0\r\n");
+                osDelay(5000);
+                cat_m1_Status.retryCount++;
+
+                if (cat_m1_Status.retryCount >= 5) {
+                    currentMqttState = MQTT_COMPLETE;
+                }
+            } else {
+                currentMqttState = MQTT_SUBSCRIBE_ALERT;
+            }
+            break;
+
+        case MQTT_SUBSCRIBE_ALERT:
+            if (cat_m1_Status.mqttSubscribeStatus == 1) {
+                send_at_command("AT#XMQTTSUB=\"/DT/eHG4/Status/ServerAlert\",0\r\n");
+                osDelay(5000);
+                cat_m1_Status.retryCount++;
+
+                if (cat_m1_Status.retryCount >= 5) {
+                    currentMqttState = MQTT_COMPLETE;
+                }
+            } else {
+                currentMqttState = MQTT_COMPLETE;
+            }
+            break;
+
+        case MQTT_COMPLETE:
+            cat_m1_Status.Checked = 2;
+            break;
+    }
 }
 
 void nrf9160_mqtt_test()
@@ -809,47 +858,63 @@ void send_Status_IMU(cat_m1_Status_IMU_t* imu_data)
     cat_m1_Status.mqttChecking = 0;
 }
 
-void nrf9160_Get_gps()
-{
-	send_at_command("AT#XMQTTCON=0\r\n");
+void nrf9160_Get_gps() {
+    switch (currentGpsState) {
+        case GPS_INIT:
+            send_at_command("AT#XMQTTCON=0\r\n");
+            cat_m1_Status.retryCount = 0;
+            currentGpsState = GPS_SET_MODE;
+            break;
 
-	while(cat_m1_Status.systemModeStatus == 0 || cat_m1_Status.systemModeStatus == 1)
-	{
+        case GPS_SET_MODE:
+            if (cat_m1_Status.systemModeStatus == 0 || cat_m1_Status.systemModeStatus == 1) {
+                send_at_command("AT+CFUN=0\r\n");
+                send_at_command("AT%XSYSTEMMODE=0,0,1,0\r\n");
+                send_at_command("AT%XSYSTEMMODE?\r\n");
+                osDelay(2000);
+                cat_m1_Status.retryCount++;
 
-		send_at_command("AT+CFUN=0\r\n");
-		send_at_command("AT%XSYSTEMMODE=0,0,1,0\r\n");
-		send_at_command("AT%XSYSTEMMODE?\r\n");
-		osDelay(2000);
-		if (cat_m1_Status.retryCount >= 60*1) {
-			break;
-		}
-	}
-	send_at_command("AT+CFUN=31\r\n");
-	while(!cat_m1_Status.gpsOn)
-	{
-		send_at_command("AT#XGPS=1,0,0,60\r\n");
-		osDelay(2000);
-		send_at_command("AT#XGPS?\r\n");
+                if (cat_m1_Status.retryCount >= 60) {
+                    currentGpsState = GPS_COMPLETE;
+                }
+            } else {
+                currentGpsState = GPS_ACTIVATE;
+            }
+            break;
 
-		osDelay(500);
-		if (cat_m1_Status.retryCount >= 30) {
-			break;
-		}
-	}
-	//send_at_command("AT+CFUN=0\r\n");
-	//send_at_command("AT%XSYSTEMMODE=1,0,1,0\r\n");
-	//send_at_command("AT+CFUN=31\r\n");
-	//send_at_command("AT#XGPS=1,0,0,60\r\n");
+        case GPS_ACTIVATE:
+            send_at_command("AT+CFUN=31\r\n");
+            cat_m1_Status.retryCount = 0;
+            currentGpsState = GPS_WAIT;
+            break;
 
-	//send_at_command("AT#XGPS?\r\n");
-	//cat_m1_Status.Checked = 2;
-	cat_m1_Status.gpsChecking = 1;
+        case GPS_WAIT:
+            if (!cat_m1_Status.gpsOn) {
+                send_at_command("AT#XGPS=1,0,0,60\r\n");
+                osDelay(2000);
+                send_at_command("AT#XGPS?\r\n");
+                osDelay(500);
+                cat_m1_Status.retryCount++;
+
+                if (cat_m1_Status.retryCount >= 30) {
+                    currentGpsState = GPS_COMPLETE;
+                }
+            } else {
+                currentGpsState = GPS_COMPLETE;
+            }
+            break;
+
+        case GPS_COMPLETE:
+            cat_m1_Status.gpsChecking = 1;
+            break;
+    }
 }
 
 void nrf9160_Stop_gps()
 {
 	send_at_command("AT#XGPS=0\r\n");
 	send_at_command("AT+CFUN=0\r\n");
+	cat_m1_Status.InitialLoad = 0;
 	cat_m1_Status.Checked = 0;
 	cat_m1_Status.connectionStatus = 0;
 	cat_m1_Status.mqttConnectionStatus = 0;
@@ -882,6 +947,7 @@ void nrf9160_Get_time()
 void catM1Reset()
 {
 	wpmInitializationFlag = 0;
+	cat_m1_Status.InitialLoad = 0;
 	cat_m1_Status.Checked = 0;
 	cat_m1_Status.connectionStatus = 0;
 	cat_m1_Status.mqttConnectionStatus = 0;

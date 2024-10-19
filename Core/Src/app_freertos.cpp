@@ -386,9 +386,13 @@ void StartWPMTask(void *argument)
 	}
 	if(wpmInitializationFlag && cat_m1_Status.Checked == 0)
 	{
-		nrf9160_check(); // only TX
-		nrf9160_Get_time();
-		nrf9160_Get_rssi();
+		nrf9160_check();
+		if(cat_m1_Status.InitialLoad == 0)
+		{
+			nrf9160_Get_time();
+			nrf9160_Get_rssi();
+			cat_m1_Status.InitialLoad = 1;
+		}
 	}
 	if(wpmInitializationFlag && cat_m1_Status.Checked == 1)
 	{

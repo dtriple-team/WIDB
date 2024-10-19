@@ -13,6 +13,36 @@
 
 #include "cmsis_os2.h"
 
+typedef enum {
+    WPM_INIT_CHECK,
+    WPM_INIT_COMPLETE
+} WpmState;
+
+typedef enum {
+    SYSTEM_MODE_CHECK,
+    CFUN_CHECK,
+    CONNECTION_CHECK,
+    FINAL_COMMANDS,
+    CHECK_COMPLETE
+} CheckState;
+
+typedef enum {
+    MQTT_INIT,
+    MQTT_CONFIG,
+    MQTT_CONNECT,
+    MQTT_SUBSCRIBE_STATUS,
+    MQTT_SUBSCRIBE_ALERT,
+    MQTT_COMPLETE
+} MqttState;
+
+typedef enum {
+    GPS_INIT,
+    GPS_SET_MODE,
+    GPS_ACTIVATE,
+    GPS_WAIT,
+    GPS_COMPLETE
+} GpsState;
+
 // Constants
 #define MAX_CMD_LEN 100
 #define MAX_VALUE_LEN 100
@@ -24,6 +54,7 @@
 #define CAT_M1_UART_BUF_SIZE 512
 
 typedef struct {
+	uint8_t InitialLoad;
 	uint8_t Checked;
     uint8_t parseCount;
     uint8_t parseResult;
