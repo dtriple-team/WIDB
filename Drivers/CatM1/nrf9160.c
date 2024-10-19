@@ -31,6 +31,7 @@ CheckState currentCheckState = SYSTEM_MODE_CHECK;
 MqttState currentMqttState = MQTT_INIT;
 
 extern uint8_t wpmInitializationFlag;
+extern uint8_t gpsOffCheckTime;
 extern uint8_t UartRxRetryTime;
 extern bool gpsFlag;
 
@@ -405,10 +406,12 @@ void nrf9160_ready(void)
                 send_at_command("AT\r\n");
                 osDelay(500);
 
-                if (cat_m1_Status.errorCount >= 5)
+                cat_m1_Status.retryCount++;
+                if (cat_m1_Status.retryCount >= 5)
                 {
                     PRINT_INFO("Error count exceeded. Initialization failed.\n");
-                    currentWpmState = WPM_INIT_COMPLETE;
+                    //currentWpmState = WPM_INIT_COMPLETE;
+                    uart_init();
                 }
             }
             else
@@ -966,6 +969,7 @@ void nrf9160_Stop_gps()
 	cat_m1_Status.mqttSetStatus = 0;
 	cat_m1_Status.gpsChecking = 0;
 	wpmInitializationFlag = 1;
+	gpsOffCheckTime = 0;
 	HAL_UART_Receive_IT(&huart1, &uart_cat_m1_rx.temp, 1);
 }
 

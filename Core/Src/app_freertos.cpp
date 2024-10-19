@@ -89,7 +89,7 @@ bool UartRxRetryTimeFlag = false;
 uint8_t gpsTime = 0;
 bool gpsFlag = false;
 
-#define gps_offCheck_cycle 60
+#define gps_offCheck_cycle 70
 uint8_t gpsOffCheckTime = 0;
 
 uint8_t catM1MqttDangerMessage = 0;
