@@ -529,7 +529,8 @@ void nrf9160_mqtt_setting()
 
                 if (cat_m1_Status.retryCount >= 10)
                 {
-                    currentMqttState = MQTT_COMPLETE;
+                	catM1Reset();
+                    //currentMqttState = MQTT_COMPLETE;
                 }
             }
             else
@@ -545,9 +546,10 @@ void nrf9160_mqtt_setting()
                 osDelay(5000);
                 cat_m1_Status.retryCount++;
 
-                if (cat_m1_Status.retryCount >= 30)
+                if (cat_m1_Status.retryCount >= 5)
                 {
-                    currentMqttState = MQTT_COMPLETE;
+                	catM1Reset();
+                    //currentMqttState = MQTT_COMPLETE;
                 }
             }
             else
@@ -563,9 +565,10 @@ void nrf9160_mqtt_setting()
                 osDelay(5000);
                 cat_m1_Status.retryCount++;
 
-                if (cat_m1_Status.retryCount >= 30)
+                if (cat_m1_Status.retryCount >= 5)
                 {
-                    currentMqttState = MQTT_COMPLETE;
+                	catM1Reset();
+                    //currentMqttState = MQTT_COMPLETE;
                 }
             }
             else
@@ -581,9 +584,10 @@ void nrf9160_mqtt_setting()
                 osDelay(5000);
                 cat_m1_Status.retryCount++;
 
-                if (cat_m1_Status.retryCount >= 30)
+                if (cat_m1_Status.retryCount >= 5)
                 {
-                    currentMqttState = MQTT_COMPLETE;
+                	catM1Reset();
+                    //currentMqttState = MQTT_COMPLETE;
                 }
             }
             else
