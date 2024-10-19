@@ -545,7 +545,7 @@ void nrf9160_mqtt_setting()
                 osDelay(5000);
                 cat_m1_Status.retryCount++;
 
-                if (cat_m1_Status.retryCount >= 5)
+                if (cat_m1_Status.retryCount >= 30)
                 {
                     currentMqttState = MQTT_COMPLETE;
                 }
@@ -563,7 +563,7 @@ void nrf9160_mqtt_setting()
                 osDelay(5000);
                 cat_m1_Status.retryCount++;
 
-                if (cat_m1_Status.retryCount >= 5)
+                if (cat_m1_Status.retryCount >= 30)
                 {
                     currentMqttState = MQTT_COMPLETE;
                 }
@@ -581,7 +581,7 @@ void nrf9160_mqtt_setting()
                 osDelay(5000);
                 cat_m1_Status.retryCount++;
 
-                if (cat_m1_Status.retryCount >= 5)
+                if (cat_m1_Status.retryCount >= 30)
                 {
                     currentMqttState = MQTT_COMPLETE;
                 }
