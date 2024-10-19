@@ -386,9 +386,13 @@ void StartWPMTask(void *argument)
 	}
 	if(wpmInitializationFlag && cat_m1_Status.Checked == 0)
 	{
-		nrf9160_check(); // only TX
-		nrf9160_Get_time();
-		nrf9160_Get_rssi();
+		nrf9160_check();
+		if(cat_m1_Status.InitialLoad == 0)
+		{
+			nrf9160_Get_time();
+			nrf9160_Get_rssi();
+			cat_m1_Status.InitialLoad = 1;
+		}
 	}
 	if(wpmInitializationFlag && cat_m1_Status.Checked == 1)
 	{
@@ -398,7 +402,7 @@ void StartWPMTask(void *argument)
 	}
 	if(wpmInitializationFlag && cat_m1_Status.Checked == 2)
 	{
-		if ((mqttFlag && cat_m1_Status.gpsChecking == 0) || catM1MqttInitialSend == 0)
+		if ((mqttFlag && cat_m1_Status.gpsChecking == 0 && gpsTime > (gps_operation_cycle -10)) || catM1MqttInitialSend == 0)
 		{
 			//nrf9160_Get_gps_State();
 			//test_send_json_publish();
@@ -443,7 +447,7 @@ void StartWPMTask(void *argument)
 			//scatM1MqttDangerMessage = 1;
 			nrf9160_Get_gps();
 			//nrf9160_Get_gps_State();
-			gpsFlag = false;
+			//gpsFlag = false;
 		}
 		if(cat_m1_Status.gpsChecking)
 		{
