@@ -6,6 +6,7 @@
 #include <ctime> //rkdalfks
 
 #include "main.h"
+#include "stdio.h"
 extern RTC_TimeTypeDef sTime;
 extern RTC_DateTypeDef sDate;
 
@@ -106,6 +107,9 @@ void HomeScreenWithBiodataView::handleTickEvent()
 
 		HAL_RTC_GetTime(&hrtc, &sTime, RTC_FORMAT_BIN);
 		HAL_RTC_GetDate(&hrtc, &sDate, RTC_FORMAT_BIN);
+
+		//PRINT_INFO("Current Time: %02u:%02u:%02u\n", sTime.Hours, sTime.Minutes, sTime.Seconds);
+		//PRINT_INFO("Current Date: %04u-%02u-%02u\n", sDate.Year + 2000, sDate.Month, sDate.Date);
 
 		touchgfx::Unicode::snprintf(date_valueBuffer1, DATE_VALUEBUFFER1_SIZE, "%02d", sDate.Month);
 		touchgfx::Unicode::snprintf(date_valueBuffer2, DATE_VALUEBUFFER2_SIZE, "%02d", sDate.Date);
