@@ -497,6 +497,7 @@ void StartWPMTask(void *argument)
 * @param argument: Not used
 * @retval None
 */
+void read_ppg();
 /* USER CODE END Header_StartSPMTask */
 void StartSPMTask(void *argument)
 {
@@ -559,6 +560,11 @@ void StartSPMTask(void *argument)
 
 	imuTemp = ismTemp;
 	press = pressure;
+
+//	if(ssRunFlag == 1)
+//	{
+//	  read_ppg();
+//	}
   }
   /* USER CODE END spmTask */
 }
