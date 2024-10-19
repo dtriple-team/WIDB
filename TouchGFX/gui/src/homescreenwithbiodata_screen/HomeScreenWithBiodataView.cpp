@@ -60,10 +60,12 @@ void HomeScreenWithBiodataView::tearDownScreen()
 #include "bl6133.h"
 extern "C" {
 	#include "nrf9160.h"
+	#include "rtc.h"
 }
 extern GESTURE gesture;
 extern uint8_t timeUpdateFlag;
 catM1Time nowTimeinfo;
+extern uint8_t brightness_count;
 void HomeScreenWithBiodataView::handleTickEvent()
 {
 	tickCounter++;
@@ -85,6 +87,7 @@ void HomeScreenWithBiodataView::handleTickEvent()
 //		}
 
 		////////////////// jh ///////////////////
+		brightness_count = 0;
 		struct tm* timeinfo;
 		if(timeUpdateFlag){
 			timeUpdateFlag = 0;
@@ -95,7 +98,14 @@ void HomeScreenWithBiodataView::handleTickEvent()
 			sTime.Hours = (uint8_t)nowTimeinfo.hour;
 			sTime.Minutes = (uint8_t)nowTimeinfo.min;
 			sTime.Seconds = (uint8_t)nowTimeinfo.sec;
+
+			HAL_RTC_SetTime(&hrtc, &sTime, RTC_FORMAT_BIN);
+			HAL_RTC_SetDate(&hrtc, &sDate, RTC_FORMAT_BIN);
+			int temp = 0;
 		}
+
+		HAL_RTC_GetTime(&hrtc, &sTime, RTC_FORMAT_BIN);
+		HAL_RTC_GetDate(&hrtc, &sDate, RTC_FORMAT_BIN);
 
 		touchgfx::Unicode::snprintf(date_valueBuffer1, DATE_VALUEBUFFER1_SIZE, "%02d", sDate.Month);
 		touchgfx::Unicode::snprintf(date_valueBuffer2, DATE_VALUEBUFFER2_SIZE, "%02d", sDate.Date);
