@@ -162,24 +162,24 @@ bool cat_m1_parse_process(uint8_t *msg) {
         cat_m1_parse_result(command, value);
     } else {
         if (strstr((char *)msg, "Ready")) {
-            printf("Response: Ready\r\n");
+            PRINT_INFO("Response: Ready\r\n");
             cat_m1_Status.parseResult = 1;
             cat_m1_Status.bootCount++;
             cat_m1_Status.retryCount = 0;
             wpmInitializationFlag = 1;
 
-            printf("cat_m1_Status.bootCount >>> %d\r\n", cat_m1_Status.bootCount);
+            PRINT_INFO("cat_m1_Status.bootCount >>> %d\r\n", cat_m1_Status.bootCount);
             if (cat_m1_Status.bootCount >= 2) {
                 catM1Reset();
             }
         } else if (strstr((char *)msg, "OK")) {
-            printf("Response: OK\r\n");
+            PRINT_INFO("Response: OK\r\n");
             cat_m1_Status.parseResult = 1;
             cat_m1_Status.errorCount = 0;
             cat_m1_Status.retryCount = 0;
             wpmInitializationFlag = 1;
         } else if (strstr((char *)msg, "ERROR")) {
-            printf("Response: ERROR\r\n");
+            PRINT_INFO("Response: ERROR\r\n");
             cat_m1_Status.parseResult = 0;
             cat_m1_Status.errorCount++;
             if (cat_m1_Status.errorCount >= 10) {
@@ -192,8 +192,8 @@ bool cat_m1_parse_process(uint8_t *msg) {
 
 void cat_m1_parse_result(const char *command, const char *value)
 {
-	//printf("Command: %s\r\n", command);
-	//printf("Value: %s\r\n", value);
+	//PRINT_INFO("Command: %s\r\n", command);
+	//PRINT_INFO("Value: %s\r\n", value);
 
 	if (!command || !value)
     	return;
@@ -617,7 +617,7 @@ void test_send_json_publish(void)
     const char *json_message = "{\"msg\":\"Let's go home\"}+++\r\n";
 
     char json_message_networkinfo[180];
-    sprintf(json_message_networkinfo, "{\"networkinfo\": \"%s\"}+++\r\n", cat_m1_at_cmd_rst.networkinfo);
+    sPRINT_INFO(json_message_networkinfo, "{\"networkinfo\": \"%s\"}+++\r\n", cat_m1_at_cmd_rst.networkinfo);
 
 //	const char *mqtt_data = "{\"shortAddress\": 2,"
 //							"\"extAddress\": {\"low\": 285286663, \"high\": 0, \"unsigned\": true}+++\r\n";
@@ -656,21 +656,21 @@ void test_send_json_publish(void)
 
     if (send_at_command(at_command))
     {
-        printf("AT command sent successfully.\n");
+        PRINT_INFO("AT command sent successfully.\n");
     }
     else
     {
-        printf("Failed to send AT command.\n");
+        PRINT_INFO("Failed to send AT command.\n");
         return;
     }
 
     if (send_at_command(json_message_networkinfo))
     {
-        printf("JSON message sent successfully.\n");
+        PRINT_INFO("JSON message sent successfully.\n");
     }
     else
     {
-        printf("Failed to send JSON message.\n");
+        PRINT_INFO("Failed to send JSON message.\n");
     }
     send_at_command("AT#XMQTTCON=0\r\n");
 }
@@ -680,7 +680,7 @@ void send_Status_Band(cat_m1_Status_Band_t *status)
 	cat_m1_Status.mqttChecking = 1;
     char mqtt_data[1024];
 /*
-    snprintf(mqtt_data, sizeof(mqtt_data),
+    snPRINT_INFO(mqtt_data, sizeof(mqtt_data),
         "{\"bid\": %u,"
         "\"pid\": %u,"
         "\"rssi\": %u,"
@@ -701,7 +701,7 @@ void send_Status_Band(cat_m1_Status_Band_t *status)
         status->activity, status->walk_steps, status->run_steps,
         status->temperature, status->pres, status->battery_level);
 */
-    snprintf(mqtt_data, sizeof(mqtt_data),
+    snPRINT_INFO(mqtt_data, sizeof(mqtt_data),
         "{\"extAddress\": {\"low\": %u, \"high\": 0},"
     	"\"pid\": \"0x%X\","
         "\"bandData\": {"
@@ -734,25 +734,25 @@ void send_Status_Band(cat_m1_Status_Band_t *status)
 
     if (send_at_command("AT#XMQTTPUB=\"/DT/eHG4/Status/Band\"\r\n"))
     {
-        printf("AT command sent successfully.\n");
+        PRINT_INFO("AT command sent successfully.\n");
     }
 //    if (send_at_command("AT#XMQTTPUB=\"/efwb/post/sync\"\r\n"))
 //    {
-//        printf("AT command sent successfully.\n");
+//        PRINT_INFO("AT command sent successfully.\n");
 //    }
     else
     {
-        printf("Failed to send AT command.\n");
+        PRINT_INFO("Failed to send AT command.\n");
         return;
     }
 
     if (send_at_command(mqtt_data))
     {
-        printf("JSON message sent successfully.\n");
+        PRINT_INFO("JSON message sent successfully.\n");
     }
     else
     {
-        printf("Failed to send JSON message.\n");
+        PRINT_INFO("Failed to send JSON message.\n");
     }
     cat_m1_Status.mqttChecking = 0;
 }
@@ -761,7 +761,7 @@ void send_Status_BandAlert(cat_m1_Status_BandAler_t* alertData)
 {
 	cat_m1_Status.mqttChecking = 1;
     char mqtt_data[1024];
-    snprintf(mqtt_data, sizeof(mqtt_data),
+    snPRINT_INFO(mqtt_data, sizeof(mqtt_data),
     	"{\"extAddress\": {\"low\": %u, \"high\": 0},"
         "\"hr_alert\": %d,"
         "\"spo2_alert\": %d"
@@ -770,21 +770,21 @@ void send_Status_BandAlert(cat_m1_Status_BandAler_t* alertData)
 
     if (send_at_command("AT#XMQTTPUB=\"/DT/eHG4/Status/BandAlert\"\r\n"))
     {
-        printf("AT command sent successfully.\n");
+        PRINT_INFO("AT command sent successfully.\n");
     }
     else
     {
-        printf("Failed to send AT command.\n");
+        PRINT_INFO("Failed to send AT command.\n");
         return;
     }
 
     if (send_at_command(mqtt_data))
     {
-        printf("JSON message sent successfully.\n");
+        PRINT_INFO("JSON message sent successfully.\n");
     }
     else
     {
-        printf("Failed to send JSON message.\n");
+        PRINT_INFO("Failed to send JSON message.\n");
     }
     cat_m1_Status.mqttChecking = 0;
 }
@@ -793,7 +793,7 @@ void send_Status_FallDetection(cat_m1_Status_FallDetection_t* fallData)
 {
 	cat_m1_Status.mqttChecking = 1;
     char mqtt_data[1024];
-    snprintf(mqtt_data, sizeof(mqtt_data),
+    snPRINT_INFO(mqtt_data, sizeof(mqtt_data),
     	"{\"extAddress\": {\"low\": %u, \"high\": 0},"
         "\"type\": %d,"
         "\"value\": %d"
@@ -802,26 +802,26 @@ void send_Status_FallDetection(cat_m1_Status_FallDetection_t* fallData)
 
     if (send_at_command("AT#XMQTTPUB=\"DT/eHG4/Status/FallDetection\"\r\n"))
     {
-        printf("AT command sent successfully.\n");
+        PRINT_INFO("AT command sent successfully.\n");
     }
 //	if (send_at_command("AT#XMQTTPUB=\"/efwb/post/async\"\r\n"))
 //	{
-//		printf("AT command sent successfully.\n");
+//		PRINT_INFO("AT command sent successfully.\n");
 //	}
     else
     {
-        printf("Failed to send AT command.\n");
+        PRINT_INFO("Failed to send AT command.\n");
         return;
     }
 
     if (send_at_command(mqtt_data))
     {
     	memset(&cat_m1_Status_FallDetection, 0, sizeof(cat_m1_Status_FallDetection));
-        printf("JSON message sent successfully.\n");
+        PRINT_INFO("JSON message sent successfully.\n");
     }
     else
     {
-        printf("Failed to send JSON message.\n");
+        PRINT_INFO("Failed to send JSON message.\n");
     }
     cat_m1_Status.mqttChecking = 0;
 }
@@ -831,7 +831,7 @@ void send_GPS_Location(cat_m1_Status_GPS_Location_t* location)
 	cat_m1_Status.mqttChecking = 1;
     char mqtt_data[1024];
 
-    snprintf(mqtt_data, sizeof(mqtt_data),
+    snPRINT_INFO(mqtt_data, sizeof(mqtt_data),
     	"{\"extAddress\": {\"low\": %u, \"high\": 0},"
     	"\"data\": \"%s\""
         "}+++\r\n",
@@ -839,21 +839,21 @@ void send_GPS_Location(cat_m1_Status_GPS_Location_t* location)
 
     if (send_at_command("AT#XMQTTPUB=\"/DT/eHG4/GPS/Location\"\r\n"))
     {
-        printf("AT command sent successfully.\n");
+        PRINT_INFO("AT command sent successfully.\n");
     }
     else
     {
-        printf("Failed to send AT command.\n");
+        PRINT_INFO("Failed to send AT command.\n");
         return;
     }
 
     if (send_at_command(mqtt_data))
     {
-        printf("JSON message sent successfully.\n");
+        PRINT_INFO("JSON message sent successfully.\n");
     }
     else
     {
-        printf("Failed to send JSON message.\n");
+        PRINT_INFO("Failed to send JSON message.\n");
     }
     cat_m1_Status.mqttChecking = 0;
 }
@@ -863,7 +863,7 @@ void send_Status_IMU(cat_m1_Status_IMU_t* imu_data)
 	cat_m1_Status.mqttChecking = 1;
     char mqtt_data[1024];
 
-    snprintf(mqtt_data, sizeof(mqtt_data),
+    snPRINT_INFO(mqtt_data, sizeof(mqtt_data),
     	"{\"extAddress\": {\"low\": %u, \"high\": 0},"
         "\"acc_x\": %d,"
         "\"acc_y\": %d,"
@@ -881,19 +881,19 @@ void send_Status_IMU(cat_m1_Status_IMU_t* imu_data)
 
     if (send_at_command("AT#XMQTTPUB=\"/DT/eHG4/Status/IMU\"\r\n"))
     {
-        printf("AT command sent successfully.\n");
+        PRINT_INFO("AT command sent successfully.\n");
     } else
     {
-        printf("Failed to send AT command.\n");
+        PRINT_INFO("Failed to send AT command.\n");
         return;
     }
 
     if (send_at_command(mqtt_data))
     {
-        printf("JSON message sent successfully.\n");
+        PRINT_INFO("JSON message sent successfully.\n");
     } else
     {
-        printf("Failed to send JSON message.\n");
+        PRINT_INFO("Failed to send JSON message.\n");
     }
     cat_m1_Status.mqttChecking = 0;
 }
