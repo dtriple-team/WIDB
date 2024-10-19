@@ -405,10 +405,12 @@ void nrf9160_ready(void)
                 send_at_command("AT\r\n");
                 osDelay(500);
 
-                if (cat_m1_Status.errorCount >= 5)
+                cat_m1_Status.retryCount++;
+                if (cat_m1_Status.retryCount >= 5)
                 {
                     PRINT_INFO("Error count exceeded. Initialization failed.\n");
-                    currentWpmState = WPM_INIT_COMPLETE;
+                    //currentWpmState = WPM_INIT_COMPLETE;
+                    uart_init();
                 }
             }
             else
