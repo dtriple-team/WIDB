@@ -19,19 +19,33 @@ HomeScreenWithBiodataView::HomeScreenWithBiodataView()
 
 void HomeScreenWithBiodataView::setupScreen()
 {
-    HomeScreenWithBiodataViewBase::setupScreen();
+//    HomeScreenWithBiodataViewBase::setupScreen();
+//
+//	time(&lastUpdateTime);
+//	struct tm* timeinfo = localtime(&lastUpdateTime);
+//
+//	touchgfx::Unicode::snprintf(date_valueBuffer1, DATE_VALUEBUFFER1_SIZE, "%02d", timeinfo->tm_mon+1);
+//	touchgfx::Unicode::snprintf(date_valueBuffer2, DATE_VALUEBUFFER2_SIZE, "%02d", timeinfo->tm_mday);
+//	date_value.invalidate();
+//
+//	Unicode::snprintf(year_valueBuffer, YEAR_VALUE_SIZE, "%04d", timeinfo->tm_year+1900);
+//	year_value.invalidate();
+//
+//	digitalClock.setTime24Hour(timeinfo->tm_hour, timeinfo->tm_min, timeinfo->tm_sec);
+//	digitalClock.invalidate();
 
-	time(&lastUpdateTime);
-	struct tm* timeinfo = localtime(&lastUpdateTime);
+	////////////// jh /////////////////
 
-	touchgfx::Unicode::snprintf(date_valueBuffer1, DATE_VALUEBUFFER1_SIZE, "%02d", timeinfo->tm_mon+1);
-	touchgfx::Unicode::snprintf(date_valueBuffer2, DATE_VALUEBUFFER2_SIZE, "%02d", timeinfo->tm_mday);
+	HomeScreenWithBiodataViewBase::setupScreen();
+
+	touchgfx::Unicode::snprintf(date_valueBuffer1, DATE_VALUEBUFFER1_SIZE, "%02d", sDate.Month);
+	touchgfx::Unicode::snprintf(date_valueBuffer2, DATE_VALUEBUFFER2_SIZE, "%02d", sDate.Date);
 	date_value.invalidate();
 
-	Unicode::snprintf(year_valueBuffer, YEAR_VALUE_SIZE, "%04d", timeinfo->tm_year+1900);
+	Unicode::snprintf(year_valueBuffer, YEAR_VALUE_SIZE, "%04d", sDate.Year+2000);
 	year_value.invalidate();
 
-	digitalClock.setTime24Hour(timeinfo->tm_hour, timeinfo->tm_min, timeinfo->tm_sec);
+	digitalClock.setTime24Hour(sTime.Hours, sTime.Minutes, sTime.Seconds);
 	digitalClock.invalidate();
 
 //	extern uint8_t battVal;
@@ -48,7 +62,7 @@ extern "C" {
 	#include "nrf9160.h"
 }
 extern GESTURE gesture;
-extern uint8_t timeUpdateFlag = 0;
+extern uint8_t timeUpdateFlag;
 catM1Time nowTimeinfo;
 void HomeScreenWithBiodataView::handleTickEvent()
 {
@@ -58,29 +72,40 @@ void HomeScreenWithBiodataView::handleTickEvent()
 	{
 		time_t currentTime;
 		time(&currentTime);
-		double secondsPassed = difftime(currentTime, lastUpdateTime);
-
-		if (secondsPassed >= 1)
-		{
+//		double secondsPassed = difftime(currentTime, lastUpdateTime);
+//
+//		if (secondsPassed >= 1)
+//		{
 //			struct tm* timeinfo = localtime(&currentTime);
-			struct tm* timeinfo;
-			if(timeUpdateFlag){
-				timeUpdateFlag = 0;
-				nowTimeinfo = getCatM1Time();
-
-				timeinfo->tm_hour = nowTimeinfo.hour;
-				timeinfo->tm_min = nowTimeinfo.min;
-				timeinfo->tm_sec = nowTimeinfo.sec;
-			}
-			digitalClock.setTime24Hour(timeinfo->tm_hour, timeinfo->tm_min, timeinfo->tm_sec);
-			digitalClock.invalidate();
-
-			lastUpdateTime = currentTime; // 업데이트된 시간 저장
-		}
+//
+//			digitalClock.setTime24Hour(timeinfo->tm_hour, timeinfo->tm_min, timeinfo->tm_sec);
+//			digitalClock.invalidate();
+//
+//			lastUpdateTime = currentTime; // 업데이트된 시간 저장
+//		}
 
 		////////////////// jh ///////////////////
-//		digitalClock.setTime24Hour(sTime.Hours, sTime.Minutes, sTime.Seconds);
-//		digitalClock.invalidate();
+		struct tm* timeinfo;
+		if(timeUpdateFlag){
+			timeUpdateFlag = 0;
+			nowTimeinfo = getCatM1Time();
+			sDate.Year = (uint8_t)nowTimeinfo.year;
+			sDate.Month = (uint8_t)nowTimeinfo.month;
+			sDate.Date = (uint8_t)nowTimeinfo.day;
+			sTime.Hours = (uint8_t)nowTimeinfo.hour;
+			sTime.Minutes = (uint8_t)nowTimeinfo.min;
+			sTime.Seconds = (uint8_t)nowTimeinfo.sec;
+		}
+
+		touchgfx::Unicode::snprintf(date_valueBuffer1, DATE_VALUEBUFFER1_SIZE, "%02d", sDate.Month);
+		touchgfx::Unicode::snprintf(date_valueBuffer2, DATE_VALUEBUFFER2_SIZE, "%02d", sDate.Date);
+		date_value.invalidate();
+
+		Unicode::snprintf(year_valueBuffer, YEAR_VALUE_SIZE, "%04d", sDate.Year+2000);
+		year_value.invalidate();
+
+		digitalClock.setTime24Hour(sTime.Hours, sTime.Minutes, sTime.Seconds);
+		digitalClock.invalidate();
 
 //		extern uint8_t battVal;
 //		batteryprogress.setValue(battVal);
