@@ -459,7 +459,7 @@ void StartWPMTask(void *argument)
 				gpsOffCheckTime = 0;
 			}
 		}
-		if(cat_m1_rssi_cycleFlag && cat_m1_Status.gpsChecking == 0)
+		if(cat_m1_rssi_cycleFlag && cat_m1_Status.gpsChecking == 0 && cat_m1_Status.mqttChecking == 0)
 		{
 			nrf9160_Get_rssi();
 			cat_m1_rssi_cycleFlag = false;
