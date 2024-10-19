@@ -447,7 +447,7 @@ void StartWPMTask(void *argument)
 			//scatM1MqttDangerMessage = 1;
 			nrf9160_Get_gps();
 			//nrf9160_Get_gps_State();
-			//gpsFlag = false;
+			gpsFlag = false;
 		}
 		if(cat_m1_Status.gpsChecking)
 		{

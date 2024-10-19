@@ -29,7 +29,6 @@ cat_m1_Status_BandSet_t cat_m1_Status_BandSet;
 WpmState currentWpmState = WPM_INIT_CHECK;
 CheckState currentCheckState = SYSTEM_MODE_CHECK;
 MqttState currentMqttState = MQTT_INIT;
-GpsState currentGpsState = GPS_INIT;
 
 extern uint8_t wpmInitializationFlag;
 extern uint8_t mqttRetryTime;
@@ -900,74 +899,48 @@ void send_Status_IMU(cat_m1_Status_IMU_t* imu_data)
 
 void nrf9160_Get_gps()
 {
-    switch (currentGpsState)
-    {
-        case GPS_INIT:
-            send_at_command("AT#XMQTTCON=0\r\n");
-            cat_m1_Status.gpsChecking = 1;
-            cat_m1_Status.retryCount = 0;
-            currentGpsState = GPS_SET_MODE;
-            break;
+	send_at_command("AT#XMQTTCON=0\r\n");
 
-        case GPS_SET_MODE:
-            if (cat_m1_Status.systemModeStatus == 0 || cat_m1_Status.systemModeStatus == 1)
-            {
-                send_at_command("AT+CFUN=0\r\n");
-                send_at_command("AT%XSYSTEMMODE=0,0,1,0\r\n");
-                send_at_command("AT%XSYSTEMMODE?\r\n");
-                osDelay(2000);
-                cat_m1_Status.retryCount++;
+	while(cat_m1_Status.systemModeStatus == 0 || cat_m1_Status.systemModeStatus == 1)
+	{
 
-                if (cat_m1_Status.retryCount >= 60)
-                {
-                    PRINT_INFO("Failed to set system mode.\n");
-                    currentGpsState = GPS_COMPLETE;
-                }
-            }
-            else
-            {
-                currentGpsState = GPS_ACTIVATE;
-            }
-            break;
+		send_at_command("AT+CFUN=0\r\n");
+		send_at_command("AT%XSYSTEMMODE=0,0,1,0\r\n");
+		send_at_command("AT%XSYSTEMMODE?\r\n");
+		osDelay(2000);
+		if (cat_m1_Status.retryCount >= 60*1) {
+			break;
+		}
+	}
+	send_at_command("AT+CFUN=31\r\n");
+	while(!cat_m1_Status.gpsOn)
+	{
+		send_at_command("AT#XGPS=1,0,0,60\r\n");
+		osDelay(2000);
+		send_at_command("AT#XGPS?\r\n");
 
-        case GPS_ACTIVATE:
-            send_at_command("AT+CFUN=31\r\n");
-            cat_m1_Status.retryCount = 0;
-            currentGpsState = GPS_WAIT;
-            break;
+		osDelay(500);
+		if (cat_m1_Status.retryCount >= 30) {
+			break;
+		}
+	}
+	//send_at_command("AT+CFUN=0\r\n");
+	//send_at_command("AT%XSYSTEMMODE=1,0,1,0\r\n");
+	//send_at_command("AT+CFUN=31\r\n");
+	//send_at_command("AT#XGPS=1,0,0,60\r\n");
 
-        case GPS_WAIT:
-            if (!cat_m1_Status.gpsOn)
-            {
-                send_at_command("AT#XGPS=1,0,0,60\r\n");
-                osDelay(2000);
-                send_at_command("AT#XGPS?\r\n");
-                osDelay(500);
-                cat_m1_Status.retryCount++;
-
-                if (cat_m1_Status.retryCount >= 30)
-                {
-                    PRINT_INFO("GPS activation failed after retries.\n");
-                    currentGpsState = GPS_COMPLETE;
-                }
-            }
-            else
-            {
-                currentGpsState = GPS_COMPLETE;
-            }
-            break;
-
-        case GPS_COMPLETE:
-            gpsFlag = false;
-            PRINT_INFO("GPS check complete.\n");
-            break;
-    }
+	//send_at_command("AT#XGPS?\r\n");
+	//cat_m1_Status.Checked = 2;
+	cat_m1_Status.gpsChecking = 1;
 }
 
 void nrf9160_Stop_gps()
 {
 	send_at_command("AT#XGPS=0\r\n");
 	send_at_command("AT+CFUN=0\r\n");
+	currentWpmState = WPM_INIT_CHECK;
+	currentCheckState = SYSTEM_MODE_CHECK;
+	currentMqttState = MQTT_INIT;
 	cat_m1_Status.InitialLoad = 0;
 	cat_m1_Status.Checked = 0;
 	cat_m1_Status.connectionStatus = 0;
@@ -1001,6 +974,9 @@ void nrf9160_Get_time()
 void catM1Reset()
 {
 	wpmInitializationFlag = 0;
+	currentWpmState = WPM_INIT_CHECK;
+	currentCheckState = SYSTEM_MODE_CHECK;
+	currentMqttState = MQTT_INIT;
 	cat_m1_Status.InitialLoad = 0;
 	cat_m1_Status.Checked = 0;
 	cat_m1_Status.connectionStatus = 0;
