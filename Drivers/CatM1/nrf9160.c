@@ -806,7 +806,7 @@ void send_Status_FallDetection(cat_m1_Status_FallDetection_t* fallData)
     	"}+++\r\n",
 		(unsigned int)fallData->bid, fallData->type, fallData->fall_detect);
 
-    if (send_at_command("AT#XMQTTPUB=\"DT/eHG4/Status/FallDetection\"\r\n"))
+    if (send_at_command("AT#XMQTTPUB=\"/DT/eHG4/Status/FallDetection\"\r\n"))
     {
         PRINT_INFO("AT command sent successfully.\n");
     }

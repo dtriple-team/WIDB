@@ -441,7 +441,7 @@ void StartWPMTask(void *argument)
 
 		if(gpsFlag && cat_m1_Status.mqttChecking == 0)
 		{
-			//scatM1MqttDangerMessage = 1;
+			//catM1MqttDangerMessage = 1;
 			nrf9160_Get_gps();
 			//nrf9160_Get_gps_State();
 			gpsFlag = false;
@@ -472,18 +472,15 @@ void StartWPMTask(void *argument)
 	if(initFlag){
 
 	}
-	if(catM1MqttDangerMessage && wpmInitializationFlag && cat_m1_Status.Checked == 2)
+	if(catM1MqttDangerMessage && cat_m1_Status.mqttSubscribeStatus == 2)
 	{
-		if (cat_m1_Status_FallDetection.bid)
+		if (cat_m1_Status_FallDetection.fall_detect == 1)
 		{
 			if(cat_m1_Status.gpsChecking)
 			{
 				nrf9160_Stop_gps();
 			}
-			else if(cat_m1_Status.mqttConnectionStatus)
-			{
 				send_Status_FallDetection(&cat_m1_Status_FallDetection);
-			}
 		}
 	}
 	osDelay(10);
@@ -753,14 +750,18 @@ void StartCheckINTTask(void *argument)
     		 * haptic
     		 * send signal to web server using CatM1
     		 */
-    		cat_m1_Status_FallDetection_t cat_m1_Status_FallDetection = {
-    		    .bid = cat_m1_Status_Band.bid, // Band의 bid 값을 사용
-    		    .type = 0,
-    		    .fall_detect = 1
-    		};
+//    		cat_m1_Status_FallDetection_t cat_m1_Status_FallDetection = {
+//    		    .bid = cat_m1_Status_Band.bid, // Band의 bid 값을 사용
+//    		    .type = 0,
+//    		    .fall_detect = 1
+//    		};
+    		cat_m1_Status_FallDetection.bid = cat_m1_Status_Band.bid;
+    		cat_m1_Status_FallDetection.type = 0;
+    		cat_m1_Status_FallDetection.fall_detect = 1;
+    		catM1MqttDangerMessage = 1;
+    		PRINT_INFO("catM1MqttDangerMessage\r\n");
 
     		ST7789_brightness_setting(16);
-    		catM1MqttDangerMessage = 1;
 
     	}
     	if((interrupt_kind & 0x02) == 0x02){
