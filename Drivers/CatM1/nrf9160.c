@@ -34,6 +34,7 @@ GpsState currentGpsState = GPS_INIT;
 extern uint8_t wpmInitializationFlag;
 extern uint8_t mqttRetryTime;
 extern uint8_t catM1MqttInitialSend;
+extern bool gpsFlag;
 
 void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart)
 {
@@ -86,7 +87,7 @@ bool send_at_command(const char *cmd)
 {
 	//HAL_UART_Transmit_IT(&huart1, (uint8_t*)cmd, strlen(cmd));
 	HAL_UART_Transmit(&huart1, (uint8_t*)cmd, strlen(cmd), 5000);
-	//PRINT_INFO("TX CMD >>> %s\r\n",cmd);
+	PRINT_INFO("TX CMD >>> %s\r\n",cmd);
 
 	return receive_at_command_ret();
 }
@@ -391,21 +392,29 @@ void nrf9160_init()
     PRINT_INFO("nRF9160 initialized\r\n");
 }
 
-void nrf9160_ready(void) {
-    switch (currentWpmState) {
+void nrf9160_ready(void)
+{
+    switch (currentWpmState)
+    {
         case WPM_INIT_CHECK:
-            if (!wpmInitializationFlag) {
+            if (!wpmInitializationFlag)
+            {
                 receive_at_command_ret();
                 send_at_command("AT\r\n");
                 osDelay(500);
 
-                if (cat_m1_Status.errorCount >= 5) {
+                if (cat_m1_Status.errorCount >= 5)
+                {
                     PRINT_INFO("Error count exceeded. Initialization failed.\n");
                     currentWpmState = WPM_INIT_COMPLETE;
-                } else if (mqttRetryTime > 3) {
+                }
+                else if (mqttRetryTime > 3)
+                {
                     uart_init();
                 }
-            } else {
+            }
+            else
+            {
                 currentWpmState = WPM_INIT_COMPLETE;
             }
             break;
@@ -416,57 +425,71 @@ void nrf9160_ready(void) {
     }
 }
 
-void nrf9160_check() {
-    switch (currentCheckState) {
+void nrf9160_check()
+{
+    switch (currentCheckState)
+    {
         case SYSTEM_MODE_CHECK:
-            if (cat_m1_Status.systemModeStatus == 0 || cat_m1_Status.systemModeStatus == 2) {
+            if (cat_m1_Status.systemModeStatus == 0 || cat_m1_Status.systemModeStatus == 2)
+            {
                 send_at_command("AT+CFUN=0\r\n");
                 send_at_command("AT%XSYSTEMMODE=1,0,0,0\r\n");
                 send_at_command("AT%XSYSTEMMODE?\r\n");
                 osDelay(2000);
 
                 cat_m1_Status.retryCount++;
-                if (cat_m1_Status.retryCount >= 300) {
+                if (cat_m1_Status.retryCount >= 300)
+                {
                     PRINT_INFO("System mode check failed.\n");
                     currentCheckState = CHECK_COMPLETE;
                     break;
                 }
-            } else {
+            }
+            else
+            {
                 currentCheckState = CFUN_CHECK;
                 cat_m1_Status.retryCount = 0;
             }
             break;
 
         case CFUN_CHECK:
-            if (!cat_m1_Status.cfunStatus) {
+            if (!cat_m1_Status.cfunStatus)
+            {
                 send_at_command("AT+CFUN=1\r\n");
                 send_at_command("AT+CFUN?\r\n");
                 osDelay(2000);
 
                 cat_m1_Status.retryCount++;
-                if (cat_m1_Status.retryCount >= 300) {
+                if (cat_m1_Status.retryCount >= 300)
+                {
                     PRINT_INFO("CFUN check failed.\n");
                     currentCheckState = CHECK_COMPLETE;
                     break;
                 }
-            } else {
+            }
+            else
+            {
                 currentCheckState = CONNECTION_CHECK;
                 cat_m1_Status.retryCount = 0;
             }
             break;
 
         case CONNECTION_CHECK:
-            if (!cat_m1_Status.connectionStatus) {
+            if (!cat_m1_Status.connectionStatus)
+            {
                 send_at_command("AT+COPS?\r\n");
                 osDelay(500);
 
                 cat_m1_Status.retryCount++;
-                if (cat_m1_Status.retryCount >= 60 * 10) {
+                if (cat_m1_Status.retryCount >= 60 * 10)
+                {
                     PRINT_INFO("Connection check failed.\n");
                     currentCheckState = CHECK_COMPLETE;
                     break;
                 }
-            } else {
+            }
+            else
+            {
                 currentCheckState = FINAL_COMMANDS;
                 cat_m1_Status.retryCount = 0;
             }
@@ -489,7 +512,8 @@ void nrf9160_check() {
     }
 }
 
-void nrf9160_mqtt_setting() {
+void nrf9160_mqtt_setting()
+{
     switch (currentMqttState) {
         case MQTT_INIT:
             cat_m1_Status.retryCount = 0;
@@ -497,58 +521,74 @@ void nrf9160_mqtt_setting() {
             break;
 
         case MQTT_CONFIG:
-            if (!cat_m1_Status.mqttSetStatus) {
+            if (!cat_m1_Status.mqttSetStatus)
+            {
                 send_at_command("AT#XMQTTCFG=\"\",300,1\r\n");
                 send_at_command("AT#XMQTTCFG?\r\n");
                 osDelay(2000);
                 cat_m1_Status.retryCount++;
 
-                if (cat_m1_Status.retryCount >= 10) {
+                if (cat_m1_Status.retryCount >= 10)
+                {
                     currentMqttState = MQTT_COMPLETE;
                 }
-            } else {
+            }
+            else
+            {
                 currentMqttState = MQTT_CONNECT;
             }
             break;
 
         case MQTT_CONNECT:
-            if (cat_m1_Status.mqttConnectionStatus == 0) {
+            if (cat_m1_Status.mqttConnectionStatus == 0)
+            {
                 send_at_command("AT#XMQTTCON=1,\"\",\"\",\"t-vsm.com\",18831\r\n");
                 osDelay(5000);
                 cat_m1_Status.retryCount++;
 
-                if (cat_m1_Status.retryCount >= 5) {
+                if (cat_m1_Status.retryCount >= 5)
+                {
                     currentMqttState = MQTT_COMPLETE;
                 }
-            } else {
+            }
+            else
+            {
                 currentMqttState = MQTT_SUBSCRIBE_STATUS;
             }
             break;
 
         case MQTT_SUBSCRIBE_STATUS:
-            if (cat_m1_Status.mqttSubscribeStatus == 0) {
+            if (cat_m1_Status.mqttSubscribeStatus == 0)
+            {
                 send_at_command("AT#XMQTTSUB=\"/DT/eHG4/Status/BandSet\",0\r\n");
                 osDelay(5000);
                 cat_m1_Status.retryCount++;
 
-                if (cat_m1_Status.retryCount >= 5) {
+                if (cat_m1_Status.retryCount >= 5)
+                {
                     currentMqttState = MQTT_COMPLETE;
                 }
-            } else {
+            }
+            else
+            {
                 currentMqttState = MQTT_SUBSCRIBE_ALERT;
             }
             break;
 
         case MQTT_SUBSCRIBE_ALERT:
-            if (cat_m1_Status.mqttSubscribeStatus == 1) {
+            if (cat_m1_Status.mqttSubscribeStatus == 1)
+            {
                 send_at_command("AT#XMQTTSUB=\"/DT/eHG4/Status/ServerAlert\",0\r\n");
                 osDelay(5000);
                 cat_m1_Status.retryCount++;
 
-                if (cat_m1_Status.retryCount >= 5) {
+                if (cat_m1_Status.retryCount >= 5)
+                {
                     currentMqttState = MQTT_COMPLETE;
                 }
-            } else {
+            }
+            else
+            {
                 currentMqttState = MQTT_COMPLETE;
             }
             break;
@@ -858,26 +898,34 @@ void send_Status_IMU(cat_m1_Status_IMU_t* imu_data)
     cat_m1_Status.mqttChecking = 0;
 }
 
-void nrf9160_Get_gps() {
-    switch (currentGpsState) {
+void nrf9160_Get_gps()
+{
+    switch (currentGpsState)
+    {
         case GPS_INIT:
             send_at_command("AT#XMQTTCON=0\r\n");
+            cat_m1_Status.gpsChecking = 1;
             cat_m1_Status.retryCount = 0;
             currentGpsState = GPS_SET_MODE;
             break;
 
         case GPS_SET_MODE:
-            if (cat_m1_Status.systemModeStatus == 0 || cat_m1_Status.systemModeStatus == 1) {
+            if (cat_m1_Status.systemModeStatus == 0 || cat_m1_Status.systemModeStatus == 1)
+            {
                 send_at_command("AT+CFUN=0\r\n");
                 send_at_command("AT%XSYSTEMMODE=0,0,1,0\r\n");
                 send_at_command("AT%XSYSTEMMODE?\r\n");
                 osDelay(2000);
                 cat_m1_Status.retryCount++;
 
-                if (cat_m1_Status.retryCount >= 60) {
+                if (cat_m1_Status.retryCount >= 60)
+                {
+                    PRINT_INFO("Failed to set system mode.\n");
                     currentGpsState = GPS_COMPLETE;
                 }
-            } else {
+            }
+            else
+            {
                 currentGpsState = GPS_ACTIVATE;
             }
             break;
@@ -889,23 +937,29 @@ void nrf9160_Get_gps() {
             break;
 
         case GPS_WAIT:
-            if (!cat_m1_Status.gpsOn) {
+            if (!cat_m1_Status.gpsOn)
+            {
                 send_at_command("AT#XGPS=1,0,0,60\r\n");
                 osDelay(2000);
                 send_at_command("AT#XGPS?\r\n");
                 osDelay(500);
                 cat_m1_Status.retryCount++;
 
-                if (cat_m1_Status.retryCount >= 30) {
+                if (cat_m1_Status.retryCount >= 30)
+                {
+                    PRINT_INFO("GPS activation failed after retries.\n");
                     currentGpsState = GPS_COMPLETE;
                 }
-            } else {
+            }
+            else
+            {
                 currentGpsState = GPS_COMPLETE;
             }
             break;
 
         case GPS_COMPLETE:
-            cat_m1_Status.gpsChecking = 1;
+            gpsFlag = false;
+            PRINT_INFO("GPS check complete.\n");
             break;
     }
 }

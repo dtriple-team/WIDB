@@ -402,7 +402,7 @@ void StartWPMTask(void *argument)
 	}
 	if(wpmInitializationFlag && cat_m1_Status.Checked == 2)
 	{
-		if ((mqttFlag && cat_m1_Status.gpsChecking == 0) || catM1MqttInitialSend == 0)
+		if ((mqttFlag && cat_m1_Status.gpsChecking == 0 && gpsTime > (gps_operation_cycle -10)) || catM1MqttInitialSend == 0)
 		{
 			//nrf9160_Get_gps_State();
 			//test_send_json_publish();
@@ -447,7 +447,7 @@ void StartWPMTask(void *argument)
 			//scatM1MqttDangerMessage = 1;
 			nrf9160_Get_gps();
 			//nrf9160_Get_gps_State();
-			gpsFlag = false;
+			//gpsFlag = false;
 		}
 		if(cat_m1_Status.gpsChecking)
 		{
