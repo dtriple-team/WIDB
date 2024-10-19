@@ -386,16 +386,16 @@ void StartWPMTask(void *argument)
 	if(wpmInitializationFlag && cat_m1_Status.Checked == 0)
 	{
 		nrf9160_check();
+	}
+	if(wpmInitializationFlag && cat_m1_Status.Checked == 1)
+	{
+		nrf9160_mqtt_setting();
 		if(cat_m1_Status.InitialLoad == 0)
 		{
 			nrf9160_Get_time();
 			nrf9160_Get_rssi();
 			cat_m1_Status.InitialLoad = 1;
 		}
-	}
-	if(wpmInitializationFlag && cat_m1_Status.Checked == 1)
-	{
-		nrf9160_mqtt_setting();
 		gpsTime = 0;
 		cat_m1_rssi_cycleTime = 0;
 	}
