@@ -150,6 +150,15 @@ typedef struct {
   uint8_t alert;
 } cat_m1_Status_ServerAlert_t;
 
+typedef struct{
+	int year;
+	int month;
+	int day;
+	int hour;
+	int min;
+	int sec;
+}catM1Time;
+
 extern uart_cat_m1_t uart_cat_m1_rx;
 
 void clear_uart_buf(uart_cat_m1_t* u);
@@ -202,5 +211,7 @@ void nrf9160_Get_rssi();
 void nrf9160_Get_time();
 void catM1Reset();
 void catM1PWRGPIOInit();
+
+catM1Time getCatM1Time(void);
 
 #endif /* CATM1_NRF9160_H_ */

@@ -219,16 +219,22 @@ int read_ppg_9(uint8_t* rxdata, uint8_t rxbuff_len){
 	uint8_t len = 0;
 	uint8_t status = 0;
 
-	set_command(0x00, 0x00, 0, 0);
-	get_command(rxbuffer_2, sizeof(rxbuffer_2));
+	uint8_t ret = 0;
+
+	ret |= set_command(0x00, 0x00, 0, 0) << 1;
+	ret |= get_command(rxbuffer_2, sizeof(rxbuffer_2));
 	status = rxbuffer_2[1];
+
+	if(ret != 0){
+		return -2;
+	}
 
 	if(((status >> 3) & 0x01) != 0x01){
 		return -1;
 	}
 
-	set_command(0x12, 0x00, 0, 0);
-	get_command(rxbuffer_2, sizeof(rxbuffer_2));
+	ret |= set_command(0x12, 0x00, 0, 0) << 1;
+	ret |= get_command(rxbuffer_2, sizeof(rxbuffer_2));
 	len = rxbuffer_2[1];
 
 	set_command(0x12, 0x01, 0, 0);

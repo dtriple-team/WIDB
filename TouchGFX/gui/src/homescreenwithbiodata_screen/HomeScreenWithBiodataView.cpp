@@ -44,7 +44,12 @@ void HomeScreenWithBiodataView::tearDownScreen()
 }
 
 #include "bl6133.h"
+extern "C" {
+	#include "nrf9160.h"
+}
 extern GESTURE gesture;
+extern uint8_t timeUpdateFlag = 0;
+catM1Time nowTimeinfo;
 void HomeScreenWithBiodataView::handleTickEvent()
 {
 	tickCounter++;
@@ -57,8 +62,16 @@ void HomeScreenWithBiodataView::handleTickEvent()
 
 		if (secondsPassed >= 1)
 		{
-			struct tm* timeinfo = localtime(&currentTime);
+//			struct tm* timeinfo = localtime(&currentTime);
+			struct tm* timeinfo;
+			if(timeUpdateFlag){
+				timeUpdateFlag = 0;
+				nowTimeinfo = getCatM1Time();
 
+				timeinfo->tm_hour = nowTimeinfo.hour;
+				timeinfo->tm_min = nowTimeinfo.min;
+				timeinfo->tm_sec = nowTimeinfo.sec;
+			}
 			digitalClock.setTime24Hour(timeinfo->tm_hour, timeinfo->tm_min, timeinfo->tm_sec);
 			digitalClock.invalidate();
 

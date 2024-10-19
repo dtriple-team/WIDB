@@ -361,10 +361,12 @@ void handle_mqtt_event_command(const char *value)
     }
 }
 
+uint8_t timeUpdateFlag = 0;
 void handle_cclk_command(const char *value)
 {
 	strncpy((char *)cat_m1_at_cmd_rst.time, (const char *)value, sizeof(cat_m1_at_cmd_rst.time) - 1);
 	cat_m1_at_cmd_rst.time[sizeof(cat_m1_at_cmd_rst.time) - 1] = '\0';
+	timeUpdateFlag = 1;
 }
 
 void uart_init()
@@ -1014,4 +1016,85 @@ void catM1PWRGPIOInit()
 	HAL_GPIO_WritePin(GPIOC, GPIO_PIN_6, GPIO_PIN_RESET);
 	osDelay(100);
 	HAL_GPIO_WritePin(GPIOC, GPIO_PIN_6, GPIO_PIN_SET);
+}
+
+// 윤년을 확인하는 함수
+int is_leap_year(int year) {
+    return ((year % 4 == 0 && year % 100 != 0) || (year % 400 == 0));
+}
+
+// 각 월별 일 수를 반환하는 함수 (윤년 고려)
+int get_days_in_month(int year, int month) {
+    int days_in_month[] = {31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
+
+    // 2월은 윤년이면 29일
+    if (month == 2 && is_leap_year(year)) {
+        return 29;
+    }
+    return days_in_month[month - 1];  // month는 1부터 시작하므로 -1
+}
+
+// UTC -> KST 변환 함수
+void utc_to_kst(catM1Time *time) {
+    // 9시간 더하기 (UTC -> KST)
+    time->hour += 9;
+
+    // 시간이 24시를 초과할 경우
+    if (time->hour >= 24) {
+        time->hour -= 24;  // 24를 넘으면 다시 0시부터 시작
+        time->day += 1;    // 날짜를 하루 증가
+
+        // 월말을 초과했는지 확인 (윤년 고려)
+        int days_in_this_month = get_days_in_month(time->year, time->month);
+        if (time->day > days_in_this_month) {
+            time->day = 1;  // 다음 달로 넘어감
+            time->month += 1;  // 월을 1 증가
+
+            // 12월을 초과하면 연도를 증가
+            if (time->month > 12) {
+                time->month = 1;  // 1월로 초기화
+                time->year += 1;  // 연도를 1 증가
+            }
+        }
+    }
+}
+
+catM1Time getCatM1Time(void){
+	catM1Time nowTime;
+
+	char year[3];
+	strncpy(year, &cat_m1_at_cmd_rst.time[2], 2);
+	year[2] = '\0';
+
+	char month[3];
+	strncpy(month, &cat_m1_at_cmd_rst.time[5], 2);
+	month[2] = '\0';
+
+	char day[3];
+	strncpy(day, &cat_m1_at_cmd_rst.time[8], 2);
+	day[2] = '\0';
+
+	char hour[3];
+	strncpy(hour, &cat_m1_at_cmd_rst.time[11], 2);
+	hour[2] = '\0';
+
+	char min[3];
+	strncpy(min, &cat_m1_at_cmd_rst.time[14], 2);
+	min[2] = '\0';
+
+	char sec[3];
+	strncpy(sec, &cat_m1_at_cmd_rst.time[17], 2);
+	sec[2] = '\0';
+
+
+	nowTime.year = (int)atoi(year);
+	nowTime.month = (int)atoi(month);
+	nowTime.day = (int)atoi(day);
+	nowTime.hour = (int)atoi(hour);
+	nowTime.min = (int)atoi(min);
+	nowTime.sec = (int)atoi(sec);
+
+	utc_to_kst(&nowTime);
+
+	return nowTime;
 }
