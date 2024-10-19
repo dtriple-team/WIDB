@@ -32,7 +32,6 @@ MqttState currentMqttState = MQTT_INIT;
 
 extern uint8_t wpmInitializationFlag;
 extern uint8_t mqttRetryTime;
-extern uint8_t catM1MqttInitialSend;
 extern bool gpsFlag;
 
 void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart)
@@ -1003,7 +1002,6 @@ void catM1Reset()
 	cat_m1_Status.cfunStatus = 0;
 	cat_m1_Status.systemModeStatus = 0;
 	cat_m1_Status.retryCount = 0;
-	catM1MqttInitialSend = 0;
 	cat_m1_Status.gpsOn = 0;
 	cat_m1_Status.gpsOff = 0;
 	cat_m1_Status.mqttSetStatus = 0;
