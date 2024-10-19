@@ -31,7 +31,7 @@ CheckState currentCheckState = SYSTEM_MODE_CHECK;
 MqttState currentMqttState = MQTT_INIT;
 
 extern uint8_t wpmInitializationFlag;
-extern uint8_t mqttRetryTime;
+extern uint8_t UartRxRetryTime;
 extern bool gpsFlag;
 
 void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart)
@@ -83,6 +83,7 @@ uint8_t isEmpty(uart_cat_m1_t* u)
 
 bool send_at_command(const char *cmd)
 {
+	cat_m1_Status.txflag = 1;
 	//HAL_UART_Transmit_IT(&huart1, (uint8_t*)cmd, strlen(cmd));
 	HAL_UART_Transmit(&huart1, (uint8_t*)cmd, strlen(cmd), 5000);
 	PRINT_INFO("TX CMD >>> %s\r\n",cmd);
@@ -112,6 +113,7 @@ bool receive_response(void)
 {
     if (isEmpty(&uart_cat_m1_rx) == 0)
     {
+    	cat_m1_Status.txflag = 0;
         uart_cat_m1_rx.rxd = pop(&uart_cat_m1_rx);
 
         if (uart_cat_m1_rx.rxd == '\r' || uart_cat_m1_rx.rxd == '\n')
@@ -405,10 +407,6 @@ void nrf9160_ready(void)
                 {
                     PRINT_INFO("Error count exceeded. Initialization failed.\n");
                     currentWpmState = WPM_INIT_COMPLETE;
-                }
-                else if (mqttRetryTime > 3)
-                {
-                    uart_init();
                 }
             }
             else
@@ -966,6 +964,7 @@ void nrf9160_Stop_gps()
 	cat_m1_Status.mqttSetStatus = 0;
 	cat_m1_Status.gpsChecking = 0;
 	wpmInitializationFlag = 1;
+	HAL_UART_Receive_IT(&huart1, &uart_cat_m1_rx.temp, 1);
 }
 
 void nrf9160_Get_gps_State()

@@ -46,6 +46,7 @@ typedef enum {
 #define CAT_M1_UART_BUF_SIZE 512
 
 typedef struct {
+	uint8_t txflag;
 	uint8_t InitialLoad;
 	uint8_t Checked;
     uint8_t parseCount;

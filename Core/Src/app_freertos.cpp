@@ -82,8 +82,8 @@ uint8_t mqttTime = 0;
 bool mqttFlag = false;
 
 #define mqtt_RetryTime_cycle 11
-uint8_t mqttRetryTime = 0;
-bool mqttRetryTimeFlag = false;
+uint8_t UartRxRetryTime = 0;
+bool UartRxRetryTimeFlag = false;
 
 #define gps_operation_cycle 60*3
 uint8_t gpsTime = 0;
@@ -663,11 +663,16 @@ void StartSecTimerTask(void *argument)
 			mqttTime = 0;
 		}
 
-		mqttRetryTime++;
-//		PRINT_INFO("mqttRetryTime >>> %d\r\n",mqttRetryTime);
-		if(mqttRetryTime > 11)
+		if(cat_m1_Status.txflag)
 		{
-			mqttRetryTime = 0;
+			UartRxRetryTime++;
+		}
+//		PRINT_INFO("UartRxRetryTime >>> %d\r\n",UartRxRetryTime);
+		if(UartRxRetryTime > 3)
+		{
+			uart_init();
+			UartRxRetryTime = 0;
+			cat_m1_Status.txflag = 0;
 		}
 
 		gpsTime++;
