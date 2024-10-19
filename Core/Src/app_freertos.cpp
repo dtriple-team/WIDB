@@ -415,7 +415,7 @@ void StartWPMTask(void *argument)
 				.hr = ssHr,
 				.spo2 = ssSpo2,
 				.motionFlag = lcd_ssDataEx.algo.spo2MotionFlag,
-				.scdState = (lcd_ssDataEx.algo.SCDstate == 3),
+				.scdState = lcd_ssDataEx.algo.SCDstate,
 				.activity = lcd_ssDataEx.algo.activity,
 				.walk_steps = ssWalk,
 				.run_steps = 0,
