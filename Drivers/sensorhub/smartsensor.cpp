@@ -34,16 +34,16 @@ int set_command(uint8_t family_name, uint8_t description, uint8_t* cmd, uint8_t 
 	int error = HAL_I2C_Master_Transmit(&hi2c2, slave_addr, buffer, cmd_len+2, HAL_MAX_DELAY);
 
 	delay_us(80); // 8
-	HAL_GPIO_WritePin(MFIO_PORT, MFIO_PIN, GPIO_PIN_SET);	// MFIO
+//	HAL_GPIO_WritePin(MFIO_PORT, MFIO_PIN, GPIO_PIN_SET);	// MFIO
 	return error;
 }
 
 int get_command(uint8_t* rxbuffer, uint8_t temp_len){
-//	HAL_Delay(2);
-	delay_us(2000);
-
-	HAL_GPIO_WritePin(MFIO_PORT, MFIO_PIN, GPIO_PIN_RESET);	// MFIO
-	delay_us(277); // >= 250us
+////	HAL_Delay(2);
+//	delay_us(2000);
+//
+//	HAL_GPIO_WritePin(MFIO_PORT, MFIO_PIN, GPIO_PIN_RESET);	// MFIO
+//	delay_us(277); // >= 250us
 
 	int error = HAL_I2C_Master_Receive(&hi2c2, slave_addr, rxbuffer, temp_len, 10);
 
@@ -195,7 +195,7 @@ int read_ppg_9_setting (void){
 	get_command(rxbuffer_1, sizeof(rxbuffer_1));
 
 	// set_fifo_thresh
-	uint8_t thresh[] = {0x05};
+	uint8_t thresh[] = {0x05}; // 5 (one communication => how many sample count)
 	set_command(0x10, 0x01, thresh, sizeof(data_type));
 	get_command(rxbuffer_1, sizeof(rxbuffer_1));
 
@@ -235,8 +235,8 @@ int read_ppg_9(uint8_t* rxdata, uint8_t rxbuff_len){
 	HAL_GPIO_WritePin(MFIO_PORT, MFIO_PIN, GPIO_PIN_RESET);	// MFIO
 	delay_us(277);
 	for(uint8_t i=0; i<len; i++){
-		HAL_I2C_Master_Receive(&hi2c2, slave_addr, rxdata, rxbuff_len, HAL_MAX_DELAY);
-		delay_us(5);
+		HAL_I2C_Master_Receive(&hi2c2, slave_addr, rxdata, rxbuff_len, 1);
+//		delay_us(5);
 	}
 	delay_us(8);
 	HAL_GPIO_WritePin(MFIO_PORT, MFIO_PIN, GPIO_PIN_SET);	// MFIO
@@ -277,7 +277,7 @@ int ssBegin(){
 //	set_command_ppg_hr_conf_level(0);
 //	set_command_ppg_hr_expiration(5);
 	set_command_wearblesuite_scdenable(1);
-	set_command_report_period(1); // 몇개를 모아서 한번에 알려줄까?
+	set_command_report_period(25); // 몇개를 모아서 한번에 알려줄까? (n*40ms > read ppg run interval, else => 0x12 0x00 len increse)
 
 	return 0;
 }
