@@ -755,7 +755,7 @@ void StartCheckINTTask(void *argument)
 //    		    .type = 0,
 //    		    .fall_detect = 1
 //    		};
-    		cat_m1_Status_FallDetection.bid = cat_m1_Status_Band.bid;
+    		cat_m1_Status_FallDetection.bid = HAL_GetUIDw2();
     		cat_m1_Status_FallDetection.type = 0;
     		cat_m1_Status_FallDetection.fall_detect = 1;
     		catM1MqttDangerMessage = 1;
