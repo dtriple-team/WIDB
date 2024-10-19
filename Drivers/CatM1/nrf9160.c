@@ -35,6 +35,16 @@ extern uint8_t gpsOffCheckTime;
 extern uint8_t UartRxRetryTime;
 extern bool gpsFlag;
 
+bool txCompleteFlag = 0;
+
+void HAL_UART_TxCpltCallback(UART_HandleTypeDef *huart)
+{
+    if (huart->Instance == USART1)
+    {
+        txCompleteFlag = 1;
+    }
+}
+
 void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart)
 {
     if (huart->Instance == USART1)
@@ -84,12 +94,18 @@ uint8_t isEmpty(uart_cat_m1_t* u)
 
 bool send_at_command(const char *cmd)
 {
-	cat_m1_Status.txflag = 1;
-	//HAL_UART_Transmit_IT(&huart1, (uint8_t*)cmd, strlen(cmd));
-	HAL_UART_Transmit(&huart1, (uint8_t*)cmd, strlen(cmd), 5000);
-	PRINT_INFO("TX CMD >>> %s\r\n",cmd);
+    cat_m1_Status.txflag = 1;
+    txCompleteFlag = 0;
 
-	return receive_at_command_ret();
+    HAL_UART_Transmit_IT(&huart1, (uint8_t*)cmd, strlen(cmd));
+    PRINT_INFO("TX CMD >>> %s\r\n", cmd);
+
+    while (txCompleteFlag == 0)
+    {
+
+    }
+
+    return receive_at_command_ret();
 }
 
 bool receive_at_command_ret()
