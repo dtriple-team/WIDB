@@ -182,7 +182,7 @@ bool cat_m1_parse_process(uint8_t *msg) {
             PRINT_INFO("Response: ERROR\r\n");
             cat_m1_Status.parseResult = 0;
             cat_m1_Status.errorCount++;
-            if (cat_m1_Status.errorCount >= 10) {
+            if (cat_m1_Status.errorCount >= 5) {
                 catM1Reset();
             }
         }
