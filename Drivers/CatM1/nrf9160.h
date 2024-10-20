@@ -35,6 +35,14 @@ typedef enum {
     MQTT_COMPLETE
 } MqttState;
 
+typedef enum {
+    GPS_INIT,
+    GPS_SYSTEM_MODE,
+    GPS_CFUN,
+    GPS_ON,
+    GPS_COMPLETE
+} GpsState;
+
 // Constants
 #define MAX_CMD_LEN 100
 #define MAX_VALUE_LEN 100

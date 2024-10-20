@@ -396,7 +396,7 @@ void StartWPMTask(void *argument)
 			nrf9160_Get_rssi();
 			cat_m1_Status.InitialLoad = 1;
 		}
-		gpsTime = 0;
+		//gpsTime = 0;
 		cat_m1_rssi_cycleTime = 0;
 	}
 	if(wpmInitializationFlag && cat_m1_Status.Checked == 2)
@@ -442,9 +442,10 @@ void StartWPMTask(void *argument)
 		if(gpsFlag && cat_m1_Status.mqttChecking == 0)
 		{
 			//catM1MqttDangerMessage = 1;
+			//nrf9160_Stop_gps();
 			nrf9160_Get_gps();
 			//nrf9160_Get_gps_State();
-			gpsFlag = false;
+			//gpsFlag = false;
 		}
 		if(cat_m1_Status.gpsChecking)
 		{
@@ -685,7 +686,8 @@ void StartSecTimerTask(void *argument)
 		}
 		if(gpsOffCheckTime > gps_offCheck_cycle)
 		{
-			nrf9160_Stop_gps();
+			//nrf9160_Stop_gps();
+			catM1Reset();
 			gpsOffCheckTime = 0;
 		}
 	}
