@@ -3,6 +3,8 @@
 #include <touchgfx/hal/HAL.hpp>
 #include <touchgfx/Utils.hpp>
 
+#include <stdio.h>
+
 deviceInfoSettingView::deviceInfoSettingView()
 	: initialX(0), initialY(0)
 {
@@ -12,6 +14,20 @@ deviceInfoSettingView::deviceInfoSettingView()
 void deviceInfoSettingView::setupScreen()
 {
     deviceInfoSettingViewBase::setupScreen();
+
+    extern uint32_t deviceID;
+    char model[6] = "eHG4M";
+    char version[7] = "v1.0.0";
+//    char strDeviceID[10];
+//
+//    sprintf(strDeviceID, "%d", deviceID);
+
+	Unicode::snprintf(model_labelBuffer, MODEL_LABEL_SIZE, model);
+	model_label.invalidate();
+	Unicode::snprintf(version_labelBuffer, VERSION_LABEL_SIZE, version);
+	version_label.invalidate();
+	Unicode::snprintf(id_labelBuffer, ID_LABEL_SIZE, "%.9u", deviceID);
+	id_label.invalidate();
 }
 
 void deviceInfoSettingView::tearDownScreen()

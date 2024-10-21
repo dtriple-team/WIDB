@@ -137,6 +137,8 @@ uint8_t battVal = 0;
 uint8_t hapticFlag = 1;
 uint8_t soundFlag = 1;
 
+uint32_t deviceID = 0;
+
 /* USER CODE END Variables */
 /* Definitions for initTask */
 osThreadId_t initTaskHandle;
@@ -404,6 +406,9 @@ void StartWPMTask(void *argument)
 	while(!pmicInitFlag){
 		osDelay(10);
 	}
+	// device ID init (ST UID)
+	deviceID = HAL_GetUIDw2();
+
 	// UART INT INIT, buffer init
 	nrf9160_init();
 	nrf9160_clear_buf();
@@ -414,7 +419,7 @@ void StartWPMTask(void *argument)
 //	// WiFi-BLE init
 //	nora_w10_init();
 //	cat_m1_Status_FallDetection_t cat_m1_Status_FallDetection = {
-//	    .bid = HAL_GetUIDw2(), // Band의 bid 값을 사용
+//	    .bid = deviceID, // Band의 bid 값을 사용
 //	    .type = 0,
 //	    .fall_detect = 1
 //	};
@@ -451,7 +456,7 @@ void StartWPMTask(void *argument)
 
 			cat_m1_Status_Band_t cat_m1_Status_Band =
 			{
-				.bid = HAL_GetUIDw2(),
+				.bid = deviceID,
 				.pid = 0xA021,
 				.rssi = (cat_m1_at_cmd_rst.rssi),
 				.start_byte = 0xAA,
@@ -539,7 +544,7 @@ void StartWPMTask(void *argument)
 				nrf9160_Stop_gps();
 			}
 
-			cat_m1_Status_BandAler.bid = HAL_GetUIDw2();
+			cat_m1_Status_BandAler.bid = deviceID;
 			cat_m1_Status_BandAler.type = 3;
 			cat_m1_Status_BandAler.value = 1;
 			catM1MqttDangerMessage = 1;
@@ -559,7 +564,7 @@ void StartWPMTask(void *argument)
 		        nrf9160_Stop_gps();
 		    }
 
-		    cat_m1_Status_BandAler.bid = HAL_GetUIDw2();
+		    cat_m1_Status_BandAler.bid = deviceID;
 		    cat_m1_Status_BandAler.type = 2;
 		    cat_m1_Status_BandAler.value = 1;
 		    send_Status_BandAlert(&cat_m1_Status_BandAler);
@@ -597,7 +602,7 @@ void StartWPMTask(void *argument)
 						nrf9160_Stop_gps();
 					}
 
-					cat_m1_Status_BandAler.bid = HAL_GetUIDw2();
+					cat_m1_Status_BandAler.bid = deviceID;
 					cat_m1_Status_BandAler.type = 5;
 					cat_m1_Status_BandAler.value = 1;
 					catM1MqttDangerMessage = 1;
@@ -915,7 +920,7 @@ void StartCheckINTTask(void *argument)
     		 */
     		freeFall_int_on = true;
 
-//    		cat_m1_Status_FallDetection.bid = HAL_GetUIDw2();
+//    		cat_m1_Status_FallDetection.bid = deviceID;
 //    		cat_m1_Status_FallDetection.type = 0;
 //    		cat_m1_Status_FallDetection.fall_detect = 1;
 //
@@ -1150,7 +1155,7 @@ void checkFallDetection()
     if (diff < falling_threshold)
     {
     	PRINT_INFO("Fall detected!\r\n");
-		cat_m1_Status_FallDetection.bid = HAL_GetUIDw2();
+		cat_m1_Status_FallDetection.bid = deviceID;
 		cat_m1_Status_FallDetection.type = 0;
 		cat_m1_Status_FallDetection.fall_detect = 1;
 

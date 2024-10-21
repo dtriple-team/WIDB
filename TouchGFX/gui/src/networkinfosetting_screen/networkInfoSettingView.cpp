@@ -3,6 +3,9 @@
 #include <touchgfx/hal/HAL.hpp>
 #include <touchgfx/Utils.hpp>
 
+#include <nrf9160.h>
+#include <stdio.h>
+
 networkInfoSettingView::networkInfoSettingView()
 	: initialX(0), initialY(0)
 {
@@ -12,6 +15,18 @@ networkInfoSettingView::networkInfoSettingView()
 void networkInfoSettingView::setupScreen()
 {
     networkInfoSettingViewBase::setupScreen();
+
+    char imei[6];
+    char iccid[20];
+
+    extern cat_m1_at_cmd_rst_t cat_m1_at_cmd_rst;
+    sprintf(imei, "%.5s", &(cat_m1_at_cmd_rst.cops[6]));
+    sprintf(iccid, "%s", cat_m1_at_cmd_rst.iccid);
+
+    Unicode::snprintf(imei_labelBuffer, IMEI_LABEL_SIZE, imei);
+	imei_label.invalidate();
+	Unicode::snprintf(iccid_labelBuffer, ICCID_LABEL_SIZE, iccid);
+	iccid_label.invalidate();
 }
 
 void networkInfoSettingView::tearDownScreen()
