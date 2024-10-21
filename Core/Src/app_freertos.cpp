@@ -298,6 +298,7 @@ void StartInitTask(void *argument)
 		// haptic
 		if(cat_m1_Status_FallDetection.fall_detect == 1){
 			runHaptic(20, 500, 3);
+			brightness_count = 0; // lcd backlight count reset
 		}
 		osDelay(1000);
 	}
@@ -848,6 +849,8 @@ void StartCheckINTTask(void *argument)
     		cat_m1_Status_FallDetection.fall_detect = 1;
     		PRINT_INFO("catM1MqttDangerMessage\r\n");
 
+    		myFallDetectedView.changeToFallDetected();
+    		brightness_count = 0;
     		ST7789_brightness_setting(16);
 
     	}

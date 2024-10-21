@@ -43,7 +43,7 @@ int isBATTCharging(){
 	return batteryChargeStatus;
 }
 
-void testHaptic(int hapticFrequencyHz, int hapticDuration, int hapticContinue){
+void runHaptic(int hapticFrequencyHz, int hapticDuration, int hapticContinue){
 	uint8_t ret = 0;
 	do{
 		ret = 0;
