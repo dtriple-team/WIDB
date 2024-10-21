@@ -582,6 +582,7 @@ void StartWPMTask(void *argument)
 					cat_m1_Status_BandAler.value = 1;
 					catM1MqttDangerMessage = 1;
 					send_Status_BandAlert(&cat_m1_Status_BandAler);
+					allOutOfRange = false;
 				}
 		    }
 		}
