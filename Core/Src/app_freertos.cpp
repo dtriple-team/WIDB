@@ -121,6 +121,9 @@ uint32_t imuTemp = 0;
 uint32_t press = 0;
 uint8_t battVal = 0;
 
+uint8_t hapticFlag = 1;
+uint8_t soundFlag = 1;
+
 /* USER CODE END Variables */
 /* Definitions for initTask */
 osThreadId_t initTaskHandle;
@@ -305,7 +308,9 @@ void StartInitTask(void *argument)
 	for(;;){
 		// haptic
 		if(cat_m1_Status_FallDetection.fall_detect == 1){
-			runHaptic(20, 500, 3);
+			if(hapticFlag == 1){
+				runHaptic(20, 500, 3);
+			}
 			brightness_count = 0; // lcd backlight count reset
 		}
 		osDelay(1000);

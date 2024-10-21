@@ -59,6 +59,9 @@ void swipedownfromHomeView::toggleButton1Clicked(const touchgfx::AbstractButton&
 {
     bool newState = haptic_togglebutton.getState();
     presenter->updateToggleButton1State(newState);
+
+    extern uint8_t hapticFlag;
+    hapticFlag = !hapticFlag;
 }
 
 void swipedownfromHomeView::updateToggleButton1State(bool state)
@@ -70,6 +73,9 @@ void swipedownfromHomeView::toggleButton2Clicked(const touchgfx::AbstractButton&
 {
     bool newState = sound_togglebutton.getState();
     presenter->updateToggleButton2State(newState);
+
+    extern uint8_t soundFlag;
+    soundFlag = !soundFlag;
 }
 
 void swipedownfromHomeView::updateToggleButton2State(bool state)
