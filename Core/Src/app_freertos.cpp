@@ -555,7 +555,7 @@ void StartWPMTask(void *argument)
 		}
 		if ((lcd_ssDataEx.algo.SCDstate == 3 || lcd_ssDataEx.algo.SCDstate == 2) || biosignalAlertSent)
 		{
-			if (ssHr < 60 || ssHr > 100 || ssSpo2 < 95 || ssSpo2 > 100)
+			if (ssHr < 60 || ssHr > 100 || ssSpo2 < 95)
 			{
 				ssHrSamples[sampleIndex] = ssHr;
 				ssSpo2Samples[sampleIndex] = ssSpo2;
