@@ -519,7 +519,8 @@ void StartWPMTask(void *argument)
 //				catM1MqttDangerMessage = 0;
 //				send_Status_BandAlert(&cat_m1_Status_BandAler);
 //		}
-		if ((ssHr < 60 || ssHr > 100 || ssSpo2 < 95 || ssSpo2 > 100) && lcd_ssDataEx.algo.SCDstate == 3 || lcd_ssDataEx.algo.SCDstate == 2)
+	    if ((ssHr < 60 || ssHr > 100 || ssSpo2 < 95 || ssSpo2 > 100) &&
+	        (lcd_ssDataEx.algo.SCDstate == 3 || lcd_ssDataEx.algo.SCDstate == 2))
 		{
 			ssHrSamples[sampleIndex] = ssHr;
 			ssSpo2Samples[sampleIndex] = ssSpo2;
