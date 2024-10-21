@@ -21,4 +21,4 @@ int pmic_init(void);
 int pmicSOCRead(unsigned char *batterylevel);
 int isBATTCharging();
 
-void testHaptic();
+void runHaptic(int hapticFrequencyHz, int hapticDuration, int hapticContinue);

@@ -43,7 +43,7 @@ int isBATTCharging(){
 	return batteryChargeStatus;
 }
 
-void testHaptic(){
+void testHaptic(int hapticFrequencyHz, int hapticDuration, int hapticContinue){
 	uint8_t ret = 0;
 	do{
 		ret = 0;
@@ -53,5 +53,5 @@ void testHaptic(){
 		ret |= max20303.Max20303_HapticDrive1();
 	} while(ret != 0x00);
 
-	max20303.Max20303_StartHapticPattern(20, 500, 1);
+	max20303.Max20303_StartHapticPattern(hapticFrequencyHz, hapticDuration, hapticContinue);
 }

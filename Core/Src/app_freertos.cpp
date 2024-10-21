@@ -292,10 +292,18 @@ void StartInitTask(void *argument)
 //		speaker_test();
 //	}
 
-//	testHaptic();
+//	runHaptic();
 
-	// finish Task
-	vTaskDelete(NULL);
+	for(;;){
+		// haptic
+		if(cat_m1_Status_FallDetection.fall_detect == 1){
+			runHaptic(20, 500, 3);
+		}
+		osDelay(1000);
+	}
+
+//	// finish Task
+//	vTaskDelete(NULL);
   /* USER CODE END initTask */
 }
 
@@ -315,7 +323,7 @@ void StartlcdTask(void *argument)
 	while(!pmicInitFlag){
 		osDelay(10);
 	}
-	testHaptic(); // turn on device haptic
+	runHaptic(20, 500, 1); // turn on device haptic
 //	HAL_Delay(5000); // 외부 전원 + 디버거 연결 시간
 	ST7789_gpio_setting();
 	ST7789_Init();
@@ -872,6 +880,8 @@ void StartCheckINTTask(void *argument)
     		set_bLevel = before_bLevel; // turn off flash light : brightness
     	}
     	myTempHomeView.changeToHomeScreen();
+
+    	cat_m1_Status_FallDetection.fall_detect = 0;
     }
 
     // update Battery
