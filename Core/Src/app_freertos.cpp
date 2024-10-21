@@ -562,7 +562,7 @@ void StartWPMTask(void *argument)
 		    }
 
 		    cat_m1_Status_BandAler.bid = HAL_GetUIDw2();
-		    cat_m1_Status_BandAler.type = 6;
+		    cat_m1_Status_BandAler.type = 2;
 		    cat_m1_Status_BandAler.value = 1;
 		    catM1MqttDangerMessage = 1;
 		    send_Status_BandAlert(&cat_m1_Status_BandAler);
@@ -576,7 +576,7 @@ void StartWPMTask(void *argument)
 		    }
 
 		    cat_m1_Status_BandAler.bid = HAL_GetUIDw2();
-		    cat_m1_Status_BandAler.type = 2;
+		    cat_m1_Status_BandAler.type = 6;
 		    cat_m1_Status_BandAler.value = 1;
 		    catM1MqttDangerMessage = 1;
 		    send_Status_BandAlert(&cat_m1_Status_BandAler);
