@@ -578,7 +578,7 @@ void nrf9160_mqtt_setting()
         case MQTT_SUBSCRIBE_STATUS:
             if (cat_m1_Status.mqttSubscribeStatus == 0)
             {
-                send_at_command("AT#XMQTTSUB=\"/DT/eHG4/Status/BandSet\",0\r\n");
+                send_at_command(SUB_STATUS_BANDSET);
                 osDelay(5000);
                 cat_m1_Status.retryCount++;
 
@@ -597,7 +597,7 @@ void nrf9160_mqtt_setting()
         case MQTT_SUBSCRIBE_ALERT:
             if (cat_m1_Status.mqttSubscribeStatus == 1)
             {
-                send_at_command("AT#XMQTTSUB=\"/DT/eHG4/Status/ServerAlert\",0\r\n");
+                send_at_command(SUB_SERVER_ALERT);
                 osDelay(5000);
                 cat_m1_Status.retryCount++;
 
@@ -867,7 +867,7 @@ void send_GPS_Location(cat_m1_Status_GPS_Location_t* location)
         "}+++\r\n",
 		(unsigned int)location->bid, cat_m1_at_cmd_rst.gps);
 
-    if (send_at_command("AT#XMQTTPUB=\"/DT/eHG4/GPS/Location\"\r\n"))
+    if (send_at_command(GPS_LOCATION_TOPIC))
     {
         PRINT_INFO("AT command sent successfully.\n");
     }
@@ -909,7 +909,7 @@ void send_Status_IMU(cat_m1_Status_IMU_t* imu_data)
 		imu_data->gyro_x, imu_data->gyro_y, imu_data->gyro_z,
 		imu_data->mag_x, imu_data->mag_y, imu_data->mag_z);
 
-    if (send_at_command("AT#XMQTTPUB=\"/DT/eHG4/Status/IMU\"\r\n"))
+    if (send_at_command(IMU_TOPIC))
     {
         PRINT_INFO("AT command sent successfully.\n");
     } else

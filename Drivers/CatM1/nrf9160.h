@@ -13,6 +13,12 @@
 
 #include "cmsis_os2.h"
 
+// MQTT Topic
+#define IMU_TOPIC 			"AT#XMQTTPUB=\"/DT/eHG4/Status/IMU\"\r\n"
+#define SUB_STATUS_BANDSET 	"AT#XMQTTSUB=\"/DT/eHG4/Status/BandSet\",0\r\n"
+#define SUB_SERVER_ALERT	"AT#XMQTTSUB=\"/DT/eHG4/Status/ServerAlert\",0\r\n"
+#define GPS_LOCATION_TOPIC	"AT#XMQTTPUB=\"/DT/eHG4/GPS/Location\"\r\n"
+
 typedef enum {
     WPM_INIT_CHECK,
     WPM_INIT_COMPLETE
