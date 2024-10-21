@@ -475,21 +475,17 @@ void StartWPMTask(void *argument)
 				.battery_level = battVal
 			};
 			send_Status_Band(&cat_m1_Status_Band);
-			switch(cat_m1_Status_Band.rssi){
-				case -95 ... 0:
-					lteRSSI_0_4 = 4;
-					break;
-				case -105 ... -95:
-					lteRSSI_0_4 = 3;
-					break;
-				case -115 ... -105:
-					lteRSSI_0_4 = 2;
-					break;
-				case -125 ... -115:
-					lteRSSI_0_4 = 1;
-					break;
-				default:
-					lteRSSI_0_4 = 0;
+
+			if(-95 <= cat_m1_Status_Band.rssi){
+				lteRSSI_0_4 = 4;
+			} else if(-105 <= cat_m1_Status_Band.rssi && cat_m1_Status_Band.rssi < -95) {
+				lteRSSI_0_4 = 3;
+			} else if(-115 <= cat_m1_Status_Band.rssi && cat_m1_Status_Band.rssi < -105) {
+				lteRSSI_0_4 = 2;
+			} else if(-125 <= cat_m1_Status_Band.rssi && cat_m1_Status_Band.rssi < -115) {
+				lteRSSI_0_4 = 1;
+			} else {
+				lteRSSI_0_4 = 0;
 			}
 
 			strncpy((char*)cat_m1_at_cmd_rst.gps,

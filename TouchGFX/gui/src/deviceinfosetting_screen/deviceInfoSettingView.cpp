@@ -26,7 +26,7 @@ void deviceInfoSettingView::setupScreen()
 	model_label.invalidate();
 	Unicode::snprintf(version_labelBuffer, VERSION_LABEL_SIZE, version);
 	version_label.invalidate();
-	Unicode::snprintf(id_labelBuffer, ID_LABEL_SIZE, "%.9u", deviceID);
+	Unicode::snprintf(id_labelBuffer, ID_LABEL_SIZE, "0x%.8x", deviceID);
 	id_label.invalidate();
 }
 
