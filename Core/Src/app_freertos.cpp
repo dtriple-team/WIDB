@@ -112,6 +112,8 @@ int sampleIndex = 0;
 int previousSCDstate = -1;
 bool lowBatteryAlertSent = false;
 
+bool biosignalAlertSent = false;
+
 uint16_t ssHr = 0;
 uint16_t ssSpo2 = 0;
 uint32_t ssWalk = 0;
@@ -551,7 +553,7 @@ void StartWPMTask(void *argument)
 		{
 		    lowBatteryAlertSent = false;
 		}
-		if (lcd_ssDataEx.algo.SCDstate == 3 || lcd_ssDataEx.algo.SCDstate == 2)
+		if ((lcd_ssDataEx.algo.SCDstate == 3 || lcd_ssDataEx.algo.SCDstate == 2) || biosignalAlertSent)
 		{
 			if (ssHr < 60 || ssHr > 100 || ssSpo2 < 95 || ssSpo2 > 100)
 			{
@@ -559,7 +561,7 @@ void StartWPMTask(void *argument)
 				ssSpo2Samples[sampleIndex] = ssSpo2;
 				sampleIndex = (sampleIndex + 1) % SAMPLE_COUNT;
 
-				bool allOutOfRange = true;
+				biosignalAlertSent = true;
 				for (int i = 0; i < SAMPLE_COUNT; i++)
 				{
 					if ((ssHrSamples[i] >= 60 && ssHrSamples[i] <= 100) ||
@@ -570,7 +572,7 @@ void StartWPMTask(void *argument)
 					}
 				}
 
-				if (allOutOfRange)
+				if (biosignalAlertSent)
 				{
 					if (cat_m1_Status.gpsChecking)
 					{
@@ -582,7 +584,7 @@ void StartWPMTask(void *argument)
 					cat_m1_Status_BandAler.value = 1;
 					catM1MqttDangerMessage = 1;
 					send_Status_BandAlert(&cat_m1_Status_BandAler);
-					allOutOfRange = false;
+					biosignalAlertSent = false;
 				}
 		    }
 		}
