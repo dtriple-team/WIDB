@@ -53,5 +53,5 @@ void testHaptic(){
 		ret |= max20303.Max20303_HapticDrive1();
 	} while(ret != 0x00);
 
-	max20303.Max20303_StartHapticPattern(20, 300, 3000);
+	max20303.Max20303_StartHapticPattern(20, 500, 1);
 }

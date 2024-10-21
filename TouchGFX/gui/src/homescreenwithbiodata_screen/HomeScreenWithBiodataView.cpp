@@ -66,7 +66,6 @@ extern "C" {
 extern GESTURE gesture;
 extern uint8_t timeUpdateFlag;
 catM1Time nowTimeinfo;
-extern uint8_t brightness_count;
 void HomeScreenWithBiodataView::handleTickEvent()
 {
 	tickCounter++;
@@ -88,7 +87,6 @@ void HomeScreenWithBiodataView::handleTickEvent()
 //		}
 
 		////////////////// jh ///////////////////
-		brightness_count = 0;
 		struct tm* timeinfo;
 		if(timeUpdateFlag){
 			timeUpdateFlag = 0;

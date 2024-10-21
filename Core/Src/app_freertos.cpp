@@ -315,6 +315,7 @@ void StartlcdTask(void *argument)
 	while(!pmicInitFlag){
 		osDelay(10);
 	}
+	testHaptic(); // turn on device haptic
 //	HAL_Delay(5000); // 외부 전원 + 디버거 연결 시간
 	ST7789_gpio_setting();
 	ST7789_Init();
