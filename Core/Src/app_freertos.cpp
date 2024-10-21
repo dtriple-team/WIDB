@@ -519,38 +519,38 @@ void StartWPMTask(void *argument)
 //				catM1MqttDangerMessage = 0;
 //				send_Status_BandAlert(&cat_m1_Status_BandAler);
 //		}
-//		if (ssHr < 60 || ssHr > 100 || ssSpo2 < 95 || ssSpo2 > 100)
-//		{
-//			ssHrSamples[sampleIndex] = ssHr;
-//			ssSpo2Samples[sampleIndex] = ssSpo2;
-//			sampleIndex = (sampleIndex + 1) % SAMPLE_COUNT;
-//
-//			bool allOutOfRange = true;
-//			for (int i = 0; i < SAMPLE_COUNT; i++)
-//			{
-//				if ((ssHrSamples[i] >= 60 && ssHrSamples[i] <= 100) ||
-//					(ssSpo2Samples[i] >= 95 && ssSpo2Samples[i] <= 100))
-//				{
-//					allOutOfRange = false;
-//					break;
-//				}
-//			}
-//
-//			if (allOutOfRange)
-//			{
-//				if (cat_m1_Status.gpsChecking)
-//				{
-//					nrf9160_Stop_gps();
-//				}
-//
-//				cat_m1_Status_BandAler.bid = HAL_GetUIDw2();
-//				cat_m1_Status_BandAler.type = 5;
-//				cat_m1_Status_BandAler.value = 1;
-//				catM1MqttDangerMessage = 1;
-//				send_Status_BandAlert(&cat_m1_Status_BandAler);
-//				catM1MqttDangerMessage = 0;
-//			}
-//		}
+		if ((ssHr < 60 || ssHr > 100 || ssSpo2 < 95 || ssSpo2 > 100) && lcd_ssDataEx.algo.SCDstate == 3 || lcd_ssDataEx.algo.SCDstate == 2)
+		{
+			ssHrSamples[sampleIndex] = ssHr;
+			ssSpo2Samples[sampleIndex] = ssSpo2;
+			sampleIndex = (sampleIndex + 1) % SAMPLE_COUNT;
+
+			bool allOutOfRange = true;
+			for (int i = 0; i < SAMPLE_COUNT; i++)
+			{
+				if ((ssHrSamples[i] >= 60 && ssHrSamples[i] <= 100) ||
+					(ssSpo2Samples[i] >= 95 && ssSpo2Samples[i] <= 100))
+				{
+					allOutOfRange = false;
+					break;
+				}
+			}
+
+			if (allOutOfRange)
+			{
+				if (cat_m1_Status.gpsChecking)
+				{
+					nrf9160_Stop_gps();
+				}
+
+				cat_m1_Status_BandAler.bid = HAL_GetUIDw2();
+				cat_m1_Status_BandAler.type = 5;
+				cat_m1_Status_BandAler.value = 1;
+				catM1MqttDangerMessage = 1;
+				send_Status_BandAlert(&cat_m1_Status_BandAler);
+				catM1MqttDangerMessage = 0;
+			}
+		}
 	}
 	osDelay(10);
   }
