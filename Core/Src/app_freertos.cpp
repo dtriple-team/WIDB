@@ -475,6 +475,22 @@ void StartWPMTask(void *argument)
 				.battery_level = battVal
 			};
 			send_Status_Band(&cat_m1_Status_Band);
+			switch(cat_m1_Status_Band.rssi){
+				case -95 ... 0:
+					lteRSSI_0_4 = 4;
+					break;
+				case -105 ... -95:
+					lteRSSI_0_4 = 3;
+					break;
+				case -115 ... -105:
+					lteRSSI_0_4 = 2;
+					break;
+				case -125 ... -115:
+					lteRSSI_0_4 = 1;
+					break;
+				default:
+					lteRSSI_0_4 = 0;
+			}
 
 			strncpy((char*)cat_m1_at_cmd_rst.gps,
 						        "36.106335,128.384310,119.546387,7.287167,0.220983,0.000000,2024-09-25 08:33:25",
