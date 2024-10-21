@@ -483,6 +483,7 @@ void StartWPMTask(void *argument)
 				send_GPS_Location(&location);
 			}
 			mqttFlag = false;
+			catM1MqttDangerMessage = 0;
 		}
 
 		if(gpsFlag && cat_m1_Status.mqttChecking == 0)
@@ -531,7 +532,6 @@ void StartWPMTask(void *argument)
 			}
 				catM1MqttDangerMessage = 1;
 				send_Status_FallDetection(&cat_m1_Status_FallDetection);
-				catM1MqttDangerMessage = 0;
 
 		    	myTempHomeView.changeToHomeScreen();
 		}
@@ -547,7 +547,6 @@ void StartWPMTask(void *argument)
 			cat_m1_Status_BandAler.value = 1;
 			catM1MqttDangerMessage = 1;
 			send_Status_BandAlert(&cat_m1_Status_BandAler);
-			catM1MqttDangerMessage = 0;
 
 			previousSCDstate = 1;
 		}
@@ -555,7 +554,21 @@ void StartWPMTask(void *argument)
 		{
 			previousSCDstate = lcd_ssDataEx.algo.SCDstate;
 		}
-		if (battVal < 30 && !lowBatteryAlertSent)
+		if (battVal < 15 && !lowBatteryAlertSent)
+		{
+		    if (cat_m1_Status.gpsChecking)
+		    {
+		        nrf9160_Stop_gps();
+		    }
+
+		    cat_m1_Status_BandAler.bid = HAL_GetUIDw2();
+		    cat_m1_Status_BandAler.type = 6;
+		    cat_m1_Status_BandAler.value = 1;
+		    catM1MqttDangerMessage = 1;
+		    send_Status_BandAlert(&cat_m1_Status_BandAler);
+		    lowBatteryAlertSent = true;
+		}
+		if (battVal < 50 && !lowBatteryAlertSent)
 		{
 		    if (cat_m1_Status.gpsChecking)
 		    {
@@ -565,12 +578,13 @@ void StartWPMTask(void *argument)
 		    cat_m1_Status_BandAler.bid = HAL_GetUIDw2();
 		    cat_m1_Status_BandAler.type = 2;
 		    cat_m1_Status_BandAler.value = 1;
+		    catM1MqttDangerMessage = 1;
 		    send_Status_BandAlert(&cat_m1_Status_BandAler);
 
 		    lowBatteryAlertSent = true;
 		}
 
-		if (battVal >= 30)
+		if (battVal >= 16 || battVal >= 51)
 		{
 		    lowBatteryAlertSent = false;
 		}
@@ -1134,7 +1148,7 @@ void updateHeightData()
 	}
 
     height_current = (heights[0] + heights[1] + heights[2] + heights[3] + heights[4]) / 5;
-    PRINT_INFO("height_current >>> %f\r\n",height_current);
+    //PRINT_INFO("height_current >>> %f\r\n",height_current);
 }
 
 void checkFallDetection()
