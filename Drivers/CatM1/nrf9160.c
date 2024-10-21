@@ -200,7 +200,7 @@ bool cat_m1_parse_process(uint8_t *msg) {
             PRINT_INFO("Response: ERROR\r\n");
             cat_m1_Status.parseResult = 0;
             cat_m1_Status.errorCount++;
-            if (cat_m1_Status.errorCount >= 5) {
+            if (cat_m1_Status.errorCount >= 10) {
                 catM1Reset();
             }
         }
@@ -425,6 +425,7 @@ void nrf9160_ready(void)
                     PRINT_INFO("Error count exceeded. Initialization failed.\n");
                     //currentWpmState = WPM_INIT_COMPLETE;
                     uart_init();
+                    catM1Reset();
                 }
             }
             else
@@ -751,14 +752,14 @@ void send_Status_Band(cat_m1_Status_Band_t *status)
 		(unsigned int)status->walk_steps, (unsigned int)status->run_steps, (unsigned int)status->temperature, (unsigned int)status->pres, status->rssi
     );
 
-    if (send_at_command("AT#XMQTTPUB=\"/DT/eHG4/Status/Band\"\r\n"))
-    {
-        PRINT_INFO("AT command sent successfully.\n");
-    }
-//    if (send_at_command("AT#XMQTTPUB=\"/efwb/post/sync\"\r\n"))
+//    if (send_at_command("AT#XMQTTPUB=\"/DT/eHG4/Status/Band\"\r\n"))
 //    {
 //        PRINT_INFO("AT command sent successfully.\n");
 //    }
+    if (send_at_command("AT#XMQTTPUB=\"/efwb/post/sync\"\r\n"))
+    {
+        PRINT_INFO("AT command sent successfully.\n");
+    }
     else
     {
         PRINT_INFO("Failed to send AT command.\n");
@@ -819,14 +820,14 @@ void send_Status_FallDetection(cat_m1_Status_FallDetection_t* fallData)
     	"}+++\r\n",
 		(unsigned int)fallData->bid, fallData->type, fallData->fall_detect);
 
-    if (send_at_command("AT#XMQTTPUB=\"/DT/eHG4/Status/FallDetection\"\r\n"))
-    {
-        PRINT_INFO("AT command sent successfully.\n");
-    }
-//	if (send_at_command("AT#XMQTTPUB=\"/efwb/post/async\"\r\n"))
-//	{
-//		PRINT_INFO("AT command sent successfully.\n");
-//	}
+//    if (send_at_command("AT#XMQTTPUB=\"/DT/eHG4/Status/FallDetection\"\r\n"))
+//    {
+//        PRINT_INFO("AT command sent successfully.\n");
+//    }
+	if (send_at_command("AT#XMQTTPUB=\"/efwb/post/async\"\r\n"))
+	{
+		PRINT_INFO("AT command sent successfully.\n");
+	}
     else
     {
         PRINT_INFO("Failed to send AT command.\n");

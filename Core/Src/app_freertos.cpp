@@ -672,6 +672,12 @@ void StartSecTimerTask(void *argument)
 			UartRxRetryTime = 0;
 			cat_m1_Status.txflag = 0;
 		}
+		else if(UartRxRetryTime > 10)
+		{
+			catM1Reset();
+			UartRxRetryTime = 0;
+			cat_m1_Status.txflag = 0;
+		}
 
 		gpsTime++;
 //		PRINT_INFO("gpsTime >>> %d\r\n",gpsTime);
