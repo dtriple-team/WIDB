@@ -104,11 +104,16 @@ extern cat_m1_at_cmd_rst_t cat_m1_at_cmd_rst;
 extern cat_m1_Status_FallDetection_t cat_m1_Status_FallDetection;
 extern cat_m1_Status_BandAler_t cat_m1_Status_BandAler;
 
+bool hrReceived = false;
+bool spo2Received = false;
+
 #define SAMPLE_COUNT 10
 
 int ssHrSamples[SAMPLE_COUNT] = {0};
 int ssSpo2Samples[SAMPLE_COUNT] = {0};
 int sampleIndex = 0;
+
+bool lowBatteryAlertSent = false;
 
 uint16_t ssHr = 0;
 uint16_t ssSpo2 = 0;
@@ -523,53 +528,91 @@ void StartWPMTask(void *argument)
 				send_Status_BandAlert(&cat_m1_Status_BandAler);
 				catM1MqttDangerMessage = 0;
 		}
-//		if(battVal < 30)
-//		{
-//			if(cat_m1_Status.gpsChecking)
-//			{
-//				nrf9160_Stop_gps();
-//			}
-//				cat_m1_Status_BandAler.bid = HAL_GetUIDw2();
-//				cat_m1_Status_BandAler.type = 2;
-//				cat_m1_Status_BandAler.value = 1;
-//				//catM1MqttDangerMessage = 1;
-//				catM1MqttDangerMessage = 0;
-//				send_Status_BandAlert(&cat_m1_Status_BandAler);
-//		}
-	    if ((ssHr < 60 || ssHr > 100 || ssSpo2 < 95 || ssSpo2 > 100) &&
-	        (lcd_ssDataEx.algo.SCDstate == 3 || lcd_ssDataEx.algo.SCDstate == 2))
+		if (battVal < 30 && !lowBatteryAlertSent)
 		{
-			ssHrSamples[sampleIndex] = ssHr;
-			ssSpo2Samples[sampleIndex] = ssSpo2;
-			sampleIndex = (sampleIndex + 1) % SAMPLE_COUNT;
+		    if (cat_m1_Status.gpsChecking)
+		    {
+		        nrf9160_Stop_gps();
+		    }
 
-			bool allOutOfRange = true;
-			for (int i = 0; i < SAMPLE_COUNT; i++)
-			{
-				if ((ssHrSamples[i] >= 60 && ssHrSamples[i] <= 100) ||
-					(ssSpo2Samples[i] >= 95 && ssSpo2Samples[i] <= 100))
-				{
-					allOutOfRange = false;
-					break;
-				}
-			}
+		    cat_m1_Status_BandAler.bid = HAL_GetUIDw2();
+		    cat_m1_Status_BandAler.type = 2;
+		    cat_m1_Status_BandAler.value = 1;
+		    send_Status_BandAlert(&cat_m1_Status_BandAler);
 
-			if (allOutOfRange)
-			{
-				if (cat_m1_Status.gpsChecking)
-				{
-					nrf9160_Stop_gps();
-				}
+		    lowBatteryAlertSent = true;
+		}
 
-				cat_m1_Status_BandAler.bid = HAL_GetUIDw2();
-				cat_m1_Status_BandAler.type = 5;
-				cat_m1_Status_BandAler.value = 1;
-				catM1MqttDangerMessage = 1;
-				send_Status_BandAlert(&cat_m1_Status_BandAler);
-				ssHrSamples[SAMPLE_COUNT] = {0};
-				ssSpo2Samples[SAMPLE_COUNT] = {0};
-				catM1MqttDangerMessage = 0;
-			}
+		if (battVal >= 30)
+		{
+		    lowBatteryAlertSent = false;
+		}
+		if ((ssHr < 60 || ssHr > 100 || ssSpo2 < 95 || ssSpo2 > 100) &&
+		    (lcd_ssDataEx.algo.SCDstate == 3 || lcd_ssDataEx.algo.SCDstate == 2))
+		{
+		    if (ssHr < 60 || ssHr > 100)
+		    {
+		        hrReceived = true;
+		    }
+		    if (ssSpo2 < 95 || ssSpo2 > 100)
+		    {
+		        spo2Received = true;
+		    }
+
+		    if (hrReceived && spo2Received)
+		    {
+		        ssHrSamples[sampleIndex] = ssHr;
+		        ssSpo2Samples[sampleIndex] = ssSpo2;
+		        sampleIndex = (sampleIndex + 1) % SAMPLE_COUNT;
+
+		        bool allOutOfRange = true;
+		        for (int i = 0; i < SAMPLE_COUNT; i++)
+		        {
+		            if ((ssHrSamples[i] >= 60 && ssHrSamples[i] <= 100) ||
+		                (ssSpo2Samples[i] >= 95 && ssSpo2Samples[i] <= 100))
+		            {
+		                allOutOfRange = false;
+		                break;
+		            }
+		        }
+
+		        if (allOutOfRange)
+		        {
+		            if (cat_m1_Status.gpsChecking)
+		            {
+		                nrf9160_Stop_gps();
+		            }
+
+		            cat_m1_Status_BandAler.bid = HAL_GetUIDw2();
+		            cat_m1_Status_BandAler.type = 5;
+		            cat_m1_Status_BandAler.value = 1;
+		            catM1MqttDangerMessage = 1;
+		            send_Status_BandAlert(&cat_m1_Status_BandAler);
+
+		            for (int i = 0; i < SAMPLE_COUNT; i++)
+		            {
+		                ssHrSamples[i] = 0;
+		                ssSpo2Samples[i] = 0;
+		            }
+
+		            hrReceived = false;
+		            spo2Received = false;
+		            catM1MqttDangerMessage = 0;
+		        }
+		    }
+		}
+
+		if (lcd_ssDataEx.algo.SCDstate == 0)
+		{
+		    hrReceived = false;
+		    spo2Received = false;
+		    sampleIndex = 0;
+
+		    for (int i = 0; i < SAMPLE_COUNT; i++)
+		    {
+		        ssHrSamples[i] = 0;
+		        ssSpo2Samples[i] = 0;
+		    }
 		}
 	}
 	osDelay(10);
