@@ -99,6 +99,9 @@ uint8_t fallCheckFlag = 0;
 uint8_t pressCheckTime = 0;
 uint8_t pressCheckFlag = 0;
 
+uint8_t pressCheckStartTime = 0;
+uint8_t pressCheckStartFlag = 0;
+
 uint8_t catM1MqttDangerMessage = 0;
 
 extern cat_m1_Status_t cat_m1_Status;
@@ -485,6 +488,7 @@ void StartWPMTask(void *argument)
 				send_GPS_Location(&location);
 			}
 			mqttFlag = false;
+			catM1MqttDangerMessage = 0;
 		}
 
 		if(gpsFlag && cat_m1_Status.mqttChecking == 0)
@@ -533,7 +537,6 @@ void StartWPMTask(void *argument)
 			}
 				catM1MqttDangerMessage = 1;
 				send_Status_FallDetection(&cat_m1_Status_FallDetection);
-				catM1MqttDangerMessage = 0;
 
 		    	myTempHomeView.changeToHomeScreen();
 		}
@@ -549,7 +552,6 @@ void StartWPMTask(void *argument)
 			cat_m1_Status_BandAler.value = 1;
 			catM1MqttDangerMessage = 1;
 			send_Status_BandAlert(&cat_m1_Status_BandAler);
-			catM1MqttDangerMessage = 0;
 
 			previousSCDstate = 1;
 		}
@@ -557,7 +559,7 @@ void StartWPMTask(void *argument)
 		{
 			previousSCDstate = lcd_ssDataEx.algo.SCDstate;
 		}
-		if (battVal < 30 && !lowBatteryAlertSent)
+		if (battVal < 15 && !lowBatteryAlertSent)
 		{
 		    if (cat_m1_Status.gpsChecking)
 		    {
@@ -567,12 +569,27 @@ void StartWPMTask(void *argument)
 		    cat_m1_Status_BandAler.bid = deviceID;
 		    cat_m1_Status_BandAler.type = 2;
 		    cat_m1_Status_BandAler.value = 1;
+		    catM1MqttDangerMessage = 1;
+		    send_Status_BandAlert(&cat_m1_Status_BandAler);
+		    lowBatteryAlertSent = true;
+		}
+		if (battVal < 50 && !lowBatteryAlertSent)
+		{
+		    if (cat_m1_Status.gpsChecking)
+		    {
+		        nrf9160_Stop_gps();
+		    }
+
+		    cat_m1_Status_BandAler.bid = HAL_GetUIDw2();
+		    cat_m1_Status_BandAler.type = 6;
+		    cat_m1_Status_BandAler.value = 1;
+		    catM1MqttDangerMessage = 1;
 		    send_Status_BandAlert(&cat_m1_Status_BandAler);
 
 		    lowBatteryAlertSent = true;
 		}
 
-		if (battVal >= 30)
+		if (battVal >= 16 || battVal >= 51)
 		{
 		    lowBatteryAlertSent = false;
 		}
@@ -697,7 +714,7 @@ void StartSPMTask(void *argument)
 	bmpAlt = getAltitude(pressure);
 	//PRINT_INFO("bmpAlt >>> %f\r\n",bmpAlt);
 
-	if(pressCheckFlag)
+	if(pressCheckFlag && pressCheckStartFlag)
 	{
 		updateHeightData();
 		pressCheckFlag = 0;
@@ -855,6 +872,12 @@ void StartSecTimerTask(void *argument)
 		{
 			pressCheckFlag = 1;
 			pressCheckTime = 0;
+		}
+		pressCheckStartTime++;
+		if(pressCheckStartTime >= 7)
+		{
+			pressCheckStartFlag = 1;
+			pressCheckStartTime = 0;
 		}
 	}
   }
