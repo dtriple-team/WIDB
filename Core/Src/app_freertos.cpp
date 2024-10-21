@@ -96,6 +96,9 @@ uint8_t gpsOffCheckTime = 0;
 uint8_t fallCheckTime = 0;
 uint8_t fallCheckFlag = 0;
 
+uint8_t pressCheckTime = 0;
+uint8_t pressCheckFlag = 0;
+
 uint8_t catM1MqttDangerMessage = 0;
 
 extern cat_m1_Status_t cat_m1_Status;
@@ -111,8 +114,18 @@ int ssSpo2Samples[SAMPLE_COUNT] = {0};
 int sampleIndex = 0;
 int previousSCDstate = -1;
 bool lowBatteryAlertSent = false;
-
 bool biosignalAlertSent = false;
+
+bool freeFall_int_on = false;
+
+float heights[5] = {0};
+float height_current = 0;
+float bmpAlt = 0;
+float deltaAlt = 0;
+uint16_t curr_height = 0;
+int height_num = 0;
+
+float falling_threshold = -0.39; // 낙상 판별 기준 높이 차이
 
 uint16_t ssHr = 0;
 uint16_t ssSpo2 = 0;
@@ -606,6 +619,9 @@ void StartWPMTask(void *argument)
 * @retval None
 */
 void read_ppg();
+double getAltitude(double pressure_hPa);
+void updateHeightData();
+void checkFallDetection();
 /* USER CODE END Header_StartSPMTask */
 void StartSPMTask(void *argument)
 {
@@ -673,6 +689,19 @@ void StartSPMTask(void *argument)
 //	{
 //	  read_ppg();
 //	}
+	bmpAlt = getAltitude(pressure);
+	//PRINT_INFO("bmpAlt >>> %f\r\n",bmpAlt);
+
+	if(pressCheckFlag)
+	{
+		updateHeightData();
+		pressCheckFlag = 0;
+	}
+	if(freeFall_int_on)
+	{
+		checkFallDetection();
+		freeFall_int_on = false;
+	}
   }
   /* USER CODE END spmTask */
 }
@@ -816,6 +845,12 @@ void StartSecTimerTask(void *argument)
 			fallCheckFlag = 1;
 			fallCheckTime = 0;
 		}
+		pressCheckTime++;
+		if(pressCheckTime > 1)
+		{
+			pressCheckFlag = 1;
+			pressCheckTime = 0;
+		}
 	}
   }
   /* USER CODE END secTimerTask */
@@ -878,20 +913,18 @@ void StartCheckINTTask(void *argument)
     		 * haptic
     		 * send signal to web server using CatM1
     		 */
-//    		cat_m1_Status_FallDetection_t cat_m1_Status_FallDetection = {
-//    		    .bid = cat_m1_Status_Band.bid, // Band의 bid 값을 사용
-//    		    .type = 0,
-//    		    .fall_detect = 1
-//    		};
-    		cat_m1_Status_FallDetection.bid = HAL_GetUIDw2();
-    		cat_m1_Status_FallDetection.type = 0;
-    		cat_m1_Status_FallDetection.fall_detect = 1;
-    		PRINT_INFO("catM1MqttDangerMessage\r\n");
+    		freeFall_int_on = true;
 
-    		myFallDetectedView.changeToFallDetected();
-    		before_bLevel = set_bLevel;
-    		brightness_count = 0;
-    		ST7789_brightness_setting(16);
+//    		cat_m1_Status_FallDetection.bid = HAL_GetUIDw2();
+//    		cat_m1_Status_FallDetection.type = 0;
+//    		cat_m1_Status_FallDetection.fall_detect = 1;
+//
+//    		PRINT_INFO("catM1MqttDangerMessage\r\n");
+//
+//    		myFallDetectedView.changeToFallDetected();
+//    		before_bLevel = set_bLevel;
+//    		brightness_count = 0;
+//    		ST7789_brightness_setting(16);
 
     	}
     	if((interrupt_kind & 0x02) == 0x02){
@@ -1048,6 +1081,93 @@ void read_ppg()
 	free(ssDataEx);
 
 	canDisplayPPG = 1;
+}
+
+double getAltitude(double pressure_hPa) {
+    // hPa를 Pa로 변환
+    double pressure_Pa = pressure_hPa * 100.0; // 1 hPa = 100 Pa
+
+    // 해수면에서의 기준 압력 (Pa)
+    const double P0 = 1013.25 * 100.0; // 일반적인 해수면 압력 값 (hPa에서 Pa로 변환)
+
+    // 대기 압력 공식에 따라 고도 계산
+    double p = pressure_Pa / P0; // 상대 압력
+    double b = 1.0 / 5.255; // 지수
+    double alt = 44330.0 * (1.0 - pow(p, b)); // 고도 (미터 단위)
+
+    return alt;
+}
+
+void updateHeightData()
+{
+	switch (height_num)
+	{
+	case 0:
+		heights[height_num] = bmpAlt;
+		height_num++;
+		break;
+	case 1:
+		heights[height_num] = bmpAlt;
+		height_num++;
+		break;
+	case 2:
+		heights[height_num] = bmpAlt;
+		height_num++;
+		break;
+	case 3:
+		heights[height_num] = bmpAlt;
+		height_num++;
+		break;
+	case 4:
+		heights[height_num] = bmpAlt;
+		height_num = 0;
+		break;
+	}
+
+    height_current = (heights[0] + heights[1] + heights[2] + heights[3] + heights[4]) / 5;
+    //PRINT_INFO("height_current >>> %f\r\n",height_current);
+}
+
+void checkFallDetection()
+{
+    float height_int = bmpAlt;
+    float min_height = height_int;
+
+    for (int n = 0; n < 7; ++n)
+    {
+        deltaAlt = bmpAlt - height_int;
+
+        if (n > 0 && bmpAlt < min_height)
+        {
+            min_height = bmpAlt;
+        }
+        osDelay(0.15);
+    }
+
+    float diff = min_height - height_current;
+    PRINT_INFO("Height diff: %f - %f = %f[m]\r\n", min_height, height_current, diff);
+
+    if (diff < falling_threshold)
+    {
+    	PRINT_INFO("Fall detected!\r\n");
+		cat_m1_Status_FallDetection.bid = HAL_GetUIDw2();
+		cat_m1_Status_FallDetection.type = 0;
+		cat_m1_Status_FallDetection.fall_detect = 1;
+
+		myFallDetectedView.changeToFallDetected();
+		before_bLevel = set_bLevel;
+		brightness_count = 0;
+		ST7789_brightness_setting(16);
+    }
+    else
+    {
+    	PRINT_INFO("Not detected\r\n");
+    }
+
+    for (int i = 0; i < 5; ++i)
+    {
+        heights[i] = min_height;
+    }
 }
 /* USER CODE END Application */
 
