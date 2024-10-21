@@ -92,6 +92,10 @@ bool gpsFlag = false;
 #define gps_offCheck_cycle 70
 uint8_t gpsOffCheckTime = 0;
 
+#define fall_Check_cycle 60 // sec
+uint8_t fallCheckTime = 0;
+uint8_t fallCheckFlag = 0;
+
 uint8_t catM1MqttDangerMessage = 0;
 
 extern cat_m1_Status_t cat_m1_Status;
@@ -493,8 +497,9 @@ void StartWPMTask(void *argument)
 	//BandAlert
 	if(cat_m1_Status.mqttSubscribeStatus == 2)
 	{
-		if (cat_m1_Status_FallDetection.fall_detect == 1)
+		if (fallCheckFlag == 1)
 		{
+			fallCheckFlag = 0;
 			if(cat_m1_Status.gpsChecking)
 			{
 				nrf9160_Stop_gps();
@@ -777,6 +782,16 @@ void StartSecTimerTask(void *argument)
 			catM1Reset();
 			gpsOffCheckTime = 0;
 		}
+
+		if(cat_m1_Status_FallDetection.fall_detect)
+		{
+			fallCheckTime++;
+		}
+		if(fallCheckTime > fall_Check_cycle)
+		{
+			fallCheckFlag = 1;
+			fallCheckTime = 0;
+		}
 	}
   }
   /* USER CODE END secTimerTask */
@@ -850,6 +865,7 @@ void StartCheckINTTask(void *argument)
     		PRINT_INFO("catM1MqttDangerMessage\r\n");
 
     		myFallDetectedView.changeToFallDetected();
+    		before_bLevel = set_bLevel;
     		brightness_count = 0;
     		ST7789_brightness_setting(16);
 
@@ -884,7 +900,12 @@ void StartCheckINTTask(void *argument)
     	}
     	myTempHomeView.changeToHomeScreen();
 
-    	cat_m1_Status_FallDetection.fall_detect = 0;
+    	ST7789_brightness_setting(before_bLevel);
+
+    	// cat_m1_Status_FallDetection.fall_detect = 0;
+    	memset(&cat_m1_Status_FallDetection, 0, sizeof(cat_m1_Status_FallDetection));
+
+    	fallCheckTime = 0;
     }
 
     // update Battery
