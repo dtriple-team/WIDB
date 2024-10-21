@@ -98,6 +98,13 @@ extern cat_m1_Status_t cat_m1_Status;
 extern cat_m1_Status_Band_t cat_m1_Status_Band;
 extern cat_m1_at_cmd_rst_t cat_m1_at_cmd_rst;
 extern cat_m1_Status_FallDetection_t cat_m1_Status_FallDetection;
+extern cat_m1_Status_BandAler_t cat_m1_Status_BandAler;
+
+#define SAMPLE_COUNT 10
+
+int ssHrSamples[SAMPLE_COUNT] = {0};
+int ssSpo2Samples[SAMPLE_COUNT] = {0};
+int sampleIndex = 0;
 
 uint16_t ssHr = 0;
 uint16_t ssSpo2 = 0;
@@ -401,7 +408,7 @@ void StartWPMTask(void *argument)
 	}
 	if(wpmInitializationFlag && cat_m1_Status.Checked == 2)
 	{
-		if ((mqttFlag && cat_m1_Status.gpsChecking == 0))
+		if ((mqttFlag && cat_m1_Status.gpsChecking == 0 || catM1MqttDangerMessage))
 		{
 			//nrf9160_Get_gps_State();
 			//test_send_json_publish();
@@ -473,7 +480,8 @@ void StartWPMTask(void *argument)
 	if(initFlag){
 
 	}
-	if(catM1MqttDangerMessage && cat_m1_Status.mqttSubscribeStatus == 2)
+	//BandAlert
+	if(cat_m1_Status.mqttSubscribeStatus == 2)
 	{
 		if (cat_m1_Status_FallDetection.fall_detect == 1)
 		{
@@ -481,7 +489,63 @@ void StartWPMTask(void *argument)
 			{
 				nrf9160_Stop_gps();
 			}
+				catM1MqttDangerMessage = 1;
 				send_Status_FallDetection(&cat_m1_Status_FallDetection);
+		}
+		if (lcd_ssDataEx.algo.SCDstate == 1)
+		{
+			if(cat_m1_Status.gpsChecking)
+			{
+				nrf9160_Stop_gps();
+			}
+				cat_m1_Status_BandAler.bid = HAL_GetUIDw2();
+				cat_m1_Status_BandAler.type = 3;
+				cat_m1_Status_BandAler.value = 1;
+				catM1MqttDangerMessage = 1;
+				send_Status_BandAlert(&cat_m1_Status_BandAler);
+		}
+//		if(battVal < 30)
+//		{
+//			if(cat_m1_Status.gpsChecking)
+//			{
+//				nrf9160_Stop_gps();
+//			}
+//				cat_m1_Status_BandAler.bid = HAL_GetUIDw2();
+//				cat_m1_Status_BandAler.type = 2;
+//				cat_m1_Status_BandAler.value = 1;
+//				//catM1MqttDangerMessage = 1;
+//				send_Status_BandAlert(&cat_m1_Status_BandAler);
+//		}
+		if (ssHr < 60 || ssHr > 100 || ssSpo2 < 95 || ssSpo2 > 100)
+		{
+			ssHrSamples[sampleIndex] = ssHr;
+			ssSpo2Samples[sampleIndex] = ssSpo2;
+			sampleIndex = (sampleIndex + 1) % SAMPLE_COUNT;
+
+			bool allOutOfRange = true;
+			for (int i = 0; i < SAMPLE_COUNT; i++)
+			{
+				if ((ssHrSamples[i] >= 60 && ssHrSamples[i] <= 100) ||
+					(ssSpo2Samples[i] >= 95 && ssSpo2Samples[i] <= 100))
+				{
+					allOutOfRange = false;
+					break;
+				}
+			}
+
+			if (allOutOfRange)
+			{
+				if (cat_m1_Status.gpsChecking)
+				{
+					nrf9160_Stop_gps();
+				}
+
+				cat_m1_Status_BandAler.bid = HAL_GetUIDw2();
+				cat_m1_Status_BandAler.type = 5;
+				cat_m1_Status_BandAler.value = 1;
+				catM1MqttDangerMessage = 1;
+				send_Status_BandAlert(&cat_m1_Status_BandAler);
+			}
 		}
 	}
 	osDelay(10);
@@ -766,7 +830,6 @@ void StartCheckINTTask(void *argument)
     		cat_m1_Status_FallDetection.bid = HAL_GetUIDw2();
     		cat_m1_Status_FallDetection.type = 0;
     		cat_m1_Status_FallDetection.fall_detect = 1;
-    		catM1MqttDangerMessage = 1;
     		PRINT_INFO("catM1MqttDangerMessage\r\n");
 
     		ST7789_brightness_setting(16);

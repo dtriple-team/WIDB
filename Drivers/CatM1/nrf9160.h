@@ -114,8 +114,10 @@ typedef struct {
 
 typedef struct {
   uint32_t bid;
-  uint8_t hr_alert;
-  uint8_t spo2_alert;
+//  uint8_t hr_alert;
+//  uint8_t spo2_alert;
+  uint8_t type;
+  uint8_t value;
 } cat_m1_Status_BandAler_t;
 
 typedef struct {

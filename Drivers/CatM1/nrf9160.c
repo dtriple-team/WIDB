@@ -781,17 +781,27 @@ void send_Status_BandAlert(cat_m1_Status_BandAler_t* alertData)
 {
 	cat_m1_Status.mqttChecking = 1;
     char mqtt_data[1024];
-    snPRINT_INFO(mqtt_data, sizeof(mqtt_data),
-    	"{\"extAddress\": {\"low\": %u, \"high\": 0},"
-        "\"hr_alert\": %d,"
-        "\"spo2_alert\": %d"
-    	"}+++\r\n",
-		(unsigned int)alertData->bid, alertData->hr_alert, alertData->spo2_alert);
+//    snprintf(mqtt_data, sizeof(mqtt_data),
+//    	"{\"extAddress\": {\"low\": %u, \"high\": 0},"
+//        "\"hr_alert\": %d,"
+//        "\"spo2_alert\": %d"
+//    	"}+++\r\n",
+//		(unsigned int)alertData->bid, alertData->hr_alert, alertData->spo2_alert);
+    snprintf(mqtt_data, sizeof(mqtt_data),
+		"{\"extAddress\": {\"low\": %u, \"high\": 0},"
+		"\"type\": %d,"
+		"\"value\": %d"
+		"}+++\r\n",
+		(unsigned int)alertData->bid, alertData->type, alertData->value);
 
-    if (send_at_command("AT#XMQTTPUB=\"/DT/eHG4/Status/BandAlert\"\r\n"))
-    {
-        PRINT_INFO("AT command sent successfully.\n");
-    }
+//    if (send_at_command("AT#XMQTTPUB=\"/DT/eHG4/Status/BandAlert\"\r\n"))
+//    {
+//        PRINT_INFO("AT command sent successfully.\n");
+//    }
+	if (send_at_command("AT#XMQTTPUB=\"/efwb/post/async\"\r\n"))
+	{
+		PRINT_INFO("AT command sent successfully.\n");
+	}
     else
     {
         PRINT_INFO("Failed to send AT command.\n");
