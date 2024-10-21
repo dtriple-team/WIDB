@@ -567,7 +567,7 @@ void StartWPMTask(void *argument)
 					if ((ssHrSamples[i] >= 60 && ssHrSamples[i] <= 100) ||
 						(ssSpo2Samples[i] >= 95 && ssSpo2Samples[i] <= 100))
 					{
-						allOutOfRange = false;
+						biosignalAlertSent = false;
 						break;
 					}
 				}
