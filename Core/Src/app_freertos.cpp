@@ -507,6 +507,8 @@ void StartWPMTask(void *argument)
 				catM1MqttDangerMessage = 1;
 				send_Status_FallDetection(&cat_m1_Status_FallDetection);
 				catM1MqttDangerMessage = 0;
+
+		    	myTempHomeView.changeToHomeScreen();
 		}
 		if (lcd_ssDataEx.algo.SCDstate == 1)
 		{
