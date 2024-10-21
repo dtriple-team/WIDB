@@ -548,6 +548,8 @@ void StartWPMTask(void *argument)
 				cat_m1_Status_BandAler.value = 1;
 				catM1MqttDangerMessage = 1;
 				send_Status_BandAlert(&cat_m1_Status_BandAler);
+				ssHrSamples[SAMPLE_COUNT] = {0};
+				ssSpo2Samples[SAMPLE_COUNT] = {0};
 				catM1MqttDangerMessage = 0;
 			}
 		}
