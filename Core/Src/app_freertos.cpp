@@ -99,6 +99,9 @@ uint8_t fallCheckFlag = 0;
 uint8_t pressCheckTime = 0;
 uint8_t pressCheckFlag = 0;
 
+uint8_t pressCheckStartTime = 0;
+uint8_t pressCheckStartFlag = 0;
+
 uint8_t catM1MqttDangerMessage = 0;
 
 extern cat_m1_Status_t cat_m1_Status;
@@ -692,7 +695,7 @@ void StartSPMTask(void *argument)
 	bmpAlt = getAltitude(pressure);
 	//PRINT_INFO("bmpAlt >>> %f\r\n",bmpAlt);
 
-	if(pressCheckFlag)
+	if(pressCheckFlag && pressCheckStartFlag)
 	{
 		updateHeightData();
 		pressCheckFlag = 0;
@@ -850,6 +853,12 @@ void StartSecTimerTask(void *argument)
 		{
 			pressCheckFlag = 1;
 			pressCheckTime = 0;
+		}
+		pressCheckStartTime++;
+		if(pressCheckStartTime >= 7)
+		{
+			pressCheckStartFlag = 1;
+			pressCheckStartTime = 0;
 		}
 	}
   }
@@ -1125,7 +1134,7 @@ void updateHeightData()
 	}
 
     height_current = (heights[0] + heights[1] + heights[2] + heights[3] + heights[4]) / 5;
-    //PRINT_INFO("height_current >>> %f\r\n",height_current);
+    PRINT_INFO("height_current >>> %f\r\n",height_current);
 }
 
 void checkFallDetection()
