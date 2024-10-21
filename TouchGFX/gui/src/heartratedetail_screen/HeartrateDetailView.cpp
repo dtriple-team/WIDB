@@ -42,9 +42,26 @@ void HeartrateDetailView::handleSwipeRight() //rkdalfks
 }
 
 #include "bl6133.h"
+#define TICK_UPDATEHR_INTERVAL 60
 extern GESTURE gesture;
+uint32_t frameCountUpdateHrInterval_local;
 void HeartrateDetailView::handleTickEvent(){
 	if(gesture == SlideRight){
 		presenter->notifySwipeRight();
+	}
+
+	frameCountUpdateHrInterval_local++;
+	if(frameCountUpdateHrInterval_local == TICK_UPDATEHR_INTERVAL)
+	{
+		extern uint8_t canDisplayPPG;
+		if(!canDisplayPPG) return;
+
+		canDisplayPPG = 0;
+
+		extern uint16_t ssHr;
+
+		touchgfx::Unicode::snprintf(heartrate_valueBuffer, HEARTRATE_VALUE_SIZE, "%02u", ssHr);
+		heartrate_value.invalidate();
+		frameCountUpdateHrInterval_local = 0;
 	}
 }

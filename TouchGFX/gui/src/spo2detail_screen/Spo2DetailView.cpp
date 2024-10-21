@@ -42,9 +42,26 @@ void Spo2DetailView::handleSwipeRight() //rkdalfks
 }
 
 #include "bl6133.h"
+#define TICK_UPDATESPO2_INTERVAL 60
 extern GESTURE gesture;
+uint32_t frameCountUpdateSpo2Interval_local = 0;
 void Spo2DetailView::handleTickEvent(){
 	if(gesture == SlideRight){
 		presenter->notifySwipeRight();
+	}
+
+	frameCountUpdateSpo2Interval_local++;
+	if(frameCountUpdateSpo2Interval_local == TICK_UPDATESPO2_INTERVAL)
+	{
+		extern uint8_t canDisplayPPG;
+		if(!canDisplayPPG) return;
+
+		canDisplayPPG = 0;
+
+		extern uint16_t ssSpo2;
+
+		touchgfx::Unicode::snprintf(spo2_valueBuffer, SPO2_VALUE_SIZE, "%02u", ssSpo2);
+		spo2_value.invalidate();
+		frameCountUpdateSpo2Interval_local = 0;
 	}
 }
