@@ -41,7 +41,12 @@ extern "C" {
 
 /* Exported constants --------------------------------------------------------*/
 /* USER CODE BEGIN EC */
+
+//Annotation processing is required during initial upload of nRF9160
+//#define nRF9160_initial_upload
+
 #define PRINT_INFO(format, arg...)      printf(format , ## arg)
+
 /* USER CODE END EC */
 
 /* Exported macro ------------------------------------------------------------*/
