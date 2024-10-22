@@ -112,7 +112,6 @@ extern cat_m1_Status_BandAlert_t cat_m1_Status_BandAlert;
 
 #define SAMPLE_COUNT 10
 int scdStateCheckCount = 0;
-int scdStateCheckFlag = 0;
 int ssHrSamples[SAMPLE_COUNT] = {0};
 int ssSpo2Samples[SAMPLE_COUNT] = {0};
 int sampleIndex = 0;
@@ -1130,16 +1129,13 @@ void BandAlert()
 		}
 		if (lcd_ssDataEx.algo.SCDstate == 1 && previousSCDstate != 1)
 		{
-			scdStateCheckFlag = 0;
-			if (cat_m1_Status.gpsChecking)
-			{
-				nrf9160_Stop_gps();
-			}
-
+//			if (cat_m1_Status.gpsChecking)
+//			{
+//				nrf9160_Stop_gps();
+//			}
 			cat_m1_Status_BandAlert.bid = deviceID;
 			cat_m1_Status_BandAlert.type = 3;
 			cat_m1_Status_BandAlert.value = 1;
-			catM1MqttDangerMessage = 1;
 			send_Status_BandAlert(&cat_m1_Status_BandAlert);
 
 			previousSCDstate = 1;
@@ -1150,31 +1146,18 @@ void BandAlert()
 		}
 		if (battVal < 15 && !lowBatteryAlertSent)
 		{
-		    if (cat_m1_Status.gpsChecking)
-		    {
-		        nrf9160_Stop_gps();
-		    }
-
 		    cat_m1_Status_BandAlert.bid = deviceID;
 		    cat_m1_Status_BandAlert.type = 2;
 		    cat_m1_Status_BandAlert.value = 1;
-		    catM1MqttDangerMessage = 1;
 		    send_Status_BandAlert(&cat_m1_Status_BandAlert);
 		    lowBatteryAlertSent = true;
 		}
 		if (battVal < 50 && !lowBatteryAlertSent)
 		{
-		    if (cat_m1_Status.gpsChecking)
-		    {
-		        nrf9160_Stop_gps();
-		    }
-
 		    cat_m1_Status_BandAlert.bid = HAL_GetUIDw2();
 		    cat_m1_Status_BandAlert.type = 6;
 		    cat_m1_Status_BandAlert.value = 1;
-		    catM1MqttDangerMessage = 1;
 		    send_Status_BandAlert(&cat_m1_Status_BandAlert);
-
 		    lowBatteryAlertSent = true;
 		}
 
@@ -1204,14 +1187,7 @@ void BandAlert()
 		        if (lcd_ssDataEx.algo.SCDstate == 3)
 		        {
 		            scdStateCheckCount++;
-		            if (scdStateCheckCount >= 30)
-		            {
-		                if (scdStateCheckFlag == 0)
-		                {
-		                    catM1MqttDangerMessage = 1;
-		                    scdStateCheckFlag = 1;
-		                }
-		            }
+
 		            if (scdStateCheckCount >= 60)
 		            {
 		                if (biosignalAlertSent)
@@ -1232,21 +1208,18 @@ void BandAlert()
 		                    sampleIndex = 0;
 
 		                    scdStateCheckCount = 0;
-		                    scdStateCheckFlag = 0;
 		                }
 		            }
 		        }
 		        else
 		        {
 		            scdStateCheckCount = 0;
-		            scdStateCheckFlag = 0;
 		        }
 		    }
 		    else
 		    {
 		        biosignalAlertSent = false;
 		        scdStateCheckCount = 0;
-		        scdStateCheckFlag = 0;
 		    }
 		}
 	}
