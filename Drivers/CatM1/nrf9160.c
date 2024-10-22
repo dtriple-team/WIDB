@@ -351,11 +351,6 @@ void handle_gps_command(const char *value)
     }
     if (strstr(value, "1,4") != NULL) {
         cat_m1_Status.gpsOff = 0;
-
-        if (gpsDataLength > 10) {
-            strncpy((char *)cat_m1_at_cmd_rst.gps, (const char *)value, sizeof(cat_m1_at_cmd_rst.gps) - 1);
-            cat_m1_at_cmd_rst.gps[sizeof(cat_m1_at_cmd_rst.gps) - 1] = '\0';
-        }
     } else {
         if (gpsDataLength > 10) {
             strncpy((char *)cat_m1_at_cmd_rst.gps, (const char *)value, sizeof(cat_m1_at_cmd_rst.gps) - 1);
