@@ -986,7 +986,7 @@ void StartDATATask(void *argument)
 uint8_t canDisplayPPG = 0;
 uint8_t checkReadStatus = 0;
 
-#define SDC_COUNT 15
+#define SDC_COUNT 20
 
 int scdStateSamples[SDC_COUNT] = {0};
 int scdSampleIndex = 0;
