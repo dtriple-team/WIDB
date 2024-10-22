@@ -353,18 +353,12 @@ void handle_gps_command(const char *value)
     	strncpy((char *)cat_m1_at_cmd_rst.gps, (const char *)value, sizeof(cat_m1_at_cmd_rst.gps) - 1);
     	cat_m1_at_cmd_rst.gps[sizeof(cat_m1_at_cmd_rst.gps) - 1] = '\0';
 
-		char altitudeValue[20];
+    	char altitudeValue[20];
 
-		sscanf(cat_m1_at_cmd_rst.gps, "%*[^,],%*[^,],%19[^,]", altitudeValue);
+    	sscanf((char *)cat_m1_at_cmd_rst.gps, "%*[^,],%*[^,],%19[^,]", altitudeValue);
 
-		char *dot = strchr(altitudeValue, '.');
-		if (dot) {
-			*dot = '\0';
-		}
-
-		uint32_t altitude_uint = (uint32_t)atoi(altitudeValue);
-
-		cat_m1_at_cmd_rst.altitude = altitude_uint;
+    	int altitude_int = (int)atof(altitudeValue);
+    	cat_m1_at_cmd_rst.altitude = altitude_int;
     	cat_m1_Status.gpsOff = 1;
     }
     else if (strstr(value, "1,3") != NULL || strstr(value, "0,0") != NULL)
@@ -757,14 +751,14 @@ void send_Status_Band(cat_m1_Status_Band_t *status)
             "\"y\": 0,"
             "\"z\": 0,"
             "\"t\": %u,"
-            "\"h\": %u"
+            "\"h\": %d"
         "},"
         "\"rssi\": %d"
         "}+++\r\n",
 		(unsigned int)status->bid, status->pid, status->start_byte,
         status->battery_level, status->hr, status->spo2,
         status->motionFlag, status->scdState, status->activity,
-		(unsigned int)status->walk_steps, (unsigned int)status->run_steps, (unsigned int)status->temperature, (unsigned int)status->pres, status->rssi
+		(unsigned int)status->walk_steps, (unsigned int)status->run_steps, (unsigned int)status->temperature, status->pres, status->rssi
     );
 
 //    if (send_at_command(NEW_BAND_TOPIC))
@@ -908,7 +902,7 @@ void send_Status_IMU(cat_m1_Status_IMU_t* imu_data)
 	cat_m1_Status.mqttChecking = 1;
     char mqtt_data[1024];
 
-    snPRINT_INFO(mqtt_data, sizeof(mqtt_data),
+    snprintf(mqtt_data, sizeof(mqtt_data),
     	"{\"extAddress\": {\"low\": %u, \"high\": 0},"
         "\"acc_x\": %d,"
         "\"acc_y\": %d,"

@@ -498,8 +498,6 @@ void StartWPMTask(void *argument)
 			};
 			send_Status_Band(&cat_m1_Status_Band);
 
-			PRINT_INFO("altitude >>> %u\r\n",cat_m1_at_cmd_rst.altitude);
-
 			if (strlen((const char*)cat_m1_at_cmd_rst.gps))
 			{
 				cat_m1_Status_GPS_Location_t location;

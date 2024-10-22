@@ -106,7 +106,7 @@ typedef struct {
   uint8_t networkinfo[180];
   uint8_t cesq[100];
   uint8_t gps[100];
-  uint32_t altitude;
+  int altitude;
   uint8_t time[100];
   int  rssi;
 } cat_m1_at_cmd_rst_t;
@@ -124,7 +124,7 @@ typedef struct {
   uint32_t walk_steps;
   uint32_t run_steps;
   uint32_t temperature;
-  uint32_t pres;
+  int pres;
   uint8_t battery_level;
 } cat_m1_Status_Band_t;
 
