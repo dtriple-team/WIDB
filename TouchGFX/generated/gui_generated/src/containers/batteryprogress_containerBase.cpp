@@ -23,6 +23,10 @@ batteryprogress_containerBase::batteryprogress_containerBase()
     chargingIMG.setVisible(false);
     add(chargingIMG);
 
+    extern uint8_t battVal;
+    batteryprogress.setValue(battVal);
+	extern bool isCharging;
+	chargingIMG.setVisible(isCharging);
 }
 
 batteryprogress_containerBase::~batteryprogress_containerBase()

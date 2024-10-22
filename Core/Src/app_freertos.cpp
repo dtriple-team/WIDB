@@ -1019,9 +1019,11 @@ int scdSampleIndex = 0;
 
 void read_ppg()
 {
-	// skin detect -> 1min interval check
-	// if detect => run ppg 1min
-	// else => sleep ppg 1min
+	// if move detect => detect count = 25
+	// else => return
+
+	// if detect count == 0 => return
+	// else => ppg read, detectCount--
 
 //	if(canDisplayPPG) return; // full buffer => can display UI // occur timing problem
 
