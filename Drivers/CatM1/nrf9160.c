@@ -425,7 +425,9 @@ void nrf9160_ready(void)
                     PRINT_INFO("Error count exceeded. Initialization failed.\n");
                     //currentWpmState = WPM_INIT_COMPLETE;
                     uart_init();
+#if !defined(nRF9160_initial_upload)
                     catM1Reset();
+#endif
                 }
             }
             else

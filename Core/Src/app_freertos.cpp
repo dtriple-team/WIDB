@@ -746,7 +746,9 @@ void StartSecTimerTask(void *argument)
 		}
 		else if(UartRxRetryTime > 10)
 		{
+#if !defined(nRF9160_initial_upload)
 			catM1Reset();
+#endif
 			UartRxRetryTime = 0;
 			cat_m1_Status.txflag = 0;
 		}
