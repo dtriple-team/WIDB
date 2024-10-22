@@ -417,7 +417,8 @@ void StartWPMTask(void *argument)
 		osDelay(10);
 	}
 	// device ID init (ST UID)
-	deviceID = HAL_GetUIDw1();
+	//deviceID = HAL_GetUIDw2();
+	//PRINT_INFO("deviceID >>> %u\r\n",deviceID);
 
 	// UART INT INIT, buffer init
 	nrf9160_init();
@@ -449,6 +450,12 @@ void StartWPMTask(void *argument)
 	if(wpmInitializationFlag && cat_m1_Status.Checked == 0)
 	{
 		nrf9160_check();
+		char iccid9[11];
+		strncpy(iccid9, (char*)&cat_m1_at_cmd_rst.iccid[12], 9);
+		iccid9[9] = '\0';
+		deviceID = (uint32_t)strtol(iccid9, NULL, 10);
+
+		//PRINT_INFO("deviceID >>> %u\r\n", (unsigned int)deviceID);
 	}
 	if(wpmInitializationFlag && cat_m1_Status.Checked == 1)
 	{

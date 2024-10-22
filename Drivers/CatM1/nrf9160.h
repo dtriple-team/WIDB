@@ -64,7 +64,7 @@ typedef enum {
 #define MAX_PARAMS_LEN 100
 #define MAX_RESPONSE_LEN 256
 
-#define ICCID_LEN 20
+#define ICCID_LEN 21
 
 #define CAT_M1_UART_BUF_SIZE 512
 

@@ -17,7 +17,7 @@ void networkInfoSettingView::setupScreen()
     networkInfoSettingViewBase::setupScreen();
 
     char imei[6];
-    char iccid[20];
+    char iccid[21];
 
     extern cat_m1_at_cmd_rst_t cat_m1_at_cmd_rst;
     sprintf(imei, "%.5s", &(cat_m1_at_cmd_rst.cops[6]));
