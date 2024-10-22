@@ -462,6 +462,11 @@ void StartWPMTask(void *argument)
 			//nrf9160_Get_gps_State();
 			//test_send_json_publish();
 
+			strncpy((char*)cat_m1_at_cmd_rst.gps,
+						        "36.106335,128.384310,119.546387,7.287167,0.220983,0.000000,2024-09-25 08:33:25",
+						        sizeof(cat_m1_at_cmd_rst.gps) - 1);
+						cat_m1_at_cmd_rst.gps[sizeof(cat_m1_at_cmd_rst.gps) - 1] = '\0';
+
 			cat_m1_Status_Band_t cat_m1_Status_Band =
 			{
 				.bid = deviceID,
@@ -481,6 +486,8 @@ void StartWPMTask(void *argument)
 			};
 			send_Status_Band(&cat_m1_Status_Band);
 
+			//PRINT_INFO("altitude >>> %u\r\n",cat_m1_at_cmd_rst.altitude);
+
 			if(-95 <= cat_m1_Status_Band.rssi){
 				lteRSSI_0_4 = 4;
 			} else if(-105 <= cat_m1_Status_Band.rssi && cat_m1_Status_Band.rssi < -95) {
@@ -492,11 +499,6 @@ void StartWPMTask(void *argument)
 			} else {
 				lteRSSI_0_4 = 0;
 			}
-
-			strncpy((char*)cat_m1_at_cmd_rst.gps,
-						        "36.106335,128.384310,119.546387,7.287167,0.220983,0.000000,2024-09-25 08:33:25",
-						        sizeof(cat_m1_at_cmd_rst.gps) - 1);
-						cat_m1_at_cmd_rst.gps[sizeof(cat_m1_at_cmd_rst.gps) - 1] = '\0';
 
 			if (strlen((const char*)cat_m1_at_cmd_rst.gps))
 			{

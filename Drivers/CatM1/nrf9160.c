@@ -353,12 +353,18 @@ void handle_gps_command(const char *value)
     	strncpy((char *)cat_m1_at_cmd_rst.gps, (const char *)value, sizeof(cat_m1_at_cmd_rst.gps) - 1);
     	cat_m1_at_cmd_rst.gps[sizeof(cat_m1_at_cmd_rst.gps) - 1] = '\0';
 
-    	char altitudeValue[20];
-    	sscanf(value, "%*[^,],%*[^,],%[^,]", altitudeValue);
+		char altitudeValue[20];
 
-    	uint32_t altitude_uint = (uint32_t)atoi(altitudeValue);
+		sscanf(cat_m1_at_cmd_rst.gps, "%*[^,],%*[^,],%19[^,]", altitudeValue);
 
-    	cat_m1_at_cmd_rst.altitude = altitude_uint;
+		char *dot = strchr(altitudeValue, '.');
+		if (dot) {
+			*dot = '\0';
+		}
+
+		uint32_t altitude_uint = (uint32_t)atoi(altitudeValue);
+
+		cat_m1_at_cmd_rst.altitude = altitude_uint;
     	cat_m1_Status.gpsOff = 1;
     }
     else if (strstr(value, "1,3") != NULL || strstr(value, "0,0") != NULL)
@@ -761,11 +767,11 @@ void send_Status_Band(cat_m1_Status_Band_t *status)
 		(unsigned int)status->walk_steps, (unsigned int)status->run_steps, (unsigned int)status->temperature, (unsigned int)status->pres, status->rssi
     );
 
-//    if (send_at_command("AT#XMQTTPUB=\"/DT/eHG4/Status/Band\"\r\n"))
+//    if (send_at_command(NEW_BAND_TOPIC))
 //    {
 //        PRINT_INFO("AT command sent successfully.\n");
 //    }
-    if (send_at_command("AT#XMQTTPUB=\"/efwb/post/sync\"\r\n"))
+    if (send_at_command(OLD_BAND_TOPIC))
     {
         PRINT_INFO("AT command sent successfully.\n");
     }
@@ -803,11 +809,11 @@ void send_Status_BandAlert(cat_m1_Status_BandAlert_t* alertData)
 		"}+++\r\n",
 		(unsigned int)alertData->bid, alertData->type, alertData->value);
 
-//    if (send_at_command("AT#XMQTTPUB=\"/DT/eHG4/Status/BandAlert\"\r\n"))
+//    if (send_at_command(NEW_BANDALERT_TOPIC))
 //    {
 //        PRINT_INFO("AT command sent successfully.\n");
 //    }
-	if (send_at_command("AT#XMQTTPUB=\"/efwb/post/async\"\r\n"))
+	if (send_at_command(OLD_BANDALERT_TOPIC))
 	{
 		PRINT_INFO("AT command sent successfully.\n");
 	}
@@ -839,11 +845,11 @@ void send_Status_FallDetection(cat_m1_Status_FallDetection_t* fallData)
     	"}+++\r\n",
 		(unsigned int)fallData->bid, fallData->type, fallData->fall_detect);
 
-//    if (send_at_command("AT#XMQTTPUB=\"/DT/eHG4/Status/FallDetection\"\r\n"))
+//    if (send_at_command(NEW_FALLDETECTION_TOPIC))
 //    {
 //        PRINT_INFO("AT command sent successfully.\n");
 //    }
-	if (send_at_command("AT#XMQTTPUB=\"/efwb/post/async\"\r\n"))
+	if (send_at_command(OLD_FALLDETECTION_TOPIC))
 	{
 		PRINT_INFO("AT command sent successfully.\n");
 	}

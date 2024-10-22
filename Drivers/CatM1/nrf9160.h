@@ -14,10 +14,19 @@
 #include "cmsis_os2.h"
 
 // MQTT Topic
+#define NEW_BAND_TOPIC "AT#XMQTTPUB=\"/DT/eHG4/Status/Band\"\r\n"
+#define	OLD_BAND_TOPIC "AT#XMQTTPUB=\"/efwb/post/sync\"\r\n"
+
+#define NEW_BANDALERT_TOPIC "AT#XMQTTPUB=\"/DT/eHG4/Status/BandAlert\"\r\n"
+#define OLD_BANDALERT_TOPIC "AT#XMQTTPUB=\"/efwb/post/async\"\r\n"
+
+#define NEW_FALLDETECTION_TOPIC "AT#XMQTTPUB=\"/DT/eHG4/Status/FallDetection\"\r\n"
+#define OLD_FALLDETECTION_TOPIC "AT#XMQTTPUB=\"/efwb/post/async\"\r\n"
+
 #define IMU_TOPIC 			"AT#XMQTTPUB=\"/DT/eHG4/Status/IMU\"\r\n"
+#define GPS_LOCATION_TOPIC	"AT#XMQTTPUB=\"/DT/eHG4/GPS/Location\"\r\n"
 #define SUB_STATUS_BANDSET 	"AT#XMQTTSUB=\"/DT/eHG4/Status/BandSet\",0\r\n"
 #define SUB_SERVER_ALERT	"AT#XMQTTSUB=\"/DT/eHG4/Status/ServerAlert\",0\r\n"
-#define GPS_LOCATION_TOPIC	"AT#XMQTTPUB=\"/DT/eHG4/GPS/Location\"\r\n"
 
 typedef enum {
     WPM_INIT_CHECK,
