@@ -1203,7 +1203,7 @@ void BandAlert()
 		        {
 		            scdStateCheckCount++;
 
-		            if (scdStateCheckCount >= 30)
+		            if (scdStateCheckCount >= 60)
 		            {
 		                if (biosignalAlertSent)
 		                {
