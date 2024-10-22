@@ -219,7 +219,7 @@ uint8_t lcdInitFlag = 0;
 
 double test_mag_data[15] = {0,};
 uint8_t set_bLevel = 7; // GUI val ?��?��
-uint8_t before_bLevel = 0;
+uint8_t before_bLevel = set_bLevel;
 uint8_t flashlightOn = 0;
 
 uint8_t lteRSSI_0_4 = 0; // CATM1 signal RSSI 0 to 4 value
@@ -456,7 +456,7 @@ void StartWPMTask(void *argument)
 
 		deviceID = (uint32_t)strtol(iccid9, NULL, 10);
 
-		PRINT_INFO("deviceID >>> %u\r\n", (unsigned int)deviceID);
+		// PRINT_INFO("deviceID >>> %u\r\n", (unsigned int)deviceID);
 	}
 	if(wpmInitializationFlag && cat_m1_Status.Checked == 1)
 	{
