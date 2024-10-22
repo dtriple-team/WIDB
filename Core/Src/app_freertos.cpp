@@ -129,7 +129,7 @@ float deltaAlt = 0;
 uint16_t curr_height = 0;
 int height_num = 0;
 
-float falling_threshold = -0.39; // 낙상 판별 기준 높이 차이
+float falling_threshold = -0.35; // 낙상 판별 기준 높이 차이
 
 uint8_t ssSCD = 0;
 uint16_t ssHr = 0;
