@@ -140,6 +140,7 @@ uint32_t press = 0;
 uint8_t battVal = 0;
 
 uint8_t hapticFlag = 1;
+uint8_t beforeHaptic = hapticFlag;
 uint8_t soundFlag = 1;
 
 uint32_t deviceID = 0;
@@ -337,6 +338,12 @@ void StartInitTask(void *argument)
 				runHaptic(20, 500, 3);
 			}
 			brightness_count = 0; // lcd backlight count reset
+		}
+		if(beforeHaptic != hapticFlag){ // toggle haptic BTN
+			beforeHaptic = hapticFlag;
+			if(hapticFlag == 1){
+				runHaptic(20, 500, 1);
+			}
 		}
 		osDelay(1000);
 	}
