@@ -1129,7 +1129,7 @@ void checkFallDetection()
     float diff = min_height - height_current;
     PRINT_INFO("Height diff: %f - %f = %f[m]\r\n", min_height, height_current, diff);
 
-    if (diff < falling_threshold)
+    if (diff > falling_threshold)
     {
     	PRINT_INFO("Fall detected!\r\n");
 		cat_m1_Status_FallDetection.bid = deviceID;
