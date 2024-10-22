@@ -10,6 +10,8 @@ public:
     virtual ~batteryprogress_container() {}
 
     virtual void initialize();
+
+    virtual void handleTickEvent();
 protected:
 };
 

@@ -345,7 +345,7 @@ void StartInitTask(void *argument)
 				runHaptic(20, 500, 1);
 			}
 		}
-		osDelay(1000);
+		osDelay(100);
 	}
 
 //	// finish Task
