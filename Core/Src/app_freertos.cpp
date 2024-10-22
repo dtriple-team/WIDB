@@ -1174,7 +1174,7 @@ void BandAlert()
 				catM1MqttDangerMessage = 1;
 				send_Status_FallDetection(&cat_m1_Status_FallDetection);
 
-				ST7789_brightness_setting(set_bLevel);
+				ST7789_brightness_setting(before_bLevel);
 		    	myTempHomeView.changeToHomeScreen();
 		}
 		if (cat_m1_Status.InitialLoad && previousRSSIstate != 1)
