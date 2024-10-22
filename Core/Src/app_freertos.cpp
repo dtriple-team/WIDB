@@ -474,6 +474,7 @@ void StartWPMTask(void *argument)
 			nrf9160_Get_rssi();
 
 			if(-95 <= cat_m1_Status_Band.rssi){
+				previousRSSIstate = 0;
 				lteRSSI_0_4 = 4;
 			} else if(-105 <= cat_m1_Status_Band.rssi && cat_m1_Status_Band.rssi < -95) {
 				previousRSSIstate = 0;

@@ -344,24 +344,20 @@ void handle_cesq_command(const char *value)
 
 void handle_gps_command(const char *value)
 {
+	int gpsDataLength = strlen(value);
     if (strstr(value, "1,1") != NULL)
     {
         cat_m1_Status.gpsOn = 1;
     }
-    else if (strstr(value, "1,4") != NULL)
-    {
-    	strncpy((char *)cat_m1_at_cmd_rst.gps, (const char *)value, sizeof(cat_m1_at_cmd_rst.gps) - 1);
-    	cat_m1_at_cmd_rst.gps[sizeof(cat_m1_at_cmd_rst.gps) - 1] = '\0';
-
-    	char altitudeValue[20];
-
-    	sscanf((char *)cat_m1_at_cmd_rst.gps, "%*[^,],%*[^,],%19[^,]", altitudeValue);
-
-    	int altitude_int = (int)atof(altitudeValue);
-    	cat_m1_at_cmd_rst.altitude = altitude_int;
-    	cat_m1_Status.gpsOff = 1;
+    if (strstr(value, "1,4") != NULL) {
+        cat_m1_Status.gpsOff = 0;
+    } else {
+        if (gpsDataLength > 10) {
+            strncpy((char *)cat_m1_at_cmd_rst.gps, (const char *)value, sizeof(cat_m1_at_cmd_rst.gps) - 1);
+            cat_m1_at_cmd_rst.gps[sizeof(cat_m1_at_cmd_rst.gps) - 1] = '\0';
+        }
     }
-    else if (strstr(value, "1,3") != NULL || strstr(value, "0,0") != NULL)
+    if (strstr(value, "1,3") != NULL || strstr(value, "0,0") != NULL)
     {
     	cat_m1_Status.gpsOff = 1;
     }
