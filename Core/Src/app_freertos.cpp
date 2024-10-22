@@ -986,7 +986,7 @@ void StartDATATask(void *argument)
 uint8_t canDisplayPPG = 0;
 uint8_t checkReadStatus = 0;
 
-#define SDC_COUNT 20
+#define SDC_COUNT 10
 
 int scdStateSamples[SDC_COUNT] = {0};
 int scdSampleIndex = 0;
@@ -1015,14 +1015,14 @@ void read_ppg()
 	memcpy(&lcd_ssDataEx, ssDataEx, sizeof(ssDataEx_format));
 
 	scdStateSamples[scdSampleIndex] = lcd_ssDataEx.algo.SCDstate;
-	scdSampleIndex = (scdSampleIndex + 1) % SAMPLE_COUNT;
+	scdSampleIndex = (scdSampleIndex + 1) % SDC_COUNT;
 
 	int scdStateSum = 0;
-	for (int i = 0; i < SAMPLE_COUNT; i++)
+	for (int i = 0; i < SDC_COUNT; i++)
 	{
 		scdStateSum += scdStateSamples[i];
 	}
-	int scdStateAvg = scdStateSum / SAMPLE_COUNT;
+	int scdStateAvg = scdStateSum / SDC_COUNT;
 
 	if (scdStateAvg == 3)
 	{
