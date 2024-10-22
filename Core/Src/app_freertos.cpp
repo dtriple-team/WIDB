@@ -130,6 +130,7 @@ int height_num = 0;
 
 float falling_threshold = -0.39; // 낙상 판별 기준 높이 차이
 
+uint8_t ssSCD = 0;
 uint16_t ssHr = 0;
 uint16_t ssSpo2 = 0;
 uint32_t ssWalk = 0;
@@ -488,7 +489,7 @@ void StartWPMTask(void *argument)
 				.hr = ssHr,
 				.spo2 = ssSpo2,
 				.motionFlag = lcd_ssDataEx.algo.spo2MotionFlag,
-				.scdState = lcd_ssDataEx.algo.SCDstate,
+				.scdState = ssSCD,
 				.activity = lcd_ssDataEx.algo.activity,
 				.walk_steps = ssWalk,
 				.run_steps = 0,
@@ -984,6 +985,12 @@ void StartDATATask(void *argument)
 
 uint8_t canDisplayPPG = 0;
 uint8_t checkReadStatus = 0;
+
+#define SDC_COUNT 15
+
+int scdStateSamples[SDC_COUNT] = {0};
+int scdSampleIndex = 0;
+
 void read_ppg()
 {
 //	if(canDisplayPPG) return; // full buffer => can display UI // occur timing problem
@@ -1007,10 +1014,32 @@ void read_ppg()
 
 	memcpy(&lcd_ssDataEx, ssDataEx, sizeof(ssDataEx_format));
 
-	if(lcd_ssDataEx.algo.SCDstate == 3){
-		ssHr = lcd_ssDataEx.algo.hr/10;
-		ssSpo2 = lcd_ssDataEx.algo.spo2/10;
-	} else {
+	scdStateSamples[scdSampleIndex] = lcd_ssDataEx.algo.SCDstate;
+	scdSampleIndex = (scdSampleIndex + 1) % SAMPLE_COUNT;
+
+	int scdStateSum = 0;
+	for (int i = 0; i < SAMPLE_COUNT; i++)
+	{
+		scdStateSum += scdStateSamples[i];
+	}
+	int scdStateAvg = scdStateSum / SAMPLE_COUNT;
+
+	if (scdStateAvg == 3)
+	{
+		ssSCD = 3;
+		ssHr = lcd_ssDataEx.algo.hr / 10;
+		ssSpo2 = lcd_ssDataEx.algo.spo2 / 10;
+	}
+	else if (scdStateAvg == 2)
+	{
+		ssSCD = 2;
+	}
+	else if (scdStateAvg == 1)
+	{
+		ssSCD = 1;
+	}
+	else
+	{
 		ssHr = 0;
 		ssSpo2 = 0;
 	}
@@ -1127,7 +1156,7 @@ void BandAlert()
 
 		    	myTempHomeView.changeToHomeScreen();
 		}
-		if (lcd_ssDataEx.algo.SCDstate == 1 && previousSCDstate != 1)
+		if (ssSCD == 1 && previousSCDstate != 1)
 		{
 //			if (cat_m1_Status.gpsChecking)
 //			{
@@ -1140,9 +1169,9 @@ void BandAlert()
 
 			previousSCDstate = 1;
 		}
-		else if (lcd_ssDataEx.algo.SCDstate == 2 || lcd_ssDataEx.algo.SCDstate == 3)
+		else if (ssSCD == 2 || ssSCD == 3)
 		{
-			previousSCDstate = lcd_ssDataEx.algo.SCDstate;
+			previousSCDstate = ssSCD;
 		}
 		if (battVal < 15 && !lowBatteryAlertSent)
 		{
@@ -1165,7 +1194,7 @@ void BandAlert()
 		{
 		    lowBatteryAlertSent = false;
 		}
-		if (lcd_ssDataEx.algo.SCDstate == 3 || biosignalAlertSent)
+		if (ssSCD == 3 || biosignalAlertSent)
 		{
 		    if (ssHr < 60 || ssHr > 100 || ssSpo2 < 95)
 		    {
@@ -1184,7 +1213,7 @@ void BandAlert()
 		            }
 		        }
 
-		        if (lcd_ssDataEx.algo.SCDstate == 3)
+		        if (ssSCD == 3)
 		        {
 		            scdStateCheckCount++;
 
