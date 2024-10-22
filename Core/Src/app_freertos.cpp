@@ -493,10 +493,10 @@ void StartWPMTask(void *argument)
 				lteRSSI_0_4 = 0;
 			}
 
-			strncpy((char*)cat_m1_at_cmd_rst.gps,
-						        "36.106335,128.384310,119.546387,7.287167,0.220983,0.000000,2024-09-25 08:33:25",
-						        sizeof(cat_m1_at_cmd_rst.gps) - 1);
-						cat_m1_at_cmd_rst.gps[sizeof(cat_m1_at_cmd_rst.gps) - 1] = '\0';
+//			strncpy((char*)cat_m1_at_cmd_rst.gps,
+//						        "36.106335,128.384310,119.546387,7.287167,0.220983,0.000000,2024-09-25 08:33:25",
+//						        sizeof(cat_m1_at_cmd_rst.gps) - 1);
+//						cat_m1_at_cmd_rst.gps[sizeof(cat_m1_at_cmd_rst.gps) - 1] = '\0';
 
 			if (strlen((const char*)cat_m1_at_cmd_rst.gps))
 			{
@@ -1180,7 +1180,7 @@ void BandAlert()
 		{
 		    lowBatteryAlertSent = false;
 		}
-		if ((lcd_ssDataEx.algo.SCDstate == 3 || lcd_ssDataEx.algo.SCDstate == 2) || biosignalAlertSent)
+		if (lcd_ssDataEx.algo.SCDstate == 3 || biosignalAlertSent)
 		{
 			if (ssHr < 60 || ssHr > 100 || ssSpo2 < 95)
 			{
@@ -1212,6 +1212,9 @@ void BandAlert()
 					catM1MqttDangerMessage = 1;
 					send_Status_BandAlert(&cat_m1_Status_BandAlert);
 					biosignalAlertSent = false;
+					ssHrSamples[SAMPLE_COUNT] = {0};
+					ssSpo2Samples[SAMPLE_COUNT] = {0};
+					sampleIndex = 0;
 				}
 		    }
 		}
