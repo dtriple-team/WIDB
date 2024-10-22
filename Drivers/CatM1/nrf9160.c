@@ -20,7 +20,7 @@ cat_m1_Status_t cat_m1_Status;
 uart_cat_m1_t uart_cat_m1_rx;
 cat_m1_at_cmd_rst_t cat_m1_at_cmd_rst;
 cat_m1_Status_Band_t cat_m1_Status_Band;
-cat_m1_Status_BandAler_t cat_m1_Status_BandAler;
+cat_m1_Status_BandAlert_t cat_m1_Status_BandAlert;
 cat_m1_Status_FallDetection_t cat_m1_Status_FallDetection;
 cat_m1_Status_GPS_Location_t cat_m1_Status_GPS_Location;
 cat_m1_Status_IMU_t cat_m1_Status_IMU;
@@ -395,7 +395,7 @@ void nrf9160_clear_buf()
 	memset(&cat_m1_at_cmd_rst, 0, sizeof(cat_m1_at_cmd_rst));
 	memset(&uart_cat_m1_buf, 0, sizeof(uart_cat_m1_buf));
 	memset(&cat_m1_Status_Band, 0, sizeof(cat_m1_Status_Band));
-	memset(&cat_m1_Status_BandAler, 0, sizeof(cat_m1_Status_BandAler));
+	memset(&cat_m1_Status_BandAlert, 0, sizeof(cat_m1_Status_BandAlert));
 	memset(&cat_m1_Status_FallDetection, 0, sizeof(cat_m1_Status_FallDetection));
 	memset(&cat_m1_Status_GPS_Location, 0, sizeof(cat_m1_Status_GPS_Location));
 	memset(&cat_m1_Status_IMU, 0, sizeof(cat_m1_Status_IMU));
@@ -777,7 +777,7 @@ void send_Status_Band(cat_m1_Status_Band_t *status)
     cat_m1_Status.mqttChecking = 0;
 }
 
-void send_Status_BandAlert(cat_m1_Status_BandAler_t* alertData)
+void send_Status_BandAlert(cat_m1_Status_BandAlert_t* alertData)
 {
 	cat_m1_Status.mqttChecking = 1;
     char mqtt_data[1024];

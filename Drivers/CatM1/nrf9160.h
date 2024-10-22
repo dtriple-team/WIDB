@@ -124,7 +124,7 @@ typedef struct {
 //  uint8_t spo2_alert;
   uint8_t type;
   uint8_t value;
-} cat_m1_Status_BandAler_t;
+} cat_m1_Status_BandAlert_t;
 
 typedef struct {
   uint32_t bid;
@@ -215,7 +215,7 @@ void nrf9160_mqtt_setting();
 void nrf9160_mqtt_test();
 void test_send_json_publish();
 void send_Status_Band(cat_m1_Status_Band_t *status);
-void send_Status_BandAlert(cat_m1_Status_BandAler_t* alertData);
+void send_Status_BandAlert(cat_m1_Status_BandAlert_t* alertData);
 void send_Status_FallDetection(cat_m1_Status_FallDetection_t* fallData);
 void send_GPS_Location(cat_m1_Status_GPS_Location_t* location);
 void send_Status_IMU(cat_m1_Status_IMU_t* imu_data);

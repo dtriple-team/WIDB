@@ -108,7 +108,7 @@ extern cat_m1_Status_t cat_m1_Status;
 extern cat_m1_Status_Band_t cat_m1_Status_Band;
 extern cat_m1_at_cmd_rst_t cat_m1_at_cmd_rst;
 extern cat_m1_Status_FallDetection_t cat_m1_Status_FallDetection;
-extern cat_m1_Status_BandAler_t cat_m1_Status_BandAler;
+extern cat_m1_Status_BandAlert_t cat_m1_Status_BandAlert;
 
 #define SAMPLE_COUNT 10
 
@@ -203,6 +203,11 @@ const osThreadAttr_t dataTask_attributes = {
 
 /* Private function prototypes -----------------------------------------------*/
 /* USER CODE BEGIN FunctionPrototypes */
+void read_ppg();
+double getAltitude(double pressure_hPa);
+void updateHeightData();
+void checkFallDetection();
+void BandAlert();
 extern void touchgfxSignalVSync(void);
 uint8_t ssRunFlag = 0;
 uint8_t initFlag = 0;
@@ -537,110 +542,7 @@ void StartWPMTask(void *argument)
 	if(initFlag){
 
 	}
-	//BandAlert
-	if(cat_m1_Status.mqttSubscribeStatus == 2)
-	{
-		if (fallCheckFlag == 1)
-		{
-			fallCheckFlag = 0;
-			if(cat_m1_Status.gpsChecking)
-			{
-				nrf9160_Stop_gps();
-			}
-				catM1MqttDangerMessage = 1;
-				send_Status_FallDetection(&cat_m1_Status_FallDetection);
-
-		    	myTempHomeView.changeToHomeScreen();
-		}
-		if (lcd_ssDataEx.algo.SCDstate == 1 && previousSCDstate != 1)
-		{
-			if (cat_m1_Status.gpsChecking)
-			{
-				nrf9160_Stop_gps();
-			}
-
-			cat_m1_Status_BandAler.bid = deviceID;
-			cat_m1_Status_BandAler.type = 3;
-			cat_m1_Status_BandAler.value = 1;
-			catM1MqttDangerMessage = 1;
-			send_Status_BandAlert(&cat_m1_Status_BandAler);
-
-			previousSCDstate = 1;
-		}
-		else if (lcd_ssDataEx.algo.SCDstate == 2 || lcd_ssDataEx.algo.SCDstate == 3)
-		{
-			previousSCDstate = lcd_ssDataEx.algo.SCDstate;
-		}
-		if (battVal < 15 && !lowBatteryAlertSent)
-		{
-		    if (cat_m1_Status.gpsChecking)
-		    {
-		        nrf9160_Stop_gps();
-		    }
-
-		    cat_m1_Status_BandAler.bid = deviceID;
-		    cat_m1_Status_BandAler.type = 2;
-		    cat_m1_Status_BandAler.value = 1;
-		    catM1MqttDangerMessage = 1;
-		    send_Status_BandAlert(&cat_m1_Status_BandAler);
-		    lowBatteryAlertSent = true;
-		}
-		if (battVal < 50 && !lowBatteryAlertSent)
-		{
-		    if (cat_m1_Status.gpsChecking)
-		    {
-		        nrf9160_Stop_gps();
-		    }
-
-		    cat_m1_Status_BandAler.bid = HAL_GetUIDw2();
-		    cat_m1_Status_BandAler.type = 6;
-		    cat_m1_Status_BandAler.value = 1;
-		    catM1MqttDangerMessage = 1;
-		    send_Status_BandAlert(&cat_m1_Status_BandAler);
-
-		    lowBatteryAlertSent = true;
-		}
-
-		if (battVal >= 16 || battVal >= 51)
-		{
-		    lowBatteryAlertSent = false;
-		}
-		if ((lcd_ssDataEx.algo.SCDstate == 3 || lcd_ssDataEx.algo.SCDstate == 2) || biosignalAlertSent)
-		{
-			if (ssHr < 60 || ssHr > 100 || ssSpo2 < 95)
-			{
-				ssHrSamples[sampleIndex] = ssHr;
-				ssSpo2Samples[sampleIndex] = ssSpo2;
-				sampleIndex = (sampleIndex + 1) % SAMPLE_COUNT;
-
-				biosignalAlertSent = true;
-				for (int i = 0; i < SAMPLE_COUNT; i++)
-				{
-					if ((ssHrSamples[i] >= 60 && ssHrSamples[i] <= 100) ||
-						(ssSpo2Samples[i] >= 95 && ssSpo2Samples[i] <= 100))
-					{
-						biosignalAlertSent = false;
-						break;
-					}
-				}
-
-				if (biosignalAlertSent)
-				{
-					if (cat_m1_Status.gpsChecking)
-					{
-						nrf9160_Stop_gps();
-					}
-
-					cat_m1_Status_BandAler.bid = deviceID;
-					cat_m1_Status_BandAler.type = 5;
-					cat_m1_Status_BandAler.value = 1;
-					catM1MqttDangerMessage = 1;
-					send_Status_BandAlert(&cat_m1_Status_BandAler);
-					biosignalAlertSent = false;
-				}
-		    }
-		}
-	}
+	BandAlert();
 	osDelay(10);
   }
   /* USER CODE END wpmTask */
@@ -652,10 +554,7 @@ void StartWPMTask(void *argument)
 * @param argument: Not used
 * @retval None
 */
-void read_ppg();
-double getAltitude(double pressure_hPa);
-void updateHeightData();
-void checkFallDetection();
+
 /* USER CODE END Header_StartSPMTask */
 void StartSPMTask(void *argument)
 {
@@ -1208,6 +1107,113 @@ void checkFallDetection()
     {
         heights[i] = min_height;
     }
+}
+
+void BandAlert()
+{
+	if(cat_m1_Status.mqttSubscribeStatus == 2)
+	{
+		if (fallCheckFlag == 1)
+		{
+			fallCheckFlag = 0;
+			if(cat_m1_Status.gpsChecking)
+			{
+				nrf9160_Stop_gps();
+			}
+				catM1MqttDangerMessage = 1;
+				send_Status_FallDetection(&cat_m1_Status_FallDetection);
+
+		    	myTempHomeView.changeToHomeScreen();
+		}
+		if (lcd_ssDataEx.algo.SCDstate == 1 && previousSCDstate != 1)
+		{
+			if (cat_m1_Status.gpsChecking)
+			{
+				nrf9160_Stop_gps();
+			}
+
+			cat_m1_Status_BandAlert.bid = deviceID;
+			cat_m1_Status_BandAlert.type = 3;
+			cat_m1_Status_BandAlert.value = 1;
+			catM1MqttDangerMessage = 1;
+			send_Status_BandAlert(&cat_m1_Status_BandAlert);
+
+			previousSCDstate = 1;
+		}
+		else if (lcd_ssDataEx.algo.SCDstate == 2 || lcd_ssDataEx.algo.SCDstate == 3)
+		{
+			previousSCDstate = lcd_ssDataEx.algo.SCDstate;
+		}
+		if (battVal < 15 && !lowBatteryAlertSent)
+		{
+		    if (cat_m1_Status.gpsChecking)
+		    {
+		        nrf9160_Stop_gps();
+		    }
+
+		    cat_m1_Status_BandAlert.bid = deviceID;
+		    cat_m1_Status_BandAlert.type = 2;
+		    cat_m1_Status_BandAlert.value = 1;
+		    catM1MqttDangerMessage = 1;
+		    send_Status_BandAlert(&cat_m1_Status_BandAlert);
+		    lowBatteryAlertSent = true;
+		}
+		if (battVal < 50 && !lowBatteryAlertSent)
+		{
+		    if (cat_m1_Status.gpsChecking)
+		    {
+		        nrf9160_Stop_gps();
+		    }
+
+		    cat_m1_Status_BandAlert.bid = HAL_GetUIDw2();
+		    cat_m1_Status_BandAlert.type = 6;
+		    cat_m1_Status_BandAlert.value = 1;
+		    catM1MqttDangerMessage = 1;
+		    send_Status_BandAlert(&cat_m1_Status_BandAlert);
+
+		    lowBatteryAlertSent = true;
+		}
+
+		if (battVal >= 16 || battVal >= 51)
+		{
+		    lowBatteryAlertSent = false;
+		}
+		if ((lcd_ssDataEx.algo.SCDstate == 3 || lcd_ssDataEx.algo.SCDstate == 2) || biosignalAlertSent)
+		{
+			if (ssHr < 60 || ssHr > 100 || ssSpo2 < 95)
+			{
+				ssHrSamples[sampleIndex] = ssHr;
+				ssSpo2Samples[sampleIndex] = ssSpo2;
+				sampleIndex = (sampleIndex + 1) % SAMPLE_COUNT;
+
+				biosignalAlertSent = true;
+				for (int i = 0; i < SAMPLE_COUNT; i++)
+				{
+					if ((ssHrSamples[i] >= 60 && ssHrSamples[i] <= 100) ||
+						(ssSpo2Samples[i] >= 95 && ssSpo2Samples[i] <= 100))
+					{
+						biosignalAlertSent = false;
+						break;
+					}
+				}
+
+				if (biosignalAlertSent)
+				{
+					if (cat_m1_Status.gpsChecking)
+					{
+						nrf9160_Stop_gps();
+					}
+
+					cat_m1_Status_BandAlert.bid = deviceID;
+					cat_m1_Status_BandAlert.type = 5;
+					cat_m1_Status_BandAlert.value = 1;
+					catM1MqttDangerMessage = 1;
+					send_Status_BandAlert(&cat_m1_Status_BandAlert);
+					biosignalAlertSent = false;
+				}
+		    }
+		}
+	}
 }
 /* USER CODE END Application */
 
