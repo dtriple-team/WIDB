@@ -417,7 +417,7 @@ void StartWPMTask(void *argument)
 		osDelay(10);
 	}
 	// device ID init (ST UID)
-	deviceID = HAL_GetUIDw2();
+	deviceID = HAL_GetUIDw1();
 
 	// UART INT INIT, buffer init
 	nrf9160_init();
