@@ -11,7 +11,6 @@ public:
 
     virtual void initialize();
 
-    virtual void handleTickEvent();
 protected:
 };
 
