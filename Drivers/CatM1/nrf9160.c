@@ -352,6 +352,13 @@ void handle_gps_command(const char *value)
     {
     	strncpy((char *)cat_m1_at_cmd_rst.gps, (const char *)value, sizeof(cat_m1_at_cmd_rst.gps) - 1);
     	cat_m1_at_cmd_rst.gps[sizeof(cat_m1_at_cmd_rst.gps) - 1] = '\0';
+
+    	char altitudeValue[20];
+    	sscanf(value, "%*[^,],%*[^,],%[^,]", altitudeValue);
+
+    	uint32_t altitude_uint = (uint32_t)atoi(altitudeValue);
+
+    	cat_m1_at_cmd_rst.altitude = altitude_uint;
     	cat_m1_Status.gpsOff = 1;
     }
     else if (strstr(value, "1,3") != NULL || strstr(value, "0,0") != NULL)

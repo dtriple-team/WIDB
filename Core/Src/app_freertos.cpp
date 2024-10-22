@@ -476,7 +476,7 @@ void StartWPMTask(void *argument)
 				.walk_steps = ssWalk,
 				.run_steps = 0,
 				.temperature = imuTemp,
-				.pres = press,
+				.pres = cat_m1_at_cmd_rst.altitude,
 				.battery_level = battVal
 			};
 			send_Status_Band(&cat_m1_Status_Band);
