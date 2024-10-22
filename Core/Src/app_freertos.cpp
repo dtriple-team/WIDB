@@ -450,6 +450,18 @@ void StartWPMTask(void *argument)
 		{
 			nrf9160_Get_time();
 			nrf9160_Get_rssi();
+
+			if(-95 <= cat_m1_Status_Band.rssi){
+				lteRSSI_0_4 = 4;
+			} else if(-105 <= cat_m1_Status_Band.rssi && cat_m1_Status_Band.rssi < -95) {
+				lteRSSI_0_4 = 3;
+			} else if(-115 <= cat_m1_Status_Band.rssi && cat_m1_Status_Band.rssi < -105) {
+				lteRSSI_0_4 = 2;
+			} else if(-125 <= cat_m1_Status_Band.rssi && cat_m1_Status_Band.rssi < -115) {
+				lteRSSI_0_4 = 1;
+			} else {
+				lteRSSI_0_4 = 0;
+			}
 			cat_m1_Status.InitialLoad = 1;
 		}
 		//gpsTime = 0;
@@ -486,19 +498,7 @@ void StartWPMTask(void *argument)
 			};
 			send_Status_Band(&cat_m1_Status_Band);
 
-			//PRINT_INFO("altitude >>> %u\r\n",cat_m1_at_cmd_rst.altitude);
-
-			if(-95 <= cat_m1_Status_Band.rssi){
-				lteRSSI_0_4 = 4;
-			} else if(-105 <= cat_m1_Status_Band.rssi && cat_m1_Status_Band.rssi < -95) {
-				lteRSSI_0_4 = 3;
-			} else if(-115 <= cat_m1_Status_Band.rssi && cat_m1_Status_Band.rssi < -105) {
-				lteRSSI_0_4 = 2;
-			} else if(-125 <= cat_m1_Status_Band.rssi && cat_m1_Status_Band.rssi < -115) {
-				lteRSSI_0_4 = 1;
-			} else {
-				lteRSSI_0_4 = 0;
-			}
+			PRINT_INFO("altitude >>> %u\r\n",cat_m1_at_cmd_rst.altitude);
 
 			if (strlen((const char*)cat_m1_at_cmd_rst.gps))
 			{
