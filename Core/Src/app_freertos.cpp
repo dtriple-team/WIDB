@@ -89,7 +89,7 @@ bool UartRxRetryTimeFlag = false;
 uint8_t gpsTime = 0;
 bool gpsFlag = false;
 
-#define gps_offCheck_cycle 70
+#define gps_offCheck_cycle 610
 uint8_t gpsOffCheckTime = 0;
 
 #define fall_Check_cycle 60 // sec
@@ -749,7 +749,10 @@ void StartSecTimerTask(void *argument)
 			cat_m1_rssi_cycleTime = 0;
 		}
 
-		mqttTime++;
+		if(cat_m1_Status.gpsChecking == 0)
+		{
+			mqttTime++;
+		}
 //		PRINT_INFO("mqttTime >>> %d\r\n",mqttTime);
 		if(mqttTime > mqtt_operation_cycle)
 		{
@@ -1016,6 +1019,10 @@ int scdSampleIndex = 0;
 
 void read_ppg()
 {
+	// skin detect -> 1min interval check
+	// if detect => run ppg 1min
+	// else => sleep ppg 1min
+
 //	if(canDisplayPPG) return; // full buffer => can display UI // occur timing problem
 
 	uint8_t data[76+1] = {0,}; // +1: status byte
