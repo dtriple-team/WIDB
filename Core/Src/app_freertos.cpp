@@ -111,7 +111,7 @@ extern cat_m1_Status_FallDetection_t cat_m1_Status_FallDetection;
 extern cat_m1_Status_BandAlert_t cat_m1_Status_BandAlert;
 
 #define SAMPLE_COUNT 10
-
+int scdStateCheckCount = 0;
 int ssHrSamples[SAMPLE_COUNT] = {0};
 int ssSpo2Samples[SAMPLE_COUNT] = {0};
 int sampleIndex = 0;
@@ -493,10 +493,10 @@ void StartWPMTask(void *argument)
 				lteRSSI_0_4 = 0;
 			}
 
-//			strncpy((char*)cat_m1_at_cmd_rst.gps,
-//						        "36.106335,128.384310,119.546387,7.287167,0.220983,0.000000,2024-09-25 08:33:25",
-//						        sizeof(cat_m1_at_cmd_rst.gps) - 1);
-//						cat_m1_at_cmd_rst.gps[sizeof(cat_m1_at_cmd_rst.gps) - 1] = '\0';
+			strncpy((char*)cat_m1_at_cmd_rst.gps,
+						        "36.106335,128.384310,119.546387,7.287167,0.220983,0.000000,2024-09-25 08:33:25",
+						        sizeof(cat_m1_at_cmd_rst.gps) - 1);
+						cat_m1_at_cmd_rst.gps[sizeof(cat_m1_at_cmd_rst.gps) - 1] = '\0';
 
 			if (strlen((const char*)cat_m1_at_cmd_rst.gps))
 			{
@@ -1182,40 +1182,54 @@ void BandAlert()
 		}
 		if (lcd_ssDataEx.algo.SCDstate == 3 || biosignalAlertSent)
 		{
-			if (ssHr < 60 || ssHr > 100 || ssSpo2 < 95)
-			{
-				ssHrSamples[sampleIndex] = ssHr;
-				ssSpo2Samples[sampleIndex] = ssSpo2;
-				sampleIndex = (sampleIndex + 1) % SAMPLE_COUNT;
+		    if (ssHr < 60 || ssHr > 100 || ssSpo2 < 95)
+		    {
+		        ssHrSamples[sampleIndex] = ssHr;
+		        ssSpo2Samples[sampleIndex] = ssSpo2;
+		        sampleIndex = (sampleIndex + 1) % SAMPLE_COUNT;
 
-				biosignalAlertSent = true;
-				for (int i = 0; i < SAMPLE_COUNT; i++)
-				{
-					if ((ssHrSamples[i] >= 60 && ssHrSamples[i] <= 100) ||
-						(ssSpo2Samples[i] >= 95 && ssSpo2Samples[i] <= 100))
-					{
-						biosignalAlertSent = false;
-						break;
-					}
-				}
+		        biosignalAlertSent = true;
+		        for (int i = 0; i < SAMPLE_COUNT; i++)
+		        {
+		            if ((ssHrSamples[i] >= 60 && ssHrSamples[i] <= 100) ||
+		                (ssSpo2Samples[i] >= 95 && ssSpo2Samples[i] <= 100))
+		            {
+		                biosignalAlertSent = false;
+		                break;
+		            }
+		        }
 
-				if (biosignalAlertSent)
-				{
-					if (cat_m1_Status.gpsChecking)
-					{
-						nrf9160_Stop_gps();
-					}
+		        if (lcd_ssDataEx.algo.SCDstate == 3)
+		        {
+		            scdStateCheckCount++;
 
-					cat_m1_Status_BandAlert.bid = deviceID;
-					cat_m1_Status_BandAlert.type = 5;
-					cat_m1_Status_BandAlert.value = 1;
-					catM1MqttDangerMessage = 1;
-					send_Status_BandAlert(&cat_m1_Status_BandAlert);
-					biosignalAlertSent = false;
-					ssHrSamples[SAMPLE_COUNT] = {0};
-					ssSpo2Samples[SAMPLE_COUNT] = {0};
-					sampleIndex = 0;
-				}
+		            if (scdStateCheckCount >= 10)
+		            {
+		                if (biosignalAlertSent)
+		                {
+		                    if (cat_m1_Status.gpsChecking)
+		                    {
+		                        nrf9160_Stop_gps();
+		                    }
+
+		                    cat_m1_Status_BandAlert.bid = deviceID;
+		                    cat_m1_Status_BandAlert.type = 5;
+		                    cat_m1_Status_BandAlert.value = 1;
+		                    catM1MqttDangerMessage = 1;
+		                    send_Status_BandAlert(&cat_m1_Status_BandAlert);
+		                    biosignalAlertSent = false;
+		                    memset(ssHrSamples, 0, sizeof(ssHrSamples));
+		                    memset(ssSpo2Samples, 0, sizeof(ssSpo2Samples));
+		                    sampleIndex = 0;
+
+		                    scdStateCheckCount = 0;
+		                }
+		            }
+		        }
+		        else
+		        {
+		            scdStateCheckCount = 0;
+		        }
 		    }
 		}
 	}

@@ -1001,7 +1001,7 @@ void nrf9160_Get_gps()
                 osDelay(500);
                 cat_m1_Status.retryCount++;
 
-                if (cat_m1_Status.retryCount >= 30)
+                if (cat_m1_Status.retryCount >= 60)
                 {
                 	catM1Reset();
                     //gpsState = GPS_COMPLETE;
