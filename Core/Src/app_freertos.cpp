@@ -1033,10 +1033,14 @@ void read_ppg()
 	else if (scdStateAvg == 2)
 	{
 		ssSCD = 2;
+		ssHr = 0;
+		ssSpo2 = 0;
 	}
 	else if (scdStateAvg == 1)
 	{
 		ssSCD = 1;
+		ssHr = 0;
+		ssSpo2 = 0;
 	}
 	else
 	{
