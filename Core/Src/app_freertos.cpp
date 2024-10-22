@@ -116,6 +116,7 @@ int ssHrSamples[SAMPLE_COUNT] = {0};
 int ssSpo2Samples[SAMPLE_COUNT] = {0};
 int sampleIndex = 0;
 int previousSCDstate = -1;
+int previousRSSIstate = -1;
 bool lowBatteryAlertSent = false;
 bool biosignalAlertSent = false;
 
@@ -432,6 +433,11 @@ void StartWPMTask(void *argument)
 //	    .type = 0,
 //	    .fall_detect = 1
 //	};
+
+//		strncpy((char*)cat_m1_at_cmd_rst.gps,
+//      "36.106335,128.384310,119.546387,7.287167,0.220983,0.000000,2024-09-25 08:33:25",
+//		 sizeof(cat_m1_at_cmd_rst.gps) - 1);
+//		cat_m1_at_cmd_rst.gps[sizeof(cat_m1_at_cmd_rst.gps) - 1] = '\0';
   /* Infinite loop */
   for(;;)
   {
@@ -455,8 +461,10 @@ void StartWPMTask(void *argument)
 			if(-95 <= cat_m1_Status_Band.rssi){
 				lteRSSI_0_4 = 4;
 			} else if(-105 <= cat_m1_Status_Band.rssi && cat_m1_Status_Band.rssi < -95) {
+				previousRSSIstate = 0;
 				lteRSSI_0_4 = 3;
 			} else if(-115 <= cat_m1_Status_Band.rssi && cat_m1_Status_Band.rssi < -105) {
+				previousRSSIstate = 0;
 				lteRSSI_0_4 = 2;
 			} else if(-125 <= cat_m1_Status_Band.rssi && cat_m1_Status_Band.rssi < -115) {
 				lteRSSI_0_4 = 1;
@@ -474,11 +482,6 @@ void StartWPMTask(void *argument)
 		{
 			//nrf9160_Get_gps_State();
 			//test_send_json_publish();
-
-			strncpy((char*)cat_m1_at_cmd_rst.gps,
-						        "36.106335,128.384310,119.546387,7.287167,0.220983,0.000000,2024-09-25 08:33:25",
-						        sizeof(cat_m1_at_cmd_rst.gps) - 1);
-						cat_m1_at_cmd_rst.gps[sizeof(cat_m1_at_cmd_rst.gps) - 1] = '\0';
 
 			cat_m1_Status_Band_t cat_m1_Status_Band =
 			{
@@ -1159,6 +1162,17 @@ void BandAlert()
 				send_Status_FallDetection(&cat_m1_Status_FallDetection);
 
 		    	myTempHomeView.changeToHomeScreen();
+		}
+		if (cat_m1_Status.InitialLoad && previousRSSIstate != 1)
+		{
+			if(-125 <= cat_m1_Status_Band.rssi && cat_m1_Status_Band.rssi < -115)
+			{
+				cat_m1_Status_BandAlert.bid = deviceID;
+				cat_m1_Status_BandAlert.type = 1;
+				cat_m1_Status_BandAlert.value = 1;
+				send_Status_BandAlert(&cat_m1_Status_BandAlert);
+			}
+			previousRSSIstate = 1;
 		}
 		if (ssSCD == 1 && previousSCDstate != 1)
 		{
