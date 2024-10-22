@@ -44,7 +44,7 @@ void HeartrateDetailView::handleSwipeRight() //rkdalfks
 #include "bl6133.h"
 #define TICK_UPDATEHR_INTERVAL 60
 extern GESTURE gesture;
-uint32_t frameCountUpdateHrInterval_local;
+uint32_t frameCountUpdateHrInterval_local = 0;
 void HeartrateDetailView::handleTickEvent(){
 	if(gesture == SlideRight){
 		presenter->notifySwipeRight();
