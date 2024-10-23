@@ -884,6 +884,7 @@ void send_GPS_Location(cat_m1_Status_GPS_Location_t* location)
 
     if (send_at_command(mqtt_data))
     {
+    	memset(&cat_m1_Status_GPS_Location, 0, sizeof(cat_m1_Status_GPS_Location));
         PRINT_INFO("JSON message sent successfully.\n");
     }
     else
