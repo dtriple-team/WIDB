@@ -990,7 +990,7 @@ void nrf9160_Get_gps()
         case GPS_ON:
             if (!cat_m1_Status.gpsOn)
             {
-                send_at_command("AT#XGPS=1,0,0,600\r\n");
+                send_at_command("AT#XGPS=1,0,0,300\r\n");
                 osDelay(2000);
                 send_at_command("AT#XGPS?\r\n");
 

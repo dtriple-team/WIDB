@@ -89,7 +89,7 @@ bool UartRxRetryTimeFlag = false;
 uint8_t gpsTime = 0;
 bool gpsFlag = false;
 
-#define gps_offCheck_cycle 610
+#define gps_offCheck_cycle 310
 uint8_t gpsOffCheckTime = 0;
 
 #define fall_Check_cycle 60 // sec
@@ -1239,7 +1239,7 @@ void BandAlert()
 		    lowBatteryAlertSent = true;
 		}
 
-		if (battVal >= 16 || battVal >= 51)
+		if (battVal >= 51)
 		{
 		    lowBatteryAlertSent = false;
 		}
