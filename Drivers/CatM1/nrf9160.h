@@ -85,6 +85,7 @@ typedef struct {
     uint8_t mqttSubscribeStatus;
     uint8_t gpsOn;
     uint8_t gpsOff;
+    uint8_t gpsManual;
     uint8_t mqttChecking;
     uint8_t gpsChecking;
 } cat_m1_Status_t;
@@ -231,6 +232,7 @@ void send_GPS_Location(cat_m1_Status_GPS_Location_t* location);
 void send_Status_IMU(cat_m1_Status_IMU_t* imu_data);
 
 void nrf9160_Get_gps();
+void nrf9160_Get_gps_self_control();
 void nrf9160_Stop_gps();
 void nrf9160_Get_gps_State();
 void nrf9160_Get_rssi();
