@@ -521,7 +521,7 @@ void StartWPMTask(void *argument)
 
 			if (strlen((const char*)cat_m1_at_cmd_rst.gps))
 			{
-				cat_m1_Status_GPS_Location.bid = deviceID;
+				cat_m1_Status_GPS_Location.bid = cat_m1_Status_Band.bid;
 				send_GPS_Location(&cat_m1_Status_GPS_Location);
 			}
 			mqttFlag = false;
