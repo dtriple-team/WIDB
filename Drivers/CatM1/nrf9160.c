@@ -34,7 +34,7 @@ GpsState gpsState = GPS_INIT;
 extern uint8_t wpmInitializationFlag;
 extern uint8_t gpsOffCheckTime;
 extern uint8_t UartRxRetryTime;
-extern bool gpsFlag;
+extern uint8_t gpsFlag;
 
 bool txCompleteFlag = 0;
 
@@ -360,6 +360,10 @@ void handle_gps_command(const char *value)
     if (strstr(value, "1,3") != NULL || strstr(value, "0,0") != NULL)
     {
     	cat_m1_Status.gpsOff = 1;
+    }
+    if (strstr(value, "1,2") != NULL)
+    {
+    	cat_m1_Status.gpsManual = 1;
     }
 }
 
@@ -995,12 +999,12 @@ void nrf9160_Get_gps()
                 osDelay(2000);
                 send_at_command("AT#XGPS?\r\n");
 
-                if (cat_m1_Status.parseResult == 0)
-                {
-                    send_at_command("AT#XGPS=0\r\n");
-                    cat_m1_Status.errorCount =0;
-
-                }
+//                if (cat_m1_Status.parseResult == 0)
+//                {
+//                    send_at_command("AT#XGPS=0\r\n");
+//                    cat_m1_Status.errorCount =0;
+//
+//                }
 
                 osDelay(500);
                 cat_m1_Status.retryCount++;
@@ -1020,7 +1024,74 @@ void nrf9160_Get_gps()
         case GPS_COMPLETE:
             HAL_UART_Receive_IT(&huart1, &uart_cat_m1_rx.temp, 1);
             cat_m1_Status.Checked = 2;
-            gpsFlag = false;
+            //gpsFlag = false;
+            gpsFlag = 2;
+            gpsState = GPS_INIT;
+            break;
+    }
+}
+
+void nrf9160_Get_gps_self_control()
+{
+    switch (gpsState)
+    {
+        case GPS_INIT:
+            cat_m1_Status.gpsChecking = 1;
+            send_at_command("AT#XMQTTCON=0\r\n");
+            cat_m1_Status.retryCount = 0;
+            gpsState = GPS_SYSTEM_MODE;
+            break;
+
+        case GPS_SYSTEM_MODE:
+            if (cat_m1_Status.systemModeStatus == 0 || cat_m1_Status.systemModeStatus == 1)
+            {
+                send_at_command("AT+CFUN=0\r\n");
+                send_at_command("AT%XSYSTEMMODE=0,0,1,0\r\n");
+                send_at_command("AT%XSYSTEMMODE?\r\n");
+                osDelay(2000);
+                cat_m1_Status.retryCount++;
+
+                if (cat_m1_Status.retryCount >= 60)
+                {
+                	catM1Reset();
+                    //gpsState = GPS_COMPLETE;
+                }
+            }
+            else
+            {
+                gpsState = GPS_CFUN;
+                cat_m1_Status.retryCount = 0;
+            }
+            break;
+
+        case GPS_CFUN:
+            if (!cat_m1_Status.cfunStatus)
+            {
+                send_at_command("AT+CFUN=31\r\n");
+                send_at_command("AT+CFUN?\r\n");
+                osDelay(2000);
+                cat_m1_Status.retryCount++;
+
+                if (cat_m1_Status.retryCount >= 60)
+                {
+                	catM1Reset();
+                    //gpsState = GPS_COMPLETE;
+                }
+            }
+            else
+            {
+                gpsState = GPS_ON;
+                cat_m1_Status.retryCount = 0;
+            }
+            break;
+
+        case GPS_ON:
+                gpsState = GPS_COMPLETE;
+            break;
+
+        case GPS_COMPLETE:
+            HAL_UART_Receive_IT(&huart1, &uart_cat_m1_rx.temp, 1);
+            cat_m1_Status.Checked = 2;
             gpsState = GPS_INIT;
             break;
     }
@@ -1028,7 +1099,7 @@ void nrf9160_Get_gps()
 
 void nrf9160_Stop_gps()
 {
-	send_at_command("AT#XGPS=0\r\n");
+	//send_at_command("AT#XGPS=0\r\n");
 	send_at_command("AT+CFUN=0\r\n");
 	currentWpmState = WPM_INIT_CHECK;
 	currentCheckState = SYSTEM_MODE_CHECK;
@@ -1043,10 +1114,11 @@ void nrf9160_Stop_gps()
 	cat_m1_Status.systemModeStatus = 0;
 	cat_m1_Status.gpsOn = 0;
 	cat_m1_Status.gpsOff = 0;
+	cat_m1_Status.gpsManual = 0;
 	cat_m1_Status.mqttSetStatus = 0;
 	cat_m1_Status.gpsChecking = 0;
 	wpmInitializationFlag = 1;
-	gpsOffCheckTime = 0;
+	//gpsOffCheckTime = 0;
 	HAL_UART_Receive_IT(&huart1, &uart_cat_m1_rx.temp, 1);
 }
 
@@ -1087,6 +1159,7 @@ void catM1Reset()
 	cat_m1_Status.retryCount = 0;
 	cat_m1_Status.gpsOn = 0;
 	cat_m1_Status.gpsOff = 0;
+	cat_m1_Status.gpsManual = 0;
 	cat_m1_Status.mqttSetStatus = 0;
 	catM1PWRGPIOInit();
 	//send_at_command("AT+CFUN=0\r\n");

@@ -87,7 +87,7 @@ bool UartRxRetryTimeFlag = false;
 
 #define gps_operation_cycle 60*4
 uint8_t gpsTime = 0;
-bool gpsFlag = false;
+uint8_t gpsFlag = 0;
 
 #define gps_offCheck_cycle 130
 uint8_t gpsOffCheckTime = 0;
@@ -528,7 +528,7 @@ void StartWPMTask(void *argument)
 			catM1MqttDangerMessage = 0;
 		}
 
-		if(gpsFlag && cat_m1_Status.mqttChecking == 0)
+		if(gpsFlag == 1 && cat_m1_Status.mqttChecking == 0)
 		{
 			//catM1MqttDangerMessage = 1;
 			//nrf9160_Stop_gps();
@@ -536,16 +536,20 @@ void StartWPMTask(void *argument)
 			//nrf9160_Get_gps_State();
 			//gpsFlag = false;
 		}
-		if(cat_m1_Status.gpsChecking)
+		if(cat_m1_Status.gpsManual && cat_m1_Status.mqttChecking == 0)
 		{
-			//nrf9160_Get_gps_State();
+			nrf9160_Get_gps_self_control();
+		}
+//		if(cat_m1_Status.gpsChecking)
+//		{
+//			//nrf9160_Get_gps_State();
 			if(cat_m1_Status.gpsOff)
 			{
 				nrf9160_Stop_gps();
-				gpsTime = 0;
-				gpsOffCheckTime = 0;
+				//gpsTime = 0;
+				//gpsOffCheckTime = 0;
 			}
-		}
+//		}
 		if(cat_m1_rssi_cycleFlag && cat_m1_Status.gpsChecking == 0 && cat_m1_Status.mqttChecking == 0)
 		{
 			nrf9160_Get_rssi();
@@ -780,24 +784,26 @@ void StartSecTimerTask(void *argument)
 			UartRxRetryTime = 0;
 			cat_m1_Status.txflag = 0;
 		}
-
-		gpsTime++;
+		if(gpsFlag == 0)
+		{
+			gpsTime++;
+		}
 //		PRINT_INFO("gpsTime >>> %d\r\n",gpsTime);
 		if(gpsTime > gps_operation_cycle)
 		{
-			gpsFlag = true;
+			gpsFlag = 1;
 			gpsTime = 0;
 		}
-		if(cat_m1_Status.gpsChecking)
-		{
-			gpsOffCheckTime++;
-		}
-		if(gpsOffCheckTime > gps_offCheck_cycle)
-		{
-			//nrf9160_Stop_gps();
-			catM1Reset();
-			gpsOffCheckTime = 0;
-		}
+//		if(cat_m1_Status.gpsChecking)
+//		{
+//			gpsOffCheckTime++;
+//		}
+//		if(gpsOffCheckTime > gps_offCheck_cycle)
+//		{
+//			//nrf9160_Stop_gps();
+//			catM1Reset();
+//			gpsOffCheckTime = 0;
+//		}
 
 		if(cat_m1_Status_FallDetection.fall_detect)
 		{
