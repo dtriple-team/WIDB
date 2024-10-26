@@ -85,11 +85,11 @@ bool mqttFlag = false;
 uint8_t UartRxRetryTime = 0;
 bool UartRxRetryTimeFlag = false;
 
-#define gps_operation_cycle 60*3
+#define gps_operation_cycle 60*4
 uint8_t gpsTime = 0;
 bool gpsFlag = false;
 
-#define gps_offCheck_cycle 310
+#define gps_offCheck_cycle 130
 uint8_t gpsOffCheckTime = 0;
 
 #define fall_Check_cycle 60 // sec
@@ -276,8 +276,8 @@ void MX_FREERTOS_Init(void) {
   /* creation of lcdTask */
   lcdTaskHandle = osThreadNew(StartlcdTask, NULL, &lcdTask_attributes);
 
-  /* creation of ppmTask */
-  ppmTaskHandle = osThreadNew(StartPPMTask, NULL, &ppmTask_attributes);
+//  /* creation of ppmTask */
+//  ppmTaskHandle = osThreadNew(StartPPMTask, NULL, &ppmTask_attributes);
 
   /* creation of wpmTask */
   wpmTaskHandle = osThreadNew(StartWPMTask, NULL, &wpmTask_attributes);

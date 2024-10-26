@@ -99,7 +99,7 @@ bool send_at_command(const char *cmd)
     txCompleteFlag = 0;
 
     HAL_UART_Transmit_IT(&huart1, (uint8_t*)cmd, strlen(cmd));
-    //PRINT_INFO("TX CMD >>> %s\r\n", cmd);
+    PRINT_INFO("TX CMD >>> %s\r\n", cmd);
 
     while (txCompleteFlag == 0)
     {
@@ -139,7 +139,7 @@ bool receive_response(void)
             uart_cat_m1_buf[cat_m1_Status.parseCount] = uart_cat_m1_rx.rxd;
             cat_m1_Status.parseCount++;
 
-            //PRINT_INFO("RX Data >>> %s\r\n", uart_cat_m1_buf);
+            PRINT_INFO("RX Data >>> %s\r\n", uart_cat_m1_buf);
             cat_m1_parse_process(uart_cat_m1_buf);
 
             memset(&uart_cat_m1_buf, 0, MINMEA_MAX_SENTENCE_LENGTH);
@@ -991,7 +991,7 @@ void nrf9160_Get_gps()
         case GPS_ON:
             if (!cat_m1_Status.gpsOn)
             {
-                send_at_command("AT#XGPS=1,0,0,300\r\n");
+                send_at_command("AT#XGPS=1,0,0,120\r\n");
                 osDelay(2000);
                 send_at_command("AT#XGPS?\r\n");
 
