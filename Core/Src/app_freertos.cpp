@@ -89,7 +89,7 @@ bool UartRxRetryTimeFlag = false;
 uint8_t gpsTime = 0;
 uint8_t gpsFlag = 0;
 
-#define gps_offCheck_cycle 130
+#define gps_offCheck_cycle 180+10
 uint8_t gpsOffCheckTime = 0;
 
 #define fall_Check_cycle 60 // sec
