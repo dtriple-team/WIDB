@@ -109,6 +109,7 @@ extern cat_m1_Status_Band_t cat_m1_Status_Band;
 extern cat_m1_at_cmd_rst_t cat_m1_at_cmd_rst;
 extern cat_m1_Status_FallDetection_t cat_m1_Status_FallDetection;
 extern cat_m1_Status_BandAlert_t cat_m1_Status_BandAlert;
+extern cat_m1_Status_GPS_Location_t cat_m1_Status_GPS_Location;
 
 #define SAMPLE_COUNT 10
 int scdStateCheckCount = 0;
@@ -520,9 +521,8 @@ void StartWPMTask(void *argument)
 
 			if (strlen((const char*)cat_m1_at_cmd_rst.gps))
 			{
-				cat_m1_Status_GPS_Location_t location;
-				location.bid = cat_m1_Status_Band.bid;
-				send_GPS_Location(&location);
+				cat_m1_Status_GPS_Location.bid = deviceID;
+				send_GPS_Location(&cat_m1_Status_GPS_Location);
 			}
 			mqttFlag = false;
 			catM1MqttDangerMessage = 0;
