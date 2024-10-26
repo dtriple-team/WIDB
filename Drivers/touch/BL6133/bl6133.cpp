@@ -10,8 +10,8 @@ uint8_t readTouchData(uint8_t* touchData, uint8_t len){
 	uint8_t data_addr = 0x01;
 	uint8_t i2c_err = 1;
 
-//	uint16_t DevAddr = 88; // bl6133 touch IC
-	uint16_t DevAddr = 42; // cst816d touch IC
+	uint16_t DevAddr = 88; // bl6133 touch IC
+//	uint16_t DevAddr = 42; // cst816d touch IC
 
 	while(i2c_err == 1){
 //	for(DevAddr=41; DevAddr<=42; DevAddr++){
