@@ -276,8 +276,8 @@ void MX_FREERTOS_Init(void) {
   /* creation of lcdTask */
   lcdTaskHandle = osThreadNew(StartlcdTask, NULL, &lcdTask_attributes);
 
-  /* creation of ppmTask */
-  ppmTaskHandle = osThreadNew(StartPPMTask, NULL, &ppmTask_attributes);
+//  /* creation of ppmTask */
+//  ppmTaskHandle = osThreadNew(StartPPMTask, NULL, &ppmTask_attributes);
 
   /* creation of wpmTask */
   wpmTaskHandle = osThreadNew(StartWPMTask, NULL, &wpmTask_attributes);
