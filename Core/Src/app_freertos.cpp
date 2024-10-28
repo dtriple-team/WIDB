@@ -490,7 +490,7 @@ void StartWPMTask(void *argument)
 	}
 	if(wpmInitializationFlag && cat_m1_Status.Checked == 2)
 	{
-		if (!deviceID_check)
+		while (!deviceID_check)
 		{
 		    char iccid9[10];
 		    strncpy(iccid9, (char*)&cat_m1_at_cmd_rst.iccid[11], 9);
@@ -504,7 +504,7 @@ void StartWPMTask(void *argument)
 		    }
 		    else
 		    {
-		        PRINT_INFO("Failed to get 9-digit ICCID segment.\r\n");
+		        //PRINT_INFO("Failed to get 9-digit ICCID segment.\r\n");
 		    }
 		}
 		if ((mqttFlag && cat_m1_Status.gpsChecking == 0) || catM1MqttDangerMessage)
