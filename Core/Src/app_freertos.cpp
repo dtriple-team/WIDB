@@ -113,7 +113,6 @@ extern cat_m1_Status_BandAlert_t cat_m1_Status_BandAlert;
 extern cat_m1_Status_GPS_Location_t cat_m1_Status_GPS_Location;
 
 uint32_t deviceID = 0;
-int deviceID_check = 0;
 
 #define SAMPLE_COUNT 10
 int scdStateCheckCount = 0;
@@ -463,23 +462,6 @@ void StartWPMTask(void *argument)
 	}
 	if(wpmInitializationFlag && cat_m1_Status.Checked == 1)
 	{
-		while (!deviceID_check)
-		{
-		    char iccid9[10];
-		    strncpy(iccid9, (char*)&cat_m1_at_cmd_rst.iccid[11], 9);
-		    iccid9[9] = '\0';
-
-		    if (strlen(iccid9) == 9)
-		    {
-		        deviceID = (uint32_t)strtol(iccid9, NULL, 10);
-		        PRINT_INFO("deviceID >>> %u\r\n", (unsigned int)deviceID);
-		        deviceID_check = 1;
-		    }
-		    else
-		    {
-		        //PRINT_INFO("Failed to get 9-digit ICCID segment.\r\n");
-		    }
-		}
 		nrf9160_mqtt_setting();
 		if(cat_m1_Status.InitialLoad == 0)
 		{
@@ -511,26 +493,28 @@ void StartWPMTask(void *argument)
 		{
 			//nrf9160_Get_gps_State();
 			//test_send_json_publish();
-
-			cat_m1_Status_Band_t cat_m1_Status_Band =
+			if(cat_m1_Status.mqttChecking == 0)
 			{
-				.bid = deviceID,
-				.pid = 0xA021,
-				.rssi = (cat_m1_at_cmd_rst.rssi),
-				.start_byte = 0xAA,
-				.hr = ssHr,
-				.spo2 = ssSpo2,
-				.motionFlag = lcd_ssDataEx.algo.spo2MotionFlag,
-				.scdState = ssSCD,
-				.activity = lcd_ssDataEx.algo.activity,
-				.walk_steps = ssWalk,
-				.run_steps = 0,
-				.temperature = imuTemp,
-				.pres = cat_m1_at_cmd_rst.altitude,
-				.battery_level = battVal
-			};
-			send_Status_Band(&cat_m1_Status_Band);
-			if (strlen((const char*)cat_m1_at_cmd_rst.gps))
+				cat_m1_Status_Band_t cat_m1_Status_Band =
+				{
+					.bid = deviceID,
+					.pid = 0xA021,
+					.rssi = (cat_m1_at_cmd_rst.rssi),
+					.start_byte = 0xAA,
+					.hr = ssHr,
+					.spo2 = ssSpo2,
+					.motionFlag = lcd_ssDataEx.algo.spo2MotionFlag,
+					.scdState = ssSCD,
+					.activity = lcd_ssDataEx.algo.activity,
+					.walk_steps = ssWalk,
+					.run_steps = 0,
+					.temperature = imuTemp,
+					.pres = cat_m1_at_cmd_rst.altitude,
+					.battery_level = battVal
+				};
+				send_Status_Band(&cat_m1_Status_Band);
+			}
+			if ((strlen((const char*)cat_m1_at_cmd_rst.gps)) && cat_m1_Status.mqttChecking == 0)
 			{
 				cat_m1_Status_GPS_Location.bid = deviceID;
 				send_GPS_Location(&cat_m1_Status_GPS_Location);
@@ -1194,7 +1178,7 @@ void BandAlert()
 {
 	if(cat_m1_Status.mqttConnectionStatus == 2)
 	{
-		if (fallCheckFlag == 1)
+		if (fallCheckFlag == 1 && cat_m1_Status.mqttChecking == 0)
 		{
 			fallCheckFlag = 0;
 			if(cat_m1_Status.gpsChecking)
@@ -1207,7 +1191,7 @@ void BandAlert()
 				ST7789_brightness_setting(before_bLevel);
 		    	myTempHomeView.changeToHomeScreen();
 		}
-		if (cat_m1_Status.InitialLoad && previousRSSIstate != 1)
+		if (cat_m1_Status.InitialLoad && previousRSSIstate != 1 && cat_m1_Status.mqttChecking == 0)
 		{
 			if(-125 <= cat_m1_Status_Band.rssi && cat_m1_Status_Band.rssi < -115)
 			{
@@ -1218,7 +1202,7 @@ void BandAlert()
 			}
 			previousRSSIstate = 1;
 		}
-		if (ssSCD == 1 && previousSCDstate != 1)
+		if (ssSCD == 1 && previousSCDstate != 1 && cat_m1_Status.mqttChecking == 0)
 		{
 //			if (cat_m1_Status.gpsChecking)
 //			{
@@ -1235,7 +1219,7 @@ void BandAlert()
 		{
 			previousSCDstate = ssSCD;
 		}
-		if (battVal < 15 && !lowBatteryAlertSent)
+		if (battVal < 15 && !lowBatteryAlertSent && cat_m1_Status.mqttChecking == 0)
 		{
 		    cat_m1_Status_BandAlert.bid = deviceID;
 		    cat_m1_Status_BandAlert.type = 2;
@@ -1243,7 +1227,7 @@ void BandAlert()
 		    send_Status_BandAlert(&cat_m1_Status_BandAlert);
 		    lowBatteryAlertSent = true;
 		}
-		if (battVal < 50 && !lowBatteryAlertSent)
+		if (battVal < 50 && !lowBatteryAlertSent && cat_m1_Status.mqttChecking == 0)
 		{
 		    cat_m1_Status_BandAlert.bid = HAL_GetUIDw2();
 		    cat_m1_Status_BandAlert.type = 6;
@@ -1281,7 +1265,7 @@ void BandAlert()
 
 		            if (scdStateCheckCount >= 60)
 		            {
-		                if (biosignalAlertSent)
+		                if (biosignalAlertSent && cat_m1_Status.mqttChecking == 0)
 		                {
 		                    if (cat_m1_Status.gpsChecking)
 		                    {

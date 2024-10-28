@@ -36,6 +36,7 @@ extern uint8_t gpsOffCheckTime;
 extern uint8_t UartRxRetryTime;
 extern bool gpsFlag;
 extern int gps_operation_cycle;
+extern uint32_t deviceID;
 
 bool txCompleteFlag = 0;
 
@@ -304,6 +305,11 @@ void handle_iccid_command(const char *value)
 {
 	strncpy((char *)cat_m1_at_cmd_rst.iccid, (const char *)value, ICCID_LEN - 1);
 	cat_m1_at_cmd_rst.iccid[ICCID_LEN - 1] = '\0';
+	char iccid9[10];
+	strncpy(iccid9, (char*)&cat_m1_at_cmd_rst.iccid[11], 9);
+	iccid9[9] = '\0';
+	deviceID = (uint32_t)strtol(iccid9, NULL, 10);
+	PRINT_INFO("deviceID >>> %u\r\n", (unsigned int)deviceID);
 }
 
 void handle_monitor_command(const char *value)
@@ -576,7 +582,7 @@ void nrf9160_mqtt_setting()
             if (cat_m1_Status.mqttConnectionStatus == 0)
             {
                 send_at_command("AT#XMQTTCON=1,\"\",\"\",\"t-vsm.com\",18831\r\n");
-                osDelay(1000);
+                osDelay(5000);
                 cat_m1_Status.retryCount++;
 
                 if (cat_m1_Status.retryCount >= 30)
@@ -632,7 +638,7 @@ void nrf9160_mqtt_setting()
 //            break;
 
         case MQTT_COMPLETE:
-        	osDelay(1000);
+        	osDelay(5000);
             cat_m1_Status.Checked = 2;
             break;
     }
