@@ -530,7 +530,11 @@ void StartWPMTask(void *argument)
 				.battery_level = battVal
 			};
 			send_Status_Band(&cat_m1_Status_Band);
-
+			if (strlen((const char*)cat_m1_at_cmd_rst.gps))
+			{
+				cat_m1_Status_GPS_Location.bid = deviceID;
+				send_GPS_Location(&cat_m1_Status_GPS_Location);
+			}
 			mqttFlag = false;
 			catM1MqttDangerMessage = 0;
 		}
@@ -557,11 +561,6 @@ void StartWPMTask(void *argument)
 		{
 			nrf9160_Get_rssi();
 			cat_m1_rssi_cycleFlag = false;
-		}
-		if (strlen((const char*)cat_m1_at_cmd_rst.gps))
-		{
-			cat_m1_Status_GPS_Location.bid = deviceID;
-			send_GPS_Location(&cat_m1_Status_GPS_Location);
 		}
 
 	}

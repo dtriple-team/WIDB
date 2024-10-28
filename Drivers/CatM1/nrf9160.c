@@ -622,6 +622,7 @@ void nrf9160_mqtt_setting()
 //            break;
 
         case MQTT_COMPLETE:
+        	osDelay(1000);
             cat_m1_Status.Checked = 2;
             break;
     }
