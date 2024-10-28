@@ -463,6 +463,23 @@ void StartWPMTask(void *argument)
 	}
 	if(wpmInitializationFlag && cat_m1_Status.Checked == 1)
 	{
+		while (!deviceID_check)
+		{
+		    char iccid9[10];
+		    strncpy(iccid9, (char*)&cat_m1_at_cmd_rst.iccid[11], 9);
+		    iccid9[9] = '\0';
+
+		    if (strlen(iccid9) == 9)
+		    {
+		        deviceID = (uint32_t)strtol(iccid9, NULL, 10);
+		        PRINT_INFO("deviceID >>> %u\r\n", (unsigned int)deviceID);
+		        deviceID_check = 1;
+		    }
+		    else
+		    {
+		        //PRINT_INFO("Failed to get 9-digit ICCID segment.\r\n");
+		    }
+		}
 		nrf9160_mqtt_setting();
 		if(cat_m1_Status.InitialLoad == 0)
 		{
@@ -490,23 +507,6 @@ void StartWPMTask(void *argument)
 	}
 	if(wpmInitializationFlag && cat_m1_Status.Checked == 2)
 	{
-		while (!deviceID_check)
-		{
-		    char iccid9[10];
-		    strncpy(iccid9, (char*)&cat_m1_at_cmd_rst.iccid[11], 9);
-		    iccid9[9] = '\0';
-
-		    if (strlen(iccid9) == 9)
-		    {
-		        deviceID = (uint32_t)strtol(iccid9, NULL, 10);
-		        PRINT_INFO("deviceID >>> %u\r\n", (unsigned int)deviceID);
-		        deviceID_check = 1;
-		    }
-		    else
-		    {
-		        //PRINT_INFO("Failed to get 9-digit ICCID segment.\r\n");
-		    }
-		}
 		if ((mqttFlag && cat_m1_Status.gpsChecking == 0) || catM1MqttDangerMessage)
 		{
 			//nrf9160_Get_gps_State();
