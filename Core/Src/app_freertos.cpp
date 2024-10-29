@@ -1074,7 +1074,11 @@ void read_ppg()
     {
         ssSCD = 3;
         ssHr = lcd_ssDataEx.algo.hr / 10;
-        ssSpo2 = lcd_ssDataEx.algo.spo2 / 10;
+
+        if (lcd_ssDataEx.algo.spo2 != 0)
+        {
+            ssSpo2 = lcd_ssDataEx.algo.spo2 / 10;
+        }
     }
     else if (scdStateAvg == 2)
     {
