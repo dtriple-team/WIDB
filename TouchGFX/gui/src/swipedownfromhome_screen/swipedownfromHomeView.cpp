@@ -6,6 +6,7 @@
 
 #include <cstdlib>
 extern uint8_t set_bLevel;
+extern uint8_t before_bLevel;
 
 swipedownfromHomeView::swipedownfromHomeView()
 	: toggleButton1ClickedCallback(this, &swipedownfromHomeView::toggleButton1Clicked), //test
@@ -87,6 +88,7 @@ void swipedownfromHomeView::slider1ChangedHandler(const Slider& src, int value)
 {
     presenter->updateSlider1Value(value);
     set_bLevel = value/6.67+1;
+    before_bLevel = set_bLevel;
 }
 
 void swipedownfromHomeView::handleDragEvent(const DragEvent& evt)

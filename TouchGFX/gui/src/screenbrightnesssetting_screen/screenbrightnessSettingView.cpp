@@ -48,10 +48,12 @@ void screenbrightnessSettingView::handleSwipeRight()
 }
 
 extern uint8_t set_bLevel;
+extern uint8_t before_bLevel;
 void screenbrightnessSettingView::slider1ChangedHandler(const Slider& src, int value)
 {
     presenter->updateSlider1Value(value);
     set_bLevel = value/6.67+1;
+    before_bLevel = set_bLevel;
 }
 
 #include "bl6133.h"
