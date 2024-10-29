@@ -147,6 +147,19 @@ uint8_t hapticFlag = 1;
 uint8_t beforeHaptic = hapticFlag;
 uint8_t soundFlag = 1;
 
+uint32_t deviceID = 0;
+
+typedef enum{
+	interrupt = 0,
+	output = 1,
+	input = 2
+}GPIOMode;
+
+uint16_t hrMeaserPeriode_sec = 60*1;
+uint16_t spo2MeaserPeriode_sec = 60*5;
+uint8_t measerFlag = 0;
+uint16_t ppgMeaserCount = 0;
+
 /* USER CODE END Variables */
 /* Definitions for initTask */
 osThreadId_t initTaskHandle;
@@ -233,6 +246,9 @@ tempHomeViewBase myTempHomeView;
 
 extern uint8_t occurred_imuInterrupt;
 extern uint8_t occurred_PMICBUTTInterrupt;
+
+void mfioGPIOModeChange(GPIOMode mode);
+void measPPG(void);
 
 /* USER CODE END FunctionPrototypes */
 
@@ -574,9 +590,9 @@ void StartSPMTask(void *argument)
 	}
 	// Smart Sensor Hub init
 	ssInit();
-	ssBegin();
+	ssBegin(0x03);
 	ssRead_setting();
-	ssRunFlag = 1; // start read PPG, using Timer
+//	ssRunFlag = 1; // start read PPG, using Timer
 
 	init_iis2mdc();
 	init_ism330dhcx();
@@ -812,6 +828,8 @@ void StartSecTimerTask(void *argument)
 			pressCheckStartFlag = 1;
 			pressCheckStartTime = 0;
 		}
+
+		measPPG();
 	}
   }
   /* USER CODE END secTimerTask */
@@ -950,11 +968,13 @@ void StartCheckINTTask(void *argument)
 //					myBatteryprogress_container.batteryCharging();
 					myCharging_screenView.changeChargeScreen();
 			    	brightness_count = 0;
+			    	ppgMeaserCount = 1;
 				}
 				else{
 //					myBatteryprogress_container.batteryNotCharging();
 					myUnCharging_screenView.changeUnChargeScreen();
 			    	brightness_count = 0;
+			    	ppgMeaserCount = 1;
 				}
 			}
 		}
@@ -1037,41 +1057,55 @@ void read_ppg()
 		return;
 	}
 
+	if(ssDataEx->algo.SCDstate == 0){
+		free(ssDataEx);
+		return;
+	}
+
 	memcpy(&lcd_ssDataEx, ssDataEx, sizeof(ssDataEx_format));
 
-	scdStateSamples[scdSampleIndex] = lcd_ssDataEx.algo.SCDstate;
-	scdSampleIndex = (scdSampleIndex + 1) % SDC_COUNT;
+//	scdStateSamples[scdSampleIndex] = lcd_ssDataEx.algo.SCDstate;
+//	scdSampleIndex = (scdSampleIndex + 1) % SDC_COUNT;
+//
+//	int scdStateSum = 0;
+//	for (int i = 0; i < SDC_COUNT; i++)
+//	{
+//		scdStateSum += scdStateSamples[i];
+//	}
+//	int scdStateAvg = scdStateSum / SDC_COUNT;
+//
+//	if (scdStateAvg == 3)
+//	{
+//		ssSCD = 3;
+//		ssHr = lcd_ssDataEx.algo.hr / 10;
+//		ssSpo2 = lcd_ssDataEx.algo.spo2 / 10;
+//	}
+//	else if (scdStateAvg == 2)
+//	{
+////		ssSCD = 2;
+////		ssHr = 0;
+////		ssSpo2 = 0;
+//
+//	}
+//	else if (scdStateAvg == 1)
+//	{
+//		ssSCD = 1;
+//		ssHr = 0;
+//		ssSpo2 = 0;
+//	}
+//	else
+//	{
+//		ssHr = 0;
+//		ssSpo2 = 0;
+//	}
+	ssSCD = ssDataEx->algo.SCDstate;
+	ssHr = lcd_ssDataEx.algo.hr / 10;
+	ssSpo2 = lcd_ssDataEx.algo.spo2 / 10;
+	if(ssSCD != 3){
+		ssHr = 0;
+		ssSpo2 = 0;
+	}
 
-	int scdStateSum = 0;
-	for (int i = 0; i < SDC_COUNT; i++)
-	{
-		scdStateSum += scdStateSamples[i];
-	}
-	int scdStateAvg = scdStateSum / SDC_COUNT;
-
-	if (scdStateAvg == 3)
-	{
-		ssSCD = 3;
-		ssHr = lcd_ssDataEx.algo.hr / 10;
-		ssSpo2 = lcd_ssDataEx.algo.spo2 / 10;
-	}
-	else if (scdStateAvg == 2)
-	{
-		ssSCD = 2;
-		ssHr = 0;
-		ssSpo2 = 0;
-	}
-	else if (scdStateAvg == 1)
-	{
-		ssSCD = 1;
-		ssHr = 0;
-		ssSpo2 = 0;
-	}
-	else
-	{
-		ssHr = 0;
-		ssSpo2 = 0;
-	}
 	ssWalk = lcd_ssDataEx.algo.totalWalkSteps;
 
 //	printf("%d,\t accX:%d,\t accY:%d,\t accZ:%d,\t ", counter++, ssAccX/100, ssAccY/100, ssAccZ/100);
@@ -1298,6 +1332,84 @@ void BandAlert()
 		    }
 		}
 	}
+}
+
+void mfioGPIOModeChange(GPIOMode mode){
+
+	HAL_GPIO_DeInit(MFIO_PORT, MFIO_PIN);
+	GPIO_InitTypeDef GPIO_InitStruct = {0};
+
+	switch(mode){
+		case interrupt:
+			GPIO_InitStruct.Pin = MFIO_PIN;
+			GPIO_InitStruct.Mode = GPIO_MODE_IT_RISING_FALLING;
+			GPIO_InitStruct.Pull = GPIO_NOPULL;
+			break;
+		case output:
+			GPIO_InitStruct.Pin = MFIO_PIN;
+			GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
+			GPIO_InitStruct.Pull = GPIO_NOPULL;
+			break;
+		case input:
+			break;
+		default:
+			break;
+	}
+
+	HAL_GPIO_Init(MFIO_PORT, &GPIO_InitStruct);
+}
+
+//	ssInit();
+//	ssBegin();
+//	ssRead_setting();
+uint8_t spo2Flag = 0;
+uint8_t hrFlag = 0;
+uint8_t spo2Count = 0;
+uint8_t hrCount = 0;
+void measPPG(){
+//	if (measerFlag == 0){
+		ssRunFlag = 0;
+
+		// start ppg
+		if(ppgMeaserCount % spo2MeaserPeriode_sec == 0){
+//			mfioGPIOModeChange(output);
+			ssBegin(0x00);
+			ssRead_setting();
+			spo2Flag = 1;
+//			mfioGPIOModeChange(interrupt);
+		}
+		else if(ppgMeaserCount % hrMeaserPeriode_sec == 0){
+//			mfioGPIOModeChange(output);
+			ssBegin(0x02);
+			ssRead_setting();
+			hrFlag = 1;
+//			mfioGPIOModeChange(interrupt);
+		}
+		else if(ppgMeaserCount == spo2MeaserPeriode_sec*hrMeaserPeriode_sec/60){
+			ppgMeaserCount = 1;
+		}
+
+		// stop ppg
+		if(spo2Flag){
+			spo2Count++;
+		}
+		if(hrFlag){
+			hrCount++;
+		}
+
+		if(spo2Count == 30){ // < spo2MeaserPeriode_sec
+			ssBegin(0x05);
+			spo2Count = 0;
+		}
+		if(hrCount == 30){ // < hrMeaserPeriode_sec
+			ssBegin(0x05);
+			hrCount = 0;
+		}
+		ssRunFlag = 1;
+//	}
+
+	ppgMeaserCount++;
+	return;
 }
 /* USER CODE END Application */
 
