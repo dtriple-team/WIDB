@@ -113,6 +113,7 @@ extern cat_m1_Status_BandAlert_t cat_m1_Status_BandAlert;
 extern cat_m1_Status_GPS_Location_t cat_m1_Status_GPS_Location;
 
 uint32_t deviceID = 0;
+uint8_t deviceID_check = 0;
 
 #define SAMPLE_COUNT 10
 int scdStateCheckCount = 0;
@@ -479,6 +480,7 @@ void StartWPMTask(void *argument)
 		nrf9160_mqtt_setting();
 		if(cat_m1_Status.InitialLoad == 0)
 		{
+			osDelay(1000);
 			nrf9160_Get_time();
 			nrf9160_Get_rssi();
 
@@ -1030,88 +1032,67 @@ int scdSampleIndex = 0;
 
 void read_ppg()
 {
-	// if move detect => detect count = 25
-	// else => return
+    uint8_t data[76+1] = {0,};
+    if(-1 == ssRead(data, sizeof(data))){
+        return;
+    }
 
-	// if detect count == 0 => return
-	// else => ppg read, detectCount--
+    struct ssDataEx_format* ssDataEx = (ssDataEx_format*)malloc(sizeof(struct ssDataEx_format));
+    rxDataSplit(data, ssDataEx);
 
-//	if(canDisplayPPG) return; // full buffer => can display UI // occur timing problem
+    checkReadStatus = ssDataEx->readStatus;
 
-	uint8_t data[76+1] = {0,}; // +1: status byte
-	if(-1 == ssRead(data, sizeof(data))){
-//		osDelay(100);
-		return;
-	}
+    if(ssDataEx->readStatus != 0){
+        free(ssDataEx);
+        return;
+    }
 
-	struct ssDataEx_format* ssDataEx = (ssDataEx_format*)malloc(sizeof(struct ssDataEx_format));
-	rxDataSplit(data, ssDataEx); // return struct format
+    if(ssDataEx->algo.SCDstate == 0){
+        free(ssDataEx);
+        return;
+    }
 
-	checkReadStatus = ssDataEx->readStatus;
+    memcpy(&lcd_ssDataEx, ssDataEx, sizeof(ssDataEx_format));
 
-	if(ssDataEx->readStatus != 0){
-		// err status check
-		free(ssDataEx);
-		return;
-	}
+    scdStateSamples[scdSampleIndex] = lcd_ssDataEx.algo.SCDstate;
+    scdSampleIndex = (scdSampleIndex + 1) % SDC_COUNT;
 
-	if(ssDataEx->algo.SCDstate == 0){
-		free(ssDataEx);
-		return;
-	}
+    int count1 = 0, count2 = 0, count3 = 0;
+    for (int i = 0; i < SDC_COUNT; i++)
+    {
+        if (scdStateSamples[i] == 1) count1++;
+        else if (scdStateSamples[i] == 2) count2++;
+        else if (scdStateSamples[i] == 3) count3++;
+    }
 
-	memcpy(&lcd_ssDataEx, ssDataEx, sizeof(ssDataEx_format));
+    int scdStateAvg;
+    if (count3 >= count1 && count3 >= count2) scdStateAvg = 3;
+    else if (count2 >= count1 && count2 >= count3) scdStateAvg = 2;
+    else scdStateAvg = 1;
 
-//	scdStateSamples[scdSampleIndex] = lcd_ssDataEx.algo.SCDstate;
-//	scdSampleIndex = (scdSampleIndex + 1) % SDC_COUNT;
-//
-//	int scdStateSum = 0;
-//	for (int i = 0; i < SDC_COUNT; i++)
-//	{
-//		scdStateSum += scdStateSamples[i];
-//	}
-//	int scdStateAvg = scdStateSum / SDC_COUNT;
-//
-//	if (scdStateAvg == 3)
-//	{
-//		ssSCD = 3;
-//		ssHr = lcd_ssDataEx.algo.hr / 10;
-//		ssSpo2 = lcd_ssDataEx.algo.spo2 / 10;
-//	}
-//	else if (scdStateAvg == 2)
-//	{
-////		ssSCD = 2;
-////		ssHr = 0;
-////		ssSpo2 = 0;
-//
-//	}
-//	else if (scdStateAvg == 1)
-//	{
-//		ssSCD = 1;
-//		ssHr = 0;
-//		ssSpo2 = 0;
-//	}
-//	else
-//	{
-//		ssHr = 0;
-//		ssSpo2 = 0;
-//	}
-	ssSCD = ssDataEx->algo.SCDstate;
-	ssHr = lcd_ssDataEx.algo.hr / 10;
-	ssSpo2 = lcd_ssDataEx.algo.spo2 / 10;
-	if(ssSCD != 3){
-		ssHr = 0;
-		ssSpo2 = 0;
-	}
+    if (scdStateAvg == 3)
+    {
+        ssSCD = 3;
+        ssHr = lcd_ssDataEx.algo.hr / 10;
+        ssSpo2 = lcd_ssDataEx.algo.spo2 / 10;
+    }
+    else if (scdStateAvg == 2)
+    {
+        ssSCD = 2;
+        ssHr = 0;
+        ssSpo2 = 0;
+    }
+    else
+    {
+        ssSCD = 1;
+        ssHr = 0;
+        ssSpo2 = 0;
+    }
 
-	ssWalk = lcd_ssDataEx.algo.totalWalkSteps;
+    ssWalk = lcd_ssDataEx.algo.totalWalkSteps;
 
-//	printf("%d,\t accX:%d,\t accY:%d,\t accZ:%d,\t ", counter++, ssAccX/100, ssAccY/100, ssAccZ/100);
-//	printf("HR:%d,\t SpO2:%d\t ", ssHr/10, ssSpo2/10);
-//	printf("\r\n");
-	free(ssDataEx);
-
-	canDisplayPPG = 1;
+    free(ssDataEx);
+    canDisplayPPG = 1;
 }
 
 double getAltitude(double pressure_hPa) {

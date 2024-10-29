@@ -37,6 +37,7 @@ extern uint8_t UartRxRetryTime;
 extern bool gpsFlag;
 extern int gps_operation_cycle;
 extern uint32_t deviceID;
+extern uint8_t deviceID_check;
 
 bool txCompleteFlag = 0;
 
@@ -305,11 +306,16 @@ void handle_iccid_command(const char *value)
 {
 	strncpy((char *)cat_m1_at_cmd_rst.iccid, (const char *)value, ICCID_LEN - 1);
 	cat_m1_at_cmd_rst.iccid[ICCID_LEN - 1] = '\0';
-	char iccid9[10];
-	strncpy(iccid9, (char*)&cat_m1_at_cmd_rst.iccid[11], 9);
-	iccid9[9] = '\0';
-	deviceID = (uint32_t)strtol(iccid9, NULL, 10);
-	PRINT_INFO("deviceID >>> %u\r\n", (unsigned int)deviceID);
+	if(!deviceID_check)
+	{
+		char iccid9[10];
+		strncpy(iccid9, (char*)&cat_m1_at_cmd_rst.iccid[11], 9);
+		iccid9[9] = '\0';
+		deviceID = (uint32_t)strtol(iccid9, NULL, 10);
+		//PRINT_INFO("deviceID >>> %u\r\n", (unsigned int)deviceID);
+		HAL_Delay(250);
+		deviceID_check = 1;
+	}
 }
 
 void handle_monitor_command(const char *value)
