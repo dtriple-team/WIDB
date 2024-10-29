@@ -147,8 +147,6 @@ uint8_t hapticFlag = 1;
 uint8_t beforeHaptic = hapticFlag;
 uint8_t soundFlag = 1;
 
-uint32_t deviceID = 0;
-
 typedef enum{
 	interrupt = 0,
 	output = 1,

@@ -357,7 +357,7 @@ void handle_gps_command(const char *value)
     }
     if (strstr(value, "1,4") != NULL) {
         cat_m1_Status.gpsOff = 1;
-        gps_operation_cycle = (60*1);
+        gps_operation_cycle = (60*1)+30;
     } else {
     	if (gpsDataLength > 10) {
     	    char tempBuffer[sizeof(cat_m1_at_cmd_rst.gps)];
