@@ -514,11 +514,6 @@ void StartWPMTask(void *argument)
 				};
 				send_Status_Band(&cat_m1_Status_Band);
 			}
-			if ((strlen((const char*)cat_m1_at_cmd_rst.gps)) && cat_m1_Status.mqttChecking == 0)
-			{
-				cat_m1_Status_GPS_Location.bid = deviceID;
-				send_GPS_Location(&cat_m1_Status_GPS_Location);
-			}
 			mqttFlag = false;
 			catM1MqttDangerMessage = 0;
 		}
@@ -1178,6 +1173,11 @@ void BandAlert()
 {
 	if(cat_m1_Status.mqttConnectionStatus == 2)
 	{
+		if ((strlen((const char*)cat_m1_at_cmd_rst.gps)) && cat_m1_Status.mqttChecking == 0)
+		{
+			cat_m1_Status_GPS_Location.bid = deviceID;
+			send_GPS_Location(&cat_m1_Status_GPS_Location);
+		}
 		if (fallCheckFlag == 1 && cat_m1_Status.mqttChecking == 0)
 		{
 			fallCheckFlag = 0;

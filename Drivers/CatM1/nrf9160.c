@@ -788,7 +788,6 @@ void send_Status_Band(cat_m1_Status_Band_t *status)
     else
     {
         PRINT_INFO("Failed to send AT command.\n");
-        return;
     }
 
     if (send_at_command(mqtt_data))
@@ -830,7 +829,6 @@ void send_Status_BandAlert(cat_m1_Status_BandAlert_t* alertData)
     else
     {
         PRINT_INFO("Failed to send AT command.\n");
-        return;
     }
 
     if (send_at_command(mqtt_data))
@@ -866,7 +864,6 @@ void send_Status_FallDetection(cat_m1_Status_FallDetection_t* fallData)
     else
     {
         PRINT_INFO("Failed to send AT command.\n");
-        return;
     }
 
     if (send_at_command(mqtt_data))
@@ -899,7 +896,6 @@ void send_GPS_Location(cat_m1_Status_GPS_Location_t* location)
     else
     {
         PRINT_INFO("Failed to send AT command.\n");
-        return;
     }
 
     if (send_at_command(mqtt_data))
@@ -941,7 +937,6 @@ void send_Status_IMU(cat_m1_Status_IMU_t* imu_data)
     } else
     {
         PRINT_INFO("Failed to send AT command.\n");
-        return;
     }
 
     if (send_at_command(mqtt_data))
