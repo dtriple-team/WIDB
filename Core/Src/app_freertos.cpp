@@ -85,7 +85,8 @@ bool mqttFlag = false;
 uint8_t UartRxRetryTime = 0;
 bool UartRxRetryTimeFlag = false;
 
-#define gps_operation_cycle 60*4
+int gps_operation_cycle  = 60*4;
+//#define gps_operation_cycle 60*4
 uint8_t gpsTime = 0;
 bool gpsFlag = false;
 
@@ -111,6 +112,8 @@ extern cat_m1_Status_FallDetection_t cat_m1_Status_FallDetection;
 extern cat_m1_Status_BandAlert_t cat_m1_Status_BandAlert;
 extern cat_m1_Status_GPS_Location_t cat_m1_Status_GPS_Location;
 
+uint32_t deviceID = 0;
+
 #define SAMPLE_COUNT 10
 int scdStateCheckCount = 0;
 int ssHrSamples[SAMPLE_COUNT] = {0};
@@ -130,7 +133,7 @@ float deltaAlt = 0;
 uint16_t curr_height = 0;
 int height_num = 0;
 
-float falling_threshold = 0.30; // 낙상 판별 기준 높이 차이
+float falling_threshold = 0.90; // 낙상 판별 기준 높이 차이
 
 uint8_t ssSCD = 0;
 uint16_t ssHr = 0;
@@ -472,13 +475,6 @@ void StartWPMTask(void *argument)
 	if(wpmInitializationFlag && cat_m1_Status.Checked == 0)
 	{
 		nrf9160_check();
-		char iccid9[11];
-		strncpy(iccid9, (char*)&cat_m1_at_cmd_rst.iccid[12], 9);
-		iccid9[9] = '\0';
-
-		deviceID = (uint32_t)strtol(iccid9, NULL, 10);
-
-		// PRINT_INFO("deviceID >>> %u\r\n", (unsigned int)deviceID);
 	}
 	if(wpmInitializationFlag && cat_m1_Status.Checked == 1)
 	{
@@ -513,27 +509,28 @@ void StartWPMTask(void *argument)
 		{
 			//nrf9160_Get_gps_State();
 			//test_send_json_publish();
-
-			cat_m1_Status_Band_t cat_m1_Status_Band =
+			if(cat_m1_Status.mqttChecking == 0)
 			{
-				.bid = deviceID,
-				.pid = 0xA021,
-				.rssi = (cat_m1_at_cmd_rst.rssi),
-				.start_byte = 0xAA,
-				.hr = ssHr,
-				.spo2 = ssSpo2,
-				.motionFlag = lcd_ssDataEx.algo.spo2MotionFlag,
-				.scdState = ssSCD,
-				.activity = lcd_ssDataEx.algo.activity,
-				.walk_steps = ssWalk,
-				.run_steps = 0,
-				.temperature = imuTemp,
-				.pres = cat_m1_at_cmd_rst.altitude,
-				.battery_level = battVal
-			};
-			send_Status_Band(&cat_m1_Status_Band);
-
-			if (strlen((const char*)cat_m1_at_cmd_rst.gps))
+				cat_m1_Status_Band_t cat_m1_Status_Band =
+				{
+					.bid = deviceID,
+					.pid = 0xA021,
+					.rssi = (cat_m1_at_cmd_rst.rssi),
+					.start_byte = 0xAA,
+					.hr = ssHr,
+					.spo2 = ssSpo2,
+					.motionFlag = lcd_ssDataEx.algo.spo2MotionFlag,
+					.scdState = ssSCD,
+					.activity = lcd_ssDataEx.algo.activity,
+					.walk_steps = ssWalk,
+					.run_steps = 0,
+					.temperature = imuTemp,
+					.pres = cat_m1_at_cmd_rst.altitude,
+					.battery_level = battVal
+				};
+				send_Status_Band(&cat_m1_Status_Band);
+			}
+			if ((strlen((const char*)cat_m1_at_cmd_rst.gps)) && cat_m1_Status.mqttChecking == 0)
 			{
 				cat_m1_Status_GPS_Location.bid = deviceID;
 				send_GPS_Location(&cat_m1_Status_GPS_Location);
@@ -1213,9 +1210,9 @@ void checkFallDetection()
 
 void BandAlert()
 {
-	if(cat_m1_Status.mqttSubscribeStatus == 2)
+	if(cat_m1_Status.mqttConnectionStatus == 2)
 	{
-		if (fallCheckFlag == 1)
+		if (fallCheckFlag == 1 && cat_m1_Status.mqttChecking == 0)
 		{
 			fallCheckFlag = 0;
 			if(cat_m1_Status.gpsChecking)
@@ -1228,7 +1225,7 @@ void BandAlert()
 				ST7789_brightness_setting(before_bLevel);
 		    	myTempHomeView.changeToHomeScreen();
 		}
-		if (cat_m1_Status.InitialLoad && previousRSSIstate != 1)
+		if (cat_m1_Status.InitialLoad && previousRSSIstate != 1 && cat_m1_Status.mqttChecking == 0)
 		{
 			if(-125 <= cat_m1_Status_Band.rssi && cat_m1_Status_Band.rssi < -115)
 			{
@@ -1239,7 +1236,7 @@ void BandAlert()
 			}
 			previousRSSIstate = 1;
 		}
-		if (ssSCD == 1 && previousSCDstate != 1)
+		if (ssSCD == 1 && previousSCDstate != 1 && cat_m1_Status.mqttChecking == 0)
 		{
 //			if (cat_m1_Status.gpsChecking)
 //			{
@@ -1256,7 +1253,7 @@ void BandAlert()
 		{
 			previousSCDstate = ssSCD;
 		}
-		if (battVal < 15 && !lowBatteryAlertSent)
+		if (battVal < 15 && !lowBatteryAlertSent && cat_m1_Status.mqttChecking == 0)
 		{
 		    cat_m1_Status_BandAlert.bid = deviceID;
 		    cat_m1_Status_BandAlert.type = 2;
@@ -1264,7 +1261,7 @@ void BandAlert()
 		    send_Status_BandAlert(&cat_m1_Status_BandAlert);
 		    lowBatteryAlertSent = true;
 		}
-		if (battVal < 50 && !lowBatteryAlertSent)
+		if (battVal < 50 && !lowBatteryAlertSent && cat_m1_Status.mqttChecking == 0)
 		{
 		    cat_m1_Status_BandAlert.bid = HAL_GetUIDw2();
 		    cat_m1_Status_BandAlert.type = 6;
@@ -1302,7 +1299,7 @@ void BandAlert()
 
 		            if (scdStateCheckCount >= 60)
 		            {
-		                if (biosignalAlertSent)
+		                if (biosignalAlertSent && cat_m1_Status.mqttChecking == 0)
 		                {
 		                    if (cat_m1_Status.gpsChecking)
 		                    {

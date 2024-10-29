@@ -35,6 +35,8 @@ extern uint8_t wpmInitializationFlag;
 extern uint8_t gpsOffCheckTime;
 extern uint8_t UartRxRetryTime;
 extern bool gpsFlag;
+extern int gps_operation_cycle;
+extern uint32_t deviceID;
 
 bool txCompleteFlag = 0;
 
@@ -266,7 +268,6 @@ void handle_cops_command(const char *value)
 {
     int cops_length = strlen(value);
     cat_m1_Status.connectionStatus = (cops_length > 5) ? 1 : 0;
-    cat_m1_Status.mqttChecking = (cops_length <= 5) ? 0 : cat_m1_Status.mqttChecking;
     strncpy((char *)cat_m1_at_cmd_rst.cops, (const char *)value, MAX_VALUE_LEN - 1);
     cat_m1_at_cmd_rst.cops[MAX_VALUE_LEN - 1] = '\0';
 }
@@ -304,6 +305,11 @@ void handle_iccid_command(const char *value)
 {
 	strncpy((char *)cat_m1_at_cmd_rst.iccid, (const char *)value, ICCID_LEN - 1);
 	cat_m1_at_cmd_rst.iccid[ICCID_LEN - 1] = '\0';
+	char iccid9[10];
+	strncpy(iccid9, (char*)&cat_m1_at_cmd_rst.iccid[11], 9);
+	iccid9[9] = '\0';
+	deviceID = (uint32_t)strtol(iccid9, NULL, 10);
+	PRINT_INFO("deviceID >>> %u\r\n", (unsigned int)deviceID);
 }
 
 void handle_monitor_command(const char *value)
@@ -351,11 +357,22 @@ void handle_gps_command(const char *value)
     }
     if (strstr(value, "1,4") != NULL) {
         cat_m1_Status.gpsOff = 1;
+        gps_operation_cycle = (60*1);
     } else {
-        if (gpsDataLength > 10) {
-            strncpy((char *)cat_m1_at_cmd_rst.gps, (const char *)value, sizeof(cat_m1_at_cmd_rst.gps) - 1);
-            cat_m1_at_cmd_rst.gps[sizeof(cat_m1_at_cmd_rst.gps) - 1] = '\0';
-        }
+    	if (gpsDataLength > 10) {
+    	    char tempBuffer[sizeof(cat_m1_at_cmd_rst.gps)];
+    	    int j = 0;
+
+    	    for (int i = 0; value[i] != '\0' && j < sizeof(tempBuffer) - 1; i++) {
+    	        if (value[i] != '"') {
+    	            tempBuffer[j++] = value[i];
+    	        }
+    	    }
+    	    tempBuffer[j] = '\0';
+
+    	    strncpy((char *)cat_m1_at_cmd_rst.gps, tempBuffer, sizeof(cat_m1_at_cmd_rst.gps) - 1);
+    	    cat_m1_at_cmd_rst.gps[sizeof(cat_m1_at_cmd_rst.gps) - 1] = '\0';
+    	}
     }
     if (strstr(value, "1,3") != NULL || strstr(value, "0,0") != NULL)
     {
@@ -454,9 +471,9 @@ void nrf9160_check()
             {
                 send_at_command("AT+CFUN=0\r\n");
                 send_at_command("AT%XSYSTEMMODE=1,0,0,0\r\n");
+                osDelay(1000);
                 send_at_command("AT%XSYSTEMMODE?\r\n");
-                osDelay(2000);
-
+                osDelay(200);
                 cat_m1_Status.retryCount++;
                 if (cat_m1_Status.retryCount >= 300)
                 {
@@ -476,9 +493,9 @@ void nrf9160_check()
             if (!cat_m1_Status.cfunStatus)
             {
                 send_at_command("AT+CFUN=1\r\n");
+                osDelay(1000);
                 send_at_command("AT+CFUN?\r\n");
-                osDelay(2000);
-
+                osDelay(200);
                 cat_m1_Status.retryCount++;
                 if (cat_m1_Status.retryCount >= 300)
                 {
@@ -518,17 +535,16 @@ void nrf9160_check()
 
         case FINAL_COMMANDS:
             send_at_command("AT+CGDCONT?\r\n");
-            osDelay(100);
+            osDelay(200);
             send_at_command("AT%XICCID\r\n");
-            osDelay(1000);
+            osDelay(200);
 
-            cat_m1_Status.Checked = 1;
             currentCheckState = CHECK_COMPLETE;
-
             PRINT_INFO("All checks completed.\n");
             break;
 
         case CHECK_COMPLETE:
+            cat_m1_Status.Checked = 1;
             break;
     }
 }
@@ -545,8 +561,9 @@ void nrf9160_mqtt_setting()
             if (!cat_m1_Status.mqttSetStatus)
             {
                 send_at_command("AT#XMQTTCFG=\"\",300,1\r\n");
+                osDelay(1500);
                 send_at_command("AT#XMQTTCFG?\r\n");
-                osDelay(2000);
+                osDelay(100);
                 cat_m1_Status.retryCount++;
 
                 if (cat_m1_Status.retryCount >= 10)
@@ -568,7 +585,7 @@ void nrf9160_mqtt_setting()
                 osDelay(5000);
                 cat_m1_Status.retryCount++;
 
-                if (cat_m1_Status.retryCount >= 5)
+                if (cat_m1_Status.retryCount >= 30)
                 {
                 	catM1Reset();
                     //currentMqttState = MQTT_COMPLETE;
@@ -576,49 +593,52 @@ void nrf9160_mqtt_setting()
             }
             else
             {
-                currentMqttState = MQTT_SUBSCRIBE_STATUS;
+                //currentMqttState = MQTT_SUBSCRIBE_STATUS;
+            	currentMqttState = MQTT_COMPLETE;
+
             }
             break;
 
-        case MQTT_SUBSCRIBE_STATUS:
-            if (cat_m1_Status.mqttSubscribeStatus == 0)
-            {
-                send_at_command(SUB_STATUS_BANDSET);
-                osDelay(5000);
-                cat_m1_Status.retryCount++;
-
-                if (cat_m1_Status.retryCount >= 5)
-                {
-                	catM1Reset();
-                    //currentMqttState = MQTT_COMPLETE;
-                }
-            }
-            else
-            {
-                currentMqttState = MQTT_SUBSCRIBE_ALERT;
-            }
-            break;
-
-        case MQTT_SUBSCRIBE_ALERT:
-            if (cat_m1_Status.mqttSubscribeStatus == 1)
-            {
-                send_at_command(SUB_SERVER_ALERT);
-                osDelay(5000);
-                cat_m1_Status.retryCount++;
-
-                if (cat_m1_Status.retryCount >= 5)
-                {
-                	catM1Reset();
-                    //currentMqttState = MQTT_COMPLETE;
-                }
-            }
-            else
-            {
-                currentMqttState = MQTT_COMPLETE;
-            }
-            break;
+//        case MQTT_SUBSCRIBE_STATUS:
+//            if (cat_m1_Status.mqttSubscribeStatus == 0)
+//            {
+//                send_at_command(SUB_STATUS_BANDSET);
+//                osDelay(1000);
+//                cat_m1_Status.retryCount++;
+//
+//                if (cat_m1_Status.retryCount >= 30)
+//                {
+//                	catM1Reset();
+//                    //currentMqttState = MQTT_COMPLETE;
+//                }
+//            }
+//            else
+//            {
+//                currentMqttState = MQTT_SUBSCRIBE_ALERT;
+//            }
+//            break;
+//
+//        case MQTT_SUBSCRIBE_ALERT:
+//            if (cat_m1_Status.mqttSubscribeStatus == 1)
+//            {
+//                send_at_command(SUB_SERVER_ALERT);
+//                osDelay(1000);
+//                cat_m1_Status.retryCount++;
+//
+//                if (cat_m1_Status.retryCount >= 30)
+//                {
+//                	catM1Reset();
+//                    //currentMqttState = MQTT_COMPLETE;
+//                }
+//            }
+//            else
+//            {
+//                currentMqttState = MQTT_COMPLETE;
+//            }
+//            break;
 
         case MQTT_COMPLETE:
+        	osDelay(5000);
             cat_m1_Status.Checked = 2;
             break;
     }
@@ -950,6 +970,7 @@ void nrf9160_Get_gps()
             {
                 send_at_command("AT+CFUN=0\r\n");
                 send_at_command("AT%XSYSTEMMODE=0,0,1,0\r\n");
+                osDelay(200);
                 send_at_command("AT%XSYSTEMMODE?\r\n");
                 osDelay(2000);
                 cat_m1_Status.retryCount++;
@@ -971,6 +992,7 @@ void nrf9160_Get_gps()
             if (!cat_m1_Status.cfunStatus)
             {
                 send_at_command("AT+CFUN=31\r\n");
+                osDelay(200);
                 send_at_command("AT+CFUN?\r\n");
                 osDelay(2000);
                 cat_m1_Status.retryCount++;
@@ -998,7 +1020,8 @@ void nrf9160_Get_gps()
                 if (cat_m1_Status.parseResult == 0)
                 {
                     send_at_command("AT#XGPS=0\r\n");
-                    cat_m1_Status.errorCount =0;
+                    osDelay(1000);
+                    cat_m1_Status.errorCount = 0;
 
                 }
 
@@ -1088,6 +1111,7 @@ void catM1Reset()
 	cat_m1_Status.gpsOn = 0;
 	cat_m1_Status.gpsOff = 0;
 	cat_m1_Status.mqttSetStatus = 0;
+	gps_operation_cycle = 60*4;
 	catM1PWRGPIOInit();
 	//send_at_command("AT+CFUN=0\r\n");
 }
