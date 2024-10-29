@@ -656,12 +656,12 @@ void StartSPMTask(void *argument)
 	    bmpAlt = -bmpAlt;
 	}
 
-	if(pressCheckFlag && pressCheckStartFlag)
+	if(pressCheckFlag && pressCheckStartFlag && ssSCD == 3)
 	{
 		updateHeightData();
 		pressCheckFlag = 0;
 	}
-	if(freeFall_int_on)
+	if(freeFall_int_on && ssSCD == 3)
 	{
 		checkFallDetection();
 		freeFall_int_on = false;
