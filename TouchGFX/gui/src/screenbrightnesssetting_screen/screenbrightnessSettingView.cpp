@@ -49,13 +49,21 @@ void screenbrightnessSettingView::handleSwipeRight()
 }
 #if !defined(gui_simulation)
 extern uint8_t set_bLevel;
+
+extern uint8_t before_bLevel;
+
 #endif
+
 void screenbrightnessSettingView::slider1ChangedHandler(const Slider& src, int value)
 {
     presenter->updateSlider1Value(value);
 #if !defined(gui_simulation)
     set_bLevel = value/6.67+1;
+
+    before_bLevel = set_bLevel;
+
 #endif
+
 }
 
 #if !defined(gui_simulation)
