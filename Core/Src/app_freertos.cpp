@@ -134,7 +134,7 @@ float deltaAlt = 0;
 uint16_t curr_height = 0;
 int height_num = 0;
 
-float falling_threshold = 0.90; // 낙상 판별 기준 높이 차이
+float falling_threshold = 1.30; // 낙상 판별 기준 높이 차이
 
 uint8_t ssSCD = 0;
 uint16_t ssHr = 0;
@@ -656,12 +656,12 @@ void StartSPMTask(void *argument)
 	    bmpAlt = -bmpAlt;
 	}
 
-	if(pressCheckFlag && pressCheckStartFlag)
+	if(pressCheckFlag && pressCheckStartFlag && ssSCD == 3)
 	{
 		updateHeightData();
 		pressCheckFlag = 0;
 	}
-	if(freeFall_int_on)
+	if(freeFall_int_on && ssSCD == 3)
 	{
 		checkFallDetection();
 		freeFall_int_on = false;
