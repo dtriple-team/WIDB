@@ -156,7 +156,7 @@ typedef enum{
 
 uint16_t hrMeaserPeriode_sec = 60*1;
 uint16_t spo2MeaserPeriode_sec = 60*5;
-uint8_t measerFlag = 0;
+uint8_t ppgMeasFlag = 1;
 uint16_t ppgMeaserCount = 0;
 
 /* USER CODE END Variables */
@@ -968,13 +968,13 @@ void StartCheckINTTask(void *argument)
 //					myBatteryprogress_container.batteryCharging();
 					myCharging_screenView.changeChargeScreen();
 			    	brightness_count = 0;
-			    	ppgMeaserCount = 1;
+			    	ppgMeasFlag = 0;
 				}
 				else{
 //					myBatteryprogress_container.batteryNotCharging();
 					myUnCharging_screenView.changeUnChargeScreen();
 			    	brightness_count = 0;
-			    	ppgMeaserCount = 1;
+			    	ppgMeasFlag = 1;
 				}
 			}
 		}
@@ -1350,7 +1350,7 @@ uint8_t hrFlag = 0;
 uint8_t spo2Count = 0;
 uint8_t hrCount = 0;
 void measPPG(){
-//	if (measerFlag == 0){
+//	if (ppgMeasFlag == 0){
 		ssRunFlag = 0;
 
 		// start ppg
@@ -1391,7 +1391,9 @@ void measPPG(){
 		ssRunFlag = 1;
 //	}
 
-	ppgMeaserCount++;
+	if(ppgMeasFlag == 1){
+		ppgMeaserCount++;
+	}
 	return;
 }
 /* USER CODE END Application */
