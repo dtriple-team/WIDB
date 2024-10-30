@@ -266,8 +266,8 @@ int ssInit(){
 	return 0;
 }
 
-int ssBegin(){
-	set_command_wearablesuite_algomode(0);
+int ssBegin(uint8_t algomode){
+	set_command_wearablesuite_algomode(algomode); // 0x00
 	set_command_wearablesuite_aecenable(1);
 	set_command_wearablesuite_autopdcurrentenable(1);
 	set_command_wearablesuite_targetpdperiod(0x708);

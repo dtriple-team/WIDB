@@ -113,6 +113,7 @@ extern cat_m1_Status_BandAlert_t cat_m1_Status_BandAlert;
 extern cat_m1_Status_GPS_Location_t cat_m1_Status_GPS_Location;
 
 uint32_t deviceID = 0;
+uint8_t deviceID_check = 0;
 
 #define SAMPLE_COUNT 10
 int scdStateCheckCount = 0;
@@ -133,7 +134,7 @@ float deltaAlt = 0;
 uint16_t curr_height = 0;
 int height_num = 0;
 
-float falling_threshold = 0.90; // 낙상 판별 기준 높이 차이
+float falling_threshold = 1.30; // 낙상 판별 기준 높이 차이
 
 uint8_t ssSCD = 0;
 uint16_t ssHr = 0;
@@ -146,6 +147,17 @@ uint8_t battVal = 0;
 uint8_t hapticFlag = 1;
 uint8_t beforeHaptic = hapticFlag;
 uint8_t soundFlag = 1;
+
+typedef enum{
+	interrupt = 0,
+	output = 1,
+	input = 2
+}GPIOMode;
+
+uint16_t hrMeaserPeriode_sec = 60*1;
+uint16_t spo2MeaserPeriode_sec = 60*5;
+uint8_t ppgMeasFlag = 1;
+uint16_t ppgMeaserCount = 0;
 
 /* USER CODE END Variables */
 /* Definitions for initTask */
@@ -233,6 +245,9 @@ tempHomeViewBase myTempHomeView;
 
 extern uint8_t occurred_imuInterrupt;
 extern uint8_t occurred_PMICBUTTInterrupt;
+
+void mfioGPIOModeChange(GPIOMode mode);
+void measPPG(void);
 
 /* USER CODE END FunctionPrototypes */
 
@@ -465,6 +480,7 @@ void StartWPMTask(void *argument)
 		nrf9160_mqtt_setting();
 		if(cat_m1_Status.InitialLoad == 0)
 		{
+			osDelay(1000);
 			nrf9160_Get_time();
 			nrf9160_Get_rssi();
 
@@ -513,11 +529,6 @@ void StartWPMTask(void *argument)
 					.battery_level = battVal
 				};
 				send_Status_Band(&cat_m1_Status_Band);
-			}
-			if ((strlen((const char*)cat_m1_at_cmd_rst.gps)) && cat_m1_Status.mqttChecking == 0)
-			{
-				cat_m1_Status_GPS_Location.bid = deviceID;
-				send_GPS_Location(&cat_m1_Status_GPS_Location);
 			}
 			mqttFlag = false;
 			catM1MqttDangerMessage = 0;
@@ -579,9 +590,9 @@ void StartSPMTask(void *argument)
 	}
 	// Smart Sensor Hub init
 	ssInit();
-	ssBegin();
+	ssBegin(0x03);
 	ssRead_setting();
-	ssRunFlag = 1; // start read PPG, using Timer
+//	ssRunFlag = 1; // start read PPG, using Timer
 
 	init_iis2mdc();
 	init_ism330dhcx();
@@ -645,12 +656,12 @@ void StartSPMTask(void *argument)
 	    bmpAlt = -bmpAlt;
 	}
 
-	if(pressCheckFlag && pressCheckStartFlag)
+	if(pressCheckFlag && pressCheckStartFlag && ssSCD == 3)
 	{
 		updateHeightData();
 		pressCheckFlag = 0;
 	}
-	if(freeFall_int_on)
+	if(freeFall_int_on && ssSCD == 3)
 	{
 		checkFallDetection();
 		freeFall_int_on = false;
@@ -817,6 +828,8 @@ void StartSecTimerTask(void *argument)
 			pressCheckStartFlag = 1;
 			pressCheckStartTime = 0;
 		}
+
+		measPPG();
 	}
   }
   /* USER CODE END secTimerTask */
@@ -955,11 +968,13 @@ void StartCheckINTTask(void *argument)
 //					myBatteryprogress_container.batteryCharging();
 					myCharging_screenView.changeChargeScreen();
 			    	brightness_count = 0;
+			    	ppgMeasFlag = 0;
 				}
 				else{
 //					myBatteryprogress_container.batteryNotCharging();
 					myUnCharging_screenView.changeUnChargeScreen();
 			    	brightness_count = 0;
+			    	ppgMeasFlag = 1;
 				}
 			}
 		}
@@ -1017,74 +1032,71 @@ int scdSampleIndex = 0;
 
 void read_ppg()
 {
-	// if move detect => detect count = 25
-	// else => return
+    uint8_t data[76+1] = {0,};
+    if(-1 == ssRead(data, sizeof(data))){
+        return;
+    }
 
-	// if detect count == 0 => return
-	// else => ppg read, detectCount--
+    struct ssDataEx_format* ssDataEx = (ssDataEx_format*)malloc(sizeof(struct ssDataEx_format));
+    rxDataSplit(data, ssDataEx);
 
-//	if(canDisplayPPG) return; // full buffer => can display UI // occur timing problem
+    checkReadStatus = ssDataEx->readStatus;
 
-	uint8_t data[76+1] = {0,}; // +1: status byte
-	if(-1 == ssRead(data, sizeof(data))){
-//		osDelay(100);
-		return;
-	}
+    if(ssDataEx->readStatus != 0){
+        free(ssDataEx);
+        return;
+    }
 
-	struct ssDataEx_format* ssDataEx = (ssDataEx_format*)malloc(sizeof(struct ssDataEx_format));
-	rxDataSplit(data, ssDataEx); // return struct format
+    if(ssDataEx->algo.SCDstate == 0){
+        free(ssDataEx);
+        return;
+    }
 
-	checkReadStatus = ssDataEx->readStatus;
+    memcpy(&lcd_ssDataEx, ssDataEx, sizeof(ssDataEx_format));
 
-	if(ssDataEx->readStatus != 0){
-		// err status check
-		free(ssDataEx);
-		return;
-	}
+    scdStateSamples[scdSampleIndex] = lcd_ssDataEx.algo.SCDstate;
+    scdSampleIndex = (scdSampleIndex + 1) % SDC_COUNT;
 
-	memcpy(&lcd_ssDataEx, ssDataEx, sizeof(ssDataEx_format));
+    int count1 = 0, count2 = 0, count3 = 0;
+    for (int i = 0; i < SDC_COUNT; i++)
+    {
+        if (scdStateSamples[i] == 1) count1++;
+        else if (scdStateSamples[i] == 2) count2++;
+        else if (scdStateSamples[i] == 3) count3++;
+    }
 
-	scdStateSamples[scdSampleIndex] = lcd_ssDataEx.algo.SCDstate;
-	scdSampleIndex = (scdSampleIndex + 1) % SDC_COUNT;
+    int scdStateAvg;
+    if (count3 >= count1 && count3 >= count2) scdStateAvg = 3;
+    else if (count2 >= count1 && count2 >= count3) scdStateAvg = 2;
+    else scdStateAvg = 1;
 
-	int scdStateSum = 0;
-	for (int i = 0; i < SDC_COUNT; i++)
-	{
-		scdStateSum += scdStateSamples[i];
-	}
-	int scdStateAvg = scdStateSum / SDC_COUNT;
+    if (scdStateAvg == 3)
+    {
+        ssSCD = 3;
+        ssHr = lcd_ssDataEx.algo.hr / 10;
 
-	if (scdStateAvg == 3)
-	{
-		ssSCD = 3;
-		ssHr = lcd_ssDataEx.algo.hr / 10;
-		ssSpo2 = lcd_ssDataEx.algo.spo2 / 10;
-	}
-	else if (scdStateAvg == 2)
-	{
-		ssSCD = 2;
-		ssHr = 0;
-		ssSpo2 = 0;
-	}
-	else if (scdStateAvg == 1)
-	{
-		ssSCD = 1;
-		ssHr = 0;
-		ssSpo2 = 0;
-	}
-	else
-	{
-		ssHr = 0;
-		ssSpo2 = 0;
-	}
-	ssWalk = lcd_ssDataEx.algo.totalWalkSteps;
+        if (lcd_ssDataEx.algo.spo2 != 0)
+        {
+            ssSpo2 = lcd_ssDataEx.algo.spo2 / 10;
+        }
+    }
+    else if (scdStateAvg == 2)
+    {
+        ssSCD = 2;
+        ssHr = 0;
+        ssSpo2 = 0;
+    }
+    else
+    {
+        ssSCD = 1;
+        ssHr = 0;
+        ssSpo2 = 0;
+    }
 
-//	printf("%d,\t accX:%d,\t accY:%d,\t accZ:%d,\t ", counter++, ssAccX/100, ssAccY/100, ssAccZ/100);
-//	printf("HR:%d,\t SpO2:%d\t ", ssHr/10, ssSpo2/10);
-//	printf("\r\n");
-	free(ssDataEx);
+    ssWalk = lcd_ssDataEx.algo.totalWalkSteps;
 
-	canDisplayPPG = 1;
+    free(ssDataEx);
+    canDisplayPPG = 1;
 }
 
 double getAltitude(double pressure_hPa) {
@@ -1178,6 +1190,11 @@ void BandAlert()
 {
 	if(cat_m1_Status.mqttConnectionStatus == 2)
 	{
+		if ((strlen((const char*)cat_m1_at_cmd_rst.gps)) && cat_m1_Status.mqttChecking == 0)
+		{
+			cat_m1_Status_GPS_Location.bid = deviceID;
+			send_GPS_Location(&cat_m1_Status_GPS_Location);
+		}
 		if (fallCheckFlag == 1 && cat_m1_Status.mqttChecking == 0)
 		{
 			fallCheckFlag = 0;
@@ -1298,6 +1315,86 @@ void BandAlert()
 		    }
 		}
 	}
+}
+
+void mfioGPIOModeChange(GPIOMode mode){
+
+	HAL_GPIO_DeInit(MFIO_PORT, MFIO_PIN);
+	GPIO_InitTypeDef GPIO_InitStruct = {0};
+
+	switch(mode){
+		case interrupt:
+			GPIO_InitStruct.Pin = MFIO_PIN;
+			GPIO_InitStruct.Mode = GPIO_MODE_IT_RISING_FALLING;
+			GPIO_InitStruct.Pull = GPIO_NOPULL;
+			break;
+		case output:
+			GPIO_InitStruct.Pin = MFIO_PIN;
+			GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
+			GPIO_InitStruct.Pull = GPIO_NOPULL;
+			break;
+		case input:
+			break;
+		default:
+			break;
+	}
+
+	HAL_GPIO_Init(MFIO_PORT, &GPIO_InitStruct);
+}
+
+//	ssInit();
+//	ssBegin();
+//	ssRead_setting();
+uint8_t spo2Flag = 0;
+uint8_t hrFlag = 0;
+uint8_t spo2Count = 0;
+uint8_t hrCount = 0;
+void measPPG(){
+//	if (ppgMeasFlag == 0){
+		ssRunFlag = 0;
+
+		// start ppg
+		if(ppgMeaserCount % spo2MeaserPeriode_sec == 0){
+//			mfioGPIOModeChange(output);
+			ssBegin(0x00);
+			ssRead_setting();
+			spo2Flag = 1;
+//			mfioGPIOModeChange(interrupt);
+		}
+		else if(ppgMeaserCount % hrMeaserPeriode_sec == 0){
+//			mfioGPIOModeChange(output);
+			ssBegin(0x02);
+			ssRead_setting();
+			hrFlag = 1;
+//			mfioGPIOModeChange(interrupt);
+		}
+		else if(ppgMeaserCount == spo2MeaserPeriode_sec*hrMeaserPeriode_sec/60){
+			ppgMeaserCount = 1;
+		}
+
+		// stop ppg
+		if(spo2Flag){
+			spo2Count++;
+		}
+		if(hrFlag){
+			hrCount++;
+		}
+
+		if(spo2Count == 30){ // < spo2MeaserPeriode_sec
+			ssBegin(0x05);
+			spo2Count = 0;
+		}
+		if(hrCount == 30){ // < hrMeaserPeriode_sec
+			ssBegin(0x05);
+			hrCount = 0;
+		}
+		ssRunFlag = 1;
+//	}
+
+	if(ppgMeasFlag == 1){
+		ppgMeaserCount++;
+	}
+	return;
 }
 /* USER CODE END Application */
 

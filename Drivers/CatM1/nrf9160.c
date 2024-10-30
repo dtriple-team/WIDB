@@ -37,6 +37,7 @@ extern uint8_t UartRxRetryTime;
 extern bool gpsFlag;
 extern int gps_operation_cycle;
 extern uint32_t deviceID;
+extern uint8_t deviceID_check;
 
 bool txCompleteFlag = 0;
 
@@ -305,11 +306,16 @@ void handle_iccid_command(const char *value)
 {
 	strncpy((char *)cat_m1_at_cmd_rst.iccid, (const char *)value, ICCID_LEN - 1);
 	cat_m1_at_cmd_rst.iccid[ICCID_LEN - 1] = '\0';
-	char iccid9[10];
-	strncpy(iccid9, (char*)&cat_m1_at_cmd_rst.iccid[11], 9);
-	iccid9[9] = '\0';
-	deviceID = (uint32_t)strtol(iccid9, NULL, 10);
-	PRINT_INFO("deviceID >>> %u\r\n", (unsigned int)deviceID);
+	if(!deviceID_check)
+	{
+		char iccid9[10];
+		strncpy(iccid9, (char*)&cat_m1_at_cmd_rst.iccid[11], 9);
+		iccid9[9] = '\0';
+		deviceID = (uint32_t)strtol(iccid9, NULL, 10);
+		//PRINT_INFO("deviceID >>> %u\r\n", (unsigned int)deviceID);
+		HAL_Delay(250);
+		deviceID_check = 1;
+	}
 }
 
 void handle_monitor_command(const char *value)
@@ -357,7 +363,7 @@ void handle_gps_command(const char *value)
     }
     if (strstr(value, "1,4") != NULL) {
         cat_m1_Status.gpsOff = 1;
-        gps_operation_cycle = (60*1);
+        gps_operation_cycle = (60*1)+30;
     } else {
     	if (gpsDataLength > 10) {
     	    char tempBuffer[sizeof(cat_m1_at_cmd_rst.gps)];
@@ -788,7 +794,6 @@ void send_Status_Band(cat_m1_Status_Band_t *status)
     else
     {
         PRINT_INFO("Failed to send AT command.\n");
-        return;
     }
 
     if (send_at_command(mqtt_data))
@@ -830,7 +835,6 @@ void send_Status_BandAlert(cat_m1_Status_BandAlert_t* alertData)
     else
     {
         PRINT_INFO("Failed to send AT command.\n");
-        return;
     }
 
     if (send_at_command(mqtt_data))
@@ -866,7 +870,6 @@ void send_Status_FallDetection(cat_m1_Status_FallDetection_t* fallData)
     else
     {
         PRINT_INFO("Failed to send AT command.\n");
-        return;
     }
 
     if (send_at_command(mqtt_data))
@@ -899,7 +902,6 @@ void send_GPS_Location(cat_m1_Status_GPS_Location_t* location)
     else
     {
         PRINT_INFO("Failed to send AT command.\n");
-        return;
     }
 
     if (send_at_command(mqtt_data))
@@ -941,7 +943,6 @@ void send_Status_IMU(cat_m1_Status_IMU_t* imu_data)
     } else
     {
         PRINT_INFO("Failed to send AT command.\n");
-        return;
     }
 
     if (send_at_command(mqtt_data))

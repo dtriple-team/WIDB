@@ -6,6 +6,7 @@
 
 #include <cstdlib>
 extern uint8_t set_bLevel;
+extern uint8_t before_bLevel;
 
 swipedownfromHomeView::swipedownfromHomeView()
 	: toggleButton1ClickedCallback(this, &swipedownfromHomeView::toggleButton1Clicked), //test
