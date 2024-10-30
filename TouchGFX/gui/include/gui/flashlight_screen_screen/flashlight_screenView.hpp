@@ -11,9 +11,10 @@ public:
     virtual ~flashlight_screenView() {}
     virtual void setupScreen();
     virtual void tearDownScreen();
-
+#if !defined(gui_simulation)
     virtual void changeMaxBrightness();
     virtual void changeBeforeBrightness();
+#endif
 protected:
 };
 

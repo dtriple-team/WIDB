@@ -15,6 +15,7 @@ void flashlight_screenView::tearDownScreen()
     flashlight_screenViewBase::tearDownScreen();
 }
 
+#if !defined(gui_simulation)
 extern uint8_t set_bLevel;
 extern uint8_t before_bLevel;
 extern uint8_t flashlightOn;
@@ -28,3 +29,4 @@ void flashlight_screenView::changeBeforeBrightness(){
 	set_bLevel = before_bLevel;
 	flashlightOn = 0;
 }
+#endif

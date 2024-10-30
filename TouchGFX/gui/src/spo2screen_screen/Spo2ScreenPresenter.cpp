@@ -21,3 +21,8 @@ void Spo2ScreenPresenter::notifySwipeRight() //rkdalfks
 {
 	view.handleSwipeRight();
 }
+
+void Spo2ScreenPresenter::notifySwipeLeft() //rkdalfks
+{
+	view.handleSwipeLeft();
+}

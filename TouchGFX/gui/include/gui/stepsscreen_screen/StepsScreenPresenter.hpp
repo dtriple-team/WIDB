@@ -26,6 +26,7 @@ public:
     virtual void deactivate();
 
     virtual void notifySwipeRight();
+    virtual void notifySwipeLeft();
 
     virtual ~StepsScreenPresenter() {}
 

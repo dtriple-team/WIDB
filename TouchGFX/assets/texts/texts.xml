@@ -17,12 +17,12 @@
         <Translation Language="Korean">0</Translation>
         <Translation Language="Spanish">0</Translation>
       </Text>
-      <Text Id="curSleep" Alignment="Center" TypographyId="size24">
+      <Text Id="curSleep" Alignment="Center" TypographyId="size35">
         <Translation Language="GB">&lt;value&gt;h &lt;value&gt;m</Translation>
         <Translation Language="Korean">&lt;value&gt;시간 &lt;value&gt;분</Translation>
         <Translation Language="Spanish">&lt;value&gt;h &lt;value&gt;m</Translation>
       </Text>
-      <Text Id="sleepText" Alignment="Center" TypographyId="size16">
+      <Text Id="sleepText" Alignment="Center" TypographyId="size24">
         <Translation Language="GB">Sleep</Translation>
         <Translation Language="Korean">수면</Translation>
         <Translation Language="Spanish">Dormir</Translation>
@@ -37,12 +37,12 @@
         <Translation Language="Korean">00</Translation>
         <Translation Language="Spanish">00</Translation>
       </Text>
-      <Text Id="curSpo2" Alignment="Center" TypographyId="size24">
+      <Text Id="curSpo2" Alignment="Center" TypographyId="size35">
         <Translation Language="GB">&lt;value&gt; %</Translation>
         <Translation Language="Korean">&lt;value&gt; %</Translation>
         <Translation Language="Spanish">&lt;value&gt; %</Translation>
       </Text>
-      <Text Id="spo2Text" Alignment="Center" TypographyId="size16">
+      <Text Id="spo2Text" Alignment="Center" TypographyId="size24">
         <Translation Language="GB">Spo2</Translation>
         <Translation Language="Korean">산소포화도</Translation>
         <Translation Language="Spanish">Spo2</Translation>
@@ -57,12 +57,12 @@
         <Translation Language="Korean">00</Translation>
         <Translation Language="Spanish">00</Translation>
       </Text>
-      <Text Id="curHr" Alignment="Center" TypographyId="size24">
+      <Text Id="curHr" Alignment="Center" TypographyId="size35">
         <Translation Language="GB">&lt;value&gt; bpm</Translation>
         <Translation Language="Korean">&lt;value&gt;bpm</Translation>
         <Translation Language="Spanish">&lt;value&gt;bpm</Translation>
       </Text>
-      <Text Id="heartrateText" Alignment="Center" TypographyId="size16">
+      <Text Id="heartrateText" Alignment="Center" TypographyId="size24">
         <Translation Language="GB">Heartrate</Translation>
         <Translation Language="Korean">심박수</Translation>
         <Translation Language="Spanish">Frecuencia&#10;cardíaca</Translation>
@@ -72,12 +72,12 @@
         <Translation Language="Korean">0</Translation>
         <Translation Language="Spanish">0</Translation>
       </Text>
-      <Text Id="curSteps" Alignment="Center" TypographyId="size24">
+      <Text Id="curSteps" Alignment="Center" TypographyId="size35">
         <Translation Language="GB">&lt;value&gt; steps</Translation>
         <Translation Language="Korean">&lt;value&gt; 걸음</Translation>
         <Translation Language="Spanish">&lt;value&gt; pasos</Translation>
       </Text>
-      <Text Id="stepsText" Alignment="Center" TypographyId="size16">
+      <Text Id="stepsText" Alignment="Center" TypographyId="size24">
         <Translation Language="GB">Steps</Translation>
         <Translation Language="Korean">걸음 수</Translation>
         <Translation Language="Spanish">Pasos</Translation>
@@ -132,17 +132,17 @@
         <Translation Language="Korean">0</Translation>
         <Translation Language="Spanish">0</Translation>
       </Text>
-      <Text Id="homeHr" Alignment="Left" TypographyId="size16">
+      <Text Id="homeHr" Alignment="Left" TypographyId="size24">
         <Translation Language="GB">&lt;value&gt; bpm</Translation>
-        <Translation Language="Korean">&lt;value&gt; bpm</Translation>
+        <Translation Language="Korean">심박수 &lt;value&gt; bpm</Translation>
         <Translation Language="Spanish">&lt;value&gt; bpm</Translation>
       </Text>
-      <Text Id="homeSpo2" Alignment="Left" TypographyId="size16">
+      <Text Id="homeSpo2" Alignment="Left" TypographyId="size24">
         <Translation Language="GB">&lt;value&gt; %</Translation>
-        <Translation Language="Korean">&lt;value&gt; %</Translation>
+        <Translation Language="Korean">산소포화도 &lt;value&gt; %</Translation>
         <Translation Language="Spanish">&lt;value&gt; %</Translation>
       </Text>
-      <Text Id="homeSteps" Alignment="Left" TypographyId="size16">
+      <Text Id="homeSteps" Alignment="Left" TypographyId="size24">
         <Translation Language="GB">&lt;value&gt; steps</Translation>
         <Translation Language="Korean">&lt;value&gt; 걸음</Translation>
         <Translation Language="Spanish">&lt;value&gt; pasos</Translation>
@@ -164,7 +164,7 @@
       </Text>
     </TextGroup>
     <TextGroup Id="Setting">
-      <Text Id="curMonthday" Alignment="Left" TypographyId="size20">
+      <Text Id="curMonthday" Alignment="Left" TypographyId="size28">
         <Translation Language="GB">&lt;value&gt;-&lt;value&gt;</Translation>
         <Translation Language="Korean">&lt;value&gt;월 &lt;value&gt;일</Translation>
         <Translation Language="Spanish">&lt;value&gt;-&lt;value&gt;</Translation>
@@ -174,7 +174,7 @@
         <Translation Language="Korean">00</Translation>
         <Translation Language="Spanish">00</Translation>
       </Text>
-      <Text Id="curYear" Alignment="Right" TypographyId="size20">
+      <Text Id="curYear" Alignment="Right" TypographyId="size28">
         <Translation Language="GB">&lt;value&gt;</Translation>
         <Translation Language="Korean">&lt;value&gt;</Translation>
         <Translation Language="Spanish">&lt;value&gt;</Translation>
@@ -708,48 +708,77 @@
     <Typography Id="size10" Font="Pretendard-Regular.ttf" Size="10" Bpp="4" IsVector="no" Direction="LTR" FallbackCharacter="?" WildcardCharacterRanges="0-9,a-z,A-Z">
       <LanguageSetting Language="GB" Font="Pretendard-Regular.ttf" Size="10" Bpp="4" IsVector="no" Direction="LTR" FallbackCharacter="?" WildcardCharacterRanges="0-9,a-z,A-Z" />
       <LanguageSetting Language="Korean" Font="Pretendard-Regular.ttf" Size="10" Bpp="4" IsVector="no" Direction="LTR" FallbackCharacter="?" WildcardCharacterRanges="0-9,a-z,A-Z" />
+      <LanguageSetting Language="Spanish" Font="Pretendard-Regular.ttf" Size="10" Bpp="4" IsVector="no" Direction="LTR" FallbackCharacter="?" WildcardCharacterRanges="0-9,a-z,A-Z" />
+    </Typography>
+    <Typography Id="size15_Bold" Font="Pretendard-Bold.ttf" Size="15" Bpp="4" IsVector="no" Direction="LTR" FallbackCharacter="?" WildcardCharacterRanges="0-9,a-z,A-Z">
+      <LanguageSetting Language="GB" Font="Pretendard-Bold.ttf" Size="15" Bpp="4" IsVector="no" Direction="LTR" FallbackCharacter="?" WildcardCharacterRanges="0-9,a-z,A-Z" />
+      <LanguageSetting Language="Korean" Font="Pretendard-Bold.ttf" Size="15" Bpp="4" IsVector="no" Direction="LTR" FallbackCharacter="?" WildcardCharacterRanges="0-9,a-z,A-Z" />
+      <LanguageSetting Language="Spanish" Font="Pretendard-Bold.ttf" Size="15" Bpp="4" IsVector="no" Direction="LTR" FallbackCharacter="?" WildcardCharacterRanges="0-9,a-z,A-Z" />
     </Typography>
     <Typography Id="size16" Font="Pretendard-Regular.ttf" Size="16" Bpp="4" IsVector="no" Direction="LTR" FallbackCharacter="?" WildcardCharacterRanges="0-9,a-z,A-Z">
       <LanguageSetting Language="GB" Font="Pretendard-Regular.ttf" Size="16" Bpp="4" IsVector="no" Direction="LTR" FallbackCharacter="?" WildcardCharacterRanges="0-9,a-z,A-Z" />
       <LanguageSetting Language="Korean" Font="Pretendard-Regular.ttf" Size="16" Bpp="4" IsVector="no" Direction="LTR" FallbackCharacter="?" WildcardCharacterRanges="0-9,a-z,A-Z" />
+      <LanguageSetting Language="Spanish" Font="Pretendard-Regular.ttf" Size="16" Bpp="4" IsVector="no" Direction="LTR" FallbackCharacter="?" WildcardCharacterRanges="0-9,a-z,A-Z" />
     </Typography>
     <Typography Id="size18" Font="Pretendard-Regular.ttf" Size="18" Bpp="4" IsVector="no" Direction="LTR" FallbackCharacter="?" WildcardCharacterRanges="0-9,a-z,A-Z">
       <LanguageSetting Language="GB" Font="Pretendard-Regular.ttf" Size="18" Bpp="4" IsVector="no" Direction="LTR" FallbackCharacter="?" WildcardCharacterRanges="0-9,a-z,A-Z" />
       <LanguageSetting Language="Korean" Font="Pretendard-Regular.ttf" Size="18" Bpp="4" IsVector="no" Direction="LTR" FallbackCharacter="?" WildcardCharacterRanges="0-9,a-z,A-Z" />
+      <LanguageSetting Language="Spanish" Font="Pretendard-Regular.ttf" Size="18" Bpp="4" IsVector="no" Direction="LTR" FallbackCharacter="?" WildcardCharacterRanges="0-9,a-z,A-Z" />
     </Typography>
     <Typography Id="size20" Font="Pretendard-Regular.ttf" Size="20" Bpp="4" IsVector="no" Direction="LTR" FallbackCharacter="?" WildcardCharacterRanges="0-9,a-z,A-Z">
       <LanguageSetting Language="GB" Font="Pretendard-Regular.ttf" Size="20" Bpp="4" IsVector="no" Direction="LTR" FallbackCharacter="?" WildcardCharacterRanges="0-9,a-z,A-Z" />
       <LanguageSetting Language="Korean" Font="Pretendard-Regular.ttf" Size="20" Bpp="4" IsVector="no" Direction="LTR" FallbackCharacter="?" WildcardCharacterRanges="0-9,a-z,A-Z" />
+      <LanguageSetting Language="Spanish" Font="Pretendard-Regular.ttf" Size="20" Bpp="4" IsVector="no" Direction="LTR" FallbackCharacter="?" WildcardCharacterRanges="0-9,a-z,A-Z" />
     </Typography>
     <Typography Id="size24" Font="Pretendard-Regular.ttf" Size="24" Bpp="4" IsVector="no" Direction="LTR" FallbackCharacter="?" WildcardCharacterRanges="0-9,a-z,A-Z">
       <LanguageSetting Language="GB" Font="Pretendard-Regular.ttf" Size="24" Bpp="4" IsVector="no" Direction="LTR" FallbackCharacter="?" WildcardCharacterRanges="0-9,a-z,A-Z" />
       <LanguageSetting Language="Korean" Font="Pretendard-Regular.ttf" Size="24" Bpp="4" IsVector="no" Direction="LTR" FallbackCharacter="?" WildcardCharacterRanges="0-9,a-z,A-Z" />
+      <LanguageSetting Language="Spanish" Font="Pretendard-Regular.ttf" Size="24" Bpp="4" IsVector="no" Direction="LTR" FallbackCharacter="?" WildcardCharacterRanges="0-9,a-z,A-Z" />
+    </Typography>
+    <Typography Id="size24_Bold" Font="Pretendard-Bold.ttf" Size="24" Bpp="4" IsVector="no" Direction="LTR" FallbackCharacter="?" WildcardCharacterRanges="0-9,a-z,A-Z">
+      <LanguageSetting Language="GB" Font="Pretendard-Bold.ttf" Size="24" Bpp="4" IsVector="no" Direction="LTR" FallbackCharacter="?" WildcardCharacterRanges="0-9,a-z,A-Z" />
+      <LanguageSetting Language="Korean" Font="Pretendard-Bold.ttf" Size="24" Bpp="4" IsVector="no" Direction="LTR" FallbackCharacter="?" WildcardCharacterRanges="0-9,a-z,A-Z" />
+      <LanguageSetting Language="Spanish" Font="Pretendard-Bold.ttf" Size="24" Bpp="4" IsVector="no" Direction="LTR" FallbackCharacter="?" WildcardCharacterRanges="0-9,a-z,A-Z" />
+    </Typography>
+    <Typography Id="size28" Font="Pretendard-Regular.ttf" Size="28" Bpp="4" IsVector="no" Direction="LTR" FallbackCharacter="?" WildcardCharacterRanges="0-9,a-z,A-Z">
+      <LanguageSetting Language="GB" Font="Pretendard-Regular.ttf" Size="28" Bpp="4" IsVector="no" Direction="LTR" FallbackCharacter="?" WildcardCharacterRanges="0-9,a-z,A-Z" />
+      <LanguageSetting Language="Korean" Font="Pretendard-Regular.ttf" Size="28" Bpp="4" IsVector="no" Direction="LTR" FallbackCharacter="?" WildcardCharacterRanges="0-9,a-z,A-Z" />
+      <LanguageSetting Language="Spanish" Font="Pretendard-Regular.ttf" Size="28" Bpp="4" IsVector="no" Direction="LTR" FallbackCharacter="?" WildcardCharacterRanges="0-9,a-z,A-Z" />
     </Typography>
     <Typography Id="size28_Bold" Font="Pretendard-Bold.ttf" Size="28" Bpp="4" IsVector="no" Direction="LTR" FallbackCharacter="?" WildcardCharacterRanges="0-9,a-z,A-Z">
       <LanguageSetting Language="GB" Font="Pretendard-Bold.ttf" Size="28" Bpp="4" IsVector="no" Direction="LTR" FallbackCharacter="?" WildcardCharacterRanges="0-9,a-z,A-Z" />
       <LanguageSetting Language="Korean" Font="Pretendard-Bold.ttf" Size="28" Bpp="4" IsVector="no" Direction="LTR" FallbackCharacter="?" WildcardCharacterRanges="0-9,a-z,A-Z" />
+      <LanguageSetting Language="Spanish" Font="Pretendard-Bold.ttf" Size="28" Bpp="4" IsVector="no" Direction="LTR" FallbackCharacter="?" WildcardCharacterRanges="0-9,a-z,A-Z" />
     </Typography>
     <Typography Id="size32" Font="Pretendard-Regular.ttf" Size="32" Bpp="4" IsVector="no" Direction="LTR" FallbackCharacter="?" WildcardCharacters="0-9" WildcardCharacterRanges="0-9,a-z,A-Z">
       <LanguageSetting Language="GB" Font="Pretendard-Regular.ttf" Size="32" Bpp="4" IsVector="no" Direction="LTR" FallbackCharacter="?" WildcardCharacterRanges="0-9,a-z,A-Z" />
       <LanguageSetting Language="Korean" Font="Pretendard-Regular.ttf" Size="32" Bpp="4" IsVector="no" Direction="LTR" FallbackCharacter="?" WildcardCharacterRanges="0-9,a-z,A-Z" />
+      <LanguageSetting Language="Spanish" Font="Pretendard-Regular.ttf" Size="32" Bpp="4" IsVector="no" Direction="LTR" FallbackCharacter="?" WildcardCharacterRanges="0-9,a-z,A-Z" />
     </Typography>
     <Typography Id="size32_Bold" Font="Pretendard-Bold.ttf" Size="32" Bpp="4" IsVector="no" Direction="LTR" FallbackCharacter="?" WildcardCharacterRanges="0-9,a-z,A-Z">
       <LanguageSetting Language="GB" Font="Pretendard-Bold.ttf" Size="32" Bpp="4" IsVector="no" Direction="LTR" FallbackCharacter="?" WildcardCharacterRanges="0-9,a-z,A-Z" />
       <LanguageSetting Language="Korean" Font="Pretendard-Bold.ttf" Size="32" Bpp="4" IsVector="no" Direction="LTR" FallbackCharacter="?" WildcardCharacterRanges="0-9,a-z,A-Z" />
+      <LanguageSetting Language="Spanish" Font="Pretendard-Bold.ttf" Size="32" Bpp="4" IsVector="no" Direction="LTR" FallbackCharacter="?" WildcardCharacterRanges="0-9,a-z,A-Z" />
+    </Typography>
+    <Typography Id="size35" Font="Pretendard-Regular.ttf" Size="35" Bpp="4" IsVector="no" Direction="LTR" FallbackCharacter="?" WildcardCharacterRanges="0-9,a-z,A-Z">
+      <LanguageSetting Language="GB" Font="Pretendard-Regular.ttf" Size="35" Bpp="4" IsVector="no" Direction="LTR" FallbackCharacter="?" WildcardCharacterRanges="0-9,a-z,A-Z" />
+      <LanguageSetting Language="Korean" Font="Pretendard-Regular.ttf" Size="35" Bpp="4" IsVector="no" Direction="LTR" FallbackCharacter="?" WildcardCharacterRanges="0-9,a-z,A-Z" />
+      <LanguageSetting Language="Spanish" Font="Pretendard-Regular.ttf" Size="35" Bpp="4" IsVector="no" Direction="LTR" FallbackCharacter="?" WildcardCharacterRanges="0-9,a-z,A-Z" />
     </Typography>
     <Typography Id="size65" Font="Pretendard-Bold.ttf" Size="70" Bpp="4" IsVector="no" Direction="LTR" FallbackCharacter="?" WidgetWildcardCharacters="0123456789 :APM" WildcardCharacterRanges="0-9,a-z,A-Z">
       <LanguageSetting Language="GB" Font="Pretendard-Bold.ttf" Size="70" Bpp="4" IsVector="no" Direction="LTR" FallbackCharacter="?" WildcardCharacterRanges="0-9,a-z,A-Z" />
       <LanguageSetting Language="Korean" Font="Pretendard-Bold.ttf" Size="70" Bpp="4" IsVector="no" Direction="LTR" FallbackCharacter="?" WildcardCharacterRanges="0-9,a-z,A-Z" />
+      <LanguageSetting Language="Spanish" Font="Pretendard-Bold.ttf" Size="70" Bpp="4" IsVector="no" Direction="LTR" FallbackCharacter="?" WildcardCharacterRanges="0-9,a-z,A-Z" />
     </Typography>
     <Typography Id="scrollWheelnotselected" Font="Pretendard-Regular.ttf" Size="32" Bpp="4" IsVector="no" Direction="LTR" FallbackCharacter="?" WildcardCharacterRanges="0-9,a-z,A-Z">
       <LanguageSetting Language="GB" Font="Pretendard-Regular.ttf" Size="32" Bpp="4" IsVector="no" Direction="LTR" FallbackCharacter="?" WildcardCharacterRanges="0-9,a-z,A-Z" />
       <LanguageSetting Language="Korean" Font="Pretendard-Regular.ttf" Size="32" Bpp="4" IsVector="no" Direction="LTR" FallbackCharacter="?" WildcardCharacterRanges="0-9,a-z,A-Z" />
+      <LanguageSetting Language="Spanish" Font="Pretendard-Regular.ttf" Size="32" Bpp="4" IsVector="no" Direction="LTR" FallbackCharacter="?" WildcardCharacterRanges="0-9,a-z,A-Z" />
     </Typography>
     <Typography Id="scrollWheelselected" Font="Pretendard-Bold.ttf" Size="32" Bpp="4" IsVector="no" Direction="LTR" FallbackCharacter="?" WildcardCharacterRanges="0-9,a-z,A-Z">
       <LanguageSetting Language="GB" Font="Pretendard-Bold.ttf" Size="32" Bpp="4" IsVector="no" Direction="LTR" FallbackCharacter="?" WildcardCharacterRanges="0-9,a-z,A-Z" />
       <LanguageSetting Language="Korean" Font="Pretendard-Bold.ttf" Size="32" Bpp="4" IsVector="no" Direction="LTR" FallbackCharacter="?" WildcardCharacterRanges="0-9,a-z,A-Z" />
+      <LanguageSetting Language="Spanish" Font="Pretendard-Bold.ttf" Size="32" Bpp="4" IsVector="no" Direction="LTR" FallbackCharacter="?" WildcardCharacterRanges="0-9,a-z,A-Z" />
     </Typography>
-    <Typography Id="size15_Bold" Font="Pretendard-Bold.ttf" Size="15" Bpp="4" IsVector="no" Direction="LTR" FallbackCharacter="?" WildcardCharacterRanges="0-9,a-z,A-Z" />
-    <Typography Id="size24_Bold" Font="Pretendard-Bold.ttf" Size="24" Bpp="4" IsVector="no" Direction="LTR" FallbackCharacter="?" WildcardCharacterRanges="0-9,a-z,A-Z" />
   </Typographies>
 </TextDatabase>

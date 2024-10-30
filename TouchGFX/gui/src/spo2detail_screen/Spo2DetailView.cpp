@@ -18,29 +18,32 @@ void Spo2DetailView::tearDownScreen()
     Spo2DetailViewBase::tearDownScreen();
 }
 
-//void Spo2DetailView::handleGestureEvent(const GestureEvent& evt) //rkdalfks
-//{
-//	if (evt.getType()==GestureEvent::SWIPE_HORIZONTAL)
-//	{
-//    	int deltaX = evt.getVelocity();
-//        //int deltaY = evt.getVelocityY();
-//
-//        //if(abs(deltaX)>abs(deltaY))
-//        //{
-//			if(deltaX>0)
-//			{
-//				presenter->notifySwipeRight();
-//			}
-//        //}
-//	}
-//	Spo2DetailViewBase::handleGestureEvent(evt);
-//}
+#if defined(gui_simulation)
+void Spo2DetailView::handleGestureEvent(const GestureEvent& evt) //rkdalfks
+{
+	if (evt.getType()==GestureEvent::SWIPE_HORIZONTAL)
+	{
+    	int deltaX = evt.getVelocity();
+        //int deltaY = evt.getVelocityY();
+
+        //if(abs(deltaX)>abs(deltaY))
+        //{
+			if(deltaX>0)
+			{
+				presenter->notifySwipeRight();
+			}
+        //}
+	}
+	Spo2DetailViewBase::handleGestureEvent(evt);
+}
+#endif
 
 void Spo2DetailView::handleSwipeRight() //rkdalfks
 {
 	application().gotoHomeScreenWithBiodataScreenWipeTransitionWest();
 }
 
+#if !defined(gui_simulation)
 #include "bl6133.h"
 #define TICK_UPDATESPO2_INTERVAL 60
 extern GESTURE gesture;
@@ -65,3 +68,4 @@ void Spo2DetailView::handleTickEvent(){
 		frameCountUpdateSpo2Interval_local = 0;
 	}
 }
+#endif

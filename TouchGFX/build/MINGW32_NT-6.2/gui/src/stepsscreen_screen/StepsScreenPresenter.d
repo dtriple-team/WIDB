@@ -71,11 +71,15 @@ build/MINGW32_NT-6.2/gui/src/stepsscreen_screen/StepsScreenPresenter.o: \
  ../Middlewares/ST/touchgfx/framework/include/touchgfx/lcd/LCD16DebugPrinter.hpp \
  ../Middlewares/ST/touchgfx/framework/include/touchgfx/widgets/canvas/AbstractPainterColor.hpp \
  ../Middlewares/ST/touchgfx/framework/include/touchgfx/widgets/canvas/AbstractPainterRGB565.hpp \
+ ../Middlewares/ST/touchgfx/framework/include/touchgfx/widgets/Button.hpp \
+ ../Middlewares/ST/touchgfx/framework/include/touchgfx/widgets/AbstractButton.hpp \
  gui/include/gui/containers/batteryprogress_container.hpp \
  generated/gui_generated/include/gui_generated/containers/batteryprogress_containerBase.hpp \
  ../Middlewares/ST/touchgfx/framework/include/touchgfx/containers/progress_indicators/ImageProgress.hpp \
  ../Middlewares/ST/touchgfx/framework/include/touchgfx/containers/progress_indicators/AbstractDirectionProgress.hpp \
- ../Middlewares/ST/touchgfx/framework/include/touchgfx/widgets/TiledImage.hpp
+ ../Middlewares/ST/touchgfx/framework/include/touchgfx/widgets/TiledImage.hpp \
+ gui/include/gui/containers/lte_status_container.hpp \
+ generated/gui_generated/include/gui_generated/containers/lte_status_containerBase.hpp
 
 gui/include/gui/stepsscreen_screen/StepsScreenView.hpp:
 
@@ -219,6 +223,10 @@ gui/include/gui/model/ModelListener.hpp:
 
 ../Middlewares/ST/touchgfx/framework/include/touchgfx/widgets/canvas/AbstractPainterRGB565.hpp:
 
+../Middlewares/ST/touchgfx/framework/include/touchgfx/widgets/Button.hpp:
+
+../Middlewares/ST/touchgfx/framework/include/touchgfx/widgets/AbstractButton.hpp:
+
 gui/include/gui/containers/batteryprogress_container.hpp:
 
 generated/gui_generated/include/gui_generated/containers/batteryprogress_containerBase.hpp:
@@ -228,3 +236,7 @@ generated/gui_generated/include/gui_generated/containers/batteryprogress_contain
 ../Middlewares/ST/touchgfx/framework/include/touchgfx/containers/progress_indicators/AbstractDirectionProgress.hpp:
 
 ../Middlewares/ST/touchgfx/framework/include/touchgfx/widgets/TiledImage.hpp:
+
+gui/include/gui/containers/lte_status_container.hpp:
+
+generated/gui_generated/include/gui_generated/containers/lte_status_containerBase.hpp:

@@ -3,7 +3,9 @@
 #include <touchgfx/hal/HAL.hpp>
 #include <touchgfx/Utils.hpp>
 
+#if !defined(gui_simulation)
 #include <nrf9160.h>
+#endif
 #include <stdio.h>
 
 networkInfoSettingView::networkInfoSettingView()
@@ -15,7 +17,7 @@ networkInfoSettingView::networkInfoSettingView()
 void networkInfoSettingView::setupScreen()
 {
     networkInfoSettingViewBase::setupScreen();
-
+#if !defined(gui_simulation)
     char imei[6];
     char iccid[21];
 
@@ -27,37 +29,39 @@ void networkInfoSettingView::setupScreen()
 	imei_label.invalidate();
 	Unicode::snprintf(iccid_labelBuffer, ICCID_LABEL_SIZE, iccid);
 	iccid_label.invalidate();
+#endif
 }
 
 void networkInfoSettingView::tearDownScreen()
 {
     networkInfoSettingViewBase::tearDownScreen();
 }
+#if defined(gui_simulation)
+void networkInfoSettingView::handleGestureEvent(const GestureEvent& evt)
+{
+    if (evt.getType() == GestureEvent::SWIPE_HORIZONTAL)
+    {
+    	int deltaX = evt.getVelocity();
+        //int deltaY = evt.getVelocityY();
 
-//void networkInfoSettingView::handleGestureEvent(const GestureEvent& evt)
-//{
-//    if (evt.getType() == GestureEvent::SWIPE_HORIZONTAL)
-//    {
-//    	int deltaX = evt.getVelocity();
-//        //int deltaY = evt.getVelocityY();
-//
-//        //if(abs(deltaX)>abs(deltaY))
-//        //{
-//			if (deltaX > 0)
-//			{
-//				presenter->notifySwipeRight();
-//			}
-//        //}
-//    }
-//    networkInfoSettingViewBase::handleGestureEvent(evt);
-//}
+        //if(abs(deltaX)>abs(deltaY))
+        //{
+			if (deltaX > 0)
+			{
+				presenter->notifySwipeRight();
+			}
+        //}
+    }
+    networkInfoSettingViewBase::handleGestureEvent(evt);
+}
+#endif
 
 void networkInfoSettingView::handleSwipeRight()
 {
     // 화면 전환 코드
     application().gotoinformationSettingScreenWipeTransitionWest();
 }
-
+#if !defined(gui_simulation)
 #include "bl6133.h"
 extern GESTURE gesture;
 void networkInfoSettingView::handleTickEvent(){
@@ -65,3 +69,4 @@ void networkInfoSettingView::handleTickEvent(){
 		presenter->notifySwipeRight();
 	}
 }
+#endif

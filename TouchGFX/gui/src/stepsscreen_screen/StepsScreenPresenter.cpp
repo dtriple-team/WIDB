@@ -21,3 +21,8 @@ void StepsScreenPresenter::notifySwipeRight()
 {
 	view.handleSwipeRight();
 }
+
+void StepsScreenPresenter::notifySwipeLeft()
+{
+	view.handleSwipeLeft();
+}

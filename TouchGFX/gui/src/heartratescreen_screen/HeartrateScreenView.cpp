@@ -19,29 +19,41 @@ void HeartrateScreenView::tearDownScreen()
     HeartrateScreenViewBase::tearDownScreen();
 }
 
-//void HeartrateScreenView::handleGestureEvent(const GestureEvent& evt) //rkdalfks
-//{
-//	if (evt.getType()==GestureEvent::SWIPE_HORIZONTAL)
-//	{
-//    	int deltaX = evt.getVelocity();
-//        //int deltaY = evt.getVelocityY();
-//
-//        //if(abs(deltaX)>abs(deltaY))
-//        //{
-//			if(deltaX>0)
-//			{
-//				presenter->notifySwipeRight();
-//			}
-//        //}
-//	}
-//	HeartrateScreenViewBase::handleGestureEvent(evt);
-//}
+#if defined(gui_simulation)
+void HeartrateScreenView::handleGestureEvent(const GestureEvent& evt) //rkdalfks
+{
+	if (evt.getType()==GestureEvent::SWIPE_HORIZONTAL)
+	{
+    	int deltaX = evt.getVelocity();
+        //int deltaY = evt.getVelocityY();
+
+        //if(abs(deltaX)>abs(deltaY))
+        //{
+			if(deltaX > 0)
+			{
+				presenter->notifySwipeRight();
+			}
+			if(deltaX < 0)
+			{
+				presenter->notifySwipeLeft();
+			}
+        //}
+	}
+	HeartrateScreenViewBase::handleGestureEvent(evt);
+}
+#endif
 
 void HeartrateScreenView::handleSwipeRight() //rkdalfks
 {
-	application().gotoHomeScreenWithBiodataScreenWipeTransitionWest();
+	application().gotoStepsScreenScreenSlideTransitionWest();
 }
 
+void HeartrateScreenView::handleSwipeLeft() //rkdalfks
+{
+	application().gotoSpo2ScreenScreenSlideTransitionEast();
+}
+
+#if !defined(gui_simulation)
 extern uint16_t ssHr;
 void HeartrateScreenView::changeHRVal(){
 	touchgfx::Unicode::snprintf(heartrate_valueBuffer, HEARTRATE_VALUE_SIZE, "%02u", ssHr);
@@ -55,3 +67,4 @@ void HeartrateScreenView::handleTickEvent(){
 		presenter->notifySwipeRight();
 	}
 }
+#endif

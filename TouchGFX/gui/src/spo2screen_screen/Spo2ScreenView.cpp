@@ -18,31 +18,43 @@ void Spo2ScreenView::tearDownScreen()
 {
     Spo2ScreenViewBase::tearDownScreen();
 }
+#if defined(gui_simulation)
+void Spo2ScreenView::handleGestureEvent(const GestureEvent& evt) //rkdalfks
+{
+    if (evt.getType() == GestureEvent::SWIPE_HORIZONTAL)
+    {
+    	int deltaX = evt.getVelocity();
+        //int deltaY = evt.getVelocityY();
 
-//void Spo2ScreenView::handleGestureEvent(const GestureEvent& evt) //rkdalfks
-//{
-//    if (evt.getType() == GestureEvent::SWIPE_HORIZONTAL)
-//    {
-//    	int deltaX = evt.getVelocity();
-//        //int deltaY = evt.getVelocityY();
-//
-//        //if(abs(deltaX)>abs(deltaY))
-//        //{
-//			if (deltaX > 0)
-//			{
-//				presenter->notifySwipeRight();
-//			}
-//        //}
-//    }
-//    Spo2ScreenViewBase::handleGestureEvent(evt);
-//}
+        //if(abs(deltaX)>abs(deltaY))
+        //{
+			if (deltaX > 0)
+			{
+				presenter->notifySwipeRight();
+			}
+			if (deltaX < 0)
+			{
+				presenter->notifySwipeLeft();
+			}
+        //}
+    }
+    Spo2ScreenViewBase::handleGestureEvent(evt);
+}
+#endif
 
 void Spo2ScreenView::handleSwipeRight() //rkdalfks
 {
     // 화면 전환 코드
-    application().gotoHomeScreenWithBiodataScreenWipeTransitionWest();
+    application().gotoHeartrateScreenScreenSlideTransitionWest();
 }
 
+void Spo2ScreenView::handleSwipeLeft() //rkdalfks
+{
+    // 화면 전환 코드
+    application().gotoSleepScreenScreenSlideTransitionEast();
+}
+
+#if !defined(gui_simulation)
 extern uint16_t ssSpo2;
 void Spo2ScreenView::changeSpo2Val(){
 	touchgfx::Unicode::snprintf(spo2_valueBuffer, SPO2_VALUE_SIZE, "%02u", ssSpo2);
@@ -56,3 +68,4 @@ void Spo2ScreenView::handleTickEvent(){
 		presenter->notifySwipeRight();
 	}
 }
+#endif

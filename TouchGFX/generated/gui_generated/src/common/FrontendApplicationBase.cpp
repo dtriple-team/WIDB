@@ -11,14 +11,14 @@
 #include <platform/driver/lcd/LCD16bpp.hpp>
 #include <gui/homescreenwithbiodata_screen/HomeScreenWithBiodataView.hpp>
 #include <gui/homescreenwithbiodata_screen/HomeScreenWithBiodataPresenter.hpp>
-#include <gui/sleepscreen_screen/SleepScreenView.hpp>
-#include <gui/sleepscreen_screen/SleepScreenPresenter.hpp>
-#include <gui/spo2screen_screen/Spo2ScreenView.hpp>
-#include <gui/spo2screen_screen/Spo2ScreenPresenter.hpp>
-#include <gui/heartratescreen_screen/HeartrateScreenView.hpp>
-#include <gui/heartratescreen_screen/HeartrateScreenPresenter.hpp>
 #include <gui/stepsscreen_screen/StepsScreenView.hpp>
 #include <gui/stepsscreen_screen/StepsScreenPresenter.hpp>
+#include <gui/heartratescreen_screen/HeartrateScreenView.hpp>
+#include <gui/heartratescreen_screen/HeartrateScreenPresenter.hpp>
+#include <gui/spo2screen_screen/Spo2ScreenView.hpp>
+#include <gui/spo2screen_screen/Spo2ScreenPresenter.hpp>
+#include <gui/sleepscreen_screen/SleepScreenView.hpp>
+#include <gui/sleepscreen_screen/SleepScreenPresenter.hpp>
 #include <gui/heartratedetail_screen/HeartrateDetailView.hpp>
 #include <gui/heartratedetail_screen/HeartrateDetailPresenter.hpp>
 #include <gui/spo2detail_screen/Spo2DetailView.hpp>
@@ -69,8 +69,13 @@ FrontendApplicationBase::FrontendApplicationBase(Model& m, FrontendHeap& heap)
       model(m)
 {
     touchgfx::HAL::getInstance()->setDisplayOrientation(touchgfx::ORIENTATION_PORTRAIT);
-    touchgfx::Texts::setLanguage(GB);
-    reinterpret_cast<touchgfx::LCD16bpp&>(touchgfx::HAL::lcd()).enableTextureMapperAll();
+    touchgfx::Texts::setLanguage(KOREAN);
+    reinterpret_cast<touchgfx::LCD16bpp&>(touchgfx::HAL::lcd()).enableTextureMapperRGB565();
+    reinterpret_cast<touchgfx::LCD16bpp&>(touchgfx::HAL::lcd()).enableTextureMapperARGB8888();
+    reinterpret_cast<touchgfx::LCD16bpp&>(touchgfx::HAL::lcd()).enableTextureMapperL8_RGB565();
+    reinterpret_cast<touchgfx::LCD16bpp&>(touchgfx::HAL::lcd()).enableTextureMapperL8_RGB888();
+    reinterpret_cast<touchgfx::LCD16bpp&>(touchgfx::HAL::lcd()).enableTextureMapperL8_ARGB8888_NearestNeighbor();
+    reinterpret_cast<touchgfx::LCD16bpp&>(touchgfx::HAL::lcd()).enableTextureMapperA4();
     reinterpret_cast<touchgfx::LCD16bpp&>(touchgfx::HAL::lcd()).enableDecompressorL8_All();
 }
 
@@ -89,6 +94,17 @@ void FrontendApplicationBase::gotoHomeScreenWithBiodataScreenNoTransition()
 void FrontendApplicationBase::gotoHomeScreenWithBiodataScreenNoTransitionImpl()
 {
     touchgfx::makeTransition<HomeScreenWithBiodataView, HomeScreenWithBiodataPresenter, touchgfx::NoTransition, Model >(&currentScreen, &currentPresenter, frontendHeap, &currentTransition, &model);
+}
+
+void FrontendApplicationBase::gotoHomeScreenWithBiodataScreenSlideTransitionWest()
+{
+    transitionCallback = touchgfx::Callback<FrontendApplicationBase>(this, &FrontendApplicationBase::gotoHomeScreenWithBiodataScreenSlideTransitionWestImpl);
+    pendingScreenTransitionCallback = &transitionCallback;
+}
+
+void FrontendApplicationBase::gotoHomeScreenWithBiodataScreenSlideTransitionWestImpl()
+{
+    touchgfx::makeTransition<HomeScreenWithBiodataView, HomeScreenWithBiodataPresenter, touchgfx::SlideTransition<WEST>, Model >(&currentScreen, &currentPresenter, frontendHeap, &currentTransition, &model);
 }
 
 void FrontendApplicationBase::gotoHomeScreenWithBiodataScreenWipeTransitionWest()
@@ -113,6 +129,91 @@ void FrontendApplicationBase::gotoHomeScreenWithBiodataScreenWipeTransitionSouth
     touchgfx::makeTransition<HomeScreenWithBiodataView, HomeScreenWithBiodataPresenter, touchgfx::WipeTransition<SOUTH>, Model >(&currentScreen, &currentPresenter, frontendHeap, &currentTransition, &model);
 }
 
+// StepsScreen
+
+void FrontendApplicationBase::gotoStepsScreenScreenSlideTransitionEast()
+{
+    transitionCallback = touchgfx::Callback<FrontendApplicationBase>(this, &FrontendApplicationBase::gotoStepsScreenScreenSlideTransitionEastImpl);
+    pendingScreenTransitionCallback = &transitionCallback;
+}
+
+void FrontendApplicationBase::gotoStepsScreenScreenSlideTransitionEastImpl()
+{
+    touchgfx::makeTransition<StepsScreenView, StepsScreenPresenter, touchgfx::SlideTransition<EAST>, Model >(&currentScreen, &currentPresenter, frontendHeap, &currentTransition, &model);
+}
+
+void FrontendApplicationBase::gotoStepsScreenScreenSlideTransitionWest()
+{
+    transitionCallback = touchgfx::Callback<FrontendApplicationBase>(this, &FrontendApplicationBase::gotoStepsScreenScreenSlideTransitionWestImpl);
+    pendingScreenTransitionCallback = &transitionCallback;
+}
+
+void FrontendApplicationBase::gotoStepsScreenScreenSlideTransitionWestImpl()
+{
+    touchgfx::makeTransition<StepsScreenView, StepsScreenPresenter, touchgfx::SlideTransition<WEST>, Model >(&currentScreen, &currentPresenter, frontendHeap, &currentTransition, &model);
+}
+
+// HeartrateScreen
+
+void FrontendApplicationBase::gotoHeartrateScreenScreenSlideTransitionEast()
+{
+    transitionCallback = touchgfx::Callback<FrontendApplicationBase>(this, &FrontendApplicationBase::gotoHeartrateScreenScreenSlideTransitionEastImpl);
+    pendingScreenTransitionCallback = &transitionCallback;
+}
+
+void FrontendApplicationBase::gotoHeartrateScreenScreenSlideTransitionEastImpl()
+{
+    touchgfx::makeTransition<HeartrateScreenView, HeartrateScreenPresenter, touchgfx::SlideTransition<EAST>, Model >(&currentScreen, &currentPresenter, frontendHeap, &currentTransition, &model);
+}
+
+void FrontendApplicationBase::gotoHeartrateScreenScreenSlideTransitionWest()
+{
+    transitionCallback = touchgfx::Callback<FrontendApplicationBase>(this, &FrontendApplicationBase::gotoHeartrateScreenScreenSlideTransitionWestImpl);
+    pendingScreenTransitionCallback = &transitionCallback;
+}
+
+void FrontendApplicationBase::gotoHeartrateScreenScreenSlideTransitionWestImpl()
+{
+    touchgfx::makeTransition<HeartrateScreenView, HeartrateScreenPresenter, touchgfx::SlideTransition<WEST>, Model >(&currentScreen, &currentPresenter, frontendHeap, &currentTransition, &model);
+}
+
+// Spo2Screen
+
+void FrontendApplicationBase::gotoSpo2ScreenScreenSlideTransitionEast()
+{
+    transitionCallback = touchgfx::Callback<FrontendApplicationBase>(this, &FrontendApplicationBase::gotoSpo2ScreenScreenSlideTransitionEastImpl);
+    pendingScreenTransitionCallback = &transitionCallback;
+}
+
+void FrontendApplicationBase::gotoSpo2ScreenScreenSlideTransitionEastImpl()
+{
+    touchgfx::makeTransition<Spo2ScreenView, Spo2ScreenPresenter, touchgfx::SlideTransition<EAST>, Model >(&currentScreen, &currentPresenter, frontendHeap, &currentTransition, &model);
+}
+
+void FrontendApplicationBase::gotoSpo2ScreenScreenSlideTransitionWest()
+{
+    transitionCallback = touchgfx::Callback<FrontendApplicationBase>(this, &FrontendApplicationBase::gotoSpo2ScreenScreenSlideTransitionWestImpl);
+    pendingScreenTransitionCallback = &transitionCallback;
+}
+
+void FrontendApplicationBase::gotoSpo2ScreenScreenSlideTransitionWestImpl()
+{
+    touchgfx::makeTransition<Spo2ScreenView, Spo2ScreenPresenter, touchgfx::SlideTransition<WEST>, Model >(&currentScreen, &currentPresenter, frontendHeap, &currentTransition, &model);
+}
+
+// SleepScreen
+
+void FrontendApplicationBase::gotoSleepScreenScreenSlideTransitionEast()
+{
+    transitionCallback = touchgfx::Callback<FrontendApplicationBase>(this, &FrontendApplicationBase::gotoSleepScreenScreenSlideTransitionEastImpl);
+    pendingScreenTransitionCallback = &transitionCallback;
+}
+
+void FrontendApplicationBase::gotoSleepScreenScreenSlideTransitionEastImpl()
+{
+    touchgfx::makeTransition<SleepScreenView, SleepScreenPresenter, touchgfx::SlideTransition<EAST>, Model >(&currentScreen, &currentPresenter, frontendHeap, &currentTransition, &model);
+}
+
 // HeartrateDetail
 
 void FrontendApplicationBase::gotoHeartrateDetailScreenCoverTransitionEast()
@@ -126,17 +227,6 @@ void FrontendApplicationBase::gotoHeartrateDetailScreenCoverTransitionEastImpl()
     touchgfx::makeTransition<HeartrateDetailView, HeartrateDetailPresenter, touchgfx::CoverTransition<EAST>, Model >(&currentScreen, &currentPresenter, frontendHeap, &currentTransition, &model);
 }
 
-void FrontendApplicationBase::gotoHeartrateDetailScreenWipeTransitionSouth()
-{
-    transitionCallback = touchgfx::Callback<FrontendApplicationBase>(this, &FrontendApplicationBase::gotoHeartrateDetailScreenWipeTransitionSouthImpl);
-    pendingScreenTransitionCallback = &transitionCallback;
-}
-
-void FrontendApplicationBase::gotoHeartrateDetailScreenWipeTransitionSouthImpl()
-{
-    touchgfx::makeTransition<HeartrateDetailView, HeartrateDetailPresenter, touchgfx::WipeTransition<SOUTH>, Model >(&currentScreen, &currentPresenter, frontendHeap, &currentTransition, &model);
-}
-
 // Spo2Detail
 
 void FrontendApplicationBase::gotoSpo2DetailScreenCoverTransitionEast()
@@ -148,17 +238,6 @@ void FrontendApplicationBase::gotoSpo2DetailScreenCoverTransitionEast()
 void FrontendApplicationBase::gotoSpo2DetailScreenCoverTransitionEastImpl()
 {
     touchgfx::makeTransition<Spo2DetailView, Spo2DetailPresenter, touchgfx::CoverTransition<EAST>, Model >(&currentScreen, &currentPresenter, frontendHeap, &currentTransition, &model);
-}
-
-void FrontendApplicationBase::gotoSpo2DetailScreenWipeTransitionSouth()
-{
-    transitionCallback = touchgfx::Callback<FrontendApplicationBase>(this, &FrontendApplicationBase::gotoSpo2DetailScreenWipeTransitionSouthImpl);
-    pendingScreenTransitionCallback = &transitionCallback;
-}
-
-void FrontendApplicationBase::gotoSpo2DetailScreenWipeTransitionSouthImpl()
-{
-    touchgfx::makeTransition<Spo2DetailView, Spo2DetailPresenter, touchgfx::WipeTransition<SOUTH>, Model >(&currentScreen, &currentPresenter, frontendHeap, &currentTransition, &model);
 }
 
 // swipedownfromHome

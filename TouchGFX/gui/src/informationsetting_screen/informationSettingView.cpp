@@ -19,23 +19,25 @@ void informationSettingView::tearDownScreen()
     informationSettingViewBase::tearDownScreen();
 }
 
-//void informationSettingView::handleGestureEvent(const GestureEvent& evt) //rkdalfks
-//{
-//    if (evt.getType() == GestureEvent::SWIPE_HORIZONTAL)
-//    {
-//    	int deltaX = evt.getVelocity();
-//        //int deltaY = evt.getVelocityY();
-//
-//        //if(abs(deltaX)>abs(deltaY))
-//        //{
-//			if (deltaX > 0)
-//			{
-//				presenter->notifySwipeRight();
-//			}
-//        //}
-//    }
-//    informationSettingViewBase::handleGestureEvent(evt);
-//}
+#if defined(gui_simulation)
+void informationSettingView::handleGestureEvent(const GestureEvent& evt) //rkdalfks
+{
+    if (evt.getType() == GestureEvent::SWIPE_HORIZONTAL)
+    {
+    	int deltaX = evt.getVelocity();
+        //int deltaY = evt.getVelocityY();
+
+        //if(abs(deltaX)>abs(deltaY))
+        //{
+			if (deltaX > 0)
+			{
+				presenter->notifySwipeRight();
+			}
+        //}
+    }
+    informationSettingViewBase::handleGestureEvent(evt);
+}
+#endif
 
 void informationSettingView::handleSwipeRight() //rkdalfks
 {
@@ -43,6 +45,7 @@ void informationSettingView::handleSwipeRight() //rkdalfks
     application().gotoSettingScreenScreenWipeTransitionWest();
 }
 
+#if !defined(gui_simulation)
 #include "bl6133.h"
 extern GESTURE gesture;
 void informationSettingView::handleTickEvent(){
@@ -50,3 +53,4 @@ void informationSettingView::handleTickEvent(){
 		presenter->notifySwipeRight();
 	}
 }
+#endif

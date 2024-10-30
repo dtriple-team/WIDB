@@ -11,14 +11,18 @@ public:
     virtual ~HeartrateScreenView() {}
     virtual void setupScreen();
     virtual void tearDownScreen();
-
-//    virtual void handleGestureEvent(const GestureEvent& evt); //rkdalfks
+#if defined(gui_simulation)
+    virtual void handleGestureEvent(const GestureEvent& evt); //rkdalfks
+#endif
 
     void handleSwipeRight(); //rkdalfks
+    void handleSwipeLeft();
 
+#if !defined(gui_simulation)
     virtual void changeHRVal();
 
     virtual void handleTickEvent();
+#endif
 protected:
 
 private: //rkdalfks

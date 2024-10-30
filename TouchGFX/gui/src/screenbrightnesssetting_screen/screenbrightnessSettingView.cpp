@@ -22,37 +22,43 @@ void screenbrightnessSettingView::tearDownScreen()
 {
     screenbrightnessSettingViewBase::tearDownScreen();
 }
+#if defined(gui_simulation)
+void screenbrightnessSettingView::handleGestureEvent(const GestureEvent& evt)
+{
+    if (evt.getType() == GestureEvent::SWIPE_HORIZONTAL)
+    {
+    	int deltaX = evt.getVelocity();
+        //int deltaY = evt.getVelocityY();
 
-//void screenbrightnessSettingView::handleGestureEvent(const GestureEvent& evt)
-//{
-//    if (evt.getType() == GestureEvent::SWIPE_HORIZONTAL)
-//    {
-//    	int deltaX = evt.getVelocity();
-//        //int deltaY = evt.getVelocityY();
-//
-//        //if(abs(deltaX)>abs(deltaY))
-//        //{
-//			if (deltaX > 0)
-//			{
-//				presenter->notifySwipeRight();
-//			}
-//        //}
-//    }
-//    screenbrightnessSettingViewBase::handleGestureEvent(evt);
-//}
+        //if(abs(deltaX)>abs(deltaY))
+        //{
+			if (deltaX > 0)
+			{
+				presenter->notifySwipeRight();
+			}
+        //}
+    }
+    screenbrightnessSettingViewBase::handleGestureEvent(evt);
+}
+#endif
 
 void screenbrightnessSettingView::handleSwipeRight()
 {
     // 화면 전환 코드
     application().gotoscreenSettingScreenWipeTransitionWest();
 }
-
+#if !defined(gui_simulation)
 extern uint8_t set_bLevel;
+#endif
 void screenbrightnessSettingView::slider1ChangedHandler(const Slider& src, int value)
 {
     presenter->updateSlider1Value(value);
+#if !defined(gui_simulation)
     set_bLevel = value/6.67+1;
+#endif
 }
+
+#if !defined(gui_simulation)
 
 #include "bl6133.h"
 extern GESTURE gesture;
@@ -61,3 +67,4 @@ void screenbrightnessSettingView::handleTickEvent(){
 		presenter->notifySwipeRight();
 	}
 }
+#endif

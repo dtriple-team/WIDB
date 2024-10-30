@@ -4,8 +4,12 @@
 #include <touchgfx/hal/HAL.hpp>
 #include <touchgfx/Utils.hpp>
 
+#if !defined(gui_simulation)
 extern uint8_t screenOnTime;
 uint16_t local_screenOnTime = screenOnTime;
+#else
+uint16_t local_screenOnTime = 0;
+#endif
 
 screenontimeSettingView::screenontimeSettingView()
 	: scrollWheel1AnimateToCallback(this, &screenontimeSettingView::scrollWheel1AnimateToHandler),
@@ -25,23 +29,25 @@ void screenontimeSettingView::tearDownScreen()
     screenontimeSettingViewBase::tearDownScreen();
 }
 
-//void screenontimeSettingView::handleGestureEvent(const GestureEvent& evt)
-//{
-//    if (evt.getType() == GestureEvent::SWIPE_HORIZONTAL)
-//    {
-//    	int deltaX = evt.getVelocity();
-//        //int deltaY = evt.getVelocityY();
-//
-//        //if(abs(deltaX)>abs(deltaY))
-//        //{
-//			if (deltaX > 0)
-//			{
-//				presenter->notifySwipeRight();
-//			}
-//        //}
-//    }
-//    screenontimeSettingViewBase::handleGestureEvent(evt);
-//}
+#if defined(gui_simulation)
+void screenontimeSettingView::handleGestureEvent(const GestureEvent& evt)
+{
+    if (evt.getType() == GestureEvent::SWIPE_HORIZONTAL)
+    {
+    	int deltaX = evt.getVelocity();
+        //int deltaY = evt.getVelocityY();
+
+        //if(abs(deltaX)>abs(deltaY))
+        //{
+			if (deltaX > 0)
+			{
+				presenter->notifySwipeRight();
+			}
+        //}
+    }
+    screenontimeSettingViewBase::handleGestureEvent(evt);
+}
+#endif
 
 void screenontimeSettingView::handleSwipeRight()
 {
@@ -63,6 +69,8 @@ void screenontimeSettingView::scrollWheel1AnimateToHandler(int16_t item)
 	local_screenOnTime = (item+1)*5;
 }
 
+
+#if !defined(gui_simulation)
 void screenontimeSettingView::changeScreenOnTime(){
 	if(local_screenOnTime == 0){
 		// not normal event => screen on time == 0 => time = 20(default) init
@@ -78,3 +86,4 @@ void screenontimeSettingView::handleTickEvent(){
 		presenter->notifySwipeRight();
 	}
 }
+#endif

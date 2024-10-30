@@ -25,24 +25,25 @@ void soundnhapticsSettingView::tearDownScreen()
 {
     soundnhapticsSettingViewBase::tearDownScreen();
 }
+#if defined(gui_simulation)
+void soundnhapticsSettingView::handleGestureEvent(const GestureEvent& evt)
+{
+    if (evt.getType() == GestureEvent::SWIPE_HORIZONTAL)
+    {
+    	int deltaX = evt.getVelocity();
+        //int deltaY = evt.getVelocityY();
 
-//void soundnhapticsSettingView::handleGestureEvent(const GestureEvent& evt)
-//{
-//    if (evt.getType() == GestureEvent::SWIPE_HORIZONTAL)
-//    {
-//    	int deltaX = evt.getVelocity();
-//        //int deltaY = evt.getVelocityY();
-//
-//        //if(abs(deltaX)>abs(deltaY))
-//        //{
-//			if (deltaX > 0)
-//			{
-//				presenter->notifySwipeRight();
-//			}
-//        //}
-//    }
-//    soundnhapticsSettingViewBase::handleGestureEvent(evt);
-//}
+        //if(abs(deltaX)>abs(deltaY))
+        //{
+			if (deltaX > 0)
+			{
+				presenter->notifySwipeRight();
+			}
+        //}
+    }
+    soundnhapticsSettingViewBase::handleGestureEvent(evt);
+}
+#endif
 
 void soundnhapticsSettingView::handleSwipeRight()
 {
@@ -53,9 +54,10 @@ void soundnhapticsSettingView::toggleButton1Clicked(const touchgfx::AbstractButt
 {
     bool newState = haptic_togglebutton.getState();
     presenter->updateToggleButton1State(newState);
-
+#if !defined(gui_simulation)
     extern uint8_t hapticFlag;
     hapticFlag = !hapticFlag;
+#endif
 }
 
 void soundnhapticsSettingView::updateToggleButton1State(bool state)
@@ -67,9 +69,10 @@ void soundnhapticsSettingView::toggleButton2Clicked(const touchgfx::AbstractButt
 {
     bool newState = sound_togglebutton.getState();
     presenter->updateToggleButton2State(newState);
-
+#if !defined(gui_simulation)
     extern uint8_t soundFlag;
 	soundFlag = !soundFlag;
+#endif
 }
 
 void soundnhapticsSettingView::updateToggleButton2State(bool state)
@@ -77,6 +80,7 @@ void soundnhapticsSettingView::updateToggleButton2State(bool state)
 	sound_togglebutton.forceState(state);
 }
 
+#if !defined(gui_simulation)
 #include "bl6133.h"
 extern GESTURE gesture;
 void soundnhapticsSettingView::handleTickEvent(){
@@ -84,3 +88,4 @@ void soundnhapticsSettingView::handleTickEvent(){
 		presenter->notifySwipeRight();
 	}
 }
+#endif

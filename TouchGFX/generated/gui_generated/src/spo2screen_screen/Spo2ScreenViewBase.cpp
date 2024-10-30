@@ -17,13 +17,13 @@ Spo2ScreenViewBase::Spo2ScreenViewBase() :
     background.setBitmap(touchgfx::Bitmap(BITMAP_BACKGROUND_ID));
     add(background);
 
-    spo2_label.setPosition(0, 6, 240, 25);
+    spo2_label.setPosition(0, 4, 240, 30);
     spo2_label.setColor(touchgfx::Color::getColorFromRGB(255, 255, 255));
     spo2_label.setLinespacing(0);
     spo2_label.setTypedText(touchgfx::TypedText(T_SPO2TEXT));
     add(spo2_label);
 
-    spo2_value.setPosition(0, 219, 240, 33);
+    spo2_value.setPosition(0, 215, 240, 45);
     spo2_value.setColor(touchgfx::Color::getColorFromRGB(255, 255, 255));
     spo2_value.setLinespacing(0);
     Unicode::snprintf(spo2_valueBuffer, SPO2_VALUE_SIZE, "%s", touchgfx::TypedText(T_CURSPO2VALUE).getText());
@@ -31,14 +31,19 @@ Spo2ScreenViewBase::Spo2ScreenViewBase() :
     spo2_value.setTypedText(touchgfx::TypedText(T_CURSPO2));
     add(spo2_value);
 
-    topright_box.setPosition(175, 0, 65, 33);
+    topright_box.setPosition(185, 0, 55, 33);
     topright_box.setColor(touchgfx::Color::getColorFromRGB(0, 0, 0));
     add(topright_box);
 
     spo2_detail_button.setXY(70, 75);
     spo2_detail_button.setBitmaps(touchgfx::Bitmap(BITMAP_SPO2_ICON_ID), touchgfx::Bitmap(BITMAP_SPO2_ICON_ID));
-    spo2_detail_button.setAction(buttonCallback);
     add(spo2_detail_button);
+
+    buttonfornothing.setXY(0, 0);
+    buttonfornothing.setBitmaps(touchgfx::Bitmap(BITMAP_ALTERNATE_THEME_IMAGES_WIDGETS_BUTTON_REGULAR_HEIGHT_50_MEDIUM_ROUNDED_NORMAL_ID), touchgfx::Bitmap(BITMAP_ALTERNATE_THEME_IMAGES_WIDGETS_BUTTON_REGULAR_HEIGHT_50_MEDIUM_ROUNDED_PRESSED_ID));
+    buttonfornothing.setVisible(false);
+    buttonfornothing.setAction(buttonCallback);
+    add(buttonfornothing);
 
     batteryprogress_container1.setXY(0, 0);
     add(batteryprogress_container1);
@@ -60,11 +65,15 @@ void Spo2ScreenViewBase::setupScreen()
 
 void Spo2ScreenViewBase::buttonCallbackHandler(const touchgfx::AbstractButton& src)
 {
-    if (&src == &spo2_detail_button)
+    if (&src == &buttonfornothing)
     {
-        //Interaction1
-        //When spo2_detail_button clicked change screen to Spo2Detail
-        //Go to Spo2Detail with screen transition towards South
-        application().gotoSpo2DetailScreenWipeTransitionSouth();
+        //Interaction2
+        //When buttonfornothing clicked change screen to HeartrateScreen
+        //Go to HeartrateScreen with screen transition towards West
+        application().gotoHeartrateScreenScreenSlideTransitionWest();
+        //Interaction3
+        //When buttonfornothing clicked change screen to SleepScreen
+        //Go to SleepScreen with screen transition towards East
+        application().gotoSleepScreenScreenSlideTransitionEast();
     }
 }

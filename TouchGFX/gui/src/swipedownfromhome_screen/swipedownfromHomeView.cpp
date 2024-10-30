@@ -32,23 +32,35 @@ void swipedownfromHomeView::tearDownScreen()
     swipedownfromHomeViewBase::tearDownScreen();
 }
 
-//void swipedownfromHomeView::handleGestureEvent(const GestureEvent& evt)
-//{
-//    if (evt.getType() == GestureEvent::SWIPE_VERTICAL && isDeltaYGreaterThanDeltaX)
-//    {
-//    	//int deltaX = evt.getVelocityX();
-//        int deltaY = evt.getVelocity();
-//
-//        //if(abs(deltaY)>abs(deltaX))
-//        //{
-//			if (deltaY < 0)
-//			{
-//				presenter->notifySwipeUp();
-//			}
-//        //}
-//    }
-//    swipedownfromHomeViewBase::handleGestureEvent(evt);
-//}
+#if defined(gui_simulation)
+void swipedownfromHomeView::handleGestureEvent(const GestureEvent& evt)
+{
+	int deltaX = 0, deltaY = 0;
+	const int swipeThreshold = 20;
+
+    if (evt.getType() == GestureEvent::SWIPE_VERTICAL)
+    {
+        deltaY = evt.getVelocity();
+    }
+    if (evt.getType() == GestureEvent::SWIPE_HORIZONTAL)
+    {
+    	deltaX = evt.getVelocity();
+    }
+
+    if (evt.getType() == GestureEvent::SWIPE_VERTICAL && abs(deltaY)>abs(deltaX))
+    {
+
+    	if(abs(deltaY) > swipeThreshold)
+		{
+			if (deltaY < -20)
+			{
+				presenter->notifySwipeUp();
+			}
+		}
+    }
+    swipedownfromHomeViewBase::handleGestureEvent(evt);
+}
+#endif
 
 void swipedownfromHomeView::handleSwipeUp()
 {
@@ -59,9 +71,10 @@ void swipedownfromHomeView::toggleButton1Clicked(const touchgfx::AbstractButton&
 {
     bool newState = haptic_togglebutton.getState();
     presenter->updateToggleButton1State(newState);
-
+#if !defined(gui_simulation)
     extern uint8_t hapticFlag;
     hapticFlag = !hapticFlag;
+#endif
 }
 
 void swipedownfromHomeView::updateToggleButton1State(bool state)
@@ -73,9 +86,10 @@ void swipedownfromHomeView::toggleButton2Clicked(const touchgfx::AbstractButton&
 {
     bool newState = sound_togglebutton.getState();
     presenter->updateToggleButton2State(newState);
-
+#if !defined(gui_simulation)
     extern uint8_t soundFlag;
     soundFlag = !soundFlag;
+#endif
 }
 
 void swipedownfromHomeView::updateToggleButton2State(bool state)
@@ -86,9 +100,11 @@ void swipedownfromHomeView::updateToggleButton2State(bool state)
 void swipedownfromHomeView::slider1ChangedHandler(const Slider& src, int value)
 {
     presenter->updateSlider1Value(value);
+#if !defined(gui_simulation)
     set_bLevel = value/6.67+1;
+#endif
 }
-
+#if !defined(gui_simulation)
 void swipedownfromHomeView::handleDragEvent(const DragEvent& evt)
 {
 	int deltax = std::abs(evt.getDeltaX());
@@ -108,3 +124,4 @@ void swipedownfromHomeView::handleTickEvent(){
 		presenter->notifySwipeUp();
 	}
 }
+#endif

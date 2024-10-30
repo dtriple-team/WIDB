@@ -45,6 +45,7 @@ protected:
     touchgfx::TextAreaWithOneWildcard spo2_value;
     touchgfx::Box topright_box;
     touchgfx::Button spo2_detail_button;
+    touchgfx::Button buttonfornothing;
     batteryprogress_container batteryprogress_container1;
     lte_status_container lte_status_container1;
 
