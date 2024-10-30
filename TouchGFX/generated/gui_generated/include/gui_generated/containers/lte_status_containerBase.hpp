@@ -28,6 +28,7 @@ protected:
     touchgfx::Box topleft_box;
     touchgfx::Image lte_image;
     touchgfx::ImageProgress imageProgress1;
+    touchgfx::ImageProgress imageProgress2;
 
 private:
 

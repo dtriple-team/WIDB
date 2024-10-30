@@ -9,13 +9,8 @@
 #include <gui/homescreenwithbiodata_screen/HomeScreenWithBiodataPresenter.hpp>
 #include <touchgfx/widgets/Box.hpp>
 #include <touchgfx/widgets/Image.hpp>
-#include <touchgfx/containers/SwipeContainer.hpp>
-#include <touchgfx/containers/Container.hpp>
 #include <touchgfx/containers/clock/DigitalClock.hpp>
 #include <touchgfx/widgets/TextAreaWithWildcard.hpp>
-#include <touchgfx/widgets/TextArea.hpp>
-#include <touchgfx/containers/progress_indicators/CircleProgress.hpp>
-#include <touchgfx/widgets/canvas/PainterRGB565.hpp>
 #include <touchgfx/widgets/Button.hpp>
 #include <gui/containers/batteryprogress_container.hpp>
 #include <gui/containers/lte_status_container.hpp>
@@ -37,8 +32,6 @@ protected:
      */
     touchgfx::Box __background;
     touchgfx::Image background;
-    touchgfx::SwipeContainer swipeContainer1;
-    touchgfx::Container HomeScreen;
     touchgfx::Image home_background;
     touchgfx::DigitalClock digitalClock;
     touchgfx::TextAreaWithTwoWildcards date_value;
@@ -49,30 +42,6 @@ protected:
     touchgfx::TextAreaWithOneWildcard home_heartrate_value;
     touchgfx::TextAreaWithOneWildcard home_spo2_value;
     touchgfx::TextAreaWithOneWildcard home_steps_value;
-    touchgfx::Container StepsScreen;
-    touchgfx::Image steps_background;
-    touchgfx::TextArea steps_label;
-    touchgfx::TextAreaWithOneWildcard step_value;
-    touchgfx::Image steps_image;
-    touchgfx::CircleProgress steps_progress;
-    touchgfx::PainterRGB565 steps_progressPainter;
-    touchgfx::Container HeartrateScreen;
-    touchgfx::Image heartrate_background;
-    touchgfx::TextArea heartrate_label;
-    touchgfx::TextAreaWithOneWildcard heartrate_value;
-    touchgfx::Button hr_detail_button;
-    touchgfx::Container Spo2Screen;
-    touchgfx::Image spo2_background;
-    touchgfx::TextArea spo2_label;
-    touchgfx::TextAreaWithOneWildcard spo2_value;
-    touchgfx::Button spo2_detail_button;
-    touchgfx::Container SleepScreen;
-    touchgfx::Image background_6;
-    touchgfx::TextArea sleep_label;
-    touchgfx::TextAreaWithTwoWildcards sleeptime_value;
-    touchgfx::Image sleep_image;
-    touchgfx::CircleProgress sleep_progress;
-    touchgfx::PainterRGB565 sleep_progressPainter;
     touchgfx::Box topright_box;
     touchgfx::Button buttonfornothing;
     batteryprogress_container batteryprogress_container1;
@@ -93,24 +62,8 @@ protected:
     touchgfx::Unicode::UnicodeChar home_spo2_valueBuffer[HOME_SPO2_VALUE_SIZE];
     static const uint16_t HOME_STEPS_VALUE_SIZE = 10;
     touchgfx::Unicode::UnicodeChar home_steps_valueBuffer[HOME_STEPS_VALUE_SIZE];
-    static const uint16_t STEP_VALUE_SIZE = 10;
-    touchgfx::Unicode::UnicodeChar step_valueBuffer[STEP_VALUE_SIZE];
-    static const uint16_t HEARTRATE_VALUE_SIZE = 5;
-    touchgfx::Unicode::UnicodeChar heartrate_valueBuffer[HEARTRATE_VALUE_SIZE];
-    static const uint16_t SPO2_VALUE_SIZE = 4;
-    touchgfx::Unicode::UnicodeChar spo2_valueBuffer[SPO2_VALUE_SIZE];
-    static const uint16_t SLEEPTIME_VALUEBUFFER1_SIZE = 4;
-    touchgfx::Unicode::UnicodeChar sleeptime_valueBuffer1[SLEEPTIME_VALUEBUFFER1_SIZE];
-    static const uint16_t SLEEPTIME_VALUEBUFFER2_SIZE = 4;
-    touchgfx::Unicode::UnicodeChar sleeptime_valueBuffer2[SLEEPTIME_VALUEBUFFER2_SIZE];
 
 private:
-
-    /*
-     * Canvas Buffer Size
-     */
-    static const uint32_t CANVAS_BUFFER_SIZE = 3600;
-    uint8_t canvasBuffer[CANVAS_BUFFER_SIZE];
 
     /*
      * Callback Declarations

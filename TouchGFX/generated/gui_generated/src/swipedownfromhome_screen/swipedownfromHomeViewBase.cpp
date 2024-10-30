@@ -60,6 +60,7 @@ swipedownfromHomeViewBase::swipedownfromHomeViewBase() :
 
     sound_image.setXY(101, 65);
     sound_image.setBitmap(touchgfx::Bitmap(BITMAP_SWIPEDOWN_SOUNDICON_ID));
+    sound_image.setVisible(false);
     add(sound_image);
 
     setting_image.setXY(175, 66);
@@ -70,7 +71,7 @@ swipedownfromHomeViewBase::swipedownfromHomeViewBase() :
     information_image.setBitmap(touchgfx::Bitmap(BITMAP_SWIPEDOWN_INFOICON_ID));
     add(information_image);
 
-    brightness_image.setXY(173, 210);
+    brightness_image.setXY(173, 173);
     brightness_image.setBitmap(touchgfx::Bitmap(BITMAP_SWIPEDOWN_BRIGHTNESS_ICON_ID));
     add(brightness_image);
 
@@ -93,6 +94,14 @@ swipedownfromHomeViewBase::swipedownfromHomeViewBase() :
 
     lte_status_container1.setXY(0, 0);
     add(lte_status_container1);
+
+    image1.setXY(174, 223);
+    image1.setBitmap(touchgfx::Bitmap(BITMAP_BRIGHTNESS_MINUS_ID));
+    add(image1);
+
+    image2.setXY(173, 124);
+    image2.setBitmap(touchgfx::Bitmap(BITMAP_BRIGHTNESS_PLUS_ID));
+    add(image2);
 }
 
 swipedownfromHomeViewBase::~swipedownfromHomeViewBase()

@@ -12,17 +12,19 @@ public:
     virtual ~screenontimeSettingView() {}
     virtual void setupScreen();
     virtual void tearDownScreen();
-
-//    virtual void handleGestureEvent(const GestureEvent& evt);
+#if defined(gui_simulation)
+    virtual void handleGestureEvent(const GestureEvent& evt);
+#endif
 
     void handleSwipeRight();
 
     virtual void scrollWheel1UpdateItem(setting_screenontime_notselected& item, int16_t itemIndex);
     virtual void scrollWheel1UpdateCenterItem(setting_screenontime_selected& item, int16_t itemIndex);
-
+#if !defined(gui_simulation)
     virtual void changeScreenOnTime();
 
     virtual void handleTickEvent();
+#endif
 protected:
     Callback<screenontimeSettingView, int16_t>scrollWheel1AnimateToCallback;
     void scrollWheel1AnimateToHandler(int16_t item);

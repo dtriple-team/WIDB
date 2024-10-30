@@ -3,7 +3,6 @@
     "Screens": [
       {
         "Name": "HomeScreenWithBiodata",
-        "CanvasBufferSize": 3600,
         "Components": [
           {
             "Type": "Image",
@@ -13,468 +12,165 @@
             "RelativeFilename": "background.png"
           },
           {
-            "Type": "SwipeContainer",
-            "Name": "swipeContainer1",
+            "Type": "Image",
+            "Name": "home_background",
             "Width": 240,
             "Height": 280,
-            "SwipeCutoff": 50,
-            "PageIndicatorX": 90,
-            "PageIndicatorY": 265,
-            "CenteredX": true,
-            "IndicatorImageNormal": "__generated\\alternate_theme_images_widgets_swipecontainer_small_off_normal.png",
-            "IndicatorImageHighlight": "__generated\\alternate_theme_images_widgets_swipecontainer_small_on_active.png",
-            "EndSwipeElasticWidth": 50,
-            "SelectedPage": "HomeScreen",
-            "Components": [
-              {
-                "Type": "Container",
-                "Name": "HomeScreen",
-                "Width": 240,
-                "Height": 280,
-                "Components": [
-                  {
-                    "Type": "Image",
-                    "Name": "home_background",
-                    "Width": 240,
-                    "Height": 280,
-                    "RelativeFilename": "background.png"
-                  },
-                  {
-                    "Type": "DigitalClock",
-                    "Name": "digitalClock",
-                    "Y": 72,
-                    "Width": 240,
-                    "Height": 98,
-                    "TextColor": {
-                      "Red": 255,
-                      "Green": 255,
-                      "Blue": 255
-                    },
-                    "TextId": "homescreenClock",
-                    "DisplayLeadingZeroForHourIndicator": true,
-                    "InitialHour": 10,
-                    "InitialMinute": 10
-                  },
-                  {
-                    "Type": "TextArea",
-                    "Name": "date_value",
-                    "X": 22,
-                    "Y": 52,
-                    "Width": 98,
-                    "Height": 24,
-                    "TextId": "curMonthday",
-                    "TextRotation": "0",
-                    "Color": {
-                      "Red": 255,
-                      "Green": 255,
-                      "Blue": 255
-                    },
-                    "Wildcard1": {
-                      "TextId": "curMonth",
-                      "UseBuffer": true,
-                      "BufferSize": 3
-                    },
-                    "Wildcard2": {
-                      "TextId": "curDate",
-                      "UseBuffer": true,
-                      "BufferSize": 3
-                    }
-                  },
-                  {
-                    "Type": "TextArea",
-                    "Name": "year_value",
-                    "X": 126,
-                    "Y": 52,
-                    "Width": 95,
-                    "Height": 24,
-                    "TextId": "curYear",
-                    "TextRotation": "0",
-                    "Color": {
-                      "Red": 255,
-                      "Green": 255,
-                      "Blue": 255
-                    },
-                    "Wildcard1": {
-                      "TextId": "curYearvalue",
-                      "UseBuffer": true,
-                      "BufferSize": 5
-                    }
-                  },
-                  {
-                    "Type": "Image",
-                    "Name": "home_heartrate_image",
-                    "X": 26,
-                    "Y": 174,
-                    "Width": 15,
-                    "Height": 13,
-                    "RelativeFilename": "miniheart_color.png"
-                  },
-                  {
-                    "Type": "Image",
-                    "Name": "home_spo2_image",
-                    "X": 23,
-                    "Y": 200,
-                    "Width": 18,
-                    "Height": 18,
-                    "RelativeFilename": "spo2_icon_color.png"
-                  },
-                  {
-                    "Type": "Image",
-                    "Name": "home_step_image",
-                    "X": 23,
-                    "Y": 229,
-                    "Width": 20,
-                    "Height": 20,
-                    "RelativeFilename": "minifootprint_color.png"
-                  },
-                  {
-                    "Type": "TextArea",
-                    "Name": "home_heartrate_value",
-                    "X": 47,
-                    "Y": 170,
-                    "Width": 73,
-                    "Height": 21,
-                    "TextId": "homeHr",
-                    "TextRotation": "0",
-                    "Color": {
-                      "Red": 255,
-                      "Green": 255,
-                      "Blue": 255
-                    },
-                    "Wildcard1": {
-                      "TextId": "H_curHrvalue",
-                      "UseBuffer": true,
-                      "BufferSize": 4
-                    }
-                  },
-                  {
-                    "Type": "TextArea",
-                    "Name": "home_spo2_value",
-                    "X": 47,
-                    "Y": 199,
-                    "Width": 73,
-                    "Height": 20,
-                    "TextId": "homeSpo2",
-                    "TextRotation": "0",
-                    "Color": {
-                      "Red": 255,
-                      "Green": 255,
-                      "Blue": 255
-                    },
-                    "Wildcard1": {
-                      "TextId": "H_curSpo2value",
-                      "UseBuffer": true,
-                      "BufferSize": 4
-                    }
-                  },
-                  {
-                    "Type": "TextArea",
-                    "Name": "home_steps_value",
-                    "X": 47,
-                    "Y": 229,
-                    "Width": 130,
-                    "Height": 20,
-                    "TextId": "homeSteps",
-                    "TextRotation": "0",
-                    "Color": {
-                      "Red": 255,
-                      "Green": 255,
-                      "Blue": 255
-                    },
-                    "Wildcard1": {
-                      "TextId": "H_curStepsvalue",
-                      "UseBuffer": true,
-                      "BufferSize": 10
-                    }
-                  }
-                ]
-              },
-              {
-                "Type": "Container",
-                "Name": "StepsScreen",
-                "Width": 240,
-                "Height": 280,
-                "Components": [
-                  {
-                    "Type": "Image",
-                    "Name": "steps_background",
-                    "Width": 240,
-                    "Height": 280,
-                    "RelativeFilename": "background.png"
-                  },
-                  {
-                    "Type": "TextArea",
-                    "Name": "steps_label",
-                    "Y": 8,
-                    "Width": 240,
-                    "Height": 25,
-                    "TextId": "stepsText",
-                    "TextRotation": "0",
-                    "Color": {
-                      "Red": 255,
-                      "Green": 255,
-                      "Blue": 255
-                    }
-                  },
-                  {
-                    "Type": "TextArea",
-                    "Name": "step_value",
-                    "Y": 219,
-                    "Width": 240,
-                    "Height": 33,
-                    "TextId": "curSteps",
-                    "TextRotation": "0",
-                    "Color": {
-                      "Red": 255,
-                      "Green": 255,
-                      "Blue": 255
-                    },
-                    "Wildcard1": {
-                      "TextId": "curStepsvalue",
-                      "UseBuffer": true,
-                      "BufferSize": 10
-                    }
-                  },
-                  {
-                    "Type": "Image",
-                    "Name": "steps_image",
-                    "X": 85,
-                    "Y": 90,
-                    "Width": 70,
-                    "Height": 70,
-                    "RelativeFilename": "footprint_icon.png"
-                  },
-                  {
-                    "Type": "CircleProgress",
-                    "Name": "steps_progress",
-                    "X": 30,
-                    "Y": 35,
-                    "Width": 180,
-                    "Height": 180,
-                    "Color": {
-                      "Red": 93,
-                      "Green": 211,
-                      "Blue": 74
-                    },
-                    "CenterX": 90.0,
-                    "CenterY": 90.0,
-                    "Radius": 67.5,
-                    "LineWidth": 13.0,
-                    "EndAngle": 360.0,
-                    "CapPrecision": "Round",
-                    "FileNameBackground": "footprint_progressbar_back.png",
-                    "ProgressRangeMax": 100,
-                    "ProgressInitialValue": 60
-                  }
-                ]
-              },
-              {
-                "Type": "Container",
-                "Name": "HeartrateScreen",
-                "Width": 240,
-                "Height": 280,
-                "Components": [
-                  {
-                    "Type": "Image",
-                    "Name": "heartrate_background",
-                    "Width": 240,
-                    "Height": 280,
-                    "RelativeFilename": "background.png"
-                  },
-                  {
-                    "Type": "TextArea",
-                    "Name": "heartrate_label",
-                    "Y": 8,
-                    "Width": 240,
-                    "Height": 56,
-                    "TextId": "heartrateText",
-                    "TextRotation": "0",
-                    "Color": {
-                      "Red": 255,
-                      "Green": 255,
-                      "Blue": 255
-                    }
-                  },
-                  {
-                    "Type": "TextArea",
-                    "Name": "heartrate_value",
-                    "Y": 219,
-                    "Width": 240,
-                    "Height": 33,
-                    "TextId": "curHr",
-                    "TextRotation": "0",
-                    "Color": {
-                      "Red": 255,
-                      "Green": 255,
-                      "Blue": 255
-                    },
-                    "Wildcard1": {
-                      "TextId": "curHrvalue",
-                      "UseBuffer": true,
-                      "BufferSize": 5
-                    }
-                  },
-                  {
-                    "Type": "Button",
-                    "Name": "hr_detail_button",
-                    "X": 70,
-                    "Y": 75,
-                    "Width": 100,
-                    "Height": 100,
-                    "Pressed": "hr_icon.png",
-                    "Released": "hr_icon.png"
-                  }
-                ]
-              },
-              {
-                "Type": "Container",
-                "Name": "Spo2Screen",
-                "Width": 240,
-                "Height": 280,
-                "Components": [
-                  {
-                    "Type": "Image",
-                    "Name": "spo2_background",
-                    "Width": 240,
-                    "Height": 280,
-                    "RelativeFilename": "background.png"
-                  },
-                  {
-                    "Type": "TextArea",
-                    "Name": "spo2_label",
-                    "Y": 8,
-                    "Width": 240,
-                    "Height": 25,
-                    "TextId": "spo2Text",
-                    "TextRotation": "0",
-                    "Color": {
-                      "Red": 255,
-                      "Green": 255,
-                      "Blue": 255
-                    }
-                  },
-                  {
-                    "Type": "TextArea",
-                    "Name": "spo2_value",
-                    "Y": 219,
-                    "Width": 240,
-                    "Height": 33,
-                    "TextId": "curSpo2",
-                    "TextRotation": "0",
-                    "Color": {
-                      "Red": 255,
-                      "Green": 255,
-                      "Blue": 255
-                    },
-                    "Wildcard1": {
-                      "TextId": "curSpo2value",
-                      "UseBuffer": true,
-                      "BufferSize": 4
-                    }
-                  },
-                  {
-                    "Type": "Button",
-                    "Name": "spo2_detail_button",
-                    "X": 70,
-                    "Y": 75,
-                    "Width": 100,
-                    "Height": 100,
-                    "Pressed": "spo2_icon.png",
-                    "Released": "spo2_icon.png"
-                  }
-                ]
-              },
-              {
-                "Type": "Container",
-                "Name": "SleepScreen",
-                "Width": 240,
-                "Height": 280,
-                "Components": [
-                  {
-                    "Type": "Image",
-                    "Name": "background_6",
-                    "Width": 240,
-                    "Height": 280,
-                    "RelativeFilename": "background.png"
-                  },
-                  {
-                    "Type": "TextArea",
-                    "Name": "sleep_label",
-                    "Y": 8,
-                    "Width": 240,
-                    "Height": 25,
-                    "TextId": "sleepText",
-                    "TextRotation": "0",
-                    "Color": {
-                      "Red": 255,
-                      "Green": 255,
-                      "Blue": 255
-                    }
-                  },
-                  {
-                    "Type": "TextArea",
-                    "Name": "sleeptime_value",
-                    "Y": 219,
-                    "Width": 240,
-                    "Height": 33,
-                    "TextId": "curSleep",
-                    "TextRotation": "0",
-                    "Color": {
-                      "Red": 255,
-                      "Green": 255,
-                      "Blue": 255
-                    },
-                    "Wildcard1": {
-                      "TextId": "curSleepHvalue",
-                      "UseBuffer": true,
-                      "BufferSize": 4
-                    },
-                    "Wildcard2": {
-                      "TextId": "curSleepMvalue",
-                      "UseBuffer": true,
-                      "BufferSize": 4
-                    }
-                  },
-                  {
-                    "Type": "Image",
-                    "Name": "sleep_image",
-                    "X": 87,
-                    "Y": 92,
-                    "Width": 65,
-                    "Height": 65,
-                    "RelativeFilename": "sleep_time_icon.png"
-                  },
-                  {
-                    "Type": "CircleProgress",
-                    "Name": "sleep_progress",
-                    "X": 30,
-                    "Y": 35,
-                    "Width": 180,
-                    "Height": 180,
-                    "Color": {
-                      "Red": 119,
-                      "Green": 93,
-                      "Blue": 195
-                    },
-                    "CenterX": 90.0,
-                    "CenterY": 90.0,
-                    "Radius": 67.5,
-                    "LineWidth": 13.0,
-                    "EndAngle": 360.0,
-                    "CapPrecision": "Round",
-                    "FileNameBackground": "sleep_time_progressbar_back.png",
-                    "ProgressRangeMax": 100,
-                    "ProgressInitialValue": 75
-                  }
-                ]
-              }
-            ]
+            "RelativeFilename": "background.png"
+          },
+          {
+            "Type": "DigitalClock",
+            "Name": "digitalClock",
+            "Y": 72,
+            "Width": 240,
+            "Height": 98,
+            "TextColor": {
+              "Red": 255,
+              "Green": 255,
+              "Blue": 255
+            },
+            "TextId": "homescreenClock",
+            "DisplayLeadingZeroForHourIndicator": true,
+            "InitialHour": 10,
+            "InitialMinute": 10
+          },
+          {
+            "Type": "TextArea",
+            "Name": "date_value",
+            "X": 22,
+            "Y": 45,
+            "Width": 128,
+            "Height": 31,
+            "TextId": "curMonthday",
+            "TextRotation": "0",
+            "Color": {
+              "Red": 255,
+              "Green": 255,
+              "Blue": 255
+            },
+            "Wildcard1": {
+              "TextId": "curMonth",
+              "UseBuffer": true,
+              "BufferSize": 3
+            },
+            "Wildcard2": {
+              "TextId": "curDate",
+              "UseBuffer": true,
+              "BufferSize": 3
+            }
+          },
+          {
+            "Type": "TextArea",
+            "Name": "year_value",
+            "X": 150,
+            "Y": 45,
+            "Width": 71,
+            "Height": 31,
+            "TextId": "curYear",
+            "TextRotation": "0",
+            "Color": {
+              "Red": 255,
+              "Green": 255,
+              "Blue": 255
+            },
+            "Wildcard1": {
+              "TextId": "curYearvalue",
+              "UseBuffer": true,
+              "BufferSize": 5
+            }
+          },
+          {
+            "Type": "Image",
+            "Name": "home_heartrate_image",
+            "X": 19,
+            "Y": 171,
+            "Width": 22,
+            "Height": 19,
+            "RelativeFilename": "biggerHeart.png"
+          },
+          {
+            "Type": "Image",
+            "Name": "home_spo2_image",
+            "X": 18,
+            "Y": 197,
+            "Width": 24,
+            "Height": 24,
+            "RelativeFilename": "biggerSpo2.png"
+          },
+          {
+            "Type": "Image",
+            "Name": "home_step_image",
+            "X": 18,
+            "Y": 227,
+            "Width": 24,
+            "Height": 24,
+            "RelativeFilename": "biggerFootprint.png"
+          },
+          {
+            "Type": "TextArea",
+            "Name": "home_heartrate_value",
+            "X": 47,
+            "Y": 165,
+            "Width": 174,
+            "Height": 30,
+            "TextId": "homeHr",
+            "TextRotation": "0",
+            "Color": {
+              "Red": 255,
+              "Green": 255,
+              "Blue": 255
+            },
+            "Wildcard1": {
+              "TextId": "H_curHrvalue",
+              "UseBuffer": true,
+              "BufferSize": 4
+            }
+          },
+          {
+            "Type": "TextArea",
+            "Name": "home_spo2_value",
+            "X": 47,
+            "Y": 194,
+            "Width": 174,
+            "Height": 30,
+            "TextId": "homeSpo2",
+            "TextRotation": "0",
+            "Color": {
+              "Red": 255,
+              "Green": 255,
+              "Blue": 255
+            },
+            "Wildcard1": {
+              "TextId": "H_curSpo2value",
+              "UseBuffer": true,
+              "BufferSize": 4
+            }
+          },
+          {
+            "Type": "TextArea",
+            "Name": "home_steps_value",
+            "X": 47,
+            "Y": 224,
+            "Width": 174,
+            "Height": 30,
+            "TextId": "homeSteps",
+            "TextRotation": "0",
+            "Color": {
+              "Red": 255,
+              "Green": 255,
+              "Blue": 255
+            },
+            "Wildcard1": {
+              "TextId": "H_curStepsvalue",
+              "UseBuffer": true,
+              "BufferSize": 10
+            }
           },
           {
             "Type": "Box",
             "Name": "topright_box",
-            "X": 175,
-            "Width": 65,
+            "X": 185,
+            "Width": 55,
             "Height": 33
           },
           {
@@ -497,7 +193,7 @@
           {
             "Type": "CustomContainerInstance",
             "Name": "lte_status_container1",
-            "Width": 65,
+            "Width": 55,
             "Height": 33,
             "CustomContainerDefinitionName": "lte_status_container"
           }
@@ -520,7 +216,7 @@
             "InteractionName": "Interaction3",
             "Trigger": {
               "Type": "TriggerClicked",
-              "TriggerComponent": "hr_detail_button"
+              "TriggerComponent": "buttonfornothing"
             },
             "Action": {
               "Type": "ActionGotoScreen",
@@ -533,7 +229,7 @@
             "InteractionName": "Interaction4",
             "Trigger": {
               "Type": "TriggerClicked",
-              "TriggerComponent": "spo2_detail_button"
+              "TriggerComponent": "buttonfornothing"
             },
             "Action": {
               "Type": "ActionGotoScreen",
@@ -541,6 +237,410 @@
               "ScreenTransitionDirection": "East",
               "ActionComponent": "Spo2Detail"
             }
+          },
+          {
+            "InteractionName": "Interaction5",
+            "Trigger": {
+              "Type": "TriggerClicked",
+              "TriggerComponent": "buttonfornothing"
+            },
+            "Action": {
+              "Type": "ActionGotoScreen",
+              "ScreenTransitionType": "ScreenTransitionSlide",
+              "ScreenTransitionDirection": "East",
+              "ActionComponent": "StepsScreen"
+            }
+          }
+        ]
+      },
+      {
+        "Name": "StepsScreen",
+        "CanvasBufferSize": 3600,
+        "Components": [
+          {
+            "Type": "Image",
+            "Name": "background",
+            "Width": 240,
+            "Height": 280,
+            "RelativeFilename": "background.png"
+          },
+          {
+            "Type": "TextArea",
+            "Name": "steps_label",
+            "Y": 4,
+            "Width": 240,
+            "Height": 30,
+            "TextId": "stepsText",
+            "TextRotation": "0",
+            "Color": {
+              "Red": 255,
+              "Green": 255,
+              "Blue": 255
+            }
+          },
+          {
+            "Type": "TextArea",
+            "Name": "steps_value",
+            "Y": 215,
+            "Width": 240,
+            "Height": 45,
+            "TextId": "curSteps",
+            "TextRotation": "0",
+            "Color": {
+              "Red": 255,
+              "Green": 255,
+              "Blue": 255
+            },
+            "Wildcard1": {
+              "TextId": "curStepsvalue",
+              "UseBuffer": true,
+              "BufferSize": 10
+            }
+          },
+          {
+            "Type": "Box",
+            "Name": "topright_image",
+            "X": 185,
+            "Width": 55,
+            "Height": 33
+          },
+          {
+            "Type": "Image",
+            "Name": "steps_image",
+            "X": 85,
+            "Y": 90,
+            "Width": 70,
+            "Height": 70,
+            "RelativeFilename": "footprint_icon.png"
+          },
+          {
+            "Type": "CircleProgress",
+            "Name": "steps_progress",
+            "X": 30,
+            "Y": 35,
+            "Width": 180,
+            "Height": 180,
+            "Color": {
+              "Red": 93,
+              "Green": 211,
+              "Blue": 74
+            },
+            "CenterX": 90.0,
+            "CenterY": 90.0,
+            "Radius": 67.5,
+            "LineWidth": 13.0,
+            "EndAngle": 360.0,
+            "CapPrecision": "Round",
+            "FileNameBackground": "footprint_progressbar_back.png",
+            "ProgressRangeMax": 100,
+            "ProgressInitialValue": 60
+          },
+          {
+            "Type": "Button",
+            "Name": "buttonfornothing",
+            "Width": 240,
+            "Height": 50,
+            "Visible": false,
+            "Pressed": "__generated\\alternate_theme_images_widgets_button_regular_height_50_medium_rounded_pressed.png",
+            "Released": "__generated\\alternate_theme_images_widgets_button_regular_height_50_medium_rounded_normal.png",
+            "Preset": "alternate_theme\\presets\\button\\regular\\height_50\\medium_rounded_normal.json"
+          },
+          {
+            "Type": "CustomContainerInstance",
+            "Name": "batteryprogress_container1",
+            "Width": 240,
+            "Height": 23,
+            "CustomContainerDefinitionName": "batteryprogress_container"
+          },
+          {
+            "Type": "CustomContainerInstance",
+            "Name": "lte_status_container1",
+            "Width": 55,
+            "Height": 33,
+            "CustomContainerDefinitionName": "lte_status_container"
+          }
+        ],
+        "Interactions": [
+          {
+            "InteractionName": "changeStepVal",
+            "Trigger": {
+              "Type": "TriggerOnEveryTick",
+              "TickCount": 1
+            },
+            "Action": {
+              "Type": "ActionCustom2",
+              "ActionCustomTypeName": "Call StepsScreen changeStepVal",
+              "ActionComponent": "StepsScreen"
+            }
+          },
+          {
+            "InteractionName": "Interaction1",
+            "Trigger": {
+              "Type": "TriggerClicked",
+              "TriggerComponent": "buttonfornothing"
+            },
+            "Action": {
+              "Type": "ActionGotoScreen",
+              "ScreenTransitionType": "ScreenTransitionSlide",
+              "ScreenTransitionDirection": "West",
+              "ActionComponent": "HomeScreenWithBiodata"
+            }
+          },
+          {
+            "InteractionName": "Interaction2",
+            "Trigger": {
+              "Type": "TriggerClicked",
+              "TriggerComponent": "buttonfornothing"
+            },
+            "Action": {
+              "Type": "ActionGotoScreen",
+              "ScreenTransitionType": "ScreenTransitionSlide",
+              "ScreenTransitionDirection": "East",
+              "ActionComponent": "HeartrateScreen"
+            }
+          }
+        ],
+        "CustomActions": [
+          {
+            "Name": "changeStepVal"
+          }
+        ]
+      },
+      {
+        "Name": "HeartrateScreen",
+        "Components": [
+          {
+            "Type": "Image",
+            "Name": "background",
+            "Width": 240,
+            "Height": 280,
+            "RelativeFilename": "background.png"
+          },
+          {
+            "Type": "TextArea",
+            "Name": "heartrate_label",
+            "Y": 4,
+            "Width": 240,
+            "Height": 30,
+            "TextId": "heartrateText",
+            "TextRotation": "0",
+            "Color": {
+              "Red": 255,
+              "Green": 255,
+              "Blue": 255
+            }
+          },
+          {
+            "Type": "TextArea",
+            "Name": "heartrate_value",
+            "Y": 215,
+            "Width": 240,
+            "Height": 45,
+            "TextId": "curHr",
+            "TextRotation": "0",
+            "Color": {
+              "Red": 255,
+              "Green": 255,
+              "Blue": 255
+            },
+            "Wildcard1": {
+              "TextId": "curHrvalue",
+              "UseBuffer": true,
+              "BufferSize": 4
+            }
+          },
+          {
+            "Type": "Box",
+            "Name": "topright_box",
+            "X": 185,
+            "Width": 55,
+            "Height": 33
+          },
+          {
+            "Type": "Button",
+            "Name": "heartrate_detail_button",
+            "X": 70,
+            "Y": 75,
+            "Width": 100,
+            "Height": 100,
+            "Pressed": "hr_icon.png",
+            "Released": "hr_icon.png"
+          },
+          {
+            "Type": "Button",
+            "Name": "buttonfornothing",
+            "Width": 240,
+            "Height": 50,
+            "Visible": false,
+            "Pressed": "__generated\\alternate_theme_images_widgets_button_regular_height_50_medium_rounded_pressed.png",
+            "Released": "__generated\\alternate_theme_images_widgets_button_regular_height_50_medium_rounded_normal.png",
+            "Preset": "alternate_theme\\presets\\button\\regular\\height_50\\medium_rounded_normal.json"
+          },
+          {
+            "Type": "CustomContainerInstance",
+            "Name": "batteryprogress_container1",
+            "Width": 240,
+            "Height": 23,
+            "CustomContainerDefinitionName": "batteryprogress_container"
+          },
+          {
+            "Type": "CustomContainerInstance",
+            "Name": "lte_status_container1",
+            "Width": 55,
+            "Height": 33,
+            "CustomContainerDefinitionName": "lte_status_container"
+          }
+        ],
+        "Interactions": [
+          {
+            "InteractionName": "Interaction2",
+            "Trigger": {
+              "Type": "TriggerClicked",
+              "TriggerComponent": "buttonfornothing"
+            },
+            "Action": {
+              "Type": "ActionGotoScreen",
+              "ScreenTransitionType": "ScreenTransitionSlide",
+              "ScreenTransitionDirection": "West",
+              "ActionComponent": "StepsScreen"
+            }
+          },
+          {
+            "InteractionName": "Interaction3",
+            "Trigger": {
+              "Type": "TriggerClicked",
+              "TriggerComponent": "buttonfornothing"
+            },
+            "Action": {
+              "Type": "ActionGotoScreen",
+              "ScreenTransitionType": "ScreenTransitionSlide",
+              "ScreenTransitionDirection": "East",
+              "ActionComponent": "Spo2Screen"
+            }
+          }
+        ],
+        "CustomActions": [
+          {
+            "Name": "changeHRVal"
+          }
+        ]
+      },
+      {
+        "Name": "Spo2Screen",
+        "Components": [
+          {
+            "Type": "Image",
+            "Name": "background",
+            "Width": 240,
+            "Height": 280,
+            "RelativeFilename": "background.png"
+          },
+          {
+            "Type": "TextArea",
+            "Name": "spo2_label",
+            "Y": 4,
+            "Width": 240,
+            "Height": 30,
+            "TextId": "spo2Text",
+            "TextRotation": "0",
+            "Color": {
+              "Red": 255,
+              "Green": 255,
+              "Blue": 255
+            }
+          },
+          {
+            "Type": "TextArea",
+            "Name": "spo2_value",
+            "Y": 215,
+            "Width": 240,
+            "Height": 45,
+            "TextId": "curSpo2",
+            "TextRotation": "0",
+            "Color": {
+              "Red": 255,
+              "Green": 255,
+              "Blue": 255
+            },
+            "Wildcard1": {
+              "TextId": "curSpo2value",
+              "UseBuffer": true,
+              "BufferSize": 4
+            }
+          },
+          {
+            "Type": "Box",
+            "Name": "topright_box",
+            "X": 185,
+            "Width": 55,
+            "Height": 33
+          },
+          {
+            "Type": "Button",
+            "Name": "spo2_detail_button",
+            "X": 70,
+            "Y": 75,
+            "Width": 100,
+            "Height": 100,
+            "Pressed": "spo2_icon.png",
+            "Released": "spo2_icon.png"
+          },
+          {
+            "Type": "Button",
+            "Name": "buttonfornothing",
+            "Width": 240,
+            "Height": 50,
+            "Visible": false,
+            "Pressed": "__generated\\alternate_theme_images_widgets_button_regular_height_50_medium_rounded_pressed.png",
+            "Released": "__generated\\alternate_theme_images_widgets_button_regular_height_50_medium_rounded_normal.png",
+            "Preset": "alternate_theme\\presets\\button\\regular\\height_50\\medium_rounded_normal.json"
+          },
+          {
+            "Type": "CustomContainerInstance",
+            "Name": "batteryprogress_container1",
+            "Width": 240,
+            "Height": 23,
+            "CustomContainerDefinitionName": "batteryprogress_container"
+          },
+          {
+            "Type": "CustomContainerInstance",
+            "Name": "lte_status_container1",
+            "Width": 55,
+            "Height": 33,
+            "CustomContainerDefinitionName": "lte_status_container"
+          }
+        ],
+        "Interactions": [
+          {
+            "InteractionName": "Interaction2",
+            "Trigger": {
+              "Type": "TriggerClicked",
+              "TriggerComponent": "buttonfornothing"
+            },
+            "Action": {
+              "Type": "ActionGotoScreen",
+              "ScreenTransitionType": "ScreenTransitionSlide",
+              "ScreenTransitionDirection": "West",
+              "ActionComponent": "HeartrateScreen"
+            }
+          },
+          {
+            "InteractionName": "Interaction3",
+            "Trigger": {
+              "Type": "TriggerClicked",
+              "TriggerComponent": "buttonfornothing"
+            },
+            "Action": {
+              "Type": "ActionGotoScreen",
+              "ScreenTransitionType": "ScreenTransitionSlide",
+              "ScreenTransitionDirection": "East",
+              "ActionComponent": "SleepScreen"
+            }
+          }
+        ],
+        "CustomActions": [
+          {
+            "Name": "changeSpo2Val"
           }
         ]
       },
@@ -558,9 +658,9 @@
           {
             "Type": "TextArea",
             "Name": "sleep_label",
-            "Y": 6,
+            "Y": 4,
             "Width": 240,
-            "Height": 25,
+            "Height": 30,
             "TextId": "sleepText",
             "TextRotation": "0",
             "Color": {
@@ -572,9 +672,9 @@
           {
             "Type": "TextArea",
             "Name": "sleep_value",
-            "Y": 219,
+            "Y": 215,
             "Width": 240,
-            "Height": 33,
+            "Height": 45,
             "TextId": "curSleep",
             "TextRotation": "0",
             "Color": {
@@ -606,8 +706,8 @@
           {
             "Type": "Box",
             "Name": "topright_box",
-            "X": 175,
-            "Width": 65,
+            "X": 185,
+            "Width": 55,
             "Height": 33
           },
           {
@@ -651,7 +751,7 @@
           {
             "Type": "CustomContainerInstance",
             "Name": "lte_status_container1",
-            "Width": 65,
+            "Width": 55,
             "Height": 33,
             "CustomContainerDefinitionName": "lte_status_container"
           }
@@ -669,315 +769,19 @@
               "ScreenTransitionDirection": "West",
               "ActionComponent": "HomeScreenWithBiodata"
             }
-          }
-        ]
-      },
-      {
-        "Name": "Spo2Screen",
-        "Components": [
-          {
-            "Type": "Image",
-            "Name": "background",
-            "Width": 240,
-            "Height": 280,
-            "RelativeFilename": "background.png"
           },
           {
-            "Type": "TextArea",
-            "Name": "spo2_label",
-            "Y": 6,
-            "Width": 240,
-            "Height": 25,
-            "TextId": "spo2Text",
-            "TextRotation": "0",
-            "Color": {
-              "Red": 255,
-              "Green": 255,
-              "Blue": 255
-            }
-          },
-          {
-            "Type": "TextArea",
-            "Name": "spo2_value",
-            "Y": 219,
-            "Width": 240,
-            "Height": 33,
-            "TextId": "curSpo2",
-            "TextRotation": "0",
-            "Color": {
-              "Red": 255,
-              "Green": 255,
-              "Blue": 255
-            },
-            "Wildcard1": {
-              "TextId": "curSpo2value",
-              "UseBuffer": true,
-              "BufferSize": 4
-            }
-          },
-          {
-            "Type": "Box",
-            "Name": "topright_box",
-            "X": 175,
-            "Width": 65,
-            "Height": 33
-          },
-          {
-            "Type": "Button",
-            "Name": "spo2_detail_button",
-            "X": 70,
-            "Y": 75,
-            "Width": 100,
-            "Height": 100,
-            "Pressed": "spo2_icon.png",
-            "Released": "spo2_icon.png"
-          },
-          {
-            "Type": "CustomContainerInstance",
-            "Name": "batteryprogress_container1",
-            "Width": 240,
-            "Height": 23,
-            "CustomContainerDefinitionName": "batteryprogress_container"
-          },
-          {
-            "Type": "CustomContainerInstance",
-            "Name": "lte_status_container1",
-            "Width": 65,
-            "Height": 33,
-            "CustomContainerDefinitionName": "lte_status_container"
-          }
-        ],
-        "Interactions": [
-          {
-            "InteractionName": "Interaction1",
+            "InteractionName": "Interaction2",
             "Trigger": {
               "Type": "TriggerClicked",
-              "TriggerComponent": "spo2_detail_button"
+              "TriggerComponent": "buttonfornothing"
             },
             "Action": {
               "Type": "ActionGotoScreen",
-              "ScreenTransitionType": "ScreenTransitionWipe",
-              "ScreenTransitionDirection": "South",
-              "ActionComponent": "Spo2Detail"
+              "ScreenTransitionType": "ScreenTransitionSlide",
+              "ScreenTransitionDirection": "West",
+              "ActionComponent": "Spo2Screen"
             }
-          }
-        ],
-        "CustomActions": [
-          {
-            "Name": "changeSpo2Val"
-          }
-        ]
-      },
-      {
-        "Name": "HeartrateScreen",
-        "Components": [
-          {
-            "Type": "Image",
-            "Name": "background",
-            "Width": 240,
-            "Height": 280,
-            "RelativeFilename": "background.png"
-          },
-          {
-            "Type": "TextArea",
-            "Name": "heartrate_label",
-            "Y": 6,
-            "Width": 240,
-            "Height": 25,
-            "TextId": "heartrateText",
-            "TextRotation": "0",
-            "Color": {
-              "Red": 255,
-              "Green": 255,
-              "Blue": 255
-            }
-          },
-          {
-            "Type": "TextArea",
-            "Name": "heartrate_value",
-            "Y": 219,
-            "Width": 240,
-            "Height": 33,
-            "TextId": "curHr",
-            "TextRotation": "0",
-            "Color": {
-              "Red": 255,
-              "Green": 255,
-              "Blue": 255
-            },
-            "Wildcard1": {
-              "TextId": "curHrvalue",
-              "UseBuffer": true,
-              "BufferSize": 4
-            }
-          },
-          {
-            "Type": "Box",
-            "Name": "topright_box",
-            "X": 175,
-            "Width": 65,
-            "Height": 33
-          },
-          {
-            "Type": "Button",
-            "Name": "heartrate_detail_button",
-            "X": 70,
-            "Y": 75,
-            "Width": 100,
-            "Height": 100,
-            "Pressed": "hr_icon.png",
-            "Released": "hr_icon.png"
-          },
-          {
-            "Type": "CustomContainerInstance",
-            "Name": "batteryprogress_container1",
-            "Width": 240,
-            "Height": 23,
-            "CustomContainerDefinitionName": "batteryprogress_container"
-          },
-          {
-            "Type": "CustomContainerInstance",
-            "Name": "lte_status_container1",
-            "Width": 65,
-            "Height": 33,
-            "CustomContainerDefinitionName": "lte_status_container"
-          }
-        ],
-        "Interactions": [
-          {
-            "InteractionName": "Interaction1",
-            "Trigger": {
-              "Type": "TriggerClicked",
-              "TriggerComponent": "heartrate_detail_button"
-            },
-            "Action": {
-              "Type": "ActionGotoScreen",
-              "ScreenTransitionType": "ScreenTransitionWipe",
-              "ScreenTransitionDirection": "South",
-              "ActionComponent": "HeartrateDetail"
-            }
-          }
-        ],
-        "CustomActions": [
-          {
-            "Name": "changeHRVal"
-          }
-        ]
-      },
-      {
-        "Name": "StepsScreen",
-        "CanvasBufferSize": 3600,
-        "Components": [
-          {
-            "Type": "Image",
-            "Name": "background",
-            "Width": 240,
-            "Height": 280,
-            "RelativeFilename": "background.png"
-          },
-          {
-            "Type": "TextArea",
-            "Name": "steps_label",
-            "Y": 6,
-            "Width": 240,
-            "Height": 25,
-            "TextId": "stepsText",
-            "TextRotation": "0",
-            "Color": {
-              "Red": 255,
-              "Green": 255,
-              "Blue": 255
-            }
-          },
-          {
-            "Type": "TextArea",
-            "Name": "steps_value",
-            "Y": 219,
-            "Width": 240,
-            "Height": 33,
-            "TextId": "curSteps",
-            "TextRotation": "0",
-            "Color": {
-              "Red": 255,
-              "Green": 255,
-              "Blue": 255
-            },
-            "Wildcard1": {
-              "TextId": "curStepsvalue",
-              "UseBuffer": true,
-              "BufferSize": 10
-            }
-          },
-          {
-            "Type": "Box",
-            "Name": "topright_image",
-            "X": 175,
-            "Width": 65,
-            "Height": 33
-          },
-          {
-            "Type": "Image",
-            "Name": "steps_image",
-            "X": 85,
-            "Y": 90,
-            "Width": 70,
-            "Height": 70,
-            "RelativeFilename": "footprint_icon.png"
-          },
-          {
-            "Type": "CircleProgress",
-            "Name": "steps_progress",
-            "X": 30,
-            "Y": 35,
-            "Width": 180,
-            "Height": 180,
-            "Color": {
-              "Red": 93,
-              "Green": 211,
-              "Blue": 74
-            },
-            "CenterX": 90.0,
-            "CenterY": 90.0,
-            "Radius": 67.5,
-            "LineWidth": 13.0,
-            "EndAngle": 360.0,
-            "CapPrecision": "Round",
-            "FileNameBackground": "footprint_progressbar_back.png",
-            "ProgressRangeMax": 100,
-            "ProgressInitialValue": 60
-          },
-          {
-            "Type": "CustomContainerInstance",
-            "Name": "batteryprogress_container1",
-            "Width": 240,
-            "Height": 23,
-            "CustomContainerDefinitionName": "batteryprogress_container"
-          },
-          {
-            "Type": "CustomContainerInstance",
-            "Name": "lte_status_container1",
-            "Width": 65,
-            "Height": 33,
-            "CustomContainerDefinitionName": "lte_status_container"
-          }
-        ],
-        "Interactions": [
-          {
-            "InteractionName": "changeStepVal",
-            "Trigger": {
-              "Type": "TriggerOnEveryTick",
-              "TickCount": 1
-            },
-            "Action": {
-              "Type": "ActionCustom2",
-              "ActionCustomTypeName": "Call StepsScreen changeStepVal",
-              "ActionComponent": "StepsScreen"
-            }
-          }
-        ],
-        "CustomActions": [
-          {
-            "Name": "changeStepVal"
           }
         ]
       },
@@ -1079,7 +883,7 @@
           {
             "Type": "CustomContainerInstance",
             "Name": "lte_status_container1",
-            "Width": 65,
+            "Width": 55,
             "Height": 33,
             "CustomContainerDefinitionName": "lte_status_container"
           }
@@ -1093,7 +897,7 @@
             },
             "Action": {
               "Type": "ActionExecuteCode",
-              "Code": "extern uint8_t canDisplayPPG;\r\nif(!canDisplayPPG) return;\r\n\r\ncanDisplayPPG = 0;\r\n\r\nextern uint16_t ssHr;\r\n\r\ntouchgfx::Unicode::snprintf(heartrate_valueBuffer, HEARTRATE_VALUE_SIZE, \"%02u\", ssHr);\r\nheartrate_value.invalidate();\r\n"
+              "Code": "#if !defined(gui_simulation)\r\nextern uint8_t canDisplayPPG;\r\nif(!canDisplayPPG) return;\r\n\r\ncanDisplayPPG = 0;\r\n\r\nextern uint16_t ssHr;\r\n\r\ntouchgfx::Unicode::snprintf(heartrate_valueBuffer, HEARTRATE_VALUE_SIZE, \"%02u\", ssHr);\r\nheartrate_value.invalidate();\r\n#endif\r\n"
             }
           }
         ]
@@ -1196,7 +1000,7 @@
           {
             "Type": "CustomContainerInstance",
             "Name": "lte_status_container1",
-            "Width": 65,
+            "Width": 55,
             "Height": 33,
             "CustomContainerDefinitionName": "lte_status_container"
           }
@@ -1210,7 +1014,7 @@
             },
             "Action": {
               "Type": "ActionExecuteCode",
-              "Code": "extern uint8_t canDisplayPPG;\r\nif(!canDisplayPPG) return;\r\n\r\ncanDisplayPPG = 0;\r\n\r\nextern uint16_t ssSpo2;\r\n\r\ntouchgfx::Unicode::snprintf(spo2_valueBuffer, SPO2_VALUE_SIZE, \"%02u\", ssSpo2);\r\nspo2_value.invalidate();"
+              "Code": "#if !defined(gui_simulation)\r\nextern uint8_t canDisplayPPG;\r\nif(!canDisplayPPG) return;\r\n\r\ncanDisplayPPG = 0;\r\n\r\nextern uint16_t ssSpo2;\r\n\r\ntouchgfx::Unicode::snprintf(spo2_valueBuffer, SPO2_VALUE_SIZE, \"%02u\", ssSpo2);\r\nspo2_value.invalidate();\r\n#endif"
             }
           }
         ]
@@ -1327,6 +1131,7 @@
             "Y": 65,
             "Width": 39,
             "Height": 39,
+            "Visible": false,
             "RelativeFilename": "swipedown_soundicon.png"
           },
           {
@@ -1351,7 +1156,7 @@
             "Type": "Image",
             "Name": "brightness_image",
             "X": 173,
-            "Y": 210,
+            "Y": 173,
             "Width": 40,
             "Height": 40,
             "RelativeFilename": "swipedown_brightness_icon.png"
@@ -1392,9 +1197,27 @@
           {
             "Type": "CustomContainerInstance",
             "Name": "lte_status_container1",
-            "Width": 65,
+            "Width": 55,
             "Height": 33,
             "CustomContainerDefinitionName": "lte_status_container"
+          },
+          {
+            "Type": "Image",
+            "Name": "image1",
+            "X": 174,
+            "Y": 223,
+            "Width": 40,
+            "Height": 40,
+            "RelativeFilename": "brightness_minus.png"
+          },
+          {
+            "Type": "Image",
+            "Name": "image2",
+            "X": 173,
+            "Y": 124,
+            "Width": 40,
+            "Height": 40,
+            "RelativeFilename": "brightness_plus.png"
           }
         ],
         "Interactions": [
@@ -1778,7 +1601,7 @@
           {
             "Type": "CustomContainerInstance",
             "Name": "lte_status_container1",
-            "Width": 65,
+            "Width": 55,
             "Height": 33,
             "CustomContainerDefinitionName": "lte_status_container"
           }
@@ -2480,6 +2303,7 @@
             "Y": 56,
             "Width": 25,
             "Height": 25,
+            "Selected": true,
             "FileNameSelected": "radiofill.png",
             "FileNameSelectedPressed": "radiofill.png",
             "FileNameUnselected": "radionfill.png",
@@ -2493,7 +2317,6 @@
             "Y": 117,
             "Width": 25,
             "Height": 25,
-            "Selected": true,
             "FileNameSelected": "radiofill.png",
             "FileNameSelectedPressed": "radiofill.png",
             "FileNameUnselected": "radionfill.png",
@@ -2551,7 +2374,6 @@
         "Interactions": [
           {
             "InteractionName": "setLanguageToKorean",
-            "HasCompletedTrigger": true,
             "Trigger": {
               "Type": "TriggerRadioButtonSelected",
               "TriggerComponent": "radioButton1"
@@ -3221,7 +3043,7 @@
           {
             "Type": "CustomContainerInstance",
             "Name": "lte_status_container1",
-            "Width": 65,
+            "Width": 55,
             "Height": 33,
             "CustomContainerDefinitionName": "lte_status_container"
           }
@@ -3460,7 +3282,7 @@
             },
             "Action": {
               "Type": "ActionExecuteCode",
-              "Code": "extern uint8_t brightness_count;\r\nbrightness_count = 0;"
+              "Code": "#if !defined(gui_simulation)\r\nextern uint8_t brightness_count;\r\nbrightness_count = 0;\r\n#endif"
             }
           }
         ],
@@ -3714,7 +3536,7 @@
             },
             "Action": {
               "Type": "ActionExecuteCode",
-              "Code": "extern uint8_t battVal;\r\nbatteryprogress.setValue(battVal);"
+              "Code": "#if !defined(gui_simulation)\r\nextern uint8_t battVal;\r\nbatteryprogress.setValue(battVal);\r\n#endif"
             }
           },
           {
@@ -3725,7 +3547,7 @@
             },
             "Action": {
               "Type": "ActionExecuteCode",
-              "Code": "extern bool isCharging;\r\nchargingIMG.setVisible(isCharging);\r\nchargingIMG.invalidate();"
+              "Code": "#if !defined(gui_simulation)\r\nextern bool isCharging;\r\nchargingIMG.setVisible(isCharging);\r\nchargingIMG.invalidate();\r\n#endif"
             }
           }
         ],
@@ -3743,13 +3565,13 @@
       },
       {
         "Name": "lte_status_container",
-        "Width": 65,
+        "Width": 55,
         "Height": 33,
         "Components": [
           {
             "Type": "Box",
             "Name": "topleft_box",
-            "Width": 65,
+            "Width": 55,
             "Height": 33
           },
           {
@@ -3776,6 +3598,22 @@
             "IndicatorPositionHeight": 12,
             "ProgressRangeMax": 4,
             "ProgressInitialValue": 4
+          },
+          {
+            "Type": "ImageProgress",
+            "Name": "imageProgress2",
+            "X": 35,
+            "Y": 10,
+            "Width": 15,
+            "Height": 15,
+            "FileNameProgress": "gps_connected.png",
+            "AnchorAtZero": true,
+            "Direction": "Right",
+            "FileNameBackground": "gps_notconnected.png",
+            "IndicatorPositionWidth": 15,
+            "IndicatorPositionHeight": 15,
+            "ProgressRangeMax": 1,
+            "ProgressInitialValue": 1
           }
         ],
         "Interactions": []
@@ -3788,7 +3626,7 @@
     },
     "SelectedColorDepth": 16,
     "StartupScreenName": "HomeScreenWithBiodata",
-    "SelectedStartupLanguage": "GB",
+    "SelectedStartupLanguage": "Korean",
     "TouchGfxPath": "../Middlewares/ST/touchgfx",
     "UIPath": ".",
     "ApplicationTemplateName": "Simulator",
@@ -3819,7 +3657,46 @@
     "FrameworkFeatures": {
       "LCD16bpp": {
         "Id": "LCD16bpp",
-        "IsEnabled": true
+        "Features": [
+          {
+            "Id": "TextureMapperImageFormats",
+            "Features": [
+              {
+                "Id": "RGB565",
+                "IsEnabled": true
+              },
+              {
+                "Id": "ARGB8888",
+                "IsEnabled": true
+              },
+              {
+                "Id": "L8_RGB565",
+                "IsEnabled": true
+              },
+              {
+                "Id": "L8_RGB888",
+                "IsEnabled": true
+              },
+              {
+                "Id": "L8_ARGB888",
+                "Features": [
+                  {
+                    "Id": "NearestNeighbor",
+                    "IsEnabled": true
+                  }
+                ]
+              },
+              {
+                "Id": "A4",
+                "IsEnabled": true
+              }
+            ]
+          },
+          {
+            "Id": "L8Compression",
+            "IsEnabled": true
+          }
+        ]
       }
     },
     "GenerateAssetsCommand": "make -f simulator/gcc/Makefile assets -j8",
@@ -3838,7 +3715,7 @@
     "SubFamily": "STM32U575/585",
     "Toolchain": "STM32CubeIDE",
     "Platform": "m33",
-    "ProjectFile": "../WIDB_jh.ioc",
+    "ProjectFile": "../WIDB.ioc",
     "OptionalComponentsRoot": "../Middlewares/ST/touchgfx_components",
     "OptionalComponents": [],
     "AdditionalFeatures": []

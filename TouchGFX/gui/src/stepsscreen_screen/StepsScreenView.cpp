@@ -18,30 +18,41 @@ void StepsScreenView::tearDownScreen()
 {
     StepsScreenViewBase::tearDownScreen();
 }
+#if defined(gui_simulation)
+void StepsScreenView::handleGestureEvent(const GestureEvent& evt) //rkdalfks
+{
+	if(evt.getType() == GestureEvent::SWIPE_HORIZONTAL)
+	{
+    	int deltaX = evt.getVelocity();
+        //int deltaY = evt.getVelocityY();
 
-//void StepsScreenView::handleGestureEvent(const GestureEvent& evt) //rkdalfks
-//{
-//	if(evt.getType() == GestureEvent::SWIPE_HORIZONTAL)
-//	{
-//    	int deltaX = evt.getVelocity();
-//        //int deltaY = evt.getVelocityY();
-//
-//        //if(abs(deltaX)>abs(deltaY))
-//        //{
-//			if (deltaX > 0)
-//			{
-//				presenter->notifySwipeRight();
-//			}
-//        //}
-//	}
-//	StepsScreenViewBase::handleGestureEvent(evt);
-//}
+        //if(abs(deltaX)>abs(deltaY))
+        //{
+			if (deltaX > 0)
+			{
+				presenter->notifySwipeRight();
+			}
+			else if (deltaX < 0)
+			{
+				presenter->notifySwipeLeft();
+			}
+        //}
+	}
+	StepsScreenViewBase::handleGestureEvent(evt);
+}
+#endif
 
 void StepsScreenView::handleSwipeRight() //rkdalfks
 {
-	application().gotoHomeScreenWithBiodataScreenWipeTransitionWest();
+	application().gotoHomeScreenWithBiodataScreenSlideTransitionWest();
 }
 
+void StepsScreenView::handleSwipeLeft() //rkdalfks
+{
+	application().gotoHeartrateScreenScreenSlideTransitionEast();
+}
+
+#if !defined(gui_simulation)
 extern uint32_t ssWalk;
 void StepsScreenView::changeStepVal(){
 	touchgfx::Unicode::snprintf(steps_valueBuffer, STEPS_VALUE_SIZE, "%02u", ssWalk);
@@ -55,3 +66,4 @@ void StepsScreenView::handleTickEvent(){
 		presenter->notifySwipeRight();
 	}
 }
+#endif

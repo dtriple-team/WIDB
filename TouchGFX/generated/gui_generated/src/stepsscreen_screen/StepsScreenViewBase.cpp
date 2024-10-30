@@ -7,7 +7,8 @@
 #include <images/BitmapDatabase.hpp>
 #include <texts/TextKeysAndLanguages.hpp>
 
-StepsScreenViewBase::StepsScreenViewBase()
+StepsScreenViewBase::StepsScreenViewBase() :
+    buttonCallback(this, &StepsScreenViewBase::buttonCallbackHandler)
 {
     touchgfx::CanvasWidgetRenderer::setupBuffer(canvasBuffer, CANVAS_BUFFER_SIZE);
     
@@ -19,13 +20,13 @@ StepsScreenViewBase::StepsScreenViewBase()
     background.setBitmap(touchgfx::Bitmap(BITMAP_BACKGROUND_ID));
     add(background);
 
-    steps_label.setPosition(0, 6, 240, 25);
+    steps_label.setPosition(0, 4, 240, 30);
     steps_label.setColor(touchgfx::Color::getColorFromRGB(255, 255, 255));
     steps_label.setLinespacing(0);
     steps_label.setTypedText(touchgfx::TypedText(T_STEPSTEXT));
     add(steps_label);
 
-    steps_value.setPosition(0, 219, 240, 33);
+    steps_value.setPosition(0, 215, 240, 45);
     steps_value.setColor(touchgfx::Color::getColorFromRGB(255, 255, 255));
     steps_value.setLinespacing(0);
     Unicode::snprintf(steps_valueBuffer, STEPS_VALUE_SIZE, "%s", touchgfx::TypedText(T_CURSTEPSVALUE).getText());
@@ -33,7 +34,7 @@ StepsScreenViewBase::StepsScreenViewBase()
     steps_value.setTypedText(touchgfx::TypedText(T_CURSTEPS));
     add(steps_value);
 
-    topright_image.setPosition(175, 0, 65, 33);
+    topright_image.setPosition(185, 0, 55, 33);
     topright_image.setColor(touchgfx::Color::getColorFromRGB(0, 0, 0));
     add(topright_image);
 
@@ -55,6 +56,12 @@ StepsScreenViewBase::StepsScreenViewBase()
     steps_progress.setValue(60);
     add(steps_progress);
 
+    buttonfornothing.setXY(0, 0);
+    buttonfornothing.setBitmaps(touchgfx::Bitmap(BITMAP_ALTERNATE_THEME_IMAGES_WIDGETS_BUTTON_REGULAR_HEIGHT_50_MEDIUM_ROUNDED_NORMAL_ID), touchgfx::Bitmap(BITMAP_ALTERNATE_THEME_IMAGES_WIDGETS_BUTTON_REGULAR_HEIGHT_50_MEDIUM_ROUNDED_PRESSED_ID));
+    buttonfornothing.setVisible(false);
+    buttonfornothing.setAction(buttonCallback);
+    add(buttonfornothing);
+
     batteryprogress_container1.setXY(0, 0);
     add(batteryprogress_container1);
 
@@ -71,6 +78,21 @@ void StepsScreenViewBase::setupScreen()
 {
     batteryprogress_container1.initialize();
     lte_status_container1.initialize();
+}
+
+void StepsScreenViewBase::buttonCallbackHandler(const touchgfx::AbstractButton& src)
+{
+    if (&src == &buttonfornothing)
+    {
+        //Interaction1
+        //When buttonfornothing clicked change screen to HomeScreenWithBiodata
+        //Go to HomeScreenWithBiodata with screen transition towards West
+        application().gotoHomeScreenWithBiodataScreenSlideTransitionWest();
+        //Interaction2
+        //When buttonfornothing clicked change screen to HeartrateScreen
+        //Go to HeartrateScreen with screen transition towards East
+        application().gotoHeartrateScreenScreenSlideTransitionEast();
+    }
 }
 
 void StepsScreenViewBase::handleTickEvent()

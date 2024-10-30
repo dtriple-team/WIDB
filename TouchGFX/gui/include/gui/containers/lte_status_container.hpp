@@ -10,7 +10,6 @@ public:
     virtual ~lte_status_container() {}
 
     virtual void initialize();
-
 protected:
 };
 

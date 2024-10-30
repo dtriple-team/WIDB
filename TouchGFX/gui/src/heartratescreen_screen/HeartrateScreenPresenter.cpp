@@ -21,3 +21,8 @@ void HeartrateScreenPresenter::notifySwipeRight() //rkdalfks
 {
 	view.handleSwipeRight();
 }
+
+void HeartrateScreenPresenter::notifySwipeLeft() //rkdalfks
+{
+	view.handleSwipeLeft();
+}

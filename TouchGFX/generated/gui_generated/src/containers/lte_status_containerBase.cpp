@@ -7,9 +7,9 @@
 
 lte_status_containerBase::lte_status_containerBase()
 {
-    setWidth(65);
+    setWidth(55);
     setHeight(33);
-    topleft_box.setPosition(0, 0, 65, 33);
+    topleft_box.setPosition(0, 0, 55, 33);
     topleft_box.setColor(touchgfx::Color::getColorFromRGB(0, 0, 0));
     add(topleft_box);
 
@@ -23,12 +23,19 @@ lte_status_containerBase::lte_status_containerBase()
     imageProgress1.setDirection(touchgfx::AbstractDirectionProgress::RIGHT);
     imageProgress1.setBackground(touchgfx::Bitmap(BITMAP_LTE_NOTCONNECTED_ID));
     imageProgress1.setBitmap(BITMAP_LTE_ID);
-    imageProgress1.setValue(0);
+    imageProgress1.setValue(4);
     imageProgress1.setAnchorAtZero(true);
     add(imageProgress1);
 
-    extern uint8_t lteRSSI_0_4;
-    imageProgress1.setValue(lteRSSI_0_4);
+    imageProgress2.setXY(35, 10);
+    imageProgress2.setProgressIndicatorPosition(0, 0, 15, 15);
+    imageProgress2.setRange(0, 1);
+    imageProgress2.setDirection(touchgfx::AbstractDirectionProgress::RIGHT);
+    imageProgress2.setBackground(touchgfx::Bitmap(BITMAP_GPS_NOTCONNECTED_ID));
+    imageProgress2.setBitmap(BITMAP_GPS_CONNECTED_ID);
+    imageProgress2.setValue(1);
+    imageProgress2.setAnchorAtZero(true);
+    add(imageProgress2);
 }
 
 lte_status_containerBase::~lte_status_containerBase()

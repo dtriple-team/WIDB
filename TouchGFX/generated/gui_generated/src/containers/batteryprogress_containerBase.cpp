@@ -22,11 +22,6 @@ batteryprogress_containerBase::batteryprogress_containerBase()
     chargingIMG.setBitmap(touchgfx::Bitmap(BITMAP_CHARGE_ON_BATT_ID));
     chargingIMG.setVisible(false);
     add(chargingIMG);
-
-    extern uint8_t battVal;
-    batteryprogress.setValue(battVal);
-	extern bool isCharging;
-	chargingIMG.setVisible(isCharging);
 }
 
 batteryprogress_containerBase::~batteryprogress_containerBase()
@@ -44,8 +39,10 @@ void batteryprogress_containerBase::changeBATTVal()
     //updateBATT
     //When changeBATTVal is called execute C++ code
     //Execute C++ code
-//    extern uint8_t battVal;
-//    batteryprogress.setValue(battVal);
+    #if !defined(gui_simulation)
+    extern uint8_t battVal;
+    batteryprogress.setValue(battVal);
+    #endif
 }
 
 void batteryprogress_containerBase::batteryCharging()
@@ -53,14 +50,9 @@ void batteryprogress_containerBase::batteryCharging()
     //charging
     //When batteryCharging is called execute C++ code
     //Execute C++ code
-//    remove(chargingIMG);
-//	setWidth(240);
-//	setHeight(23);
-//	chargingIMG.setXY(198, 8);
-//    chargingIMG.setBitmap(touchgfx::Bitmap(BITMAP_CHARGE_ON_BATT_ID));
-//	extern bool isCharging;
-//	chargingIMG.setVisible(isCharging);
-//	add(chargingIMG);
-//
-//	chargingIMG.invalidate();
+    #if !defined(gui_simulation)
+    extern bool isCharging;
+    chargingIMG.setVisible(isCharging);
+    chargingIMG.invalidate();
+    #endif
 }

@@ -20,13 +20,13 @@ SleepScreenViewBase::SleepScreenViewBase() :
     background.setBitmap(touchgfx::Bitmap(BITMAP_BACKGROUND_ID));
     add(background);
 
-    sleep_label.setPosition(0, 6, 240, 25);
+    sleep_label.setPosition(0, 4, 240, 30);
     sleep_label.setColor(touchgfx::Color::getColorFromRGB(255, 255, 255));
     sleep_label.setLinespacing(0);
     sleep_label.setTypedText(touchgfx::TypedText(T_SLEEPTEXT));
     add(sleep_label);
 
-    sleep_value.setPosition(0, 219, 240, 33);
+    sleep_value.setPosition(0, 215, 240, 45);
     sleep_value.setColor(touchgfx::Color::getColorFromRGB(255, 255, 255));
     sleep_value.setLinespacing(0);
     touchgfx::Unicode::snprintf(sleep_valueBuffer1, SLEEP_VALUEBUFFER1_SIZE, "%s", touchgfx::TypedText(T_CURSLEEPHVALUE).getText());
@@ -42,7 +42,7 @@ SleepScreenViewBase::SleepScreenViewBase() :
     buttonfornothing.setAction(buttonCallback);
     add(buttonfornothing);
 
-    topright_box.setPosition(175, 0, 65, 33);
+    topright_box.setPosition(185, 0, 55, 33);
     topright_box.setColor(touchgfx::Color::getColorFromRGB(0, 0, 0));
     add(topright_box);
 
@@ -89,6 +89,10 @@ void SleepScreenViewBase::buttonCallbackHandler(const touchgfx::AbstractButton& 
         //Interaction1
         //When buttonfornothing clicked change screen to HomeScreenWithBiodata
         //Go to HomeScreenWithBiodata with screen transition towards West
-        application().gotoHomeScreenWithBiodataScreenWipeTransitionWest();
+        application().gotoHomeScreenWithBiodataScreenWipeTransitionWest();
+        //Interaction2
+        //When buttonfornothing clicked change screen to Spo2Screen
+        //Go to Spo2Screen with screen transition towards West
+        application().gotoSpo2ScreenScreenSlideTransitionWest();
     }
 }

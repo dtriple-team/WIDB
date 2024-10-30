@@ -12,14 +12,17 @@ public:
     virtual ~soundnhapticsSettingView() {}
     virtual void setupScreen();
     virtual void tearDownScreen();
-//    virtual void handleGestureEvent(const GestureEvent& evt); //rkdalfks
+#if defined(gui_simulation)
+    virtual void handleGestureEvent(const GestureEvent& evt); //rkdalfks
+#endif
 
     void updateToggleButton1State(bool state);
     void updateToggleButton2State(bool state);
 
     void handleSwipeRight();
-
+#if !defined(gui_simulation)
     virtual void handleTickEvent();
+#endif
 protected:
     Callback<soundnhapticsSettingView, const touchgfx::AbstractButton&> toggleButton1ClickedCallback;
     Callback<soundnhapticsSettingView, const touchgfx::AbstractButton&> toggleButton2ClickedCallback;

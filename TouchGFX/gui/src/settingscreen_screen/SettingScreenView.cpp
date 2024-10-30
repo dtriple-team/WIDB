@@ -19,29 +19,31 @@ void SettingScreenView::tearDownScreen()
     SettingScreenViewBase::tearDownScreen();
 }
 
-//void SettingScreenView::handleGestureEvent(const GestureEvent& evt)
-//{
-//	if (evt.getType() == GestureEvent::SWIPE_HORIZONTAL)
-//	{
-//    	int deltaX = evt.getVelocity();
-//        //int deltaY = evt.getVelocityY();
-//
-//        //if(abs(deltaX)>abs(deltaY))
-//        //{
-//			if (deltaX > 0)
-//			{
-//				presenter->notifySwipeRight();
-//			}
-//        //}
-//	}
-//	SettingScreenViewBase::handleGestureEvent(evt);
-//}
+#if defined(gui_simulation)
+void SettingScreenView::handleGestureEvent(const GestureEvent& evt)
+{
+	if (evt.getType() == GestureEvent::SWIPE_HORIZONTAL)
+	{
+    	int deltaX = evt.getVelocity();
+        //int deltaY = evt.getVelocityY();
+
+        //if(abs(deltaX)>abs(deltaY))
+        //{
+			if (deltaX > 0)
+			{
+				presenter->notifySwipeRight();
+			}
+        //}
+	}
+	SettingScreenViewBase::handleGestureEvent(evt);
+}
+#endif
 
 void SettingScreenView::handleSwipeRight()
 {
 	application().gotoswipedownfromHomeScreenWipeTransitionWest();
 }
-
+#if !defined(gui_simulation)
 #include "bl6133.h"
 extern GESTURE gesture;
 void SettingScreenView::handleTickEvent(){
@@ -49,3 +51,4 @@ void SettingScreenView::handleTickEvent(){
 		presenter->notifySwipeRight();
 	}
 }
+#endif

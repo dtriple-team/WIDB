@@ -26,6 +26,7 @@ public:
     virtual void deactivate();
 
     virtual void notifySwipeRight(); //rkdalfks
+    virtual void notifySwipeLeft();
 
     virtual ~Spo2ScreenPresenter() {}
 

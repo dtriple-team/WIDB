@@ -75,21 +75,23 @@ void Spo2DetailViewBase::setupScreen()
 
 void Spo2DetailViewBase::handleTickEvent()
 {
-//    frameCountUpdateSpo2Interval++;
-//    if(frameCountUpdateSpo2Interval == TICK_UPDATESPO2_INTERVAL)
-//    {
-//        //updateSpo2
-//        //When every N tick execute C++ code
-//        //Execute C++ code
-//        extern uint8_t canDisplayPPG;
-//        if(!canDisplayPPG) return;
-//
-//        canDisplayPPG = 0;
-//
-//        extern uint16_t ssSpo2;
-//
-//        touchgfx::Unicode::snprintf(spo2_valueBuffer, SPO2_VALUE_SIZE, "%02u", ssSpo2);
-//        spo2_value.invalidate();
-//        frameCountUpdateSpo2Interval = 0;
-//    }
+    frameCountUpdateSpo2Interval++;
+    if(frameCountUpdateSpo2Interval == TICK_UPDATESPO2_INTERVAL)
+    {
+        //updateSpo2
+        //When every N tick execute C++ code
+        //Execute C++ code
+        #if !defined(gui_simulation)
+        extern uint8_t canDisplayPPG;
+        if(!canDisplayPPG) return;
+        
+        canDisplayPPG = 0;
+        
+        extern uint16_t ssSpo2;
+        
+        touchgfx::Unicode::snprintf(spo2_valueBuffer, SPO2_VALUE_SIZE, "%02u", ssSpo2);
+        spo2_value.invalidate();
+        #endif
+        frameCountUpdateSpo2Interval = 0;
+    }
 }

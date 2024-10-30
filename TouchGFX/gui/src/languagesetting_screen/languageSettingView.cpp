@@ -13,6 +13,7 @@ languageSettingView::languageSettingView()
 void languageSettingView::setupScreen()
 {
     languageSettingViewBase::setupScreen();
+
     updateLanguageSelection();
 }
 
@@ -20,24 +21,25 @@ void languageSettingView::tearDownScreen()
 {
     languageSettingViewBase::tearDownScreen();
 }
+#if defined(gui_simulation)
+void languageSettingView::handleGestureEvent(const GestureEvent& evt) //rkdalfks
+{
+    if (evt.getType() == GestureEvent::SWIPE_HORIZONTAL)
+    {
+    	int deltaX = evt.getVelocity();
+        //int deltaY = evt.getVelocityY();
 
-//void languageSettingView::handleGestureEvent(const GestureEvent& evt) //rkdalfks
-//{
-//    if (evt.getType() == GestureEvent::SWIPE_HORIZONTAL)
-//    {
-//    	int deltaX = evt.getVelocity();
-//        //int deltaY = evt.getVelocityY();
-//
-//        //if(abs(deltaX)>abs(deltaY))
-//        //{
-//			if (deltaX > 0)
-//			{
-//				presenter->notifySwipeRight();
-//			}
-//        //}
-//    }
-//    languageSettingViewBase::handleGestureEvent(evt);
-//}
+        //if(abs(deltaX)>abs(deltaY))
+        //{
+			if (deltaX > 0)
+			{
+				presenter->notifySwipeRight();
+			}
+        //}
+    }
+    languageSettingViewBase::handleGestureEvent(evt);
+}
+#endif
 
 void languageSettingView::handleSwipeRight() //rkdalfks
 {
@@ -70,6 +72,7 @@ void languageSettingView::updateLanguageSelection()
 	radioButton3.invalidate();
 }
 
+#if !defined(gui_simulation)
 #include "bl6133.h"
 extern GESTURE gesture;
 void languageSettingView::handleTickEvent(){
@@ -77,3 +80,4 @@ void languageSettingView::handleTickEvent(){
 		presenter->notifySwipeRight();
 	}
 }
+#endif

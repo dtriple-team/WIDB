@@ -10,6 +10,7 @@
 
 #include <touchgfx/transitions/NoTransition.hpp>
 #include <touchgfx/transitions/CoverTransition.hpp>
+#include <touchgfx/transitions/SlideTransition.hpp>
 #include <touchgfx/transitions/WipeTransition.hpp>
 
 #include <gui/common/FrontendApplication.hpp>
@@ -17,14 +18,14 @@
 
 #include <gui/homescreenwithbiodata_screen/HomeScreenWithBiodataView.hpp>
 #include <gui/homescreenwithbiodata_screen/HomeScreenWithBiodataPresenter.hpp>
-#include <gui/sleepscreen_screen/SleepScreenView.hpp>
-#include <gui/sleepscreen_screen/SleepScreenPresenter.hpp>
-#include <gui/spo2screen_screen/Spo2ScreenView.hpp>
-#include <gui/spo2screen_screen/Spo2ScreenPresenter.hpp>
-#include <gui/heartratescreen_screen/HeartrateScreenView.hpp>
-#include <gui/heartratescreen_screen/HeartrateScreenPresenter.hpp>
 #include <gui/stepsscreen_screen/StepsScreenView.hpp>
 #include <gui/stepsscreen_screen/StepsScreenPresenter.hpp>
+#include <gui/heartratescreen_screen/HeartrateScreenView.hpp>
+#include <gui/heartratescreen_screen/HeartrateScreenPresenter.hpp>
+#include <gui/spo2screen_screen/Spo2ScreenView.hpp>
+#include <gui/spo2screen_screen/Spo2ScreenPresenter.hpp>
+#include <gui/sleepscreen_screen/SleepScreenView.hpp>
+#include <gui/sleepscreen_screen/SleepScreenPresenter.hpp>
 #include <gui/heartratedetail_screen/HeartrateDetailView.hpp>
 #include <gui/heartratedetail_screen/HeartrateDetailPresenter.hpp>
 #include <gui/spo2detail_screen/Spo2DetailView.hpp>
@@ -88,10 +89,10 @@ public:
      * @note All view types used in the application MUST be added to this list!
      */
     typedef touchgfx::meta::TypeList< HomeScreenWithBiodataView,
-            touchgfx::meta::TypeList< SleepScreenView,
-            touchgfx::meta::TypeList< Spo2ScreenView,
-            touchgfx::meta::TypeList< HeartrateScreenView,
             touchgfx::meta::TypeList< StepsScreenView,
+            touchgfx::meta::TypeList< HeartrateScreenView,
+            touchgfx::meta::TypeList< Spo2ScreenView,
+            touchgfx::meta::TypeList< SleepScreenView,
             touchgfx::meta::TypeList< HeartrateDetailView,
             touchgfx::meta::TypeList< Spo2DetailView,
             touchgfx::meta::TypeList< swipedownfromHomeView,
@@ -125,10 +126,10 @@ public:
      * @note All presenter types used in the application MUST be added to this list!
      */
     typedef touchgfx::meta::TypeList< HomeScreenWithBiodataPresenter,
-            touchgfx::meta::TypeList< SleepScreenPresenter,
-            touchgfx::meta::TypeList< Spo2ScreenPresenter,
-            touchgfx::meta::TypeList< HeartrateScreenPresenter,
             touchgfx::meta::TypeList< StepsScreenPresenter,
+            touchgfx::meta::TypeList< HeartrateScreenPresenter,
+            touchgfx::meta::TypeList< Spo2ScreenPresenter,
+            touchgfx::meta::TypeList< SleepScreenPresenter,
             touchgfx::meta::TypeList< HeartrateDetailPresenter,
             touchgfx::meta::TypeList< Spo2DetailPresenter,
             touchgfx::meta::TypeList< swipedownfromHomePresenter,
@@ -164,10 +165,12 @@ public:
     typedef touchgfx::meta::TypeList< touchgfx::NoTransition,
             touchgfx::meta::TypeList< CoverTransition<NORTH>,
             touchgfx::meta::TypeList< CoverTransition<EAST>,
+            touchgfx::meta::TypeList< SlideTransition<EAST>,
+            touchgfx::meta::TypeList< SlideTransition<WEST>,
             touchgfx::meta::TypeList< WipeTransition<WEST>,
-            touchgfx::meta::TypeList< WipeTransition<SOUTH>,
             touchgfx::meta::TypeList< WipeTransition<NORTH>,
-            touchgfx::meta::Nil > > > > >
+            touchgfx::meta::TypeList< WipeTransition<SOUTH>,
+            touchgfx::meta::Nil > > > > > > >
             > GeneratedTransitionTypes;
 
     /**

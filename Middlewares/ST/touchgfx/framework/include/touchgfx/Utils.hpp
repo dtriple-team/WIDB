@@ -21,6 +21,8 @@
 #include <touchgfx/Bitmap.hpp>
 #include <touchgfx/hal/Types.hpp>
 
+#define gui_simulation
+
 #if defined(SIMULATOR) && !defined(__linux__)
 
 /**

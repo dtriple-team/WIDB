@@ -17,13 +17,13 @@ HeartrateScreenViewBase::HeartrateScreenViewBase() :
     background.setBitmap(touchgfx::Bitmap(BITMAP_BACKGROUND_ID));
     add(background);
 
-    heartrate_label.setPosition(0, 6, 240, 25);
+    heartrate_label.setPosition(0, 4, 240, 30);
     heartrate_label.setColor(touchgfx::Color::getColorFromRGB(255, 255, 255));
     heartrate_label.setLinespacing(0);
     heartrate_label.setTypedText(touchgfx::TypedText(T_HEARTRATETEXT));
     add(heartrate_label);
 
-    heartrate_value.setPosition(0, 219, 240, 33);
+    heartrate_value.setPosition(0, 215, 240, 45);
     heartrate_value.setColor(touchgfx::Color::getColorFromRGB(255, 255, 255));
     heartrate_value.setLinespacing(0);
     Unicode::snprintf(heartrate_valueBuffer, HEARTRATE_VALUE_SIZE, "%s", touchgfx::TypedText(T_CURHRVALUE).getText());
@@ -31,14 +31,19 @@ HeartrateScreenViewBase::HeartrateScreenViewBase() :
     heartrate_value.setTypedText(touchgfx::TypedText(T_CURHR));
     add(heartrate_value);
 
-    topright_box.setPosition(175, 0, 65, 33);
+    topright_box.setPosition(185, 0, 55, 33);
     topright_box.setColor(touchgfx::Color::getColorFromRGB(0, 0, 0));
     add(topright_box);
 
     heartrate_detail_button.setXY(70, 75);
     heartrate_detail_button.setBitmaps(touchgfx::Bitmap(BITMAP_HR_ICON_ID), touchgfx::Bitmap(BITMAP_HR_ICON_ID));
-    heartrate_detail_button.setAction(buttonCallback);
     add(heartrate_detail_button);
+
+    buttonfornothing.setXY(0, 0);
+    buttonfornothing.setBitmaps(touchgfx::Bitmap(BITMAP_ALTERNATE_THEME_IMAGES_WIDGETS_BUTTON_REGULAR_HEIGHT_50_MEDIUM_ROUNDED_NORMAL_ID), touchgfx::Bitmap(BITMAP_ALTERNATE_THEME_IMAGES_WIDGETS_BUTTON_REGULAR_HEIGHT_50_MEDIUM_ROUNDED_PRESSED_ID));
+    buttonfornothing.setVisible(false);
+    buttonfornothing.setAction(buttonCallback);
+    add(buttonfornothing);
 
     batteryprogress_container1.setXY(0, 0);
     add(batteryprogress_container1);
@@ -60,11 +65,15 @@ void HeartrateScreenViewBase::setupScreen()
 
 void HeartrateScreenViewBase::buttonCallbackHandler(const touchgfx::AbstractButton& src)
 {
-    if (&src == &heartrate_detail_button)
+    if (&src == &buttonfornothing)
     {
-        //Interaction1
-        //When heartrate_detail_button clicked change screen to HeartrateDetail
-        //Go to HeartrateDetail with screen transition towards South
-        application().gotoHeartrateDetailScreenWipeTransitionSouth();
+        //Interaction2
+        //When buttonfornothing clicked change screen to StepsScreen
+        //Go to StepsScreen with screen transition towards West
+        application().gotoStepsScreenScreenSlideTransitionWest();
+        //Interaction3
+        //When buttonfornothing clicked change screen to Spo2Screen
+        //Go to Spo2Screen with screen transition towards East
+        application().gotoSpo2ScreenScreenSlideTransitionEast();
     }
 }

@@ -13,6 +13,7 @@
 #include <touchgfx/widgets/TextAreaWithWildcard.hpp>
 #include <touchgfx/containers/progress_indicators/CircleProgress.hpp>
 #include <touchgfx/widgets/canvas/PainterRGB565.hpp>
+#include <touchgfx/widgets/Button.hpp>
 #include <gui/containers/batteryprogress_container.hpp>
 #include <gui/containers/lte_status_container.hpp>
 
@@ -49,6 +50,7 @@ protected:
     touchgfx::Image steps_image;
     touchgfx::CircleProgress steps_progress;
     touchgfx::PainterRGB565 steps_progressPainter;
+    touchgfx::Button buttonfornothing;
     batteryprogress_container batteryprogress_container1;
     lte_status_container lte_status_container1;
 
@@ -65,6 +67,16 @@ private:
      */
     static const uint32_t CANVAS_BUFFER_SIZE = 3600;
     uint8_t canvasBuffer[CANVAS_BUFFER_SIZE];
+
+    /*
+     * Callback Declarations
+     */
+    touchgfx::Callback<StepsScreenViewBase, const touchgfx::AbstractButton&> buttonCallback;
+
+    /*
+     * Callback Handler Declarations
+     */
+    void buttonCallbackHandler(const touchgfx::AbstractButton& src);
 
 };
 

@@ -50,6 +50,8 @@ protected:
     touchgfx::Button buttonfornothing;
     batteryprogress_container batteryprogress_container1;
     lte_status_container lte_status_container1;
+    touchgfx::Image image1;
+    touchgfx::Image image2;
 
 private:
 
