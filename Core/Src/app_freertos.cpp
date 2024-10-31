@@ -220,6 +220,9 @@ const osThreadAttr_t dataTask_attributes = {
 
 /* Private function prototypes -----------------------------------------------*/
 /* USER CODE BEGIN FunctionPrototypes */
+
+stm32wb_at_BLE_ADV_DATA_t param_BLE_DATA;
+
 void read_ppg();
 double getAltitude(double pressure_hPa);
 void updateHeightData();
@@ -326,10 +329,6 @@ void MX_FREERTOS_Init(void) {
 * @param argument: Not used
 * @retval None
 */
-stm32wb_at_BLE_ADV_DATA_t param_BLE_DATA;
-#define MAX20303_I2C_ADDRESS  0x28 // MAX20303의 I2C 주소
-#define HAPTIC_REG_CONTROL    0x30 // 햅틱 제어 레지스터
-#define HAPTIC_REG_AMP        0x32 // 햅틱 진폭 설정 레지스터
 /* USER CODE END Header_StartInitTask */
 void StartInitTask(void *argument)
 {
