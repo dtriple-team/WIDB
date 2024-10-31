@@ -25,3 +25,8 @@ void HomeScreenWithBiodataPresenter::notifySwipeLeft() //rkdalfks
 {
 	view.handleSwipeLeft();
 }
+
+void HomeScreenWithBiodataPresenter::notifySwipeRight() //rkdalfks
+{
+	view.handleSwipeRight();
+}

@@ -21,22 +21,22 @@ void StepsScreenView::tearDownScreen()
 #if defined(gui_simulation)
 void StepsScreenView::handleGestureEvent(const GestureEvent& evt) //rkdalfks
 {
-	if(evt.getType() == GestureEvent::SWIPE_HORIZONTAL)
+	const int swipeThreshold = 20;
+	if (evt.getType()==GestureEvent::SWIPE_HORIZONTAL)
 	{
-    	int deltaX = evt.getVelocity();
-        //int deltaY = evt.getVelocityY();
+		int deltaX = evt.getVelocity();
 
-        //if(abs(deltaX)>abs(deltaY))
-        //{
-			if (deltaX > 0)
+		if(abs(deltaX) > swipeThreshold)
+		{
+			if(deltaX > 0)
 			{
 				presenter->notifySwipeRight();
 			}
-			else if (deltaX < 0)
+			if(deltaX < 0)
 			{
 				presenter->notifySwipeLeft();
 			}
-        //}
+		}
 	}
 	StepsScreenViewBase::handleGestureEvent(evt);
 }

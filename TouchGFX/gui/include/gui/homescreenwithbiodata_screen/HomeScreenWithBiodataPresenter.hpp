@@ -17,6 +17,7 @@ public:
     virtual void deactivate();
     virtual void notifySwipeDown();
     virtual void notifySwipeLeft();
+    virtual void notifySwipeRight();
 
     virtual ~HomeScreenWithBiodataPresenter() {};
 

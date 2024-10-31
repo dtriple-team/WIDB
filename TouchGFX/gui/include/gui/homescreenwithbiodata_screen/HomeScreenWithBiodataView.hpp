@@ -23,6 +23,7 @@ public:
 
     void handleSwipeDown(); //rkdalfks
     void handleSwipeLeft();
+    void handleSwipeRight();
 
 protected:
 

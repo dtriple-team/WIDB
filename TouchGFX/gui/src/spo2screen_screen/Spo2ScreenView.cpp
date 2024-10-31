@@ -21,23 +21,23 @@ void Spo2ScreenView::tearDownScreen()
 #if defined(gui_simulation)
 void Spo2ScreenView::handleGestureEvent(const GestureEvent& evt) //rkdalfks
 {
-    if (evt.getType() == GestureEvent::SWIPE_HORIZONTAL)
-    {
-    	int deltaX = evt.getVelocity();
-        //int deltaY = evt.getVelocityY();
+	const int swipeThreshold = 20;
+	if (evt.getType()==GestureEvent::SWIPE_HORIZONTAL)
+	{
+		int deltaX = evt.getVelocity();
 
-        //if(abs(deltaX)>abs(deltaY))
-        //{
-			if (deltaX > 0)
+		if(abs(deltaX) > swipeThreshold)
+		{
+			if(deltaX > 0)
 			{
 				presenter->notifySwipeRight();
 			}
-			if (deltaX < 0)
+			if(deltaX < 0)
 			{
 				presenter->notifySwipeLeft();
 			}
-        //}
-    }
+		}
+	}
     Spo2ScreenViewBase::handleGestureEvent(evt);
 }
 #endif

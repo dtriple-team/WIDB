@@ -67,7 +67,8 @@ build/MINGW32_NT-6.2/gui/src/homescreenwithbiodata_screen/HomeScreenWithBiodataV
  ../Middlewares/ST/touchgfx/framework/include/touchgfx/widgets/TiledImage.hpp \
  gui/include/gui/containers/lte_status_container.hpp \
  generated/gui_generated/include/gui_generated/containers/lte_status_containerBase.hpp \
- ../Middlewares/ST/touchgfx/framework/include/touchgfx/Color.hpp
+ ../Middlewares/ST/touchgfx/framework/include/touchgfx/Color.hpp \
+ ../Middlewares/ST/touchgfx/framework/include/touchgfx/transitions/WipeTransition.hpp
 
 gui/include/gui/homescreenwithbiodata_screen/HomeScreenWithBiodataView.hpp:
 
@@ -204,3 +205,5 @@ gui/include/gui/containers/lte_status_container.hpp:
 generated/gui_generated/include/gui_generated/containers/lte_status_containerBase.hpp:
 
 ../Middlewares/ST/touchgfx/framework/include/touchgfx/Color.hpp:
+
+../Middlewares/ST/touchgfx/framework/include/touchgfx/transitions/WipeTransition.hpp:
