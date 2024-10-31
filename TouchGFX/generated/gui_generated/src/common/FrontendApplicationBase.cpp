@@ -96,17 +96,6 @@ void FrontendApplicationBase::gotoHomeScreenWithBiodataScreenNoTransitionImpl()
     touchgfx::makeTransition<HomeScreenWithBiodataView, HomeScreenWithBiodataPresenter, touchgfx::NoTransition, Model >(&currentScreen, &currentPresenter, frontendHeap, &currentTransition, &model);
 }
 
-void FrontendApplicationBase::gotoHomeScreenWithBiodataScreenSlideTransitionWest()
-{
-    transitionCallback = touchgfx::Callback<FrontendApplicationBase>(this, &FrontendApplicationBase::gotoHomeScreenWithBiodataScreenSlideTransitionWestImpl);
-    pendingScreenTransitionCallback = &transitionCallback;
-}
-
-void FrontendApplicationBase::gotoHomeScreenWithBiodataScreenSlideTransitionWestImpl()
-{
-    touchgfx::makeTransition<HomeScreenWithBiodataView, HomeScreenWithBiodataPresenter, touchgfx::SlideTransition<WEST>, Model >(&currentScreen, &currentPresenter, frontendHeap, &currentTransition, &model);
-}
-
 void FrontendApplicationBase::gotoHomeScreenWithBiodataScreenWipeTransitionWest()
 {
     transitionCallback = touchgfx::Callback<FrontendApplicationBase>(this, &FrontendApplicationBase::gotoHomeScreenWithBiodataScreenWipeTransitionWestImpl);
@@ -116,6 +105,17 @@ void FrontendApplicationBase::gotoHomeScreenWithBiodataScreenWipeTransitionWest(
 void FrontendApplicationBase::gotoHomeScreenWithBiodataScreenWipeTransitionWestImpl()
 {
     touchgfx::makeTransition<HomeScreenWithBiodataView, HomeScreenWithBiodataPresenter, touchgfx::WipeTransition<WEST>, Model >(&currentScreen, &currentPresenter, frontendHeap, &currentTransition, &model);
+}
+
+void FrontendApplicationBase::gotoHomeScreenWithBiodataScreenWipeTransitionEast()
+{
+    transitionCallback = touchgfx::Callback<FrontendApplicationBase>(this, &FrontendApplicationBase::gotoHomeScreenWithBiodataScreenWipeTransitionEastImpl);
+    pendingScreenTransitionCallback = &transitionCallback;
+}
+
+void FrontendApplicationBase::gotoHomeScreenWithBiodataScreenWipeTransitionEastImpl()
+{
+    touchgfx::makeTransition<HomeScreenWithBiodataView, HomeScreenWithBiodataPresenter, touchgfx::WipeTransition<EAST>, Model >(&currentScreen, &currentPresenter, frontendHeap, &currentTransition, &model);
 }
 
 void FrontendApplicationBase::gotoHomeScreenWithBiodataScreenWipeTransitionSouth()
@@ -131,63 +131,63 @@ void FrontendApplicationBase::gotoHomeScreenWithBiodataScreenWipeTransitionSouth
 
 // StepsScreen
 
-void FrontendApplicationBase::gotoStepsScreenScreenSlideTransitionEast()
+void FrontendApplicationBase::gotoStepsScreenScreenWipeTransitionEast()
 {
-    transitionCallback = touchgfx::Callback<FrontendApplicationBase>(this, &FrontendApplicationBase::gotoStepsScreenScreenSlideTransitionEastImpl);
+    transitionCallback = touchgfx::Callback<FrontendApplicationBase>(this, &FrontendApplicationBase::gotoStepsScreenScreenWipeTransitionEastImpl);
     pendingScreenTransitionCallback = &transitionCallback;
 }
 
-void FrontendApplicationBase::gotoStepsScreenScreenSlideTransitionEastImpl()
+void FrontendApplicationBase::gotoStepsScreenScreenWipeTransitionEastImpl()
 {
-    touchgfx::makeTransition<StepsScreenView, StepsScreenPresenter, touchgfx::SlideTransition<EAST>, Model >(&currentScreen, &currentPresenter, frontendHeap, &currentTransition, &model);
+    touchgfx::makeTransition<StepsScreenView, StepsScreenPresenter, touchgfx::WipeTransition<EAST>, Model >(&currentScreen, &currentPresenter, frontendHeap, &currentTransition, &model);
 }
 
-void FrontendApplicationBase::gotoStepsScreenScreenSlideTransitionWest()
+void FrontendApplicationBase::gotoStepsScreenScreenWipeTransitionWest()
 {
-    transitionCallback = touchgfx::Callback<FrontendApplicationBase>(this, &FrontendApplicationBase::gotoStepsScreenScreenSlideTransitionWestImpl);
+    transitionCallback = touchgfx::Callback<FrontendApplicationBase>(this, &FrontendApplicationBase::gotoStepsScreenScreenWipeTransitionWestImpl);
     pendingScreenTransitionCallback = &transitionCallback;
 }
 
-void FrontendApplicationBase::gotoStepsScreenScreenSlideTransitionWestImpl()
+void FrontendApplicationBase::gotoStepsScreenScreenWipeTransitionWestImpl()
 {
-    touchgfx::makeTransition<StepsScreenView, StepsScreenPresenter, touchgfx::SlideTransition<WEST>, Model >(&currentScreen, &currentPresenter, frontendHeap, &currentTransition, &model);
+    touchgfx::makeTransition<StepsScreenView, StepsScreenPresenter, touchgfx::WipeTransition<WEST>, Model >(&currentScreen, &currentPresenter, frontendHeap, &currentTransition, &model);
 }
 
 // HeartrateScreen
 
-void FrontendApplicationBase::gotoHeartrateScreenScreenSlideTransitionEast()
+void FrontendApplicationBase::gotoHeartrateScreenScreenWipeTransitionEast()
 {
-    transitionCallback = touchgfx::Callback<FrontendApplicationBase>(this, &FrontendApplicationBase::gotoHeartrateScreenScreenSlideTransitionEastImpl);
+    transitionCallback = touchgfx::Callback<FrontendApplicationBase>(this, &FrontendApplicationBase::gotoHeartrateScreenScreenWipeTransitionEastImpl);
     pendingScreenTransitionCallback = &transitionCallback;
 }
 
-void FrontendApplicationBase::gotoHeartrateScreenScreenSlideTransitionEastImpl()
+void FrontendApplicationBase::gotoHeartrateScreenScreenWipeTransitionEastImpl()
 {
-    touchgfx::makeTransition<HeartrateScreenView, HeartrateScreenPresenter, touchgfx::SlideTransition<EAST>, Model >(&currentScreen, &currentPresenter, frontendHeap, &currentTransition, &model);
+    touchgfx::makeTransition<HeartrateScreenView, HeartrateScreenPresenter, touchgfx::WipeTransition<EAST>, Model >(&currentScreen, &currentPresenter, frontendHeap, &currentTransition, &model);
 }
 
-void FrontendApplicationBase::gotoHeartrateScreenScreenSlideTransitionWest()
+void FrontendApplicationBase::gotoHeartrateScreenScreenWipeTransitionWest()
 {
-    transitionCallback = touchgfx::Callback<FrontendApplicationBase>(this, &FrontendApplicationBase::gotoHeartrateScreenScreenSlideTransitionWestImpl);
+    transitionCallback = touchgfx::Callback<FrontendApplicationBase>(this, &FrontendApplicationBase::gotoHeartrateScreenScreenWipeTransitionWestImpl);
     pendingScreenTransitionCallback = &transitionCallback;
 }
 
-void FrontendApplicationBase::gotoHeartrateScreenScreenSlideTransitionWestImpl()
+void FrontendApplicationBase::gotoHeartrateScreenScreenWipeTransitionWestImpl()
 {
-    touchgfx::makeTransition<HeartrateScreenView, HeartrateScreenPresenter, touchgfx::SlideTransition<WEST>, Model >(&currentScreen, &currentPresenter, frontendHeap, &currentTransition, &model);
+    touchgfx::makeTransition<HeartrateScreenView, HeartrateScreenPresenter, touchgfx::WipeTransition<WEST>, Model >(&currentScreen, &currentPresenter, frontendHeap, &currentTransition, &model);
 }
 
 // Spo2Screen
 
-void FrontendApplicationBase::gotoSpo2ScreenScreenSlideTransitionEast()
+void FrontendApplicationBase::gotoSpo2ScreenScreenWipeTransitionEast()
 {
-    transitionCallback = touchgfx::Callback<FrontendApplicationBase>(this, &FrontendApplicationBase::gotoSpo2ScreenScreenSlideTransitionEastImpl);
+    transitionCallback = touchgfx::Callback<FrontendApplicationBase>(this, &FrontendApplicationBase::gotoSpo2ScreenScreenWipeTransitionEastImpl);
     pendingScreenTransitionCallback = &transitionCallback;
 }
 
-void FrontendApplicationBase::gotoSpo2ScreenScreenSlideTransitionEastImpl()
+void FrontendApplicationBase::gotoSpo2ScreenScreenWipeTransitionEastImpl()
 {
-    touchgfx::makeTransition<Spo2ScreenView, Spo2ScreenPresenter, touchgfx::SlideTransition<EAST>, Model >(&currentScreen, &currentPresenter, frontendHeap, &currentTransition, &model);
+    touchgfx::makeTransition<Spo2ScreenView, Spo2ScreenPresenter, touchgfx::WipeTransition<EAST>, Model >(&currentScreen, &currentPresenter, frontendHeap, &currentTransition, &model);
 }
 
 void FrontendApplicationBase::gotoSpo2ScreenScreenSlideTransitionWest()
@@ -203,15 +203,15 @@ void FrontendApplicationBase::gotoSpo2ScreenScreenSlideTransitionWestImpl()
 
 // SleepScreen
 
-void FrontendApplicationBase::gotoSleepScreenScreenSlideTransitionEast()
+void FrontendApplicationBase::gotoSleepScreenScreenWipeTransitionEast()
 {
-    transitionCallback = touchgfx::Callback<FrontendApplicationBase>(this, &FrontendApplicationBase::gotoSleepScreenScreenSlideTransitionEastImpl);
+    transitionCallback = touchgfx::Callback<FrontendApplicationBase>(this, &FrontendApplicationBase::gotoSleepScreenScreenWipeTransitionEastImpl);
     pendingScreenTransitionCallback = &transitionCallback;
 }
 
-void FrontendApplicationBase::gotoSleepScreenScreenSlideTransitionEastImpl()
+void FrontendApplicationBase::gotoSleepScreenScreenWipeTransitionEastImpl()
 {
-    touchgfx::makeTransition<SleepScreenView, SleepScreenPresenter, touchgfx::SlideTransition<EAST>, Model >(&currentScreen, &currentPresenter, frontendHeap, &currentTransition, &model);
+    touchgfx::makeTransition<SleepScreenView, SleepScreenPresenter, touchgfx::WipeTransition<EAST>, Model >(&currentScreen, &currentPresenter, frontendHeap, &currentTransition, &model);
 }
 
 // HeartrateDetail

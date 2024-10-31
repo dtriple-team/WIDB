@@ -233,5 +233,5 @@ void HomeScreenWithBiodataView::handleSwipeDown()
 
 void HomeScreenWithBiodataView::handleSwipeLeft()
 {
-	application().gotoStepsScreenScreenSlideTransitionEast();
+	application().gotoStepsScreenScreenWipeTransitionEast();
 }

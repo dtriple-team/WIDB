@@ -23,29 +23,29 @@ public:
     // HomeScreenWithBiodata
     void gotoHomeScreenWithBiodataScreenNoTransition();
 
-    void gotoHomeScreenWithBiodataScreenSlideTransitionWest();
-
     void gotoHomeScreenWithBiodataScreenWipeTransitionWest();
+
+    void gotoHomeScreenWithBiodataScreenWipeTransitionEast();
 
     void gotoHomeScreenWithBiodataScreenWipeTransitionSouth();
 
     // StepsScreen
-    void gotoStepsScreenScreenSlideTransitionEast();
+    void gotoStepsScreenScreenWipeTransitionEast();
 
-    void gotoStepsScreenScreenSlideTransitionWest();
+    void gotoStepsScreenScreenWipeTransitionWest();
 
     // HeartrateScreen
-    void gotoHeartrateScreenScreenSlideTransitionEast();
+    void gotoHeartrateScreenScreenWipeTransitionEast();
 
-    void gotoHeartrateScreenScreenSlideTransitionWest();
+    void gotoHeartrateScreenScreenWipeTransitionWest();
 
     // Spo2Screen
-    void gotoSpo2ScreenScreenSlideTransitionEast();
+    void gotoSpo2ScreenScreenWipeTransitionEast();
 
     void gotoSpo2ScreenScreenSlideTransitionWest();
 
     // SleepScreen
-    void gotoSleepScreenScreenSlideTransitionEast();
+    void gotoSleepScreenScreenWipeTransitionEast();
 
     // HeartrateDetail
     void gotoHeartrateDetailScreenCoverTransitionEast();
@@ -124,29 +124,29 @@ protected:
     // HomeScreenWithBiodata
     void gotoHomeScreenWithBiodataScreenNoTransitionImpl();
 
-    void gotoHomeScreenWithBiodataScreenSlideTransitionWestImpl();
-
     void gotoHomeScreenWithBiodataScreenWipeTransitionWestImpl();
+
+    void gotoHomeScreenWithBiodataScreenWipeTransitionEastImpl();
 
     void gotoHomeScreenWithBiodataScreenWipeTransitionSouthImpl();
 
     // StepsScreen
-    void gotoStepsScreenScreenSlideTransitionEastImpl();
+    void gotoStepsScreenScreenWipeTransitionEastImpl();
 
-    void gotoStepsScreenScreenSlideTransitionWestImpl();
+    void gotoStepsScreenScreenWipeTransitionWestImpl();
 
     // HeartrateScreen
-    void gotoHeartrateScreenScreenSlideTransitionEastImpl();
+    void gotoHeartrateScreenScreenWipeTransitionEastImpl();
 
-    void gotoHeartrateScreenScreenSlideTransitionWestImpl();
+    void gotoHeartrateScreenScreenWipeTransitionWestImpl();
 
     // Spo2Screen
-    void gotoSpo2ScreenScreenSlideTransitionEastImpl();
+    void gotoSpo2ScreenScreenWipeTransitionEastImpl();
 
     void gotoSpo2ScreenScreenSlideTransitionWestImpl();
 
     // SleepScreen
-    void gotoSleepScreenScreenSlideTransitionEastImpl();
+    void gotoSleepScreenScreenWipeTransitionEastImpl();
 
     // HeartrateDetail
     void gotoHeartrateDetailScreenCoverTransitionEastImpl();

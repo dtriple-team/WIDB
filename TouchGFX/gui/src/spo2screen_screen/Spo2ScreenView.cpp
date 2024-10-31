@@ -45,13 +45,13 @@ void Spo2ScreenView::handleGestureEvent(const GestureEvent& evt) //rkdalfks
 void Spo2ScreenView::handleSwipeRight() //rkdalfks
 {
     // 화면 전환 코드
-    application().gotoHeartrateScreenScreenSlideTransitionWest();
+    application().gotoHeartrateScreenScreenWipeTransitionWest();
 }
 
 void Spo2ScreenView::handleSwipeLeft() //rkdalfks
 {
     // 화면 전환 코드
-    application().gotoSleepScreenScreenSlideTransitionEast();
+    application().gotoHomeScreenWithBiodataScreenWipeTransitionEast();
 }
 
 #if !defined(gui_simulation)

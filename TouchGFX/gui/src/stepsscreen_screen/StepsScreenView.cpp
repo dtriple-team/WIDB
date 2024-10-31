@@ -44,12 +44,12 @@ void StepsScreenView::handleGestureEvent(const GestureEvent& evt) //rkdalfks
 
 void StepsScreenView::handleSwipeRight() //rkdalfks
 {
-	application().gotoHomeScreenWithBiodataScreenSlideTransitionWest();
+	application().gotoHomeScreenWithBiodataScreenWipeTransitionWest();
 }
 
 void StepsScreenView::handleSwipeLeft() //rkdalfks
 {
-	application().gotoHeartrateScreenScreenSlideTransitionEast();
+	application().gotoHeartrateScreenScreenWipeTransitionEast();
 }
 
 #if !defined(gui_simulation)

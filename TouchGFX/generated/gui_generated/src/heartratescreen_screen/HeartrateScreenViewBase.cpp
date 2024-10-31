@@ -70,10 +70,10 @@ void HeartrateScreenViewBase::buttonCallbackHandler(const touchgfx::AbstractButt
         //Interaction2
         //When buttonfornothing clicked change screen to StepsScreen
         //Go to StepsScreen with screen transition towards West
-        application().gotoStepsScreenScreenSlideTransitionWest();
+        application().gotoStepsScreenScreenWipeTransitionWest();
         //Interaction3
         //When buttonfornothing clicked change screen to Spo2Screen
         //Go to Spo2Screen with screen transition towards East
-        application().gotoSpo2ScreenScreenSlideTransitionEast();
+        application().gotoSpo2ScreenScreenWipeTransitionEast();
     }
 }

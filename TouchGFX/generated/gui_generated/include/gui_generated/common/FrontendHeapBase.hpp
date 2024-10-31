@@ -10,8 +10,8 @@
 
 #include <touchgfx/transitions/NoTransition.hpp>
 #include <touchgfx/transitions/CoverTransition.hpp>
-#include <touchgfx/transitions/SlideTransition.hpp>
 #include <touchgfx/transitions/WipeTransition.hpp>
+#include <touchgfx/transitions/SlideTransition.hpp>
 
 #include <gui/common/FrontendApplication.hpp>
 #include <gui/model/Model.hpp>
@@ -165,9 +165,9 @@ public:
     typedef touchgfx::meta::TypeList< touchgfx::NoTransition,
             touchgfx::meta::TypeList< CoverTransition<NORTH>,
             touchgfx::meta::TypeList< CoverTransition<EAST>,
-            touchgfx::meta::TypeList< SlideTransition<EAST>,
-            touchgfx::meta::TypeList< SlideTransition<WEST>,
+            touchgfx::meta::TypeList< WipeTransition<EAST>,
             touchgfx::meta::TypeList< WipeTransition<WEST>,
+            touchgfx::meta::TypeList< SlideTransition<WEST>,
             touchgfx::meta::TypeList< WipeTransition<NORTH>,
             touchgfx::meta::TypeList< WipeTransition<SOUTH>,
             touchgfx::meta::Nil > > > > > > >
