@@ -240,13 +240,14 @@
           },
           {
             "InteractionName": "Interaction5",
+            "HasCompletedTrigger": true,
             "Trigger": {
               "Type": "TriggerClicked",
               "TriggerComponent": "buttonfornothing"
             },
             "Action": {
               "Type": "ActionGotoScreen",
-              "ScreenTransitionType": "ScreenTransitionSlide",
+              "ScreenTransitionType": "ScreenTransitionWipe",
               "ScreenTransitionDirection": "East",
               "ActionComponent": "StepsScreen"
             }
@@ -381,7 +382,7 @@
             },
             "Action": {
               "Type": "ActionGotoScreen",
-              "ScreenTransitionType": "ScreenTransitionSlide",
+              "ScreenTransitionType": "ScreenTransitionWipe",
               "ScreenTransitionDirection": "West",
               "ActionComponent": "HomeScreenWithBiodata"
             }
@@ -394,7 +395,7 @@
             },
             "Action": {
               "Type": "ActionGotoScreen",
-              "ScreenTransitionType": "ScreenTransitionSlide",
+              "ScreenTransitionType": "ScreenTransitionWipe",
               "ScreenTransitionDirection": "East",
               "ActionComponent": "HeartrateScreen"
             }
@@ -500,7 +501,7 @@
             },
             "Action": {
               "Type": "ActionGotoScreen",
-              "ScreenTransitionType": "ScreenTransitionSlide",
+              "ScreenTransitionType": "ScreenTransitionWipe",
               "ScreenTransitionDirection": "West",
               "ActionComponent": "StepsScreen"
             }
@@ -513,7 +514,7 @@
             },
             "Action": {
               "Type": "ActionGotoScreen",
-              "ScreenTransitionType": "ScreenTransitionSlide",
+              "ScreenTransitionType": "ScreenTransitionWipe",
               "ScreenTransitionDirection": "East",
               "ActionComponent": "Spo2Screen"
             }
@@ -619,7 +620,7 @@
             },
             "Action": {
               "Type": "ActionGotoScreen",
-              "ScreenTransitionType": "ScreenTransitionSlide",
+              "ScreenTransitionType": "ScreenTransitionWipe",
               "ScreenTransitionDirection": "West",
               "ActionComponent": "HeartrateScreen"
             }
@@ -632,9 +633,22 @@
             },
             "Action": {
               "Type": "ActionGotoScreen",
-              "ScreenTransitionType": "ScreenTransitionSlide",
+              "ScreenTransitionType": "ScreenTransitionWipe",
               "ScreenTransitionDirection": "East",
               "ActionComponent": "SleepScreen"
+            }
+          },
+          {
+            "InteractionName": "Interaction4",
+            "Trigger": {
+              "Type": "TriggerClicked",
+              "TriggerComponent": "buttonfornothing"
+            },
+            "Action": {
+              "Type": "ActionGotoScreen",
+              "ScreenTransitionType": "ScreenTransitionWipe",
+              "ScreenTransitionDirection": "East",
+              "ActionComponent": "HomeScreenWithBiodata"
             }
           }
         ],
@@ -1046,6 +1060,7 @@
             "Y": 51,
             "Width": 66,
             "Height": 66,
+            "LockPosition": true,
             "Pressed": "swipedown_button.png",
             "Released": "swipedown_button_pressed.png"
           },
@@ -1332,8 +1347,8 @@
               {
                 "Type": "Button",
                 "Name": "findmyphone_button",
-                "X": 14,
-                "Y": 196,
+                "X": 260,
+                "Y": 192,
                 "Width": 212,
                 "Height": 54,
                 "Pressed": "Rectangle 30.png",
@@ -1343,7 +1358,7 @@
                 "Type": "Button",
                 "Name": "information_button",
                 "X": 14,
-                "Y": 259,
+                "Y": 196,
                 "Width": 212,
                 "Height": 54,
                 "Pressed": "Rectangle 30.png",
@@ -1353,7 +1368,7 @@
                 "Type": "Button",
                 "Name": "system_button",
                 "X": 14,
-                "Y": 322,
+                "Y": 259,
                 "Width": 212,
                 "Height": 54,
                 "Pressed": "Rectangle 30.png",
@@ -1389,8 +1404,8 @@
               {
                 "Type": "Image",
                 "Name": "phonebutton_icon_back",
-                "X": 20,
-                "Y": 203,
+                "X": 266,
+                "Y": 199,
                 "Width": 40,
                 "Height": 40,
                 "RelativeFilename": "setting_iconback.png"
@@ -1399,7 +1414,7 @@
                 "Type": "Image",
                 "Name": "informationbutton_icon_back",
                 "X": 20,
-                "Y": 266,
+                "Y": 203,
                 "Width": 40,
                 "Height": 40,
                 "RelativeFilename": "setting_iconback.png"
@@ -1408,7 +1423,7 @@
                 "Type": "Image",
                 "Name": "systembutton_icon_back",
                 "X": 20,
-                "Y": 329,
+                "Y": 266,
                 "Width": 40,
                 "Height": 40,
                 "RelativeFilename": "setting_iconback.png"
@@ -1461,8 +1476,8 @@
               {
                 "Type": "TextArea",
                 "Name": "findmyphone_label",
-                "X": 66,
-                "Y": 212,
+                "X": 312,
+                "Y": 208,
                 "Width": 155,
                 "Height": 25,
                 "TextId": "findmyphoneText",
@@ -1477,7 +1492,7 @@
                 "Type": "TextArea",
                 "Name": "information_label",
                 "X": 66,
-                "Y": 275,
+                "Y": 212,
                 "Width": 155,
                 "Height": 25,
                 "TextId": "informationText",
@@ -1492,7 +1507,7 @@
                 "Type": "TextArea",
                 "Name": "system_label",
                 "X": 66,
-                "Y": 338,
+                "Y": 275,
                 "Width": 155,
                 "Height": 25,
                 "TextId": "systemText",
@@ -1507,7 +1522,7 @@
                 "Type": "Box",
                 "Name": "bottom_padding_box",
                 "X": 14,
-                "Y": 376,
+                "Y": 312,
                 "Width": 212,
                 "Height": 9
               },
@@ -1541,8 +1556,8 @@
               {
                 "Type": "Image",
                 "Name": "phone_image",
-                "X": 22,
-                "Y": 206,
+                "X": 268,
+                "Y": 202,
                 "Width": 35,
                 "Height": 35,
                 "RelativeFilename": "setting_phone_icon.png"
@@ -1551,7 +1566,7 @@
                 "Type": "Image",
                 "Name": "information_image",
                 "X": 22,
-                "Y": 268,
+                "Y": 205,
                 "Width": 35,
                 "Height": 35,
                 "RelativeFilename": "setting_information_icon.png"
@@ -1560,7 +1575,7 @@
                 "Type": "Image",
                 "Name": "system_image",
                 "X": 22,
-                "Y": 329,
+                "Y": 266,
                 "Width": 36,
                 "Height": 36,
                 "RelativeFilename": "setting_system_icon.png"
@@ -2123,7 +2138,7 @@
             "Name": "haptic_label",
             "X": 66,
             "Y": 59,
-            "Width": 45,
+            "Width": 28,
             "Height": 19,
             "TextId": "hapticText",
             "TextRotation": "0",
@@ -2139,7 +2154,7 @@
             "Name": "sound_label",
             "X": 66,
             "Y": 120,
-            "Width": 46,
+            "Width": 28,
             "Height": 19,
             "TextId": "soundText",
             "TextRotation": "0",
@@ -2153,10 +2168,10 @@
           {
             "Type": "ToggleButton",
             "Name": "haptic_togglebutton",
-            "X": 182,
-            "Y": 48,
-            "Width": 40,
-            "Height": 40,
+            "X": 60,
+            "Y": 43,
+            "Width": 170,
+            "Height": 50,
             "InitialStatePressed": true,
             "Pressed": "toggleon.png",
             "Released": "toggleoff.png"
@@ -2164,11 +2179,11 @@
           {
             "Type": "ToggleButton",
             "Name": "sound_togglebutton",
-            "X": 182,
-            "Y": 109,
-            "Width": 40,
-            "Height": 40,
-            "InitialStatePressed": true,
+            "X": 60,
+            "Y": 103,
+            "Width": 170,
+            "Height": 50,
+            "LockPosition": true,
             "Pressed": "toggleon.png",
             "Released": "toggleoff.png"
           },
@@ -2299,10 +2314,10 @@
           {
             "Type": "RadioButton",
             "Name": "radioButton1",
-            "X": 191,
-            "Y": 56,
-            "Width": 25,
-            "Height": 25,
+            "X": 60,
+            "Y": 44,
+            "Width": 170,
+            "Height": 50,
             "Selected": true,
             "FileNameSelected": "radiofill.png",
             "FileNameSelectedPressed": "radiofill.png",
@@ -2313,10 +2328,10 @@
           {
             "Type": "RadioButton",
             "Name": "radioButton2",
-            "X": 191,
-            "Y": 117,
-            "Width": 25,
-            "Height": 25,
+            "X": 60,
+            "Y": 105,
+            "Width": 170,
+            "Height": 50,
             "FileNameSelected": "radiofill.png",
             "FileNameSelectedPressed": "radiofill.png",
             "FileNameUnselected": "radionfill.png",
@@ -2326,10 +2341,10 @@
           {
             "Type": "RadioButton",
             "Name": "radioButton3",
-            "X": 191,
-            "Y": 178,
-            "Width": 25,
-            "Height": 25,
+            "X": 60,
+            "Y": 166,
+            "Width": 170,
+            "Height": 50,
             "FileNameSelected": "radiofill.png",
             "FileNameSelectedPressed": "radiofill.png",
             "FileNameUnselected": "radionfill.png",

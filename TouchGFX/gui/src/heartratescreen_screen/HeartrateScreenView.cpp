@@ -45,12 +45,12 @@ void HeartrateScreenView::handleGestureEvent(const GestureEvent& evt) //rkdalfks
 
 void HeartrateScreenView::handleSwipeRight() //rkdalfks
 {
-	application().gotoStepsScreenScreenSlideTransitionWest();
+	application().gotoStepsScreenScreenWipeTransitionWest();
 }
 
 void HeartrateScreenView::handleSwipeLeft() //rkdalfks
 {
-	application().gotoSpo2ScreenScreenSlideTransitionEast();
+	application().gotoSpo2ScreenScreenWipeTransitionEast();
 }
 
 #if !defined(gui_simulation)

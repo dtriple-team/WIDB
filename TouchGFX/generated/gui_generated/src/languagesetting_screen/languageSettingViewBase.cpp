@@ -55,21 +55,21 @@ languageSettingViewBase::languageSettingViewBase() :
 
     radioButtonGroup1.setRadioButtonSelectedHandler(radioButtonSelectedCallback);
     
-    radioButton1.setXY(191, 56);
+    radioButton1.setXY(60, 44);
     radioButton1.setBitmaps(touchgfx::Bitmap(BITMAP_RADIONFILL_ID), touchgfx::Bitmap(BITMAP_RADIONFILL_ID), touchgfx::Bitmap(BITMAP_RADIOFILL_ID), touchgfx::Bitmap(BITMAP_RADIOFILL_ID));
     radioButton1.setSelected(true);
     radioButton1.setDeselectionEnabled(false);
     radioButtonGroup1.add(radioButton1);
     add(radioButton1);
 
-    radioButton2.setXY(191, 117);
+    radioButton2.setXY(60, 105);
     radioButton2.setBitmaps(touchgfx::Bitmap(BITMAP_RADIONFILL_ID), touchgfx::Bitmap(BITMAP_RADIONFILL_ID), touchgfx::Bitmap(BITMAP_RADIOFILL_ID), touchgfx::Bitmap(BITMAP_RADIOFILL_ID));
     radioButton2.setSelected(false);
     radioButton2.setDeselectionEnabled(false);
     radioButtonGroup1.add(radioButton2);
     add(radioButton2);
 
-    radioButton3.setXY(191, 178);
+    radioButton3.setXY(60, 166);
     radioButton3.setBitmaps(touchgfx::Bitmap(BITMAP_RADIONFILL_ID), touchgfx::Bitmap(BITMAP_RADIONFILL_ID), touchgfx::Bitmap(BITMAP_RADIOFILL_ID), touchgfx::Bitmap(BITMAP_RADIOFILL_ID));
     radioButton3.setSelected(false);
     radioButton3.setDeselectionEnabled(false);

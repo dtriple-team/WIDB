@@ -66,9 +66,9 @@ build/MINGW32_NT-6.2/simulator/main.o: simulator/main.cpp \
  ../Middlewares/ST/touchgfx/framework/include/touchgfx/Callback.hpp \
  ../Middlewares/ST/touchgfx/framework/include/touchgfx/transitions/CoverTransition.hpp \
  ../Middlewares/ST/touchgfx/framework/include/touchgfx/EasingEquations.hpp \
+ ../Middlewares/ST/touchgfx/framework/include/touchgfx/transitions/WipeTransition.hpp \
  ../Middlewares/ST/touchgfx/framework/include/touchgfx/transitions/SlideTransition.hpp \
  ../Middlewares/ST/touchgfx/framework/include/touchgfx/widgets/SnapshotWidget.hpp \
- ../Middlewares/ST/touchgfx/framework/include/touchgfx/transitions/WipeTransition.hpp \
  gui/include/gui/common/FrontendApplication.hpp \
  ../Middlewares/ST/touchgfx/framework/include/mvp/View.hpp \
  ../Middlewares/ST/touchgfx/framework/include/touchgfx/Screen.hpp \
@@ -355,11 +355,11 @@ generated/gui_generated/include/gui_generated/common/FrontendHeapBase.hpp:
 
 ../Middlewares/ST/touchgfx/framework/include/touchgfx/EasingEquations.hpp:
 
+../Middlewares/ST/touchgfx/framework/include/touchgfx/transitions/WipeTransition.hpp:
+
 ../Middlewares/ST/touchgfx/framework/include/touchgfx/transitions/SlideTransition.hpp:
 
 ../Middlewares/ST/touchgfx/framework/include/touchgfx/widgets/SnapshotWidget.hpp:
-
-../Middlewares/ST/touchgfx/framework/include/touchgfx/transitions/WipeTransition.hpp:
 
 gui/include/gui/common/FrontendApplication.hpp:
 

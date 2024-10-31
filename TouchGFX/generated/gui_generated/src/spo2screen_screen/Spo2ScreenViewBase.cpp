@@ -70,10 +70,14 @@ void Spo2ScreenViewBase::buttonCallbackHandler(const touchgfx::AbstractButton& s
         //Interaction2
         //When buttonfornothing clicked change screen to HeartrateScreen
         //Go to HeartrateScreen with screen transition towards West
-        application().gotoHeartrateScreenScreenSlideTransitionWest();
+        application().gotoHeartrateScreenScreenWipeTransitionWest();
         //Interaction3
         //When buttonfornothing clicked change screen to SleepScreen
         //Go to SleepScreen with screen transition towards East
-        application().gotoSleepScreenScreenSlideTransitionEast();
+        application().gotoSleepScreenScreenWipeTransitionEast();
+        //Interaction4
+        //When buttonfornothing clicked change screen to HomeScreenWithBiodata
+        //Go to HomeScreenWithBiodata with screen transition towards East
+        application().gotoHomeScreenWithBiodataScreenWipeTransitionEast();
     }
 }

@@ -87,11 +87,11 @@ void StepsScreenViewBase::buttonCallbackHandler(const touchgfx::AbstractButton& 
         //Interaction1
         //When buttonfornothing clicked change screen to HomeScreenWithBiodata
         //Go to HomeScreenWithBiodata with screen transition towards West
-        application().gotoHomeScreenWithBiodataScreenSlideTransitionWest();
+        application().gotoHomeScreenWithBiodataScreenWipeTransitionWest();
         //Interaction2
         //When buttonfornothing clicked change screen to HeartrateScreen
         //Go to HeartrateScreen with screen transition towards East
-        application().gotoHeartrateScreenScreenSlideTransitionEast();
+        application().gotoHeartrateScreenScreenWipeTransitionEast();
     }
 }
 

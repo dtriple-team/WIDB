@@ -36,16 +36,16 @@ SettingScreenViewBase::SettingScreenViewBase() :
     language_button.setAction(buttonCallback);
     settingscrollablecontainer.add(language_button);
 
-    findmyphone_button.setXY(14, 196);
+    findmyphone_button.setXY(260, 192);
     findmyphone_button.setBitmaps(touchgfx::Bitmap(BITMAP_RECTANGLE_21_ID), touchgfx::Bitmap(BITMAP_RECTANGLE_30_ID));
     settingscrollablecontainer.add(findmyphone_button);
 
-    information_button.setXY(14, 259);
+    information_button.setXY(14, 196);
     information_button.setBitmaps(touchgfx::Bitmap(BITMAP_RECTANGLE_21_ID), touchgfx::Bitmap(BITMAP_RECTANGLE_30_ID));
     information_button.setAction(buttonCallback);
     settingscrollablecontainer.add(information_button);
 
-    system_button.setXY(14, 322);
+    system_button.setXY(14, 259);
     system_button.setBitmaps(touchgfx::Bitmap(BITMAP_RECTANGLE_21_ID), touchgfx::Bitmap(BITMAP_RECTANGLE_30_ID));
     system_button.setAction(buttonCallback);
     settingscrollablecontainer.add(system_button);
@@ -62,15 +62,15 @@ SettingScreenViewBase::SettingScreenViewBase() :
     languagebutton_icon_back.setBitmap(touchgfx::Bitmap(BITMAP_SETTING_ICONBACK_ID));
     settingscrollablecontainer.add(languagebutton_icon_back);
 
-    phonebutton_icon_back.setXY(20, 203);
+    phonebutton_icon_back.setXY(266, 199);
     phonebutton_icon_back.setBitmap(touchgfx::Bitmap(BITMAP_SETTING_ICONBACK_ID));
     settingscrollablecontainer.add(phonebutton_icon_back);
 
-    informationbutton_icon_back.setXY(20, 266);
+    informationbutton_icon_back.setXY(20, 203);
     informationbutton_icon_back.setBitmap(touchgfx::Bitmap(BITMAP_SETTING_ICONBACK_ID));
     settingscrollablecontainer.add(informationbutton_icon_back);
 
-    systembutton_icon_back.setXY(20, 329);
+    systembutton_icon_back.setXY(20, 266);
     systembutton_icon_back.setBitmap(touchgfx::Bitmap(BITMAP_SETTING_ICONBACK_ID));
     settingscrollablecontainer.add(systembutton_icon_back);
 
@@ -92,25 +92,25 @@ SettingScreenViewBase::SettingScreenViewBase() :
     language_label.setTypedText(touchgfx::TypedText(T_LANGUAGETEXT));
     settingscrollablecontainer.add(language_label);
 
-    findmyphone_label.setPosition(66, 212, 155, 25);
+    findmyphone_label.setPosition(312, 208, 155, 25);
     findmyphone_label.setColor(touchgfx::Color::getColorFromRGB(217, 217, 217));
     findmyphone_label.setLinespacing(0);
     findmyphone_label.setTypedText(touchgfx::TypedText(T_FINDMYPHONETEXT));
     settingscrollablecontainer.add(findmyphone_label);
 
-    information_label.setPosition(66, 275, 155, 25);
+    information_label.setPosition(66, 212, 155, 25);
     information_label.setColor(touchgfx::Color::getColorFromRGB(217, 217, 217));
     information_label.setLinespacing(0);
     information_label.setTypedText(touchgfx::TypedText(T_INFORMATIONTEXT));
     settingscrollablecontainer.add(information_label);
 
-    system_label.setPosition(66, 338, 155, 25);
+    system_label.setPosition(66, 275, 155, 25);
     system_label.setColor(touchgfx::Color::getColorFromRGB(217, 217, 217));
     system_label.setLinespacing(0);
     system_label.setTypedText(touchgfx::TypedText(T_SYSTEMTEXT));
     settingscrollablecontainer.add(system_label);
 
-    bottom_padding_box.setPosition(14, 376, 212, 9);
+    bottom_padding_box.setPosition(14, 312, 212, 9);
     bottom_padding_box.setColor(touchgfx::Color::getColorFromRGB(0, 0, 0));
     settingscrollablecontainer.add(bottom_padding_box);
 
@@ -126,15 +126,15 @@ SettingScreenViewBase::SettingScreenViewBase() :
     language_image.setBitmap(touchgfx::Bitmap(BITMAP_SETTING_LANGUAGE_ICON_ID));
     settingscrollablecontainer.add(language_image);
 
-    phone_image.setXY(22, 206);
+    phone_image.setXY(268, 202);
     phone_image.setBitmap(touchgfx::Bitmap(BITMAP_SETTING_PHONE_ICON_ID));
     settingscrollablecontainer.add(phone_image);
 
-    information_image.setXY(22, 268);
+    information_image.setXY(22, 205);
     information_image.setBitmap(touchgfx::Bitmap(BITMAP_SETTING_INFORMATION_ICON_ID));
     settingscrollablecontainer.add(information_image);
 
-    system_image.setXY(22, 329);
+    system_image.setXY(22, 266);
     system_image.setBitmap(touchgfx::Bitmap(BITMAP_SETTING_SYSTEM_ICON_ID));
     settingscrollablecontainer.add(system_image);
 

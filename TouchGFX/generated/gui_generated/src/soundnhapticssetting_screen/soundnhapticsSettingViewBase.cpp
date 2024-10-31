@@ -42,14 +42,13 @@ soundnhapticsSettingViewBase::soundnhapticsSettingViewBase()
     sound_label.setTypedText(touchgfx::TypedText(T_SOUNDTEXT));
     add(sound_label);
 
-    haptic_togglebutton.setXY(182, 48);
+    haptic_togglebutton.setXY(60, 43);
     haptic_togglebutton.setBitmaps(touchgfx::Bitmap(BITMAP_TOGGLEOFF_ID), touchgfx::Bitmap(BITMAP_TOGGLEON_ID));
     haptic_togglebutton.forceState(true);
     add(haptic_togglebutton);
 
-    sound_togglebutton.setXY(182, 109);
+    sound_togglebutton.setXY(60, 103);
     sound_togglebutton.setBitmaps(touchgfx::Bitmap(BITMAP_TOGGLEOFF_ID), touchgfx::Bitmap(BITMAP_TOGGLEON_ID));
-    sound_togglebutton.forceState(true);
     add(sound_togglebutton);
 
     haptic_image.setXY(15, 55);
