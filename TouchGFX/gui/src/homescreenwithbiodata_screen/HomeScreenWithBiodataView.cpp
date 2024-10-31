@@ -103,13 +103,13 @@ catM1Time nowTimeinfo;
 
 void HomeScreenWithBiodataView::handleTickEvent()
 {
-//	tickCounter++;
-//
-//	if (tickCounter % 60 == 0) // 1초마다 업데이트
-//	{
-//		time_t currentTime;
-//		time(&currentTime);
-//
+	tickCounter++;
+
+	if (tickCounter % 60 == 0) // 1초마다 업데이트
+	{
+		time_t currentTime;
+		time(&currentTime);
+
 //		double secondsPassed = difftime(currentTime, lastUpdateTime);
 //
 //		if (secondsPassed >= 1)
@@ -173,16 +173,19 @@ void HomeScreenWithBiodataView::handleTickEvent()
 		touchgfx::Unicode::snprintf(home_steps_valueBuffer, HOME_STEPS_VALUE_SIZE, "%u", ssWalk);
 		home_steps_value.invalidate();
 
-		touchgfx::Unicode::snprintf(heartrate_valueBuffer, HEARTRATE_VALUE_SIZE, "%02u", ssHr);
-		heartrate_value.invalidate();
-		touchgfx::Unicode::snprintf(spo2_valueBuffer, SPO2_VALUE_SIZE, "%02u", ssSpo2);
-		spo2_value.invalidate();
-		touchgfx::Unicode::snprintf(step_valueBuffer, STEP_VALUE_SIZE, "%u", ssWalk);
-		step_value.invalidate();
+//		touchgfx::Unicode::snprintf(heartrate_valueBuffer, HEARTRATE_VALUE_SIZE, "%02u", ssHr);
+//		heartrate_value.invalidate();
+//		touchgfx::Unicode::snprintf(spo2_valueBuffer, SPO2_VALUE_SIZE, "%02u", ssSpo2);
+//		spo2_value.invalidate();
+//		touchgfx::Unicode::snprintf(step_valueBuffer, STEP_VALUE_SIZE, "%u", ssWalk);
+//		step_value.invalidate();
 	}
     if(gesture == SlideDown){
     	presenter->notifySwipeDown();
     }
+	else if(gesture == SlideLeft){
+		presenter->notifySwipeLeft();
+	}
 }
 #endif
 

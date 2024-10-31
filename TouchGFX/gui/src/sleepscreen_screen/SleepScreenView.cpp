@@ -49,7 +49,7 @@ void SleepScreenView::handleSwipeRight() //rkdalfks
 extern GESTURE gesture;
 void SleepScreenView::handleTickEvent(){
 	if(gesture == SlideRight){
-		presenter->notifySwipeRight();
+//		presenter->notifySwipeRight();
 	}
 }
 #endif

@@ -65,5 +65,14 @@ void StepsScreenView::handleTickEvent(){
 	if(gesture == SlideRight){
 		presenter->notifySwipeRight();
 	}
+	else if(gesture == SlideLeft){
+		presenter->notifySwipeLeft();
+	}
+	else if(gesture == SlideDown){
+		application().gotoswipedownfromHomeScreenCoverTransitionNorth();
+	}
+	else if(gesture == LongPress){
+		application().gotoHomeScreenWithBiodataScreenWipeTransitionWest();
+	}
 }
 #endif
