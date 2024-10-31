@@ -73,7 +73,7 @@ void HeartrateScreenView::handleTickEvent(){
 		application().gotoswipedownfromHomeScreenCoverTransitionNorth();
 	}
 	else if(gesture == LongPress){
-		application().gotoHomeScreenWithBiodataScreenSlideTransitionWest();
+		application().gotoHomeScreenWithBiodataScreenWipeTransitionWest();
 	}
 }
 #endif
