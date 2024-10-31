@@ -241,6 +241,7 @@ uint8_t before_bLevel = set_bLevel;
 uint8_t flashlightOn = 0;
 
 uint8_t lteRSSI_0_4 = 0; // CATM1 signal RSSI 0 to 4 value
+uint8_t gpsRSSI_0_1 = 0;
 
 initBlackScreenViewBase myBlackScreenView;
 fallDetectedViewBase myFallDetectedView;

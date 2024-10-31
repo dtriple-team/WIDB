@@ -38,6 +38,7 @@ extern bool gpsFlag;
 extern int gps_operation_cycle;
 extern uint32_t deviceID;
 extern uint8_t deviceID_check;
+extern uint8_t gpsRSSI_0_1;
 
 bool txCompleteFlag = 0;
 
@@ -362,6 +363,7 @@ void handle_gps_command(const char *value)
         cat_m1_Status.gpsOn = 1;
     }
     if (strstr(value, "1,4") != NULL) {
+    	gpsRSSI_0_1 = 1;
         cat_m1_Status.gpsOff = 1;
         gps_operation_cycle = (60*1)+30;
     } else {

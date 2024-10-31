@@ -67,12 +67,12 @@ void soundnhapticsSettingView::updateToggleButton1State(bool state)
 
 void soundnhapticsSettingView::toggleButton2Clicked(const touchgfx::AbstractButton& source)
 {
-    bool newState = sound_togglebutton.getState();
-    presenter->updateToggleButton2State(newState);
-#if !defined(gui_simulation)
-    extern uint8_t soundFlag;
-	soundFlag = !soundFlag;
-#endif
+//    bool newState = sound_togglebutton.getState();
+//    presenter->updateToggleButton2State(newState);
+//#if !defined(gui_simulation)
+//    extern uint8_t soundFlag;
+//	soundFlag = !soundFlag;
+//#endif
 }
 
 void soundnhapticsSettingView::updateToggleButton2State(bool state)
