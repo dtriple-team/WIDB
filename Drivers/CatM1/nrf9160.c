@@ -32,6 +32,7 @@ MqttState currentMqttState = MQTT_INIT;
 GpsState gpsState = GPS_INIT;
 
 extern uint8_t nRFCloudFlag;
+extern bool cell_locationFlag;
 extern uint8_t wpmInitializationFlag;
 extern uint8_t gpsOffCheckTime;
 extern uint8_t UartRxRetryTime;
@@ -1102,6 +1103,7 @@ void nrf9160_Stop_gps()
 	cat_m1_Status.gpsChecking = 0;
 	wpmInitializationFlag = 1;
 	gpsOffCheckTime = 0;
+	cell_locationFlag = true;
 	HAL_UART_Receive_IT(&huart1, &uart_cat_m1_rx.temp, 1);
 }
 
@@ -1148,6 +1150,7 @@ void catM1Reset()
 	cat_m1_Status.gpsOff = 0;
 	cat_m1_Status.mqttSetStatus = 0;
 	gps_operation_cycle = 60*4;
+	cell_locationFlag = true;
 	catM1PWRGPIOInit();
 	//send_at_command("AT+CFUN=0\r\n");
 }
