@@ -73,6 +73,8 @@ uint8_t brightness_count = 0;
 
 uint8_t now_sleepmode = 0;
 
+uint8_t nRFCloudFlag = 0;
+
 #define cat_m1_rssi_cycle 40
 uint8_t cat_m1_rssi_cycleTime = 0;
 bool cat_m1_rssi_cycleFlag = false;
@@ -95,7 +97,7 @@ uint8_t gpsOffCheckTime = 0;
 
 int cell_location_operation_cycle  = 60*1;
 uint8_t cell_locationTime = 0;
-bool cell_locationFlag = false;
+bool cell_locationFlag = true;
 
 #define fall_Check_cycle 60 // sec
 uint8_t fallCheckTime = 0;
@@ -477,6 +479,10 @@ void StartWPMTask(void *argument)
 	}
 	if(wpmInitializationFlag && cat_m1_Status.Checked == 0)
 	{
+//		if(!nRFCloudFlag)
+//		{
+//			catM1nRFCloud_Init();
+//		}
 		nrf9160_check();
 	}
 	if(wpmInitializationFlag && cat_m1_Status.Checked == 1)
@@ -823,11 +829,11 @@ void StartSecTimerTask(void *argument)
 		{
 			cell_locationTime++;
 		}
-		if(cell_locationTime > cell_location_operation_cycle)
-		{
-			cell_locationFlag = true;
-			cell_locationTime = 0;
-		}
+//		if(cell_locationTime > cell_location_operation_cycle)
+//		{
+//			cell_locationFlag = true;
+//			cell_locationTime = 0;
+//		}
 		if(cat_m1_Status_FallDetection.fall_detect)
 		{
 			fallCheckTime++;
