@@ -542,7 +542,7 @@ void StartWPMTask(void *argument)
 		    cat_m1_Status_GPS_Location.bid = deviceID;
 		    send_GPS_Location(&cat_m1_Status_GPS_Location);
 		}
-		else if (cell_locationFlag && cat_m1_Status.mqttChecking == 0)
+		else if (cell_locationFlag && cat_m1_Status.mqttChecking == 0 && cat_m1_Status.gpsChecking == 0)
 		{
 		    nrf9160_Get_cell_location();
 		    cell_locationFlag = false;
