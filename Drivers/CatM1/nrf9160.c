@@ -402,31 +402,34 @@ void handle_gps_command(const char *value)
 
 void handle_cell_location_command(const char *value)
 {
-	int cell_locationDataLength = strlen(value);
+//	int cell_locationDataLength = strlen(value);
+//
+//	if (cell_locationDataLength > 10) {
+//	    char tempBuffer[sizeof(cat_m1_at_cmd_rst.gps)];
+//	    int j = 0;
+//
+//	    char *token = strtok(value, ",");
+//
+//	    token = strtok(NULL, ",");
+//
+//	    if (token != NULL) {
+//	        strncpy(tempBuffer, token, sizeof(tempBuffer) - 1);
+//	        tempBuffer[sizeof(tempBuffer) - 1] = '\0';
+//	        j = strlen(tempBuffer);
+//	    }
+//
+//	    token = strtok(NULL, ",");
+//	    if (token != NULL && j < sizeof(tempBuffer) - 1) {
+//	        strncat(tempBuffer, ",", sizeof(tempBuffer) - j - 1);
+//	        strncat(tempBuffer, token, sizeof(tempBuffer) - j - 2);
+//	    }
+//
+//	    strncpy((char *)cat_m1_at_cmd_rst.gps, tempBuffer, sizeof(cat_m1_at_cmd_rst.gps) - 1);
+//	    cat_m1_at_cmd_rst.gps[sizeof(cat_m1_at_cmd_rst.gps) - 1] = '\0';
 
-	if (cell_locationDataLength > 10) {
-	    char tempBuffer[sizeof(cat_m1_at_cmd_rst.gps)];
-	    int j = 0;
-
-	    char *token = strtok(value, ",");
-
-	    token = strtok(NULL, ",");
-
-	    if (token != NULL) {
-	        strncpy(tempBuffer, token, sizeof(tempBuffer) - 1);
-	        tempBuffer[sizeof(tempBuffer) - 1] = '\0';
-	        j = strlen(tempBuffer);
-	    }
-
-	    token = strtok(NULL, ",");
-	    if (token != NULL && j < sizeof(tempBuffer) - 1) {
-	        strncat(tempBuffer, ",", sizeof(tempBuffer) - j - 1);
-	        strncat(tempBuffer, token, sizeof(tempBuffer) - j - 2);
-	    }
-
-	    strncpy((char *)cat_m1_at_cmd_rst.gps, tempBuffer, sizeof(cat_m1_at_cmd_rst.gps) - 1);
-	    cat_m1_at_cmd_rst.gps[sizeof(cat_m1_at_cmd_rst.gps) - 1] = '\0';
-	}
+		strncpy((char *)cat_m1_at_cmd_rst.gps, (const char *)value, sizeof(cat_m1_at_cmd_rst.gps) - 1);
+		cat_m1_at_cmd_rst.gps[sizeof(cat_m1_at_cmd_rst.gps) - 1] = '\0';
+//	}
 }
 
 void handle_xuuid_command(const char *value)

@@ -684,6 +684,8 @@ void StartSPMTask(void *argument)
 	imuTemp = ismTemp;
 	press = pressure;
 
+//	double accScal = (accX^2 + accY^2 + accZ^2)^0.5;
+
 //	if(ssRunFlag == 1)
 //	{
 //	  read_ppg();
