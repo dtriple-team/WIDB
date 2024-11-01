@@ -49,7 +49,6 @@ soundnhapticsSettingViewBase::soundnhapticsSettingViewBase()
 
     sound_togglebutton.setXY(60, 103);
     sound_togglebutton.setBitmaps(touchgfx::Bitmap(BITMAP_TOGGLEOFF_ID), touchgfx::Bitmap(BITMAP_TOGGLEON_ID));
-    sound_togglebutton.forceState(false);
     add(sound_togglebutton);
 
     haptic_image.setXY(15, 55);

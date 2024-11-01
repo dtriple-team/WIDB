@@ -412,6 +412,18 @@
               "ScreenTransitionDirection": "East",
               "ActionComponent": "HeartrateScreen"
             }
+          },
+          {
+            "InteractionName": "Interaction3",
+            "Trigger": {
+              "Type": "TriggerOnEveryTick",
+              "TickCount": 60
+            },
+            "Action": {
+              "Type": "ActionCustom2",
+              "ActionCustomTypeName": "Call StepsScreen changeStepVal",
+              "ActionComponent": "StepsScreen"
+            }
           }
         ],
         "CustomActions": [
@@ -530,6 +542,18 @@
               "ScreenTransitionType": "ScreenTransitionWipe",
               "ScreenTransitionDirection": "East",
               "ActionComponent": "Spo2Screen"
+            }
+          },
+          {
+            "InteractionName": "Interaction4",
+            "Trigger": {
+              "Type": "TriggerOnEveryTick",
+              "TickCount": 60
+            },
+            "Action": {
+              "Type": "ActionCustom2",
+              "ActionCustomTypeName": "Call HeartrateScreen changeHRVal",
+              "ActionComponent": "HeartrateScreen"
             }
           }
         ],
@@ -662,6 +686,18 @@
               "ScreenTransitionType": "ScreenTransitionWipe",
               "ScreenTransitionDirection": "East",
               "ActionComponent": "HomeScreenWithBiodata"
+            }
+          },
+          {
+            "InteractionName": "Interaction5",
+            "Trigger": {
+              "Type": "TriggerOnEveryTick",
+              "TickCount": 60
+            },
+            "Action": {
+              "Type": "ActionCustom2",
+              "ActionCustomTypeName": "Call Spo2Screen changeSpo2Val",
+              "ActionComponent": "Spo2Screen"
             }
           }
         ],

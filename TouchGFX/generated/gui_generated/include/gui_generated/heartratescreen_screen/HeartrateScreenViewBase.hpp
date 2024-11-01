@@ -21,6 +21,7 @@ public:
     HeartrateScreenViewBase();
     virtual ~HeartrateScreenViewBase();
     virtual void setupScreen();
+    virtual void handleTickEvent();
 
     /*
      * Custom Actions
@@ -66,6 +67,12 @@ private:
      * Callback Handler Declarations
      */
     void buttonCallbackHandler(const touchgfx::AbstractButton& src);
+
+    /*
+     * Tick Counter Declarations
+     */
+    static const uint32_t TICK_INTERACTION4_INTERVAL = 60;
+    uint32_t frameCountInteraction4Interval;
 
 };
 

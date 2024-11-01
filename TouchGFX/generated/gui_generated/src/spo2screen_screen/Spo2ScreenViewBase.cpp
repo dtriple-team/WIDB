@@ -7,7 +7,8 @@
 #include <texts/TextKeysAndLanguages.hpp>
 
 Spo2ScreenViewBase::Spo2ScreenViewBase() :
-    buttonCallback(this, &Spo2ScreenViewBase::buttonCallbackHandler)
+    buttonCallback(this, &Spo2ScreenViewBase::buttonCallbackHandler),
+    frameCountInteraction5Interval(0)
 {
     __background.setPosition(0, 0, 240, 280);
     __background.setColor(touchgfx::Color::getColorFromRGB(0, 0, 0));
@@ -79,5 +80,18 @@ void Spo2ScreenViewBase::buttonCallbackHandler(const touchgfx::AbstractButton& s
         //When buttonfornothing clicked change screen to HomeScreenWithBiodata
         //Go to HomeScreenWithBiodata with screen transition towards East
         application().gotoHomeScreenWithBiodataScreenWipeTransitionEast();
+    }
+}
+
+void Spo2ScreenViewBase::handleTickEvent()
+{
+    frameCountInteraction5Interval++;
+    if(frameCountInteraction5Interval == TICK_INTERACTION5_INTERVAL)
+    {
+        //Interaction5
+        //When every N tick call changeSpo2Val on Spo2Screen
+        //Call changeSpo2Val
+        changeSpo2Val();
+        frameCountInteraction5Interval = 0;
     }
 }

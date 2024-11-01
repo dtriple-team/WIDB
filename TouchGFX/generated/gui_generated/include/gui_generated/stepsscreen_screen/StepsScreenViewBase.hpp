@@ -78,6 +78,12 @@ private:
      */
     void buttonCallbackHandler(const touchgfx::AbstractButton& src);
 
+    /*
+     * Tick Counter Declarations
+     */
+    static const uint32_t TICK_INTERACTION3_INTERVAL = 60;
+    uint32_t frameCountInteraction3Interval;
+
 };
 
 #endif // STEPSSCREENVIEWBASE_HPP

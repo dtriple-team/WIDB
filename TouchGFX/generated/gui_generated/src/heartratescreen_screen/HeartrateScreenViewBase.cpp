@@ -7,7 +7,8 @@
 #include <texts/TextKeysAndLanguages.hpp>
 
 HeartrateScreenViewBase::HeartrateScreenViewBase() :
-    buttonCallback(this, &HeartrateScreenViewBase::buttonCallbackHandler)
+    buttonCallback(this, &HeartrateScreenViewBase::buttonCallbackHandler),
+    frameCountInteraction4Interval(0)
 {
     __background.setPosition(0, 0, 240, 280);
     __background.setColor(touchgfx::Color::getColorFromRGB(0, 0, 0));
@@ -75,5 +76,18 @@ void HeartrateScreenViewBase::buttonCallbackHandler(const touchgfx::AbstractButt
         //When buttonfornothing clicked change screen to Spo2Screen
         //Go to Spo2Screen with screen transition towards East
         application().gotoSpo2ScreenScreenWipeTransitionEast();
+    }
+}
+
+void HeartrateScreenViewBase::handleTickEvent()
+{
+    frameCountInteraction4Interval++;
+    if(frameCountInteraction4Interval == TICK_INTERACTION4_INTERVAL)
+    {
+        //Interaction4
+        //When every N tick call changeHRVal on HeartrateScreen
+        //Call changeHRVal
+        changeHRVal();
+        frameCountInteraction4Interval = 0;
     }
 }

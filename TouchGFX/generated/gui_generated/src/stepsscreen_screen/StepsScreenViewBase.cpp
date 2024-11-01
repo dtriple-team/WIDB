@@ -8,7 +8,8 @@
 #include <texts/TextKeysAndLanguages.hpp>
 
 StepsScreenViewBase::StepsScreenViewBase() :
-    buttonCallback(this, &StepsScreenViewBase::buttonCallbackHandler)
+    buttonCallback(this, &StepsScreenViewBase::buttonCallbackHandler),
+    frameCountInteraction3Interval(0)
 {
     touchgfx::CanvasWidgetRenderer::setupBuffer(canvasBuffer, CANVAS_BUFFER_SIZE);
     
@@ -101,4 +102,14 @@ void StepsScreenViewBase::handleTickEvent()
     //When every N tick call changeStepVal on StepsScreen
     //Call changeStepVal
     changeStepVal();
+
+    frameCountInteraction3Interval++;
+    if(frameCountInteraction3Interval == TICK_INTERACTION3_INTERVAL)
+    {
+        //Interaction3
+        //When every N tick call changeStepVal on StepsScreen
+        //Call changeStepVal
+        changeStepVal();
+        frameCountInteraction3Interval = 0;
+    }
 }

@@ -36,11 +36,6 @@ lte_status_containerBase::lte_status_containerBase()
     imageProgress2.setValue(1);
     imageProgress2.setAnchorAtZero(true);
     add(imageProgress2);
-
-    extern uint8_t lteRSSI_0_4;
-	imageProgress1.setValue(lteRSSI_0_4);
-	extern uint8_t gpsRSSI_0_1;
-	imageProgress2.setValue(gpsRSSI_0_1);
 }
 
 lte_status_containerBase::~lte_status_containerBase()
