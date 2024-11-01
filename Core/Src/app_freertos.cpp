@@ -93,6 +93,10 @@ bool gpsFlag = false;
 #define gps_offCheck_cycle 180+10
 uint8_t gpsOffCheckTime = 0;
 
+int cell_location_operation_cycle  = 60*1;
+uint8_t cell_locationTime = 0;
+bool cell_locationFlag = false;
+
 #define fall_Check_cycle 60 // sec
 uint8_t fallCheckTime = 0;
 uint8_t fallCheckFlag = 0;
@@ -533,7 +537,16 @@ void StartWPMTask(void *argument)
 			mqttFlag = false;
 			catM1MqttDangerMessage = 0;
 		}
-
+		if ((strlen((const char*)cat_m1_at_cmd_rst.gps) > 0) && cat_m1_Status.mqttChecking == 0)
+		{
+		    cat_m1_Status_GPS_Location.bid = deviceID;
+		    send_GPS_Location(&cat_m1_Status_GPS_Location);
+		}
+		else if (cell_locationFlag && cat_m1_Status.mqttChecking == 0 && cat_m1_Status.gpsChecking == 0)
+		{
+		    nrf9160_Get_cell_location();
+		    cell_locationFlag = false;
+		}
 		if(gpsFlag && cat_m1_Status.mqttChecking == 0)
 		{
 			//catM1MqttDangerMessage = 1;
@@ -806,7 +819,15 @@ void StartSecTimerTask(void *argument)
 			catM1Reset();
 			gpsOffCheckTime = 0;
 		}
-
+		if(cell_locationFlag == 0)
+		{
+			cell_locationTime++;
+		}
+		if(cell_locationTime > cell_location_operation_cycle)
+		{
+			cell_locationFlag = true;
+			cell_locationTime = 0;
+		}
 		if(cat_m1_Status_FallDetection.fall_detect)
 		{
 			fallCheckTime++;
@@ -1190,11 +1211,6 @@ void BandAlert()
 {
 	if(cat_m1_Status.mqttConnectionStatus == 2)
 	{
-		if ((strlen((const char*)cat_m1_at_cmd_rst.gps)) && cat_m1_Status.mqttChecking == 0)
-		{
-			cat_m1_Status_GPS_Location.bid = deviceID;
-			send_GPS_Location(&cat_m1_Status_GPS_Location);
-		}
 		if (fallCheckFlag == 1 && cat_m1_Status.mqttChecking == 0)
 		{
 			fallCheckFlag = 0;

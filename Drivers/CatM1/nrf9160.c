@@ -264,6 +264,10 @@ void cat_m1_parse_result(const char *command, const char *value)
     {
         handle_cclk_command(value);
     }
+    else if (strstr(command, "#XNRFCLOUDPOS") != NULL)
+    {
+    	handle_cell_location_command(value);
+    }
 }
 
 void handle_cops_command(const char *value)
@@ -386,6 +390,35 @@ void handle_gps_command(const char *value)
     {
     	cat_m1_Status.gpsOff = 1;
     }
+}
+
+void handle_cell_location_command(const char *value)
+{
+	int cell_locationDataLength = strlen(value);
+
+	if (cell_locationDataLength > 10) {
+	    char tempBuffer[sizeof(cat_m1_at_cmd_rst.gps)];
+	    int j = 0;
+
+	    char *token = strtok(value, ",");
+
+	    token = strtok(NULL, ",");
+
+	    if (token != NULL) {
+	        strncpy(tempBuffer, token, sizeof(tempBuffer) - 1);
+	        tempBuffer[sizeof(tempBuffer) - 1] = '\0';
+	        j = strlen(tempBuffer);
+	    }
+
+	    token = strtok(NULL, ",");
+	    if (token != NULL && j < sizeof(tempBuffer) - 1) {
+	        strncat(tempBuffer, ",", sizeof(tempBuffer) - j - 1);
+	        strncat(tempBuffer, token, sizeof(tempBuffer) - j - 2);
+	    }
+
+	    strncpy((char *)cat_m1_at_cmd_rst.gps, tempBuffer, sizeof(cat_m1_at_cmd_rst.gps) - 1);
+	    cat_m1_at_cmd_rst.gps[sizeof(cat_m1_at_cmd_rst.gps) - 1] = '\0';
+	}
 }
 
 void handle_mqtt_event_command(const char *value)
@@ -542,6 +575,9 @@ void nrf9160_check()
             break;
 
         case FINAL_COMMANDS:
+
+        	send_at_command("AT#XNRFCLOUD=1\r\n");
+
             send_at_command("AT+CGDCONT?\r\n");
             osDelay(200);
             send_at_command("AT%XICCID\r\n");
@@ -1074,6 +1110,10 @@ void nrf9160_Get_gps_State()
 	osDelay(1000);
 }
 
+void nrf9160_Get_cell_location()
+{
+	send_at_command("AT#XNRFCLOUDPOS=1,0\r\n");
+}
 void nrf9160_Get_rssi()
 {
 	send_at_command("AT+CESQ\r\n");
