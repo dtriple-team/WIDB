@@ -25,6 +25,7 @@ cat_m1_Status_FallDetection_t cat_m1_Status_FallDetection;
 cat_m1_Status_GPS_Location_t cat_m1_Status_GPS_Location;
 cat_m1_Status_IMU_t cat_m1_Status_IMU;
 cat_m1_Status_BandSet_t cat_m1_Status_BandSet;
+cat_m1_Status_uuid_t cat_m1_Status_uuid;
 
 WpmState currentWpmState = WPM_INIT_CHECK;
 CheckState currentCheckState = SYSTEM_MODE_CHECK;
@@ -270,6 +271,10 @@ void cat_m1_parse_result(const char *command, const char *value)
     {
     	handle_cell_location_command(value);
     }
+    else if (strstr(command, "#XUUID") != NULL)
+    {
+    	handle_xuuid_command(value);
+    }
 }
 
 void handle_cops_command(const char *value)
@@ -421,6 +426,12 @@ void handle_cell_location_command(const char *value)
 	    strncpy((char *)cat_m1_at_cmd_rst.gps, tempBuffer, sizeof(cat_m1_at_cmd_rst.gps) - 1);
 	    cat_m1_at_cmd_rst.gps[sizeof(cat_m1_at_cmd_rst.gps) - 1] = '\0';
 	}
+}
+
+void handle_xuuid_command(const char *value)
+{
+	strncpy((char *)cat_m1_at_cmd_rst.uuid, (const char *)value, sizeof(cat_m1_at_cmd_rst.uuid) - 1);
+	cat_m1_at_cmd_rst.uuid[sizeof(cat_m1_at_cmd_rst.uuid) - 1] = '\0';
 }
 
 void handle_mqtt_event_command(const char *value)
@@ -933,6 +944,38 @@ void send_GPS_Location(cat_m1_Status_GPS_Location_t* location)
         if (send_at_command(mqtt_data))
         {
             memset(&cat_m1_at_cmd_rst.gps, 0, sizeof(cat_m1_at_cmd_rst.gps));
+            PRINT_INFO("JSON message sent successfully.\n");
+        }
+        else
+        {
+            PRINT_INFO("Failed to send JSON message.\n");
+        }
+    }
+    else
+    {
+        PRINT_INFO("Failed to send AT command.\n");
+    }
+    cat_m1_Status.mqttChecking = 0;
+}
+
+void send_UUID(cat_m1_Status_uuid_t* uuid)
+{
+	cat_m1_Status.mqttChecking = 1;
+    char mqtt_data[1024];
+
+    snprintf(mqtt_data, sizeof(mqtt_data),
+    	"{\"extAddress\": {\"low\": %u, \"high\": 0},"
+    	"\"data\": \"%s\""
+        "}+++\r\n",
+		(unsigned int)uuid->bid, cat_m1_at_cmd_rst.uuid);
+
+    if (send_at_command(UUID_TOPIC))
+    {
+        PRINT_INFO("AT command sent successfully.\n");
+
+        if (send_at_command(mqtt_data))
+        {
+            memset(&cat_m1_at_cmd_rst.uuid, 0, sizeof(cat_m1_at_cmd_rst.uuid));
             PRINT_INFO("JSON message sent successfully.\n");
         }
         else
