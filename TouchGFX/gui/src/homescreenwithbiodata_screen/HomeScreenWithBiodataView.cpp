@@ -187,7 +187,7 @@ void HomeScreenWithBiodataView::handleTickEvent()
 		presenter->notifySwipeLeft();
 	}
 	else if(gesture == SlideRight){
-//		application().gotoSpo2ScreenScreenWipeTransitionEast()
+		presenter->notifySwipeRight();
 	}
 }
 #endif
