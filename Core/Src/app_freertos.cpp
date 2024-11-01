@@ -482,10 +482,10 @@ void StartWPMTask(void *argument)
 	}
 	if(wpmInitializationFlag && cat_m1_Status.Checked == 0)
 	{
-		if(!nRFCloudFlag)
-		{
-			catM1nRFCloud_Init();
-		}
+//		if(!nRFCloudFlag)
+//		{
+//			catM1nRFCloud_Init();
+//		}
 		nrf9160_check();
 	}
 	if(wpmInitializationFlag && cat_m1_Status.Checked == 1)
@@ -1387,6 +1387,7 @@ void measPPG(){
 		// start ppg
 		if(ppgMeaserCount % spo2MeaserPeriode_sec == 0){
 //			mfioGPIOModeChange(output);
+			ssWalk_SUM = ssWalk; // total walk count 누적 필요
 			ssBegin(0x00);
 			ssRead_setting();
 			spo2Flag = 1;
@@ -1394,6 +1395,7 @@ void measPPG(){
 		}
 		else if(ppgMeaserCount % hrMeaserPeriode_sec == 0){
 //			mfioGPIOModeChange(output);
+			ssWalk_SUM = ssWalk; // total walk count 누적 필요
 			ssBegin(0x02);
 			ssRead_setting();
 			hrFlag = 1;
