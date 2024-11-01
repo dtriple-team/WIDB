@@ -33,6 +33,9 @@
 
 #define IMU_TOPIC 			"AT#XMQTTPUB=\"/DT/eHG4/Status/IMU\"\r\n"
 #define GPS_LOCATION_TOPIC	"AT#XMQTTPUB=\"/DT/eHG4/GPS/Location\"\r\n"
+
+#define UUID_TOPIC	"AT#XMQTTPUB=\"/DT/eHG4/UUID\"\r\n"
+
 #define SUB_STATUS_BANDSET 	"AT#XMQTTSUB=\"/DT/test_eHG4/Status/BandSet\",0\r\n"
 #define SUB_SERVER_ALERT	"AT#XMQTTSUB=\"/DT/eHG4/Status/ServerAlert\",0\r\n"
 
@@ -114,6 +117,7 @@ typedef struct {
   uint8_t networkinfo[180];
   uint8_t cesq[100];
   uint8_t gps[100];
+  uint8_t uuid[100];
   int altitude;
   uint8_t time[100];
   int  rssi;
@@ -153,6 +157,10 @@ typedef struct {
 typedef struct {
   uint32_t bid;
 } cat_m1_Status_GPS_Location_t;
+
+typedef struct {
+  uint32_t bid;
+} cat_m1_Status_uuid_t;
 
 typedef struct {
   uint32_t bid;
@@ -222,6 +230,7 @@ void handle_gps_command(const char *value);
 void handle_cell_location_command(const char *value);
 void handle_mqtt_event_command(const char *value);
 void handle_cclk_command(const char *value);
+void handle_xuuid_command(const char *value);
 
 // nRF9160 Modem Interaction
 void uart_init();
@@ -238,6 +247,7 @@ void send_Status_BandAlert(cat_m1_Status_BandAlert_t* alertData);
 void send_Status_FallDetection(cat_m1_Status_FallDetection_t* fallData);
 void send_GPS_Location(cat_m1_Status_GPS_Location_t* location);
 void send_Status_IMU(cat_m1_Status_IMU_t* imu_data);
+void send_UUID(cat_m1_Status_uuid_t* uuid);
 
 void nrf9160_Get_gps();
 void nrf9160_Stop_gps();

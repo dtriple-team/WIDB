@@ -117,6 +117,7 @@ extern cat_m1_at_cmd_rst_t cat_m1_at_cmd_rst;
 extern cat_m1_Status_FallDetection_t cat_m1_Status_FallDetection;
 extern cat_m1_Status_BandAlert_t cat_m1_Status_BandAlert;
 extern cat_m1_Status_GPS_Location_t cat_m1_Status_GPS_Location;
+extern cat_m1_Status_uuid_t cat_m1_Status_uuid;
 
 uint32_t deviceID = 0;
 uint8_t deviceID_check = 0;
@@ -521,6 +522,12 @@ void StartWPMTask(void *argument)
 		{
 			//nrf9160_Get_gps_State();
 			//test_send_json_publish();
+			if ((strlen((const char*)cat_m1_at_cmd_rst.uuid) > 0) && cat_m1_Status.mqttChecking == 0)
+			{
+				cat_m1_Status_uuid.bid = deviceID;
+				send_UUID(&cat_m1_Status_uuid);
+			}
+
 			if(cat_m1_Status.mqttChecking == 0)
 			{
 				cat_m1_Status_Band_t cat_m1_Status_Band =
@@ -827,10 +834,10 @@ void StartSecTimerTask(void *argument)
 			catM1Reset();
 			gpsOffCheckTime = 0;
 		}
-		if(cell_locationFlag == 0)
-		{
-			cell_locationTime++;
-		}
+//		if(cell_locationFlag == 0)
+//		{
+//			cell_locationTime++;
+//		}
 //		if(cell_locationTime > cell_location_operation_cycle)
 //		{
 //			cell_locationFlag = true;
