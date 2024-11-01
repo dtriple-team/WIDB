@@ -211,6 +211,7 @@ void handle_iccid_command(const char *value);
 void handle_monitor_command(const char *value);
 void handle_cesq_command(const char *value);
 void handle_gps_command(const char *value);
+void handle_cell_location_command(const char *value);
 void handle_mqtt_event_command(const char *value);
 void handle_cclk_command(const char *value);
 
@@ -237,6 +238,8 @@ void nrf9160_Get_rssi();
 void nrf9160_Get_time();
 void catM1Reset();
 void catM1PWRGPIOInit();
+
+void nrf9160_Get_cell_location();
 
 catM1Time getCatM1Time(void);
 
