@@ -12,6 +12,10 @@ Spo2ScreenView::Spo2ScreenView()
 void Spo2ScreenView::setupScreen()
 {
     Spo2ScreenViewBase::setupScreen();
+
+	extern uint16_t ssSpo2;
+	touchgfx::Unicode::snprintf(spo2_valueBuffer, SPO2_VALUE_SIZE, "%02u", ssSpo2);
+	spo2_value.invalidate();
 }
 
 void Spo2ScreenView::tearDownScreen()
@@ -55,8 +59,8 @@ void Spo2ScreenView::handleSwipeLeft() //rkdalfks
 }
 
 #if !defined(gui_simulation)
-extern uint16_t ssSpo2;
 void Spo2ScreenView::changeSpo2Val(){
+	extern uint16_t ssSpo2;
 	touchgfx::Unicode::snprintf(spo2_valueBuffer, SPO2_VALUE_SIZE, "%02u", ssSpo2);
 	spo2_value.invalidate();
 }
