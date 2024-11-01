@@ -68,7 +68,7 @@ void Spo2ScreenView::handleTickEvent(){
 		presenter->notifySwipeRight();
 	}
 	else if(gesture == SlideLeft){
-//		application().gotoHomeScreenWithBiodataScreen
+		presenter->notifySwipeLeft();
 	}
 	else if(gesture == SlideDown){
 		application().gotoswipedownfromHomeScreenCoverTransitionNorth();

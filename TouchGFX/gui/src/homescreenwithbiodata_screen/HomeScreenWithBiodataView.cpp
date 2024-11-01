@@ -185,6 +185,9 @@ void HomeScreenWithBiodataView::handleTickEvent()
 	else if(gesture == SlideLeft){
 		presenter->notifySwipeLeft();
 	}
+	else if(gesture == SlideRight){
+//		application().gotoSpo2ScreenScreenWipeTransitionEast()
+	}
 }
 #endif
 
