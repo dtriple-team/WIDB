@@ -31,6 +31,7 @@ CheckState currentCheckState = SYSTEM_MODE_CHECK;
 MqttState currentMqttState = MQTT_INIT;
 GpsState gpsState = GPS_INIT;
 
+extern uint8_t nRFCloudFlag;
 extern uint8_t wpmInitializationFlag;
 extern uint8_t gpsOffCheckTime;
 extern uint8_t UartRxRetryTime;
@@ -1149,6 +1150,35 @@ void catM1Reset()
 	gps_operation_cycle = 60*4;
 	catM1PWRGPIOInit();
 	//send_at_command("AT+CFUN=0\r\n");
+}
+
+void catM1nRFCloud_Init()
+{
+	send_at_command("AT#XUUID\r\n");
+	osDelay(1000);
+	// Disable modem functionality
+	send_at_command("AT+CFUN=4\r\n");
+	osDelay(5000);
+	// Delete previous certificates in slots 0, 1, 2
+	send_at_command("AT%CMNG=3,16842753,0\r\n");
+	osDelay(5000);
+	send_at_command("AT%CMNG=3,16842753,1\r\n");
+	osDelay(5000);
+	send_at_command("AT%CMNG=3,16842753,2\r\n");
+	osDelay(5000);
+	// caCert
+	send_at_command(caCert);
+	osDelay(5000);
+	// clientCert
+	send_at_command(clientCert);
+	osDelay(5000);
+	// privateKey
+	send_at_command(privateKey);
+	osDelay(5000);
+	send_at_command("AT%CMNG=1\r\n");
+	nRFCloudFlag = 1;
+
+
 }
 
 void catM1PWRGPIOInit()

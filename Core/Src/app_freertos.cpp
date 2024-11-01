@@ -73,6 +73,8 @@ uint8_t brightness_count = 0;
 
 uint8_t now_sleepmode = 0;
 
+uint8_t nRFCloudFlag = 0;
+
 #define cat_m1_rssi_cycle 40
 uint8_t cat_m1_rssi_cycleTime = 0;
 bool cat_m1_rssi_cycleFlag = false;
@@ -477,6 +479,10 @@ void StartWPMTask(void *argument)
 	}
 	if(wpmInitializationFlag && cat_m1_Status.Checked == 0)
 	{
+//		if(!nRFCloudFlag)
+//		{
+//			catM1nRFCloud_Init();
+//		}
 		nrf9160_check();
 	}
 	if(wpmInitializationFlag && cat_m1_Status.Checked == 1)
