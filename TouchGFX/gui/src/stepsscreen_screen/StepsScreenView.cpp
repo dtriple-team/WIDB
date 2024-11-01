@@ -61,6 +61,7 @@ void StepsScreenView::changeStepVal(){
 
 #include "bl6133.h"
 extern GESTURE gesture;
+uint32_t frameCountInteraction3Interval_local = 0;
 void StepsScreenView::handleTickEvent(){
 	if(gesture == SlideRight){
 		presenter->notifySwipeRight();
@@ -73,6 +74,16 @@ void StepsScreenView::handleTickEvent(){
 	}
 	else if(gesture == LongPress){
 		application().gotoHomeScreenWithBiodataScreenWipeTransitionWest();
+	}
+
+	frameCountInteraction3Interval_local++;
+	if(frameCountInteraction3Interval_local == 60)
+	{
+		//Interaction3
+		//When every N tick call changeStepVal on StepsScreen
+		//Call changeStepVal
+		changeStepVal();
+		frameCountInteraction3Interval_local = 0;
 	}
 }
 #endif

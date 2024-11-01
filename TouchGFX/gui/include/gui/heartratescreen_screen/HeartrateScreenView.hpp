@@ -20,7 +20,6 @@ public:
 
 #if !defined(gui_simulation)
     virtual void changeHRVal();
-
     virtual void handleTickEvent();
 #endif
 protected:

@@ -62,6 +62,7 @@ void HeartrateScreenView::changeHRVal(){
 
 #include "bl6133.h"
 extern GESTURE gesture;
+uint32_t frameCountInteraction4Interval_local=0;
 void HeartrateScreenView::handleTickEvent(){
 	if(gesture == SlideRight){
 		presenter->notifySwipeRight();
@@ -74,6 +75,16 @@ void HeartrateScreenView::handleTickEvent(){
 	}
 	else if(gesture == LongPress){
 		application().gotoHomeScreenWithBiodataScreenWipeTransitionWest();
+	}
+
+	frameCountInteraction4Interval_local++;
+	if(frameCountInteraction4Interval_local == 60)
+	{
+		//Interaction4
+		//When every N tick call changeHRVal on HeartrateScreen
+		//Call changeHRVal
+		changeHRVal();
+		frameCountInteraction4Interval_local = 0;
 	}
 }
 #endif

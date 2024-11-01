@@ -1398,12 +1398,10 @@ void measPPG(){
 
 		if(spo2Count == 30){ // < spo2MeaserPeriode_sec
 			ssBegin(0x05);
-			ssRead_setting();
 			spo2Count = 0;
 		}
 		if(hrCount == 30){ // < hrMeaserPeriode_sec
 			ssBegin(0x05);
-			ssRead_setting();
 			hrCount = 0;
 		}
 		ssRunFlag = 1;

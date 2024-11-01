@@ -63,6 +63,7 @@ void Spo2ScreenView::changeSpo2Val(){
 
 #include "bl6133.h"
 extern GESTURE gesture;
+uint32_t frameCountInteraction5Interval_local = 0;
 void Spo2ScreenView::handleTickEvent(){
 	if(gesture == SlideRight){
 		presenter->notifySwipeRight();
@@ -75,6 +76,16 @@ void Spo2ScreenView::handleTickEvent(){
 	}
 	else if(gesture == LongPress){
 		application().gotoHomeScreenWithBiodataScreenWipeTransitionWest();
+	}
+
+	frameCountInteraction5Interval_local++;
+	if(frameCountInteraction5Interval_local == 60)
+	{
+		//Interaction5
+		//When every N tick call changeSpo2Val on Spo2Screen
+		//Call changeSpo2Val
+		changeSpo2Val();
+		frameCountInteraction5Interval_local = 0;
 	}
 }
 #endif
