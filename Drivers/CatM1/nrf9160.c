@@ -999,7 +999,7 @@ void send_Fall_Difference_Value(cat_m1_Status_Fall_Difference_Value_t* Fall_Diff
 
     snprintf(mqtt_data, sizeof(mqtt_data),
     	"{\"extAddress\": {\"low\": %u, \"high\": 0},"
-    	"\"data\": \"%f\""
+    	"\"data\": \"%d\""
         "}+++\r\n",
 		(unsigned int)Fall_Difference->bid, Fall_Difference->data);
 

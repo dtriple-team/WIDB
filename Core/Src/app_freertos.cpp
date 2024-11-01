@@ -1215,7 +1215,7 @@ void checkFallDetection()
     //PRINT_INFO("Height diff: %f - %f = %f[m]\r\n", min_height, height_current, diff);
 #if defined(nRF9160_Fall_Difference_Value_Send)
     cat_m1_Status_Fall_Difference_Value.bid = deviceID;
-    cat_m1_Status_Fall_Difference_Value.data = diff;
+    cat_m1_Status_Fall_Difference_Value.data = (diff * 100);
     send_Fall_Difference_Value(&cat_m1_Status_Fall_Difference_Value);
 #endif
     if (diff > falling_threshold)
