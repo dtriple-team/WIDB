@@ -153,6 +153,8 @@ uint32_t imuTemp = 0;
 uint32_t press = 0;
 uint8_t battVal = 0;
 
+uint32_t ssWalk_SUM = 0;
+
 uint8_t hapticFlag = 1;
 uint8_t beforeHaptic = hapticFlag;
 uint8_t soundFlag = 1;
@@ -1138,7 +1140,7 @@ void read_ppg()
         ssSpo2 = 0;
     }
 
-    ssWalk = lcd_ssDataEx.algo.totalWalkSteps;
+    ssWalk = lcd_ssDataEx.algo.totalWalkSteps + ssWalk_SUM;
 
     free(ssDataEx);
     canDisplayPPG = 1;
@@ -1420,11 +1422,13 @@ void measPPG(){
 			hrCount++;
 		}
 
-		if(spo2Count == 30){ // < spo2MeaserPeriode_sec
+		if(spo2Count == 40){ // < spo2MeaserPeriode_sec = 60*5
+			ssWalk_SUM = ssWalk; // total walk count 누적 필요
 			ssBegin(0x05);
 			spo2Count = 0;
 		}
-		if(hrCount == 30){ // < hrMeaserPeriode_sec
+		if(hrCount == 30){ // < hrMeaserPeriode_sec = 60 * 1
+			ssWalk_SUM = ssWalk; // total walk count 누적 필요
 			ssBegin(0x05);
 			hrCount = 0;
 		}

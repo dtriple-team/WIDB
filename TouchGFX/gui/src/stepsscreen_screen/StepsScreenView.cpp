@@ -12,6 +12,10 @@ StepsScreenView::StepsScreenView() //rkdalfks
 void StepsScreenView::setupScreen()
 {
     StepsScreenViewBase::setupScreen();
+
+    extern uint32_t ssWalk;
+	touchgfx::Unicode::snprintf(steps_valueBuffer, STEPS_VALUE_SIZE, "%02u", ssWalk);
+	steps_value.invalidate();
 }
 
 void StepsScreenView::tearDownScreen()
@@ -53,8 +57,8 @@ void StepsScreenView::handleSwipeLeft() //rkdalfks
 }
 
 #if !defined(gui_simulation)
-extern uint32_t ssWalk;
 void StepsScreenView::changeStepVal(){
+	extern uint32_t ssWalk;
 	touchgfx::Unicode::snprintf(steps_valueBuffer, STEPS_VALUE_SIZE, "%02u", ssWalk);
 	steps_value.invalidate();
 }

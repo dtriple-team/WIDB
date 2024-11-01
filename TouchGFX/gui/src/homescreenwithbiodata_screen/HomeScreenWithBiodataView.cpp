@@ -55,6 +55,18 @@ void HomeScreenWithBiodataView::setupScreen()
 
 	digitalClock.setTime24Hour(sTime.Hours, sTime.Minutes, sTime.Seconds);
 	digitalClock.invalidate();
+
+	extern uint16_t ssHr;
+	extern uint16_t ssSpo2;
+	extern uint32_t ssWalk;
+
+	touchgfx::Unicode::snprintf(home_heartrate_valueBuffer, HOME_HEARTRATE_VALUE_SIZE, "%02u", ssHr);
+	home_heartrate_value.invalidate();
+	touchgfx::Unicode::snprintf(home_spo2_valueBuffer, HOME_SPO2_VALUE_SIZE, "%02u", ssSpo2);
+	home_spo2_value.invalidate();
+	touchgfx::Unicode::snprintf(home_steps_valueBuffer, HOME_STEPS_VALUE_SIZE, "%u", ssWalk);
+	home_steps_value.invalidate();
+
 #endif
 
 //	extern uint8_t battVal;
