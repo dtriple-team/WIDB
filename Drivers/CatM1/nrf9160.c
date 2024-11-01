@@ -26,6 +26,7 @@ cat_m1_Status_GPS_Location_t cat_m1_Status_GPS_Location;
 cat_m1_Status_IMU_t cat_m1_Status_IMU;
 cat_m1_Status_BandSet_t cat_m1_Status_BandSet;
 cat_m1_Status_uuid_t cat_m1_Status_uuid;
+cat_m1_Status_Fall_Difference_Value_t cat_m1_Status_Fall_Difference_Value;
 
 WpmState currentWpmState = WPM_INIT_CHECK;
 CheckState currentCheckState = SYSTEM_MODE_CHECK;
@@ -971,6 +972,38 @@ void send_UUID(cat_m1_Status_uuid_t* uuid)
 		(unsigned int)uuid->bid, cat_m1_at_cmd_rst.uuid);
 
     if (send_at_command(UUID_TOPIC))
+    {
+        PRINT_INFO("AT command sent successfully.\n");
+
+        if (send_at_command(mqtt_data))
+        {
+            memset(&cat_m1_at_cmd_rst.uuid, 0, sizeof(cat_m1_at_cmd_rst.uuid));
+            PRINT_INFO("JSON message sent successfully.\n");
+        }
+        else
+        {
+            PRINT_INFO("Failed to send JSON message.\n");
+        }
+    }
+    else
+    {
+        PRINT_INFO("Failed to send AT command.\n");
+    }
+    cat_m1_Status.mqttChecking = 0;
+}
+
+void send_Fall_Difference_Value(cat_m1_Status_Fall_Difference_Value_t* Fall_Difference)
+{
+	cat_m1_Status.mqttChecking = 1;
+    char mqtt_data[1024];
+
+    snprintf(mqtt_data, sizeof(mqtt_data),
+    	"{\"extAddress\": {\"low\": %u, \"high\": 0},"
+    	"\"data\": \"%f\""
+        "}+++\r\n",
+		(unsigned int)Fall_Difference->bid, Fall_Difference->data);
+
+    if (send_at_command(FALLDETECTION_CHECK_TOPIC))
     {
         PRINT_INFO("AT command sent successfully.\n");
 

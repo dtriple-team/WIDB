@@ -44,6 +44,7 @@
 #define GPS_LOCATION_TOPIC	"AT#XMQTTPUB=\"/DT/eHG4/GPS/Location\"\r\n"
 
 #define UUID_TOPIC	"AT#XMQTTPUB=\"/DT/eHG4/UUID\"\r\n"
+#define FALLDETECTION_CHECK_TOPIC	"AT#XMQTTPUB=\"/DT/eHG4/FallDetection_Check\"\r\n"
 
 #define SUB_STATUS_BANDSET 	"AT#XMQTTSUB=\"/DT/test_eHG4/Status/BandSet\",0\r\n"
 #define SUB_SERVER_ALERT	"AT#XMQTTSUB=\"/DT/eHG4/Status/ServerAlert\",0\r\n"
@@ -165,6 +166,11 @@ typedef struct {
 
 typedef struct {
   uint32_t bid;
+  float data;
+} cat_m1_Status_Fall_Difference_Value_t;
+
+typedef struct {
+  uint32_t bid;
 } cat_m1_Status_GPS_Location_t;
 
 typedef struct {
@@ -257,6 +263,7 @@ void send_Status_FallDetection(cat_m1_Status_FallDetection_t* fallData);
 void send_GPS_Location(cat_m1_Status_GPS_Location_t* location);
 void send_Status_IMU(cat_m1_Status_IMU_t* imu_data);
 void send_UUID(cat_m1_Status_uuid_t* uuid);
+void send_Fall_Difference_Value(cat_m1_Status_Fall_Difference_Value_t* Fall_Difference);
 
 void nrf9160_Get_gps();
 void nrf9160_Stop_gps();

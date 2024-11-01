@@ -118,6 +118,7 @@ extern cat_m1_Status_FallDetection_t cat_m1_Status_FallDetection;
 extern cat_m1_Status_BandAlert_t cat_m1_Status_BandAlert;
 extern cat_m1_Status_GPS_Location_t cat_m1_Status_GPS_Location;
 extern cat_m1_Status_uuid_t cat_m1_Status_uuid;
+extern cat_m1_Status_Fall_Difference_Value_t cat_m1_Status_Fall_Difference_Value;
 
 uint32_t deviceID = 0;
 uint8_t deviceID_check = 0;
@@ -566,11 +567,13 @@ void StartWPMTask(void *argument)
 		    cat_m1_Status_GPS_Location.bid = deviceID;
 		    send_GPS_Location(&cat_m1_Status_GPS_Location);
 		}
+#if defined(nRF9160_cell_location)
 		else if (cell_locationFlag && cat_m1_Status.mqttChecking == 0 && cat_m1_Status.gpsChecking == 0)
 		{
 		    nrf9160_Get_cell_location();
 		    cell_locationFlag = false;
 		}
+#endif
 		if(gpsFlag && cat_m1_Status.mqttChecking == 0)
 		{
 			//catM1MqttDangerMessage = 1;
@@ -1208,8 +1211,13 @@ void checkFallDetection()
     }
 
     float diff = min_height - height_current;
-    PRINT_INFO("Height diff: %f - %f = %f[m]\r\n", min_height, height_current, diff);
 
+    //PRINT_INFO("Height diff: %f - %f = %f[m]\r\n", min_height, height_current, diff);
+#if defined(nRF9160_Fall_Difference_Value_Send)
+    cat_m1_Status_Fall_Difference_Value.bid = deviceID;
+    cat_m1_Status_Fall_Difference_Value.data = diff;
+    send_Fall_Difference_Value(&cat_m1_Status_Fall_Difference_Value);
+#endif
     if (diff > falling_threshold)
     {
     	PRINT_INFO("Fall detected!\r\n");
