@@ -122,6 +122,8 @@ extern cat_m1_Status_uuid_t cat_m1_Status_uuid;
 uint32_t deviceID = 0;
 uint8_t deviceID_check = 0;
 
+uint8_t time_check = 0;
+
 #define SAMPLE_COUNT 10
 int scdStateCheckCount = 0;
 int ssHrSamples[SAMPLE_COUNT] = {0};
@@ -482,10 +484,12 @@ void StartWPMTask(void *argument)
 	}
 	if(wpmInitializationFlag && cat_m1_Status.Checked == 0)
 	{
-//		if(!nRFCloudFlag)
-//		{
-//			catM1nRFCloud_Init();
-//		}
+#if defined(nRF9160_nRFCLOUD_Init)
+		if(!nRFCloudFlag)
+		{
+			catM1nRFCloud_Init();
+		}
+#endif
 		nrf9160_check();
 	}
 	if(wpmInitializationFlag && cat_m1_Status.Checked == 1)
@@ -494,7 +498,11 @@ void StartWPMTask(void *argument)
 		if(cat_m1_Status.InitialLoad == 0)
 		{
 			osDelay(1000);
-			nrf9160_Get_time();
+			if(time_check == 0)
+			{
+				nrf9160_Get_time();
+				time_check = 1;
+			}
 			nrf9160_Get_rssi();
 
 			if(-95 <= cat_m1_Status_Band.rssi){
@@ -522,12 +530,13 @@ void StartWPMTask(void *argument)
 		{
 			//nrf9160_Get_gps_State();
 			//test_send_json_publish();
+#if defined(nRF9160_nRFCLOUD_Init)
 			if ((strlen((const char*)cat_m1_at_cmd_rst.uuid) > 0) && cat_m1_Status.mqttChecking == 0)
 			{
 				cat_m1_Status_uuid.bid = deviceID;
 				send_UUID(&cat_m1_Status_uuid);
 			}
-
+#endif
 			if(cat_m1_Status.mqttChecking == 0)
 			{
 				cat_m1_Status_Band_t cat_m1_Status_Band =
@@ -814,10 +823,12 @@ void StartSecTimerTask(void *argument)
 			UartRxRetryTime = 0;
 			cat_m1_Status.txflag = 0;
 		}
+#if !defined(nRF9160_no_gps)
 		if(gpsFlag == 0)
 		{
 			gpsTime++;
 		}
+#endif
 //		PRINT_INFO("gpsTime >>> %d\r\n",gpsTime);
 		if(gpsTime > gps_operation_cycle)
 		{
