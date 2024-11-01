@@ -4,6 +4,7 @@
 #include <touchgfx/hal/HAL.hpp> //rkdalfks
 #include <touchgfx/Utils.hpp> //rkdalfks
 #include <ctime> //rkdalfks
+#include <touchgfx/transitions/WipeTransition.hpp>
 
 #if !defined(gui_simulation)
 #include "main.h"
@@ -223,8 +224,13 @@ void HomeScreenWithBiodataView::handleGestureEvent(const GestureEvent& evt) //rk
 			{
 				presenter->notifySwipeLeft();
 			}
+			if (deltaX > 0)
+			{
+				presenter->notifySwipeRight();
+			}
 		}
     }
+
     HomeScreenWithBiodataViewBase::handleGestureEvent(evt);
 }
 #endif
@@ -237,4 +243,9 @@ void HomeScreenWithBiodataView::handleSwipeDown()
 void HomeScreenWithBiodataView::handleSwipeLeft()
 {
 	application().gotoStepsScreenScreenWipeTransitionEast();
+}
+
+void HomeScreenWithBiodataView::handleSwipeRight()
+{
+	application().gotoSpo2ScreenScreenWipeTransitionWest();
 }

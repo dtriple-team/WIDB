@@ -40,6 +40,8 @@ public:
     void gotoHeartrateScreenScreenWipeTransitionWest();
 
     // Spo2Screen
+    void gotoSpo2ScreenScreenWipeTransitionWest();
+
     void gotoSpo2ScreenScreenWipeTransitionEast();
 
     void gotoSpo2ScreenScreenSlideTransitionWest();
@@ -141,6 +143,8 @@ protected:
     void gotoHeartrateScreenScreenWipeTransitionWestImpl();
 
     // Spo2Screen
+    void gotoSpo2ScreenScreenWipeTransitionWestImpl();
+
     void gotoSpo2ScreenScreenWipeTransitionEastImpl();
 
     void gotoSpo2ScreenScreenSlideTransitionWestImpl();

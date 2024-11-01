@@ -251,6 +251,19 @@
               "ScreenTransitionDirection": "East",
               "ActionComponent": "StepsScreen"
             }
+          },
+          {
+            "InteractionName": "Interaction6",
+            "Trigger": {
+              "Type": "TriggerClicked",
+              "TriggerComponent": "buttonfornothing"
+            },
+            "Action": {
+              "Type": "ActionGotoScreen",
+              "ScreenTransitionType": "ScreenTransitionWipe",
+              "ScreenTransitionDirection": "West",
+              "ActionComponent": "Spo2Screen"
+            }
           }
         ]
       },

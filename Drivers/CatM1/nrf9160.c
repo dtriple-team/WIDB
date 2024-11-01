@@ -785,26 +785,23 @@ void send_Status_Band(cat_m1_Status_Band_t *status)
 		(unsigned int)status->walk_steps, (unsigned int)status->run_steps, (unsigned int)status->temperature, status->pres, status->rssi
     );
 
-//    if (send_at_command(NEW_BAND_TOPIC))
-//    {
-//        PRINT_INFO("AT command sent successfully.\n");
-//    }
+//  if (send_at_command(NEW_BAND_TOPIC))
+
     if (send_at_command(OLD_BAND_TOPIC))
     {
-        PRINT_INFO("AT command sent successfully.\n");
+        PRINT_INFO("OLD_BAND_TOPIC AT command sent successfully.\n");
+        if (send_at_command(mqtt_data))
+        {
+            PRINT_INFO("JSON message sent successfully.\n");
+        }
+        else
+        {
+            PRINT_INFO("Failed to send JSON message.\n");
+        }
     }
     else
     {
-        PRINT_INFO("Failed to send AT command.\n");
-    }
-
-    if (send_at_command(mqtt_data))
-    {
-        PRINT_INFO("JSON message sent successfully.\n");
-    }
-    else
-    {
-        PRINT_INFO("Failed to send JSON message.\n");
+        PRINT_INFO("Failed to send OLD_BAND_TOPIC AT command.\n");
     }
     cat_m1_Status.mqttChecking = 0;
 }
@@ -826,26 +823,23 @@ void send_Status_BandAlert(cat_m1_Status_BandAlert_t* alertData)
 		"}+++\r\n",
 		(unsigned int)alertData->bid, alertData->type, alertData->value);
 
-//    if (send_at_command(NEW_BANDALERT_TOPIC))
-//    {
-//        PRINT_INFO("AT command sent successfully.\n");
-//    }
-	if (send_at_command(OLD_BANDALERT_TOPIC))
-	{
-		PRINT_INFO("AT command sent successfully.\n");
-	}
+//  if (send_at_command(NEW_BANDALERT_TOPIC))
+
+    if (send_at_command(OLD_BANDALERT_TOPIC))
+    {
+        PRINT_INFO("AT command sent successfully.\n");
+        if (send_at_command(mqtt_data))
+        {
+            PRINT_INFO("JSON message sent successfully.\n");
+        }
+        else
+        {
+            PRINT_INFO("Failed to send JSON message.\n");
+        }
+    }
     else
     {
         PRINT_INFO("Failed to send AT command.\n");
-    }
-
-    if (send_at_command(mqtt_data))
-    {
-        PRINT_INFO("JSON message sent successfully.\n");
-    }
-    else
-    {
-        PRINT_INFO("Failed to send JSON message.\n");
     }
     cat_m1_Status.mqttChecking = 0;
 }
@@ -861,27 +855,24 @@ void send_Status_FallDetection(cat_m1_Status_FallDetection_t* fallData)
     	"}+++\r\n",
 		(unsigned int)fallData->bid, fallData->type, fallData->fall_detect);
 
-//    if (send_at_command(NEW_FALLDETECTION_TOPIC))
-//    {
-//        PRINT_INFO("AT command sent successfully.\n");
-//    }
-	if (send_at_command(OLD_FALLDETECTION_TOPIC))
-	{
-		PRINT_INFO("AT command sent successfully.\n");
-	}
+//  if (send_at_command(NEW_FALLDETECTION_TOPIC))
+
+    if (send_at_command(OLD_FALLDETECTION_TOPIC))
+    {
+        PRINT_INFO("AT command sent successfully.\n");
+        if (send_at_command(mqtt_data))
+        {
+            memset(&cat_m1_Status_FallDetection, 0, sizeof(cat_m1_Status_FallDetection));
+            PRINT_INFO("JSON message sent successfully.\n");
+        }
+        else
+        {
+            PRINT_INFO("Failed to send JSON message.\n");
+        }
+    }
     else
     {
         PRINT_INFO("Failed to send AT command.\n");
-    }
-
-    if (send_at_command(mqtt_data))
-    {
-    	memset(&cat_m1_Status_FallDetection, 0, sizeof(cat_m1_Status_FallDetection));
-        PRINT_INFO("JSON message sent successfully.\n");
-    }
-    else
-    {
-        PRINT_INFO("Failed to send JSON message.\n");
     }
     cat_m1_Status.mqttChecking = 0;
 }
@@ -900,20 +891,20 @@ void send_GPS_Location(cat_m1_Status_GPS_Location_t* location)
     if (send_at_command(GPS_LOCATION_TOPIC))
     {
         PRINT_INFO("AT command sent successfully.\n");
+
+        if (send_at_command(mqtt_data))
+        {
+            memset(&cat_m1_at_cmd_rst.gps, 0, sizeof(cat_m1_at_cmd_rst.gps));
+            PRINT_INFO("JSON message sent successfully.\n");
+        }
+        else
+        {
+            PRINT_INFO("Failed to send JSON message.\n");
+        }
     }
     else
     {
         PRINT_INFO("Failed to send AT command.\n");
-    }
-
-    if (send_at_command(mqtt_data))
-    {
-    	memset(&cat_m1_at_cmd_rst.gps, 0, sizeof(cat_m1_at_cmd_rst.gps));
-        PRINT_INFO("JSON message sent successfully.\n");
-    }
-    else
-    {
-        PRINT_INFO("Failed to send JSON message.\n");
     }
     cat_m1_Status.mqttChecking = 0;
 }
@@ -942,17 +933,18 @@ void send_Status_IMU(cat_m1_Status_IMU_t* imu_data)
     if (send_at_command(IMU_TOPIC))
     {
         PRINT_INFO("AT command sent successfully.\n");
-    } else
+        if (send_at_command(mqtt_data))
+        {
+            PRINT_INFO("JSON message sent successfully.\n");
+        }
+        else
+        {
+            PRINT_INFO("Failed to send JSON message.\n");
+        }
+    }
+    else
     {
         PRINT_INFO("Failed to send AT command.\n");
-    }
-
-    if (send_at_command(mqtt_data))
-    {
-        PRINT_INFO("JSON message sent successfully.\n");
-    } else
-    {
-        PRINT_INFO("Failed to send JSON message.\n");
     }
     cat_m1_Status.mqttChecking = 0;
 }

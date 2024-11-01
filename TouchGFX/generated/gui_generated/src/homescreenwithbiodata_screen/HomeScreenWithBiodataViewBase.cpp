@@ -130,6 +130,10 @@ void HomeScreenWithBiodataViewBase::buttonCallbackHandler(const touchgfx::Abstra
         //Interaction5
         //When buttonfornothing clicked change screen to StepsScreen
         //Go to StepsScreen with screen transition towards East
-        application().gotoStepsScreenScreenWipeTransitionEast();
+        application().gotoStepsScreenScreenWipeTransitionEast();
+        //Interaction6
+        //When buttonfornothing clicked change screen to Spo2Screen
+        //Go to Spo2Screen with screen transition towards West
+        application().gotoSpo2ScreenScreenWipeTransitionWest();
     }
 }

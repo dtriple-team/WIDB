@@ -179,6 +179,17 @@ void FrontendApplicationBase::gotoHeartrateScreenScreenWipeTransitionWestImpl()
 
 // Spo2Screen
 
+void FrontendApplicationBase::gotoSpo2ScreenScreenWipeTransitionWest()
+{
+    transitionCallback = touchgfx::Callback<FrontendApplicationBase>(this, &FrontendApplicationBase::gotoSpo2ScreenScreenWipeTransitionWestImpl);
+    pendingScreenTransitionCallback = &transitionCallback;
+}
+
+void FrontendApplicationBase::gotoSpo2ScreenScreenWipeTransitionWestImpl()
+{
+    touchgfx::makeTransition<Spo2ScreenView, Spo2ScreenPresenter, touchgfx::WipeTransition<WEST>, Model >(&currentScreen, &currentPresenter, frontendHeap, &currentTransition, &model);
+}
+
 void FrontendApplicationBase::gotoSpo2ScreenScreenWipeTransitionEast()
 {
     transitionCallback = touchgfx::Callback<FrontendApplicationBase>(this, &FrontendApplicationBase::gotoSpo2ScreenScreenWipeTransitionEastImpl);
