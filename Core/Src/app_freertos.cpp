@@ -99,7 +99,7 @@ int cell_location_operation_cycle  = 60*1;
 uint8_t cell_locationTime = 0;
 bool cell_locationFlag = true;
 
-#define fall_Check_cycle 60 // sec
+#define fall_Check_cycle 0 // falling event occure => after N sec => MQTT // 60
 uint8_t fallCheckTime = 0;
 uint8_t fallCheckFlag = 0;
 
@@ -159,6 +159,8 @@ uint32_t ssWalk_SUM = 0;
 uint8_t hapticFlag = 1;
 uint8_t beforeHaptic = hapticFlag;
 uint8_t soundFlag = 1;
+
+uint8_t haptic_SOS = 0;
 
 bool isCharging = 0;
 
@@ -375,6 +377,13 @@ void StartInitTask(void *argument)
 			if(hapticFlag == 1){
 				runHaptic(20, 500, 1);
 			}
+		}
+		if(haptic_SOS == 1){
+			if(hapticFlag == 1){
+				runHaptic(20, 500, 3);
+			}
+			brightness_count = 0; // lcd backlight count reset
+			haptic_SOS = 0;
 		}
 		osDelay(100);
 	}
@@ -1068,6 +1077,16 @@ void StartCheckINTTask(void *argument)
 
     // PMIC interrupt occur => emergency signal send to Web (CATM1)
     if(occurred_PMICBUTTInterrupt){
+    	// change screen
+    	myFallDetectedView.changeToFallDetected();
+    	// haptic
+    	haptic_SOS = 1;
+    	// send SOS MQTT
+    	cat_m1_Status_BandAlert.bid = HAL_GetUIDw2();
+		cat_m1_Status_BandAlert.type = 7;
+		cat_m1_Status_BandAlert.value = 1;
+		send_Status_BandAlert(&cat_m1_Status_BandAlert);
+
     	occurred_PMICBUTTInterrupt = 0;
     }
   }
