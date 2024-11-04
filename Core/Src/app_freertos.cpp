@@ -1279,7 +1279,7 @@ void checkFallDetection()
     cat_m1_Status_Fall_Difference_Value.accScal_data = (magnitude);
     send_Fall_Difference_Value(&cat_m1_Status_Fall_Difference_Value);
 #endif
-    if (diff > falling_threshold)
+    if (1)//diff > falling_threshold)
     {
     	PRINT_INFO("Fall detected!\r\n");
 		cat_m1_Status_FallDetection.bid = deviceID;
@@ -1313,12 +1313,12 @@ void BandAlert()
 //			{
 //				nrf9160_Stop_gps();
 //			}
-				gpsFlag = 1;
 				catM1MqttDangerMessage = 1;
 				send_Status_FallDetection(&cat_m1_Status_FallDetection);
+//				gpsFlag = 1;
 
 				ST7789_brightness_setting(before_bLevel);
-		    	myTempHomeView.changeToHomeScreen();
+//		    	myTempHomeView.changeToHomeScreen();
 		}
 		if (cat_m1_Status.InitialLoad && previousRSSIstate != 1 && cat_m1_Status.mqttChecking == 0)
 		{
