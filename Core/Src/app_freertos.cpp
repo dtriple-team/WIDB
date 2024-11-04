@@ -583,7 +583,7 @@ void StartWPMTask(void *argument)
 #if !defined(nRF9160_KT)
 		if ((strlen((const char*)cat_m1_at_cmd_rst.gps) > 0) && cat_m1_Status.mqttChecking == 0 && cat_m1_Status.gpsChecking == 0)
 #else
-			if ((strlen((const char*)cat_m1_at_cmd_rst.gps) > 0) && cat_m1_Status.mqttChecking == 0)
+		if ((strlen((const char*)cat_m1_at_cmd_rst.gps) > 0) && cat_m1_Status.mqttChecking == 0)
 #endif
 		{
 		    cat_m1_Status_GPS_Location.bid = deviceID;
