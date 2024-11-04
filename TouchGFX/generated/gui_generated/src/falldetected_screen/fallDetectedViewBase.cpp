@@ -22,11 +22,11 @@ fallDetectedViewBase::fallDetectedViewBase()
     textArea1.setTypedText(touchgfx::TypedText(T_FALLSOCCURLABEL));
     add(textArea1);
 
-    image1.setXY(75, 73);
+    image1.setXY(56, 57);
     image1.setBitmap(touchgfx::Bitmap(BITMAP_FALL_DETECTED_ICON_ID));
     add(image1);
 
-    textArea2.setPosition(0, 208, 240, 29);
+    textArea2.setPosition(0, 196, 240, 80);
     textArea2.setColor(touchgfx::Color::getColorFromRGB(255, 255, 255));
     textArea2.setLinespacing(0);
     textArea2.setTypedText(touchgfx::TypedText(T_FALLDETECTIONTEXT));

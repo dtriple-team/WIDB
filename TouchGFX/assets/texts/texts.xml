@@ -680,10 +680,10 @@
         <Translation Language="Korean">&lt;value&gt;</Translation>
         <Translation Language="Spanish">&lt;value&gt;</Translation>
       </Text>
-      <Text Id="falldetectionText" Alignment="Center" TypographyId="size24">
+      <Text Id="falldetectionText" Alignment="Center" TypographyId="size32">
         <Translation Language="GB">Falls Detected</Translation>
         <Translation Language="Korean">낙상 감지</Translation>
-        <Translation Language="Spanish">Caídas detectadas</Translation>
+        <Translation Language="Spanish">Caídas&#10;detectadas</Translation>
       </Text>
       <Text Id="fallsOccurLabel" Alignment="Center" TypographyId="size16">
         <Translation Language="GB">Falls occur</Translation>
@@ -692,6 +692,16 @@
       </Text>
     </TextGroup>
     <TextGroup Id="Unsorted">
+      <Text Id="sosAlertLabel" Alignment="Center" TypographyId="size16">
+        <Translation Language="GB">Emergency Alert</Translation>
+        <Translation Language="Korean">구조 요청</Translation>
+        <Translation Language="Spanish">Alerta de&#10;Emergencia</Translation>
+      </Text>
+      <Text Id="sosAlertText" Alignment="Center" TypographyId="size32">
+        <Translation Language="GB">Emergency&#10;Alert</Translation>
+        <Translation Language="Korean">구조 요청</Translation>
+        <Translation Language="Spanish">Alerta de&#10;Emergencia</Translation>
+      </Text>
       <Text Id="__SingleUse_TWFH" Alignment="Center" TypographyId="size24">
         <Translation Language="GB">Charger&#10;disconnected.</Translation>
         <Translation Language="Korean">충전기가&#10;해제되었습니다.</Translation>

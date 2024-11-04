@@ -484,6 +484,18 @@
     <Filter Include="Header Files\generated\gui_generated\uncharging_screen_screen">
       <UniqueIdentifier>24303219-B193-6E02-BD33-AB84DE1E9FFE</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\gui\sos_alert_screen">
+      <UniqueIdentifier>E026EE9A-5E8C-2FE9-F783-81464495F0F7</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\gui\sos_alert_screen">
+      <UniqueIdentifier>3068787D-9E4E-C9E5-BC99-AB07905393D9</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\generated\gui_generated\sos_alert_screen">
+      <UniqueIdentifier>1B232A5A-0958-3E85-FBC8-08794342D9D5</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\generated\gui_generated\sos_alert_screen">
+      <UniqueIdentifier>8DFA2AFC-BD72-83C9-5E33-85DDB28DDFD8</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="$(TouchGFXReleasePath)\framework\source\platform\driver\touch\SDL2TouchController.cpp">
@@ -764,6 +776,15 @@
     </ClCompile>
     <ClCompile Include="..\..\generated\gui_generated\src\containers\lte_status_containerBase.cpp">
       <Filter>Source Files\generated\gui_generated\containers</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\gui\src\sos_alert_screen\sos_alertPresenter.cpp">
+      <Filter>Source Files\gui\sos_alert_screen</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\gui\src\sos_alert_screen\sos_alertView.cpp">
+      <Filter>Source Files\gui\sos_alert_screen</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\generated\gui_generated\src\sos_alert_screen\sos_alertViewBase.cpp">
+      <Filter>Source Files\generated\gui_generated\sos_alert_screen</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -1455,6 +1476,15 @@
     </ClInclude>
     <ClInclude Include="..\..\generated\gui_generated\include\gui_generated\containers\lte_status_containerBase.hpp">
       <Filter>Header Files\generated\gui_generated\containers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\gui\include\gui\sos_alert_screen\sos_alertPresenter.hpp">
+      <Filter>Header Files\gui\sos_alert_screen</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\gui\include\gui\sos_alert_screen\sos_alertView.hpp">
+      <Filter>Header Files\gui\sos_alert_screen</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\generated\gui_generated\include\gui_generated\sos_alert_screen\sos_alertViewBase.hpp">
+      <Filter>Header Files\generated\gui_generated\sos_alert_screen</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

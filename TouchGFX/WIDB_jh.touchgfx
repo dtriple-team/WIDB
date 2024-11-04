@@ -3051,6 +3051,88 @@
         ]
       },
       {
+        "Name": "sos_alert",
+        "Components": [
+          {
+            "Type": "Image",
+            "Name": "background",
+            "Width": 240,
+            "Height": 280,
+            "RelativeFilename": "background.png"
+          },
+          {
+            "Type": "TextArea",
+            "Name": "textArea1",
+            "Y": 6,
+            "Width": 240,
+            "Height": 39,
+            "TextId": "sosAlertLabel",
+            "TextRotation": "0",
+            "Color": {
+              "Red": 255,
+              "Green": 255,
+              "Blue": 255
+            }
+          },
+          {
+            "Type": "TextArea",
+            "Name": "textArea2",
+            "Y": 196,
+            "Width": 240,
+            "Height": 80,
+            "TextId": "sosAlertText",
+            "TextRotation": "0",
+            "Color": {
+              "Red": 255,
+              "Green": 255,
+              "Blue": 255
+            }
+          },
+          {
+            "Type": "CustomContainerInstance",
+            "Name": "batteryprogress_container1",
+            "Width": 240,
+            "Height": 23,
+            "CustomContainerDefinitionName": "batteryprogress_container"
+          },
+          {
+            "Type": "CustomContainerInstance",
+            "Name": "lte_status_container1",
+            "Width": 55,
+            "Height": 33,
+            "CustomContainerDefinitionName": "lte_status_container"
+          },
+          {
+            "Type": "Image",
+            "Name": "image1",
+            "X": 36,
+            "Y": 34,
+            "Width": 168,
+            "Height": 168,
+            "RelativeFilename": "sos_alert.png"
+          }
+        ],
+        "Interactions": [
+          {
+            "InteractionName": "Interaction1",
+            "Trigger": {
+              "Type": "TriggerWhen",
+              "ActionCustomTypeName": "Call sos_alert changeToFallDetected"
+            },
+            "Action": {
+              "Type": "ActionGotoScreen",
+              "ScreenTransitionType": "ScreenTransitionNone",
+              "ActionComponent": "fallDetected"
+            }
+          }
+        ],
+        "CustomActions": [
+          {
+            "Name": "changeToFallDetected"
+          }
+        ]
+      },
+      {
         "Name": "fallDetected",
         "Components": [
           {
@@ -3077,18 +3159,18 @@
           {
             "Type": "Image",
             "Name": "image1",
-            "X": 75,
-            "Y": 73,
-            "Width": 90,
-            "Height": 90,
+            "X": 56,
+            "Y": 57,
+            "Width": 128,
+            "Height": 128,
             "RelativeFilename": "fall detected icon.png"
           },
           {
             "Type": "TextArea",
             "Name": "textArea2",
-            "Y": 208,
+            "Y": 196,
             "Width": 240,
-            "Height": 29,
+            "Height": 80,
             "TextId": "falldetectionText",
             "TextRotation": "0",
             "Color": {

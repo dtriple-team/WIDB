@@ -54,6 +54,8 @@
 #include <gui/systemsetting_screen/systemSettingPresenter.hpp>
 #include <gui/turnoffscreen_screen/turnoffScreenView.hpp>
 #include <gui/turnoffscreen_screen/turnoffScreenPresenter.hpp>
+#include <gui/sos_alert_screen/sos_alertView.hpp>
+#include <gui/sos_alert_screen/sos_alertPresenter.hpp>
 #include <gui/falldetected_screen/fallDetectedView.hpp>
 #include <gui/falldetected_screen/fallDetectedPresenter.hpp>
 #include <gui/initblackscreen_screen/initBlackScreenView.hpp>
@@ -107,13 +109,14 @@ public:
             touchgfx::meta::TypeList< networkInfoSettingView,
             touchgfx::meta::TypeList< systemSettingView,
             touchgfx::meta::TypeList< turnoffScreenView,
+            touchgfx::meta::TypeList< sos_alertView,
             touchgfx::meta::TypeList< fallDetectedView,
             touchgfx::meta::TypeList< initBlackScreenView,
             touchgfx::meta::TypeList< tempHomeView,
             touchgfx::meta::TypeList< flashlight_screenView,
             touchgfx::meta::TypeList< unCharging_screenView,
             touchgfx::meta::TypeList< charging_screenView,
-            touchgfx::meta::Nil > > > > > > > > > > > > > > > > > > > > > > > >
+            touchgfx::meta::Nil > > > > > > > > > > > > > > > > > > > > > > > > >
             > GeneratedViewTypes;
 
     /**
@@ -144,13 +147,14 @@ public:
             touchgfx::meta::TypeList< networkInfoSettingPresenter,
             touchgfx::meta::TypeList< systemSettingPresenter,
             touchgfx::meta::TypeList< turnoffScreenPresenter,
+            touchgfx::meta::TypeList< sos_alertPresenter,
             touchgfx::meta::TypeList< fallDetectedPresenter,
             touchgfx::meta::TypeList< initBlackScreenPresenter,
             touchgfx::meta::TypeList< tempHomePresenter,
             touchgfx::meta::TypeList< flashlight_screenPresenter,
             touchgfx::meta::TypeList< unCharging_screenPresenter,
             touchgfx::meta::TypeList< charging_screenPresenter,
-            touchgfx::meta::Nil > > > > > > > > > > > > > > > > > > > > > > > >
+            touchgfx::meta::Nil > > > > > > > > > > > > > > > > > > > > > > > > >
             > GeneratedPresenterTypes;
 
     /**

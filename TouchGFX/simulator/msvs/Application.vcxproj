@@ -104,6 +104,9 @@
     <ClCompile Include="..\..\generated\gui_generated\src\uncharging_screen_screen\unCharging_screenViewBase.cpp"/>
     <ClCompile Include="..\..\gui\src\containers\lte_status_container.cpp"/>
     <ClCompile Include="..\..\generated\gui_generated\src\containers\lte_status_containerBase.cpp"/>
+    <ClCompile Include="..\..\gui\src\sos_alert_screen\sos_alertPresenter.cpp"/>
+    <ClCompile Include="..\..\gui\src\sos_alert_screen\sos_alertView.cpp"/>
+    <ClCompile Include="..\..\generated\gui_generated\src\sos_alert_screen\sos_alertViewBase.cpp"/>
   </ItemGroup>
   <ItemGroup>
     <None Include="$(ApplicationRoot)\assets\texts\texts.xml"/>
@@ -337,6 +340,9 @@
     <ClInclude Include="..\..\generated\gui_generated\include\gui_generated\uncharging_screen_screen\unCharging_screenViewBase.hpp"/>
     <ClInclude Include="..\..\gui\include\gui\containers\lte_status_container.hpp"/>
     <ClInclude Include="..\..\generated\gui_generated\include\gui_generated\containers\lte_status_containerBase.hpp"/>
+    <ClInclude Include="..\..\gui\include\gui\sos_alert_screen\sos_alertPresenter.hpp"/>
+    <ClInclude Include="..\..\gui\include\gui\sos_alert_screen\sos_alertView.hpp"/>
+    <ClInclude Include="..\..\generated\gui_generated\include\gui_generated\sos_alert_screen\sos_alertViewBase.hpp"/>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="$(ApplicationRoot)\generated\simulator\touchgfx.rc"/>

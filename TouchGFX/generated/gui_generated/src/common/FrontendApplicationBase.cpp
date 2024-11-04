@@ -47,6 +47,8 @@
 #include <gui/systemsetting_screen/systemSettingPresenter.hpp>
 #include <gui/turnoffscreen_screen/turnoffScreenView.hpp>
 #include <gui/turnoffscreen_screen/turnoffScreenPresenter.hpp>
+#include <gui/sos_alert_screen/sos_alertView.hpp>
+#include <gui/sos_alert_screen/sos_alertPresenter.hpp>
 #include <gui/falldetected_screen/fallDetectedView.hpp>
 #include <gui/falldetected_screen/fallDetectedPresenter.hpp>
 #include <gui/initblackscreen_screen/initBlackScreenView.hpp>

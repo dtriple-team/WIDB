@@ -183,6 +183,9 @@ build/MINGW32_NT-6.2/simulator/main.o: simulator/main.cpp \
  gui/include/gui/turnoffscreen_screen/turnoffScreenView.hpp \
  generated/gui_generated/include/gui_generated/turnoffscreen_screen/turnoffScreenViewBase.hpp \
  gui/include/gui/turnoffscreen_screen/turnoffScreenPresenter.hpp \
+ gui/include/gui/sos_alert_screen/sos_alertView.hpp \
+ generated/gui_generated/include/gui_generated/sos_alert_screen/sos_alertViewBase.hpp \
+ gui/include/gui/sos_alert_screen/sos_alertPresenter.hpp \
  gui/include/gui/falldetected_screen/fallDetectedView.hpp \
  generated/gui_generated/include/gui_generated/falldetected_screen/fallDetectedViewBase.hpp \
  gui/include/gui/falldetected_screen/fallDetectedPresenter.hpp \
@@ -588,6 +591,12 @@ gui/include/gui/turnoffscreen_screen/turnoffScreenView.hpp:
 generated/gui_generated/include/gui_generated/turnoffscreen_screen/turnoffScreenViewBase.hpp:
 
 gui/include/gui/turnoffscreen_screen/turnoffScreenPresenter.hpp:
+
+gui/include/gui/sos_alert_screen/sos_alertView.hpp:
+
+generated/gui_generated/include/gui_generated/sos_alert_screen/sos_alertViewBase.hpp:
+
+gui/include/gui/sos_alert_screen/sos_alertPresenter.hpp:
 
 gui/include/gui/falldetected_screen/fallDetectedView.hpp:
 
