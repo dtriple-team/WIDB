@@ -1003,8 +1003,9 @@ void send_Fall_Difference_Value(cat_m1_Status_Fall_Difference_Value_t* Fall_Diff
     snprintf(mqtt_data, sizeof(mqtt_data),
     	"{\"extAddress\": {\"low\": %u, \"high\": 0},"
     	"\"data\": \"%d\""
+    	"\"accScal_data\": \"%d\""
         "}+++\r\n",
-		(unsigned int)Fall_Difference->bid, Fall_Difference->data);
+		(unsigned int)Fall_Difference->bid, Fall_Difference->data, Fall_Difference->accScal_data);
 
     if (send_at_command(FALLDETECTION_CHECK_TOPIC))
     {
@@ -1195,8 +1196,11 @@ void nrf9160_Get_gps_State()
 
 void nrf9160_Get_cell_location()
 {
-	send_at_command("AT#XNRFCLOUDPOS=1,0\r\n");
+	send_at_command("AT%NCELLMEAS\r\n");
+	osDelay(5000);
+	send_at_command("AT#XNRFCLOUDPOS=2,0\r\n");
 }
+
 void nrf9160_Get_rssi()
 {
 	send_at_command("AT+CESQ\r\n");

@@ -144,7 +144,7 @@ float deltaAlt = 0;
 uint16_t curr_height = 0;
 int height_num = 0;
 
-float falling_threshold = 1.30; // 낙상 판별 기준 높이 차이
+float falling_threshold = 1.0; // 낙상 판별 기준 높이 차이
 
 uint8_t ssSCD = 0;
 uint16_t ssHr = 0;
@@ -159,6 +159,8 @@ uint32_t ssWalk_SUM = 0;
 uint8_t hapticFlag = 1;
 uint8_t beforeHaptic = hapticFlag;
 uint8_t soundFlag = 1;
+
+bool isCharging = 0;
 
 typedef enum{
 	interrupt = 0,
@@ -568,7 +570,8 @@ void StartWPMTask(void *argument)
 		    send_GPS_Location(&cat_m1_Status_GPS_Location);
 		}
 #if defined(nRF9160_cell_location)
-		else if (cell_locationFlag && cat_m1_Status.mqttChecking == 0 && cat_m1_Status.gpsChecking == 0)
+		//soundFlag off no nRF9160_cell_location
+		else if (soundFlag && !isCharging && cell_locationFlag && cat_m1_Status.mqttChecking == 0 && cat_m1_Status.gpsChecking == 0)
 		{
 		    nrf9160_Get_cell_location();
 		    cell_locationFlag = false;
@@ -621,6 +624,25 @@ void StartWPMTask(void *argument)
 * @retval None
 */
 
+#define ACC_threshold 3000
+double magnitude = 0;
+// 가속도 데이터 구조체
+typedef struct {
+    double x;
+    double y;
+    double z;
+} AccelData;
+uint8_t detect_fall(AccelData* accel_data, double threshold) {
+	double magnitude_local = sqrt(accel_data->x * accel_data->x +
+						   accel_data->y * accel_data->y +
+						   accel_data->z * accel_data->z);
+	magnitude = magnitude < magnitude_local ? magnitude_local : magnitude;
+
+	if (magnitude > threshold) {
+		return 1; // 낙상으로 감지
+	}
+	else return 0; // 낙상 아님
+}
 /* USER CODE END Header_StartSPMTask */
 void StartSPMTask(void *argument)
 {
@@ -684,7 +706,11 @@ void StartSPMTask(void *argument)
 	imuTemp = ismTemp;
 	press = pressure;
 
-//	double accScal = (accX^2 + accY^2 + accZ^2)^0.5;
+	AccelData accel_data;
+	accel_data.x = accX;
+	accel_data.y = accY;
+	accel_data.z = accZ;
+	uint8_t highG_Detect = detect_fall(&accel_data, ACC_threshold);
 
 //	if(ssRunFlag == 1)
 //	{
@@ -698,12 +724,17 @@ void StartSPMTask(void *argument)
 	    bmpAlt = -bmpAlt;
 	}
 
-	if(pressCheckFlag && pressCheckStartFlag && ssSCD == 3)
+	if(pressCheckFlag && pressCheckStartFlag)// && ssSCD == 3)
 	{
 		updateHeightData();
 		pressCheckFlag = 0;
 	}
-	if(freeFall_int_on && ssSCD == 3)
+//	if(freeFall_int_on && ssSCD == 3)
+//	{
+//		checkFallDetection();
+//		freeFall_int_on = false;
+//	}
+	if(highG_Detect)// && ssSCD == 3)
 	{
 		checkFallDetection();
 		freeFall_int_on = false;
@@ -869,7 +900,7 @@ void StartSecTimerTask(void *argument)
 			fallCheckTime = 0;
 		}
 		pressCheckTime++;
-		if(pressCheckTime > 1)
+		if(pressCheckTime >= 1)
 		{
 			pressCheckFlag = 1;
 			pressCheckTime = 0;
@@ -896,7 +927,6 @@ void StartSecTimerTask(void *argument)
 batteryprogress_containerBase myBatteryprogress_container;
 charging_screenViewBase myCharging_screenView;
 unCharging_screenViewBase myUnCharging_screenView;
-bool isCharging = 0;
 uint8_t interrupt_kind = 0;
 #define PRESSURE_VAL_LEN 10
 #include <math.h>
@@ -911,9 +941,6 @@ double calculateAltitudeDifference(double P1, double P2) {
 
     return altitudeDifference;
 }
-
-
-
 //uint8_t updateBattVal(){
 //	uint8_t batt = 0;
 //	return batt;
@@ -994,6 +1021,8 @@ void StartCheckINTTask(void *argument)
     	memset(&cat_m1_Status_FallDetection, 0, sizeof(cat_m1_Status_FallDetection));
 
     	fallCheckTime = 0;
+
+    	magnitude = 0;
     }
 
     // update Battery
@@ -1218,6 +1247,7 @@ void checkFallDetection()
 #if defined(nRF9160_Fall_Difference_Value_Send)
     cat_m1_Status_Fall_Difference_Value.bid = deviceID;
     cat_m1_Status_Fall_Difference_Value.data = (diff * 100);
+    cat_m1_Status_Fall_Difference_Value.accScal_data = (magnitude);
     send_Fall_Difference_Value(&cat_m1_Status_Fall_Difference_Value);
 #endif
     if (diff > falling_threshold)

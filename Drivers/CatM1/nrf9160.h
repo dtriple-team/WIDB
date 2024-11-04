@@ -167,6 +167,7 @@ typedef struct {
 typedef struct {
   uint32_t bid;
   int data;
+  int accScal_data;
 } cat_m1_Status_Fall_Difference_Value_t;
 
 typedef struct {
