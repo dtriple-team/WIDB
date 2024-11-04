@@ -101,7 +101,7 @@ int cell_location_operation_cycle  = 60*1;
 uint8_t cell_locationTime = 0;
 bool cell_locationFlag = true;
 
-#define fall_Check_cycle 2 // falling event occure => after N sec => MQTT // 60
+#define fall_Check_cycle 0 // falling event occure => after N sec => MQTT // 60
 uint8_t fallCheckTime = 0;
 uint8_t fallCheckFlag = 0;
 
@@ -1279,7 +1279,7 @@ void checkFallDetection()
     cat_m1_Status_Fall_Difference_Value.accScal_data = (magnitude);
     send_Fall_Difference_Value(&cat_m1_Status_Fall_Difference_Value);
 #endif
-    if (1)//diff > falling_threshold)
+    if (diff > falling_threshold)
     {
     	PRINT_INFO("Fall detected!\r\n");
 		cat_m1_Status_FallDetection.bid = deviceID;
@@ -1494,7 +1494,7 @@ void measPPG(){
 			hrCount++;
 		}
 
-		if(spo2Count == 40){ // < spo2MeaserPeriode_sec = 60*5
+		if(spo2Count == 60){ // < spo2MeaserPeriode_sec = 60*5
 			ssWalk_SUM = ssWalk; // total walk count 누적 필요
 			ssBegin(0x05);
 			spo2Count = 0;
