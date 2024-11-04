@@ -48,6 +48,7 @@ extern "C" {
 #include <gui_generated/containers/batteryprogress_containerBase.hpp>
 #include <gui_generated/charging_screen_screen/charging_screenViewBase.hpp>
 #include <gui_generated/uncharging_screen_screen/unCharging_screenViewBase.hpp>
+#include <gui_generated/sos_alert_screen/sos_alertViewBase.hpp>
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -263,6 +264,7 @@ uint8_t gpsRSSI_0_1 = 0;
 initBlackScreenViewBase myBlackScreenView;
 fallDetectedViewBase myFallDetectedView;
 tempHomeViewBase myTempHomeView;
+sos_alertViewBase mySOSAlertViewBase;
 
 extern uint8_t occurred_imuInterrupt;
 extern uint8_t occurred_PMICBUTTInterrupt;
@@ -1079,7 +1081,7 @@ void StartCheckINTTask(void *argument)
     // PMIC interrupt occur => emergency signal send to Web (CATM1)
     if(occurred_PMICBUTTInterrupt){
     	// change screen
-    	myFallDetectedView.changeToFallDetected();
+    	mySOSAlertViewBase.changeToSOSDetected();
     	// haptic
     	haptic_SOS = 1;
     	// send SOS MQTT
@@ -1295,7 +1297,7 @@ void checkFallDetection()
 
 void BandAlert()
 {
-	if(cat_m1_Status.mqttConnectionStatus == 2)
+	if(cat_m1_Status.mqttConnectionStatus == 1)
 	{
 		if (fallCheckFlag == 1 && cat_m1_Status.mqttChecking == 0)
 		{
