@@ -560,6 +560,8 @@ void nrf9160_check()
 #else
                 send_at_command("AT+COPS=0,2\r\n");
                 send_at_command("AT%XSYSTEMMODE=1,0,0,0\r\n");
+                send_at_command("AT+CPSMS=0\"\r\n");
+                send_at_command("AT+CEDRXS=0\r\n");
 #endif
                 osDelay(1000);
                 send_at_command("AT%XSYSTEMMODE?\r\n");
@@ -1210,8 +1212,9 @@ void nrf9160_Get_gps()
 
 void nrf9160_Stop_gps()
 {
-	send_at_command("AT#XGPS=0\r\n");
+
 #if !defined(nRF9160_KT)
+	send_at_command("AT#XGPS=0\r\n");
 	send_at_command("AT+CFUN=0\r\n");
 	currentWpmState = WPM_INIT_CHECK;
 	currentCheckState = SYSTEM_MODE_CHECK;
@@ -1224,12 +1227,14 @@ void nrf9160_Stop_gps()
 	cat_m1_Status.mqttSubscribeStatus = 0;
 	cat_m1_Status.cfunStatus = 0;
 	cat_m1_Status.systemModeStatus = 0;
-	cat_m1_Status.gpsOn = 0;
-	cat_m1_Status.gpsOff = 0;
+
+
 	cat_m1_Status.mqttSetStatus = 0;
 	wpmInitializationFlag = 1;
 #endif
 	cat_m1_Status.gpsChecking = 0;
+	cat_m1_Status.gpsOn = 0;
+	cat_m1_Status.gpsOff = 0;
 	gpsOffCheckTime = 0;
 	//cell_locationFlag = true;
 	HAL_UART_Receive_IT(&huart1, &uart_cat_m1_rx.temp, 1);
@@ -1280,7 +1285,7 @@ void catM1Reset()
 	cat_m1_Status.gpsOn = 0;
 	cat_m1_Status.gpsOff = 0;
 	cat_m1_Status.mqttSetStatus = 0;
-	gps_operation_cycle = 60*4;
+	gps_operation_cycle = 60*3;
 	cell_locationFlag = true;
 	catM1PWRGPIOInit();
 	//send_at_command("AT+CFUN=0\r\n");

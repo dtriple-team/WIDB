@@ -46,7 +46,7 @@ extern "C" {
 
 //#define nRF9160_initial_upload
 //#define nRF9160_nRFCLOUD_Init
-#define nRF9160_no_gps
+#define nRF9160_no_auto_gps
 //#define nRF9160_KT
 //#define nRF9160_cell_location
 //#define nRF9160_Fall_Difference_Value_Send

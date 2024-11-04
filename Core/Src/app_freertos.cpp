@@ -876,7 +876,7 @@ void StartSecTimerTask(void *argument)
 			UartRxRetryTime = 0;
 			cat_m1_Status.txflag = 0;
 		}
-#if !defined(nRF9160_no_gps)
+#if !defined(nRF9160_no_auto_gps)
 		if(gpsFlag == 0)
 		{
 			gpsTime++;
@@ -1093,7 +1093,7 @@ void StartCheckINTTask(void *argument)
     	haptic_SOS = 1;
     	// send SOS MQTT
     	cat_m1_Status_BandAlert.bid = HAL_GetUIDw2();
-		cat_m1_Status_BandAlert.type = 7;
+		cat_m1_Status_BandAlert.type = 6;
 		cat_m1_Status_BandAlert.value = 1;
 		send_Status_BandAlert(&cat_m1_Status_BandAlert);
 
@@ -1309,23 +1309,23 @@ void BandAlert()
 		if (fallCheckFlag == 1 && cat_m1_Status.mqttChecking == 0)
 		{
 			fallCheckFlag = 0;
-//			if(cat_m1_Status.gpsChecking)
-//			{
-//				nrf9160_Stop_gps();
-//			}
+			if(cat_m1_Status.gpsChecking)
+			{
+				nrf9160_Stop_gps();
+			}
 				catM1MqttDangerMessage = 1;
 				send_Status_FallDetection(&cat_m1_Status_FallDetection);
-//				gpsFlag = 1;
+				gpsFlag = 1;
 
 				ST7789_brightness_setting(before_bLevel);
-//		    	myTempHomeView.changeToHomeScreen();
+		    	myTempHomeView.changeToHomeScreen();
 		}
 		if (cat_m1_Status.InitialLoad && previousRSSIstate != 1 && cat_m1_Status.mqttChecking == 0)
 		{
 			if(-125 <= cat_m1_Status_Band.rssi && cat_m1_Status_Band.rssi < -115)
 			{
 				cat_m1_Status_BandAlert.bid = deviceID;
-				cat_m1_Status_BandAlert.type = 1;
+				cat_m1_Status_BandAlert.type = 5;
 				cat_m1_Status_BandAlert.value = 1;
 				send_Status_BandAlert(&cat_m1_Status_BandAlert);
 			}
@@ -1351,7 +1351,7 @@ void BandAlert()
 		if (battVal < 15 && !lowBatteryAlertSent && cat_m1_Status.mqttChecking == 0)
 		{
 		    cat_m1_Status_BandAlert.bid = deviceID;
-		    cat_m1_Status_BandAlert.type = 2;
+		    cat_m1_Status_BandAlert.type = 1;
 		    cat_m1_Status_BandAlert.value = 1;
 		    send_Status_BandAlert(&cat_m1_Status_BandAlert);
 		    lowBatteryAlertSent = true;
@@ -1359,7 +1359,7 @@ void BandAlert()
 		if (battVal < 50 && !lowBatteryAlertSent && cat_m1_Status.mqttChecking == 0)
 		{
 		    cat_m1_Status_BandAlert.bid = HAL_GetUIDw2();
-		    cat_m1_Status_BandAlert.type = 6;
+		    cat_m1_Status_BandAlert.type = 2;
 		    cat_m1_Status_BandAlert.value = 1;
 		    send_Status_BandAlert(&cat_m1_Status_BandAlert);
 		    lowBatteryAlertSent = true;
@@ -1402,7 +1402,7 @@ void BandAlert()
 		                    }
 
 		                    cat_m1_Status_BandAlert.bid = deviceID;
-		                    cat_m1_Status_BandAlert.type = 5;
+		                    cat_m1_Status_BandAlert.type = 4;
 		                    cat_m1_Status_BandAlert.value = 1;
 		                    catM1MqttDangerMessage = 1;
 		                    send_Status_BandAlert(&cat_m1_Status_BandAlert);
