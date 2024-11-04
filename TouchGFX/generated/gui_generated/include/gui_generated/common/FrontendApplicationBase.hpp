@@ -103,6 +103,9 @@ public:
     // turnoffScreen
     void gototurnoffScreenScreenNoTransition();
 
+    // sos_alert
+    void gotosos_alertScreenNoTransition();
+
     // fallDetected
     void gotofallDetectedScreenNoTransition();
 
@@ -205,6 +208,9 @@ protected:
 
     // turnoffScreen
     void gototurnoffScreenScreenNoTransitionImpl();
+
+    // sos_alert
+    void gotosos_alertScreenNoTransitionImpl();
 
     // fallDetected
     void gotofallDetectedScreenNoTransitionImpl();

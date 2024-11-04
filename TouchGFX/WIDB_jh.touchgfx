@@ -3117,18 +3117,18 @@
             "InteractionName": "Interaction1",
             "Trigger": {
               "Type": "TriggerWhen",
-              "ActionCustomTypeName": "Call sos_alert changeToFallDetected"
+              "ActionCustomTypeName": "Call sos_alert changeToSOSDetected"
             },
             "Action": {
               "Type": "ActionGotoScreen",
               "ScreenTransitionType": "ScreenTransitionNone",
-              "ActionComponent": "fallDetected"
+              "ActionComponent": "sos_alert"
             }
           }
         ],
         "CustomActions": [
           {
-            "Name": "changeToFallDetected"
+            "Name": "changeToSOSDetected"
           }
         ]
       },

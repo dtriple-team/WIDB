@@ -23,7 +23,7 @@ public:
     /*
      * Custom Actions
      */
-    virtual void changeToFallDetected();
+    virtual void changeToSOSDetected();
 
 protected:
     FrontendApplication& application() {

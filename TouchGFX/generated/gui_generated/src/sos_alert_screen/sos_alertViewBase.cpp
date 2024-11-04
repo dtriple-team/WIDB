@@ -50,10 +50,10 @@ void sos_alertViewBase::setupScreen()
     lte_status_container1.initialize();
 }
 
-void sos_alertViewBase::changeToFallDetected()
+void sos_alertViewBase::changeToSOSDetected()
 {
     //Interaction1
-    //When changeToFallDetected is called change screen to fallDetected
-    //Go to fallDetected with no screen transition
-    application().gotofallDetectedScreenNoTransition();
+    //When changeToSOSDetected is called change screen to sos_alert
+    //Go to sos_alert with no screen transition
+    application().gotosos_alertScreenNoTransition();
 }

@@ -41,7 +41,7 @@ void unCharging_screenViewBase::setupScreen()
 void unCharging_screenViewBase::handleTickEvent()
 {
     frameCountChangeHomeScreenInterval++;
-    if(frameCountChangeHomeScreenInterval == 2500*TICK_CHANGEHOMESCREEN_INTERVAL)
+    if(frameCountChangeHomeScreenInterval == TICK_CHANGEHOMESCREEN_INTERVAL)
     {
         //changeHomeScreen
         //When every N tick change screen to HomeScreenWithBiodata

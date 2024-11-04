@@ -475,6 +475,19 @@ void FrontendApplicationBase::gototurnoffScreenScreenNoTransitionImpl()
     touchgfx::makeTransition<turnoffScreenView, turnoffScreenPresenter, touchgfx::NoTransition, Model >(&currentScreen, &currentPresenter, frontendHeap, &currentTransition, &model);
 }
 
+// sos_alert
+
+void FrontendApplicationBase::gotosos_alertScreenNoTransition()
+{
+    transitionCallback = touchgfx::Callback<FrontendApplicationBase>(this, &FrontendApplicationBase::gotosos_alertScreenNoTransitionImpl);
+    pendingScreenTransitionCallback = &transitionCallback;
+}
+
+void FrontendApplicationBase::gotosos_alertScreenNoTransitionImpl()
+{
+    touchgfx::makeTransition<sos_alertView, sos_alertPresenter, touchgfx::NoTransition, Model >(&currentScreen, &currentPresenter, frontendHeap, &currentTransition, &model);
+}
+
 // fallDetected
 
 void FrontendApplicationBase::gotofallDetectedScreenNoTransition()
