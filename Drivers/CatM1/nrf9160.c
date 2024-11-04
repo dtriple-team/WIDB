@@ -301,6 +301,10 @@ void handle_system_mode_command(const char *value)
     {
     	cat_m1_Status.systemModeStatus = 2;
     }
+    else if (strstr(value, "1,0,1,0") != NULL)
+    {
+    	cat_m1_Status.systemModeStatus = 3;
+    }
 }
 
 void handle_mqtt_cfg_command(const char *value)
@@ -528,7 +532,15 @@ void nrf9160_check()
             if (cat_m1_Status.systemModeStatus == 0 || cat_m1_Status.systemModeStatus == 2)
             {
                 send_at_command("AT+CFUN=0\r\n");
+#if defined(nRF9160_KT)
+                send_at_command("AT+COPS=1,2,\"45008\"\r\n");
+                send_at_command("AT%XSYSTEMMODE=1,0,1,0\r\n");
+                send_at_command("AT+CPSMS=1,,,\"00000001\",\"00000011\"\r\n");
+                send_at_command("AT+CEDRXS=2,4,\"0011\"\r\n");
+#else
+                send_at_command("AT+COPS=0,2\r\n");
                 send_at_command("AT%XSYSTEMMODE=1,0,0,0\r\n");
+#endif
                 osDelay(1000);
                 send_at_command("AT%XSYSTEMMODE?\r\n");
                 osDelay(200);
@@ -593,6 +605,7 @@ void nrf9160_check()
 
         case FINAL_COMMANDS:
 
+			send_at_command("AT+CNUM\r\n");
         	send_at_command("AT#XNRFCLOUD=1\r\n");
 
             send_at_command("AT+CGDCONT?\r\n");
@@ -845,7 +858,7 @@ void send_Status_Band(cat_m1_Status_Band_t *status)
         PRINT_INFO("OLD_BAND_TOPIC AT command sent successfully.\n");
         if (send_at_command(mqtt_data))
         {
-            PRINT_INFO("JSON message sent successfully.\n");
+            PRINT_INFO("JSON send_Status_Band message sent successfully.\n");
         }
         else
         {
@@ -884,7 +897,7 @@ void send_Status_BandAlert(cat_m1_Status_BandAlert_t* alertData)
         PRINT_INFO("AT command sent successfully.\n");
         if (send_at_command(mqtt_data))
         {
-            PRINT_INFO("JSON message sent successfully.\n");
+            PRINT_INFO("JSON send_Status_BandAlert message sent successfully.\n");
         }
         else
         {
@@ -917,7 +930,7 @@ void send_Status_FallDetection(cat_m1_Status_FallDetection_t* fallData)
         if (send_at_command(mqtt_data))
         {
             memset(&cat_m1_Status_FallDetection, 0, sizeof(cat_m1_Status_FallDetection));
-            PRINT_INFO("JSON message sent successfully.\n");
+            PRINT_INFO("JSON send_Status_FallDetection message sent successfully.\n");
         }
         else
         {
@@ -948,8 +961,9 @@ void send_GPS_Location(cat_m1_Status_GPS_Location_t* location)
 
         if (send_at_command(mqtt_data))
         {
+        	osDelay(5000);
             memset(&cat_m1_at_cmd_rst.gps, 0, sizeof(cat_m1_at_cmd_rst.gps));
-            PRINT_INFO("JSON message sent successfully.\n");
+            PRINT_INFO("JSON send_GPS_Location message sent successfully.\n");
         }
         else
         {
@@ -1074,9 +1088,15 @@ void nrf9160_Get_gps()
     {
         case GPS_INIT:
             cat_m1_Status.gpsChecking = 1;
+#if !defined(nRF9160_KT)
             send_at_command("AT#XMQTTCON=0\r\n");
+#endif
             cat_m1_Status.retryCount = 0;
+#if defined(nRF9160_KT)
+            gpsState = GPS_ON;
+#else
             gpsState = GPS_SYSTEM_MODE;
+#endif
             break;
 
         case GPS_SYSTEM_MODE:
@@ -1127,7 +1147,12 @@ void nrf9160_Get_gps()
         case GPS_ON:
             if (!cat_m1_Status.gpsOn)
             {
+#if defined(nRF9160_KT)
+            	send_at_command("AT#XGPS=1,1,0,180\r\n");
+#else
                 send_at_command("AT#XGPS=1,0,0,180\r\n");
+#endif
+
                 osDelay(2000);
                 send_at_command("AT#XGPS?\r\n");
 
@@ -1166,6 +1191,7 @@ void nrf9160_Get_gps()
 void nrf9160_Stop_gps()
 {
 	send_at_command("AT#XGPS=0\r\n");
+#if !defined(nRF9160_KT)
 	send_at_command("AT+CFUN=0\r\n");
 	currentWpmState = WPM_INIT_CHECK;
 	currentCheckState = SYSTEM_MODE_CHECK;
@@ -1181,8 +1207,9 @@ void nrf9160_Stop_gps()
 	cat_m1_Status.gpsOn = 0;
 	cat_m1_Status.gpsOff = 0;
 	cat_m1_Status.mqttSetStatus = 0;
-	cat_m1_Status.gpsChecking = 0;
 	wpmInitializationFlag = 1;
+#endif
+	cat_m1_Status.gpsChecking = 0;
 	gpsOffCheckTime = 0;
 	//cell_locationFlag = true;
 	HAL_UART_Receive_IT(&huart1, &uart_cat_m1_rx.temp, 1);

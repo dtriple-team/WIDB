@@ -87,7 +87,8 @@ bool mqttFlag = false;
 uint8_t UartRxRetryTime = 0;
 bool UartRxRetryTimeFlag = false;
 
-int gps_operation_cycle  = 60*4;
+int gps_operation_cycle  = 60*3;
+//int gps_operation_cycle  = 60*4;
 //#define gps_operation_cycle 60*4
 uint8_t gpsTime = 0;
 bool gpsFlag = false;
@@ -564,7 +565,7 @@ void StartWPMTask(void *argument)
 			mqttFlag = false;
 			catM1MqttDangerMessage = 0;
 		}
-		if ((strlen((const char*)cat_m1_at_cmd_rst.gps) > 0) && cat_m1_Status.mqttChecking == 0)
+		if ((strlen((const char*)cat_m1_at_cmd_rst.gps) > 0) && cat_m1_Status.mqttChecking == 0 && cat_m1_Status.gpsChecking == 0)
 		{
 		    cat_m1_Status_GPS_Location.bid = deviceID;
 		    send_GPS_Location(&cat_m1_Status_GPS_Location);
@@ -1280,10 +1281,11 @@ void BandAlert()
 		if (fallCheckFlag == 1 && cat_m1_Status.mqttChecking == 0)
 		{
 			fallCheckFlag = 0;
-			if(cat_m1_Status.gpsChecking)
-			{
-				nrf9160_Stop_gps();
-			}
+//			if(cat_m1_Status.gpsChecking)
+//			{
+//				nrf9160_Stop_gps();
+//			}
+				gpsFlag = 1;
 				catM1MqttDangerMessage = 1;
 				send_Status_FallDetection(&cat_m1_Status_FallDetection);
 
