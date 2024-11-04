@@ -130,6 +130,7 @@ typedef struct {
   uint8_t uuid[100];
   int altitude;
   uint8_t time[100];
+  uint8_t cnum[100];
   int  rssi;
 } cat_m1_at_cmd_rst_t;
 
@@ -247,6 +248,7 @@ void handle_cell_location_command(const char *value);
 void handle_mqtt_event_command(const char *value);
 void handle_cclk_command(const char *value);
 void handle_xuuid_command(const char *value);
+void handle_cnum_command(const char *value);
 
 // nRF9160 Modem Interaction
 void uart_init();
