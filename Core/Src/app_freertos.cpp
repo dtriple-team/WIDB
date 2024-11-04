@@ -73,6 +73,8 @@ uint8_t brightness_count = 0;
 
 uint8_t now_sleepmode = 0;
 
+uint8_t nRFCloudFlag = 0;
+
 #define cat_m1_rssi_cycle 40
 uint8_t cat_m1_rssi_cycleTime = 0;
 bool cat_m1_rssi_cycleFlag = false;
@@ -85,7 +87,8 @@ bool mqttFlag = false;
 uint8_t UartRxRetryTime = 0;
 bool UartRxRetryTimeFlag = false;
 
-int gps_operation_cycle  = 60*4;
+int gps_operation_cycle  = 60*3;
+//int gps_operation_cycle  = 60*4;
 //#define gps_operation_cycle 60*4
 uint8_t gpsTime = 0;
 bool gpsFlag = false;
@@ -93,7 +96,11 @@ bool gpsFlag = false;
 #define gps_offCheck_cycle 180+10
 uint8_t gpsOffCheckTime = 0;
 
-#define fall_Check_cycle 60 // sec
+int cell_location_operation_cycle  = 60*1;
+uint8_t cell_locationTime = 0;
+bool cell_locationFlag = true;
+
+#define fall_Check_cycle 0 // falling event occure => after N sec => MQTT // 60
 uint8_t fallCheckTime = 0;
 uint8_t fallCheckFlag = 0;
 
@@ -111,9 +118,13 @@ extern cat_m1_at_cmd_rst_t cat_m1_at_cmd_rst;
 extern cat_m1_Status_FallDetection_t cat_m1_Status_FallDetection;
 extern cat_m1_Status_BandAlert_t cat_m1_Status_BandAlert;
 extern cat_m1_Status_GPS_Location_t cat_m1_Status_GPS_Location;
+extern cat_m1_Status_uuid_t cat_m1_Status_uuid;
+extern cat_m1_Status_Fall_Difference_Value_t cat_m1_Status_Fall_Difference_Value;
 
 uint32_t deviceID = 0;
 uint8_t deviceID_check = 0;
+
+uint8_t time_check = 0;
 
 #define SAMPLE_COUNT 10
 int scdStateCheckCount = 0;
@@ -134,7 +145,7 @@ float deltaAlt = 0;
 uint16_t curr_height = 0;
 int height_num = 0;
 
-float falling_threshold = 1.30; // 낙상 판별 기준 높이 차이
+float falling_threshold = 1.0; // 낙상 판별 기준 높이 차이
 
 uint8_t ssSCD = 0;
 uint16_t ssHr = 0;
@@ -144,9 +155,15 @@ uint32_t imuTemp = 0;
 uint32_t press = 0;
 uint8_t battVal = 0;
 
+uint32_t ssWalk_SUM = 0;
+
 uint8_t hapticFlag = 1;
 uint8_t beforeHaptic = hapticFlag;
 uint8_t soundFlag = 1;
+
+uint8_t haptic_SOS = 0;
+
+bool isCharging = 0;
 
 typedef enum{
 	interrupt = 0,
@@ -362,6 +379,13 @@ void StartInitTask(void *argument)
 				runHaptic(20, 500, 1);
 			}
 		}
+		if(haptic_SOS == 1){
+			if(hapticFlag == 1){
+				runHaptic(20, 500, 3);
+			}
+			brightness_count = 0; // lcd backlight count reset
+			haptic_SOS = 0;
+		}
 		osDelay(100);
 	}
 
@@ -473,6 +497,12 @@ void StartWPMTask(void *argument)
 	}
 	if(wpmInitializationFlag && cat_m1_Status.Checked == 0)
 	{
+#if defined(nRF9160_nRFCLOUD_Init)
+		if(!nRFCloudFlag)
+		{
+			catM1nRFCloud_Init();
+		}
+#endif
 		nrf9160_check();
 	}
 	if(wpmInitializationFlag && cat_m1_Status.Checked == 1)
@@ -481,7 +511,11 @@ void StartWPMTask(void *argument)
 		if(cat_m1_Status.InitialLoad == 0)
 		{
 			osDelay(1000);
-			nrf9160_Get_time();
+			if(time_check == 0)
+			{
+				nrf9160_Get_time();
+				time_check = 1;
+			}
 			nrf9160_Get_rssi();
 
 			if(-95 <= cat_m1_Status_Band.rssi){
@@ -509,6 +543,13 @@ void StartWPMTask(void *argument)
 		{
 			//nrf9160_Get_gps_State();
 			//test_send_json_publish();
+#if defined(nRF9160_nRFCLOUD_Init)
+			if ((strlen((const char*)cat_m1_at_cmd_rst.uuid) > 0) && cat_m1_Status.mqttChecking == 0)
+			{
+				cat_m1_Status_uuid.bid = deviceID;
+				send_UUID(&cat_m1_Status_uuid);
+			}
+#endif
 			if(cat_m1_Status.mqttChecking == 0)
 			{
 				cat_m1_Status_Band_t cat_m1_Status_Band =
@@ -533,7 +574,19 @@ void StartWPMTask(void *argument)
 			mqttFlag = false;
 			catM1MqttDangerMessage = 0;
 		}
-
+		if ((strlen((const char*)cat_m1_at_cmd_rst.gps) > 0) && cat_m1_Status.mqttChecking == 0 && cat_m1_Status.gpsChecking == 0)
+		{
+		    cat_m1_Status_GPS_Location.bid = deviceID;
+		    send_GPS_Location(&cat_m1_Status_GPS_Location);
+		}
+#if defined(nRF9160_cell_location)
+		//soundFlag off no nRF9160_cell_location
+		else if (soundFlag && !isCharging && cell_locationFlag && cat_m1_Status.mqttChecking == 0 && cat_m1_Status.gpsChecking == 0)
+		{
+		    nrf9160_Get_cell_location();
+		    cell_locationFlag = false;
+		}
+#endif
 		if(gpsFlag && cat_m1_Status.mqttChecking == 0)
 		{
 			//catM1MqttDangerMessage = 1;
@@ -581,6 +634,25 @@ void StartWPMTask(void *argument)
 * @retval None
 */
 
+#define ACC_threshold 3000
+double magnitude = 0;
+// 가속도 데이터 구조체
+typedef struct {
+    double x;
+    double y;
+    double z;
+} AccelData;
+uint8_t detect_fall(AccelData* accel_data, double threshold) {
+	double magnitude_local = sqrt(accel_data->x * accel_data->x +
+						   accel_data->y * accel_data->y +
+						   accel_data->z * accel_data->z);
+	magnitude = magnitude < magnitude_local ? magnitude_local : magnitude;
+
+	if (magnitude > threshold) {
+		return 1; // 낙상으로 감지
+	}
+	else return 0; // 낙상 아님
+}
 /* USER CODE END Header_StartSPMTask */
 void StartSPMTask(void *argument)
 {
@@ -590,7 +662,7 @@ void StartSPMTask(void *argument)
 	}
 	// Smart Sensor Hub init
 	ssInit();
-	ssBegin(0x03);
+	ssBegin(0x00);
 	ssRead_setting();
 //	ssRunFlag = 1; // start read PPG, using Timer
 
@@ -644,6 +716,12 @@ void StartSPMTask(void *argument)
 	imuTemp = ismTemp;
 	press = pressure;
 
+	AccelData accel_data;
+	accel_data.x = accX;
+	accel_data.y = accY;
+	accel_data.z = accZ;
+	uint8_t highG_Detect = detect_fall(&accel_data, ACC_threshold);
+
 //	if(ssRunFlag == 1)
 //	{
 //	  read_ppg();
@@ -656,12 +734,17 @@ void StartSPMTask(void *argument)
 	    bmpAlt = -bmpAlt;
 	}
 
-	if(pressCheckFlag && pressCheckStartFlag && ssSCD == 3)
+	if(pressCheckFlag && pressCheckStartFlag)// && ssSCD == 3)
 	{
 		updateHeightData();
 		pressCheckFlag = 0;
 	}
-	if(freeFall_int_on && ssSCD == 3)
+//	if(freeFall_int_on && ssSCD == 3)
+//	{
+//		checkFallDetection();
+//		freeFall_int_on = false;
+//	}
+	if(highG_Detect)// && ssSCD == 3)
 	{
 		checkFallDetection();
 		freeFall_int_on = false;
@@ -786,10 +869,12 @@ void StartSecTimerTask(void *argument)
 			UartRxRetryTime = 0;
 			cat_m1_Status.txflag = 0;
 		}
+#if !defined(nRF9160_no_gps)
 		if(gpsFlag == 0)
 		{
 			gpsTime++;
 		}
+#endif
 //		PRINT_INFO("gpsTime >>> %d\r\n",gpsTime);
 		if(gpsTime > gps_operation_cycle)
 		{
@@ -806,7 +891,15 @@ void StartSecTimerTask(void *argument)
 			catM1Reset();
 			gpsOffCheckTime = 0;
 		}
-
+//		if(cell_locationFlag == 0)
+//		{
+//			cell_locationTime++;
+//		}
+//		if(cell_locationTime > cell_location_operation_cycle)
+//		{
+//			cell_locationFlag = true;
+//			cell_locationTime = 0;
+//		}
 		if(cat_m1_Status_FallDetection.fall_detect)
 		{
 			fallCheckTime++;
@@ -817,7 +910,7 @@ void StartSecTimerTask(void *argument)
 			fallCheckTime = 0;
 		}
 		pressCheckTime++;
-		if(pressCheckTime > 1)
+		if(pressCheckTime >= 1)
 		{
 			pressCheckFlag = 1;
 			pressCheckTime = 0;
@@ -844,7 +937,6 @@ void StartSecTimerTask(void *argument)
 batteryprogress_containerBase myBatteryprogress_container;
 charging_screenViewBase myCharging_screenView;
 unCharging_screenViewBase myUnCharging_screenView;
-bool isCharging = 0;
 uint8_t interrupt_kind = 0;
 #define PRESSURE_VAL_LEN 10
 #include <math.h>
@@ -859,9 +951,6 @@ double calculateAltitudeDifference(double P1, double P2) {
 
     return altitudeDifference;
 }
-
-
-
 //uint8_t updateBattVal(){
 //	uint8_t batt = 0;
 //	return batt;
@@ -942,6 +1031,8 @@ void StartCheckINTTask(void *argument)
     	memset(&cat_m1_Status_FallDetection, 0, sizeof(cat_m1_Status_FallDetection));
 
     	fallCheckTime = 0;
+
+    	magnitude = 0;
     }
 
     // update Battery
@@ -987,6 +1078,16 @@ void StartCheckINTTask(void *argument)
 
     // PMIC interrupt occur => emergency signal send to Web (CATM1)
     if(occurred_PMICBUTTInterrupt){
+    	// change screen
+    	myFallDetectedView.changeToFallDetected();
+    	// haptic
+    	haptic_SOS = 1;
+    	// send SOS MQTT
+    	cat_m1_Status_BandAlert.bid = HAL_GetUIDw2();
+		cat_m1_Status_BandAlert.type = 7;
+		cat_m1_Status_BandAlert.value = 1;
+		send_Status_BandAlert(&cat_m1_Status_BandAlert);
+
     	occurred_PMICBUTTInterrupt = 0;
     }
   }
@@ -1093,7 +1194,7 @@ void read_ppg()
         ssSpo2 = 0;
     }
 
-    ssWalk = lcd_ssDataEx.algo.totalWalkSteps;
+    ssWalk = lcd_ssDataEx.algo.totalWalkSteps + ssWalk_SUM;
 
     free(ssDataEx);
     canDisplayPPG = 1;
@@ -1161,8 +1262,14 @@ void checkFallDetection()
     }
 
     float diff = min_height - height_current;
-    PRINT_INFO("Height diff: %f - %f = %f[m]\r\n", min_height, height_current, diff);
 
+    //PRINT_INFO("Height diff: %f - %f = %f[m]\r\n", min_height, height_current, diff);
+#if defined(nRF9160_Fall_Difference_Value_Send)
+    cat_m1_Status_Fall_Difference_Value.bid = deviceID;
+    cat_m1_Status_Fall_Difference_Value.data = (diff * 100);
+    cat_m1_Status_Fall_Difference_Value.accScal_data = (magnitude);
+    send_Fall_Difference_Value(&cat_m1_Status_Fall_Difference_Value);
+#endif
     if (diff > falling_threshold)
     {
     	PRINT_INFO("Fall detected!\r\n");
@@ -1190,18 +1297,14 @@ void BandAlert()
 {
 	if(cat_m1_Status.mqttConnectionStatus == 2)
 	{
-		if ((strlen((const char*)cat_m1_at_cmd_rst.gps)) && cat_m1_Status.mqttChecking == 0)
-		{
-			cat_m1_Status_GPS_Location.bid = deviceID;
-			send_GPS_Location(&cat_m1_Status_GPS_Location);
-		}
 		if (fallCheckFlag == 1 && cat_m1_Status.mqttChecking == 0)
 		{
 			fallCheckFlag = 0;
-			if(cat_m1_Status.gpsChecking)
-			{
-				nrf9160_Stop_gps();
-			}
+//			if(cat_m1_Status.gpsChecking)
+//			{
+//				nrf9160_Stop_gps();
+//			}
+				gpsFlag = 1;
 				catM1MqttDangerMessage = 1;
 				send_Status_FallDetection(&cat_m1_Status_FallDetection);
 
@@ -1356,6 +1459,7 @@ void measPPG(){
 		// start ppg
 		if(ppgMeaserCount % spo2MeaserPeriode_sec == 0){
 //			mfioGPIOModeChange(output);
+			ssWalk_SUM = ssWalk; // total walk count 누적 필요
 			ssBegin(0x00);
 			ssRead_setting();
 			spo2Flag = 1;
@@ -1363,6 +1467,7 @@ void measPPG(){
 		}
 		else if(ppgMeaserCount % hrMeaserPeriode_sec == 0){
 //			mfioGPIOModeChange(output);
+			ssWalk_SUM = ssWalk; // total walk count 누적 필요
 			ssBegin(0x02);
 			ssRead_setting();
 			hrFlag = 1;
@@ -1380,11 +1485,13 @@ void measPPG(){
 			hrCount++;
 		}
 
-		if(spo2Count == 30){ // < spo2MeaserPeriode_sec
+		if(spo2Count == 40){ // < spo2MeaserPeriode_sec = 60*5
+			ssWalk_SUM = ssWalk; // total walk count 누적 필요
 			ssBegin(0x05);
 			spo2Count = 0;
 		}
-		if(hrCount == 30){ // < hrMeaserPeriode_sec
+		if(hrCount == 30){ // < hrMeaserPeriode_sec = 60 * 1
+			ssWalk_SUM = ssWalk; // total walk count 누적 필요
 			ssBegin(0x05);
 			hrCount = 0;
 		}

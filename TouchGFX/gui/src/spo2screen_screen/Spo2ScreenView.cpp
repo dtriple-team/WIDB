@@ -12,6 +12,10 @@ Spo2ScreenView::Spo2ScreenView()
 void Spo2ScreenView::setupScreen()
 {
     Spo2ScreenViewBase::setupScreen();
+
+	extern uint16_t ssSpo2;
+	touchgfx::Unicode::snprintf(spo2_valueBuffer, SPO2_VALUE_SIZE, "%02u", ssSpo2);
+	spo2_value.invalidate();
 }
 
 void Spo2ScreenView::tearDownScreen()
@@ -55,14 +59,15 @@ void Spo2ScreenView::handleSwipeLeft() //rkdalfks
 }
 
 #if !defined(gui_simulation)
-extern uint16_t ssSpo2;
 void Spo2ScreenView::changeSpo2Val(){
+	extern uint16_t ssSpo2;
 	touchgfx::Unicode::snprintf(spo2_valueBuffer, SPO2_VALUE_SIZE, "%02u", ssSpo2);
 	spo2_value.invalidate();
 }
 
 #include "bl6133.h"
 extern GESTURE gesture;
+uint32_t frameCountInteraction5Interval_local = 0;
 void Spo2ScreenView::handleTickEvent(){
 	if(gesture == SlideRight){
 		presenter->notifySwipeRight();
@@ -75,6 +80,16 @@ void Spo2ScreenView::handleTickEvent(){
 	}
 	else if(gesture == LongPress){
 		application().gotoHomeScreenWithBiodataScreenWipeTransitionWest();
+	}
+
+	frameCountInteraction5Interval_local++;
+	if(frameCountInteraction5Interval_local == 60)
+	{
+		//Interaction5
+		//When every N tick call changeSpo2Val on Spo2Screen
+		//Call changeSpo2Val
+		changeSpo2Val();
+		frameCountInteraction5Interval_local = 0;
 	}
 }
 #endif

@@ -25,12 +25,16 @@ cat_m1_Status_FallDetection_t cat_m1_Status_FallDetection;
 cat_m1_Status_GPS_Location_t cat_m1_Status_GPS_Location;
 cat_m1_Status_IMU_t cat_m1_Status_IMU;
 cat_m1_Status_BandSet_t cat_m1_Status_BandSet;
+cat_m1_Status_uuid_t cat_m1_Status_uuid;
+cat_m1_Status_Fall_Difference_Value_t cat_m1_Status_Fall_Difference_Value;
 
 WpmState currentWpmState = WPM_INIT_CHECK;
 CheckState currentCheckState = SYSTEM_MODE_CHECK;
 MqttState currentMqttState = MQTT_INIT;
 GpsState gpsState = GPS_INIT;
 
+extern uint8_t nRFCloudFlag;
+extern bool cell_locationFlag;
 extern uint8_t wpmInitializationFlag;
 extern uint8_t gpsOffCheckTime;
 extern uint8_t UartRxRetryTime;
@@ -103,7 +107,7 @@ bool send_at_command(const char *cmd)
     txCompleteFlag = 0;
 
     HAL_UART_Transmit_IT(&huart1, (uint8_t*)cmd, strlen(cmd));
-    PRINT_INFO("TX CMD >>> %s\r\n", cmd);
+    //PRINT_INFO("TX CMD >>> %s\r\n", cmd);
 
     while (txCompleteFlag == 0)
     {
@@ -143,7 +147,7 @@ bool receive_response(void)
             uart_cat_m1_buf[cat_m1_Status.parseCount] = uart_cat_m1_rx.rxd;
             cat_m1_Status.parseCount++;
 
-            PRINT_INFO("RX Data >>> %s\r\n", uart_cat_m1_buf);
+            //PRINT_INFO("RX Data >>> %s\r\n", uart_cat_m1_buf);
             cat_m1_parse_process(uart_cat_m1_buf);
 
             memset(&uart_cat_m1_buf, 0, MINMEA_MAX_SENTENCE_LENGTH);
@@ -264,6 +268,18 @@ void cat_m1_parse_result(const char *command, const char *value)
     {
         handle_cclk_command(value);
     }
+    else if (strstr(command, "#XNRFCLOUDPOS") != NULL)
+    {
+    	handle_cell_location_command(value);
+    }
+    else if (strstr(command, "#XUUID") != NULL)
+    {
+    	handle_xuuid_command(value);
+    }
+    else if (strstr(command, "+CNUM") != NULL)
+    {
+    	handle_xuuid_command(value);
+    }
 }
 
 void handle_cops_command(const char *value)
@@ -288,6 +304,10 @@ void handle_system_mode_command(const char *value)
     else if (strstr(value, "0,0,1,0") != NULL)
     {
     	cat_m1_Status.systemModeStatus = 2;
+    }
+    else if (strstr(value, "1,0,1,0") != NULL)
+    {
+    	cat_m1_Status.systemModeStatus = 3;
     }
 }
 
@@ -388,6 +408,44 @@ void handle_gps_command(const char *value)
     }
 }
 
+void handle_cell_location_command(const char *value)
+{
+//	int cell_locationDataLength = strlen(value);
+//
+//	if (cell_locationDataLength > 10) {
+//	    char tempBuffer[sizeof(cat_m1_at_cmd_rst.gps)];
+//	    int j = 0;
+//
+//	    char *token = strtok(value, ",");
+//
+//	    token = strtok(NULL, ",");
+//
+//	    if (token != NULL) {
+//	        strncpy(tempBuffer, token, sizeof(tempBuffer) - 1);
+//	        tempBuffer[sizeof(tempBuffer) - 1] = '\0';
+//	        j = strlen(tempBuffer);
+//	    }
+//
+//	    token = strtok(NULL, ",");
+//	    if (token != NULL && j < sizeof(tempBuffer) - 1) {
+//	        strncat(tempBuffer, ",", sizeof(tempBuffer) - j - 1);
+//	        strncat(tempBuffer, token, sizeof(tempBuffer) - j - 2);
+//	    }
+//
+//	    strncpy((char *)cat_m1_at_cmd_rst.gps, tempBuffer, sizeof(cat_m1_at_cmd_rst.gps) - 1);
+//	    cat_m1_at_cmd_rst.gps[sizeof(cat_m1_at_cmd_rst.gps) - 1] = '\0';
+
+		strncpy((char *)cat_m1_at_cmd_rst.gps, (const char *)value, sizeof(cat_m1_at_cmd_rst.gps) - 1);
+		cat_m1_at_cmd_rst.gps[sizeof(cat_m1_at_cmd_rst.gps) - 1] = '\0';
+//	}
+}
+
+void handle_xuuid_command(const char *value)
+{
+	strncpy((char *)cat_m1_at_cmd_rst.uuid, (const char *)value, sizeof(cat_m1_at_cmd_rst.uuid) - 1);
+	cat_m1_at_cmd_rst.uuid[sizeof(cat_m1_at_cmd_rst.uuid) - 1] = '\0';
+}
+
 void handle_mqtt_event_command(const char *value)
 {
     if (strstr(value, "1,-") != NULL) {
@@ -410,6 +468,22 @@ void handle_cclk_command(const char *value)
 	cat_m1_at_cmd_rst.time[sizeof(cat_m1_at_cmd_rst.time) - 1] = '\0';
 	timeUpdateFlag = 1;
 }
+
+void handle_cnum_command(const char *value)
+{
+    // 중간 부분만 추출 (국가 코드 뒤 번호만 남기기)
+    const char *phone_number = value + 3; // "+46" 이후의 번호 사용
+    char formatted_number[20] = {0};      // 변환 후 저장할 버퍼
+
+    // 전화번호를 "1912-1227-5694" 형식으로 변환
+    snprintf(formatted_number, sizeof(formatted_number), "%.4s-%.4s-%.4s",
+             phone_number, phone_number + 4, phone_number + 8);
+
+    // 변환된 번호를 구조체 멤버에 저장
+    strncpy((char *)cat_m1_at_cmd_rst.cnum, formatted_number, sizeof(cat_m1_at_cmd_rst.cnum) - 1);
+    cat_m1_at_cmd_rst.cnum[sizeof(cat_m1_at_cmd_rst.cnum) - 1] = '\0';
+}
+
 
 void uart_init()
 {
@@ -478,7 +552,15 @@ void nrf9160_check()
             if (cat_m1_Status.systemModeStatus == 0 || cat_m1_Status.systemModeStatus == 2)
             {
                 send_at_command("AT+CFUN=0\r\n");
+#if defined(nRF9160_KT)
+                send_at_command("AT+COPS=1,2,\"45008\"\r\n");
+                send_at_command("AT%XSYSTEMMODE=1,0,1,0\r\n");
+                send_at_command("AT+CPSMS=1,,,\"00000001\",\"00000011\"\r\n");
+                send_at_command("AT+CEDRXS=2,4,\"0011\"\r\n");
+#else
+                send_at_command("AT+COPS=0,2\r\n");
                 send_at_command("AT%XSYSTEMMODE=1,0,0,0\r\n");
+#endif
                 osDelay(1000);
                 send_at_command("AT%XSYSTEMMODE?\r\n");
                 osDelay(200);
@@ -542,6 +624,10 @@ void nrf9160_check()
             break;
 
         case FINAL_COMMANDS:
+
+			send_at_command("AT+CNUM\r\n");
+        	send_at_command("AT#XNRFCLOUD=1\r\n");
+
             send_at_command("AT+CGDCONT?\r\n");
             osDelay(200);
             send_at_command("AT%XICCID\r\n");
@@ -792,7 +878,7 @@ void send_Status_Band(cat_m1_Status_Band_t *status)
         PRINT_INFO("OLD_BAND_TOPIC AT command sent successfully.\n");
         if (send_at_command(mqtt_data))
         {
-            PRINT_INFO("JSON message sent successfully.\n");
+            PRINT_INFO("JSON send_Status_Band message sent successfully.\n");
         }
         else
         {
@@ -804,6 +890,7 @@ void send_Status_Band(cat_m1_Status_Band_t *status)
         PRINT_INFO("Failed to send OLD_BAND_TOPIC AT command.\n");
     }
     cat_m1_Status.mqttChecking = 0;
+    cell_locationFlag = true;
 }
 
 void send_Status_BandAlert(cat_m1_Status_BandAlert_t* alertData)
@@ -830,7 +917,7 @@ void send_Status_BandAlert(cat_m1_Status_BandAlert_t* alertData)
         PRINT_INFO("AT command sent successfully.\n");
         if (send_at_command(mqtt_data))
         {
-            PRINT_INFO("JSON message sent successfully.\n");
+            PRINT_INFO("JSON send_Status_BandAlert message sent successfully.\n");
         }
         else
         {
@@ -863,7 +950,7 @@ void send_Status_FallDetection(cat_m1_Status_FallDetection_t* fallData)
         if (send_at_command(mqtt_data))
         {
             memset(&cat_m1_Status_FallDetection, 0, sizeof(cat_m1_Status_FallDetection));
-            PRINT_INFO("JSON message sent successfully.\n");
+            PRINT_INFO("JSON send_Status_FallDetection message sent successfully.\n");
         }
         else
         {
@@ -894,7 +981,73 @@ void send_GPS_Location(cat_m1_Status_GPS_Location_t* location)
 
         if (send_at_command(mqtt_data))
         {
+        	osDelay(5000);
             memset(&cat_m1_at_cmd_rst.gps, 0, sizeof(cat_m1_at_cmd_rst.gps));
+            PRINT_INFO("JSON send_GPS_Location message sent successfully.\n");
+        }
+        else
+        {
+            PRINT_INFO("Failed to send JSON message.\n");
+        }
+    }
+    else
+    {
+        PRINT_INFO("Failed to send AT command.\n");
+    }
+    cat_m1_Status.mqttChecking = 0;
+}
+
+void send_UUID(cat_m1_Status_uuid_t* uuid)
+{
+	cat_m1_Status.mqttChecking = 1;
+    char mqtt_data[1024];
+
+    snprintf(mqtt_data, sizeof(mqtt_data),
+    	"{\"extAddress\": {\"low\": %u, \"high\": 0},"
+    	"\"data\": \"%s\""
+        "}+++\r\n",
+		(unsigned int)uuid->bid, cat_m1_at_cmd_rst.uuid);
+
+    if (send_at_command(UUID_TOPIC))
+    {
+        PRINT_INFO("AT command sent successfully.\n");
+
+        if (send_at_command(mqtt_data))
+        {
+            memset(&cat_m1_at_cmd_rst.uuid, 0, sizeof(cat_m1_at_cmd_rst.uuid));
+            PRINT_INFO("JSON message sent successfully.\n");
+        }
+        else
+        {
+            PRINT_INFO("Failed to send JSON message.\n");
+        }
+    }
+    else
+    {
+        PRINT_INFO("Failed to send AT command.\n");
+    }
+    cat_m1_Status.mqttChecking = 0;
+}
+
+void send_Fall_Difference_Value(cat_m1_Status_Fall_Difference_Value_t* Fall_Difference)
+{
+	cat_m1_Status.mqttChecking = 1;
+    char mqtt_data[1024];
+
+    snprintf(mqtt_data, sizeof(mqtt_data),
+    	"{\"extAddress\": {\"low\": %u, \"high\": 0},"
+    	"\"data\": \"%d\""
+    	"\"accScal_data\": \"%d\""
+        "}+++\r\n",
+		(unsigned int)Fall_Difference->bid, Fall_Difference->data, Fall_Difference->accScal_data);
+
+    if (send_at_command(FALLDETECTION_CHECK_TOPIC))
+    {
+        PRINT_INFO("AT command sent successfully.\n");
+
+        if (send_at_command(mqtt_data))
+        {
+            memset(&cat_m1_at_cmd_rst.uuid, 0, sizeof(cat_m1_at_cmd_rst.uuid));
             PRINT_INFO("JSON message sent successfully.\n");
         }
         else
@@ -955,9 +1108,15 @@ void nrf9160_Get_gps()
     {
         case GPS_INIT:
             cat_m1_Status.gpsChecking = 1;
+#if !defined(nRF9160_KT)
             send_at_command("AT#XMQTTCON=0\r\n");
+#endif
             cat_m1_Status.retryCount = 0;
+#if defined(nRF9160_KT)
+            gpsState = GPS_ON;
+#else
             gpsState = GPS_SYSTEM_MODE;
+#endif
             break;
 
         case GPS_SYSTEM_MODE:
@@ -1008,7 +1167,12 @@ void nrf9160_Get_gps()
         case GPS_ON:
             if (!cat_m1_Status.gpsOn)
             {
+#if defined(nRF9160_KT)
+            	send_at_command("AT#XGPS=1,1,0,180\r\n");
+#else
                 send_at_command("AT#XGPS=1,0,0,180\r\n");
+#endif
+
                 osDelay(2000);
                 send_at_command("AT#XGPS?\r\n");
 
@@ -1047,6 +1211,7 @@ void nrf9160_Get_gps()
 void nrf9160_Stop_gps()
 {
 	send_at_command("AT#XGPS=0\r\n");
+#if !defined(nRF9160_KT)
 	send_at_command("AT+CFUN=0\r\n");
 	currentWpmState = WPM_INIT_CHECK;
 	currentCheckState = SYSTEM_MODE_CHECK;
@@ -1062,9 +1227,11 @@ void nrf9160_Stop_gps()
 	cat_m1_Status.gpsOn = 0;
 	cat_m1_Status.gpsOff = 0;
 	cat_m1_Status.mqttSetStatus = 0;
-	cat_m1_Status.gpsChecking = 0;
 	wpmInitializationFlag = 1;
+#endif
+	cat_m1_Status.gpsChecking = 0;
 	gpsOffCheckTime = 0;
+	//cell_locationFlag = true;
 	HAL_UART_Receive_IT(&huart1, &uart_cat_m1_rx.temp, 1);
 }
 
@@ -1072,6 +1239,13 @@ void nrf9160_Get_gps_State()
 {
 	send_at_command("AT#XGPS?\r\n");
 	osDelay(1000);
+}
+
+void nrf9160_Get_cell_location()
+{
+	send_at_command("AT%NCELLMEAS\r\n");
+	osDelay(5000);
+	send_at_command("AT#XNRFCLOUDPOS=2,0\r\n");
 }
 
 void nrf9160_Get_rssi()
@@ -1107,8 +1281,38 @@ void catM1Reset()
 	cat_m1_Status.gpsOff = 0;
 	cat_m1_Status.mqttSetStatus = 0;
 	gps_operation_cycle = 60*4;
+	cell_locationFlag = true;
 	catM1PWRGPIOInit();
 	//send_at_command("AT+CFUN=0\r\n");
+}
+
+void catM1nRFCloud_Init()
+{
+	send_at_command("AT#XUUID\r\n");
+	osDelay(1000);
+	// Disable modem functionality
+	send_at_command("AT+CFUN=4\r\n");
+	osDelay(5000);
+	// Delete previous certificates in slots 0, 1, 2
+	send_at_command("AT%CMNG=3,16842753,0\r\n");
+	osDelay(5000);
+	send_at_command("AT%CMNG=3,16842753,1\r\n");
+	osDelay(5000);
+	send_at_command("AT%CMNG=3,16842753,2\r\n");
+	osDelay(5000);
+	// caCert
+	send_at_command(caCert);
+	osDelay(5000);
+	// clientCert
+	send_at_command(clientCert);
+	osDelay(5000);
+	// privateKey
+	send_at_command(privateKey);
+	osDelay(5000);
+	send_at_command("AT%CMNG=1\r\n");
+	nRFCloudFlag = 1;
+
+
 }
 
 void catM1PWRGPIOInit()

@@ -12,6 +12,10 @@ StepsScreenView::StepsScreenView() //rkdalfks
 void StepsScreenView::setupScreen()
 {
     StepsScreenViewBase::setupScreen();
+
+    extern uint32_t ssWalk;
+	touchgfx::Unicode::snprintf(steps_valueBuffer, STEPS_VALUE_SIZE, "%02u", ssWalk);
+	steps_value.invalidate();
 }
 
 void StepsScreenView::tearDownScreen()
@@ -53,14 +57,15 @@ void StepsScreenView::handleSwipeLeft() //rkdalfks
 }
 
 #if !defined(gui_simulation)
-extern uint32_t ssWalk;
 void StepsScreenView::changeStepVal(){
+	extern uint32_t ssWalk;
 	touchgfx::Unicode::snprintf(steps_valueBuffer, STEPS_VALUE_SIZE, "%02u", ssWalk);
 	steps_value.invalidate();
 }
 
 #include "bl6133.h"
 extern GESTURE gesture;
+uint32_t frameCountInteraction3Interval_local = 0;
 void StepsScreenView::handleTickEvent(){
 	if(gesture == SlideRight){
 		presenter->notifySwipeRight();
@@ -73,6 +78,16 @@ void StepsScreenView::handleTickEvent(){
 	}
 	else if(gesture == LongPress){
 		application().gotoHomeScreenWithBiodataScreenWipeTransitionWest();
+	}
+
+	frameCountInteraction3Interval_local++;
+	if(frameCountInteraction3Interval_local == 60)
+	{
+		//Interaction3
+		//When every N tick call changeStepVal on StepsScreen
+		//Call changeStepVal
+		changeStepVal();
+		frameCountInteraction3Interval_local = 0;
 	}
 }
 #endif

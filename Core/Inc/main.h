@@ -43,7 +43,13 @@ extern "C" {
 /* USER CODE BEGIN EC */
 
 //Annotation processing is required during initial upload of nRF9160
+
 //#define nRF9160_initial_upload
+//#define nRF9160_nRFCLOUD_Init
+//#define nRF9160_no_gps
+//#define nRF9160_KT
+//#define nRF9160_cell_location
+#define nRF9160_Fall_Difference_Value_Send
 
 #define PRINT_INFO(format, arg...)      printf(format , ## arg)
 

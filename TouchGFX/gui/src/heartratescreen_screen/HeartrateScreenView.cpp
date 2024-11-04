@@ -12,6 +12,10 @@ HeartrateScreenView::HeartrateScreenView()
 void HeartrateScreenView::setupScreen()
 {
     HeartrateScreenViewBase::setupScreen();
+
+	extern uint16_t ssHr;
+	touchgfx::Unicode::snprintf(heartrate_valueBuffer, HEARTRATE_VALUE_SIZE, "%02u", ssHr);
+	heartrate_value.invalidate();
 }
 
 void HeartrateScreenView::tearDownScreen()
@@ -54,14 +58,15 @@ void HeartrateScreenView::handleSwipeLeft() //rkdalfks
 }
 
 #if !defined(gui_simulation)
-extern uint16_t ssHr;
 void HeartrateScreenView::changeHRVal(){
+	extern uint16_t ssHr;
 	touchgfx::Unicode::snprintf(heartrate_valueBuffer, HEARTRATE_VALUE_SIZE, "%02u", ssHr);
 	heartrate_value.invalidate();
 }
 
 #include "bl6133.h"
 extern GESTURE gesture;
+uint32_t frameCountInteraction4Interval_local=0;
 void HeartrateScreenView::handleTickEvent(){
 	if(gesture == SlideRight){
 		presenter->notifySwipeRight();
@@ -74,6 +79,16 @@ void HeartrateScreenView::handleTickEvent(){
 	}
 	else if(gesture == LongPress){
 		application().gotoHomeScreenWithBiodataScreenWipeTransitionWest();
+	}
+
+	frameCountInteraction4Interval_local++;
+	if(frameCountInteraction4Interval_local == 60)
+	{
+		//Interaction4
+		//When every N tick call changeHRVal on HeartrateScreen
+		//Call changeHRVal
+		changeHRVal();
+		frameCountInteraction4Interval_local = 0;
 	}
 }
 #endif

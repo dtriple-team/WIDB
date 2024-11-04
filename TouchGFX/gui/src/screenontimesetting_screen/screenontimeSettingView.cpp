@@ -5,8 +5,10 @@
 #include <touchgfx/Utils.hpp>
 
 #if !defined(gui_simulation)
+#define INITIAL_SCREEN_ONTIME 20
 extern uint8_t screenOnTime;
-uint16_t local_screenOnTime = screenOnTime;
+//uint16_t local_screenOnTime = screenOnTime;
+uint16_t local_screenOnTime = INITIAL_SCREEN_ONTIME;
 #else
 uint16_t local_screenOnTime = 0;
 #endif
@@ -22,6 +24,8 @@ void screenontimeSettingView::setupScreen()
 {
     screenontimeSettingViewBase::setupScreen();
     scrollWheel1.setAnimateToCallback(scrollWheel1AnimateToCallback);
+
+    local_screenOnTime = INITIAL_SCREEN_ONTIME;
 }
 
 void screenontimeSettingView::tearDownScreen()
@@ -72,10 +76,10 @@ void screenontimeSettingView::scrollWheel1AnimateToHandler(int16_t item)
 
 #if !defined(gui_simulation)
 void screenontimeSettingView::changeScreenOnTime(){
-	if(local_screenOnTime == 0){
-		// not normal event => screen on time == 0 => time = 20(default) init
-		local_screenOnTime = 20;
-	}
+//	if(local_screenOnTime == 0){
+//		// not normal event => screen on time == 0 => time = 20(default) init
+//		local_screenOnTime = INITIAL_SCREEN_ONTIME;
+//	}
 	screenOnTime = (uint8_t)local_screenOnTime;
 }
 
