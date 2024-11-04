@@ -276,6 +276,10 @@ void cat_m1_parse_result(const char *command, const char *value)
     {
     	handle_xuuid_command(value);
     }
+    else if (strstr(command, "+CNUM") != NULL)
+    {
+    	handle_xuuid_command(value);
+    }
 }
 
 void handle_cops_command(const char *value)
@@ -464,6 +468,22 @@ void handle_cclk_command(const char *value)
 	cat_m1_at_cmd_rst.time[sizeof(cat_m1_at_cmd_rst.time) - 1] = '\0';
 	timeUpdateFlag = 1;
 }
+
+void handle_cnum_command(const char *value)
+{
+    // 중간 부분만 추출 (국가 코드 뒤 번호만 남기기)
+    const char *phone_number = value + 3; // "+46" 이후의 번호 사용
+    char formatted_number[20] = {0};      // 변환 후 저장할 버퍼
+
+    // 전화번호를 "1912-1227-5694" 형식으로 변환
+    snprintf(formatted_number, sizeof(formatted_number), "%.4s-%.4s-%.4s",
+             phone_number, phone_number + 4, phone_number + 8);
+
+    // 변환된 번호를 구조체 멤버에 저장
+    strncpy((char *)cat_m1_at_cmd_rst.cnum, formatted_number, sizeof(cat_m1_at_cmd_rst.cnum) - 1);
+    cat_m1_at_cmd_rst.cnum[sizeof(cat_m1_at_cmd_rst.cnum) - 1] = '\0';
+}
+
 
 void uart_init()
 {
