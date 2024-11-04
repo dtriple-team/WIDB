@@ -101,7 +101,7 @@ int cell_location_operation_cycle  = 60*1;
 uint8_t cell_locationTime = 0;
 bool cell_locationFlag = true;
 
-#define fall_Check_cycle 0 // falling event occure => after N sec => MQTT // 60
+#define fall_Check_cycle 2 // falling event occure => after N sec => MQTT // 60
 uint8_t fallCheckTime = 0;
 uint8_t fallCheckFlag = 0;
 
@@ -137,7 +137,7 @@ int previousRSSIstate = -1;
 bool lowBatteryAlertSent = false;
 bool biosignalAlertSent = false;
 
-bool freeFall_int_on = false;
+//bool freeFall_int_on = false;
 
 float heights[5] = {0};
 float height_current = 0;
@@ -637,7 +637,9 @@ void StartWPMTask(void *argument)
 */
 
 #define ACC_threshold 3000
+#if defined(nRF9160_Fall_Difference_Value_Send)
 double magnitude = 0;
+#endif
 // 가속도 데이터 구조체
 typedef struct {
     double x;
@@ -646,11 +648,13 @@ typedef struct {
 } AccelData;
 uint8_t detect_fall(AccelData* accel_data, double threshold) {
 	double magnitude_local = sqrt(accel_data->x * accel_data->x +
-						   accel_data->y * accel_data->y +
-						   accel_data->z * accel_data->z);
+								   accel_data->y * accel_data->y +
+								   accel_data->z * accel_data->z);
+#if defined(nRF9160_Fall_Difference_Value_Send)
 	magnitude = magnitude < magnitude_local ? magnitude_local : magnitude;
+#endif
 
-	if (magnitude > threshold) {
+	if (magnitude_local > threshold) {
 		return 1; // 낙상으로 감지
 	}
 	else return 0; // 낙상 아님
@@ -722,7 +726,8 @@ void StartSPMTask(void *argument)
 	accel_data.x = accX;
 	accel_data.y = accY;
 	accel_data.z = accZ;
-	uint8_t highG_Detect = detect_fall(&accel_data, ACC_threshold);
+	uint8_t highG_Detect = 0;
+	highG_Detect = detect_fall(&accel_data, ACC_threshold);
 
 //	if(ssRunFlag == 1)
 //	{
@@ -746,10 +751,10 @@ void StartSPMTask(void *argument)
 //		checkFallDetection();
 //		freeFall_int_on = false;
 //	}
-	if(highG_Detect)// && ssSCD == 3)
+	if(highG_Detect == 1)// && ssSCD == 3)
 	{
 		checkFallDetection();
-		freeFall_int_on = false;
+//		freeFall_int_on = false;
 	}
   }
   /* USER CODE END spmTask */
@@ -983,7 +988,7 @@ void StartCheckINTTask(void *argument)
     		 * haptic
     		 * send signal to web server using CatM1
     		 */
-    		freeFall_int_on = true;
+//    		freeFall_int_on = true;
 
 //    		cat_m1_Status_FallDetection.bid = deviceID;
 //    		cat_m1_Status_FallDetection.type = 0;
@@ -1034,7 +1039,9 @@ void StartCheckINTTask(void *argument)
 
     	fallCheckTime = 0;
 
+#if defined(nRF9160_Fall_Difference_Value_Send)
     	magnitude = 0;
+#endif
     }
 
     // update Battery
