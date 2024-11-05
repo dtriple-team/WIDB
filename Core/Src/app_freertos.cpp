@@ -1108,7 +1108,8 @@ void StartCheckINTTask(void *argument)
     	nrf9160_Stop_gps();
     	}
     	// change screen
-		ST7789_brightness_setting(before_bLevel);
+		before_bLevel = set_bLevel;
+		ST7789_brightness_setting(16);
 		brightness_count = 0;
     	mySOSAlertViewBase.changeToSOSDetected();
     	// haptic
@@ -1340,7 +1341,7 @@ void BandAlert()
 				send_Status_FallDetection(&cat_m1_Status_FallDetection);
 				gpsFlag = 1;
 
-				ST7789_brightness_setting(before_bLevel);
+//				ST7789_brightness_setting(before_bLevel);
 //		    	myTempHomeView.changeToHomeScreen();
 		}
 		if (cat_m1_Status.InitialLoad && previousRSSIstate != 1 && cat_m1_Status.mqttChecking == 0)
