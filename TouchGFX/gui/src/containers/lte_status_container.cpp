@@ -1,4 +1,5 @@
 #include <gui/containers/lte_status_container.hpp>
+#include <touchgfx/Utils.hpp> //rkdalfks
 
 lte_status_container::lte_status_container()
 {
