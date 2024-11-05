@@ -404,8 +404,11 @@ void handle_gps_command(const char *value)
         cat_m1_Status.gpsOff = 1;
         gps_operation_cycle = (60*1);
     }
-
+#if !defined(nRF9160_KT)
     else if (strstr(value, "1,3") != NULL || strstr(value, "0,0") != NULL)
+#else
+    else if (strstr(value, "1,3") != NULL || strstr(value, "1,0") != NULL || strstr(value, "0,0") != NULL)
+#endif
     {
     	gps_operation_cycle = (60*4);
     	gpsRSSI_0_1 = 0;
@@ -475,9 +478,6 @@ void handle_mqtt_event_command(const char *value)
     	wpmInitializationFlag = 1;
     	cat_m1_Status.Checked = 1;
     	currentMqttState = MQTT_CONNECT;
-    	gps_operation_cycle = (60*4);
-    	gpsRSSI_0_1 = 0;
-    	cat_m1_Status.gpsOff = 1;
     }
     else if (strstr(value, "7,0") != NULL)
     {

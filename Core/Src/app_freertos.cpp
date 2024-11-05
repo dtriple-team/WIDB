@@ -122,8 +122,6 @@ extern cat_m1_Status_GPS_Location_t cat_m1_Status_GPS_Location;
 extern cat_m1_Status_uuid_t cat_m1_Status_uuid;
 extern cat_m1_Status_Fall_Difference_Value_t cat_m1_Status_Fall_Difference_Value;
 
-extern MqttState currentMqttState;
-
 uint32_t deviceID = 0;
 uint8_t deviceID_check = 0;
 
@@ -948,13 +946,11 @@ void StartSecTimerTask(void *argument)
 		}
 		if(gpsOffCheckTime > gps_offCheck_cycle)
 		{
-			//catM1Reset();
-	    	wpmInitializationFlag = 1;
-	    	cat_m1_Status.Checked = 1;
-	    	currentMqttState = MQTT_CONNECT;
-	    	gpsRSSI_0_1 = 0;
+#if !defined(nRF9160_KT)
+			catM1Reset();
+#else
 			nrf9160_Stop_gps();
-
+#endif
 		}
 //		if(cell_locationFlag == 0)
 //		{
