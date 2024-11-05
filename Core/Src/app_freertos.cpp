@@ -644,6 +644,8 @@ void StartWPMTask(void *argument)
 */
 
 #define ACC_threshold 3000
+//#define ACC_threshold 2000
+//#define GYRO_threshold 200
 #if defined(nRF9160_Fall_Difference_Value_Send)
 double magnitude = 0;
 #endif
@@ -666,6 +668,28 @@ uint8_t detect_fall(AccelData* accel_data, double threshold) {
 	}
 	else return 0; // 낙상 아님
 }
+
+//typedef struct {
+//    double ax, ay, az;
+//    double gx, gy, gz;
+//} IMUData;
+//uint8_t detect_fall(IMUData* imu_data, double accel_threshold, double gyro_threshold) {
+//	double accel_magnitude_local = sqrt(imu_data->ax * imu_data->ax +
+//										imu_data->ay * imu_data->ay +
+//										imu_data->az * imu_data->az);
+//	double gyro_magnitude_local = sqrt(imu_data->gx * imu_data->gx +
+//										imu_data->gy * imu_data->gy +
+//										imu_data->gz * imu_data->gz);
+//#if defined(nRF9160_Fall_Difference_Value_Send)
+//	magnitude = magnitude < magnitude_local ? magnitude_local : magnitude;
+//#endif
+//
+//	if (accel_magnitude_local > accel_threshold && gyro_magnitude_local > gyro_threshold) {
+//		return 1; // 낙상으로 감지
+//	}
+//	else return 0; // 낙상 아님
+//}
+
 /* USER CODE END Header_StartSPMTask */
 void StartSPMTask(void *argument)
 {
@@ -735,6 +759,15 @@ void StartSPMTask(void *argument)
 	accel_data.z = accZ;
 	uint8_t highG_Detect = 0;
 	highG_Detect = detect_fall(&accel_data, ACC_threshold);
+
+	//	IMUData imu_data;
+	//	imu_data.ax = accX;
+	//	imu_data.ay = accY;
+	//	imu_data.az = accZ;
+	//	imu_data.gx = gyroX;
+	//	imu_data.gy = gyroY;
+	//	imu_data.gz = gyroZ;
+	//	uint8_t highG_Detect = detect_fall(&imu_data, ACC_threshold, GYRO_threshold);
 
 //	if(ssRunFlag == 1)
 //	{
