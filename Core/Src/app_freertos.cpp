@@ -88,8 +88,8 @@ bool mqttFlag = false;
 uint8_t UartRxRetryTime = 0;
 bool UartRxRetryTimeFlag = false;
 
-int gps_operation_cycle  = 60*3;
-//int gps_operation_cycle  = 60*4;
+//int gps_operation_cycle  = 60*3;
+int gps_operation_cycle  = 60*4;
 //#define gps_operation_cycle 60*4
 uint8_t gpsTime = 0;
 bool gpsFlag = false;
@@ -541,7 +541,11 @@ void StartWPMTask(void *argument)
 	}
 	if(wpmInitializationFlag && cat_m1_Status.Checked == 2)
 	{
+#if !defined(nRF9160_KT)
 		if ((mqttFlag && cat_m1_Status.gpsChecking == 0) || catM1MqttDangerMessage)
+#else
+		if (mqttFlag || catM1MqttDangerMessage)
+#endif
 		{
 			//nrf9160_Get_gps_State();
 			//test_send_json_publish();
