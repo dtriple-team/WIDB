@@ -541,11 +541,7 @@ void StartWPMTask(void *argument)
 	}
 	if(wpmInitializationFlag && cat_m1_Status.Checked == 2)
 	{
-#if !defined(nRF9160_KT)
 		if ((mqttFlag && cat_m1_Status.gpsChecking == 0) || catM1MqttDangerMessage)
-#else
-		if (mqttFlag || catM1MqttDangerMessage)
-#endif
 		{
 			//nrf9160_Get_gps_State();
 			//test_send_json_publish();
@@ -580,22 +576,15 @@ void StartWPMTask(void *argument)
 			mqttFlag = false;
 			catM1MqttDangerMessage = 0;
 		}
-#if !defined(nRF9160_KT)
+
 		if ((strlen((const char*)cat_m1_at_cmd_rst.gps) > 0) && cat_m1_Status.mqttChecking == 0 && cat_m1_Status.gpsChecking == 0)
-#else
-		if ((strlen((const char*)cat_m1_at_cmd_rst.gps) > 0) && cat_m1_Status.mqttChecking == 0)
-#endif
 		{
 		    cat_m1_Status_GPS_Location.bid = deviceID;
 		    send_GPS_Location(&cat_m1_Status_GPS_Location);
 		}
 #if defined(nRF9160_cell_location)
 		//soundFlag off no nRF9160_cell_location
-#if !defined(nRF9160_KT)
 		else if (soundFlag && !isCharging && cell_locationFlag && cat_m1_Status.mqttChecking == 0 && cat_m1_Status.gpsChecking == 0)
-#else
-		else if (soundFlag && !isCharging && cell_locationFlag && cat_m1_Status.mqttChecking == 0)
-#endif
 		{
 		    nrf9160_Get_cell_location();
 		    cell_locationFlag = false;
