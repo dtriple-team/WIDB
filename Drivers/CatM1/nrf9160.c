@@ -278,7 +278,7 @@ void cat_m1_parse_result(const char *command, const char *value)
     }
     else if (strstr(command, "+CNUM") != NULL)
     {
-    	handle_xuuid_command(value);
+    	handle_cnum_command(value);
     }
 }
 
@@ -325,18 +325,24 @@ void handle_cgdcont_command(const char *value)
 
 void handle_iccid_command(const char *value)
 {
-	strncpy((char *)cat_m1_at_cmd_rst.iccid, (const char *)value, ICCID_LEN - 1);
-	cat_m1_at_cmd_rst.iccid[ICCID_LEN - 1] = '\0';
-	if(!deviceID_check)
-	{
-		char iccid9[10];
-		strncpy(iccid9, (char*)&cat_m1_at_cmd_rst.iccid[11], 9);
-		iccid9[9] = '\0';
-		deviceID = (uint32_t)strtol(iccid9, NULL, 10);
-		//PRINT_INFO("deviceID >>> %u\r\n", (unsigned int)deviceID);
-		HAL_Delay(250);
-		deviceID_check = 1;
-	}
+    for (int i = 0; i < ICCID_LEN - 1 && value[i] != '\0'; i++) {
+        cat_m1_at_cmd_rst.iccid[i] = value[i];
+    }
+    cat_m1_at_cmd_rst.iccid[ICCID_LEN - 1] = '\0';
+
+    if (!deviceID_check)
+    {
+        char iccid9[10];
+        for (int i = 0; i < 9; i++) {
+            iccid9[i] = cat_m1_at_cmd_rst.iccid[11 + i];
+        }
+        iccid9[9] = '\0';
+
+        deviceID = (uint32_t)strtol(iccid9, NULL, 10);
+        PRINT_INFO("deviceID >>> %u\r\n", (unsigned int)deviceID);
+        HAL_Delay(250);
+        deviceID_check = 1;
+    }
 }
 
 void handle_monitor_command(const char *value)
@@ -560,7 +566,7 @@ void nrf9160_check()
 #else
                 send_at_command("AT+COPS=0,2\r\n");
                 send_at_command("AT%XSYSTEMMODE=1,0,0,0\r\n");
-                send_at_command("AT+CPSMS=0\"\r\n");
+                send_at_command("AT+CPSMS=0\r\n");
                 send_at_command("AT+CEDRXS=0\r\n");
 #endif
                 osDelay(1000);

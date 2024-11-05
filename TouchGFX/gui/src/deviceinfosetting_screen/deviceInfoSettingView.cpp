@@ -4,6 +4,8 @@
 #include <touchgfx/Utils.hpp>
 
 #include <stdio.h>
+#include "nrf9160.h"
+#include <string.h>
 
 deviceInfoSettingView::deviceInfoSettingView()
 	: initialX(0), initialY(0)
@@ -19,6 +21,10 @@ void deviceInfoSettingView::setupScreen()
     extern uint32_t deviceID;
     char model[6] = "eHG4M";
     char version[7] = "v1.0.0";
+    extern cat_m1_at_cmd_rst_t cat_m1_at_cmd_rst;
+    char serviceNumber_ascii[16+1] = {0,};
+    memcpy(serviceNumber_ascii, &cat_m1_at_cmd_rst.cnum[4], 16);
+    uint64_t serviceNumber = atoi(serviceNumber_ascii);
 //    char strDeviceID[10];
 //
 //    sprintf(strDeviceID, "%d", deviceID);
@@ -29,6 +35,8 @@ void deviceInfoSettingView::setupScreen()
 	version_label.invalidate();
 	Unicode::snprintf(id_labelBuffer, ID_LABEL_SIZE, "0x%.8x", deviceID);
 	id_label.invalidate();
+	Unicode::snprintf(servicenumber_labelBuffer, SERVICENUMBER_LABEL_SIZE, serviceNumber_ascii);
+	servicenumber_label.invalidate();
 #endif
 }
 
