@@ -905,6 +905,7 @@ void StartSecTimerTask(void *argument)
 		if(gpsOffCheckTime > gps_offCheck_cycle)
 		{
 			//catM1Reset();
+			nrf9160_Stop_gps();
 	    	wpmInitializationFlag = 1;
 	    	cat_m1_Status.Checked = 1;
 	    	currentMqttState = MQTT_CONNECT;
@@ -912,7 +913,7 @@ void StartSecTimerTask(void *argument)
 	    	gpsRSSI_0_1 = 0;
 	    	cat_m1_Status.gpsOff = 1;
 			gpsOffCheckTime = 0;
-			nrf9160_Stop_gps();
+
 		}
 //		if(cell_locationFlag == 0)
 //		{
