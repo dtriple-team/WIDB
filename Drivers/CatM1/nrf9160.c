@@ -186,6 +186,13 @@ bool cat_m1_parse_process(uint8_t *msg) {
         value[i] = '\0';
 
         cat_m1_parse_result(command, value);
+
+        if (strstr(command, "%XICCID") != NULL){
+        	if(sizeof(value) != 10){
+        		send_at_command("AT%XICCID\r\n");
+        	}
+        }
+
     } else {
         if (strstr((char *)msg, "Ready")) {
             PRINT_INFO("Response: Ready\r\n");
