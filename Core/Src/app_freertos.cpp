@@ -941,7 +941,6 @@ void StartSecTimerTask(void *argument)
 	    	wpmInitializationFlag = 1;
 	    	cat_m1_Status.Checked = 1;
 	    	currentMqttState = MQTT_CONNECT;
-	    	gps_operation_cycle = (60*4);
 	    	gpsRSSI_0_1 = 0;
 			nrf9160_Stop_gps();
 
