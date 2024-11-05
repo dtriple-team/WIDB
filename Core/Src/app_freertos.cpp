@@ -1153,7 +1153,7 @@ void StartCheckINTTask(void *argument)
     	// haptic
     	haptic_SOS = 1;
     	// send SOS MQTT
-    	cat_m1_Status_BandAlert.bid = HAL_GetUIDw2();
+    	cat_m1_Status_BandAlert.bid = deviceID;
 		cat_m1_Status_BandAlert.type = 6;
 		cat_m1_Status_BandAlert.value = 1;
 		send_Status_BandAlert(&cat_m1_Status_BandAlert);
@@ -1431,63 +1431,64 @@ void BandAlert()
 		{
 		    lowBatteryAlertSent = false;
 		}
-		if (ssSCD == 3 || biosignalAlertSent)
-		{
-		    if (ssHr < 60 || ssHr > 100 || ssSpo2 < 95)
-		    {
-		        ssHrSamples[sampleIndex] = ssHr;
-		        ssSpo2Samples[sampleIndex] = ssSpo2;
-		        sampleIndex = (sampleIndex + 1) % SAMPLE_COUNT;
-
-		        biosignalAlertSent = true;
-		        for (int i = 0; i < SAMPLE_COUNT; i++)
-		        {
-		            if ((ssHrSamples[i] >= 60 && ssHrSamples[i] <= 100) ||
-		                (ssSpo2Samples[i] >= 95 && ssSpo2Samples[i] <= 100))
-		            {
-		                biosignalAlertSent = false;
-		                break;
-		            }
-		        }
-
-		        if (ssSCD == 3)
-		        {
-		            scdStateCheckCount++;
-
-		            if (scdStateCheckCount >= 60)
-		            {
-		                if (biosignalAlertSent && cat_m1_Status.mqttChecking == 0)
-		                {
-		                    if (cat_m1_Status.gpsChecking)
-		                    {
-		                        nrf9160_Stop_gps();
-		                    }
-
-		                    cat_m1_Status_BandAlert.bid = deviceID;
-		                    cat_m1_Status_BandAlert.type = 4;
-		                    cat_m1_Status_BandAlert.value = 1;
-		                    catM1MqttDangerMessage = 1;
-		                    send_Status_BandAlert(&cat_m1_Status_BandAlert);
-		                    biosignalAlertSent = false;
-		                    memset(ssHrSamples, 0, sizeof(ssHrSamples));
-		                    memset(ssSpo2Samples, 0, sizeof(ssSpo2Samples));
-		                    sampleIndex = 0;
-
-		                    scdStateCheckCount = 0;
-		                }
-		            }
-		        }
-		        else
-		        {
-		            scdStateCheckCount = 0;
-		        }
-		    }
-		    else
-		    {
-		        biosignalAlertSent = false;
-		        scdStateCheckCount = 0;
-		    }
-		}
+//		if (ssSCD == 3 || biosignalAlertSent)
+//		{
+//		    if (ssHr < 60 || ssHr > 100 || ssHr != 0 || ssSpo2 < 95 || ssSpo2 != 0)
+//		    {
+//		        ssHrSamples[sampleIndex] = ssHr;
+//		        ssSpo2Samples[sampleIndex] = ssSpo2;
+//		        sampleIndex = (sampleIndex + 1) % SAMPLE_COUNT;
+//
+//		        biosignalAlertSent = true;
+//		        for (int i = 0; i < SAMPLE_COUNT; i++)
+//		        {
+//		            if ((ssHrSamples[i] >= 60 && ssHrSamples[i] <= 100) ||
+//		                (ssSpo2Samples[i] >= 95 && ssSpo2Samples[i] <= 100))
+//		            {
+//		                biosignalAlertSent = false;
+//		                break;
+//		            }
+//		        }
+//
+//		        if (ssSCD == 3)
+//		        {
+//		            scdStateCheckCount++;
+//
+//		            if (scdStateCheckCount >= 60)
+//		            {
+//		                if (biosignalAlertSent && cat_m1_Status.mqttChecking == 0)
+//		                {
+//		                    if (cat_m1_Status.gpsChecking)
+//		                    {
+//		                        nrf9160_Stop_gps();
+//		                    }
+//
+//		                    cat_m1_Status_BandAlert.bid = deviceID;
+//		                    cat_m1_Status_BandAlert.type = 4;
+//		                    cat_m1_Status_BandAlert.value = 1;
+//		                    catM1MqttDangerMessage = 1;
+//		                    send_Status_BandAlert(&cat_m1_Status_BandAlert);
+//		                    biosignalAlertSent = false;
+//		                    memset(ssHrSamples, 0, sizeof(ssHrSamples));
+//		                    memset(ssSpo2Samples, 0, sizeof(ssSpo2Samples));
+//		                    sampleIndex = 0;
+//
+//		                    scdStateCheckCount = 0;
+//		                    biosignalAlertSent = false;
+//		                }
+//		            }
+//		        }
+//		        else
+//		        {
+//		            scdStateCheckCount = 0;
+//		        }
+//		    }
+//		    else
+//		    {
+//		        biosignalAlertSent = false;
+//		        scdStateCheckCount = 0;
+//		    }
+//		}
 	}
 }
 

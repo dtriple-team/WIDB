@@ -188,7 +188,7 @@ bool cat_m1_parse_process(uint8_t *msg) {
         cat_m1_parse_result(command, value);
 
         if (strstr(command, "%XICCID") != NULL){
-        	if(sizeof(value) != 10){
+        	if(sizeof(value) < 20){
         		send_at_command("AT%XICCID\r\n");
         	}
         }
@@ -396,6 +396,7 @@ void handle_gps_command(const char *value)
     	//gpsRSSI_0_1 = 0;
     	gpsRSSI_0_1 = 1;
         cat_m1_Status.gpsOn = 1;
+        cell_locationFlag = true;
     }
 
     else if (strstr(value, "1,4") != NULL) {
@@ -403,6 +404,8 @@ void handle_gps_command(const char *value)
     	gpsRSSI_0_1 = 0;
         cat_m1_Status.gpsOff = 1;
         gps_operation_cycle = (60*1);
+        cell_locationFlag = false;
+        gpsFlag = false;
     }
 #if !defined(nRF9160_KT)
     else if (strstr(value, "1,3") != NULL || strstr(value, "0,0") != NULL)
@@ -413,6 +416,8 @@ void handle_gps_command(const char *value)
     	gps_operation_cycle = (60*4);
     	gpsRSSI_0_1 = 0;
     	cat_m1_Status.gpsOff = 1;
+    	cell_locationFlag = true;
+    	gpsFlag = false;
     }
 
     else { // strstr(value, "1,4") => after MSG: GPS DATA
@@ -920,7 +925,7 @@ void send_Status_Band(cat_m1_Status_Band_t *status)
         PRINT_INFO("Failed to send OLD_BAND_TOPIC AT command.\n");
     }
     cat_m1_Status.mqttChecking = 0;
-    cell_locationFlag = true;
+    //cell_locationFlag = true;
 }
 
 void send_Status_BandAlert(cat_m1_Status_BandAlert_t* alertData)
@@ -1232,7 +1237,7 @@ void nrf9160_Get_gps()
         case GPS_COMPLETE:
             HAL_UART_Receive_IT(&huart1, &uart_cat_m1_rx.temp, 1);
             cat_m1_Status.Checked = 2;
-            gpsFlag = false;
+            //gpsFlag = false;
             gpsState = GPS_INIT;
             break;
     }
