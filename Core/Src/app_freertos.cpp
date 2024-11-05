@@ -850,11 +850,14 @@ void StartSecTimerTask(void *argument)
 			cat_m1_rssi_cycleFlag = true;
 			cat_m1_rssi_cycleTime = 0;
 		}
-
+#if !defined(nRF9160_KT)
 		if(cat_m1_Status.gpsChecking == 0)
 		{
 			mqttTime++;
 		}
+#else
+			mqttTime++;
+#endif
 //		PRINT_INFO("mqttTime >>> %d\r\n",mqttTime);
 		if(mqttTime > mqtt_operation_cycle)
 		{
