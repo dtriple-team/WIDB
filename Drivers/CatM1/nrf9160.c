@@ -464,7 +464,13 @@ void handle_xuuid_command(const char *value)
 void handle_mqtt_event_command(const char *value)
 {
     if (strstr(value, "1,-") != NULL) {
-    	catM1Reset();
+    	//catM1Reset();
+    	wpmInitializationFlag = 1;
+    	cat_m1_Status.Checked = 1;
+    	currentMqttState = MQTT_CONNECT;
+    	gps_operation_cycle = (60*4);
+    	gpsRSSI_0_1 = 0;
+    	cat_m1_Status.gpsOff = 1;
     }
     else if (strstr(value, "7,0") != NULL)
     {
@@ -1227,9 +1233,8 @@ void nrf9160_Get_gps()
 
 void nrf9160_Stop_gps()
 {
-
-#if !defined(nRF9160_KT)
 	send_at_command("AT#XGPS=0\r\n");
+#if !defined(nRF9160_KT)
 	send_at_command("AT+CFUN=0\r\n");
 	currentWpmState = WPM_INIT_CHECK;
 	currentCheckState = SYSTEM_MODE_CHECK;
