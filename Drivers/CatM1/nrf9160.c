@@ -386,31 +386,37 @@ void handle_gps_command(const char *value)
 	int gpsDataLength = strlen(value);
     if (strstr(value, "1,1") != NULL)
     {
+    	gpsRSSI_0_1 = 0;
         cat_m1_Status.gpsOn = 1;
     }
-    if (strstr(value, "1,4") != NULL) {
+
+    else if (strstr(value, "1,4") != NULL) {
     	gpsRSSI_0_1 = 1;
         cat_m1_Status.gpsOff = 1;
         gps_operation_cycle = (60*1)+30;
-    } else {
-    	if (gpsDataLength > 10) {
-    	    char tempBuffer[sizeof(cat_m1_at_cmd_rst.gps)];
-    	    int j = 0;
-
-    	    for (int i = 0; value[i] != '\0' && j < sizeof(tempBuffer) - 1; i++) {
-    	        if (value[i] != '"') {
-    	            tempBuffer[j++] = value[i];
-    	        }
-    	    }
-    	    tempBuffer[j] = '\0';
-
-    	    strncpy((char *)cat_m1_at_cmd_rst.gps, tempBuffer, sizeof(cat_m1_at_cmd_rst.gps) - 1);
-    	    cat_m1_at_cmd_rst.gps[sizeof(cat_m1_at_cmd_rst.gps) - 1] = '\0';
-    	}
     }
-    if (strstr(value, "1,3") != NULL || strstr(value, "0,0") != NULL)
+
+    else if (strstr(value, "1,3") != NULL || strstr(value, "0,0") != NULL)
     {
+    	gpsRSSI_0_1 = 0;
     	cat_m1_Status.gpsOff = 1;
+    }
+
+    else { // strstr(value, "1,4") => after MSG: GPS DATA
+       	if (gpsDataLength > 10) {
+       	    char tempBuffer[sizeof(cat_m1_at_cmd_rst.gps)];
+       	    int j = 0;
+
+       	    for (int i = 0; value[i] != '\0' && j < sizeof(tempBuffer) - 1; i++) {
+       	        if (value[i] != '"') {
+       	            tempBuffer[j++] = value[i];
+       	        }
+       	    }
+       	    tempBuffer[j] = '\0';
+
+       	    strncpy((char *)cat_m1_at_cmd_rst.gps, tempBuffer, sizeof(cat_m1_at_cmd_rst.gps) - 1);
+       	    cat_m1_at_cmd_rst.gps[sizeof(cat_m1_at_cmd_rst.gps) - 1] = '\0';
+       	}
     }
 }
 
