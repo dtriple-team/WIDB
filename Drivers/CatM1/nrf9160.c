@@ -386,18 +386,21 @@ void handle_gps_command(const char *value)
 	int gpsDataLength = strlen(value);
     if (strstr(value, "1,1") != NULL)
     {
-    	gpsRSSI_0_1 = 0;
+    	//gpsRSSI_0_1 = 0;
+    	gpsRSSI_0_1 = 1;
         cat_m1_Status.gpsOn = 1;
     }
 
     else if (strstr(value, "1,4") != NULL) {
-    	gpsRSSI_0_1 = 1;
+    	//gpsRSSI_0_1 = 1;
+    	gpsRSSI_0_1 = 0;
         cat_m1_Status.gpsOff = 1;
-        gps_operation_cycle = (60*1)+30;
+        gps_operation_cycle = (60*1);
     }
 
     else if (strstr(value, "1,3") != NULL || strstr(value, "0,0") != NULL)
     {
+    	gps_operation_cycle = (60*4);
     	gpsRSSI_0_1 = 0;
     	cat_m1_Status.gpsOff = 1;
     }

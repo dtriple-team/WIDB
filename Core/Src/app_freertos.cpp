@@ -1092,6 +1092,10 @@ void StartCheckINTTask(void *argument)
 
     // PMIC interrupt occur => emergency signal send to Web (CATM1)
     if(occurred_PMICBUTTInterrupt){
+    	if (cat_m1_Status.gpsChecking)
+    	{
+    	nrf9160_Stop_gps();
+    	}
     	// change screen
     	mySOSAlertViewBase.changeToSOSDetected();
     	// haptic
@@ -1101,6 +1105,7 @@ void StartCheckINTTask(void *argument)
 		cat_m1_Status_BandAlert.type = 6;
 		cat_m1_Status_BandAlert.value = 1;
 		send_Status_BandAlert(&cat_m1_Status_BandAlert);
+		catM1MqttDangerMessage = 1;
 
     	occurred_PMICBUTTInterrupt = 0;
     }
