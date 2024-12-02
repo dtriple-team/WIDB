@@ -497,6 +497,12 @@ void StartWPMTask(void *argument)
 		// CatM1 init
 		nrf9160_ready();
 	}
+
+	if(wpmInitializationFlag && cat_m1_Status.Checked == 0)
+	{
+		nrf9160_Get_gps();
+	}
+/*
 	if(wpmInitializationFlag && cat_m1_Status.Checked == 0)
 	{
 #if defined(nRF9160_nRFCLOUD_Init)
@@ -507,6 +513,7 @@ void StartWPMTask(void *argument)
 #endif
 		nrf9160_check();
 	}
+
 	if(wpmInitializationFlag && cat_m1_Status.Checked == 1)
 	{
 		nrf9160_mqtt_setting();
@@ -594,6 +601,7 @@ void StartWPMTask(void *argument)
 		    cell_locationFlag = false;
 		}
 #endif
+
 		if(gpsFlag && cat_m1_Status.mqttChecking == 0)
 		{
 			//catM1MqttDangerMessage = 1;
@@ -602,6 +610,7 @@ void StartWPMTask(void *argument)
 			//nrf9160_Get_gps_State();
 			//gpsFlag = false;
 		}
+
 		if(cat_m1_Status.gpsChecking)
 		{
 			//nrf9160_Get_gps_State();
@@ -619,16 +628,18 @@ void StartWPMTask(void *argument)
 		}
 
 	}
+*/
 	//	if(wpmFlag ==1)
 	//	{
 
 	//		wpmFlag = 0;
 	//	}
 	//osDelay(10000);
+
 	if(initFlag){
 
 	}
-	BandAlert();
+//	BandAlert();
 	osDelay(10);
   }
   /* USER CODE END wpmTask */
@@ -721,90 +732,90 @@ void StartSPMTask(void *argument)
   {
     osDelay(100);
 	// read sensor
-	double magnetX, magnetY, magnetZ, iisTemp;
-	read_iis2mdc(&magnetX, &magnetY, &magnetZ, &iisTemp);
-
-	uint16_t gyroSensi = 125;
-	uint8_t accSensi = 2;
-	double ismTemp, gyroX, gyroY, gyroZ, accX, accY, accZ;
-	read_ism330dhcx(gyroSensi, accSensi, &ismTemp, &gyroX, &gyroY, &gyroZ, &accX, &accY, &accZ);
-
-	double pressure, lpsTemp;
-	read_lps22hh(&pressure, &lpsTemp);
-//		for(int i=0; i<PRESSURE_VAL_LEN-1; i++){
-//			pre_pressure[i] = pre_pressure[i+1];
-//		}
-//		pre_pressure[PRESSURE_VAL_LEN-1] = pressure;
-
-
-	test_mag_data[0] = magnetX/10; 	// mgauss -> uT
-	test_mag_data[1] = magnetY/10; 	// mgauss -> uT
-	test_mag_data[2] = magnetZ/10; 	// mgauss -> uT
-	test_mag_data[3] = iisTemp;		// degC
-
-	test_mag_data[4] = 0;
-
-	test_mag_data[5] = ismTemp;		// degC
-	test_mag_data[6] = gyroX/1000; 	// mdeg/s -> deg/s
-	test_mag_data[7] = gyroY/1000; 	// mdeg/s -> deg/s
-	test_mag_data[8] = gyroZ/1000; 	// mdeg/s -> deg/s
-	test_mag_data[9] = accX/1000;  	// mg -> g
-	test_mag_data[10] = accY/1000; 	// mg -> g
-	test_mag_data[11] = accZ/1000; 	// mg -> g
-
-	test_mag_data[12] = 0;
-
-	test_mag_data[13] = pressure; 	// hPa
-	test_mag_data[14] = lpsTemp;  	// degC
-
-	imuTemp = ismTemp;
-	press = pressure;
-
-#if !defined(fall_algo_test)
-	AccelData accel_data;
-	accel_data.x = accX;
-	accel_data.y = accY;
-	accel_data.z = accZ;
-	uint8_t highG_Detect = 0;
-	highG_Detect = detect_fall(&accel_data, ACC_threshold);
-#else
-	IMUData imu_data;
-	imu_data.ax = accX;
-	imu_data.ay = accY;
-	imu_data.az = accZ;
-	imu_data.gx = gyroX;
-	imu_data.gy = gyroY;
-	imu_data.gz = gyroZ;
-	uint8_t highG_Detect = detect_fall(&imu_data, ACC_threshold, GYRO_threshold);
-#endif
+//	double magnetX, magnetY, magnetZ, iisTemp;
+//	read_iis2mdc(&magnetX, &magnetY, &magnetZ, &iisTemp);
+//
+//	uint16_t gyroSensi = 125;
+//	uint8_t accSensi = 2;
+//	double ismTemp, gyroX, gyroY, gyroZ, accX, accY, accZ;
+//	read_ism330dhcx(gyroSensi, accSensi, &ismTemp, &gyroX, &gyroY, &gyroZ, &accX, &accY, &accZ);
+//
+//	double pressure, lpsTemp;
+//	read_lps22hh(&pressure, &lpsTemp);
+////		for(int i=0; i<PRESSURE_VAL_LEN-1; i++){
+////			pre_pressure[i] = pre_pressure[i+1];
+////		}
+////		pre_pressure[PRESSURE_VAL_LEN-1] = pressure;
+//
+//
+//	test_mag_data[0] = magnetX/10; 	// mgauss -> uT
+//	test_mag_data[1] = magnetY/10; 	// mgauss -> uT
+//	test_mag_data[2] = magnetZ/10; 	// mgauss -> uT
+//	test_mag_data[3] = iisTemp;		// degC
+//
+//	test_mag_data[4] = 0;
+//
+//	test_mag_data[5] = ismTemp;		// degC
+//	test_mag_data[6] = gyroX/1000; 	// mdeg/s -> deg/s
+//	test_mag_data[7] = gyroY/1000; 	// mdeg/s -> deg/s
+//	test_mag_data[8] = gyroZ/1000; 	// mdeg/s -> deg/s
+//	test_mag_data[9] = accX/1000;  	// mg -> g
+//	test_mag_data[10] = accY/1000; 	// mg -> g
+//	test_mag_data[11] = accZ/1000; 	// mg -> g
+//
+//	test_mag_data[12] = 0;
+//
+//	test_mag_data[13] = pressure; 	// hPa
+//	test_mag_data[14] = lpsTemp;  	// degC
+//
+//	imuTemp = ismTemp;
+//	press = pressure;
+//
+//#if !defined(fall_algo_test)
+//	AccelData accel_data;
+//	accel_data.x = accX;
+//	accel_data.y = accY;
+//	accel_data.z = accZ;
+//	uint8_t highG_Detect = 0;
+//	highG_Detect = detect_fall(&accel_data, ACC_threshold);
+//#else
+//	IMUData imu_data;
+//	imu_data.ax = accX;
+//	imu_data.ay = accY;
+//	imu_data.az = accZ;
+//	imu_data.gx = gyroX;
+//	imu_data.gy = gyroY;
+//	imu_data.gz = gyroZ;
+//	uint8_t highG_Detect = detect_fall(&imu_data, ACC_threshold, GYRO_threshold);
+//#endif
 
 //	if(ssRunFlag == 1)
 //	{
 //	  read_ppg();
 //	}
-	bmpAlt = getAltitude(pressure);
-	//PRINT_INFO("bmpAlt >>> %f\r\n",bmpAlt);
+//	bmpAlt = getAltitude(pressure);
+//	//PRINT_INFO("bmpAlt >>> %f\r\n",bmpAlt);
+//
+//	if (bmpAlt < 0)
+//	{
+//	    bmpAlt = -bmpAlt;
+//	}
 
-	if (bmpAlt < 0)
-	{
-	    bmpAlt = -bmpAlt;
-	}
-
-	if(pressCheckFlag && pressCheckStartFlag)// && ssSCD == 3)
-	{
-		updateHeightData();
-		pressCheckFlag = 0;
-	}
+//	if(pressCheckFlag && pressCheckStartFlag)// && ssSCD == 3)
+//	{
+//		updateHeightData();
+//		pressCheckFlag = 0;
+//	}
 //	if(freeFall_int_on && ssSCD == 3)
 //	{
 //		checkFallDetection();
 //		freeFall_int_on = false;
 //	}
-	if(highG_Detect == 1)// && ssSCD == 3)
-	{
-		checkFallDetection();
-//		freeFall_int_on = false;
-	}
+//	if(highG_Detect == 1)// && ssSCD == 3)
+//	{
+//		checkFallDetection();
+////		freeFall_int_on = false;
+//	}
   }
   /* USER CODE END spmTask */
 }
@@ -928,6 +939,7 @@ void StartSecTimerTask(void *argument)
 			UartRxRetryTime = 0;
 			cat_m1_Status.txflag = 0;
 		}
+/*
 #if !defined(nRF9160_no_auto_gps)
 		if(gpsFlag == 0)
 		{
@@ -952,6 +964,7 @@ void StartSecTimerTask(void *argument)
 			nrf9160_Stop_gps();
 #endif
 		}
+*/
 //		if(cell_locationFlag == 0)
 //		{
 //			cell_locationTime++;
@@ -1138,7 +1151,7 @@ void StartCheckINTTask(void *argument)
 	    	brightness_count = 0;
 		}
     }
-
+/*
     // PMIC interrupt occur => emergency signal send to Web (CATM1)
     if(occurred_PMICBUTTInterrupt){
     	if (cat_m1_Status.gpsChecking)
@@ -1161,6 +1174,7 @@ void StartCheckINTTask(void *argument)
 
     	occurred_PMICBUTTInterrupt = 0;
     }
+*/
   }
   /* USER CODE END checkINTTask */
 }
