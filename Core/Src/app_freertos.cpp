@@ -1560,11 +1560,13 @@ void measPPG(){
 		if(spo2Count == 60){ // < spo2MeaserPeriode_sec = 60*5
 			ssWalk_SUM = ssWalk; // total walk count 누적 필요
 			ssBegin(0x05);
+			ssRead_setting();
 			spo2Count = 0;
 		}
 		if(hrCount == 30){ // < hrMeaserPeriode_sec = 60 * 1
 			ssWalk_SUM = ssWalk; // total walk count 누적 필요
 			ssBegin(0x05);
+			ssRead_setting();
 			hrCount = 0;
 		}
 		ssRunFlag = 1;
