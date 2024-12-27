@@ -1202,6 +1202,9 @@ uint8_t checkReadStatus = 0;
 int scdStateSamples[SDC_COUNT] = {0};
 int scdSampleIndex = 0;
 
+uint8_t spo2Flag = 0;
+uint8_t hrFlag = 0;
+
 void read_ppg()
 {
     uint8_t data[76+1] = {0,};
@@ -1226,43 +1229,45 @@ void read_ppg()
 
     memcpy(&lcd_ssDataEx, ssDataEx, sizeof(ssDataEx_format));
 
-    scdStateSamples[scdSampleIndex] = lcd_ssDataEx.algo.SCDstate;
-    scdSampleIndex = (scdSampleIndex + 1) % SDC_COUNT;
+    if(spo2Flag == 1 || hrFlag == 1){
+		scdStateSamples[scdSampleIndex] = lcd_ssDataEx.algo.SCDstate;
+		scdSampleIndex = (scdSampleIndex + 1) % SDC_COUNT;
 
-    int count1 = 0, count2 = 0, count3 = 0;
-    for (int i = 0; i < SDC_COUNT; i++)
-    {
-        if (scdStateSamples[i] == 1) count1++;
-        else if (scdStateSamples[i] == 2) count2++;
-        else if (scdStateSamples[i] == 3) count3++;
-    }
+		int count1 = 0, count2 = 0, count3 = 0;
+		for (int i = 0; i < SDC_COUNT; i++)
+		{
+			if (scdStateSamples[i] == 1) count1++;
+			else if (scdStateSamples[i] == 2) count2++;
+			else if (scdStateSamples[i] == 3) count3++;
+		}
 
-    int scdStateAvg;
-    if (count3 >= count1 && count3 >= count2) scdStateAvg = 3;
-    else if (count2 >= count1 && count2 >= count3) scdStateAvg = 2;
-    else scdStateAvg = 1;
+		int scdStateAvg;
+		if (count3 >= count1 && count3 >= count2) scdStateAvg = 3;
+		else if (count2 >= count1 && count2 >= count3) scdStateAvg = 2;
+		else scdStateAvg = 1;
 
-    if (scdStateAvg == 3)
-    {
-        ssSCD = 3;
-        ssHr = lcd_ssDataEx.algo.hr / 10;
+		if (scdStateAvg == 3)
+		{
+			ssSCD = 3;
+			ssHr = lcd_ssDataEx.algo.hr / 10;
 
-        if (lcd_ssDataEx.algo.spo2 != 0)
-        {
-            ssSpo2 = lcd_ssDataEx.algo.spo2 / 10;
-        }
-    }
-    else if (scdStateAvg == 2)
-    {
-        ssSCD = 2;
-        ssHr = 0;
-        ssSpo2 = 0;
-    }
-    else
-    {
-        ssSCD = 1;
-        ssHr = 0;
-        ssSpo2 = 0;
+			if (lcd_ssDataEx.algo.spo2 != 0)
+			{
+				ssSpo2 = lcd_ssDataEx.algo.spo2 / 10;
+			}
+		}
+		else if (scdStateAvg == 2)
+		{
+			ssSCD = 2;
+			ssHr = 0;
+			ssSpo2 = 0;
+		}
+		else
+		{
+			ssSCD = 1;
+			ssHr = 0;
+			ssSpo2 = 0;
+		}
     }
 
     ssWalk = lcd_ssDataEx.algo.totalWalkSteps + ssWalk_SUM;
@@ -1520,8 +1525,6 @@ void mfioGPIOModeChange(GPIOMode mode){
 //	ssInit();
 //	ssBegin();
 //	ssRead_setting();
-uint8_t spo2Flag = 0;
-uint8_t hrFlag = 0;
 uint8_t spo2Count = 0;
 uint8_t hrCount = 0;
 void measPPG(){
@@ -1560,18 +1563,28 @@ void measPPG(){
 		if(spo2Count == 60){ // < spo2MeaserPeriode_sec = 60*5
 			ssWalk_SUM = ssWalk; // total walk count ?��?�� ?��?��
 			ssBegin(0x05);
+			ssRead_setting();
 			spo2Count = 0;
+			spo2Flag = 0;
 		}
 		if(hrCount == 30){ // < hrMeaserPeriode_sec = 60 * 1
 			ssWalk_SUM = ssWalk; // total walk count ?��?�� ?��?��
 			ssBegin(0x05);
+			ssRead_setting();
 			hrCount = 0;
+			hrFlag = 0;
 		}
 		ssRunFlag = 1;
 //	}
 
 	if(ppgMeasFlag == 1){
 		ppgMeaserCount++;
+	} else {
+		ssWalk_SUM = ssWalk; // total walk count 누적 필요
+		ssBegin(0x05);
+		ssRead_setting();
+		hrCount = 0;
+		spo2Count = 0;
 	}
 	return;
 }

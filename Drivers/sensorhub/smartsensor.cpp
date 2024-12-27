@@ -300,12 +300,12 @@ int ssRead(uint8_t* rxdata, uint8_t len){
 void rxDataSplit(uint8_t* rxdata, struct ssDataEx_format* pRxdataStruct){
 	pRxdataStruct->readStatus = rxdata[0];
 
-	pRxdataStruct->ppg.ppg1 = rxdata[0+1] << 8  | rxdata[1+1] << 8  | rxdata[2+1] << 8;
-	pRxdataStruct->ppg.ppg2 = rxdata[3+1] << 8  | rxdata[4+1] << 8  | rxdata[5+1] << 8;
-	pRxdataStruct->ppg.ppg3 = rxdata[6+1] << 8  | rxdata[7+1] << 8  | rxdata[8+1] << 8;
-	pRxdataStruct->ppg.ppg4 = rxdata[9+1] << 8  | rxdata[10+1] << 8 | rxdata[11+1] << 8;
-	pRxdataStruct->ppg.ppg5 = rxdata[12+1] << 8 | rxdata[13+1] << 8 | rxdata[14+1] << 8;
-	pRxdataStruct->ppg.ppg6 = rxdata[15+1] << 8 | rxdata[16+1] << 8 | rxdata[17+1] << 8;
+	pRxdataStruct->ppg.ppg1 = rxdata[0+1] << 16  | rxdata[1+1] << 8  | rxdata[2+1] << 0;
+	pRxdataStruct->ppg.ppg2 = rxdata[3+1] << 16  | rxdata[4+1] << 8  | rxdata[5+1] << 0;
+	pRxdataStruct->ppg.ppg3 = rxdata[6+1] << 16  | rxdata[7+1] << 8  | rxdata[8+1] << 0;
+	pRxdataStruct->ppg.ppg4 = rxdata[9+1] << 16  | rxdata[10+1] << 8 | rxdata[11+1] << 0;
+	pRxdataStruct->ppg.ppg5 = rxdata[12+1] << 16 | rxdata[13+1] << 8 | rxdata[14+1] << 0;
+	pRxdataStruct->ppg.ppg6 = rxdata[15+1] << 16 | rxdata[16+1] << 8 | rxdata[17+1] << 0;
 
 	pRxdataStruct->acc.accX = rxdata[18+1] << 8 | rxdata[19+1] << 0;
 	pRxdataStruct->acc.accY = rxdata[20+1] << 8 | rxdata[21+1] << 0;
@@ -317,6 +317,7 @@ void rxDataSplit(uint8_t* rxdata, struct ssDataEx_format* pRxdataStruct){
 
 	pRxdataStruct->algo.spo2  = rxdata[68+1] << 8 | rxdata[69+1] << 0;
 
+	pRxdataStruct->algo.activity  = rxdata[31+1];
 	pRxdataStruct->algo.totalWalkSteps  = rxdata[32+1] << 24 | rxdata[33+1] << 16 | rxdata[34+1] << 8 | rxdata[35+1] << 0;
 
 	return;
