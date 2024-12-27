@@ -33,7 +33,6 @@
 /* USER CODE END 1 */
 
 /** Configure pins
-     PC14-OSC32_IN (PC14)   ------> RCC_OSC32_IN
      PD3   ------> MDF1_SDI0
      PC15-OSC32_OUT (PC15)   ------> RCC_OSC32_OUT
      PC2   ------> MDF1_CCK1
@@ -180,25 +179,6 @@ void MX_GPIO_Init(void)
   GPIO_InitStruct.Mode = GPIO_MODE_INPUT;
   GPIO_InitStruct.Pull = GPIO_PULLUP;
   HAL_GPIO_Init(GPIOB, &GPIO_InitStruct);
-
-  /* EXTI interrupt init*/
-  HAL_NVIC_SetPriority(EXTI5_IRQn, 5, 0);
-  HAL_NVIC_EnableIRQ(EXTI5_IRQn);
-
-  HAL_NVIC_SetPriority(EXTI8_IRQn, 5, 0);
-  HAL_NVIC_EnableIRQ(EXTI8_IRQn);
-
-  HAL_NVIC_SetPriority(EXTI9_IRQn, 5, 0);
-  HAL_NVIC_EnableIRQ(EXTI9_IRQn);
-
-  HAL_NVIC_SetPriority(EXTI12_IRQn, 5, 0);
-  HAL_NVIC_EnableIRQ(EXTI12_IRQn);
-
-  HAL_NVIC_SetPriority(EXTI13_IRQn, 5, 0);
-  HAL_NVIC_EnableIRQ(EXTI13_IRQn);
-
-  HAL_NVIC_SetPriority(EXTI15_IRQn, 5, 0);
-  HAL_NVIC_EnableIRQ(EXTI15_IRQn);
 
 }
 
