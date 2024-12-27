@@ -54,7 +54,7 @@ bool STM32TouchController::sampleTouch(int32_t& x, int32_t& y)
      *
      */
 
-	if(!occurred_touchInterrupt) return false; // ν™€μ μΈν„°λ½νΈ μ λ™μ‘,.. μ§μλ” μ΄μƒν•¨
+	if(!occurred_touchInterrupt) return false; // ??? ?Έ?„°?½?Έ ? ?™?‘,.. μ§μ?” ?΄?ƒ?•¨
 
 	touchDetectFlag = touchDetect(touchData);
 	if(!touchDetectFlag){

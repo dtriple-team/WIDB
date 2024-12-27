@@ -146,7 +146,7 @@ float deltaAlt = 0;
 uint16_t curr_height = 0;
 int height_num = 0;
 
-float falling_threshold = 1.0; // 낙상 판별 기준 높이 차이
+float falling_threshold = 1.0; // ?��?�� ?���? 기�? ?��?�� 차이
 
 uint8_t ssSCD = 0;
 uint16_t ssHr = 0;
@@ -316,8 +316,8 @@ void MX_FREERTOS_Init(void) {
   /* creation of lcdTask */
   lcdTaskHandle = osThreadNew(StartlcdTask, NULL, &lcdTask_attributes);
 
-//  /* creation of ppmTask */
-//  ppmTaskHandle = osThreadNew(StartPPMTask, NULL, &ppmTask_attributes);
+  /* creation of ppmTask */
+  ppmTaskHandle = osThreadNew(StartPPMTask, NULL, &ppmTask_attributes);
 
   /* creation of wpmTask */
   wpmTaskHandle = osThreadNew(StartWPMTask, NULL, &wpmTask_attributes);
@@ -413,7 +413,7 @@ void StartlcdTask(void *argument)
 		osDelay(10);
 	}
 	runHaptic(20, 500, 1); // turn on device haptic
-//	HAL_Delay(5000); // 외부 전원 + 디버거 연결 시간
+//	HAL_Delay(5000); // ?���? ?��?�� + ?��버거 ?���? ?���?
 	ST7789_gpio_setting();
 	ST7789_Init();
 	ST7789_brightness_setting(set_bLevel);
@@ -480,7 +480,7 @@ void StartWPMTask(void *argument)
 //	// WiFi-BLE init
 //	nora_w10_init();
 //	cat_m1_Status_FallDetection_t cat_m1_Status_FallDetection = {
-//	    .bid = deviceID, // Band의 bid 값을 사용
+//	    .bid = deviceID, // Band?�� bid 값을 ?��?��
 //	    .type = 0,
 //	    .fall_detect = 1
 //	};
@@ -655,7 +655,7 @@ double magnitude = 0;
 
 
 #if !defined(fall_algo_test)
-// 가속도 데이터 구조체
+// �??��?�� ?��?��?�� 구조�?
 typedef struct {
     double x;
     double y;
@@ -670,9 +670,9 @@ uint8_t detect_fall(AccelData* accel_data, double threshold) {
 #endif
 
 	if (magnitude_local > threshold) {
-		return 1; // 낙상으로 감지
+		return 1; // ?��?��?���? 감�?
 	}
-	else return 0; // 낙상 아님
+	else return 0; // ?��?�� ?��?��
 }
 #else
 typedef struct {
@@ -691,9 +691,9 @@ uint8_t detect_fall(IMUData* imu_data, double accel_threshold, double gyro_thres
 #endif
 
 	if (accel_magnitude_local > accel_threshold && gyro_magnitude_local > gyro_threshold) {
-		return 1; // 낙상으로 감지
+		return 1; // ?��?��?���? 감�?
 	}
-	else return 0; // 낙상 아님
+	else return 0; // ?��?�� ?��?��
 }
 #endif
 
@@ -849,8 +849,8 @@ void StartSecTimerTask(void *argument)
 		ST7789_brightness_setting(now_bLevel);
 	}
 
-	// screenOnTime == brightness_count�?????? ?���?????? ?���?????? 꺼라
-	// brightness_count == 0?���?????? 바�?�면 백라?��?���?????? 켜라
+	// screenOnTime == brightness_count�??????? ?���??????? ?���??????? 꺼라
+	// brightness_count == 0?���??????? 바�?�면 백라?��?���??????? 켜라
 //	if(pre_secTime != secTime && secTime%1 == 0){ // 1sec
 //		// turn off LCD backlight
 //		if(brightness_count == 0 && pre_brightness_count >= screenOnTime){
@@ -1004,9 +1004,9 @@ uint8_t interrupt_kind = 0;
 unsigned char batterylevel;
 double calculateAltitudeDifference(double P1, double P2) {
     const double R = 8.314;       // 기체 ?��?�� (J/(mol·K))
-    const double T = 273.15+25;   // ?���???? ?��?�� (K) - ?���???? ??�???? 조건 15°C
-    const double g = 9.80665;     // 중력 �?????��?�� (m/s²)
-    const double M = 0.02896;     // 공기?�� �???? 질량 (kg/mol)
+    const double T = 273.15+25;   // ?���????? ?��?�� (K) - ?���????? ??�????? 조건 15°C
+    const double g = 9.80665;     // 중력 �??????��?�� (m/s²)
+    const double M = 0.02896;     // 공기?�� �????? 질량 (kg/mol)
 
     double altitudeDifference = (R * T) / (g * M) * log(P1 / P2);
 
@@ -1272,16 +1272,16 @@ void read_ppg()
 }
 
 double getAltitude(double pressure_hPa) {
-    // hPa를 Pa로 변환
+    // hPa�? Pa�? �??��
     double pressure_Pa = pressure_hPa * 100.0; // 1 hPa = 100 Pa
 
-    // 해수면에서의 기준 압력 (Pa)
-    const double P0 = 1013.25 * 100.0; // 일반적인 해수면 압력 값 (hPa에서 Pa로 변환)
+    // ?��?��면에?��?�� 기�? ?��?�� (Pa)
+    const double P0 = 1013.25 * 100.0; // ?��반적?�� ?��?���? ?��?�� �? (hPa?��?�� Pa�? �??��)
 
-    // 대기 압력 공식에 따라 고도 계산
-    double p = pressure_Pa / P0; // 상대 압력
-    double b = 1.0 / 5.255; // 지수
-    double alt = 44330.0 * (1.0 - pow(p, b)); // 고도 (미터 단위)
+    // ??�? ?��?�� 공식?�� ?��?�� 고도 계산
+    double p = pressure_Pa / P0; // ?��?? ?��?��
+    double b = 1.0 / 5.255; // �??��
+    double alt = 44330.0 * (1.0 - pow(p, b)); // 고도 (미터 ?��?��)
 
     return alt;
 }
@@ -1531,7 +1531,7 @@ void measPPG(){
 		// start ppg
 		if(ppgMeaserCount % spo2MeaserPeriode_sec == 0){
 //			mfioGPIOModeChange(output);
-			ssWalk_SUM = ssWalk; // total walk count 누적 필요
+			ssWalk_SUM = ssWalk; // total walk count ?��?�� ?��?��
 			ssBegin(0x00);
 			ssRead_setting();
 			spo2Flag = 1;
@@ -1539,7 +1539,7 @@ void measPPG(){
 		}
 		else if(ppgMeaserCount % hrMeaserPeriode_sec == 0){
 //			mfioGPIOModeChange(output);
-			ssWalk_SUM = ssWalk; // total walk count 누적 필요
+			ssWalk_SUM = ssWalk; // total walk count ?��?�� ?��?��
 			ssBegin(0x02);
 			ssRead_setting();
 			hrFlag = 1;
@@ -1558,12 +1558,12 @@ void measPPG(){
 		}
 
 		if(spo2Count == 60){ // < spo2MeaserPeriode_sec = 60*5
-			ssWalk_SUM = ssWalk; // total walk count 누적 필요
+			ssWalk_SUM = ssWalk; // total walk count ?��?�� ?��?��
 			ssBegin(0x05);
 			spo2Count = 0;
 		}
 		if(hrCount == 30){ // < hrMeaserPeriode_sec = 60 * 1
-			ssWalk_SUM = ssWalk; // total walk count 누적 필요
+			ssWalk_SUM = ssWalk; // total walk count ?��?�� ?��?��
 			ssBegin(0x05);
 			hrCount = 0;
 		}

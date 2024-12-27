@@ -33,6 +33,7 @@
 /* USER CODE END 1 */
 
 /** Configure pins
+     PC14-OSC32_IN (PC14)   ------> RCC_OSC32_IN
      PD3   ------> MDF1_SDI0
      PC15-OSC32_OUT (PC15)   ------> RCC_OSC32_OUT
      PC2   ------> MDF1_CCK1
