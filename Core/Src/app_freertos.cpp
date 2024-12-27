@@ -1223,6 +1223,7 @@ void read_ppg()
     }
 
     if(ssDataEx->algo.SCDstate == 0){
+    	ssWalk = ssDataEx->algo.totalWalkSteps + ssWalk_SUM;
         free(ssDataEx);
         return;
     }
