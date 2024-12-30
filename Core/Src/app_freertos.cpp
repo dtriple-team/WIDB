@@ -576,6 +576,54 @@ void StartWPMTask(void *argument)
 					.battery_level = battVal
 				};
 				send_Status_Band(&cat_m1_Status_Band);
+
+				// **RTC time update (correction)**
+				// Retrieve time information from CatM1
+				// Compare the RTC time with the CatM1 time
+				// If the difference is within 1 minute:
+				//     Update the RTC value using the CatM1 time
+				// Otherwise:
+				//     Retain the current RTC value
+				nrf9160_Get_time();
+				osDelay(500);
+				extern RTC_HandleTypeDef hrtc;
+				extern catM1Time nowTimeinfo;
+				extern RTC_TimeTypeDef sTime;
+				extern RTC_DateTypeDef sDate;
+
+				HAL_RTC_GetDate(&hrtc, &sDate, RTC_FORMAT_BIN);
+				HAL_RTC_GetTime(&hrtc, &sTime, RTC_FORMAT_BIN);
+				catM1Time nowNetTimeinfo = getCatM1Time();
+				catM1Time nowRTCTimeinfo = {sDate.Year, sDate.Month, sDate.Date, sTime.Hours, sTime.Minutes, sTime.Seconds};
+
+				if(isDifferenceWithinOneMinute(nowNetTimeinfo, nowRTCTimeinfo)){
+					nowTimeinfo = nowNetTimeinfo;
+
+					// To prevent the appearance of time decreasing when updating RTC time with GNSS time,
+					// caused by RTC time flowing faster than GNSS time.
+					// RTC 시간이 GNSS 시간보다 빠르게 흐르면서, RTC 시간을 GNSS 시간으로 업데이트할 때 시간이 감소하는 것처럼 보이는 현상을 방지하기 위해.
+					if(sTime.Minutes > (uint8_t)nowTimeinfo.min){
+						sDate.Year = (uint8_t)nowTimeinfo.year;
+						sDate.Month = (uint8_t)nowTimeinfo.month;
+						sDate.Date = (uint8_t)nowTimeinfo.day;
+						sTime.Hours = (uint8_t)nowTimeinfo.hour;
+						sTime.Minutes = sTime.Minutes;
+						sTime.Seconds = 0;
+					}
+					else {
+						sDate.Year = (uint8_t)nowTimeinfo.year;
+						sDate.Month = (uint8_t)nowTimeinfo.month;
+						sDate.Date = (uint8_t)nowTimeinfo.day;
+						sTime.Hours = (uint8_t)nowTimeinfo.hour;
+						sTime.Minutes = (uint8_t)nowTimeinfo.min;
+						sTime.Seconds = (uint8_t)nowTimeinfo.sec;
+					}
+
+					HAL_RTC_SetTime(&hrtc, &sTime, RTC_FORMAT_BIN);
+					HAL_RTC_SetDate(&hrtc, &sDate, RTC_FORMAT_BIN);
+				} else {
+					nowTimeinfo = nowRTCTimeinfo;
+				}
 			}
 			mqttFlag = false;
 			catM1MqttDangerMessage = 0;

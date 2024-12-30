@@ -1401,6 +1401,30 @@ void utc_to_kst(catM1Time *time) {
     }
 }
 
+// Function to convert catM1Time to time_t
+// Assumes the input is valid and within a valid range
+time_t convertToTimeT(catM1Time dt) {
+    struct tm t = {0};
+    t.tm_year = dt.year - 1900; // tm_year is years since 1900
+    t.tm_mon = dt.month - 1;   // tm_mon is 0-based (0 = January)
+    t.tm_mday = dt.day;
+    t.tm_hour = dt.hour;
+    t.tm_min = dt.min;
+    t.tm_sec = dt.sec;
+    return mktime(&t);
+}
+
+// Function to determine if the difference between two catM1Time inputs is 1 minute or less
+bool isDifferenceWithinOneMinute(catM1Time dt1, catM1Time dt2) {
+    time_t time1 = convertToTimeT(dt1);
+    time_t time2 = convertToTimeT(dt2);
+
+    // Get the absolute difference in seconds
+    double difference = difftime(time1, time2);
+
+    return difference <= 60 && difference >= -60; // Check if difference is within 1 minute
+}
+
 catM1Time getCatM1Time(void){
 	catM1Time nowTime;
 
