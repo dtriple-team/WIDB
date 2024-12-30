@@ -105,6 +105,11 @@ bool cell_locationFlag = true;
 uint8_t fallCheckTime = 0;
 uint8_t fallCheckFlag = 0;
 
+#define SOS_Check_cycle 60 // SOS event occure => after N sec => MQTT // 60
+uint8_t SOSCheckTime = 0;
+uint8_t SOSCheckFlag = 0;
+uint8_t sendSOSFlag = 0;
+
 uint8_t pressCheckTime = 0;
 uint8_t pressCheckFlag = 0;
 
@@ -217,7 +222,7 @@ const osThreadAttr_t spmTask_attributes = {
 osThreadId_t secTimerTaskHandle;
 const osThreadAttr_t secTimerTask_attributes = {
   .name = "secTimerTask",
-  .stack_size = 128 * 4,
+  .stack_size = 512 * 4, // 128
   .priority = (osPriority_t) osPriorityNormal
 
 };
@@ -1031,6 +1036,29 @@ void StartSecTimerTask(void *argument)
 			pressCheckStartTime = 0;
 		}
 
+		if(sendSOSFlag == 1)
+		{
+			SOSCheckTime++;
+			brightness_count = 0;
+		}
+		if(SOSCheckTime > SOS_Check_cycle){
+			if (cat_m1_Status.gpsChecking)
+			{
+				nrf9160_Stop_gps();
+			}
+
+			sendSOSFlag = 0;
+			SOSCheckTime = 0;
+			// haptic
+			haptic_SOS = 1;
+			// send SOS MQTT
+			cat_m1_Status_BandAlert.bid = deviceID;
+			cat_m1_Status_BandAlert.type = 6;
+			cat_m1_Status_BandAlert.value = 1;
+			send_Status_BandAlert(&cat_m1_Status_BandAlert);
+			catM1MqttDangerMessage = 1;
+		}
+
 		measPPG();
 	}
   }
@@ -1141,6 +1169,9 @@ void StartCheckINTTask(void *argument)
 
     	fallCheckTime = 0;
 
+		sendSOSFlag = 0;
+		fallCheckTime = 0;
+
 #if defined(nRF9160_Fall_Difference_Value_Send)
     	magnitude = 0;
 #endif
@@ -1189,10 +1220,10 @@ void StartCheckINTTask(void *argument)
 
     // PMIC interrupt occur => emergency signal send to Web (CATM1)
     if(occurred_PMICBUTTInterrupt){
-    	if (cat_m1_Status.gpsChecking)
-    	{
-    	nrf9160_Stop_gps();
-    	}
+//    	if (cat_m1_Status.gpsChecking)
+//    	{
+//    	nrf9160_Stop_gps();
+//    	}
     	// change screen
 		before_bLevel = set_bLevel;
 		ST7789_brightness_setting(16);
@@ -1200,12 +1231,13 @@ void StartCheckINTTask(void *argument)
     	mySOSAlertViewBase.changeToSOSDetected();
     	// haptic
     	haptic_SOS = 1;
-    	// send SOS MQTT
-    	cat_m1_Status_BandAlert.bid = deviceID;
-		cat_m1_Status_BandAlert.type = 6;
-		cat_m1_Status_BandAlert.value = 1;
-		send_Status_BandAlert(&cat_m1_Status_BandAlert);
-		catM1MqttDangerMessage = 1;
+//    	// send SOS MQTT
+//    	cat_m1_Status_BandAlert.bid = deviceID;
+//		cat_m1_Status_BandAlert.type = 6;
+//		cat_m1_Status_BandAlert.value = 1;
+//		send_Status_BandAlert(&cat_m1_Status_BandAlert);
+//		catM1MqttDangerMessage = 1;
+    	sendSOSFlag = 1;
 
     	occurred_PMICBUTTInterrupt = 0;
     }
