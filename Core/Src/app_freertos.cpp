@@ -101,7 +101,7 @@ int cell_location_operation_cycle  = 60*1;
 uint8_t cell_locationTime = 0;
 bool cell_locationFlag = true;
 
-#define fall_Check_cycle 0 // falling event occure => after N sec => MQTT // 60
+#define fall_Check_cycle 60 // falling event occure => after N sec => MQTT // 60
 uint8_t fallCheckTime = 0;
 uint8_t fallCheckFlag = 0;
 
