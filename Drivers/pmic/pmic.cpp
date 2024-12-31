@@ -38,6 +38,12 @@ int pmicSOCRead(unsigned char *batterylevel){
 	return ret;
 }
 
+int pmicVCELLRead(uint16_t *batteryVoltage){
+	int ret = 0;
+	ret = max20303.Max20303_BatteryVoltage(batteryVoltage);
+	return ret;
+}
+
 int isBATTCharging(){
 	int batteryChargeStatus = max20303.Battery_Status_Charger();
 	return batteryChargeStatus;

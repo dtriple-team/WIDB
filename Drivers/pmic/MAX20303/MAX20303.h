@@ -222,6 +222,7 @@ public:
     char Max20303_IsBattery_Connected();
 	uint8_t Battery_Status_Charger();
 
+	int Max20303_BatteryVoltage(uint16_t *batteryVoltage);
 
 	// dtirple yeh 햅틱 변수 추가
 	int Max20303_HapticSetting();

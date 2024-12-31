@@ -439,3 +439,23 @@ int MAX20303::Buck2Config()
 
 	return ret;
 }
+
+//******************************************************************************
+int MAX20303::Max20303_BatteryVoltage(uint16_t *batteryVoltage)
+{
+	int ret = 0;
+	uint8_t data[2];
+
+	data[0] = 0x02; data[1] = 0x02;
+	ret = HAL_I2C_Master_Transmit(&hi2c3, MAX20303_I2C_ADDR_FUEL_GAUGE,   data, 1, 1);
+	if (ret != 0)
+		return MAX20303_ERROR;
+	ret = HAL_I2C_Master_Receive (&hi2c3, MAX20303_I2C_ADDR_FUEL_GAUGE+1, data, 2, 1);
+	if (ret != 0)
+		return MAX20303_ERROR;
+
+	uint16_t battVoltage = data[1] | data[0] << 8;
+	*batteryVoltage = battVoltage;
+
+	return 0;
+}

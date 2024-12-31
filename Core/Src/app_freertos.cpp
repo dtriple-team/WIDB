@@ -266,6 +266,10 @@ fallDetectedViewBase myFallDetectedView;
 tempHomeViewBase myTempHomeView;
 sos_alertViewBase mySOSAlertViewBase;
 
+unsigned char batterylevel;
+uint16_t batteryVoltage = 0;
+float batteryVoltage_cal = 0;
+
 extern uint8_t occurred_imuInterrupt;
 extern uint8_t occurred_PMICBUTTInterrupt;
 
@@ -1001,7 +1005,6 @@ unCharging_screenViewBase myUnCharging_screenView;
 uint8_t interrupt_kind = 0;
 #define PRESSURE_VAL_LEN 10
 #include <math.h>
-unsigned char batterylevel;
 double calculateAltitudeDifference(double P1, double P2) {
     const double R = 8.314;       // 기체 ?��?�� (J/(mol·K))
     const double T = 273.15+25;   // ?���??????? ?��?�� (K) - ?���??????? ??�??????? 조건 15°C
@@ -1161,6 +1164,9 @@ void StartCheckINTTask(void *argument)
 
     	occurred_PMICBUTTInterrupt = 0;
     }
+
+    pmicVCELLRead(&batteryVoltage);
+    batteryVoltage_cal = batteryVoltage * 78.125 / 1000000;
   }
   /* USER CODE END checkINTTask */
 }

@@ -14,11 +14,13 @@
 //	MAX20303 max20303;
 ////}
 
+#include "stdint.h"
 
 int pmic_init(void);
 //MAX20303 max20303;
 
 int pmicSOCRead(unsigned char *batterylevel);
+int pmicVCELLRead(uint16_t *batteryVoltage);
 int isBATTCharging();
 
 void runHaptic(int hapticFrequencyHz, int hapticDuration, int hapticContinue);
