@@ -322,6 +322,7 @@ void ST7789_DrawBitmap(uint16_t x, uint16_t y, uint16_t w, uint16_t h, const uin
 void ST7789_SetAddressWindow(uint16_t x0, uint16_t y0, uint16_t x1, uint16_t y1);
 
 void ST7789_gpio_setting(void);
+void ST7789_gpio_reset(void);
 void ST7789_brightness_setting(uint8_t bright);
 
 #ifndef ST7789_ROTATION

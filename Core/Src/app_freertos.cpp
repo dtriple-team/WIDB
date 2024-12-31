@@ -281,6 +281,8 @@ extern uint8_t occurred_PMICBUTTInterrupt;
 void mfioGPIOModeChange(GPIOMode mode);
 void measPPG(void);
 
+void Enter_SleepMode(void);
+
 /* USER CODE END FunctionPrototypes */
 
 void StartInitTask(void *argument);
@@ -1120,6 +1122,11 @@ void StartCheckINTTask(void *argument)
   {
     osDelay(100);
 
+    if(now_sleepmode == 1){
+//		now_sleepmode = 0;
+		Enter_SleepMode();
+	}
+
     if(occurred_imuInterrupt){
     	occurred_imuInterrupt = 0;
     	interrupt_kind = whatKindInterrupt();
@@ -1689,6 +1696,73 @@ void measPPG(){
 	}
 	pre_ppgMeasFlag = ppgMeasFlag;
 	return;
+}
+
+
+void Enter_SleepMode(void) {
+//	ST7789_sleep();
+    ST7789_gpio_reset();
+	lcdInitFlag = 0;
+
+    // FreeRTOS ?��?��?�� 중단
+    vTaskSuspendAll();
+
+    // 모든 ?��?��?��?�� ?��?�� ???��
+    portDISABLE_INTERRUPTS();
+
+    HAL_TIM_Base_Stop_IT(&htim4);
+    HAL_TIM_Base_Stop_IT(&htim17);
+
+//    // 중요 ?��?��?��?���? ?��?��?��
+//    __enable_irq();
+
+    // Wake-up ?��?�� ?��?��
+//    HAL_PWR_EnableWakeUpPin(TP_INT_Pin);
+    // 1. Wake-up ?? ?��?��
+    HAL_PWR_DisableWakeUpPin(PWR_WAKEUP_PIN1);  // 기존 ?��?�� 초기?��
+
+//    // 2. EXTI ?��?�� ?��?��
+//    GPIO_InitTypeDef GPIO_InitStruct = {0};
+//
+//    GPIO_InitStruct.Pin = PMIC_BUTT_INT_Pin;
+//	GPIO_InitStruct.Mode = GPIO_MODE_IT_FALLING;
+//	GPIO_InitStruct.Pull = GPIO_PULLUP;
+//	HAL_GPIO_Init(PMIC_BUTT_INT_GPIO_Port, &GPIO_InitStruct);
+//
+//    GPIO_InitStruct.Pin = TP_INT_Pin;
+//    GPIO_InitStruct.Mode = GPIO_MODE_IT_RISING;
+//    GPIO_InitStruct.Pull = GPIO_NOPULL;
+//    HAL_GPIO_Init(TP_INT_GPIO_Port, &GPIO_InitStruct);
+//
+//    // NVIC ?��?��?��?�� ?��?��
+//	HAL_NVIC_SetPriority(EXTI13_IRQn, 0, 0);  // TP_INT?��
+//	HAL_NVIC_SetPriority(EXTI15_IRQn, 0, 0);  // PMIC_BUTT_INT?��
+//
+//	// NVIC ?��?��?��?�� ?��?��?��
+//	HAL_NVIC_EnableIRQ(EXTI13_IRQn);
+//	HAL_NVIC_EnableIRQ(EXTI15_IRQn);
+
+    HAL_SuspendTick();
+
+    // Stop 모드 진입
+    HAL_PWR_EnterSTOPMode(PWR_LOWPOWERREGULATOR_ON, PWR_STOPENTRY_WFI);
+
+    // Wake-up ?�� ?��?��?�� 복원
+    extern void SystemClock_Config(void);
+    SystemClock_Config();  // ?��?��?�� ?��?�� ?��?��?��
+    HAL_ResumeTick();
+
+    HAL_TIM_Base_Start_IT(&htim4);
+    HAL_TIM_Base_Start_IT(&htim17);
+
+//	ST7789_wake();
+    ST7789_gpio_setting(); // 1mA
+	ST7789_Init(); // 3.93mA
+	ST7789_brightness_setting(set_bLevel); // 35.564mA
+	lcdInitFlag = 1;
+
+    portENABLE_INTERRUPTS();
+    xTaskResumeAll();
 }
 /* USER CODE END Application */
 

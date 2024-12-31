@@ -816,6 +816,12 @@ void ST7789_gpio_setting(void)
 	HAL_GPIO_WritePin(GPIOF, GPIO_PIN_5, GPIO_PIN_RESET);
 }
 
+void ST7789_gpio_reset(void)
+{
+	HAL_GPIO_WritePin(GPIOD, GPIO_PIN_0, GPIO_PIN_RESET);
+	HAL_GPIO_WritePin(GPIOF, GPIO_PIN_5, GPIO_PIN_RESET);
+}
+
 // 16:MAX
 // 1: MIN
 // 0: off
