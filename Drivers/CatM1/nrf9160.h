@@ -120,6 +120,9 @@ typedef enum {
 
 #define CAT_M1_UART_BUF_SIZE 512
 
+#define mqtt_operation_cycle 60*10 // CatM1 MQTT => 10min interval
+#define GNSS_INTERVAL_SEC 60*(72*60) // GNSS => (72*60)min interval
+
 typedef struct {
 	uint8_t txflag;
 	uint8_t InitialLoad;

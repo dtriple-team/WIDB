@@ -80,7 +80,6 @@ uint8_t nRFCloudFlag = 0;
 uint8_t cat_m1_rssi_cycleTime = 0;
 bool cat_m1_rssi_cycleFlag = false;
 
-#define mqtt_operation_cycle 60*1
 uint8_t mqttTime = 0;
 bool mqttFlag = false;
 
@@ -89,7 +88,7 @@ uint8_t UartRxRetryTime = 0;
 bool UartRxRetryTimeFlag = false;
 
 //int gps_operation_cycle  = 60*3;
-int gps_operation_cycle  = 60*4;
+int gps_operation_cycle  = GNSS_INTERVAL_SEC;
 //#define gps_operation_cycle 60*4
 uint8_t gpsTime = 0;
 bool gpsFlag = false;
