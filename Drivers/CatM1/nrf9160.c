@@ -1105,7 +1105,7 @@ void send_BATTData_Value(cat_m1_Status_BATTData_Value_t* battData)
 
     snprintf(mqtt_data, sizeof(mqtt_data),
     	"{\"extAddress\": {\"low\": %u, \"high\": 0},"
-    	"\"level\": \"%d\""
+    	"\"level\": \"%d\","
     	"\"voltage\": \"%d\""
         "}+++\r\n",
 		(unsigned int)battData->bid, battData->level, battData->voltage);
