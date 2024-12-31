@@ -50,6 +50,7 @@ extern "C" {
 #define nRF9160_KT
 //#define nRF9160_cell_location
 //#define nRF9160_Fall_Difference_Value_Send
+#define BattData_Value_Send
 
 #define PRINT_INFO(format, arg...)      printf(format , ## arg)
 

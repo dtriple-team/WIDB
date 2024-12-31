@@ -121,6 +121,7 @@ extern cat_m1_Status_BandAlert_t cat_m1_Status_BandAlert;
 extern cat_m1_Status_GPS_Location_t cat_m1_Status_GPS_Location;
 extern cat_m1_Status_uuid_t cat_m1_Status_uuid;
 extern cat_m1_Status_Fall_Difference_Value_t cat_m1_Status_Fall_Difference_Value;
+extern cat_m1_Status_BATTData_Value_t cat_m1_Status_BATTData_Value;
 
 uint32_t deviceID = 0;
 uint8_t deviceID_check = 0;
@@ -320,8 +321,8 @@ void MX_FREERTOS_Init(void) {
   /* creation of lcdTask */
   lcdTaskHandle = osThreadNew(StartlcdTask, NULL, &lcdTask_attributes);
 
-  /* creation of ppmTask */
-  ppmTaskHandle = osThreadNew(StartPPMTask, NULL, &ppmTask_attributes);
+//  /* creation of ppmTask */
+//  ppmTaskHandle = osThreadNew(StartPPMTask, NULL, &ppmTask_attributes);
 
   /* creation of wpmTask */
   wpmTaskHandle = osThreadNew(StartWPMTask, NULL, &wpmTask_attributes);
@@ -580,6 +581,13 @@ void StartWPMTask(void *argument)
 					.battery_level = battVal
 				};
 				send_Status_Band(&cat_m1_Status_Band);
+
+				#if defined(BattData_Value_Send)
+					cat_m1_Status_BATTData_Value.bid = deviceID;
+					cat_m1_Status_BATTData_Value.level = (int)batterylevel;
+					cat_m1_Status_BATTData_Value.voltage = (int)batteryVoltage;
+					send_BATTData_Value(&cat_m1_Status_BATTData_Value);
+				#endif
 			}
 			mqttFlag = false;
 			catM1MqttDangerMessage = 0;

@@ -27,6 +27,7 @@ cat_m1_Status_IMU_t cat_m1_Status_IMU;
 cat_m1_Status_BandSet_t cat_m1_Status_BandSet;
 cat_m1_Status_uuid_t cat_m1_Status_uuid;
 cat_m1_Status_Fall_Difference_Value_t cat_m1_Status_Fall_Difference_Value;
+cat_m1_Status_BATTData_Value_t cat_m1_Status_BATTData_Value;
 
 WpmState currentWpmState = WPM_INIT_CHECK;
 CheckState currentCheckState = SYSTEM_MODE_CHECK;
@@ -1096,6 +1097,40 @@ void send_Fall_Difference_Value(cat_m1_Status_Fall_Difference_Value_t* Fall_Diff
     }
     cat_m1_Status.mqttChecking = 0;
 }
+
+void send_BATTData_Value(cat_m1_Status_BATTData_Value_t* battData)
+{
+	cat_m1_Status.mqttChecking = 1;
+    char mqtt_data[1024];
+
+    snprintf(mqtt_data, sizeof(mqtt_data),
+    	"{\"extAddress\": {\"low\": %u, \"high\": 0},"
+    	"\"level\": \"%d\""
+    	"\"voltage\": \"%d\""
+        "}+++\r\n",
+		(unsigned int)battData->bid, battData->level, battData->voltage);
+
+    if (send_at_command(BATTDATA_CHECK_TOPIC))
+    {
+        PRINT_INFO("AT command sent successfully.\n");
+
+        if (send_at_command(mqtt_data))
+        {
+            memset(&cat_m1_at_cmd_rst.uuid, 0, sizeof(cat_m1_at_cmd_rst.uuid));
+            PRINT_INFO("JSON message sent successfully.\n");
+        }
+        else
+        {
+            PRINT_INFO("Failed to send JSON message.\n");
+        }
+    }
+    else
+    {
+        PRINT_INFO("Failed to send AT command.\n");
+    }
+    cat_m1_Status.mqttChecking = 0;
+}
+
 
 void send_Status_IMU(cat_m1_Status_IMU_t* imu_data)
 {
