@@ -142,8 +142,8 @@ void read_ism330dhcx(uint16_t gyroSensi, uint8_t accSensi, double* temp, double*
 	uint8_t data[14] = {0,};
 	uint8_t startRegAddr = 0;
 
-//	// reset access to the embedded functions configuration registers
-//	err |= HAL_I2C_Mem_Write(&hi2c1, ISM330DHCX_ADDR_W, 0x01, 1, 0x00, 1, 100);
+	// reset access to the embedded functions configuration registers
+	err |= HAL_I2C_Mem_Write(&hi2c1, ISM330DHCX_ADDR_W, 0x01, 1, 0x00, 1, 100);
 
 	startRegAddr = ISM330DHCX_OUT_TEMP_L;
 	err |= HAL_I2C_Mem_Read(&hi2c1, ISM330DHCX_ADDR_W+1, (uint16_t)startRegAddr, 1, data, sizeof(data), 100);
