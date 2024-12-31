@@ -733,6 +733,10 @@ void StartSPMTask(void *argument)
 	double ismTemp, gyroX, gyroY, gyroZ, accX, accY, accZ;
 	read_ism330dhcx(gyroSensi, accSensi, &ismTemp, &gyroX, &gyroY, &gyroZ, &accX, &accY, &accZ);
 
+	uint16_t imu_walk;
+	read_ism330dhcx_stepCount(&imu_walk);
+	ssWalk = (uint32_t)imu_walk;
+
 	double pressure, lpsTemp;
 	read_lps22hh(&pressure, &lpsTemp);
 //		for(int i=0; i<PRESSURE_VAL_LEN-1; i++){
@@ -1228,11 +1232,11 @@ void read_ppg()
         return;
     }
 
-    if(ssDataEx->algo.SCDstate == 0){
-    	ssWalk = ssDataEx->algo.totalWalkSteps + ssWalk_SUM;
-        free(ssDataEx);
-        return;
-    }
+//    if(ssDataEx->algo.SCDstate == 0){
+//    	ssWalk = ssDataEx->algo.totalWalkSteps + ssWalk_SUM;
+//        free(ssDataEx);
+//        return;
+//    }
 
     memcpy(&lcd_ssDataEx, ssDataEx, sizeof(ssDataEx_format));
 
@@ -1277,7 +1281,7 @@ void read_ppg()
 		}
     }
 
-    ssWalk = lcd_ssDataEx.algo.totalWalkSteps + ssWalk_SUM;
+//    ssWalk = lcd_ssDataEx.algo.totalWalkSteps + ssWalk_SUM;
 
     free(ssDataEx);
     canDisplayPPG = 1;

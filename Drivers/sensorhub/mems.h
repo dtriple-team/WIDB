@@ -120,6 +120,7 @@ void init_iis2mdc(void);
 
 void read_ism330dhcx(uint16_t gyroSensi, uint8_t accSensi, double* temp, double* gyroX, double* gyroY, double* gyroZ, double* accX, double* accY, double* accZ);
 void init_ism330dhcx(void);
+void read_ism330dhcx_stepCount(uint16_t *stepCount);
 uint8_t whatKindInterrupt();
 
 #define LPS22HH_INTERRUPT_CFG 			0x0B
