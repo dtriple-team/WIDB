@@ -281,7 +281,8 @@ extern uint8_t occurred_PMICBUTTInterrupt;
 void mfioGPIOModeChange(GPIOMode mode);
 void measPPG(void);
 
-void Enter_SleepMode(void);
+void Enter_StopMode(void);
+void Enter_StopMode_LCD(void);
 
 /* USER CODE END FunctionPrototypes */
 
@@ -1107,6 +1108,7 @@ double calculateAltitudeDifference(double P1, double P2) {
 //	uint8_t batt = 0;
 //	return batt;
 //}
+uint8_t finishReadPPG = 0;
 /* USER CODE END Header_StartCheckINTTask */
 void StartCheckINTTask(void *argument)
 {
@@ -1123,8 +1125,12 @@ void StartCheckINTTask(void *argument)
     osDelay(100);
 
     if(now_sleepmode == 1){
-		now_sleepmode = 0;
-		Enter_SleepMode();
+    	// PPG meas finish
+    	if(finishReadPPG == 1){
+    		finishReadPPG = 0;
+			now_sleepmode = 0;
+			Enter_StopMode_LCD();
+    	}
 	}
 
     if(occurred_imuInterrupt){
@@ -1378,6 +1384,7 @@ void read_ppg()
 
     free(ssDataEx);
     canDisplayPPG = 1;
+    finishReadPPG = 1;
 }
 
 double getAltitude(double pressure_hPa) {
@@ -1698,43 +1705,38 @@ void measPPG(){
 	return;
 }
 
-void Enter_SleepMode(void) {
+void Enter_StopMode(void) {
+	// FreeRTOS ?��?��?�� 중단
+	vTaskSuspendAll();
 
-//	ST7789_sleep();
-    ST7789_gpio_reset();
-	lcdInitFlag = 0;
+	// 모든 ?��?��?��?�� ?��?�� ???��
+	portDISABLE_INTERRUPTS();
 
-    // FreeRTOS ?��?��?�� 중단
-    vTaskSuspendAll();
+	HAL_TIM_Base_Stop_IT(&htim4);
+	HAL_TIM_Base_Stop_IT(&htim17);
 
-    // 모든 ?��?��?��?�� ?��?�� ???��
-    portDISABLE_INTERRUPTS();
+	// 중요 ?��?��?��?���? ?��?��?��
+	__enable_irq();
 
-    HAL_TIM_Base_Stop_IT(&htim4);
-    HAL_TIM_Base_Stop_IT(&htim17);
-
-    // 중요 ?��?��?��?���? ?��?��?��
-    __enable_irq();
-
-    // Wake-up ?��?�� ?��?��
+	// Wake-up ?��?�� ?��?��
 //    HAL_PWR_EnableWakeUpPin(TP_INT_Pin);
-    // 1. Wake-up ?? ?��?��
-    HAL_PWR_DisableWakeUpPin(PWR_WAKEUP_PIN1);  // 기존 ?��?�� 초기?��
+	// 1. Wake-up ?? ?��?��
+	HAL_PWR_DisableWakeUpPin(PWR_WAKEUP_PIN1);  // 기존 ?��?�� 초기?��
 
-    // 2. EXTI ?��?�� ?��?��
-    GPIO_InitTypeDef GPIO_InitStruct = {0};
+	// 2. EXTI ?��?�� ?��?��
+	GPIO_InitTypeDef GPIO_InitStruct = {0};
 
-    GPIO_InitStruct.Pin = PMIC_BUTT_INT_Pin;
+	GPIO_InitStruct.Pin = PMIC_BUTT_INT_Pin;
 	GPIO_InitStruct.Mode = GPIO_MODE_IT_FALLING;
 	GPIO_InitStruct.Pull = GPIO_PULLUP;
 	HAL_GPIO_Init(PMIC_BUTT_INT_GPIO_Port, &GPIO_InitStruct);
 
-    GPIO_InitStruct.Pin = TP_INT_Pin;
-    GPIO_InitStruct.Mode = GPIO_MODE_IT_RISING;
-    GPIO_InitStruct.Pull = GPIO_NOPULL;
-    HAL_GPIO_Init(TP_INT_GPIO_Port, &GPIO_InitStruct);
+	GPIO_InitStruct.Pin = TP_INT_Pin;
+	GPIO_InitStruct.Mode = GPIO_MODE_IT_RISING;
+	GPIO_InitStruct.Pull = GPIO_NOPULL;
+	HAL_GPIO_Init(TP_INT_GPIO_Port, &GPIO_InitStruct);
 
-    // NVIC ?��?��?��?�� ?��?��
+	// NVIC ?��?��?��?�� ?��?��
 	HAL_NVIC_SetPriority(EXTI13_IRQn, 0, 0);      // TP_INT?��
 	HAL_NVIC_SetPriority(EXTI15_IRQn, 0, 0);  // PMIC_BUTT_INT?��
 
@@ -1742,21 +1744,30 @@ void Enter_SleepMode(void) {
 	HAL_NVIC_EnableIRQ(EXTI13_IRQn);
 	HAL_NVIC_EnableIRQ(EXTI15_IRQn);
 
-    HAL_SuspendTick();
+	HAL_SuspendTick();
 
-    // Stop 모드 진입
-    HAL_PWR_EnterSTOPMode(PWR_LOWPOWERREGULATOR_ON, PWR_STOPENTRY_WFI);
+	// Stop 모드 진입
+	HAL_PWR_EnterSTOPMode(PWR_LOWPOWERREGULATOR_ON, PWR_STOPENTRY_WFI);
 
-    // Wake-up ?�� ?��?��?�� 복원
-    extern void SystemClock_Config(void);
-    SystemClock_Config();  // ?��?��?�� ?��?�� ?��?��?��
-    HAL_ResumeTick();
+	// Wake-up ?�� ?��?��?�� 복원
+	extern void SystemClock_Config(void);
+	SystemClock_Config();  // ?��?��?�� ?��?�� ?��?��?��
+	HAL_ResumeTick();
 
-    HAL_TIM_Base_Start_IT(&htim4);
-    HAL_TIM_Base_Start_IT(&htim17);
+	HAL_TIM_Base_Start_IT(&htim4);
+	HAL_TIM_Base_Start_IT(&htim17);
 
-    portENABLE_INTERRUPTS();
-    xTaskResumeAll();
+	portENABLE_INTERRUPTS();
+	xTaskResumeAll();
+}
+
+void Enter_StopMode_LCD(void) {
+
+//	ST7789_sleep();
+    ST7789_gpio_reset();
+	lcdInitFlag = 0;
+
+    Enter_StopMode();
 
 //	ST7789_wake();
 	ST7789_gpio_setting(); // 1mA
