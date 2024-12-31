@@ -1092,7 +1092,6 @@ unCharging_screenViewBase myUnCharging_screenView;
 uint8_t interrupt_kind = 0;
 #define PRESSURE_VAL_LEN 10
 #include <math.h>
-unsigned char batterylevel;
 double calculateAltitudeDifference(double P1, double P2) {
     const double R = 8.314;       // 기체 ?��?�� (J/(mol·K))
     const double T = 273.15+25;   // ?���???? ?��?�� (K) - ?���???? ??�???? 조건 15°C
