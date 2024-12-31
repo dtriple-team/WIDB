@@ -135,6 +135,30 @@ void init_ism330dhcx(){ // 주석 설명 필요
 	tx_data[0] = ISM330DHCX_CTRL1_XL;
 	tx_data[1] = 0x62;
 	err |= HAL_I2C_Master_Transmit(&hi2c1, ISM330DHCX_ADDR_W, tx_data, 2, 100);
+
+	////////////////// step counter enable //////////////////
+	uint8_t wData[1] = {0x80};
+	err |= HAL_I2C_Mem_Write(&hi2c1, ISM330DHCX_ADDR_W, 0x0001, 1, wData, 1, 100);
+
+	uint8_t rData[1] = {0x00};
+
+	// EMB_FUNC_EN_A => PEDO_EN
+	uint8_t startRegAddr = 0x04;
+	err |= HAL_I2C_Mem_Read(&hi2c1, ISM330DHCX_ADDR_W+1, (uint16_t)startRegAddr, 1, rData, sizeof(rData), 100);
+
+	tx_data[0] = startRegAddr;
+	tx_data[1] = rData[0] | 0x08;
+	err |= HAL_I2C_Master_Transmit(&hi2c1, ISM330DHCX_ADDR_W, tx_data, 2, 100);
+
+	// EMB_FUNC_INIT_A => STEP_DET_INIT
+	startRegAddr = 0x66;
+	err |= HAL_I2C_Mem_Read(&hi2c1, ISM330DHCX_ADDR_W+1, (uint16_t)startRegAddr, 1, rData, sizeof(rData), 100);
+
+	tx_data[0] = startRegAddr;
+	tx_data[1] = rData[0] | 0x08;
+	err |= HAL_I2C_Master_Transmit(&hi2c1, ISM330DHCX_ADDR_W, tx_data, 2, 100);
+
+
 }
 
 void read_ism330dhcx(uint16_t gyroSensi, uint8_t accSensi, double* temp, double* gyroX, double* gyroY, double* gyroZ, double* accX, double* accY, double* accZ){
@@ -143,7 +167,8 @@ void read_ism330dhcx(uint16_t gyroSensi, uint8_t accSensi, double* temp, double*
 	uint8_t startRegAddr = 0;
 
 	// reset access to the embedded functions configuration registers
-	err |= HAL_I2C_Mem_Write(&hi2c1, ISM330DHCX_ADDR_W, 0x01, 1, 0x00, 1, 100);
+	uint8_t wData[1] = {0x00};
+	err |= HAL_I2C_Mem_Write(&hi2c1, ISM330DHCX_ADDR_W, 0x0001, 1, wData, 1, 100);
 
 	startRegAddr = ISM330DHCX_OUT_TEMP_L;
 	err |= HAL_I2C_Mem_Read(&hi2c1, ISM330DHCX_ADDR_W+1, (uint16_t)startRegAddr, 1, data, sizeof(data), 100);
@@ -214,21 +239,20 @@ uint8_t whatKindInterrupt(){
 }
 
 void read_ism330dhcx_stepCount(uint16_t *stepCount){
-//	uint8_t err = 0;
-//	uint8_t data[2] = {0,};
-//	uint8_t startRegAddr = 0x62;
-//
-//	// Enable access to the embedded functions configuration registers
-//	uint8_t wData[1] = {0x80};
-//	err |= HAL_I2C_Mem_Write(&hi2c1, ISM330DHCX_ADDR_W, 0x0001, 1, wData, 1, 100);
-//
-//	startRegAddr = ISM330DHCX_OUT_TEMP_L;
-//	err |= HAL_I2C_Mem_Read(&hi2c1, ISM330DHCX_ADDR_W+1, (uint16_t)startRegAddr, 1, data, sizeof(data), 100);
-//
-//	if(err == HAL_OK);
-//	else;
-//
-//	*stepCount = ((uint16_t)data[1])<<8 | ((uint16_t)data[0]);
+	uint8_t err = 0;
+	uint8_t data[2] = {0,};
+	uint8_t startRegAddr = 0x62;
+
+	// Enable access to the embedded functions configuration registers
+	uint8_t wData[1] = {0x80};
+	err |= HAL_I2C_Mem_Write(&hi2c1, ISM330DHCX_ADDR_W, 0x0001, 1, wData, 1, 100);
+
+	err |= HAL_I2C_Mem_Read(&hi2c1, ISM330DHCX_ADDR_W+1, (uint16_t)startRegAddr, 1, data, sizeof(data), 100);
+
+	if(err == HAL_OK);
+	else;
+
+	*stepCount = ((uint16_t)data[1])<<8 | ((uint16_t)data[0]);
 
 	return;
 }
