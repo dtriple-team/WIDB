@@ -1639,6 +1639,7 @@ void mfioGPIOModeChange(GPIOMode mode){
 uint8_t spo2Count = 0;
 uint8_t hrCount = 0;
 uint8_t pre_ppgMeasFlag = 0;
+
 void measPPG(){
 //	if (ppgMeasFlag == 0){
 		ssRunFlag = 0;
