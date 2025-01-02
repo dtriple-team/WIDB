@@ -1451,14 +1451,14 @@ time_t convertToTimeT(catM1Time dt) {
 }
 
 // Function to determine if the difference between two catM1Time inputs is 1 minute or less
-bool isDifferenceWithinOneMinute(catM1Time dt1, catM1Time dt2) {
+bool isDifferenceWithinNMinute(catM1Time dt1, catM1Time dt2, uint8_t thresholdTime) {
     time_t time1 = convertToTimeT(dt1);
     time_t time2 = convertToTimeT(dt2);
 
     // Get the absolute difference in seconds
     double difference = difftime(time1, time2);
 
-    return difference <= 60 && difference >= -60; // Check if difference is within 1 minute
+    return difference <= thresholdTime && difference >= (-1*thresholdTime); // Check if difference is within 1 minute
 }
 
 catM1Time getCatM1Time(void){

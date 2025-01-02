@@ -323,6 +323,6 @@ void nrf9160_Get_cell_location();
 catM1Time getCatM1Time(void);
 
 time_t convertToTimeT(catM1Time dt);
-bool isDifferenceWithinOneMinute(catM1Time dt1, catM1Time dt2);
+bool isDifferenceWithinNMinute(catM1Time dt1, catM1Time dt2, uint8_t thresholdTime);
 
 #endif /* CATM1_NRF9160_H_ */

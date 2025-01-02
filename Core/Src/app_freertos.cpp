@@ -614,7 +614,7 @@ void StartWPMTask(void *argument)
 				catM1Time nowNetTimeinfo = getCatM1Time();
 				catM1Time nowRTCTimeinfo = {sDate.Year, sDate.Month, sDate.Date, sTime.Hours, sTime.Minutes, sTime.Seconds};
 
-				if(isDifferenceWithinOneMinute(nowNetTimeinfo, nowRTCTimeinfo)){
+				if(isDifferenceWithinNMinute(nowNetTimeinfo, nowRTCTimeinfo, mqtt_operation_cycle+60)){
 					nowTimeinfo = nowNetTimeinfo;
 
 					// To prevent the appearance of time decreasing when updating RTC time with GNSS time,
