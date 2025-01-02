@@ -1451,7 +1451,7 @@ time_t convertToTimeT(catM1Time dt) {
 }
 
 // Function to determine if the difference between two catM1Time inputs is 1 minute or less
-bool isDifferenceWithinNMinute(catM1Time dt1, catM1Time dt2, uint8_t thresholdTime) {
+bool isDifferenceWithinNMinute(catM1Time dt1, catM1Time dt2, uint16_t thresholdTime) {
     time_t time1 = convertToTimeT(dt1);
     time_t time2 = convertToTimeT(dt2);
 
