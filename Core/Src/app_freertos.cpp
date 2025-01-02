@@ -953,6 +953,7 @@ void StartSecTimerTask(void *argument)
 		else if(brightness_count >= screenOnTime){
 			ST7789_brightness_setting(0);
 			myBlackScreenView.changeToInitBlackScreen();
+			osDelay(100);
 			now_sleepmode = 1;
 		}
 		pre_brightness_count = brightness_count;
@@ -1764,15 +1765,14 @@ void Enter_StopMode(void) {
 
 void Enter_StopMode_LCD(void) {
 
-//	ST7789_sleep();
-    ST7789_gpio_reset();
+//    HAL_GPIO_WritePin(GPIOD, GPIO_PIN_0, GPIO_PIN_RESET); // LCD GPIO RESET
 	lcdInitFlag = 0;
 
     Enter_StopMode();
 
-//	ST7789_wake();
-	ST7789_gpio_setting(); // 1mA
-//	ST7789_Init(); // 3.93mA
+//    HAL_GPIO_WritePin(GPIOD, GPIO_PIN_0, GPIO_PIN_SET); // LCD GPIO SET
+    osDelay(500);
+//	myTempHomeView.changeToHomeScreen();
 	ST7789_brightness_setting(set_bLevel); // 35.564mA
 	lcdInitFlag = 1;
 }
