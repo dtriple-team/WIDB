@@ -182,7 +182,7 @@ uint16_t spo2MeaserPeriode_sec = 60*5;
 uint8_t ppgMeasFlag = 1;
 uint16_t ppgMeaserCount = 0;
 
-#define RTC_WAKEUP_INTERVER_SEC 60
+#define RTC_WAKEUP_INTERVER_SEC 30 // (min~max) 0~30
 
 /* USER CODE END Variables */
 /* Definitions for initTask */
@@ -285,6 +285,13 @@ void measPPG(void);
 
 void Enter_StopMode(void);
 void Enter_StopMode_LCD(void);
+
+#define stopModeMin 5
+uint8_t stopModeCount = 0;
+RTC_TimeTypeDef startTime;
+RTC_DateTypeDef startDate;
+void GetTimeAtA(RTC_TimeTypeDef *startTime, RTC_DateTypeDef *startDate);
+uint32_t GetElapsedTime(RTC_TimeTypeDef *startTime, RTC_DateTypeDef *startDate);
 
 /* USER CODE END FunctionPrototypes */
 
@@ -420,6 +427,9 @@ void StartInitTask(void *argument)
 void StartlcdTask(void *argument)
 {
   /* USER CODE BEGIN lcdTask */
+
+	GetTimeAtA(&startTime, &startDate);
+
 	pmic_init();
 	pmicInitFlag = 1;
 
@@ -956,7 +966,7 @@ void StartSecTimerTask(void *argument)
 			ST7789_brightness_setting(0);
 			myBlackScreenView.changeToInitBlackScreen();
 			osDelay(100);
-			now_sleepmode = 1;
+//			now_sleepmode = 1;
 		}
 		pre_brightness_count = brightness_count;
 
@@ -1080,6 +1090,10 @@ void StartSecTimerTask(void *argument)
 		}
 
 		measPPG();
+
+		if(secTime % 20 == 0){
+			now_sleepmode = 1;
+		}
 	}
   }
   /* USER CODE END secTimerTask */
@@ -1709,11 +1723,49 @@ void measPPG(){
 	return;
 }
 
+/**
+ * @brief A 지점에서 현재 RTC 시간 저장
+ * @param startTime 저장할 RTC 시간 구조체
+ */
+void GetTimeAtA(RTC_TimeTypeDef *startTime, RTC_DateTypeDef *startDate) {
+	extern RTC_HandleTypeDef hrtc;
+    HAL_RTC_GetTime(&hrtc, startTime, RTC_FORMAT_BIN);
+    HAL_RTC_GetDate(&hrtc, startDate, RTC_FORMAT_BIN); // 날짜도 함께 읽어야 시간 갱신 문제 방지
+}
+// Function to convert RTC time and date to time_t
+time_t convertRTCToTimeT(RTC_DateTypeDef* date, RTC_TimeTypeDef* time) {
+    struct tm t = {0};
+    t.tm_year = (date->Year + 2000) - 1900; // Adjust year to start from 1900
+    t.tm_mon = date->Month - 1;            // tm_mon is 0-based
+    t.tm_mday = date->Date;
+    t.tm_hour = time->Hours;
+    t.tm_min = time->Minutes;
+    t.tm_sec = time->Seconds;
+    return mktime(&t); // Convert to time_t
+}
+
+// Function to calculate if the difference between two RTC timestamps is within a threshold
+double isDifferenceWithinThreshold(RTC_DateTypeDef* date1, RTC_TimeTypeDef* time1) {
+    RTC_TimeTypeDef endTime;
+    RTC_DateTypeDef endDate;
+
+    GetTimeAtA(&endTime, &endDate);
+    time_t time1_t = convertRTCToTimeT(date1, time1);
+    time_t time2_t = convertRTCToTimeT(&endDate, &endTime);
+
+    // Calculate absolute difference in seconds
+    double difference = (time2_t - time1_t);
+    if(difference >= 30) difference = 30;
+    if(difference < 0) -1*difference;
+    return difference;
+}
+
+double elapsedTime = 0;
 void Enter_StopMode(void) {
 	// FreeRTOS ?��?��?�� 중단
 //	vTaskSuspendAll();
 
-//	/**Enable the WakeUp
+//	/**Enable the WakeUp => MX_RTC_Init();
 //	32000 / 16 = 2000Hz
 //	1sec = 2000Hz
 //	1min = 120000
@@ -1735,7 +1787,11 @@ void Enter_StopMode(void) {
 	HAL_NVIC_SetPriority(RTC_IRQn, 0, 0);      // RTC wakeup
 	HAL_NVIC_EnableIRQ(RTC_IRQn);
 
-//	HAL_SuspendTick();
+	extern RTC_HandleTypeDef hrtc;
+	if (HAL_RTCEx_SetWakeUpTimer_IT(&hrtc, 2000*(RTC_WAKEUP_INTERVER_SEC-elapsedTime), RTC_WAKEUPCLOCK_RTCCLK_DIV16, 0) != HAL_OK)
+	{
+		Error_Handler();
+	}
 
 	// Stop 모드 진입
 	HAL_PWR_EnterSTOPMode(PWR_LOWPOWERREGULATOR_ON, PWR_STOPENTRY_WFI);
@@ -1769,8 +1825,23 @@ void Enter_StopMode_LCD(void) {
 //	lcdInitFlag = 0;
 
 	ssRunFlag = 0;
-    Enter_StopMode();
 
+    elapsedTime = isDifferenceWithinThreshold(&startDate, &startTime);
+//    elapsedTime = 0;
+	for(uint8_t i = 0; i < (60*stopModeMin)/RTC_WAKEUP_INTERVER_SEC; i++){ // 5min period
+		extern uint8_t TP_INT;
+		TP_INT = 0;
+		Enter_StopMode();
+		elapsedTime = 0;
+		if(TP_INT == 1){ // TP_INT || HOME_BTN_INT || SOS_BTN_INT
+			TP_INT = 0;
+			break;
+		}
+	}
+	stopModeCount++; // 5min ++ => stopModeCount == even => catm1, gnss run
+	GetTimeAtA(&startTime, &startDate);
+
+//	osDelay(100);
 //    ssRunFlag = 1;
 
 //	lcdInitFlag = 1;

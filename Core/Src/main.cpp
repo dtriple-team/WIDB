@@ -243,6 +243,7 @@ uint8_t occurred_imuInterrupt = 0;
 uint8_t occurred_PMICBUTTInterrupt = 0;
 
 uint8_t occurred_touchInterrupt = 0;
+uint8_t TP_INT = 0;
 
 void HAL_GPIO_EXTI_Rising_Callback(uint16_t GPIO_Pin)
 {
@@ -255,6 +256,7 @@ void HAL_GPIO_EXTI_Rising_Callback(uint16_t GPIO_Pin)
   }
   else if(GPIO_Pin == TP_INT_Pin){
 	  occurred_touchInterrupt = 1;
+	  TP_INT = 1;
   }
   else if(GPIO_Pin == PMIC_INT_Pin){
   }
