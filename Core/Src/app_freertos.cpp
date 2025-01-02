@@ -259,7 +259,7 @@ uint8_t wpmInitializationFlag = 0;
 uint8_t lcdInitFlag = 0;
 
 double test_mag_data[15] = {0,};
-uint8_t set_bLevel = 7; // GUI val ?��?��
+uint8_t set_bLevel = 7; // GUI val ?��?�� // 7
 uint8_t before_bLevel = set_bLevel;
 uint8_t flashlightOn = 0;
 
@@ -885,6 +885,7 @@ void StartSPMTask(void *argument)
 * @param argument: Not used
 * @retval None
 */
+uint8_t pre_secTime = 0;
 /* USER CODE END Header_StartSecTimerTask */
 void StartSecTimerTask(void *argument)
 {
@@ -896,7 +897,6 @@ void StartSecTimerTask(void *argument)
 	uint8_t now_bLevel = set_bLevel;
 	uint8_t bLevelCtrlTimCount = 0;
 
-	uint8_t pre_secTime = 0;
 	screenOnTime = 20;
 	uint8_t pre_brightness_count = 0;
 
@@ -1131,6 +1131,7 @@ void StartCheckINTTask(void *argument)
     		finishReadPPG = 0;
 			now_sleepmode = 0;
 			Enter_StopMode_LCD();
+			int a = 0;
     	}
 	}
 
@@ -1709,44 +1710,21 @@ void measPPG(){
 
 void Enter_StopMode(void) {
 	// FreeRTOS ?��?��?�� 중단
-	vTaskSuspendAll();
+//	vTaskSuspendAll();
+
+	HAL_TIM_Base_Stop_IT(&htim4);  // ppg
+	HAL_TIM_Base_Stop_IT(&htim17); // sec
+	HAL_TIM_Base_Stop_IT(&htim15); // us delay
+	HAL_SuspendTick();
 
 	// 모든 ?��?��?��?�� ?��?�� ???��
 	portDISABLE_INTERRUPTS();
 
-	HAL_TIM_Base_Stop_IT(&htim4);
-	HAL_TIM_Base_Stop_IT(&htim17);
-
-	// 중요 ?��?��?��?���? ?��?��?��
-	__enable_irq();
-
-	// Wake-up ?��?�� ?��?��
-//    HAL_PWR_EnableWakeUpPin(TP_INT_Pin);
-	// 1. Wake-up ?? ?��?��
-	HAL_PWR_DisableWakeUpPin(PWR_WAKEUP_PIN1);  // 기존 ?��?�� 초기?��
-
-	// 2. EXTI ?��?�� ?��?��
-	GPIO_InitTypeDef GPIO_InitStruct = {0};
-
-	GPIO_InitStruct.Pin = PMIC_BUTT_INT_Pin;
-	GPIO_InitStruct.Mode = GPIO_MODE_IT_FALLING;
-	GPIO_InitStruct.Pull = GPIO_PULLUP;
-	HAL_GPIO_Init(PMIC_BUTT_INT_GPIO_Port, &GPIO_InitStruct);
-
-	GPIO_InitStruct.Pin = TP_INT_Pin;
-	GPIO_InitStruct.Mode = GPIO_MODE_IT_RISING;
-	GPIO_InitStruct.Pull = GPIO_NOPULL;
-	HAL_GPIO_Init(TP_INT_GPIO_Port, &GPIO_InitStruct);
-
 	// NVIC ?��?��?��?�� ?��?��
 	HAL_NVIC_SetPriority(EXTI13_IRQn, 0, 0);      // TP_INT?��
-	HAL_NVIC_SetPriority(EXTI15_IRQn, 0, 0);  // PMIC_BUTT_INT?��
-
-	// NVIC ?��?��?��?�� ?��?��?��
 	HAL_NVIC_EnableIRQ(EXTI13_IRQn);
-	HAL_NVIC_EnableIRQ(EXTI15_IRQn);
 
-	HAL_SuspendTick();
+//	HAL_SuspendTick();
 
 	// Stop 모드 진입
 	HAL_PWR_EnterSTOPMode(PWR_LOWPOWERREGULATOR_ON, PWR_STOPENTRY_WFI);
@@ -1754,27 +1732,29 @@ void Enter_StopMode(void) {
 	// Wake-up ?�� ?��?��?�� 복원
 	extern void SystemClock_Config(void);
 	SystemClock_Config();  // ?��?��?�� ?��?�� ?��?��?��
-	HAL_ResumeTick();
+//	HAL_ResumeTick();
 
-	HAL_TIM_Base_Start_IT(&htim4);
-	HAL_TIM_Base_Start_IT(&htim17);
+	HAL_NVIC_SetPriority(EXTI13_IRQn, 5, 0);      // TP_INT?��
+	HAL_NVIC_EnableIRQ(EXTI13_IRQn);
 
 	portENABLE_INTERRUPTS();
-	xTaskResumeAll();
+
+	HAL_ResumeTick();
+	HAL_TIM_Base_Start_IT(&htim15);
+	HAL_TIM_Base_Start_IT(&htim17);
+	HAL_TIM_Base_Start_IT(&htim4);
+
+//	xTaskResumeAll();
 }
 
 void Enter_StopMode_LCD(void) {
+//	lcdInitFlag = 0;
 
-//    HAL_GPIO_WritePin(GPIOD, GPIO_PIN_0, GPIO_PIN_RESET); // LCD GPIO RESET
-	lcdInitFlag = 0;
-
+	ssRunFlag = 0;
     Enter_StopMode();
+//    ssRunFlag = 1;
 
-//    HAL_GPIO_WritePin(GPIOD, GPIO_PIN_0, GPIO_PIN_SET); // LCD GPIO SET
-    osDelay(500);
-//	myTempHomeView.changeToHomeScreen();
-	ST7789_brightness_setting(set_bLevel); // 35.564mA
-	lcdInitFlag = 1;
+//	lcdInitFlag = 1;
 }
 
 /* USER CODE END Application */
