@@ -151,7 +151,7 @@ float deltaAlt = 0;
 uint16_t curr_height = 0;
 int height_num = 0;
 
-float falling_threshold = 1.0; // ?��?�� ?���? 기�? ?��?�� 차이
+float falling_threshold = 1.0; // ?��?�� ?���??? 기�? ?��?�� 차이
 
 uint8_t ssSCD = 0;
 uint16_t ssHr = 0;
@@ -181,6 +181,8 @@ uint16_t hrMeaserPeriode_sec = 60*1;
 uint16_t spo2MeaserPeriode_sec = 60*5;
 uint8_t ppgMeasFlag = 1;
 uint16_t ppgMeaserCount = 0;
+
+#define RTC_WAKEUP_INTERVER_SEC 60
 
 /* USER CODE END Variables */
 /* Definitions for initTask */
@@ -328,8 +330,8 @@ void MX_FREERTOS_Init(void) {
   /* creation of lcdTask */
   lcdTaskHandle = osThreadNew(StartlcdTask, NULL, &lcdTask_attributes);
 
-//  /* creation of ppmTask */
-//  ppmTaskHandle = osThreadNew(StartPPMTask, NULL, &ppmTask_attributes);
+  /* creation of ppmTask */
+  ppmTaskHandle = osThreadNew(StartPPMTask, NULL, &ppmTask_attributes);
 
   /* creation of wpmTask */
   wpmTaskHandle = osThreadNew(StartWPMTask, NULL, &wpmTask_attributes);
@@ -425,7 +427,7 @@ void StartlcdTask(void *argument)
 		osDelay(10);
 	}
 	runHaptic(20, 500, 1); // turn on device haptic
-//	HAL_Delay(5000); // ?���? ?��?�� + ?��버거 ?���? ?���?
+//	HAL_Delay(5000); // ?���??? ?��?�� + ?��버거 ?���??? ?���???
 	ST7789_gpio_setting();
 	ST7789_Init();
 	ST7789_brightness_setting(set_bLevel);
@@ -619,7 +621,7 @@ void StartWPMTask(void *argument)
 
 					// To prevent the appearance of time decreasing when updating RTC time with GNSS time,
 					// caused by RTC time flowing faster than GNSS time.
-					// RTC ?��간이 GNSS ?��간보?�� 빠르�? ?��르면?��, RTC ?��간을 GNSS ?��간으�? ?��?��?��?��?�� ?�� ?��간이 감소?��?�� 것처?�� 보이?�� ?��?��?�� 방�??���? ?��?��.
+					// RTC ?��간이 GNSS ?��간보?�� 빠르�??? ?��르면?��, RTC ?��간을 GNSS ?��간으�??? ?��?��?��?��?�� ?�� ?��간이 감소?��?�� 것처?�� 보이?�� ?��?��?�� 방�??���??? ?��?��.
 					if(sTime.Minutes > (uint8_t)nowTimeinfo.min){
 						sDate.Year = (uint8_t)nowTimeinfo.year;
 						sDate.Month = (uint8_t)nowTimeinfo.month;
@@ -721,7 +723,7 @@ double magnitude = 0;
 
 
 #if !defined(fall_algo_test)
-// �??��?�� ?��?��?�� 구조�?
+// �????��?�� ?��?��?�� 구조�???
 typedef struct {
     double x;
     double y;
@@ -736,7 +738,7 @@ uint8_t detect_fall(AccelData* accel_data, double threshold) {
 #endif
 
 	if (magnitude_local > threshold) {
-		return 1; // ?��?��?���? 감�?
+		return 1; // ?��?��?���??? 감�?
 	}
 	else return 0; // ?��?�� ?��?��
 }
@@ -757,7 +759,7 @@ uint8_t detect_fall(IMUData* imu_data, double accel_threshold, double gyro_thres
 #endif
 
 	if (accel_magnitude_local > accel_threshold && gyro_magnitude_local > gyro_threshold) {
-		return 1; // ?��?��?���? 감�?
+		return 1; // ?��?��?���??? 감�?
 	}
 	else return 0; // ?��?�� ?��?��
 }
@@ -919,8 +921,8 @@ void StartSecTimerTask(void *argument)
 		ST7789_brightness_setting(now_bLevel);
 	}
 
-	// screenOnTime == brightness_count�??????? ?���??????? ?���??????? 꺼라
-	// brightness_count == 0?���??????? 바�?�면 백라?��?���??????? 켜라
+	// screenOnTime == brightness_count�????????? ?���????????? ?���????????? 꺼라
+	// brightness_count == 0?���????????? 바�?�면 백라?��?���????????? 켜라
 //	if(pre_secTime != secTime && secTime%1 == 0){ // 1sec
 //		// turn off LCD backlight
 //		if(brightness_count == 0 && pre_brightness_count >= screenOnTime){
@@ -1097,9 +1099,9 @@ uint8_t interrupt_kind = 0;
 #include <math.h>
 double calculateAltitudeDifference(double P1, double P2) {
     const double R = 8.314;       // 기체 ?��?�� (J/(mol·K))
-    const double T = 273.15+25;   // ?���????? ?��?�� (K) - ?���????? ??�????? 조건 15°C
-    const double g = 9.80665;     // 중력 �??????��?�� (m/s²)
-    const double M = 0.02896;     // 공기?�� �????? 질량 (kg/mol)
+    const double T = 273.15+25;   // ?���??????? ?��?�� (K) - ?���??????? ??�??????? 조건 15°C
+    const double g = 9.80665;     // 중력 �????????��?�� (m/s²)
+    const double M = 0.02896;     // 공기?�� �??????? 질량 (kg/mol)
 
     double altitudeDifference = (R * T) / (g * M) * log(P1 / P2);
 
@@ -1390,15 +1392,15 @@ void read_ppg()
 }
 
 double getAltitude(double pressure_hPa) {
-    // hPa�? Pa�? �??��
+    // hPa�??? Pa�??? �????��
     double pressure_Pa = pressure_hPa * 100.0; // 1 hPa = 100 Pa
 
     // ?��?��면에?��?�� 기�? ?��?�� (Pa)
-    const double P0 = 1013.25 * 100.0; // ?��반적?�� ?��?���? ?��?�� �? (hPa?��?�� Pa�? �??��)
+    const double P0 = 1013.25 * 100.0; // ?��반적?�� ?��?���??? ?��?�� �??? (hPa?��?�� Pa�??? �????��)
 
-    // ??�? ?��?�� 공식?�� ?��?�� 고도 계산
+    // ??�??? ?��?�� 공식?�� ?��?�� 고도 계산
     double p = pressure_Pa / P0; // ?��?? ?��?��
-    double b = 1.0 / 5.255; // �??��
+    double b = 1.0 / 5.255; // �????��
     double alt = 44330.0 * (1.0 - pow(p, b)); // 고도 (미터 ?��?��)
 
     return alt;
@@ -1641,7 +1643,6 @@ void mfioGPIOModeChange(GPIOMode mode){
 uint8_t spo2Count = 0;
 uint8_t hrCount = 0;
 uint8_t pre_ppgMeasFlag = 0;
-
 void measPPG(){
 //	if (ppgMeasFlag == 0){
 		ssRunFlag = 0;
@@ -1712,6 +1713,14 @@ void Enter_StopMode(void) {
 	// FreeRTOS ?��?��?�� 중단
 //	vTaskSuspendAll();
 
+//	/**Enable the WakeUp
+//	32000 / 16 = 2000Hz
+//	1sec = 2000Hz
+//	1min = 120000
+//	*/
+//	extern RTC_HandleTypeDef hrtc;
+//	HAL_RTCEx_SetWakeUpTimer_IT(&hrtc, 2000*RTC_WAKEUP_INTERVER_SEC, RTC_WAKEUPCLOCK_RTCCLK_DIV16, 0);
+
 	HAL_TIM_Base_Stop_IT(&htim4);  // ppg
 	HAL_TIM_Base_Stop_IT(&htim17); // sec
 	HAL_TIM_Base_Stop_IT(&htim15); // us delay
@@ -1723,6 +1732,8 @@ void Enter_StopMode(void) {
 	// NVIC ?��?��?��?�� ?��?��
 	HAL_NVIC_SetPriority(EXTI13_IRQn, 0, 0);      // TP_INT?��
 	HAL_NVIC_EnableIRQ(EXTI13_IRQn);
+	HAL_NVIC_SetPriority(RTC_IRQn, 0, 0);      // RTC wakeup
+	HAL_NVIC_EnableIRQ(RTC_IRQn);
 
 //	HAL_SuspendTick();
 
@@ -1734,6 +1745,8 @@ void Enter_StopMode(void) {
 	SystemClock_Config();  // ?��?��?�� ?��?�� ?��?��?��
 //	HAL_ResumeTick();
 
+	HAL_NVIC_SetPriority(RTC_IRQn, 5, 0);      // RTC wakeup
+	HAL_NVIC_EnableIRQ(RTC_IRQn);
 	HAL_NVIC_SetPriority(EXTI13_IRQn, 5, 0);      // TP_INT?��
 	HAL_NVIC_EnableIRQ(EXTI13_IRQn);
 
@@ -1744,6 +1757,11 @@ void Enter_StopMode(void) {
 	HAL_TIM_Base_Start_IT(&htim17);
 	HAL_TIM_Base_Start_IT(&htim4);
 
+//	if (HAL_RTCEx_DeactivateWakeUpTimer(&hrtc) != HAL_OK)
+//	{
+//		int err = 1; //
+//	}
+
 //	xTaskResumeAll();
 }
 
@@ -1752,6 +1770,7 @@ void Enter_StopMode_LCD(void) {
 
 	ssRunFlag = 0;
     Enter_StopMode();
+
 //    ssRunFlag = 1;
 
 //	lcdInitFlag = 1;
