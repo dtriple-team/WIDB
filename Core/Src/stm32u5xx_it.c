@@ -408,8 +408,4 @@ void GPDMA1_Channel15_IRQHandler(void)
 
 /* USER CODE BEGIN 1 */
 
-void RTC_Alarm_IRQHandler(void) {
-    HAL_RTC_AlarmIRQHandler(&hrtc);
-}
-
 /* USER CODE END 1 */

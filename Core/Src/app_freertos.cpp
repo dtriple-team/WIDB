@@ -336,8 +336,8 @@ void MX_FREERTOS_Init(void) {
   /* creation of lcdTask */
   lcdTaskHandle = osThreadNew(StartlcdTask, NULL, &lcdTask_attributes);
 
-  /* creation of ppmTask */
-  ppmTaskHandle = osThreadNew(StartPPMTask, NULL, &ppmTask_attributes);
+//  /* creation of ppmTask */
+//  ppmTaskHandle = osThreadNew(StartPPMTask, NULL, &ppmTask_attributes);
 
   /* creation of wpmTask */
   wpmTaskHandle = osThreadNew(StartWPMTask, NULL, &wpmTask_attributes);
@@ -1088,8 +1088,8 @@ void StartSecTimerTask(void *argument)
 			catM1MqttDangerMessage = 1;
 		}
 
-//		measPPG();
-//
+		measPPG();
+
 //		if(secTime % 20 == 0){
 //			now_sleepmode = 1;
 //		}
@@ -1125,6 +1125,7 @@ double calculateAltitudeDifference(double P1, double P2) {
 //	return batt;
 //}
 uint8_t finishReadPPG = 1;
+uint8_t backendStopModeEnterFlag = 1;
 /* USER CODE END Header_StartCheckINTTask */
 void StartCheckINTTask(void *argument)
 {
@@ -1140,7 +1141,7 @@ void StartCheckINTTask(void *argument)
   {
     osDelay(100);
 
-    if(now_sleepmode == 1){
+    if(now_sleepmode == 1 && backendStopModeEnterFlag == 1){
     	// PPG meas finish
     	if(finishReadPPG == 1){
 //    		finishReadPPG = 0;
@@ -1657,54 +1658,54 @@ uint8_t spo2Count = 0;
 uint8_t hrCount = 0;
 uint8_t pre_ppgMeasFlag = 0;
 void measPPG(){
-//	if (ppgMeasFlag == 0){
-		ssRunFlag = 0;
-
-		// start ppg
-		if(ppgMeaserCount % spo2MeaserPeriode_sec == 0){
-//			mfioGPIOModeChange(output);
-			ssWalk_SUM = ssWalk; // total walk count ?��?�� ?��?��
-			ssBegin(0x00);
-			ssRead_setting();
-			spo2Flag = 1;
-//			mfioGPIOModeChange(interrupt);
-		}
-		else if(ppgMeaserCount % hrMeaserPeriode_sec == 0){
-//			mfioGPIOModeChange(output);
-			ssWalk_SUM = ssWalk; // total walk count ?��?�� ?��?��
-			ssBegin(0x02);
-			ssRead_setting();
-			hrFlag = 1;
-//			mfioGPIOModeChange(interrupt);
-		}
-		else if(ppgMeaserCount == spo2MeaserPeriode_sec*hrMeaserPeriode_sec/60){
-			ppgMeaserCount = 1;
-		}
-
-		// stop ppg
-		if(spo2Flag){
-			spo2Count++;
-		}
-		if(hrFlag){
-			hrCount++;
-		}
-
-		if(spo2Count == 60){ // < spo2MeaserPeriode_sec = 60*5
-			ssWalk_SUM = ssWalk; // total walk count ?��?�� ?��?��
-			ssBegin(0x05);
-			ssRead_setting();
-			spo2Count = 0;
-			spo2Flag = 0;
-		}
-		if(hrCount == 30){ // < hrMeaserPeriode_sec = 60 * 1
-			ssWalk_SUM = ssWalk; // total walk count ?��?�� ?��?��
-			ssBegin(0x05);
-			ssRead_setting();
-			hrCount = 0;
-			hrFlag = 0;
-		}
-		ssRunFlag = 1;
-//	}
+////	if (ppgMeasFlag == 0){
+//		ssRunFlag = 0;
+//
+//		// start ppg
+//		if(ppgMeaserCount % spo2MeaserPeriode_sec == 0){
+////			mfioGPIOModeChange(output);
+//			ssWalk_SUM = ssWalk; // total walk count ?��?�� ?��?��
+//			ssBegin(0x00);
+//			ssRead_setting();
+//			spo2Flag = 1;
+////			mfioGPIOModeChange(interrupt);
+//		}
+//		else if(ppgMeaserCount % hrMeaserPeriode_sec == 0){
+////			mfioGPIOModeChange(output);
+//			ssWalk_SUM = ssWalk; // total walk count ?��?�� ?��?��
+//			ssBegin(0x02);
+//			ssRead_setting();
+//			hrFlag = 1;
+////			mfioGPIOModeChange(interrupt);
+//		}
+//		else if(ppgMeaserCount == spo2MeaserPeriode_sec*hrMeaserPeriode_sec/60){
+//			ppgMeaserCount = 1;
+//		}
+//
+//		// stop ppg
+//		if(spo2Flag){
+//			spo2Count++;
+//		}
+//		if(hrFlag){
+//			hrCount++;
+//		}
+//
+//		if(spo2Count == 60){ // < spo2MeaserPeriode_sec = 60*5
+//			ssWalk_SUM = ssWalk; // total walk count ?��?�� ?��?��
+//			ssBegin(0x05);
+//			ssRead_setting();
+//			spo2Count = 0;
+//			spo2Flag = 0;
+//		}
+//		if(hrCount == 30){ // < hrMeaserPeriode_sec = 60 * 1
+//			ssWalk_SUM = ssWalk; // total walk count ?��?�� ?��?��
+//			ssBegin(0x05);
+//			ssRead_setting();
+//			hrCount = 0;
+//			hrFlag = 0;
+//		}
+//		ssRunFlag = 1;
+////	}
 
 	if(pre_ppgMeasFlag != ppgMeasFlag){
 		if(ppgMeasFlag == 1){
@@ -1760,6 +1761,7 @@ double isDifferenceWithinThreshold(RTC_DateTypeDef* date1, RTC_TimeTypeDef* time
 }
 
 double elapsedTime = 0;
+bool StopModeState = false;
 void Enter_StopMode(void) {
 	// FreeRTOS ?��?��?�� 중단
 //	vTaskSuspendAll();
@@ -1786,11 +1788,11 @@ void Enter_StopMode(void) {
 	HAL_NVIC_SetPriority(RTC_IRQn, 0, 0);      // RTC wakeup
 	HAL_NVIC_EnableIRQ(RTC_IRQn);
 
-	extern RTC_HandleTypeDef hrtc;
-	if (HAL_RTCEx_SetWakeUpTimer_IT(&hrtc, 2000*(RTC_WAKEUP_INTERVER_SEC-elapsedTime), RTC_WAKEUPCLOCK_RTCCLK_DIV16, 0) != HAL_OK)
-	{
-		Error_Handler();
-	}
+//	extern RTC_HandleTypeDef hrtc;
+//	if (HAL_RTCEx_SetWakeUpTimer_IT(&hrtc, 2000*(RTC_WAKEUP_INTERVER_SEC-elapsedTime), RTC_WAKEUPCLOCK_RTCCLK_DIV16, 0) != HAL_OK)
+//	{
+//		Error_Handler();
+//	}
 
 	// Stop 모드 진입
 	HAL_PWR_EnterSTOPMode(PWR_LOWPOWERREGULATOR_ON, PWR_STOPENTRY_WFI);
@@ -1820,6 +1822,7 @@ void Enter_StopMode(void) {
 //	xTaskResumeAll();
 }
 
+// frontend enter stopmode
 void Enter_StopMode_LCD(void) {
 //	lcdInitFlag = 0;
 
@@ -1840,8 +1843,12 @@ void Enter_StopMode_LCD(void) {
 //	stopModeCount++; // 5min ++ => stopModeCount == even => catm1, gnss run
 //	GetTimeAtA(&startTime, &startDate);
 
+	StopModeState = true;
+
 	ssRunFlag = 0;
 	Enter_StopMode();
+
+	StopModeState = false;
 
 //	osDelay(100);
 //    ssRunFlag = 1;
