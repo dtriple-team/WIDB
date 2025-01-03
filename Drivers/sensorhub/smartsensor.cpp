@@ -293,6 +293,16 @@ int ssRead_setting(){
 	return 0;
 }
 
+int ssPause_setting(){
+	uint8_t rxbuffer_1[1] = {0,};
+
+	uint8_t data_type[] = {0x00};
+	set_command(0x10, 0x00, data_type, sizeof(data_type));
+	get_command(rxbuffer_1, sizeof(rxbuffer_1));
+
+	return 0;
+}
+
 int ssRead(uint8_t* rxdata, uint8_t len){
 	return read_ppg_9(rxdata, len);
 }

@@ -121,6 +121,7 @@
 
 int ssBegin();
 int ssRead_setting();
+int ssPause_setting();
 int ssRead(uint8_t* rxdata, uint8_t len);
 int ssInit();
 void rxDataSplit(uint8_t* rxdata, struct ssDataEx_format* pRxdataStruct);
