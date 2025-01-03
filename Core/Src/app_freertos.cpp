@@ -151,7 +151,7 @@ float deltaAlt = 0;
 uint16_t curr_height = 0;
 int height_num = 0;
 
-float falling_threshold = 1.0; // ?��?�� ?���??? 기�? ?��?�� 차이
+float falling_threshold = 1.0; // ?��?�� ?���???? 기�? ?��?�� 차이
 
 uint8_t ssSCD = 0;
 uint16_t ssHr = 0;
@@ -226,7 +226,6 @@ const osThreadAttr_t secTimerTask_attributes = {
   .name = "secTimerTask",
   .stack_size = 512 * 4, // 128
   .priority = (osPriority_t) osPriorityNormal
-
 };
 /* Definitions for checkINTTask */
 osThreadId_t checkINTTaskHandle;
@@ -286,7 +285,7 @@ void measPPG(void);
 void Enter_StopMode(void);
 void Enter_StopMode_LCD(void);
 
-#define stopModeMin 5
+#define stopModeMin 1
 uint8_t stopModeCount = 0;
 RTC_TimeTypeDef startTime;
 RTC_DateTypeDef startDate;
@@ -437,7 +436,7 @@ void StartlcdTask(void *argument)
 		osDelay(10);
 	}
 	runHaptic(20, 500, 1); // turn on device haptic
-//	HAL_Delay(5000); // ?���??? ?��?�� + ?��버거 ?���??? ?���???
+//	HAL_Delay(5000); // ?���???? ?��?�� + ?��버거 ?���???? ?���????
 	ST7789_gpio_setting();
 	ST7789_Init();
 	ST7789_brightness_setting(set_bLevel);
@@ -631,7 +630,7 @@ void StartWPMTask(void *argument)
 
 					// To prevent the appearance of time decreasing when updating RTC time with GNSS time,
 					// caused by RTC time flowing faster than GNSS time.
-					// RTC ?��간이 GNSS ?��간보?�� 빠르�??? ?��르면?��, RTC ?��간을 GNSS ?��간으�??? ?��?��?��?��?�� ?�� ?��간이 감소?��?�� 것처?�� 보이?�� ?��?��?�� 방�??���??? ?��?��.
+					// RTC ?��간이 GNSS ?��간보?�� 빠르�???? ?��르면?��, RTC ?��간을 GNSS ?��간으�???? ?��?��?��?��?�� ?�� ?��간이 감소?��?�� 것처?�� 보이?�� ?��?��?�� 방�??���???? ?��?��.
 					if(sTime.Minutes > (uint8_t)nowTimeinfo.min){
 						sDate.Year = (uint8_t)nowTimeinfo.year;
 						sDate.Month = (uint8_t)nowTimeinfo.month;
@@ -733,7 +732,7 @@ double magnitude = 0;
 
 
 #if !defined(fall_algo_test)
-// �????��?�� ?��?��?�� 구조�???
+// �?????��?�� ?��?��?�� 구조�????
 typedef struct {
     double x;
     double y;
@@ -748,7 +747,7 @@ uint8_t detect_fall(AccelData* accel_data, double threshold) {
 #endif
 
 	if (magnitude_local > threshold) {
-		return 1; // ?��?��?���??? 감�?
+		return 1; // ?��?��?���???? 감�?
 	}
 	else return 0; // ?��?�� ?��?��
 }
@@ -769,7 +768,7 @@ uint8_t detect_fall(IMUData* imu_data, double accel_threshold, double gyro_thres
 #endif
 
 	if (accel_magnitude_local > accel_threshold && gyro_magnitude_local > gyro_threshold) {
-		return 1; // ?��?��?���??? 감�?
+		return 1; // ?��?��?���???? 감�?
 	}
 	else return 0; // ?��?�� ?��?��
 }
@@ -931,8 +930,8 @@ void StartSecTimerTask(void *argument)
 		ST7789_brightness_setting(now_bLevel);
 	}
 
-	// screenOnTime == brightness_count�????????? ?���????????? ?���????????? 꺼라
-	// brightness_count == 0?���????????? 바�?�면 백라?��?���????????? 켜라
+	// screenOnTime == brightness_count�?????????? ?���?????????? ?���?????????? 꺼라
+	// brightness_count == 0?���?????????? 바�?�면 백라?��?���?????????? 켜라
 //	if(pre_secTime != secTime && secTime%1 == 0){ // 1sec
 //		// turn off LCD backlight
 //		if(brightness_count == 0 && pre_brightness_count >= screenOnTime){
@@ -966,7 +965,7 @@ void StartSecTimerTask(void *argument)
 			ST7789_brightness_setting(0);
 			myBlackScreenView.changeToInitBlackScreen();
 			osDelay(100);
-//			now_sleepmode = 1;
+			now_sleepmode = 1;
 		}
 		pre_brightness_count = brightness_count;
 
@@ -1089,11 +1088,11 @@ void StartSecTimerTask(void *argument)
 			catM1MqttDangerMessage = 1;
 		}
 
-		measPPG();
-
-		if(secTime % 20 == 0){
-			now_sleepmode = 1;
-		}
+//		measPPG();
+//
+//		if(secTime % 20 == 0){
+//			now_sleepmode = 1;
+//		}
 	}
   }
   /* USER CODE END secTimerTask */
@@ -1113,9 +1112,9 @@ uint8_t interrupt_kind = 0;
 #include <math.h>
 double calculateAltitudeDifference(double P1, double P2) {
     const double R = 8.314;       // 기체 ?��?�� (J/(mol·K))
-    const double T = 273.15+25;   // ?���??????? ?��?�� (K) - ?���??????? ??�??????? 조건 15°C
-    const double g = 9.80665;     // 중력 �????????��?�� (m/s²)
-    const double M = 0.02896;     // 공기?�� �??????? 질량 (kg/mol)
+    const double T = 273.15+25;   // ?���???????? ?��?�� (K) - ?���???????? ??�???????? 조건 15°C
+    const double g = 9.80665;     // 중력 �?????????��?�� (m/s²)
+    const double M = 0.02896;     // 공기?�� �???????? 질량 (kg/mol)
 
     double altitudeDifference = (R * T) / (g * M) * log(P1 / P2);
 
@@ -1125,7 +1124,7 @@ double calculateAltitudeDifference(double P1, double P2) {
 //	uint8_t batt = 0;
 //	return batt;
 //}
-uint8_t finishReadPPG = 0;
+uint8_t finishReadPPG = 1;
 /* USER CODE END Header_StartCheckINTTask */
 void StartCheckINTTask(void *argument)
 {
@@ -1144,7 +1143,7 @@ void StartCheckINTTask(void *argument)
     if(now_sleepmode == 1){
     	// PPG meas finish
     	if(finishReadPPG == 1){
-    		finishReadPPG = 0;
+//    		finishReadPPG = 0;
 			now_sleepmode = 0;
 			Enter_StopMode_LCD();
 			int a = 0;
@@ -1406,15 +1405,15 @@ void read_ppg()
 }
 
 double getAltitude(double pressure_hPa) {
-    // hPa�??? Pa�??? �????��
+    // hPa�???? Pa�???? �?????��
     double pressure_Pa = pressure_hPa * 100.0; // 1 hPa = 100 Pa
 
     // ?��?��면에?��?�� 기�? ?��?�� (Pa)
-    const double P0 = 1013.25 * 100.0; // ?��반적?�� ?��?���??? ?��?�� �??? (hPa?��?�� Pa�??? �????��)
+    const double P0 = 1013.25 * 100.0; // ?��반적?�� ?��?���???? ?��?�� �???? (hPa?��?�� Pa�???? �?????��)
 
-    // ??�??? ?��?�� 공식?�� ?��?�� 고도 계산
+    // ??�???? ?��?�� 공식?�� ?��?�� 고도 계산
     double p = pressure_Pa / P0; // ?��?? ?��?��
-    double b = 1.0 / 5.255; // �????��
+    double b = 1.0 / 5.255; // �?????��
     double alt = 44330.0 * (1.0 - pow(p, b)); // 고도 (미터 ?��?��)
 
     return alt;
@@ -1724,13 +1723,13 @@ void measPPG(){
 }
 
 /**
- * @brief A 지점에서 현재 RTC 시간 저장
- * @param startTime 저장할 RTC 시간 구조체
+ * @brief A �??��?��?�� ?��?�� RTC ?���? ???��
+ * @param startTime ???��?�� RTC ?���? 구조�?
  */
 void GetTimeAtA(RTC_TimeTypeDef *startTime, RTC_DateTypeDef *startDate) {
 	extern RTC_HandleTypeDef hrtc;
     HAL_RTC_GetTime(&hrtc, startTime, RTC_FORMAT_BIN);
-    HAL_RTC_GetDate(&hrtc, startDate, RTC_FORMAT_BIN); // 날짜도 함께 읽어야 시간 갱신 문제 방지
+    HAL_RTC_GetDate(&hrtc, startDate, RTC_FORMAT_BIN); // ?��짜도 ?���? ?��?��?�� ?���? 갱신 문제 방�?
 }
 // Function to convert RTC time and date to time_t
 time_t convertRTCToTimeT(RTC_DateTypeDef* date, RTC_TimeTypeDef* time) {
@@ -1824,22 +1823,25 @@ void Enter_StopMode(void) {
 void Enter_StopMode_LCD(void) {
 //	lcdInitFlag = 0;
 
-	ssRunFlag = 0;
-
-    elapsedTime = isDifferenceWithinThreshold(&startDate, &startTime);
+//	ssRunFlag = 0;
+//
+//    elapsedTime = isDifferenceWithinThreshold(&startDate, &startTime);
 //    elapsedTime = 0;
-	for(uint8_t i = 0; i < (60*stopModeMin)/RTC_WAKEUP_INTERVER_SEC; i++){ // 5min period
-		extern uint8_t TP_INT;
-		TP_INT = 0;
-		Enter_StopMode();
-		elapsedTime = 0;
-		if(TP_INT == 1){ // TP_INT || HOME_BTN_INT || SOS_BTN_INT
-			TP_INT = 0;
-			break;
-		}
-	}
-	stopModeCount++; // 5min ++ => stopModeCount == even => catm1, gnss run
-	GetTimeAtA(&startTime, &startDate);
+//	for(uint8_t i = 0; i < (60*stopModeMin)/RTC_WAKEUP_INTERVER_SEC; i++){ // 5min period
+//		extern uint8_t TP_INT;
+//		TP_INT = 0;
+//		Enter_StopMode();
+//		elapsedTime = 0;
+//		if(TP_INT == 1){ // TP_INT || HOME_BTN_INT || SOS_BTN_INT
+//			TP_INT = 0;
+//			break;
+//		}
+//	}
+//	stopModeCount++; // 5min ++ => stopModeCount == even => catm1, gnss run
+//	GetTimeAtA(&startTime, &startDate);
+
+	ssRunFlag = 0;
+	Enter_StopMode();
 
 //	osDelay(100);
 //    ssRunFlag = 1;

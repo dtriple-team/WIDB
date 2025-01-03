@@ -42,6 +42,8 @@ void MX_RTC_Init(void);
 
 /* USER CODE BEGIN Prototypes */
 
+void Set_RTC_Alarm(void);
+
 /* USER CODE END Prototypes */
 
 #ifdef __cplusplus

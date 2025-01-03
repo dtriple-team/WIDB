@@ -94,7 +94,7 @@ int main(void)
   /* MCU Configuration--------------------------------------------------------*/
 
   /* Reset of all peripherals, Initializes the Flash interface and the Systick. */
-  HAL_Init();
+                                                                                  HAL_Init();
 
   /* USER CODE BEGIN Init */
 
@@ -267,6 +267,14 @@ void HAL_GPIO_EXTI_Falling_Callback(uint16_t GPIO_Pin)
 	  occurred_PMICBUTTInterrupt = 1;
   }
 }
+
+void HAL_RTC_AlarmAEventCallback(RTC_HandleTypeDef *hrtc) {
+    // 다음 5분 알람 설정
+    Set_RTC_Alarm();
+
+    // 알람 발생 시 실행할 코드
+}
+
 /* USER CODE END 4 */
 
 /**

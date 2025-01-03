@@ -37,6 +37,7 @@ void MX_RTC_Init(void)
   RTC_PrivilegeStateTypeDef privilegeState = {0};
   RTC_TimeTypeDef sTime = {0};
   RTC_DateTypeDef sDate = {0};
+  RTC_AlarmTypeDef sAlarm = {0};
 
   /* USER CODE BEGIN RTC_Init 1 */
 
@@ -86,15 +87,31 @@ void MX_RTC_Init(void)
   sDate.Month = RTC_MONTH_JUNE;
   sDate.Date = 19;
   sDate.Year = 24;
-
   if (HAL_RTC_SetDate(&hrtc, &sDate, RTC_FORMAT_BIN) != HAL_OK)
   {
     Error_Handler();
   }
 
-  /** Enable the WakeUp
+  /** Enable the Alarm A
   */
-  if (HAL_RTCEx_SetWakeUpTimer_IT(&hrtc, 20000*3, RTC_WAKEUPCLOCK_RTCCLK_DIV16, 0) != HAL_OK)
+  sAlarm.AlarmTime.Hours = 0;
+  sAlarm.AlarmTime.Minutes = 0;
+  sAlarm.AlarmTime.Seconds = 0;
+  sAlarm.AlarmTime.SubSeconds = 0;
+  sAlarm.AlarmMask = RTC_ALARMMASK_DATEWEEKDAY|RTC_ALARMMASK_HOURS|RTC_ALARMMASK_MINUTES;
+  sAlarm.AlarmSubSecondMask = RTC_ALARMSUBSECONDMASK_ALL;
+  sAlarm.AlarmDateWeekDaySel = RTC_ALARMDATEWEEKDAYSEL_DATE;
+  sAlarm.AlarmDateWeekDay = 1;
+  sAlarm.Alarm = RTC_ALARM_A;
+  if (HAL_RTC_SetAlarm_IT(&hrtc, &sAlarm, RTC_FORMAT_BIN) != HAL_OK)
+  {
+    Error_Handler();
+  }
+
+  /** Enable the Alarm B
+  */
+  sAlarm.Alarm = RTC_ALARM_B;
+  if (HAL_RTC_SetAlarm_IT(&hrtc, &sAlarm, RTC_FORMAT_BIN) != HAL_OK)
   {
     Error_Handler();
   }
@@ -159,5 +176,30 @@ void HAL_RTC_MspDeInit(RTC_HandleTypeDef* rtcHandle)
 }
 
 /* USER CODE BEGIN 1 */
+
+void Set_RTC_Alarm(void) {
+    RTC_AlarmTypeDef sAlarm;
+    RTC_TimeTypeDef currentTime;
+
+    // 현재 시간 가져오기
+    HAL_RTC_GetTime(&hrtc, &currentTime, RTC_FORMAT_BIN);
+
+    // 5분 후 알람 설정
+    sAlarm.AlarmTime.Hours = 0;
+    sAlarm.AlarmTime.Minutes = (currentTime.Minutes + 5) % 60;
+    sAlarm.AlarmTime.Seconds = 0;
+    sAlarm.AlarmTime.SubSeconds = 0;
+    sAlarm.AlarmMask = RTC_ALARMMASK_DATEWEEKDAY|RTC_ALARMMASK_HOURS;
+    sAlarm.AlarmSubSecondMask = RTC_ALARMSUBSECONDMASK_ALL;
+    sAlarm.AlarmDateWeekDaySel = RTC_ALARMDATEWEEKDAYSEL_DATE;
+    sAlarm.AlarmDateWeekDay = 1;
+    sAlarm.Alarm = RTC_ALARM_A;
+
+    if (HAL_RTC_SetAlarm_IT(&hrtc, &sAlarm, RTC_FORMAT_BIN) != HAL_OK)
+    {
+      Error_Handler();
+    }
+}
+
 
 /* USER CODE END 1 */
