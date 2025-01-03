@@ -182,6 +182,9 @@ uint16_t spo2MeaserPeriode_sec = 60*5;
 uint8_t ppgMeasFlag = 1;
 uint16_t ppgMeaserCount = 0;
 
+uint8_t succReadPPG = 0;
+uint8_t backendStopModeEnterFlag = 1;
+
 #define RTC_WAKEUP_INTERVER_SEC 30 // (min~max) 0~30
 
 /* USER CODE END Variables */
@@ -897,6 +900,8 @@ void StartSPMTask(void *argument)
 * @retval None
 */
 uint8_t pre_secTime = 0;
+uint8_t oneMin_counter = 1;
+uint8_t offPPG = 0;
 /* USER CODE END Header_StartSecTimerTask */
 void StartSecTimerTask(void *argument)
 {
@@ -1090,9 +1095,22 @@ void StartSecTimerTask(void *argument)
 
 		measPPG();
 
-//		if(secTime % 20 == 0){
-//			now_sleepmode = 1;
-//		}
+		if(offPPG == 1){
+			if(oneMin_counter % 60 == 0 || succReadPPG == 1){
+				oneMin_counter = 1;
+
+				// off PPG
+				ssRunFlag = 0;
+				ssBegin(0x05);
+				ssPause_setting();
+				ssRunFlag = 1;
+				// enter stop mode
+				backendStopModeEnterFlag = 1;
+
+				offPPG = 0;
+			}
+			oneMin_counter++;
+		}
 	}
   }
   /* USER CODE END secTimerTask */
@@ -1125,7 +1143,6 @@ double calculateAltitudeDifference(double P1, double P2) {
 //	return batt;
 //}
 uint8_t finishReadPPG = 1;
-uint8_t backendStopModeEnterFlag = 1;
 /* USER CODE END Header_StartCheckINTTask */
 void StartCheckINTTask(void *argument)
 {
@@ -1382,6 +1399,7 @@ void read_ppg()
 			if (lcd_ssDataEx.algo.spo2 != 0)
 			{
 				ssSpo2 = lcd_ssDataEx.algo.spo2 / 10;
+				succReadPPG = 1;
 			}
 		}
 		else if (scdStateAvg == 2)
@@ -1837,16 +1855,18 @@ void Enter_StopMode(void) {
 		}
 		rtcAlarmEventCount++;
 
-		osDelay(60*1000);
+		offPPG = 1;
 
-		// off PPG
-		ssRunFlag = 0;
-//		osDelay(100);
-		ssBegin(0x05);
-		ssPause_setting();
-		ssRunFlag = 1;
-		// enter stop mode
-		backendStopModeEnterFlag = 1;
+//		osDelay(60*1000);
+//
+//		// off PPG
+//		ssRunFlag = 0;
+////		osDelay(100);
+//		ssBegin(0x05);
+//		ssPause_setting();
+//		ssRunFlag = 1;
+//		// enter stop mode
+//		backendStopModeEnterFlag = 1;
 	}
 
 //	xTaskResumeAll();
