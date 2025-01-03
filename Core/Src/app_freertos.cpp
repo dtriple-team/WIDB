@@ -1762,6 +1762,7 @@ double isDifferenceWithinThreshold(RTC_DateTypeDef* date1, RTC_TimeTypeDef* time
 
 double elapsedTime = 0;
 bool StopModeState = false;
+uint8_t rtcAlarmEventCount = 0;
 void Enter_StopMode(void) {
 	// FreeRTOS ?��?��?�� 중단
 //	vTaskSuspendAll();
@@ -1818,6 +1819,35 @@ void Enter_StopMode(void) {
 //	{
 //		int err = 1; //
 //	}
+	extern uint8_t RTC_CallBack_Check;
+	if(RTC_CallBack_Check == 1){
+		RTC_CallBack_Check = 0;
+
+		// PPG 기능 실행
+		ssRunFlag = 0;
+//		osDelay(100);
+		ssBegin(0x00);
+		ssRead_setting();
+		spo2Flag = 1;
+		hrFlag = 1;
+		ssRunFlag = 1;
+
+		if(rtcAlarmEventCount % 2 == 0){
+			// CatM1, GNSS 기능 실행
+		}
+		rtcAlarmEventCount++;
+
+		osDelay(60*1000);
+
+		// off PPG
+		ssRunFlag = 0;
+//		osDelay(100);
+		ssBegin(0x05);
+		ssPause_setting();
+		ssRunFlag = 1;
+		// enter stop mode
+		backendStopModeEnterFlag = 1;
+	}
 
 //	xTaskResumeAll();
 }

@@ -268,7 +268,7 @@ void HAL_GPIO_EXTI_Falling_Callback(uint16_t GPIO_Pin)
   }
 }
 
-uint8_t rtcAlarmEventCount = 0;
+uint8_t RTC_CallBack_Check = 0;
 void HAL_RTC_AlarmAEventCallback(RTC_HandleTypeDef *hrtc) {
 	// CatM1이 연결 되어 있지 X (시간 정보를 받아오지 않은 경우) => return;
 	extern uint8_t time_check;
@@ -285,34 +285,42 @@ void HAL_RTC_AlarmAEventCallback(RTC_HandleTypeDef *hrtc) {
     // 알람 발생 시 실행할 코드
 	//	 CatM1, GNSS, PPG 기능 실행 (run backend function)
 	//	 enter stop mode
+    RTC_CallBack_Check = 1; // TIM start 이후 PPG 제어가 가능 => clock 복구 이후에 실행 되도록 flag 사용
 
-    // PPG 기능 실행
-	extern void ssBegin(uint8_t);
-	extern void ssRead_setting();
-	extern void ssPause_setting();
-	extern uint8_t spo2Flag;
-	extern uint8_t hrFlag;
-//	ssRunFlag = 0;
-//	ssBegin(0x00);
-//	ssRead_setting();
-//	spo2Flag = 1;
-//	hrFlag = 1;
-//	ssRunFlag = 1;
-
-    if(rtcAlarmEventCount % 2 == 0){
-    	// CatM1, GNSS 기능 실행
-    }
-    rtcAlarmEventCount++;
-
-    osDelay(60*1000);
-
-    // off PPG
-//	ssRunFlag = 0;
-//    ssBegin(0x05);
-//	ssPause_setting();
-//	ssRunFlag = 1;
-	// enter stop mode
-    backendStopModeEnterFlag = 1;
+////    extern bool StopModeState;
+////    if(StopModeState == true){
+////    	osDelay(2000);
+////    }
+//
+//    // PPG 기능 실행
+//	extern void ssBegin(uint8_t);
+//	extern void ssRead_setting();
+//	extern void ssPause_setting();
+//	extern uint8_t spo2Flag;
+//	extern uint8_t hrFlag;
+////	ssRunFlag = 0;
+////	osDelay(100);
+////	ssBegin(0x00);
+////	ssRead_setting();
+////	spo2Flag = 1;
+////	hrFlag = 1;
+////	ssRunFlag = 1;
+//
+//    if(rtcAlarmEventCount % 2 == 0){
+//    	// CatM1, GNSS 기능 실행
+//    }
+//    rtcAlarmEventCount++;
+//
+//    osDelay(60*1000);
+//
+//    // off PPG
+////	ssRunFlag = 0;
+////	osDelay(100);
+////    ssBegin(0x05);
+////	ssPause_setting();
+////	ssRunFlag = 1;
+//	// enter stop mode
+//    backendStopModeEnterFlag = 1;
 
     return;
 }
