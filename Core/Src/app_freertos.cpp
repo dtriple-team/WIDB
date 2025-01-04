@@ -786,8 +786,8 @@ void StartSPMTask(void *argument)
 	}
 	// Smart Sensor Hub init
 	ssInit();
-	ssBegin(0x00);
-	ssRead_setting();
+//	ssBegin(0x00);
+//	ssRead_setting();
 //	ssRunFlag = 1; // start read PPG, using Timer
 
 	init_iis2mdc();
@@ -973,6 +973,8 @@ void StartSecTimerTask(void *argument)
 			now_sleepmode = 1;
 		}
 		pre_brightness_count = brightness_count;
+
+		//////////////////////////////// 5분 주기 동작 Task로 CatM1, GNSS 이동 필요 ////////////////////////////////
 
 		cat_m1_rssi_cycleTime++;
 //		PRINT_INFO("mqttTime >>> %d\r\n",mqttTime);
