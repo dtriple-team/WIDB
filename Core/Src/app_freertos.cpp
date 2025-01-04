@@ -969,6 +969,8 @@ void StartSecTimerTask(void *argument)
 		}
 		pre_brightness_count = brightness_count;
 
+		//////////////////////////////// 5분 주기 동작 Task로 CatM1, GNSS 이동 필요 ////////////////////////////////
+
 		cat_m1_rssi_cycleTime++;
 //		PRINT_INFO("mqttTime >>> %d\r\n",mqttTime);
 		if(cat_m1_rssi_cycleTime > cat_m1_rssi_cycle )
