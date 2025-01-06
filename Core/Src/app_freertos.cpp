@@ -93,7 +93,7 @@ int gps_operation_cycle  = GNSS_INTERVAL_SEC;
 uint8_t gpsTime = 0;
 bool gpsFlag = false;
 
-#define gps_offCheck_cycle 180+10
+#define gps_offCheck_cycle 40
 uint8_t gpsOffCheckTime = 0;
 
 int cell_location_operation_cycle  = 60*1;
@@ -614,6 +614,23 @@ void StartWPMTask(void *argument)
 				// Otherwise:
 				//     Retain the current RTC value
 				nrf9160_Get_time();
+				nrf9160_Get_rssi();
+
+				if(-95 <= cat_m1_Status_Band.rssi){
+					previousRSSIstate = 0;
+					lteRSSI_0_4 = 4;
+				} else if(-105 <= cat_m1_Status_Band.rssi && cat_m1_Status_Band.rssi < -95) {
+					previousRSSIstate = 0;
+					lteRSSI_0_4 = 3;
+				} else if(-115 <= cat_m1_Status_Band.rssi && cat_m1_Status_Band.rssi < -105) {
+					previousRSSIstate = 0;
+					lteRSSI_0_4 = 2;
+				} else if(-125 <= cat_m1_Status_Band.rssi && cat_m1_Status_Band.rssi < -115) {
+					lteRSSI_0_4 = 1;
+				} else {
+					lteRSSI_0_4 = 0;
+				}
+
 				osDelay(500);
 				extern RTC_HandleTypeDef hrtc;
 				extern catM1Time nowTimeinfo;
@@ -970,7 +987,7 @@ void StartSecTimerTask(void *argument)
 		pre_brightness_count = brightness_count;
 
 		//////////////////////////////// 5분 주기 동작 Task로 CatM1, GNSS 이동 필요 ////////////////////////////////
-
+#if 0
 		cat_m1_rssi_cycleTime++;
 //		PRINT_INFO("mqttTime >>> %d\r\n",mqttTime);
 		if(cat_m1_rssi_cycleTime > cat_m1_rssi_cycle )
@@ -998,6 +1015,7 @@ void StartSecTimerTask(void *argument)
 			UartRxRetryTime++;
 		}
 //		PRINT_INFO("UartRxRetryTime >>> %d\r\n",UartRxRetryTime);
+#endif
 		if(UartRxRetryTime > 3)
 		{
 			uart_init();
@@ -1012,6 +1030,7 @@ void StartSecTimerTask(void *argument)
 			UartRxRetryTime = 0;
 			cat_m1_Status.txflag = 0;
 		}
+#if 0
 #if !defined(nRF9160_no_auto_gps)
 		if(gpsFlag == 0)
 		{
@@ -1024,6 +1043,7 @@ void StartSecTimerTask(void *argument)
 			gpsFlag = true;
 			gpsTime = 0;
 		}
+#endif
 		if(cat_m1_Status.gpsChecking)
 		{
 			gpsOffCheckTime++;
@@ -1034,6 +1054,7 @@ void StartSecTimerTask(void *argument)
 			catM1Reset();
 #else
 			nrf9160_Stop_gps();
+			mqttFlag = true;
 #endif
 		}
 //		if(cell_locationFlag == 0)
@@ -1148,7 +1169,7 @@ void StartCheckINTTask(void *argument)
     osDelay(100);
 
 	extern uint8_t RTC_CallBack_Check;
-	if(RTC_CallBack_Check == 1){
+	if(RTC_CallBack_Check == 1){ //5뷴
 		RTC_CallBack_Check = 0;
 
 		// PPG 기능 실행
@@ -1160,8 +1181,10 @@ void StartCheckINTTask(void *argument)
 		hrFlag = 1;
 		ssRunFlag = 1;
 
-		if(rtcAlarmEventCount % 2 == 0){
+		if(rtcAlarmEventCount % 2 == 0){ //10분
 			// CatM1, GNSS 기능 실행
+			cat_m1_rssi_cycleFlag = true;
+			gpsFlag = true;
 		}
 		rtcAlarmEventCount++;
 
