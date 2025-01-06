@@ -98,7 +98,8 @@ void MX_RTC_Init(void)
   sAlarm.AlarmTime.Minutes = 0;
   sAlarm.AlarmTime.Seconds = 0;
   sAlarm.AlarmTime.SubSeconds = 0;
-  sAlarm.AlarmMask = RTC_ALARMMASK_DATEWEEKDAY|RTC_ALARMMASK_HOURS|RTC_ALARMMASK_MINUTES;
+  sAlarm.AlarmMask = RTC_ALARMMASK_DATEWEEKDAY|RTC_ALARMMASK_HOURS
+                              |RTC_ALARMMASK_MINUTES;
   sAlarm.AlarmSubSecondMask = RTC_ALARMSUBSECONDMASK_ALL;
   sAlarm.AlarmDateWeekDaySel = RTC_ALARMDATEWEEKDAYSEL_DATE;
   sAlarm.AlarmDateWeekDay = 1;
@@ -181,10 +182,10 @@ void Set_RTC_Alarm(void) {
     RTC_AlarmTypeDef sAlarm;
     RTC_TimeTypeDef currentTime;
 
-    // í˜„ìž¬ ì‹œê°„ ê°€ì ¸ì˜¤ê¸°
+    // ?˜„?ž¬ ?‹œê°? ê°?? ¸?˜¤ê¸?
     HAL_RTC_GetTime(&hrtc, &currentTime, RTC_FORMAT_BIN);
 
-    // 5ë¶„ í›„ ì•ŒëžŒ ì„¤ì •
+    // 5ë¶? ?›„ ?•Œ?žŒ ?„¤? •
     sAlarm.AlarmTime.Hours = 0;
     sAlarm.AlarmTime.Minutes = (currentTime.Minutes + 5) % 60;
     sAlarm.AlarmTime.Seconds = 0;

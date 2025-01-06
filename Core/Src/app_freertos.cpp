@@ -151,7 +151,7 @@ float deltaAlt = 0;
 uint16_t curr_height = 0;
 int height_num = 0;
 
-float falling_threshold = 1.0; // ?��?�� ?���???? 기�? ?��?�� 차이
+float falling_threshold = 1.0; // ?��?�� ?���?????? 기�? ?��?�� 차이
 
 uint8_t ssSCD = 0;
 uint16_t ssHr = 0;
@@ -436,7 +436,7 @@ void StartlcdTask(void *argument)
 		osDelay(10);
 	}
 	runHaptic(20, 500, 1); // turn on device haptic
-//	HAL_Delay(5000); // ?���???? ?��?�� + ?��버거 ?���???? ?���????
+//	HAL_Delay(5000); // ?���?????? ?��?�� + ?��버거 ?���?????? ?���??????
 	ST7789_gpio_setting();
 	ST7789_Init();
 	ST7789_brightness_setting(set_bLevel);
@@ -647,7 +647,7 @@ void StartWPMTask(void *argument)
 
 					// To prevent the appearance of time decreasing when updating RTC time with GNSS time,
 					// caused by RTC time flowing faster than GNSS time.
-					// RTC ?��간이 GNSS ?��간보?�� 빠르�???? ?��르면?��, RTC ?��간을 GNSS ?��간으�???? ?��?��?��?��?�� ?�� ?��간이 감소?��?�� 것처?�� 보이?�� ?��?��?�� 방�??���???? ?��?��.
+					// RTC ?��간이 GNSS ?��간보?�� 빠르�?????? ?��르면?��, RTC ?��간을 GNSS ?��간으�?????? ?��?��?��?��?�� ?�� ?��간이 감소?��?�� 것처?�� 보이?�� ?��?��?�� 방�??���?????? ?��?��.
 					if(sTime.Minutes > (uint8_t)nowTimeinfo.min){
 						sDate.Year = (uint8_t)nowTimeinfo.year;
 						sDate.Month = (uint8_t)nowTimeinfo.month;
@@ -749,7 +749,7 @@ double magnitude = 0;
 
 
 #if !defined(fall_algo_test)
-// �?????��?�� ?��?��?�� 구조�????
+// �???????��?�� ?��?��?�� 구조�??????
 typedef struct {
     double x;
     double y;
@@ -764,7 +764,7 @@ uint8_t detect_fall(AccelData* accel_data, double threshold) {
 #endif
 
 	if (magnitude_local > threshold) {
-		return 1; // ?��?��?���???? 감�?
+		return 1; // ?��?��?���?????? 감�?
 	}
 	else return 0; // ?��?�� ?��?��
 }
@@ -785,7 +785,7 @@ uint8_t detect_fall(IMUData* imu_data, double accel_threshold, double gyro_thres
 #endif
 
 	if (accel_magnitude_local > accel_threshold && gyro_magnitude_local > gyro_threshold) {
-		return 1; // ?��?��?���???? 감�?
+		return 1; // ?��?��?���?????? 감�?
 	}
 	else return 0; // ?��?�� ?��?��
 }
@@ -947,8 +947,8 @@ void StartSecTimerTask(void *argument)
 		ST7789_brightness_setting(now_bLevel);
 	}
 
-	// screenOnTime == brightness_count�?????????? ?���?????????? ?���?????????? 꺼라
-	// brightness_count == 0?���?????????? 바�?�면 백라?��?���?????????? 켜라
+	// screenOnTime == brightness_count�???????????? ?���???????????? ?���???????????? 꺼라
+	// brightness_count == 0?���???????????? 바�?�면 백라?��?���???????????? 켜라
 //	if(pre_secTime != secTime && secTime%1 == 0){ // 1sec
 //		// turn off LCD backlight
 //		if(brightness_count == 0 && pre_brightness_count >= screenOnTime){
@@ -986,7 +986,7 @@ void StartSecTimerTask(void *argument)
 		}
 		pre_brightness_count = brightness_count;
 
-		//////////////////////////////// 5분 주기 동작 Task로 CatM1, GNSS 이동 필요 ////////////////////////////////
+		//////////////////////////////// 5�?? 주기 ?��?�� Task�?? CatM1, GNSS ?��?�� ?��?�� ////////////////////////////////
 #if 0
 		cat_m1_rssi_cycleTime++;
 //		PRINT_INFO("mqttTime >>> %d\r\n",mqttTime);
@@ -1135,9 +1135,9 @@ uint8_t interrupt_kind = 0;
 #include <math.h>
 double calculateAltitudeDifference(double P1, double P2) {
     const double R = 8.314;       // 기체 ?��?�� (J/(mol·K))
-    const double T = 273.15+25;   // ?���???????? ?��?�� (K) - ?���???????? ??�???????? 조건 15°C
-    const double g = 9.80665;     // 중력 �?????????��?�� (m/s²)
-    const double M = 0.02896;     // 공기?�� �???????? 질량 (kg/mol)
+    const double T = 273.15+25;   // ?���?????????? ?��?�� (K) - ?���?????????? ??�?????????? 조건 15°C
+    const double g = 9.80665;     // 중력 �???????????��?�� (m/s²)
+    const double M = 0.02896;     // 공기?�� �?????????? 질량 (kg/mol)
 
     double altitudeDifference = (R * T) / (g * M) * log(P1 / P2);
 
@@ -1149,7 +1149,7 @@ double calculateAltitudeDifference(double P1, double P2) {
 //}
 uint8_t finishReadPPG = 1;
 uint8_t backendStopModeEnterFlag = 1;
-uint8_t rtcAlarmEventCount = 0;
+__attribute__((section(".retention_ram"))) uint8_t rtcAlarmEventCount = 0;
 int timerSecCounter = -1;
 uint8_t spo2Flag = 0;
 uint8_t hrFlag = 0;
@@ -1169,10 +1169,10 @@ void StartCheckINTTask(void *argument)
     osDelay(100);
 
 	extern uint8_t RTC_CallBack_Check;
-	if(RTC_CallBack_Check == 1){ //5뷴
+	if(RTC_CallBack_Check == 1){ //5�??
 		RTC_CallBack_Check = 0;
 
-		// PPG 기능 실행
+		// PPG 기능 ?��?��
 		ssRunFlag = 0;
 //		osDelay(100);
 		ssBegin(0x00);
@@ -1181,8 +1181,8 @@ void StartCheckINTTask(void *argument)
 		hrFlag = 1;
 		ssRunFlag = 1;
 
-		if(rtcAlarmEventCount % 2 == 0){ //10분
-			// CatM1, GNSS 기능 실행
+		if(rtcAlarmEventCount % 2 == 0){ //10�??
+			// CatM1, GNSS 기능 ?��?��
 			cat_m1_rssi_cycleFlag = true;
 			gpsFlag = true;
 		}
@@ -1191,7 +1191,7 @@ void StartCheckINTTask(void *argument)
 		timerSecCounter = 60*10; // about 60sec
 	}
 	else {
-		if(timerSecCounter == 0){
+		if(timerSecCounter == 0){ // after about 60sec
 			// off PPG
 			ssRunFlag = 0;
 	//		osDelay(100);
@@ -1261,7 +1261,10 @@ void StartCheckINTTask(void *argument)
     }
 
     // MCU GPIO button click => change to home screen & backlight on
-    if(HAL_GPIO_ReadPin(GPIOB, GPIO_PIN_12) == GPIO_PIN_RESET){
+//    if(HAL_GPIO_ReadPin(GPIOB, GPIO_PIN_12) == GPIO_PIN_RESET){
+    extern uint8_t occured_HOMEBTNInterrupt;
+    if(occured_HOMEBTNInterrupt == 1){
+    	occured_HOMEBTNInterrupt = 0;
     	brightness_count = 0;
     	if(flashlightOn){
     		flashlightOn = 0;
@@ -1466,15 +1469,15 @@ void read_ppg()
 }
 
 double getAltitude(double pressure_hPa) {
-    // hPa�???? Pa�???? �?????��
+    // hPa�?????? Pa�?????? �???????��
     double pressure_Pa = pressure_hPa * 100.0; // 1 hPa = 100 Pa
 
     // ?��?��면에?��?�� 기�? ?��?�� (Pa)
-    const double P0 = 1013.25 * 100.0; // ?��반적?�� ?��?���???? ?��?�� �???? (hPa?��?�� Pa�???? �?????��)
+    const double P0 = 1013.25 * 100.0; // ?��반적?�� ?��?���?????? ?��?�� �?????? (hPa?��?�� Pa�?????? �???????��)
 
-    // ??�???? ?��?�� 공식?�� ?��?�� 고도 계산
+    // ??�?????? ?��?�� 공식?�� ?��?�� 고도 계산
     double p = pressure_Pa / P0; // ?��?? ?��?��
-    double b = 1.0 / 5.255; // �?????��
+    double b = 1.0 / 5.255; // �???????��
     double alt = 44330.0 * (1.0 - pow(p, b)); // 고도 (미터 ?��?��)
 
     return alt;
@@ -1784,13 +1787,13 @@ void measPPG(){
 }
 
 /**
- * @brief A �??��?��?�� ?��?�� RTC ?���? ???��
- * @param startTime ???��?�� RTC ?���? 구조�?
+ * @brief A �????��?��?�� ?��?�� RTC ?���??? ???��
+ * @param startTime ???��?�� RTC ?���??? 구조�???
  */
 void GetTimeAtA(RTC_TimeTypeDef *startTime, RTC_DateTypeDef *startDate) {
 	extern RTC_HandleTypeDef hrtc;
     HAL_RTC_GetTime(&hrtc, startTime, RTC_FORMAT_BIN);
-    HAL_RTC_GetDate(&hrtc, startDate, RTC_FORMAT_BIN); // ?��짜도 ?���? ?��?��?�� ?���? 갱신 문제 방�?
+    HAL_RTC_GetDate(&hrtc, startDate, RTC_FORMAT_BIN); // ?��짜도 ?���??? ?��?��?�� ?���??? 갱신 문제 방�?
 }
 // Function to convert RTC time and date to time_t
 time_t convertRTCToTimeT(RTC_DateTypeDef* date, RTC_TimeTypeDef* time) {
@@ -1882,7 +1885,7 @@ void Enter_StopMode(void) {
 //	if(RTC_CallBack_Check == 1){
 //		RTC_CallBack_Check = 0;
 //
-//		// PPG 기능 실행
+//		// PPG 기능 ?��?��
 //		ssRunFlag = 0;
 ////		osDelay(100);
 //		ssBegin(0x00);
@@ -1892,7 +1895,7 @@ void Enter_StopMode(void) {
 //		ssRunFlag = 1;
 //
 //		if(rtcAlarmEventCount % 2 == 0){
-//			// CatM1, GNSS 기능 실행
+//			// CatM1, GNSS 기능 ?��?��
 //		}
 //		rtcAlarmEventCount++;
 //

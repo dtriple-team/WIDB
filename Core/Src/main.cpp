@@ -243,6 +243,7 @@ uint8_t occurred_imuInterrupt = 0;
 uint8_t occurred_PMICBUTTInterrupt = 0;
 
 uint8_t occurred_touchInterrupt = 0;
+uint8_t occured_HOMEBTNInterrupt = 0;
 //uint8_t TP_INT = 0;
 
 void HAL_GPIO_EXTI_Rising_Callback(uint16_t GPIO_Pin)
@@ -266,11 +267,14 @@ void HAL_GPIO_EXTI_Falling_Callback(uint16_t GPIO_Pin)
   if(GPIO_Pin == PMIC_BUTT_INT_Pin){
 	  occurred_PMICBUTTInterrupt = 1;
   }
+  else if(GPIO_Pin == CPI_FUNC_SW_Pin){
+	  occured_HOMEBTNInterrupt = 1;
+  }
 }
 
 uint8_t RTC_CallBack_Check = 0;
 void HAL_RTC_AlarmAEventCallback(RTC_HandleTypeDef *hrtc) {
-	// CatM1이 연결 되어 있지 X (시간 정보를 받아오지 않은 경우) => return;
+	// CatM1?�� ?���?? ?��?�� ?���?? X (?���?? ?��보�?? 받아?���?? ?��?? 경우) => return;
 	extern uint8_t time_check;
 	if(time_check != 1){
 		return;
@@ -279,20 +283,20 @@ void HAL_RTC_AlarmAEventCallback(RTC_HandleTypeDef *hrtc) {
     extern uint8_t backendStopModeEnterFlag;
 	backendStopModeEnterFlag = 0;
 
-    // 다음 5분 알람 설정
+    // ?��?�� 5�?? ?��?�� ?��?��
     Set_RTC_Alarm();
 
-    // 알람 발생 시 실행할 코드
-	//	 CatM1, GNSS, PPG 기능 실행 (run backend function)
+    // ?��?�� 발생 ?�� ?��?��?�� 코드
+	//	 CatM1, GNSS, PPG 기능 ?��?�� (run backend function)
 	//	 enter stop mode
-    RTC_CallBack_Check = 1; // TIM start 이후 PPG 제어가 가능 => clock 복구 이후에 실행 되도록 flag 사용
+    RTC_CallBack_Check = 1; // TIM start ?��?�� PPG ?��?���?? �???�� => clock 복구 ?��?��?�� ?��?�� ?��?���?? flag ?��?��
 
 ////    extern bool StopModeState;
 ////    if(StopModeState == true){
 ////    	osDelay(2000);
 ////    }
 //
-//    // PPG 기능 실행
+//    // PPG 기능 ?��?��
 //	extern void ssBegin(uint8_t);
 //	extern void ssRead_setting();
 //	extern void ssPause_setting();
@@ -307,7 +311,7 @@ void HAL_RTC_AlarmAEventCallback(RTC_HandleTypeDef *hrtc) {
 ////	ssRunFlag = 1;
 //
 //    if(rtcAlarmEventCount % 2 == 0){
-//    	// CatM1, GNSS 기능 실행
+//    	// CatM1, GNSS 기능 ?��?��
 //    }
 //    rtcAlarmEventCount++;
 //

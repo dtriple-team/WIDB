@@ -103,6 +103,9 @@ void Error_Handler(void);
 #define WiFi_PWR_GPIO_Port GPIOD
 #define WiFi_RESET_Pin GPIO_PIN_9
 #define WiFi_RESET_GPIO_Port GPIOD
+#define CPI_FUNC_SW_Pin GPIO_PIN_14
+#define CPI_FUNC_SW_GPIO_Port GPIOB
+#define CPI_FUNC_SW_EXTI_IRQn EXTI14_IRQn
 #define LCD_SS_Pin GPIO_PIN_12
 #define LCD_SS_GPIO_Port GPIOE
 

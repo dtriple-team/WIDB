@@ -711,7 +711,7 @@ void nrf9160_mqtt_setting()
         case MQTT_CONNECT:
             if (cat_m1_Status.mqttConnectionStatus == 0)
             {
-                send_at_command("AT#XMQTTCON=1,\"\",\"\",\"t-vsm.com\",18831\r\n");
+                send_at_command("AT#XMQTTCON=1,\"\",\"\",\"3.37.65.94\",18831\r\n");
                 osDelay(5000);
                 cat_m1_Status.retryCount++;
 
@@ -782,7 +782,7 @@ void nrf9160_mqtt_test()
 
 void test_send_json_publish(void)
 {
-	send_at_command("AT#XMQTTCON=1,\"\",\"\",\"t-vsm.com\",18831\r\n");
+	send_at_command("AT#XMQTTCON=1,\"\",\"\",\"3.37.65.94\",18831\r\n");
 	osDelay(300);
 	send_at_command("AT%XMONITOR\r\n");
 
