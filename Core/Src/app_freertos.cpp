@@ -1848,6 +1848,15 @@ void Enter_StopMode(void) {
 	portDISABLE_INTERRUPTS();
 
 	// NVIC ?��?��?��?�� ?��?��
+	HAL_NVIC_SetPriority(EXTI4_IRQn, 0, 0);      // HOME_BTN_INT?��
+	HAL_NVIC_EnableIRQ(EXTI4_IRQn);
+	HAL_NVIC_SetPriority(EXTI5_IRQn, 0, 0);      // SOS_BTN_INT?��
+	HAL_NVIC_EnableIRQ(EXTI5_IRQn);
+	HAL_NVIC_SetPriority(EXTI6_IRQn, 0, 0);      // CHARGING_INT?��
+	HAL_NVIC_EnableIRQ(EXTI6_IRQn);
+	HAL_NVIC_SetPriority(EXTI3_IRQn, 0, 0);      // IMU_INT?��
+	HAL_NVIC_EnableIRQ(EXTI3_IRQn);
+
 	HAL_NVIC_SetPriority(EXTI13_IRQn, 0, 0);      // TP_INT?��
 	HAL_NVIC_EnableIRQ(EXTI13_IRQn);
 	HAL_NVIC_SetPriority(RTC_IRQn, 0, 0);      // RTC wakeup
@@ -1871,6 +1880,15 @@ void Enter_StopMode(void) {
 	HAL_NVIC_EnableIRQ(RTC_IRQn);
 	HAL_NVIC_SetPriority(EXTI13_IRQn, 5, 0);      // TP_INT?��
 	HAL_NVIC_EnableIRQ(EXTI13_IRQn);
+
+	HAL_NVIC_SetPriority(EXTI3_IRQn, 5, 0);      // IMU_INT?��
+	HAL_NVIC_EnableIRQ(EXTI3_IRQn);
+	HAL_NVIC_SetPriority(EXTI6_IRQn, 5, 0);      // CHARGING_INT?��
+	HAL_NVIC_EnableIRQ(EXTI6_IRQn);
+	HAL_NVIC_SetPriority(EXTI5_IRQn, 5, 0);      // SOS_BTN_INT?��
+	HAL_NVIC_EnableIRQ(EXTI5_IRQn);
+	HAL_NVIC_SetPriority(EXTI4_IRQn, 5, 0);      // HOME_BTN_INT?��
+	HAL_NVIC_EnableIRQ(EXTI4_IRQn);
 
 	portENABLE_INTERRUPTS();
 
