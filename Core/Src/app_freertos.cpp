@@ -1128,6 +1128,10 @@ double calculateAltitudeDifference(double P1, double P2) {
 //}
 uint8_t finishReadPPG = 1;
 uint8_t backendStopModeEnterFlag = 1;
+uint8_t rtcAlarmEventCount = 0;
+int timerSecCounter = -1;
+uint8_t spo2Flag = 0;
+uint8_t hrFlag = 0;
 /* USER CODE END Header_StartCheckINTTask */
 void StartCheckINTTask(void *argument)
 {
@@ -1142,6 +1146,40 @@ void StartCheckINTTask(void *argument)
   for(;;)
   {
     osDelay(100);
+
+	extern uint8_t RTC_CallBack_Check;
+	if(RTC_CallBack_Check == 1){
+		RTC_CallBack_Check = 0;
+
+		// PPG 기능 실행
+		ssRunFlag = 0;
+//		osDelay(100);
+		ssBegin(0x00);
+		ssRead_setting();
+		spo2Flag = 1;
+		hrFlag = 1;
+		ssRunFlag = 1;
+
+		if(rtcAlarmEventCount % 2 == 0){
+			// CatM1, GNSS 기능 실행
+		}
+		rtcAlarmEventCount++;
+
+		timerSecCounter = 60*10; // about 60sec
+	}
+	else {
+		if(timerSecCounter == 0){
+			// off PPG
+			ssRunFlag = 0;
+	//		osDelay(100);
+			ssBegin(0x05);
+			ssPause_setting();
+			ssRunFlag = 1;
+			// enter stop mode
+			backendStopModeEnterFlag = 1;
+		}
+		timerSecCounter--;
+	}
 
     if(now_sleepmode == 1 && backendStopModeEnterFlag == 1){
     	// PPG meas finish
@@ -1330,9 +1368,6 @@ uint8_t checkReadStatus = 0;
 
 int scdStateSamples[SDC_COUNT] = {0};
 int scdSampleIndex = 0;
-
-uint8_t spo2Flag = 0;
-uint8_t hrFlag = 0;
 
 void read_ppg()
 {
@@ -1764,7 +1799,6 @@ double isDifferenceWithinThreshold(RTC_DateTypeDef* date1, RTC_TimeTypeDef* time
 
 double elapsedTime = 0;
 bool StopModeState = false;
-uint8_t rtcAlarmEventCount = 0;
 void Enter_StopMode(void) {
 	// FreeRTOS ?��?��?�� 중단
 //	vTaskSuspendAll();
@@ -1817,41 +1851,41 @@ void Enter_StopMode(void) {
 	HAL_TIM_Base_Start_IT(&htim17);
 	HAL_TIM_Base_Start_IT(&htim4);
 
-//	if (HAL_RTCEx_DeactivateWakeUpTimer(&hrtc) != HAL_OK)
-//	{
-//		int err = 1; //
+////	if (HAL_RTCEx_DeactivateWakeUpTimer(&hrtc) != HAL_OK)
+////	{
+////		int err = 1; //
+////	}
+//	extern uint8_t RTC_CallBack_Check;
+//	if(RTC_CallBack_Check == 1){
+//		RTC_CallBack_Check = 0;
+//
+//		// PPG 기능 실행
+//		ssRunFlag = 0;
+////		osDelay(100);
+//		ssBegin(0x00);
+//		ssRead_setting();
+//		spo2Flag = 1;
+//		hrFlag = 1;
+//		ssRunFlag = 1;
+//
+//		if(rtcAlarmEventCount % 2 == 0){
+//			// CatM1, GNSS 기능 실행
+//		}
+//		rtcAlarmEventCount++;
+//
+//		osDelay(60*1000);
+//
+//		// off PPG
+//		ssRunFlag = 0;
+////		osDelay(100);
+//		ssBegin(0x05);
+//		ssPause_setting();
+//		ssRunFlag = 1;
+//		// enter stop mode
+//		backendStopModeEnterFlag = 1;
 //	}
-	extern uint8_t RTC_CallBack_Check;
-	if(RTC_CallBack_Check == 1){
-		RTC_CallBack_Check = 0;
-
-		// PPG 기능 실행
-		ssRunFlag = 0;
-//		osDelay(100);
-		ssBegin(0x00);
-		ssRead_setting();
-		spo2Flag = 1;
-		hrFlag = 1;
-		ssRunFlag = 1;
-
-		if(rtcAlarmEventCount % 2 == 0){
-			// CatM1, GNSS 기능 실행
-		}
-		rtcAlarmEventCount++;
-
-		osDelay(60*1000);
-
-		// off PPG
-		ssRunFlag = 0;
-//		osDelay(100);
-		ssBegin(0x05);
-		ssPause_setting();
-		ssRunFlag = 1;
-		// enter stop mode
-		backendStopModeEnterFlag = 1;
-	}
-
-//	xTaskResumeAll();
+//
+////	xTaskResumeAll();
 }
 
 // frontend enter stopmode
