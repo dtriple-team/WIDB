@@ -432,7 +432,8 @@ int MAX20303::Buck2Config()
 	int32_t ret = 0;
 	appcmdoutvalue_ = 0x3A;
 	appdatainoutbuffer_[0] = 0x00;
-	appdatainoutbuffer_[1] = 0x32; // 3.3V (0.05v step 0.8~3.95V)
+//	appdatainoutbuffer_[1] = 0x32; // 3.3V (0.05v step 0.8~3.95V)
+	appdatainoutbuffer_[1] = 0x14; // 1.8V (0.05v step 0.8~3.95V)
 	appdatainoutbuffer_[2] = 0x3F; // over 3V & max 375mA limit
 	appdatainoutbuffer_[3] = 0x01;
 	AppWrite(4);
