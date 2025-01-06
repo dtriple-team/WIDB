@@ -71,21 +71,24 @@ void Error_Handler(void);
 /* Private defines -----------------------------------------------------------*/
 #define LCD_PWR_Pin GPIO_PIN_0
 #define LCD_PWR_GPIO_Port GPIOD
+#define HOME_BTN_Pin GPIO_PIN_4
+#define HOME_BTN_GPIO_Port GPIOE
+#define HOME_BTN_EXTI_IRQn EXTI4_IRQn
 #define LCD_DC_Pin GPIO_PIN_1
 #define LCD_DC_GPIO_Port GPIOE
-#define PMIC_BUTT_INT_Pin GPIO_PIN_5
-#define PMIC_BUTT_INT_GPIO_Port GPIOB
-#define PMIC_BUTT_INT_EXTI_IRQn EXTI5_IRQn
 #define SS_MFIO_Pin GPIO_PIN_4
 #define SS_MFIO_GPIO_Port GPIOD
 #define TP_INT_Pin GPIO_PIN_13
 #define TP_INT_GPIO_Port GPIOC
 #define TP_INT_EXTI_IRQn EXTI13_IRQn
+#define PMIC_CHARG_INT_Pin GPIO_PIN_6
+#define PMIC_CHARG_INT_GPIO_Port GPIOE
+#define PMIC_CHARG_INT_EXTI_IRQn EXTI6_IRQn
 #define SS_RSTN_Pin GPIO_PIN_5
 #define SS_RSTN_GPIO_Port GPIOD
-#define IMU_INT_Pin GPIO_PIN_12
-#define IMU_INT_GPIO_Port GPIOC
-#define IMU_INT_EXTI_IRQn EXTI12_IRQn
+#define old_IMU_INT_Pin GPIO_PIN_12
+#define old_IMU_INT_GPIO_Port GPIOC
+#define old_IMU_INT_EXTI_IRQn EXTI12_IRQn
 #define LCD_RS_Pin GPIO_PIN_1
 #define LCD_RS_GPIO_Port GPIOD
 #define TP_RESET_Pin GPIO_PIN_2
@@ -99,6 +102,9 @@ void Error_Handler(void);
 #define PMIC_INT_Pin GPIO_PIN_15
 #define PMIC_INT_GPIO_Port GPIOD
 #define PMIC_INT_EXTI_IRQn EXTI15_IRQn
+#define SOS_BTN_Pin GPIO_PIN_5
+#define SOS_BTN_GPIO_Port GPIOA
+#define SOS_BTN_EXTI_IRQn EXTI5_IRQn
 #define WiFi_PWR_Pin GPIO_PIN_10
 #define WiFi_PWR_GPIO_Port GPIOD
 #define WiFi_RESET_Pin GPIO_PIN_9
@@ -106,6 +112,9 @@ void Error_Handler(void);
 #define CPU_FUNC_SW_Pin GPIO_PIN_14
 #define CPU_FUNC_SW_GPIO_Port GPIOB
 #define CPU_FUNC_SW_EXTI_IRQn EXTI14_IRQn
+#define IMU_INT_Pin GPIO_PIN_3
+#define IMU_INT_GPIO_Port GPIOA
+#define IMU_INT_EXTI_IRQn EXTI3_IRQn
 #define LCD_SS_Pin GPIO_PIN_12
 #define LCD_SS_GPIO_Port GPIOE
 

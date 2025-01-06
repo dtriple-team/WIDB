@@ -22,7 +22,6 @@
 #include "adc.h"
 #include "mdf.h"
 #include "crc.h"
-#include "dac.h"
 #include "gpdma.h"
 #include "i2c.h"
 #include "icache.h"
@@ -116,7 +115,6 @@ int main(void)
   MX_SPI1_Init();
   MX_UART4_Init();
   MX_USART1_UART_Init();
-  MX_USART2_UART_Init();
   MX_USART3_UART_Init();
   MX_ADC1_Init();
   MX_LPTIM1_Init();
@@ -135,7 +133,6 @@ int main(void)
   MX_TIM5_Init();
   MX_RTC_Init();
   MX_TIM17_Init();
-  MX_DAC1_Init();
   MX_TouchGFX_Init();
   /* Call PreOsInit function */
   MX_TouchGFX_PreOSInit();
@@ -143,7 +140,7 @@ int main(void)
   HAL_TIM_Base_Start(&htim15);
   HAL_TIM_Base_Start_IT(&htim4);
   HAL_TIM_Base_Start_IT(&htim17);
-  HAL_DAC_Start(&hdac1, DAC_CHANNEL_2);
+//  HAL_DAC_Start(&hdac1, DAC_CHANNEL_2);
   /* USER CODE END 2 */
 
   /* Init scheduler */
@@ -267,7 +264,7 @@ void HAL_GPIO_EXTI_Rising_Callback(uint16_t GPIO_Pin)
 }
 void HAL_GPIO_EXTI_Falling_Callback(uint16_t GPIO_Pin)
 {
-  if(GPIO_Pin == PMIC_BUTT_INT_Pin){
+  if(GPIO_Pin == SOS_BTN_Pin){
 	  occurred_PMICBUTTInterrupt = 1;
   }
   else if(GPIO_Pin == CPU_FUNC_SW_Pin){
@@ -277,7 +274,7 @@ void HAL_GPIO_EXTI_Falling_Callback(uint16_t GPIO_Pin)
 
 uint8_t RTC_CallBack_Check = 0;
 void HAL_RTC_AlarmAEventCallback(RTC_HandleTypeDef *hrtc) {
-	// CatM1?�� ?���??? ?��?�� ?���??? X (?���??? ?��보�?? 받아?���??? ?��?? 경우) => return;
+	// CatM1?�� ?���???? ?��?�� ?���???? X (?���???? ?��보�?? 받아?���???? ?��?? 경우) => return;
 	extern uint8_t time_check;
 	if(time_check != 1){
 		return;
@@ -286,13 +283,13 @@ void HAL_RTC_AlarmAEventCallback(RTC_HandleTypeDef *hrtc) {
     extern uint8_t backendStopModeEnterFlag;
 	backendStopModeEnterFlag = 0;
 
-    // ?��?�� 5�??? ?��?�� ?��?��
+    // ?��?�� 5�???? ?��?�� ?��?��
     Set_RTC_Alarm();
 
     // ?��?�� 발생 ?�� ?��?��?�� 코드
 	//	 CatM1, GNSS, PPG 기능 ?��?�� (run backend function)
 	//	 enter stop mode
-    RTC_CallBack_Check = 1; // TIM start ?��?�� PPG ?��?���??? �????�� => clock 복구 ?��?��?�� ?��?�� ?��?���??? flag ?��?��
+    RTC_CallBack_Check = 1; // TIM start ?��?�� PPG ?��?���???? �?????�� => clock 복구 ?��?��?�� ?��?�� ?��?���???? flag ?��?��
 
 ////    extern bool StopModeState;
 ////    if(StopModeState == true){
