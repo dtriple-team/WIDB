@@ -43,6 +43,7 @@
 #define MAX20303_ERROR      -1
 
 #define MAX20303_I2C_ADDR_FUEL_GAUGE    0x6C
+#define MAX20303_I2C_ADDR_SYSTEM_FUNC    0x50
 
 #define MAX20303_LDO_MIN_MV 800
 #define MAX20303_LDO_MAX_MV 3600
@@ -223,6 +224,7 @@ public:
 	uint8_t Battery_Status_Charger();
 
 	int Max20303_BatteryVoltage(uint16_t *batteryVoltage);
+	int Max20303_ChgStatRegSetting(void);
 
 	// dtirple yeh 햅틱 변수 추가
 	int Max20303_HapticSetting();

@@ -26,6 +26,9 @@ int pmic_init()
 	//max20303.BoostEnable();
 	ret |= max20303.BuckBoostEnable(); // 5V
 
+	// when charging BATT -> occure INT
+	ret |= pmicChgStatRegINTSetting();
+
 	/* Wait for pmic to settle down */
 	HAL_Delay(200);
 
@@ -41,6 +44,12 @@ int pmicSOCRead(unsigned char *batterylevel){
 int pmicVCELLRead(uint16_t *batteryVoltage){
 	int ret = 0;
 	ret = max20303.Max20303_BatteryVoltage(batteryVoltage);
+	return ret;
+}
+
+int pmicChgStatRegINTSetting(void){
+	int ret = 0;
+	ret = max20303.Max20303_ChgStatRegSetting();
 	return ret;
 }
 

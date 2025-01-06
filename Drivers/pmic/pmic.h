@@ -22,5 +22,6 @@ int pmic_init(void);
 int pmicSOCRead(unsigned char *batterylevel);
 int pmicVCELLRead(uint16_t *batteryVoltage);
 int isBATTCharging();
+int pmicChgStatRegINTSetting(void);
 
 void runHaptic(int hapticFrequencyHz, int hapticDuration, int hapticContinue);
