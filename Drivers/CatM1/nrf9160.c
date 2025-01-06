@@ -1305,6 +1305,9 @@ void nrf9160_Stop_gps()
 	gpsOffCheckTime = 0;
 	//cell_locationFlag = true;
 	HAL_UART_Receive_IT(&huart1, &uart_cat_m1_rx.temp, 1);
+
+	extern bool mqttFlag;
+	mqttFlag = true;
 }
 
 void nrf9160_Get_gps_State()
