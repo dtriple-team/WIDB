@@ -42,13 +42,13 @@ extern "C" {
 }
 #include "speaker.h"
 
-#include <gui_generated/initblackscreen_screen/initBlackScreenViewBase.hpp>
-#include <gui_generated/falldetected_screen/fallDetectedViewBase.hpp>
-#include <gui_generated/temphome_screen/tempHomeViewBase.hpp>
-#include <gui_generated/containers/batteryprogress_containerBase.hpp>
-#include <gui_generated/charging_screen_screen/charging_screenViewBase.hpp>
-#include <gui_generated/uncharging_screen_screen/unCharging_screenViewBase.hpp>
-#include <gui_generated/sos_alert_screen/sos_alertViewBase.hpp>
+//#include <gui_generated/initblackscreen_screen/initBlackScreenViewBase.hpp>
+//#include <gui_generated/falldetected_screen/fallDetectedViewBase.hpp>
+//#include <gui_generated/temphome_screen/tempHomeViewBase.hpp>
+//#include <gui_generated/containers/batteryprogress_containerBase.hpp>
+//#include <gui_generated/charging_screen_screen/charging_screenViewBase.hpp>
+//#include <gui_generated/uncharging_screen_screen/unCharging_screenViewBase.hpp>
+//#include <gui_generated/sos_alert_screen/sos_alertViewBase.hpp>
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -146,7 +146,7 @@ float deltaAlt = 0;
 uint16_t curr_height = 0;
 int height_num = 0;
 
-float falling_threshold = 1.0; // 낙상 판별 기준 높이 차이
+float falling_threshold = 1.0; // ?��?�� ?���?????? 기�? ?��?�� 차이
 
 uint8_t ssSCD = 0;
 uint16_t ssHr = 0;
@@ -203,14 +203,14 @@ const osThreadAttr_t ppmTask_attributes = {
 osThreadId_t wpmTaskHandle;
 const osThreadAttr_t wpmTask_attributes = {
   .name = "wpmTask",
-  .stack_size = 1024 * 4,
+  .stack_size = 512 * 4,
   .priority = (osPriority_t) osPriorityNormal
 };
 /* Definitions for spmTask */
 osThreadId_t spmTaskHandle;
 const osThreadAttr_t spmTask_attributes = {
   .name = "spmTask",
-  .stack_size = 512 * 4,
+  .stack_size = 128 * 4,
   .priority = (osPriority_t) osPriorityNormal
 };
 /* Definitions for secTimerTask */
@@ -219,7 +219,6 @@ const osThreadAttr_t secTimerTask_attributes = {
   .name = "secTimerTask",
   .stack_size = 128 * 4,
   .priority = (osPriority_t) osPriorityNormal
-
 };
 /* Definitions for checkINTTask */
 osThreadId_t checkINTTaskHandle;
@@ -254,17 +253,17 @@ uint8_t wpmInitializationFlag = 0;
 uint8_t lcdInitFlag = 0;
 
 double test_mag_data[15] = {0,};
-uint8_t set_bLevel = 7; // GUI val ?��?��
+uint8_t set_bLevel = 1; // GUI val ?��?�� // 7
 uint8_t before_bLevel = set_bLevel;
 uint8_t flashlightOn = 0;
 
 uint8_t lteRSSI_0_4 = 0; // CATM1 signal RSSI 0 to 4 value
 uint8_t gpsRSSI_0_1 = 0;
 
-initBlackScreenViewBase myBlackScreenView;
-fallDetectedViewBase myFallDetectedView;
-tempHomeViewBase myTempHomeView;
-sos_alertViewBase mySOSAlertViewBase;
+//initBlackScreenViewBase myBlackScreenView;
+//fallDetectedViewBase myFallDetectedView;
+//tempHomeViewBase myTempHomeView;
+//sos_alertViewBase mySOSAlertViewBase;
 
 extern uint8_t occurred_imuInterrupt;
 extern uint8_t occurred_PMICBUTTInterrupt;
@@ -367,6 +366,47 @@ void StartInitTask(void *argument)
 
 //	runHaptic();
 
+	cat_m1_Status_Rtt_Gps_t gpsStatus = {
+		.bid = 0,                // Set the bid value to 12345
+		.svData01 = {0},                 // Initialize 'data' array to zero
+		.svData02 = {0},                 // Initialize 'data' array to zero
+		.svData03 = {0},                 // Initialize 'data' array to zero
+		.svData04 = {0},                 // Initialize 'data' array to zero
+		.svData05 = {0},                 // Initialize 'data' array to zero
+		.svData06 = {0},                 // Initialize 'data' array to zero
+		.svData07 = {0},                 // Initialize 'data' array to zero
+		.svData08 = {0},                 // Initialize 'data' array to zero
+		.svData09 = {0},                 // Initialize 'data' array to zero
+		.svData10 = {0},                 // Initialize 'data' array to zero
+		.svData11 = {0},                 // Initialize 'data' array to zero
+		.svData12 = {0},                 // Initialize 'data' array to zero
+		.svData13 = {0},                 // Initialize 'data' array to zero
+		.svData14 = {0},                 // Initialize 'data' array to zero
+		.svData15 = {0},                 // Initialize 'data' array to zero
+		.svData16 = {0},                 // Initialize 'data' array to zero
+		.svData17 = {0},                 // Initialize 'data' array to zero
+		.svData18 = {0},                 // Initialize 'data' array to zero
+		.svData19 = {0},                 // Initialize 'data' array to zero
+		.svData20 = {0},                 // Initialize 'data' array to zero
+		.svData21 = {0},                 // Initialize 'data' array to zero
+		.svData22 = {0},                 // Initialize 'data' array to zero
+		.svData23 = {0},                 // Initialize 'data' array to zero
+		.svData24 = {0},                 // Initialize 'data' array to zero
+		.svData25 = {0},                 // Initialize 'data' array to zero
+		.svData26 = {0},                 // Initialize 'data' array to zero
+		.svData27 = {0},                 // Initialize 'data' array to zero
+		.svData28 = {0},                 // Initialize 'data' array to zero
+		.svData29 = {0},                 // Initialize 'data' array to zero
+		.svData30 = {0},                 // Initialize 'data' array to zero
+		.svData31 = {0},                 // Initialize 'data' array to zero
+		.svData32 = {0},                 // Initialize 'data' array to zero
+		.GPGGA = {0},     // Initialize 'GPGGA' with some sample string (up to 100 characters)
+		.GPGLL = {0},     // Initialize 'GPGLL' with some sample string
+		.GPGSA = {0},     // Initialize 'GPGSA' with some sample string
+		.GPGSV = {0},     // Initialize 'GPGSV' with some sample string
+		.GPRMC = {0},      // Initialize 'GPRMC' with some sample string
+	};
+
 	for(;;){
 		// haptic
 		if(cat_m1_Status_FallDetection.fall_detect == 1){
@@ -413,7 +453,7 @@ void StartlcdTask(void *argument)
 		osDelay(10);
 	}
 	runHaptic(20, 500, 1); // turn on device haptic
-//	HAL_Delay(5000); // 외부 전원 + 디버거 연결 시간
+//	HAL_Delay(5000); // ?���?????? ?��?�� + ?��버거 ?���?????? ?���??????
 	ST7789_gpio_setting();
 	ST7789_Init();
 	ST7789_brightness_setting(set_bLevel);
@@ -480,7 +520,7 @@ void StartWPMTask(void *argument)
 //	// WiFi-BLE init
 //	nora_w10_init();
 //	cat_m1_Status_FallDetection_t cat_m1_Status_FallDetection = {
-//	    .bid = deviceID, // Band의 bid 값을 사용
+//	    .bid = deviceID, // Band?�� bid 값을 ?��?��
 //	    .type = 0,
 //	    .fall_detect = 1
 //	};
@@ -497,6 +537,12 @@ void StartWPMTask(void *argument)
 		// CatM1 init
 		nrf9160_ready();
 	}
+
+	if(wpmInitializationFlag && cat_m1_Status.Checked == 0)
+	{
+		nrf9160_Get_gps();
+	}
+/*
 	if(wpmInitializationFlag && cat_m1_Status.Checked == 0)
 	{
 #if defined(nRF9160_nRFCLOUD_Init)
@@ -619,6 +665,7 @@ void StartWPMTask(void *argument)
 		}
 
 	}
+*/
 	//	if(wpmFlag ==1)
 	//	{
 
@@ -628,7 +675,7 @@ void StartWPMTask(void *argument)
 	if(initFlag){
 
 	}
-	BandAlert();
+//	BandAlert();
 	osDelay(10);
   }
   /* USER CODE END wpmTask */
@@ -655,7 +702,7 @@ double magnitude = 0;
 
 
 #if !defined(fall_algo_test)
-// 가속도 데이터 구조체
+// �???????��?�� ?��?��?�� 구조�??????
 typedef struct {
     double x;
     double y;
@@ -670,9 +717,9 @@ uint8_t detect_fall(AccelData* accel_data, double threshold) {
 #endif
 
 	if (magnitude_local > threshold) {
-		return 1; // 낙상으로 감지
+		return 1; // ?��?��?���?????? 감�?
 	}
-	else return 0; // 낙상 아님
+	else return 0; // ?��?�� ?��?��
 }
 #else
 typedef struct {
@@ -691,9 +738,9 @@ uint8_t detect_fall(IMUData* imu_data, double accel_threshold, double gyro_thres
 #endif
 
 	if (accel_magnitude_local > accel_threshold && gyro_magnitude_local > gyro_threshold) {
-		return 1; // 낙상으로 감지
+		return 1; // ?��?��?���?????? 감�?
 	}
-	else return 0; // 낙상 아님
+	else return 0; // ?��?�� ?��?��
 }
 #endif
 
@@ -721,90 +768,90 @@ void StartSPMTask(void *argument)
   {
     osDelay(100);
 	// read sensor
-	double magnetX, magnetY, magnetZ, iisTemp;
-	read_iis2mdc(&magnetX, &magnetY, &magnetZ, &iisTemp);
-
-	uint16_t gyroSensi = 125;
-	uint8_t accSensi = 2;
-	double ismTemp, gyroX, gyroY, gyroZ, accX, accY, accZ;
-	read_ism330dhcx(gyroSensi, accSensi, &ismTemp, &gyroX, &gyroY, &gyroZ, &accX, &accY, &accZ);
-
-	double pressure, lpsTemp;
-	read_lps22hh(&pressure, &lpsTemp);
-//		for(int i=0; i<PRESSURE_VAL_LEN-1; i++){
-//			pre_pressure[i] = pre_pressure[i+1];
-//		}
-//		pre_pressure[PRESSURE_VAL_LEN-1] = pressure;
-
-
-	test_mag_data[0] = magnetX/10; 	// mgauss -> uT
-	test_mag_data[1] = magnetY/10; 	// mgauss -> uT
-	test_mag_data[2] = magnetZ/10; 	// mgauss -> uT
-	test_mag_data[3] = iisTemp;		// degC
-
-	test_mag_data[4] = 0;
-
-	test_mag_data[5] = ismTemp;		// degC
-	test_mag_data[6] = gyroX/1000; 	// mdeg/s -> deg/s
-	test_mag_data[7] = gyroY/1000; 	// mdeg/s -> deg/s
-	test_mag_data[8] = gyroZ/1000; 	// mdeg/s -> deg/s
-	test_mag_data[9] = accX/1000;  	// mg -> g
-	test_mag_data[10] = accY/1000; 	// mg -> g
-	test_mag_data[11] = accZ/1000; 	// mg -> g
-
-	test_mag_data[12] = 0;
-
-	test_mag_data[13] = pressure; 	// hPa
-	test_mag_data[14] = lpsTemp;  	// degC
-
-	imuTemp = ismTemp;
-	press = pressure;
-
-#if !defined(fall_algo_test)
-	AccelData accel_data;
-	accel_data.x = accX;
-	accel_data.y = accY;
-	accel_data.z = accZ;
-	uint8_t highG_Detect = 0;
-	highG_Detect = detect_fall(&accel_data, ACC_threshold);
-#else
-	IMUData imu_data;
-	imu_data.ax = accX;
-	imu_data.ay = accY;
-	imu_data.az = accZ;
-	imu_data.gx = gyroX;
-	imu_data.gy = gyroY;
-	imu_data.gz = gyroZ;
-	uint8_t highG_Detect = detect_fall(&imu_data, ACC_threshold, GYRO_threshold);
-#endif
+//	double magnetX, magnetY, magnetZ, iisTemp;
+//	read_iis2mdc(&magnetX, &magnetY, &magnetZ, &iisTemp);
+//
+//	uint16_t gyroSensi = 125;
+//	uint8_t accSensi = 2;
+//	double ismTemp, gyroX, gyroY, gyroZ, accX, accY, accZ;
+//	read_ism330dhcx(gyroSensi, accSensi, &ismTemp, &gyroX, &gyroY, &gyroZ, &accX, &accY, &accZ);
+//
+//	double pressure, lpsTemp;
+//	read_lps22hh(&pressure, &lpsTemp);
+////		for(int i=0; i<PRESSURE_VAL_LEN-1; i++){
+////			pre_pressure[i] = pre_pressure[i+1];
+////		}
+////		pre_pressure[PRESSURE_VAL_LEN-1] = pressure;
+//
+//
+//	test_mag_data[0] = magnetX/10; 	// mgauss -> uT
+//	test_mag_data[1] = magnetY/10; 	// mgauss -> uT
+//	test_mag_data[2] = magnetZ/10; 	// mgauss -> uT
+//	test_mag_data[3] = iisTemp;		// degC
+//
+//	test_mag_data[4] = 0;
+//
+//	test_mag_data[5] = ismTemp;		// degC
+//	test_mag_data[6] = gyroX/1000; 	// mdeg/s -> deg/s
+//	test_mag_data[7] = gyroY/1000; 	// mdeg/s -> deg/s
+//	test_mag_data[8] = gyroZ/1000; 	// mdeg/s -> deg/s
+//	test_mag_data[9] = accX/1000;  	// mg -> g
+//	test_mag_data[10] = accY/1000; 	// mg -> g
+//	test_mag_data[11] = accZ/1000; 	// mg -> g
+//
+//	test_mag_data[12] = 0;
+//
+//	test_mag_data[13] = pressure; 	// hPa
+//	test_mag_data[14] = lpsTemp;  	// degC
+//
+//	imuTemp = ismTemp;
+//	press = pressure;
+//
+//#if !defined(fall_algo_test)
+//	AccelData accel_data;
+//	accel_data.x = accX;
+//	accel_data.y = accY;
+//	accel_data.z = accZ;
+//	uint8_t highG_Detect = 0;
+//	highG_Detect = detect_fall(&accel_data, ACC_threshold);
+//#else
+//	IMUData imu_data;
+//	imu_data.ax = accX;
+//	imu_data.ay = accY;
+//	imu_data.az = accZ;
+//	imu_data.gx = gyroX;
+//	imu_data.gy = gyroY;
+//	imu_data.gz = gyroZ;
+//	uint8_t highG_Detect = detect_fall(&imu_data, ACC_threshold, GYRO_threshold);
+//#endif
 
 //	if(ssRunFlag == 1)
 //	{
 //	  read_ppg();
 //	}
-	bmpAlt = getAltitude(pressure);
-	//PRINT_INFO("bmpAlt >>> %f\r\n",bmpAlt);
+//	bmpAlt = getAltitude(pressure);
+//	//PRINT_INFO("bmpAlt >>> %f\r\n",bmpAlt);
+//
+//	if (bmpAlt < 0)
+//	{
+//	    bmpAlt = -bmpAlt;
+//	}
 
-	if (bmpAlt < 0)
-	{
-	    bmpAlt = -bmpAlt;
-	}
-
-	if(pressCheckFlag && pressCheckStartFlag)// && ssSCD == 3)
-	{
-		updateHeightData();
-		pressCheckFlag = 0;
-	}
+//	if(pressCheckFlag && pressCheckStartFlag)// && ssSCD == 3)
+//	{
+//		updateHeightData();
+//		pressCheckFlag = 0;
+//	}
 //	if(freeFall_int_on && ssSCD == 3)
 //	{
 //		checkFallDetection();
 //		freeFall_int_on = false;
 //	}
-	if(highG_Detect == 1)// && ssSCD == 3)
-	{
-		checkFallDetection();
-//		freeFall_int_on = false;
-	}
+//	if(highG_Detect == 1)// && ssSCD == 3)
+//	{
+//		checkFallDetection();
+////		freeFall_int_on = false;
+//	}
   }
   /* USER CODE END spmTask */
 }
@@ -815,6 +862,7 @@ void StartSPMTask(void *argument)
 * @param argument: Not used
 * @retval None
 */
+//int start_count = 0;
 /* USER CODE END Header_StartSecTimerTask */
 void StartSecTimerTask(void *argument)
 {
@@ -849,8 +897,8 @@ void StartSecTimerTask(void *argument)
 		ST7789_brightness_setting(now_bLevel);
 	}
 
-	// screenOnTime == brightness_count�?????? ?���?????? ?���?????? 꺼라
-	// brightness_count == 0?���?????? 바�?�면 백라?��?���?????? 켜라
+	// screenOnTime == brightness_count�???????????? ?���???????????? ?���???????????? 꺼라
+	// brightness_count == 0?���???????????? 바�?�면 백라?��?���???????????? 켜라
 //	if(pre_secTime != secTime && secTime%1 == 0){ // 1sec
 //		// turn off LCD backlight
 //		if(brightness_count == 0 && pre_brightness_count >= screenOnTime){
@@ -868,24 +916,27 @@ void StartSecTimerTask(void *argument)
 //	}
 	if(pre_secTime != secTime){ // 1sec
 		pre_secTime = secTime;
+//		if(start_count < 5*60*1000){
+//			start_count++;
+//		}
 
-		// turn on LCD backlight (in screenOnTime, active only one)
-		if(brightness_count == 0){
-			if(pre_brightness_count >= screenOnTime)
-				ST7789_brightness_setting(set_bLevel);
-			brightness_count++;
-			now_sleepmode = 0;
-		}
-		else if(brightness_count < screenOnTime){
-			brightness_count++;
-		}
-		// turn off LCD backlight (out of screenOnTime)
-		else if(brightness_count >= screenOnTime){
-			ST7789_brightness_setting(0);
-			myBlackScreenView.changeToInitBlackScreen();
-			now_sleepmode = 1;
-		}
-		pre_brightness_count = brightness_count;
+//		// turn on LCD backlight (in screenOnTime, active only one)
+//		if(brightness_count == 0){
+//			if(pre_brightness_count >= screenOnTime)
+//				ST7789_brightness_setting(set_bLevel);
+//			brightness_count++;
+//			now_sleepmode = 0;
+//		}
+//		else if(brightness_count < screenOnTime){
+//			brightness_count++;
+//		}
+//		// turn off LCD backlight (out of screenOnTime)
+//		else if(brightness_count >= screenOnTime){
+//			ST7789_brightness_setting(0);
+////			myBlackScreenView.changeToInitBlackScreen();
+//			now_sleepmode = 1;
+//		}
+//		pre_brightness_count = brightness_count;
 
 		cat_m1_rssi_cycleTime++;
 //		PRINT_INFO("mqttTime >>> %d\r\n",mqttTime);
@@ -928,6 +979,7 @@ void StartSecTimerTask(void *argument)
 			UartRxRetryTime = 0;
 			cat_m1_Status.txflag = 0;
 		}
+/*
 #if !defined(nRF9160_no_auto_gps)
 		if(gpsFlag == 0)
 		{
@@ -952,6 +1004,7 @@ void StartSecTimerTask(void *argument)
 			nrf9160_Stop_gps();
 #endif
 		}
+*/
 //		if(cell_locationFlag == 0)
 //		{
 //			cell_locationTime++;
@@ -995,23 +1048,24 @@ void StartSecTimerTask(void *argument)
 * @param argument: Not used
 * @retval None
 */
-batteryprogress_containerBase myBatteryprogress_container;
-charging_screenViewBase myCharging_screenView;
-unCharging_screenViewBase myUnCharging_screenView;
+//batteryprogress_containerBase myBatteryprogress_container;
+//charging_screenViewBase myCharging_screenView;
+//unCharging_screenViewBase myUnCharging_screenView;
 uint8_t interrupt_kind = 0;
 #define PRESSURE_VAL_LEN 10
 #include <math.h>
 unsigned char batterylevel;
 double calculateAltitudeDifference(double P1, double P2) {
     const double R = 8.314;       // 기체 ?��?�� (J/(mol·K))
-    const double T = 273.15+25;   // ?���???? ?��?�� (K) - ?���???? ??�???? 조건 15°C
-    const double g = 9.80665;     // 중력 �?????��?�� (m/s²)
-    const double M = 0.02896;     // 공기?�� �???? 질량 (kg/mol)
+    const double T = 273.15+25;   // ?���?????????? ?��?�� (K) - ?���?????????? ??�?????????? 조건 15°C
+    const double g = 9.80665;     // 중력 �???????????��?�� (m/s²)
+    const double M = 0.02896;     // 공기?�� �?????????? 질량 (kg/mol)
 
     double altitudeDifference = (R * T) / (g * M) * log(P1 / P2);
 
     return altitudeDifference;
 }
+uint8_t temp_blevel = 0;
 //uint8_t updateBattVal(){
 //	uint8_t batt = 0;
 //	return batt;
@@ -1084,9 +1138,11 @@ void StartCheckINTTask(void *argument)
     		flashlightOn = 0;
     		set_bLevel = before_bLevel; // turn off flash light : brightness
     	}
-    	myTempHomeView.changeToHomeScreen();
+//    	myTempHomeView.changeToHomeScreen();
 
-    	ST7789_brightness_setting(before_bLevel);
+//    	ST7789_brightness_setting(before_bLevel);
+    	if(temp_blevel == 15) temp_blevel = 0;
+    	ST7789_brightness_setting(temp_blevel++);
 
     	// cat_m1_Status_FallDetection.fall_detect = 0;
     	memset(&cat_m1_Status_FallDetection, 0, sizeof(cat_m1_Status_FallDetection));
@@ -1120,13 +1176,13 @@ void StartCheckINTTask(void *argument)
 				isCharging = isCharging_Now;
 				if(isCharging){
 //					myBatteryprogress_container.batteryCharging();
-					myCharging_screenView.changeChargeScreen();
+//					myCharging_screenView.changeChargeScreen();
 			    	brightness_count = 0;
 			    	ppgMeasFlag = 0;
 				}
 				else{
 //					myBatteryprogress_container.batteryNotCharging();
-					myUnCharging_screenView.changeUnChargeScreen();
+//					myUnCharging_screenView.changeUnChargeScreen();
 			    	brightness_count = 0;
 			    	ppgMeasFlag = 1;
 				}
@@ -1134,11 +1190,11 @@ void StartCheckINTTask(void *argument)
 		}
 		else if(battVal == 100 && isCharging == true){ // charging finish
 			isCharging = false;
-			myUnCharging_screenView.changeUnChargeScreen();
+//			myUnCharging_screenView.changeUnChargeScreen();
 	    	brightness_count = 0;
 		}
     }
-
+/*
     // PMIC interrupt occur => emergency signal send to Web (CATM1)
     if(occurred_PMICBUTTInterrupt){
     	if (cat_m1_Status.gpsChecking)
@@ -1149,7 +1205,7 @@ void StartCheckINTTask(void *argument)
 		before_bLevel = set_bLevel;
 		ST7789_brightness_setting(16);
 		brightness_count = 0;
-    	mySOSAlertViewBase.changeToSOSDetected();
+//    	mySOSAlertViewBase.changeToSOSDetected();
     	// haptic
     	haptic_SOS = 1;
     	// send SOS MQTT
@@ -1161,6 +1217,7 @@ void StartCheckINTTask(void *argument)
 
     	occurred_PMICBUTTInterrupt = 0;
     }
+*/
   }
   /* USER CODE END checkINTTask */
 }
@@ -1178,11 +1235,21 @@ void StartDATATask(void *argument)
 	while(!pmicInitFlag){
 		osDelay(10);
 	}
+	extern bool uartRXFinish;
   /* Infinite loop */
   for(;;)
   {
-	 receive_response();// Cat-M1 Buffer parsing
-	 osDelay(10);
+//	  if(start_count < 30*1000){
+//		  uartRXFinish = 1;
+//	  }
+//	  if(uartRXFinish){
+//		  receive_response();// Cat-M1 Buffer parsing
+//	  }
+////	  else{
+////		  osDelay(1);
+////	  }
+	  receive_response();// Cat-M1 Buffer parsing
+	 osDelay(1);
   }
   /* USER CODE END dataTask */
 }
@@ -1272,16 +1339,16 @@ void read_ppg()
 }
 
 double getAltitude(double pressure_hPa) {
-    // hPa를 Pa로 변환
+    // hPa�?????? Pa�?????? �???????��
     double pressure_Pa = pressure_hPa * 100.0; // 1 hPa = 100 Pa
 
-    // 해수면에서의 기준 압력 (Pa)
-    const double P0 = 1013.25 * 100.0; // 일반적인 해수면 압력 값 (hPa에서 Pa로 변환)
+    // ?��?��면에?��?�� 기�? ?��?�� (Pa)
+    const double P0 = 1013.25 * 100.0; // ?��반적?�� ?��?���?????? ?��?�� �?????? (hPa?��?�� Pa�?????? �???????��)
 
-    // 대기 압력 공식에 따라 고도 계산
-    double p = pressure_Pa / P0; // 상대 압력
-    double b = 1.0 / 5.255; // 지수
-    double alt = 44330.0 * (1.0 - pow(p, b)); // 고도 (미터 단위)
+    // ??�?????? ?��?�� 공식?�� ?��?�� 고도 계산
+    double p = pressure_Pa / P0; // ?��?? ?��?��
+    double b = 1.0 / 5.255; // �???????��
+    double alt = 44330.0 * (1.0 - pow(p, b)); // 고도 (미터 ?��?��)
 
     return alt;
 }
@@ -1348,7 +1415,7 @@ void checkFallDetection()
 		cat_m1_Status_FallDetection.type = 0;
 		cat_m1_Status_FallDetection.fall_detect = 1;
 
-		myFallDetectedView.changeToFallDetected();
+//		myFallDetectedView.changeToFallDetected();
 		before_bLevel = set_bLevel;
 		brightness_count = 0;
 		ST7789_brightness_setting(16);
@@ -1531,7 +1598,7 @@ void measPPG(){
 		// start ppg
 		if(ppgMeaserCount % spo2MeaserPeriode_sec == 0){
 //			mfioGPIOModeChange(output);
-			ssWalk_SUM = ssWalk; // total walk count 누적 필요
+			ssWalk_SUM = ssWalk; // total walk count ?��?�� ?��?��
 			ssBegin(0x00);
 			ssRead_setting();
 			spo2Flag = 1;
@@ -1539,7 +1606,7 @@ void measPPG(){
 		}
 		else if(ppgMeaserCount % hrMeaserPeriode_sec == 0){
 //			mfioGPIOModeChange(output);
-			ssWalk_SUM = ssWalk; // total walk count 누적 필요
+			ssWalk_SUM = ssWalk; // total walk count ?��?�� ?��?��
 			ssBegin(0x02);
 			ssRead_setting();
 			hrFlag = 1;
@@ -1558,12 +1625,12 @@ void measPPG(){
 		}
 
 		if(spo2Count == 60){ // < spo2MeaserPeriode_sec = 60*5
-			ssWalk_SUM = ssWalk; // total walk count 누적 필요
+			ssWalk_SUM = ssWalk; // total walk count ?��?�� ?��?��
 			ssBegin(0x05);
 			spo2Count = 0;
 		}
 		if(hrCount == 30){ // < hrMeaserPeriode_sec = 60 * 1
-			ssWalk_SUM = ssWalk; // total walk count 누적 필요
+			ssWalk_SUM = ssWalk; // total walk count ?��?�� ?��?��
 			ssBegin(0x05);
 			hrCount = 0;
 		}

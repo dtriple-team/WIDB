@@ -6,6 +6,6 @@
 
 static unsigned short SIM_WIDTH = 240;
 static unsigned short SIM_HEIGHT = 280;
-#define SIM_TITLE "demo_eHG4"
+#define SIM_TITLE "eHG4_GNSS_test"
 
 #endif // SIMCONSTANTS_HPP

@@ -170,7 +170,7 @@ void MX_TIM5_Init(void)
   htim5.Instance = TIM5;
   htim5.Init.Prescaler = 0;
   htim5.Init.CounterMode = TIM_COUNTERMODE_UP;
-  htim5.Init.Period = 4294967295;
+  htim5.Init.Period = 4.294967295E9;
   htim5.Init.ClockDivision = TIM_CLOCKDIVISION_DIV1;
   htim5.Init.AutoReloadPreload = TIM_AUTORELOAD_PRELOAD_DISABLE;
   if (HAL_TIM_Base_Init(&htim5) != HAL_OK)
@@ -599,12 +599,12 @@ void HAL_TIM_Base_MspDeInit(TIM_HandleTypeDef* tim_baseHandle)
 
 /* USER CODE BEGIN 1 */
 void delay_us(uint16_t time) {
-	__HAL_TIM_SET_COUNTER(&htim15, 0);              // ???��머�?? 0?���?? 초기?��
-	while((__HAL_TIM_GET_COUNTER(&htim15))<time);   // ?��?��?�� ?��간까�?? ??�??
+	__HAL_TIM_SET_COUNTER(&htim15, 0);              // ???��머�?? 0?���??? 초기?��
+	while((__HAL_TIM_GET_COUNTER(&htim15))<time);   // ?��?��?�� ?��간까�??? ??�???
 }
 
 void micros_start(){
-	__HAL_TIM_SET_COUNTER(&htim15, 0);              // ???��머�?? 0?���?? 초기?��
+	__HAL_TIM_SET_COUNTER(&htim15, 0);              // ???��머�?? 0?���??? 초기?��
 	return;
 }
 uint32_t micros_stop(){

@@ -9,65 +9,15 @@
 #include <mvp/MVPHeap.hpp>
 
 #include <touchgfx/transitions/NoTransition.hpp>
-#include <touchgfx/transitions/CoverTransition.hpp>
-#include <touchgfx/transitions/WipeTransition.hpp>
 #include <touchgfx/transitions/SlideTransition.hpp>
 
 #include <gui/common/FrontendApplication.hpp>
 #include <gui/model/Model.hpp>
 
-#include <gui/homescreenwithbiodata_screen/HomeScreenWithBiodataView.hpp>
-#include <gui/homescreenwithbiodata_screen/HomeScreenWithBiodataPresenter.hpp>
-#include <gui/stepsscreen_screen/StepsScreenView.hpp>
-#include <gui/stepsscreen_screen/StepsScreenPresenter.hpp>
-#include <gui/heartratescreen_screen/HeartrateScreenView.hpp>
-#include <gui/heartratescreen_screen/HeartrateScreenPresenter.hpp>
-#include <gui/spo2screen_screen/Spo2ScreenView.hpp>
-#include <gui/spo2screen_screen/Spo2ScreenPresenter.hpp>
-#include <gui/sleepscreen_screen/SleepScreenView.hpp>
-#include <gui/sleepscreen_screen/SleepScreenPresenter.hpp>
-#include <gui/heartratedetail_screen/HeartrateDetailView.hpp>
-#include <gui/heartratedetail_screen/HeartrateDetailPresenter.hpp>
-#include <gui/spo2detail_screen/Spo2DetailView.hpp>
-#include <gui/spo2detail_screen/Spo2DetailPresenter.hpp>
-#include <gui/swipedownfromhome_screen/swipedownfromHomeView.hpp>
-#include <gui/swipedownfromhome_screen/swipedownfromHomePresenter.hpp>
-#include <gui/settingscreen_screen/SettingScreenView.hpp>
-#include <gui/settingscreen_screen/SettingScreenPresenter.hpp>
-#include <gui/screensetting_screen/screenSettingView.hpp>
-#include <gui/screensetting_screen/screenSettingPresenter.hpp>
-#include <gui/screenontimesetting_screen/screenontimeSettingView.hpp>
-#include <gui/screenontimesetting_screen/screenontimeSettingPresenter.hpp>
-#include <gui/screenbrightnesssetting_screen/screenbrightnessSettingView.hpp>
-#include <gui/screenbrightnesssetting_screen/screenbrightnessSettingPresenter.hpp>
-#include <gui/soundnhapticssetting_screen/soundnhapticsSettingView.hpp>
-#include <gui/soundnhapticssetting_screen/soundnhapticsSettingPresenter.hpp>
-#include <gui/languagesetting_screen/languageSettingView.hpp>
-#include <gui/languagesetting_screen/languageSettingPresenter.hpp>
-#include <gui/informationsetting_screen/informationSettingView.hpp>
-#include <gui/informationsetting_screen/informationSettingPresenter.hpp>
-#include <gui/deviceinfosetting_screen/deviceInfoSettingView.hpp>
-#include <gui/deviceinfosetting_screen/deviceInfoSettingPresenter.hpp>
-#include <gui/networkinfosetting_screen/networkInfoSettingView.hpp>
-#include <gui/networkinfosetting_screen/networkInfoSettingPresenter.hpp>
-#include <gui/systemsetting_screen/systemSettingView.hpp>
-#include <gui/systemsetting_screen/systemSettingPresenter.hpp>
-#include <gui/turnoffscreen_screen/turnoffScreenView.hpp>
-#include <gui/turnoffscreen_screen/turnoffScreenPresenter.hpp>
-#include <gui/sos_alert_screen/sos_alertView.hpp>
-#include <gui/sos_alert_screen/sos_alertPresenter.hpp>
-#include <gui/falldetected_screen/fallDetectedView.hpp>
-#include <gui/falldetected_screen/fallDetectedPresenter.hpp>
-#include <gui/initblackscreen_screen/initBlackScreenView.hpp>
-#include <gui/initblackscreen_screen/initBlackScreenPresenter.hpp>
-#include <gui/temphome_screen/tempHomeView.hpp>
-#include <gui/temphome_screen/tempHomePresenter.hpp>
-#include <gui/flashlight_screen_screen/flashlight_screenView.hpp>
-#include <gui/flashlight_screen_screen/flashlight_screenPresenter.hpp>
-#include <gui/uncharging_screen_screen/unCharging_screenView.hpp>
-#include <gui/uncharging_screen_screen/unCharging_screenPresenter.hpp>
-#include <gui/charging_screen_screen/charging_screenView.hpp>
-#include <gui/charging_screen_screen/charging_screenPresenter.hpp>
+#include <gui/screen1_screen/Screen1View.hpp>
+#include <gui/screen1_screen/Screen1Presenter.hpp>
+#include <gui/screen2_screen/Screen2View.hpp>
+#include <gui/screen2_screen/Screen2Presenter.hpp>
 
 
 /**
@@ -90,33 +40,9 @@ public:
      * A list of all view types. Must end with meta::Nil.
      * @note All view types used in the application MUST be added to this list!
      */
-    typedef touchgfx::meta::TypeList< HomeScreenWithBiodataView,
-            touchgfx::meta::TypeList< StepsScreenView,
-            touchgfx::meta::TypeList< HeartrateScreenView,
-            touchgfx::meta::TypeList< Spo2ScreenView,
-            touchgfx::meta::TypeList< SleepScreenView,
-            touchgfx::meta::TypeList< HeartrateDetailView,
-            touchgfx::meta::TypeList< Spo2DetailView,
-            touchgfx::meta::TypeList< swipedownfromHomeView,
-            touchgfx::meta::TypeList< SettingScreenView,
-            touchgfx::meta::TypeList< screenSettingView,
-            touchgfx::meta::TypeList< screenontimeSettingView,
-            touchgfx::meta::TypeList< screenbrightnessSettingView,
-            touchgfx::meta::TypeList< soundnhapticsSettingView,
-            touchgfx::meta::TypeList< languageSettingView,
-            touchgfx::meta::TypeList< informationSettingView,
-            touchgfx::meta::TypeList< deviceInfoSettingView,
-            touchgfx::meta::TypeList< networkInfoSettingView,
-            touchgfx::meta::TypeList< systemSettingView,
-            touchgfx::meta::TypeList< turnoffScreenView,
-            touchgfx::meta::TypeList< sos_alertView,
-            touchgfx::meta::TypeList< fallDetectedView,
-            touchgfx::meta::TypeList< initBlackScreenView,
-            touchgfx::meta::TypeList< tempHomeView,
-            touchgfx::meta::TypeList< flashlight_screenView,
-            touchgfx::meta::TypeList< unCharging_screenView,
-            touchgfx::meta::TypeList< charging_screenView,
-            touchgfx::meta::Nil > > > > > > > > > > > > > > > > > > > > > > > > >
+    typedef touchgfx::meta::TypeList< Screen1View,
+            touchgfx::meta::TypeList< Screen2View,
+            touchgfx::meta::Nil >
             > GeneratedViewTypes;
 
     /**
@@ -128,33 +54,9 @@ public:
      * A list of all presenter types. Must end with meta::Nil.
      * @note All presenter types used in the application MUST be added to this list!
      */
-    typedef touchgfx::meta::TypeList< HomeScreenWithBiodataPresenter,
-            touchgfx::meta::TypeList< StepsScreenPresenter,
-            touchgfx::meta::TypeList< HeartrateScreenPresenter,
-            touchgfx::meta::TypeList< Spo2ScreenPresenter,
-            touchgfx::meta::TypeList< SleepScreenPresenter,
-            touchgfx::meta::TypeList< HeartrateDetailPresenter,
-            touchgfx::meta::TypeList< Spo2DetailPresenter,
-            touchgfx::meta::TypeList< swipedownfromHomePresenter,
-            touchgfx::meta::TypeList< SettingScreenPresenter,
-            touchgfx::meta::TypeList< screenSettingPresenter,
-            touchgfx::meta::TypeList< screenontimeSettingPresenter,
-            touchgfx::meta::TypeList< screenbrightnessSettingPresenter,
-            touchgfx::meta::TypeList< soundnhapticsSettingPresenter,
-            touchgfx::meta::TypeList< languageSettingPresenter,
-            touchgfx::meta::TypeList< informationSettingPresenter,
-            touchgfx::meta::TypeList< deviceInfoSettingPresenter,
-            touchgfx::meta::TypeList< networkInfoSettingPresenter,
-            touchgfx::meta::TypeList< systemSettingPresenter,
-            touchgfx::meta::TypeList< turnoffScreenPresenter,
-            touchgfx::meta::TypeList< sos_alertPresenter,
-            touchgfx::meta::TypeList< fallDetectedPresenter,
-            touchgfx::meta::TypeList< initBlackScreenPresenter,
-            touchgfx::meta::TypeList< tempHomePresenter,
-            touchgfx::meta::TypeList< flashlight_screenPresenter,
-            touchgfx::meta::TypeList< unCharging_screenPresenter,
-            touchgfx::meta::TypeList< charging_screenPresenter,
-            touchgfx::meta::Nil > > > > > > > > > > > > > > > > > > > > > > > > >
+    typedef touchgfx::meta::TypeList< Screen1Presenter,
+            touchgfx::meta::TypeList< Screen2Presenter,
+            touchgfx::meta::Nil >
             > GeneratedPresenterTypes;
 
     /**
@@ -167,14 +69,9 @@ public:
      * @note All transition types used in the application MUST be added to this list!
      */
     typedef touchgfx::meta::TypeList< touchgfx::NoTransition,
-            touchgfx::meta::TypeList< CoverTransition<NORTH>,
-            touchgfx::meta::TypeList< CoverTransition<EAST>,
-            touchgfx::meta::TypeList< WipeTransition<EAST>,
-            touchgfx::meta::TypeList< WipeTransition<WEST>,
+            touchgfx::meta::TypeList< SlideTransition<EAST>,
             touchgfx::meta::TypeList< SlideTransition<WEST>,
-            touchgfx::meta::TypeList< WipeTransition<NORTH>,
-            touchgfx::meta::TypeList< WipeTransition<SOUTH>,
-            touchgfx::meta::Nil > > > > > > >
+            touchgfx::meta::Nil > >
             > GeneratedTransitionTypes;
 
     /**
@@ -184,7 +81,7 @@ public:
 
     virtual void gotoStartScreen(FrontendApplication& app)
     {
-        app.gotoHomeScreenWithBiodataScreenNoTransition();
+        app.gotoScreen1ScreenNoTransition();
     }
 protected:
     FrontendHeapBase(touchgfx::AbstractPartition& presenters, touchgfx::AbstractPartition& views, touchgfx::AbstractPartition& transitions, FrontendApplication& app)

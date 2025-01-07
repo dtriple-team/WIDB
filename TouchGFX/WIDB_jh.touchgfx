@@ -2,3233 +2,1043 @@
   "Application": {
     "Screens": [
       {
-        "Name": "HomeScreenWithBiodata",
-        "Components": [
-          {
-            "Type": "Image",
-            "Name": "background",
-            "Width": 240,
-            "Height": 280,
-            "RelativeFilename": "background.png"
-          },
-          {
-            "Type": "Image",
-            "Name": "home_background",
-            "Width": 240,
-            "Height": 280,
-            "RelativeFilename": "background.png"
-          },
-          {
-            "Type": "DigitalClock",
-            "Name": "digitalClock",
-            "Y": 72,
-            "Width": 240,
-            "Height": 98,
-            "TextColor": {
-              "Red": 255,
-              "Green": 255,
-              "Blue": 255
-            },
-            "TextId": "homescreenClock",
-            "DisplayLeadingZeroForHourIndicator": true,
-            "InitialHour": 10,
-            "InitialMinute": 10
-          },
-          {
-            "Type": "TextArea",
-            "Name": "date_value",
-            "X": 22,
-            "Y": 45,
-            "Width": 128,
-            "Height": 31,
-            "TextId": "curMonthday",
-            "TextRotation": "0",
-            "Color": {
-              "Red": 255,
-              "Green": 255,
-              "Blue": 255
-            },
-            "Wildcard1": {
-              "TextId": "curMonth",
-              "UseBuffer": true,
-              "BufferSize": 3
-            },
-            "Wildcard2": {
-              "TextId": "curDate",
-              "UseBuffer": true,
-              "BufferSize": 3
-            }
-          },
-          {
-            "Type": "TextArea",
-            "Name": "year_value",
-            "X": 150,
-            "Y": 45,
-            "Width": 71,
-            "Height": 31,
-            "TextId": "curYear",
-            "TextRotation": "0",
-            "Color": {
-              "Red": 255,
-              "Green": 255,
-              "Blue": 255
-            },
-            "Wildcard1": {
-              "TextId": "curYearvalue",
-              "UseBuffer": true,
-              "BufferSize": 5
-            }
-          },
-          {
-            "Type": "Image",
-            "Name": "home_heartrate_image",
-            "X": 19,
-            "Y": 171,
-            "Width": 22,
-            "Height": 19,
-            "RelativeFilename": "biggerHeart.png"
-          },
-          {
-            "Type": "Image",
-            "Name": "home_spo2_image",
-            "X": 18,
-            "Y": 197,
-            "Width": 24,
-            "Height": 24,
-            "RelativeFilename": "biggerSpo2.png"
-          },
-          {
-            "Type": "Image",
-            "Name": "home_step_image",
-            "X": 18,
-            "Y": 227,
-            "Width": 24,
-            "Height": 24,
-            "RelativeFilename": "biggerFootprint.png"
-          },
-          {
-            "Type": "TextArea",
-            "Name": "home_heartrate_value",
-            "X": 47,
-            "Y": 165,
-            "Width": 174,
-            "Height": 30,
-            "TextId": "homeHr",
-            "TextRotation": "0",
-            "Color": {
-              "Red": 255,
-              "Green": 255,
-              "Blue": 255
-            },
-            "Wildcard1": {
-              "TextId": "H_curHrvalue",
-              "UseBuffer": true,
-              "BufferSize": 4
-            }
-          },
-          {
-            "Type": "TextArea",
-            "Name": "home_spo2_value",
-            "X": 47,
-            "Y": 194,
-            "Width": 174,
-            "Height": 30,
-            "TextId": "homeSpo2",
-            "TextRotation": "0",
-            "Color": {
-              "Red": 255,
-              "Green": 255,
-              "Blue": 255
-            },
-            "Wildcard1": {
-              "TextId": "H_curSpo2value",
-              "UseBuffer": true,
-              "BufferSize": 4
-            }
-          },
-          {
-            "Type": "TextArea",
-            "Name": "home_steps_value",
-            "X": 47,
-            "Y": 224,
-            "Width": 174,
-            "Height": 30,
-            "TextId": "homeSteps",
-            "TextRotation": "0",
-            "Color": {
-              "Red": 255,
-              "Green": 255,
-              "Blue": 255
-            },
-            "Wildcard1": {
-              "TextId": "H_curStepsvalue",
-              "UseBuffer": true,
-              "BufferSize": 10
-            }
-          },
-          {
-            "Type": "Box",
-            "Name": "topright_box",
-            "X": 185,
-            "Width": 55,
-            "Height": 33
-          },
-          {
-            "Type": "Button",
-            "Name": "buttonfornothing",
-            "Width": 240,
-            "Height": 50,
-            "Visible": false,
-            "Pressed": "__generated\\alternate_theme_images_widgets_button_regular_height_50_medium_rounded_pressed.png",
-            "Released": "__generated\\alternate_theme_images_widgets_button_regular_height_50_medium_rounded_normal.png",
-            "Preset": "alternate_theme\\presets\\button\\regular\\height_50\\medium_rounded_normal.json"
-          },
-          {
-            "Type": "CustomContainerInstance",
-            "Name": "batteryprogress_container1",
-            "Width": 240,
-            "Height": 23,
-            "CustomContainerDefinitionName": "batteryprogress_container"
-          },
-          {
-            "Type": "CustomContainerInstance",
-            "Name": "lte_status_container1",
-            "Width": 55,
-            "Height": 33,
-            "CustomContainerDefinitionName": "lte_status_container"
-          }
-        ],
-        "Interactions": [
-          {
-            "InteractionName": "Interaction1",
-            "Trigger": {
-              "Type": "TriggerClicked",
-              "TriggerComponent": "buttonfornothing"
-            },
-            "Action": {
-              "Type": "ActionGotoScreen",
-              "ScreenTransitionType": "ScreenTransitionCover",
-              "ScreenTransitionDirection": "North",
-              "ActionComponent": "swipedownfromHome"
-            }
-          },
-          {
-            "InteractionName": "Interaction3",
-            "Trigger": {
-              "Type": "TriggerClicked",
-              "TriggerComponent": "buttonfornothing"
-            },
-            "Action": {
-              "Type": "ActionGotoScreen",
-              "ScreenTransitionType": "ScreenTransitionCover",
-              "ScreenTransitionDirection": "East",
-              "ActionComponent": "HeartrateDetail"
-            }
-          },
-          {
-            "InteractionName": "Interaction4",
-            "Trigger": {
-              "Type": "TriggerClicked",
-              "TriggerComponent": "buttonfornothing"
-            },
-            "Action": {
-              "Type": "ActionGotoScreen",
-              "ScreenTransitionType": "ScreenTransitionCover",
-              "ScreenTransitionDirection": "East",
-              "ActionComponent": "Spo2Detail"
-            }
-          },
-          {
-            "InteractionName": "Interaction5",
-            "HasCompletedTrigger": true,
-            "Trigger": {
-              "Type": "TriggerClicked",
-              "TriggerComponent": "buttonfornothing"
-            },
-            "Action": {
-              "Type": "ActionGotoScreen",
-              "ScreenTransitionType": "ScreenTransitionWipe",
-              "ScreenTransitionDirection": "East",
-              "ActionComponent": "StepsScreen"
-            }
-          },
-          {
-            "InteractionName": "Interaction6",
-            "Trigger": {
-              "Type": "TriggerClicked",
-              "TriggerComponent": "buttonfornothing"
-            },
-            "Action": {
-              "Type": "ActionGotoScreen",
-              "ScreenTransitionType": "ScreenTransitionWipe",
-              "ScreenTransitionDirection": "West",
-              "ActionComponent": "Spo2Screen"
-            }
-          }
-        ]
-      },
-      {
-        "Name": "StepsScreen",
+        "Name": "Screen1",
         "CanvasBufferSize": 3600,
         "Components": [
           {
-            "Type": "Image",
-            "Name": "background",
-            "Width": 240,
-            "Height": 280,
-            "RelativeFilename": "background.png"
-          },
-          {
-            "Type": "TextArea",
-            "Name": "steps_label",
-            "Y": 4,
-            "Width": 240,
-            "Height": 30,
-            "TextId": "stepsText",
-            "TextRotation": "0",
-            "Color": {
-              "Red": 255,
-              "Green": 255,
-              "Blue": 255
-            }
-          },
-          {
-            "Type": "TextArea",
-            "Name": "steps_value",
-            "Y": 215,
-            "Width": 240,
-            "Height": 45,
-            "TextId": "curSteps",
-            "TextRotation": "0",
-            "Color": {
-              "Red": 255,
-              "Green": 255,
-              "Blue": 255
-            },
-            "Wildcard1": {
-              "TextId": "curStepsvalue",
-              "UseBuffer": true,
-              "BufferSize": 10
-            }
-          },
-          {
             "Type": "Box",
-            "Name": "topright_image",
-            "X": 185,
-            "Width": 55,
-            "Height": 33
-          },
-          {
-            "Type": "Image",
-            "Name": "steps_image",
-            "X": 85,
-            "Y": 90,
-            "Width": 70,
-            "Height": 70,
-            "RelativeFilename": "footprint_icon.png"
-          },
-          {
-            "Type": "CircleProgress",
-            "Name": "steps_progress",
-            "X": 30,
-            "Y": 35,
-            "Width": 180,
-            "Height": 180,
-            "Color": {
-              "Red": 93,
-              "Green": 211,
-              "Blue": 74
-            },
-            "CenterX": 90.0,
-            "CenterY": 90.0,
-            "Radius": 67.5,
-            "LineWidth": 13.0,
-            "EndAngle": 360.0,
-            "CapPrecision": "Round",
-            "FileNameBackground": "footprint_progressbar_back.png",
-            "ProgressRangeMax": 100,
-            "ProgressInitialValue": 60
-          },
-          {
-            "Type": "Button",
-            "Name": "buttonfornothing",
-            "Width": 240,
-            "Height": 50,
-            "Visible": false,
-            "Pressed": "__generated\\alternate_theme_images_widgets_button_regular_height_50_medium_rounded_pressed.png",
-            "Released": "__generated\\alternate_theme_images_widgets_button_regular_height_50_medium_rounded_normal.png",
-            "Preset": "alternate_theme\\presets\\button\\regular\\height_50\\medium_rounded_normal.json"
-          },
-          {
-            "Type": "CustomContainerInstance",
-            "Name": "batteryprogress_container1",
-            "Width": 240,
-            "Height": 23,
-            "CustomContainerDefinitionName": "batteryprogress_container"
-          },
-          {
-            "Type": "CustomContainerInstance",
-            "Name": "lte_status_container1",
-            "Width": 55,
-            "Height": 33,
-            "CustomContainerDefinitionName": "lte_status_container"
-          }
-        ],
-        "Interactions": [
-          {
-            "InteractionName": "changeStepVal",
-            "Trigger": {
-              "Type": "TriggerOnEveryTick",
-              "TickCount": 1
-            },
-            "Action": {
-              "Type": "ActionCustom2",
-              "ActionCustomTypeName": "Call StepsScreen changeStepVal",
-              "ActionComponent": "StepsScreen"
-            }
-          },
-          {
-            "InteractionName": "Interaction1",
-            "Trigger": {
-              "Type": "TriggerClicked",
-              "TriggerComponent": "buttonfornothing"
-            },
-            "Action": {
-              "Type": "ActionGotoScreen",
-              "ScreenTransitionType": "ScreenTransitionWipe",
-              "ScreenTransitionDirection": "West",
-              "ActionComponent": "HomeScreenWithBiodata"
-            }
-          },
-          {
-            "InteractionName": "Interaction2",
-            "Trigger": {
-              "Type": "TriggerClicked",
-              "TriggerComponent": "buttonfornothing"
-            },
-            "Action": {
-              "Type": "ActionGotoScreen",
-              "ScreenTransitionType": "ScreenTransitionWipe",
-              "ScreenTransitionDirection": "East",
-              "ActionComponent": "HeartrateScreen"
-            }
-          },
-          {
-            "InteractionName": "Interaction3",
-            "Trigger": {
-              "Type": "TriggerOnEveryTick",
-              "TickCount": 60
-            },
-            "Action": {
-              "Type": "ActionCustom2",
-              "ActionCustomTypeName": "Call StepsScreen changeStepVal",
-              "ActionComponent": "StepsScreen"
-            }
-          }
-        ],
-        "CustomActions": [
-          {
-            "Name": "changeStepVal"
-          }
-        ]
-      },
-      {
-        "Name": "HeartrateScreen",
-        "Components": [
-          {
-            "Type": "Image",
-            "Name": "background",
+            "Name": "box1",
             "Width": 240,
             "Height": 280,
-            "RelativeFilename": "background.png"
-          },
-          {
-            "Type": "TextArea",
-            "Name": "heartrate_label",
-            "Y": 4,
-            "Width": 240,
-            "Height": 30,
-            "TextId": "heartrateText",
-            "TextRotation": "0",
             "Color": {
-              "Red": 255,
-              "Green": 255,
-              "Blue": 255
+              "Red": 209,
+              "Green": 209,
+              "Blue": 209
             }
           },
           {
             "Type": "TextArea",
-            "Name": "heartrate_value",
-            "Y": 215,
-            "Width": 240,
-            "Height": 45,
-            "TextId": "curHr",
-            "TextRotation": "0",
-            "Color": {
-              "Red": 255,
-              "Green": 255,
-              "Blue": 255
-            },
-            "Wildcard1": {
-              "TextId": "curHrvalue",
-              "UseBuffer": true,
-              "BufferSize": 4
-            }
-          },
-          {
-            "Type": "Box",
-            "Name": "topright_box",
-            "X": 185,
-            "Width": 55,
-            "Height": 33
-          },
-          {
-            "Type": "Button",
-            "Name": "heartrate_detail_button",
-            "X": 70,
-            "Y": 75,
-            "Width": 100,
-            "Height": 100,
-            "Pressed": "hr_icon.png",
-            "Released": "hr_icon.png"
-          },
-          {
-            "Type": "Button",
-            "Name": "buttonfornothing",
-            "Width": 240,
-            "Height": 50,
-            "Visible": false,
-            "Pressed": "__generated\\alternate_theme_images_widgets_button_regular_height_50_medium_rounded_pressed.png",
-            "Released": "__generated\\alternate_theme_images_widgets_button_regular_height_50_medium_rounded_normal.png",
-            "Preset": "alternate_theme\\presets\\button\\regular\\height_50\\medium_rounded_normal.json"
-          },
-          {
-            "Type": "CustomContainerInstance",
-            "Name": "batteryprogress_container1",
-            "Width": 240,
-            "Height": 23,
-            "CustomContainerDefinitionName": "batteryprogress_container"
-          },
-          {
-            "Type": "CustomContainerInstance",
-            "Name": "lte_status_container1",
-            "Width": 55,
-            "Height": 33,
-            "CustomContainerDefinitionName": "lte_status_container"
-          }
-        ],
-        "Interactions": [
-          {
-            "InteractionName": "Interaction2",
-            "Trigger": {
-              "Type": "TriggerClicked",
-              "TriggerComponent": "buttonfornothing"
-            },
-            "Action": {
-              "Type": "ActionGotoScreen",
-              "ScreenTransitionType": "ScreenTransitionWipe",
-              "ScreenTransitionDirection": "West",
-              "ActionComponent": "StepsScreen"
-            }
-          },
-          {
-            "InteractionName": "Interaction3",
-            "Trigger": {
-              "Type": "TriggerClicked",
-              "TriggerComponent": "buttonfornothing"
-            },
-            "Action": {
-              "Type": "ActionGotoScreen",
-              "ScreenTransitionType": "ScreenTransitionWipe",
-              "ScreenTransitionDirection": "East",
-              "ActionComponent": "Spo2Screen"
-            }
-          },
-          {
-            "InteractionName": "Interaction4",
-            "Trigger": {
-              "Type": "TriggerOnEveryTick",
-              "TickCount": 60
-            },
-            "Action": {
-              "Type": "ActionCustom2",
-              "ActionCustomTypeName": "Call HeartrateScreen changeHRVal",
-              "ActionComponent": "HeartrateScreen"
-            }
-          }
-        ],
-        "CustomActions": [
-          {
-            "Name": "changeHRVal"
-          }
-        ]
-      },
-      {
-        "Name": "Spo2Screen",
-        "Components": [
-          {
-            "Type": "Image",
-            "Name": "background",
-            "Width": 240,
-            "Height": 280,
-            "RelativeFilename": "background.png"
-          },
-          {
-            "Type": "TextArea",
-            "Name": "spo2_label",
-            "Y": 4,
-            "Width": 240,
-            "Height": 30,
-            "TextId": "spo2Text",
-            "TextRotation": "0",
-            "Color": {
-              "Red": 255,
-              "Green": 255,
-              "Blue": 255
-            }
-          },
-          {
-            "Type": "TextArea",
-            "Name": "spo2_value",
-            "Y": 215,
-            "Width": 240,
-            "Height": 45,
-            "TextId": "curSpo2",
-            "TextRotation": "0",
-            "Color": {
-              "Red": 255,
-              "Green": 255,
-              "Blue": 255
-            },
-            "Wildcard1": {
-              "TextId": "curSpo2value",
-              "UseBuffer": true,
-              "BufferSize": 4
-            }
-          },
-          {
-            "Type": "Box",
-            "Name": "topright_box",
-            "X": 185,
-            "Width": 55,
-            "Height": 33
-          },
-          {
-            "Type": "Button",
-            "Name": "spo2_detail_button",
-            "X": 70,
-            "Y": 75,
-            "Width": 100,
-            "Height": 100,
-            "Pressed": "spo2_icon.png",
-            "Released": "spo2_icon.png"
-          },
-          {
-            "Type": "Button",
-            "Name": "buttonfornothing",
-            "Width": 240,
-            "Height": 50,
-            "Visible": false,
-            "Pressed": "__generated\\alternate_theme_images_widgets_button_regular_height_50_medium_rounded_pressed.png",
-            "Released": "__generated\\alternate_theme_images_widgets_button_regular_height_50_medium_rounded_normal.png",
-            "Preset": "alternate_theme\\presets\\button\\regular\\height_50\\medium_rounded_normal.json"
-          },
-          {
-            "Type": "CustomContainerInstance",
-            "Name": "batteryprogress_container1",
-            "Width": 240,
-            "Height": 23,
-            "CustomContainerDefinitionName": "batteryprogress_container"
-          },
-          {
-            "Type": "CustomContainerInstance",
-            "Name": "lte_status_container1",
-            "Width": 55,
-            "Height": 33,
-            "CustomContainerDefinitionName": "lte_status_container"
-          }
-        ],
-        "Interactions": [
-          {
-            "InteractionName": "Interaction2",
-            "Trigger": {
-              "Type": "TriggerClicked",
-              "TriggerComponent": "buttonfornothing"
-            },
-            "Action": {
-              "Type": "ActionGotoScreen",
-              "ScreenTransitionType": "ScreenTransitionWipe",
-              "ScreenTransitionDirection": "West",
-              "ActionComponent": "HeartrateScreen"
-            }
-          },
-          {
-            "InteractionName": "Interaction3",
-            "Trigger": {
-              "Type": "TriggerClicked",
-              "TriggerComponent": "buttonfornothing"
-            },
-            "Action": {
-              "Type": "ActionGotoScreen",
-              "ScreenTransitionType": "ScreenTransitionWipe",
-              "ScreenTransitionDirection": "East",
-              "ActionComponent": "SleepScreen"
-            }
-          },
-          {
-            "InteractionName": "Interaction4",
-            "Trigger": {
-              "Type": "TriggerClicked",
-              "TriggerComponent": "buttonfornothing"
-            },
-            "Action": {
-              "Type": "ActionGotoScreen",
-              "ScreenTransitionType": "ScreenTransitionWipe",
-              "ScreenTransitionDirection": "East",
-              "ActionComponent": "HomeScreenWithBiodata"
-            }
-          },
-          {
-            "InteractionName": "Interaction5",
-            "Trigger": {
-              "Type": "TriggerOnEveryTick",
-              "TickCount": 60
-            },
-            "Action": {
-              "Type": "ActionCustom2",
-              "ActionCustomTypeName": "Call Spo2Screen changeSpo2Val",
-              "ActionComponent": "Spo2Screen"
-            }
-          }
-        ],
-        "CustomActions": [
-          {
-            "Name": "changeSpo2Val"
-          }
-        ]
-      },
-      {
-        "Name": "SleepScreen",
-        "CanvasBufferSize": 3600,
-        "Components": [
-          {
-            "Type": "Image",
-            "Name": "background",
-            "Width": 240,
-            "Height": 280,
-            "RelativeFilename": "background.png"
-          },
-          {
-            "Type": "TextArea",
-            "Name": "sleep_label",
-            "Y": 4,
-            "Width": 240,
-            "Height": 30,
-            "TextId": "sleepText",
-            "TextRotation": "0",
-            "Color": {
-              "Red": 255,
-              "Green": 255,
-              "Blue": 255
-            }
-          },
-          {
-            "Type": "TextArea",
-            "Name": "sleep_value",
-            "Y": 215,
-            "Width": 240,
-            "Height": 45,
-            "TextId": "curSleep",
-            "TextRotation": "0",
-            "Color": {
-              "Red": 255,
-              "Green": 255,
-              "Blue": 255
-            },
-            "Wildcard1": {
-              "TextId": "curSleepHvalue",
-              "UseBuffer": true,
-              "BufferSize": 3
-            },
-            "Wildcard2": {
-              "TextId": "curSleepMvalue",
-              "UseBuffer": true,
-              "BufferSize": 3
-            }
-          },
-          {
-            "Type": "Button",
-            "Name": "buttonfornothing",
-            "Width": 240,
-            "Height": 50,
-            "Visible": false,
-            "Pressed": "__generated\\alternate_theme_images_widgets_button_regular_height_50_medium_rounded_pressed.png",
-            "Released": "__generated\\alternate_theme_images_widgets_button_regular_height_50_medium_rounded_normal.png",
-            "Preset": "alternate_theme\\presets\\button\\regular\\height_50\\medium_rounded_normal.json"
-          },
-          {
-            "Type": "Box",
-            "Name": "topright_box",
-            "X": 185,
-            "Width": 55,
-            "Height": 33
-          },
-          {
-            "Type": "Image",
-            "Name": "sleep_image",
-            "X": 87,
-            "Y": 92,
-            "Width": 65,
-            "Height": 65,
-            "RelativeFilename": "sleep_time_icon.png"
-          },
-          {
-            "Type": "CircleProgress",
-            "Name": "sleep_progress",
-            "X": 30,
-            "Y": 35,
-            "Width": 180,
-            "Height": 180,
-            "Color": {
-              "Red": 119,
-              "Green": 93,
-              "Blue": 195
-            },
-            "CenterX": 90.0,
-            "CenterY": 90.0,
-            "Radius": 67.5,
-            "LineWidth": 13.0,
-            "EndAngle": 360.0,
-            "CapPrecision": "Round",
-            "FileNameBackground": "sleep_time_progressbar_back.png",
-            "ProgressRangeMax": 100,
-            "ProgressInitialValue": 75
-          },
-          {
-            "Type": "CustomContainerInstance",
-            "Name": "batteryprogress_container1",
-            "Width": 240,
-            "Height": 23,
-            "CustomContainerDefinitionName": "batteryprogress_container"
-          },
-          {
-            "Type": "CustomContainerInstance",
-            "Name": "lte_status_container1",
-            "Width": 55,
-            "Height": 33,
-            "CustomContainerDefinitionName": "lte_status_container"
-          }
-        ],
-        "Interactions": [
-          {
-            "InteractionName": "Interaction1",
-            "Trigger": {
-              "Type": "TriggerClicked",
-              "TriggerComponent": "buttonfornothing"
-            },
-            "Action": {
-              "Type": "ActionGotoScreen",
-              "ScreenTransitionType": "ScreenTransitionWipe",
-              "ScreenTransitionDirection": "West",
-              "ActionComponent": "HomeScreenWithBiodata"
-            }
-          },
-          {
-            "InteractionName": "Interaction2",
-            "Trigger": {
-              "Type": "TriggerClicked",
-              "TriggerComponent": "buttonfornothing"
-            },
-            "Action": {
-              "Type": "ActionGotoScreen",
-              "ScreenTransitionType": "ScreenTransitionSlide",
-              "ScreenTransitionDirection": "West",
-              "ActionComponent": "Spo2Screen"
-            }
-          }
-        ]
-      },
-      {
-        "Name": "HeartrateDetail",
-        "CanvasBufferSize": 3600,
-        "Components": [
-          {
-            "Type": "Image",
-            "Name": "background",
-            "Width": 240,
-            "Height": 280,
-            "RelativeFilename": "background.png"
-          },
-          {
-            "Type": "TextArea",
-            "Name": "heartrate_label",
-            "Y": 6,
-            "Width": 240,
-            "Height": 25,
-            "TextId": "heartrateText",
-            "TextRotation": "0",
-            "Color": {
-              "Red": 255,
-              "Green": 255,
-              "Blue": 255
-            }
-          },
-          {
-            "Type": "Image",
-            "Name": "heartrate_image",
-            "X": 20,
-            "Y": 41,
-            "Width": 29,
-            "Height": 25,
-            "RelativeFilename": "heart.png"
-          },
-          {
-            "Type": "TextArea",
-            "Name": "heartrate_value",
-            "X": 49,
-            "Y": 42,
-            "Width": 180,
-            "Height": 25,
-            "TextId": "curHrDetail",
-            "TextRotation": "0",
-            "Color": {
-              "Red": 255,
-              "Green": 255,
-              "Blue": 255
-            },
-            "Wildcard1": {
-              "TextId": "curHrvalue",
-              "UseBuffer": true,
-              "BufferSize": 4
-            }
-          },
-          {
-            "Type": "Box",
-            "Name": "topright_box",
-            "X": 175,
-            "Width": 65,
-            "Height": 33
-          },
-          {
-            "Type": "DynamicGraph",
-            "Name": "heartrate_detail_graph",
-            "X": 20,
-            "Y": 95,
-            "Width": 200,
-            "Height": 165,
-            "DataSeed": 220740622,
-            "NumberOfValues": 24,
-            "MaxY": 200.0,
-            "Precision": "1",
-            "LastIndex": 23,
-            "XAxisScale": 1.0,
-            "GraphType": "GraphWrapOverwrite",
-            "GraphDrawers": [
-              {
-                "Type": "LineDrawer",
-                "LineWidth": 2,
-                "FileNameImage": "",
-                "Color": {
-                  "Red": 201,
-                  "Green": 60,
-                  "Blue": 50
-                }
-              }
-            ]
-          },
-          {
-            "Type": "CustomContainerInstance",
-            "Name": "batteryprogress_container1",
-            "Width": 240,
-            "Height": 23,
-            "CustomContainerDefinitionName": "batteryprogress_container"
-          },
-          {
-            "Type": "CustomContainerInstance",
-            "Name": "lte_status_container1",
-            "Width": 55,
-            "Height": 33,
-            "CustomContainerDefinitionName": "lte_status_container"
-          }
-        ],
-        "Interactions": [
-          {
-            "InteractionName": "updateHr",
-            "Trigger": {
-              "Type": "TriggerOnEveryTick",
-              "TickCount": 60
-            },
-            "Action": {
-              "Type": "ActionExecuteCode",
-              "Code": "#if !defined(gui_simulation)\r\nextern uint8_t canDisplayPPG;\r\nif(!canDisplayPPG) return;\r\n\r\ncanDisplayPPG = 0;\r\n\r\nextern uint16_t ssHr;\r\n\r\ntouchgfx::Unicode::snprintf(heartrate_valueBuffer, HEARTRATE_VALUE_SIZE, \"%02u\", ssHr);\r\nheartrate_value.invalidate();\r\n#endif\r\n"
-            }
-          }
-        ]
-      },
-      {
-        "Name": "Spo2Detail",
-        "CanvasBufferSize": 3600,
-        "Components": [
-          {
-            "Type": "Image",
-            "Name": "background",
-            "Width": 240,
-            "Height": 280,
-            "RelativeFilename": "background.png"
-          },
-          {
-            "Type": "TextArea",
-            "Name": "spo2_label",
-            "Y": 6,
-            "Width": 240,
-            "Height": 25,
-            "TextId": "spo2Text",
-            "TextRotation": "0",
-            "Color": {
-              "Red": 255,
-              "Green": 255,
-              "Blue": 255
-            }
-          },
-          {
-            "Type": "Image",
-            "Name": "spo2_image",
-            "X": 15,
-            "Y": 33,
-            "Width": 40,
-            "Height": 40,
-            "RelativeFilename": "waterdrop.png"
-          },
-          {
-            "Type": "TextArea",
-            "Name": "spo2_value",
-            "X": 55,
-            "Y": 42,
-            "Width": 170,
-            "Height": 25,
-            "TextId": "curSpo2Detail",
-            "TextRotation": "0",
-            "Color": {
-              "Red": 255,
-              "Green": 255,
-              "Blue": 255
-            },
-            "Wildcard1": {
-              "TextId": "curSpo2value",
-              "UseBuffer": true,
-              "BufferSize": 4
-            }
-          },
-          {
-            "Type": "Box",
-            "Name": "topright_image",
-            "X": 175,
-            "Width": 65,
-            "Height": 33
-          },
-          {
-            "Type": "DynamicGraph",
-            "Name": "spo2_detail_graph",
-            "X": 20,
-            "Y": 95,
-            "Width": 200,
-            "Height": 165,
-            "DataSeed": 220740622,
-            "NumberOfValues": 24,
-            "MaxY": 200.0,
-            "Precision": "1",
-            "LastIndex": 23,
-            "XAxisScale": 1.0,
-            "GraphType": "GraphWrapOverwrite",
-            "GraphDrawers": [
-              {
-                "Type": "LineDrawer",
-                "LineWidth": 2,
-                "FileNameImage": "",
-                "Color": {
-                  "Red": 50,
-                  "Green": 142,
-                  "Blue": 199
-                }
-              }
-            ]
-          },
-          {
-            "Type": "CustomContainerInstance",
-            "Name": "batteryprogress_container1",
-            "Width": 240,
-            "Height": 23,
-            "CustomContainerDefinitionName": "batteryprogress_container"
-          },
-          {
-            "Type": "CustomContainerInstance",
-            "Name": "lte_status_container1",
-            "Width": 55,
-            "Height": 33,
-            "CustomContainerDefinitionName": "lte_status_container"
-          }
-        ],
-        "Interactions": [
-          {
-            "InteractionName": "updateSpo2",
-            "Trigger": {
-              "Type": "TriggerOnEveryTick",
-              "TickCount": 60
-            },
-            "Action": {
-              "Type": "ActionExecuteCode",
-              "Code": "#if !defined(gui_simulation)\r\nextern uint8_t canDisplayPPG;\r\nif(!canDisplayPPG) return;\r\n\r\ncanDisplayPPG = 0;\r\n\r\nextern uint16_t ssSpo2;\r\n\r\ntouchgfx::Unicode::snprintf(spo2_valueBuffer, SPO2_VALUE_SIZE, \"%02u\", ssSpo2);\r\nspo2_value.invalidate();\r\n#endif"
-            }
-          }
-        ]
-      },
-      {
-        "Name": "swipedownfromHome",
-        "Components": [
-          {
-            "Type": "Image",
-            "Name": "background",
-            "Width": 240,
-            "Height": 280,
-            "RelativeFilename": "background.png"
-          },
-          {
-            "Type": "ToggleButton",
-            "Name": "haptic_togglebutton",
-            "X": 14,
-            "Y": 51,
-            "Width": 66,
-            "Height": 66,
-            "Pressed": "swipedown_button.png",
-            "Released": "swipedown_button_pressed.png"
-          },
-          {
-            "Type": "ToggleButton",
-            "Name": "sound_togglebutton",
-            "X": 87,
-            "Y": 51,
-            "Width": 66,
-            "Height": 66,
-            "LockPosition": true,
-            "Pressed": "swipedown_button.png",
-            "Released": "swipedown_button_pressed.png"
-          },
-          {
-            "Type": "Button",
-            "Name": "setting_button",
-            "X": 160,
-            "Y": 51,
-            "Width": 66,
-            "Height": 66,
-            "Pressed": "swipedown_button_pressed.png",
-            "Released": "swipedown_button.png"
-          },
-          {
-            "Type": "ToggleButton",
-            "Name": "wifi_togglebutton",
-            "X": 14,
-            "Y": 124,
-            "Width": 66,
-            "Height": 66,
-            "Pressed": "swipedown_button_pressed.png",
-            "Released": "swipedown_button.png"
-          },
-          {
-            "Type": "ToggleButton",
-            "Name": "bluetooth_togglebutton",
-            "X": 87,
-            "Y": 124,
-            "Width": 66,
-            "Height": 66,
-            "Pressed": "swipedown_button_pressed.png",
-            "Released": "swipedown_button.png"
-          },
-          {
-            "Type": "Button",
-            "Name": "information_button",
-            "X": 14,
-            "Y": 197,
-            "Width": 66,
-            "Height": 66,
-            "Pressed": "swipedown_button_pressed.png",
-            "Released": "swipedown_button.png"
-          },
-          {
-            "Type": "Button",
-            "Name": "flashlight_button",
-            "X": 87,
-            "Y": 197,
-            "Width": 66,
-            "Height": 66,
-            "Pressed": "swipedown_button_pressed.png",
-            "Released": "swipedown_button.png"
-          },
-          {
-            "Type": "Slider",
-            "Name": "slider1",
-            "X": 161,
-            "Y": 124,
-            "Width": 65,
-            "Height": 139,
-            "BackgroundUnselected": "swipedown_brightness_back.png",
-            "BackgroundSelected": "swipedown_brightness.png",
-            "Indicator": "swipedown_brightness_indicator.png",
-            "IndicatorPos": 11,
-            "IndicatorMax": 138,
-            "IndicatorMin": 1,
-            "ValueMax": 100,
-            "InitValue": 50
-          },
-          {
-            "Type": "Image",
-            "Name": "haptic_image",
-            "X": 23,
-            "Y": 67,
-            "Width": 48,
-            "Height": 34,
-            "RelativeFilename": "swipedown_hapticicon.png"
-          },
-          {
-            "Type": "Image",
-            "Name": "sound_image",
-            "X": 101,
-            "Y": 65,
-            "Width": 39,
+            "Name": "textArea2",
+            "X": 13,
+            "Y": 233,
+            "Width": 215,
             "Height": 39,
+            "TextId": "__SingleUse_NCTO",
+            "TextRotation": "0",
+            "Wildcard1": {
+              "TextId": "__SingleUse_0DP5",
+              "UseBuffer": true,
+              "BufferSize": 100
+            },
+            "WideTextAction": 4
+          },
+          {
+            "Type": "TextArea",
+            "Name": "textArea3",
+            "X": 13,
+            "Y": 259,
+            "Width": 44,
+            "Height": 13,
             "Visible": false,
-            "RelativeFilename": "swipedown_soundicon.png"
-          },
-          {
-            "Type": "Image",
-            "Name": "setting_image",
-            "X": 175,
-            "Y": 66,
-            "Width": 37,
-            "Height": 37,
-            "RelativeFilename": "swipedown_settingicon.png"
-          },
-          {
-            "Type": "Image",
-            "Name": "information_image",
-            "X": 25,
-            "Y": 208,
-            "Width": 45,
-            "Height": 45,
-            "RelativeFilename": "swipedown_infoicon.png"
-          },
-          {
-            "Type": "Image",
-            "Name": "brightness_image",
-            "X": 173,
-            "Y": 173,
-            "Width": 40,
-            "Height": 40,
-            "RelativeFilename": "swipedown_brightness_icon.png"
-          },
-          {
-            "Type": "Image",
-            "Name": "flashlight_image",
-            "X": 98,
-            "Y": 208,
-            "Width": 45,
-            "Height": 45,
-            "RelativeFilename": "swipedown_flashlighticon.png"
-          },
-          {
-            "Type": "Box",
-            "Name": "topright_box",
-            "X": 175,
-            "Width": 65,
-            "Height": 33
-          },
-          {
-            "Type": "Button",
-            "Name": "buttonfornothing",
-            "Width": 240,
-            "Height": 50,
-            "Visible": false,
-            "Pressed": "__generated\\alternate_theme_images_widgets_button_regular_height_50_medium_rounded_pressed.png",
-            "Released": "__generated\\alternate_theme_images_widgets_button_regular_height_50_medium_rounded_normal.png",
-            "Preset": "alternate_theme\\presets\\button\\regular\\height_50\\medium_rounded_normal.json"
-          },
-          {
-            "Type": "CustomContainerInstance",
-            "Name": "batteryprogress_container1",
-            "Width": 240,
-            "Height": 23,
-            "CustomContainerDefinitionName": "batteryprogress_container"
-          },
-          {
-            "Type": "CustomContainerInstance",
-            "Name": "lte_status_container1",
-            "Width": 55,
-            "Height": 33,
-            "CustomContainerDefinitionName": "lte_status_container"
-          },
-          {
-            "Type": "Image",
-            "Name": "image1",
-            "X": 174,
-            "Y": 223,
-            "Width": 40,
-            "Height": 40,
-            "RelativeFilename": "brightness_minus.png"
-          },
-          {
-            "Type": "Image",
-            "Name": "image2",
-            "X": 173,
-            "Y": 124,
-            "Width": 40,
-            "Height": 40,
-            "RelativeFilename": "brightness_plus.png"
-          }
-        ],
-        "Interactions": [
-          {
-            "InteractionName": "movetoSetting",
-            "Trigger": {
-              "Type": "TriggerClicked",
-              "TriggerComponent": "setting_button"
-            },
-            "Action": {
-              "Type": "ActionGotoScreen",
-              "ScreenTransitionType": "ScreenTransitionWipe",
-              "ScreenTransitionDirection": "North",
-              "ActionComponent": "SettingScreen"
+            "TextId": "GNSS_update_cnt",
+            "TextRotation": "0",
+            "AutoSize": true,
+            "Wildcard1": {
+              "TextId": "update_cnt",
+              "UseBuffer": true,
+              "BufferSize": 4
             }
-          },
-          {
-            "InteractionName": "Interaction1",
-            "Trigger": {
-              "Type": "TriggerClicked",
-              "TriggerComponent": "buttonfornothing"
-            },
-            "Action": {
-              "Type": "ActionGotoScreen",
-              "ScreenTransitionType": "ScreenTransitionWipe",
-              "ScreenTransitionDirection": "South",
-              "ActionComponent": "HomeScreenWithBiodata"
-            }
-          },
-          {
-            "InteractionName": "Interaction2",
-            "Trigger": {
-              "Type": "TriggerClicked",
-              "TriggerComponent": "information_button"
-            },
-            "Action": {
-              "Type": "ActionGotoScreen",
-              "ScreenTransitionType": "ScreenTransitionWipe",
-              "ScreenTransitionDirection": "North",
-              "ActionComponent": "informationSetting"
-            }
-          },
-          {
-            "InteractionName": "flashlight",
-            "Trigger": {
-              "Type": "TriggerClicked",
-              "TriggerComponent": "flashlight_button"
-            },
-            "Action": {
-              "Type": "ActionGotoScreen",
-              "ScreenTransitionType": "ScreenTransitionNone",
-              "ActionComponent": "flashlight_screen"
-            }
-          }
-        ]
-      },
-      {
-        "Name": "SettingScreen",
-        "Components": [
-          {
-            "Type": "Image",
-            "Name": "background",
-            "Width": 240,
-            "Height": 280,
-            "RelativeFilename": "background.png"
           },
           {
             "Type": "ScrollableContainer",
-            "Name": "settingscrollablecontainer",
-            "Y": 34,
+            "Name": "scrollableContainer1",
+            "Y": 35,
             "Width": 240,
-            "Height": 246,
+            "Height": 191,
+            "HorizontalScrollEnabled": true,
             "VerticalScrollEnabled": true,
             "ScrollbarsVisibleOnPressed": true,
-            "ScrollbarsColor": {
-              "Red": 96,
-              "Green": 96,
-              "Blue": 96
-            },
             "ScrollbarsAlpha": 255,
             "Components": [
               {
-                "Type": "Button",
-                "Name": "screen_button",
-                "X": 14,
-                "Y": 7,
-                "Width": 212,
-                "Height": 54,
-                "Pressed": "Rectangle 30.png",
-                "Released": "Rectangle 21.png"
-              },
-              {
-                "Type": "Button",
-                "Name": "soundnhaptics_button",
-                "X": 14,
-                "Y": 70,
-                "Width": 212,
-                "Height": 54,
-                "Pressed": "Rectangle 30.png",
-                "Released": "Rectangle 21.png"
-              },
-              {
-                "Type": "Button",
-                "Name": "language_button",
-                "X": 14,
-                "Y": 133,
-                "Width": 212,
-                "Height": 54,
-                "Pressed": "Rectangle 30.png",
-                "Released": "Rectangle 21.png"
-              },
-              {
-                "Type": "Button",
-                "Name": "findmyphone_button",
-                "X": 260,
-                "Y": 192,
-                "Width": 212,
-                "Height": 54,
-                "Pressed": "Rectangle 30.png",
-                "Released": "Rectangle 21.png"
-              },
-              {
-                "Type": "Button",
-                "Name": "information_button",
-                "X": 14,
-                "Y": 196,
-                "Width": 212,
-                "Height": 54,
-                "Pressed": "Rectangle 30.png",
-                "Released": "Rectangle 21.png"
-              },
-              {
-                "Type": "Button",
-                "Name": "system_button",
-                "X": 14,
-                "Y": 259,
-                "Width": 212,
-                "Height": 54,
-                "Pressed": "Rectangle 30.png",
-                "Released": "Rectangle 21.png"
-              },
-              {
-                "Type": "Image",
-                "Name": "screenbutton_icon_back",
-                "X": 20,
-                "Y": 14,
-                "Width": 40,
-                "Height": 40,
-                "RelativeFilename": "setting_iconback.png"
-              },
-              {
-                "Type": "Image",
-                "Name": "snhbutton_icon_back",
-                "X": 20,
-                "Y": 77,
-                "Width": 40,
-                "Height": 40,
-                "RelativeFilename": "setting_iconback.png"
-              },
-              {
-                "Type": "Image",
-                "Name": "languagebutton_icon_back",
-                "X": 20,
-                "Y": 140,
-                "Width": 40,
-                "Height": 40,
-                "RelativeFilename": "setting_iconback.png"
-              },
-              {
-                "Type": "Image",
-                "Name": "phonebutton_icon_back",
-                "X": 266,
-                "Y": 199,
-                "Width": 40,
-                "Height": 40,
-                "RelativeFilename": "setting_iconback.png"
-              },
-              {
-                "Type": "Image",
-                "Name": "informationbutton_icon_back",
-                "X": 20,
-                "Y": 203,
-                "Width": 40,
-                "Height": 40,
-                "RelativeFilename": "setting_iconback.png"
-              },
-              {
-                "Type": "Image",
-                "Name": "systembutton_icon_back",
-                "X": 20,
-                "Y": 266,
-                "Width": 40,
-                "Height": 40,
-                "RelativeFilename": "setting_iconback.png"
-              },
-              {
                 "Type": "TextArea",
-                "Name": "screen_label",
-                "X": 66,
-                "Y": 23,
-                "Width": 155,
-                "Height": 25,
-                "TextId": "screenText",
-                "TextRotation": "0",
-                "Color": {
-                  "Red": 217,
-                  "Green": 217,
-                  "Blue": 217
-                }
-              },
-              {
-                "Type": "TextArea",
-                "Name": "soundnhaptics_label",
-                "X": 66,
-                "Y": 86,
-                "Width": 155,
-                "Height": 25,
-                "TextId": "soundnhapticsText",
-                "TextRotation": "0",
-                "Color": {
-                  "Red": 217,
-                  "Green": 217,
-                  "Blue": 217
-                }
-              },
-              {
-                "Type": "TextArea",
-                "Name": "language_label",
-                "X": 66,
-                "Y": 149,
-                "Width": 155,
-                "Height": 25,
-                "TextId": "languageText",
-                "TextRotation": "0",
-                "Color": {
-                  "Red": 217,
-                  "Green": 217,
-                  "Blue": 217
-                }
-              },
-              {
-                "Type": "TextArea",
-                "Name": "findmyphone_label",
-                "X": 312,
-                "Y": 208,
-                "Width": 155,
-                "Height": 25,
-                "TextId": "findmyphoneText",
-                "TextRotation": "0",
-                "Color": {
-                  "Red": 217,
-                  "Green": 217,
-                  "Blue": 217
-                }
-              },
-              {
-                "Type": "TextArea",
-                "Name": "information_label",
-                "X": 66,
-                "Y": 212,
-                "Width": 155,
-                "Height": 25,
-                "TextId": "informationText",
-                "TextRotation": "0",
-                "Color": {
-                  "Red": 217,
-                  "Green": 217,
-                  "Blue": 217
-                }
-              },
-              {
-                "Type": "TextArea",
-                "Name": "system_label",
-                "X": 66,
-                "Y": 275,
-                "Width": 155,
-                "Height": 25,
-                "TextId": "systemText",
-                "TextRotation": "0",
-                "Color": {
-                  "Red": 217,
-                  "Green": 217,
-                  "Blue": 217
-                }
-              },
-              {
-                "Type": "Box",
-                "Name": "bottom_padding_box",
-                "X": 14,
-                "Y": 312,
-                "Width": 212,
-                "Height": 9
-              },
-              {
-                "Type": "Image",
-                "Name": "screen_image",
-                "X": 23,
-                "Y": 18,
+                "Name": "textArea4_1",
+                "X": 13,
                 "Width": 33,
-                "Height": 33,
-                "RelativeFilename": "setting_screen_icon.png"
+                "Height": 13,
+                "TextId": "__SingleUse_Y8WJ",
+                "TextRotation": "0",
+                "AutoSize": true
               },
               {
-                "Type": "Image",
-                "Name": "sound_image",
-                "X": 23,
-                "Y": 81,
-                "Width": 33,
-                "Height": 33,
-                "RelativeFilename": "setting_sound_icon.png"
+                "Type": "TextArea",
+                "Name": "detail_1_1_1",
+                "X": 13,
+                "Y": 13,
+                "Width": 215,
+                "Height": 26,
+                "TextId": "__SingleUse_SBRF",
+                "TextRotation": "0",
+                "Wildcard1": {
+                  "TextId": "1_sv",
+                  "UseBuffer": true,
+                  "BufferSize": 100
+                },
+                "WideTextAction": 4
               },
               {
-                "Type": "Image",
-                "Name": "language_image",
-                "X": 22,
+                "Type": "TextArea",
+                "Name": "text_1_1",
+                "X": 13,
+                "Y": 13,
+                "Width": 7,
+                "Height": 13,
+                "TextId": "__SingleUse_ZRX9",
+                "TextRotation": "0",
+                "Color": {
+                  "Red": 255
+                },
+                "AutoSize": true
+              },
+              {
+                "Type": "TextArea",
+                "Name": "detail_2_1_1",
+                "X": 13,
+                "Y": 39,
+                "Width": 215,
+                "Height": 26,
+                "TextId": "__SingleUse_B5UX",
+                "TextRotation": "0",
+                "Wildcard1": {
+                  "TextId": "2_sv",
+                  "UseBuffer": true,
+                  "BufferSize": 100
+                },
+                "WideTextAction": 4
+              },
+              {
+                "Type": "TextArea",
+                "Name": "text_2_1",
+                "X": 13,
+                "Y": 39,
+                "Width": 7,
+                "Height": 13,
+                "TextId": "__SingleUse_E2X7",
+                "TextRotation": "0",
+                "Color": {
+                  "Red": 255
+                },
+                "AutoSize": true
+              },
+              {
+                "Type": "TextArea",
+                "Name": "detail_3_1_1",
+                "X": 13,
+                "Y": 65,
+                "Width": 215,
+                "Height": 26,
+                "TextId": "__SingleUse_CQUM",
+                "TextRotation": "0",
+                "Wildcard1": {
+                  "TextId": "3_sv",
+                  "UseBuffer": true,
+                  "BufferSize": 100
+                },
+                "WideTextAction": 4
+              },
+              {
+                "Type": "TextArea",
+                "Name": "text_3_1",
+                "X": 13,
+                "Y": 65,
+                "Width": 7,
+                "Height": 13,
+                "TextId": "__SingleUse_RZXS",
+                "TextRotation": "0",
+                "Color": {
+                  "Red": 255
+                },
+                "AutoSize": true
+              },
+              {
+                "Type": "TextArea",
+                "Name": "detail_4_1_1",
+                "X": 13,
+                "Y": 91,
+                "Width": 215,
+                "Height": 26,
+                "TextId": "__SingleUse_JADZ",
+                "TextRotation": "0",
+                "Wildcard1": {
+                  "TextId": "4_sv",
+                  "UseBuffer": true,
+                  "BufferSize": 100
+                },
+                "WideTextAction": 4
+              },
+              {
+                "Type": "TextArea",
+                "Name": "text_4_1",
+                "X": 13,
+                "Y": 91,
+                "Width": 7,
+                "Height": 13,
+                "TextId": "__SingleUse_6LVV",
+                "TextRotation": "0",
+                "Color": {
+                  "Red": 255
+                },
+                "AutoSize": true
+              },
+              {
+                "Type": "TextArea",
+                "Name": "detail_5_1_1",
+                "X": 13,
+                "Y": 117,
+                "Width": 215,
+                "Height": 26,
+                "TextId": "__SingleUse_GMGU",
+                "TextRotation": "0",
+                "Wildcard1": {
+                  "TextId": "5_sv",
+                  "UseBuffer": true,
+                  "BufferSize": 100
+                },
+                "WideTextAction": 4
+              },
+              {
+                "Type": "TextArea",
+                "Name": "text_5_1",
+                "X": 13,
+                "Y": 117,
+                "Width": 7,
+                "Height": 13,
+                "TextId": "__SingleUse_SMMD",
+                "TextRotation": "0",
+                "Color": {
+                  "Red": 255
+                },
+                "AutoSize": true
+              },
+              {
+                "Type": "TextArea",
+                "Name": "detail_6_1_1",
+                "X": 13,
                 "Y": 143,
-                "Width": 35,
-                "Height": 35,
-                "RelativeFilename": "setting_language_icon.png"
+                "Width": 215,
+                "Height": 26,
+                "TextId": "__SingleUse_9E52",
+                "TextRotation": "0",
+                "Wildcard1": {
+                  "TextId": "6_sv",
+                  "UseBuffer": true,
+                  "BufferSize": 100
+                },
+                "WideTextAction": 4
               },
               {
-                "Type": "Image",
-                "Name": "phone_image",
-                "X": 268,
-                "Y": 202,
-                "Width": 35,
-                "Height": 35,
-                "RelativeFilename": "setting_phone_icon.png"
+                "Type": "TextArea",
+                "Name": "text_6_1",
+                "X": 13,
+                "Y": 143,
+                "Width": 7,
+                "Height": 13,
+                "TextId": "__SingleUse_6DUS",
+                "TextRotation": "0",
+                "Color": {
+                  "Red": 255
+                },
+                "AutoSize": true
               },
               {
-                "Type": "Image",
-                "Name": "information_image",
-                "X": 22,
-                "Y": 205,
-                "Width": 35,
-                "Height": 35,
-                "RelativeFilename": "setting_information_icon.png"
+                "Type": "TextArea",
+                "Name": "detail_7_1_1",
+                "X": 13,
+                "Y": 169,
+                "Width": 215,
+                "Height": 26,
+                "TextId": "__SingleUse_8GO5",
+                "TextRotation": "0",
+                "Wildcard1": {
+                  "TextId": "7_sv",
+                  "UseBuffer": true,
+                  "BufferSize": 100
+                },
+                "WideTextAction": 4
               },
               {
-                "Type": "Image",
-                "Name": "system_image",
-                "X": 22,
-                "Y": 266,
-                "Width": 36,
-                "Height": 36,
-                "RelativeFilename": "setting_system_icon.png"
+                "Type": "TextArea",
+                "Name": "text_7_1",
+                "X": 13,
+                "Y": 169,
+                "Width": 7,
+                "Height": 13,
+                "TextId": "__SingleUse_3UB9",
+                "TextRotation": "0",
+                "Color": {
+                  "Red": 255
+                },
+                "AutoSize": true
+              },
+              {
+                "Type": "TextArea",
+                "Name": "detail_8_1_1",
+                "X": 13,
+                "Y": 195,
+                "Width": 215,
+                "Height": 26,
+                "TextId": "__SingleUse_GZF2",
+                "TextRotation": "0",
+                "Wildcard1": {
+                  "TextId": "8_sv",
+                  "UseBuffer": true,
+                  "BufferSize": 100
+                },
+                "WideTextAction": 4
+              },
+              {
+                "Type": "TextArea",
+                "Name": "text_8_1",
+                "X": 13,
+                "Y": 195,
+                "Width": 7,
+                "Height": 13,
+                "TextId": "__SingleUse_W10D",
+                "TextRotation": "0",
+                "Color": {
+                  "Red": 255
+                },
+                "AutoSize": true
+              },
+              {
+                "Type": "TextArea",
+                "Name": "detail_9_1_1",
+                "X": 13,
+                "Y": 221,
+                "Width": 215,
+                "Height": 26,
+                "TextId": "__SingleUse_SBL3",
+                "TextRotation": "0",
+                "Wildcard1": {
+                  "TextId": "9_sv",
+                  "UseBuffer": true,
+                  "BufferSize": 100
+                },
+                "WideTextAction": 4
+              },
+              {
+                "Type": "TextArea",
+                "Name": "text_9_1",
+                "X": 13,
+                "Y": 221,
+                "Width": 7,
+                "Height": 13,
+                "TextId": "__SingleUse_21NA",
+                "TextRotation": "0",
+                "Color": {
+                  "Red": 255
+                },
+                "AutoSize": true
+              },
+              {
+                "Type": "TextArea",
+                "Name": "detail_10_1_1",
+                "X": 13,
+                "Y": 247,
+                "Width": 215,
+                "Height": 26,
+                "TextId": "__SingleUse_ULDS",
+                "TextRotation": "0",
+                "Wildcard1": {
+                  "TextId": "10_sv",
+                  "UseBuffer": true,
+                  "BufferSize": 100
+                },
+                "WideTextAction": 4
+              },
+              {
+                "Type": "TextArea",
+                "Name": "text_10_1",
+                "X": 13,
+                "Y": 247,
+                "Width": 14,
+                "Height": 13,
+                "TextId": "__SingleUse_UBTX",
+                "TextRotation": "0",
+                "Color": {
+                  "Red": 255
+                },
+                "AutoSize": true
+              },
+              {
+                "Type": "TextArea",
+                "Name": "detail_11_1_1",
+                "X": 13,
+                "Y": 273,
+                "Width": 215,
+                "Height": 26,
+                "TextId": "__SingleUse_O6IQ",
+                "TextRotation": "0",
+                "Wildcard1": {
+                  "TextId": "11_sv",
+                  "UseBuffer": true,
+                  "BufferSize": 100
+                },
+                "WideTextAction": 4
+              },
+              {
+                "Type": "TextArea",
+                "Name": "text_11_1",
+                "X": 13,
+                "Y": 273,
+                "Width": 14,
+                "Height": 13,
+                "TextId": "__SingleUse_N6O2",
+                "TextRotation": "0",
+                "Color": {
+                  "Red": 255
+                },
+                "AutoSize": true
+              },
+              {
+                "Type": "TextArea",
+                "Name": "detail_12_1_1",
+                "X": 13,
+                "Y": 299,
+                "Width": 215,
+                "Height": 26,
+                "TextId": "__SingleUse_QSY0",
+                "TextRotation": "0",
+                "Wildcard1": {
+                  "TextId": "12_sv",
+                  "UseBuffer": true,
+                  "BufferSize": 100
+                },
+                "WideTextAction": 4
+              },
+              {
+                "Type": "TextArea",
+                "Name": "text_12_1",
+                "X": 13,
+                "Y": 299,
+                "Width": 14,
+                "Height": 13,
+                "TextId": "__SingleUse_0LKS",
+                "TextRotation": "0",
+                "Color": {
+                  "Red": 255
+                },
+                "AutoSize": true
+              },
+              {
+                "Type": "TextArea",
+                "Name": "detail_13_1_1",
+                "X": 13,
+                "Y": 325,
+                "Width": 215,
+                "Height": 26,
+                "TextId": "__SingleUse_NF7Z",
+                "TextRotation": "0",
+                "Wildcard1": {
+                  "TextId": "13_sv",
+                  "UseBuffer": true,
+                  "BufferSize": 100
+                },
+                "WideTextAction": 4
+              },
+              {
+                "Type": "TextArea",
+                "Name": "text_13_1",
+                "X": 13,
+                "Y": 325,
+                "Width": 14,
+                "Height": 13,
+                "TextId": "__SingleUse_89VT",
+                "TextRotation": "0",
+                "Color": {
+                  "Red": 255
+                },
+                "AutoSize": true
+              },
+              {
+                "Type": "TextArea",
+                "Name": "detail_14_1_1",
+                "X": 13,
+                "Y": 351,
+                "Width": 215,
+                "Height": 26,
+                "TextId": "__SingleUse_719U",
+                "TextRotation": "0",
+                "Wildcard1": {
+                  "TextId": "14_sv",
+                  "UseBuffer": true,
+                  "BufferSize": 100
+                },
+                "WideTextAction": 4
+              },
+              {
+                "Type": "TextArea",
+                "Name": "text_14_1",
+                "X": 13,
+                "Y": 351,
+                "Width": 14,
+                "Height": 13,
+                "TextId": "__SingleUse_51GR",
+                "TextRotation": "0",
+                "Color": {
+                  "Red": 255
+                },
+                "AutoSize": true
+              },
+              {
+                "Type": "TextArea",
+                "Name": "detail_15_1_1",
+                "X": 13,
+                "Y": 377,
+                "Width": 215,
+                "Height": 26,
+                "TextId": "__SingleUse_2V3Q",
+                "TextRotation": "0",
+                "Wildcard1": {
+                  "TextId": "1_sv",
+                  "UseBuffer": true,
+                  "BufferSize": 100
+                },
+                "WideTextAction": 4
+              },
+              {
+                "Type": "TextArea",
+                "Name": "text_15_1",
+                "X": 13,
+                "Y": 377,
+                "Width": 14,
+                "Height": 13,
+                "TextId": "__SingleUse_ZNCK",
+                "TextRotation": "0",
+                "Color": {
+                  "Red": 255
+                },
+                "AutoSize": true
+              },
+              {
+                "Type": "TextArea",
+                "Name": "detail_16_1_1",
+                "X": 13,
+                "Y": 403,
+                "Width": 215,
+                "Height": 26,
+                "TextId": "__SingleUse_F7I4",
+                "TextRotation": "0",
+                "Wildcard1": {
+                  "TextId": "2_sv",
+                  "UseBuffer": true,
+                  "BufferSize": 100
+                },
+                "WideTextAction": 4
+              },
+              {
+                "Type": "TextArea",
+                "Name": "text_16_1",
+                "X": 13,
+                "Y": 403,
+                "Width": 14,
+                "Height": 13,
+                "TextId": "__SingleUse_0P59",
+                "TextRotation": "0",
+                "Color": {
+                  "Red": 255
+                },
+                "AutoSize": true
+              },
+              {
+                "Type": "TextArea",
+                "Name": "detail_17_1_1",
+                "X": 13,
+                "Y": 429,
+                "Width": 215,
+                "Height": 26,
+                "TextId": "__SingleUse_M6UV",
+                "TextRotation": "0",
+                "Wildcard1": {
+                  "TextId": "3_sv",
+                  "UseBuffer": true,
+                  "BufferSize": 100
+                },
+                "WideTextAction": 4
+              },
+              {
+                "Type": "TextArea",
+                "Name": "text_17_1",
+                "X": 13,
+                "Y": 429,
+                "Width": 14,
+                "Height": 13,
+                "TextId": "__SingleUse_D7SV",
+                "TextRotation": "0",
+                "Color": {
+                  "Red": 255
+                },
+                "AutoSize": true
+              },
+              {
+                "Type": "TextArea",
+                "Name": "detail_18_1_1",
+                "X": 13,
+                "Y": 455,
+                "Width": 215,
+                "Height": 26,
+                "TextId": "__SingleUse_H8ZV",
+                "TextRotation": "0",
+                "Wildcard1": {
+                  "TextId": "4_sv",
+                  "UseBuffer": true,
+                  "BufferSize": 100
+                },
+                "WideTextAction": 4
+              },
+              {
+                "Type": "TextArea",
+                "Name": "text_18_1",
+                "X": 13,
+                "Y": 455,
+                "Width": 14,
+                "Height": 13,
+                "TextId": "__SingleUse_FIRC",
+                "TextRotation": "0",
+                "Color": {
+                  "Red": 255
+                },
+                "AutoSize": true
+              },
+              {
+                "Type": "TextArea",
+                "Name": "detail_19_1_1",
+                "X": 13,
+                "Y": 481,
+                "Width": 215,
+                "Height": 26,
+                "TextId": "__SingleUse_TMNH",
+                "TextRotation": "0",
+                "Wildcard1": {
+                  "TextId": "5_sv",
+                  "UseBuffer": true,
+                  "BufferSize": 100
+                },
+                "WideTextAction": 4
+              },
+              {
+                "Type": "TextArea",
+                "Name": "text_19_1",
+                "X": 13,
+                "Y": 481,
+                "Width": 14,
+                "Height": 13,
+                "TextId": "__SingleUse_FO0E",
+                "TextRotation": "0",
+                "Color": {
+                  "Red": 255
+                },
+                "AutoSize": true
+              },
+              {
+                "Type": "TextArea",
+                "Name": "detail_20_1_1",
+                "X": 13,
+                "Y": 507,
+                "Width": 215,
+                "Height": 26,
+                "TextId": "__SingleUse_HMQM",
+                "TextRotation": "0",
+                "Wildcard1": {
+                  "TextId": "6_sv",
+                  "UseBuffer": true,
+                  "BufferSize": 100
+                },
+                "WideTextAction": 4
+              },
+              {
+                "Type": "TextArea",
+                "Name": "text_20_1",
+                "X": 13,
+                "Y": 507,
+                "Width": 14,
+                "Height": 13,
+                "TextId": "__SingleUse_5OFQ",
+                "TextRotation": "0",
+                "Color": {
+                  "Red": 255
+                },
+                "AutoSize": true
+              },
+              {
+                "Type": "TextArea",
+                "Name": "detail_21_1_1",
+                "X": 13,
+                "Y": 533,
+                "Width": 215,
+                "Height": 26,
+                "TextId": "__SingleUse_855Q",
+                "TextRotation": "0",
+                "Wildcard1": {
+                  "TextId": "7_sv",
+                  "UseBuffer": true,
+                  "BufferSize": 100
+                },
+                "WideTextAction": 4
+              },
+              {
+                "Type": "TextArea",
+                "Name": "text_21_1",
+                "X": 13,
+                "Y": 533,
+                "Width": 14,
+                "Height": 13,
+                "TextId": "__SingleUse_QMSR",
+                "TextRotation": "0",
+                "Color": {
+                  "Red": 255
+                },
+                "AutoSize": true
+              },
+              {
+                "Type": "TextArea",
+                "Name": "detail_22_1_1",
+                "X": 13,
+                "Y": 559,
+                "Width": 215,
+                "Height": 26,
+                "TextId": "__SingleUse_H561",
+                "TextRotation": "0",
+                "Wildcard1": {
+                  "TextId": "8_sv",
+                  "UseBuffer": true,
+                  "BufferSize": 100
+                },
+                "WideTextAction": 4
+              },
+              {
+                "Type": "TextArea",
+                "Name": "text_22_1",
+                "X": 13,
+                "Y": 559,
+                "Width": 14,
+                "Height": 13,
+                "TextId": "__SingleUse_LVYZ",
+                "TextRotation": "0",
+                "Color": {
+                  "Red": 255
+                },
+                "AutoSize": true
+              },
+              {
+                "Type": "TextArea",
+                "Name": "detail_29_1_1",
+                "X": 13,
+                "Y": 741,
+                "Width": 215,
+                "Height": 26,
+                "TextId": "__SingleUse_OEI4",
+                "TextRotation": "0",
+                "Wildcard1": {
+                  "TextId": "5_sv",
+                  "UseBuffer": true,
+                  "BufferSize": 100
+                },
+                "WideTextAction": 4
+              },
+              {
+                "Type": "TextArea",
+                "Name": "text_29_1",
+                "X": 13,
+                "Y": 741,
+                "Width": 14,
+                "Height": 13,
+                "TextId": "__SingleUse_UBDL",
+                "TextRotation": "0",
+                "Color": {
+                  "Red": 255
+                },
+                "AutoSize": true
+              },
+              {
+                "Type": "TextArea",
+                "Name": "detail_30_1_1",
+                "X": 13,
+                "Y": 767,
+                "Width": 215,
+                "Height": 26,
+                "TextId": "__SingleUse_2EWL",
+                "TextRotation": "0",
+                "Wildcard1": {
+                  "TextId": "6_sv",
+                  "UseBuffer": true,
+                  "BufferSize": 100
+                },
+                "WideTextAction": 4
+              },
+              {
+                "Type": "TextArea",
+                "Name": "text_30_1",
+                "X": 13,
+                "Y": 767,
+                "Width": 14,
+                "Height": 13,
+                "TextId": "__SingleUse_F7IY",
+                "TextRotation": "0",
+                "Color": {
+                  "Red": 255
+                },
+                "AutoSize": true
+              },
+              {
+                "Type": "TextArea",
+                "Name": "detail_31_1_1",
+                "X": 13,
+                "Y": 793,
+                "Width": 215,
+                "Height": 26,
+                "TextId": "__SingleUse_W8AF",
+                "TextRotation": "0",
+                "Wildcard1": {
+                  "TextId": "7_sv",
+                  "UseBuffer": true,
+                  "BufferSize": 100
+                },
+                "WideTextAction": 4
+              },
+              {
+                "Type": "TextArea",
+                "Name": "text_31_1",
+                "X": 13,
+                "Y": 793,
+                "Width": 14,
+                "Height": 13,
+                "TextId": "__SingleUse_U6TQ",
+                "TextRotation": "0",
+                "Color": {
+                  "Red": 255
+                },
+                "AutoSize": true
+              },
+              {
+                "Type": "TextArea",
+                "Name": "detail_32_1_1",
+                "X": 13,
+                "Y": 819,
+                "Width": 215,
+                "Height": 26,
+                "TextId": "__SingleUse_Y099",
+                "TextRotation": "0",
+                "Wildcard1": {
+                  "TextId": "8_sv",
+                  "UseBuffer": true,
+                  "BufferSize": 100
+                },
+                "WideTextAction": 4
+              },
+              {
+                "Type": "TextArea",
+                "Name": "text_32_1",
+                "X": 13,
+                "Y": 819,
+                "Width": 14,
+                "Height": 13,
+                "TextId": "__SingleUse_S3Q1",
+                "TextRotation": "0",
+                "Color": {
+                  "Red": 255
+                },
+                "AutoSize": true
+              },
+              {
+                "Type": "TextArea",
+                "Name": "detail_23_1_1",
+                "X": 13,
+                "Y": 585,
+                "Width": 215,
+                "Height": 26,
+                "TextId": "__SingleUse_L2GW",
+                "TextRotation": "0",
+                "Wildcard1": {
+                  "TextId": "9_sv",
+                  "UseBuffer": true,
+                  "BufferSize": 100
+                },
+                "WideTextAction": 4
+              },
+              {
+                "Type": "TextArea",
+                "Name": "text_23_1",
+                "X": 13,
+                "Y": 585,
+                "Width": 14,
+                "Height": 13,
+                "TextId": "__SingleUse_CQIB",
+                "TextRotation": "0",
+                "Color": {
+                  "Red": 255
+                },
+                "AutoSize": true
+              },
+              {
+                "Type": "TextArea",
+                "Name": "detail_24_1_1",
+                "X": 13,
+                "Y": 611,
+                "Width": 215,
+                "Height": 26,
+                "TextId": "__SingleUse_J96H",
+                "TextRotation": "0",
+                "Wildcard1": {
+                  "TextId": "10_sv",
+                  "UseBuffer": true,
+                  "BufferSize": 100
+                },
+                "WideTextAction": 4
+              },
+              {
+                "Type": "TextArea",
+                "Name": "text_24_1",
+                "X": 13,
+                "Y": 611,
+                "Width": 14,
+                "Height": 13,
+                "TextId": "__SingleUse_X1B7",
+                "TextRotation": "0",
+                "Color": {
+                  "Red": 255
+                },
+                "AutoSize": true
+              },
+              {
+                "Type": "TextArea",
+                "Name": "detail_25_1_1",
+                "X": 13,
+                "Y": 637,
+                "Width": 215,
+                "Height": 26,
+                "TextId": "__SingleUse_QDNR",
+                "TextRotation": "0",
+                "Wildcard1": {
+                  "TextId": "11_sv",
+                  "UseBuffer": true,
+                  "BufferSize": 100
+                },
+                "WideTextAction": 4
+              },
+              {
+                "Type": "TextArea",
+                "Name": "text_25_1",
+                "X": 13,
+                "Y": 637,
+                "Width": 14,
+                "Height": 13,
+                "TextId": "__SingleUse_G6J1",
+                "TextRotation": "0",
+                "Color": {
+                  "Red": 255
+                },
+                "AutoSize": true
+              },
+              {
+                "Type": "TextArea",
+                "Name": "detail_26_1_1",
+                "X": 13,
+                "Y": 663,
+                "Width": 215,
+                "Height": 26,
+                "TextId": "__SingleUse_4QA9",
+                "TextRotation": "0",
+                "Wildcard1": {
+                  "TextId": "12_sv",
+                  "UseBuffer": true,
+                  "BufferSize": 100
+                },
+                "WideTextAction": 4
+              },
+              {
+                "Type": "TextArea",
+                "Name": "text_26_1",
+                "X": 13,
+                "Y": 663,
+                "Width": 14,
+                "Height": 13,
+                "TextId": "__SingleUse_GHLE",
+                "TextRotation": "0",
+                "Color": {
+                  "Red": 255
+                },
+                "AutoSize": true
+              },
+              {
+                "Type": "TextArea",
+                "Name": "detail_27_1_1",
+                "X": 13,
+                "Y": 689,
+                "Width": 215,
+                "Height": 26,
+                "TextId": "__SingleUse_7CQ6",
+                "TextRotation": "0",
+                "Wildcard1": {
+                  "TextId": "13_sv",
+                  "UseBuffer": true,
+                  "BufferSize": 100
+                },
+                "WideTextAction": 4
+              },
+              {
+                "Type": "TextArea",
+                "Name": "text_27_1",
+                "X": 13,
+                "Y": 689,
+                "Width": 14,
+                "Height": 13,
+                "TextId": "__SingleUse_K8QT",
+                "TextRotation": "0",
+                "Color": {
+                  "Red": 255
+                },
+                "AutoSize": true
+              },
+              {
+                "Type": "TextArea",
+                "Name": "detail_28_1_1",
+                "X": 13,
+                "Y": 715,
+                "Width": 215,
+                "Height": 26,
+                "TextId": "__SingleUse_O2HA",
+                "TextRotation": "0",
+                "Wildcard1": {
+                  "TextId": "14_sv",
+                  "UseBuffer": true,
+                  "BufferSize": 100
+                },
+                "WideTextAction": 4
+              },
+              {
+                "Type": "TextArea",
+                "Name": "text_28_1",
+                "X": 13,
+                "Y": 715,
+                "Width": 14,
+                "Height": 13,
+                "TextId": "__SingleUse_Z18B",
+                "TextRotation": "0",
+                "Color": {
+                  "Red": 255
+                },
+                "AutoSize": true
               }
             ]
-          },
-          {
-            "Type": "TextArea",
-            "Name": "setting_label",
-            "Y": 6,
-            "Width": 240,
-            "Height": 25,
-            "TextId": "settingLabel",
-            "TextRotation": "0",
-            "Color": {
-              "Red": 255,
-              "Green": 255,
-              "Blue": 255
-            }
-          },
-          {
-            "Type": "Button",
-            "Name": "buttonfornothing",
-            "Width": 240,
-            "Height": 50,
-            "Visible": false,
-            "Pressed": "__generated\\alternate_theme_images_widgets_button_regular_height_50_medium_rounded_pressed.png",
-            "Released": "__generated\\alternate_theme_images_widgets_button_regular_height_50_medium_rounded_normal.png",
-            "Preset": "alternate_theme\\presets\\button\\regular\\height_50\\medium_rounded_normal.json"
-          },
-          {
-            "Type": "CustomContainerInstance",
-            "Name": "batteryprogress_container1",
-            "Width": 240,
-            "Height": 23,
-            "CustomContainerDefinitionName": "batteryprogress_container"
-          },
-          {
-            "Type": "CustomContainerInstance",
-            "Name": "lte_status_container1",
-            "Width": 55,
-            "Height": 33,
-            "CustomContainerDefinitionName": "lte_status_container"
-          }
-        ],
-        "Interactions": [
-          {
-            "InteractionName": "screenSettingInteraction",
-            "Trigger": {
-              "Type": "TriggerClicked",
-              "TriggerComponent": "screen_button"
-            },
-            "Action": {
-              "Type": "ActionGotoScreen",
-              "ScreenTransitionType": "ScreenTransitionCover",
-              "ScreenTransitionDirection": "East",
-              "ActionComponent": "screenSetting"
-            }
-          },
-          {
-            "InteractionName": "snhSettingInteraction",
-            "Trigger": {
-              "Type": "TriggerClicked",
-              "TriggerComponent": "soundnhaptics_button"
-            },
-            "Action": {
-              "Type": "ActionGotoScreen",
-              "ScreenTransitionType": "ScreenTransitionCover",
-              "ScreenTransitionDirection": "East",
-              "ActionComponent": "soundnhapticsSetting"
-            }
-          },
-          {
-            "InteractionName": "languageSettingInteraction",
-            "Trigger": {
-              "Type": "TriggerClicked",
-              "TriggerComponent": "language_button"
-            },
-            "Action": {
-              "Type": "ActionGotoScreen",
-              "ScreenTransitionType": "ScreenTransitionCover",
-              "ScreenTransitionDirection": "East",
-              "ActionComponent": "languageSetting"
-            }
-          },
-          {
-            "InteractionName": "infoSettingInteraction",
-            "Trigger": {
-              "Type": "TriggerClicked",
-              "TriggerComponent": "information_button"
-            },
-            "Action": {
-              "Type": "ActionGotoScreen",
-              "ScreenTransitionType": "ScreenTransitionCover",
-              "ScreenTransitionDirection": "East",
-              "ActionComponent": "informationSetting"
-            }
-          },
-          {
-            "InteractionName": "systemSettingInteraction",
-            "Trigger": {
-              "Type": "TriggerClicked",
-              "TriggerComponent": "system_button"
-            },
-            "Action": {
-              "Type": "ActionGotoScreen",
-              "ScreenTransitionType": "ScreenTransitionCover",
-              "ScreenTransitionDirection": "East",
-              "ActionComponent": "systemSetting"
-            }
-          },
-          {
-            "InteractionName": "Interaction1",
-            "Trigger": {
-              "Type": "TriggerClicked",
-              "TriggerComponent": "buttonfornothing"
-            },
-            "Action": {
-              "Type": "ActionGotoScreen",
-              "ScreenTransitionType": "ScreenTransitionWipe",
-              "ScreenTransitionDirection": "West",
-              "ActionComponent": "swipedownfromHome"
-            }
-          }
-        ]
-      },
-      {
-        "Name": "screenSetting",
-        "Components": [
-          {
-            "Type": "Image",
-            "Name": "background",
-            "Width": 240,
-            "Height": 280,
-            "RelativeFilename": "background.png"
-          },
-          {
-            "Type": "TextArea",
-            "Name": "screen_label",
-            "Y": 6,
-            "Width": 240,
-            "Height": 25,
-            "TextId": "screen",
-            "TextRotation": "0",
-            "Color": {
-              "Red": 255,
-              "Green": 255,
-              "Blue": 255
-            }
-          },
-          {
-            "Type": "Image",
-            "Name": "ontimebutton_icon_back",
-            "X": 14,
-            "Y": 48,
-            "Width": 40,
-            "Height": 40,
-            "RelativeFilename": "set_setting_iconback.png"
-          },
-          {
-            "Type": "Image",
-            "Name": "brightnessbutton_icon_back",
-            "X": 14,
-            "Y": 109,
-            "Width": 40,
-            "Height": 40,
-            "RelativeFilename": "set_setting_iconback.png"
-          },
-          {
-            "Type": "TextArea",
-            "Name": "ontime_label",
-            "X": 66,
-            "Y": 59,
-            "Width": 140,
-            "Height": 25,
-            "TextId": "screenOnTimeText",
-            "TextRotation": "0",
-            "Color": {
-              "Red": 255,
-              "Green": 255,
-              "Blue": 255
-            }
-          },
-          {
-            "Type": "TextArea",
-            "Name": "brightness_label",
-            "X": 66,
-            "Y": 120,
-            "Width": 140,
-            "Height": 25,
-            "TextId": "screenBrightnessText",
-            "TextRotation": "0",
-            "Color": {
-              "Red": 255,
-              "Green": 255,
-              "Blue": 255
-            }
-          },
-          {
-            "Type": "Image",
-            "Name": "ontime_arrow_image",
-            "X": 211,
-            "Y": 58,
-            "Width": 20,
-            "Height": 20,
-            "RelativeFilename": "right.png"
-          },
-          {
-            "Type": "Image",
-            "Name": "brightness_arrow_image",
-            "X": 211,
-            "Y": 120,
-            "Width": 20,
-            "Height": 20,
-            "RelativeFilename": "right.png"
-          },
-          {
-            "Type": "Button",
-            "Name": "ontime_button",
-            "X": 56,
-            "Y": 43,
-            "Width": 175,
-            "Height": 50,
-            "Pressed": "__generated\\alternate_theme_images_widgets_button_regular_height_50_small_rounded_inactive.png",
-            "Released": "__generated\\alternate_theme_images_widgets_button_regular_height_50_small_rounded_inactive.png",
-            "Alpha": 0
-          },
-          {
-            "Type": "Button",
-            "Name": "brightness_button",
-            "X": 56,
-            "Y": 104,
-            "Width": 175,
-            "Height": 50,
-            "Pressed": "__generated\\alternate_theme_images_widgets_button_regular_height_50_small_rounded_inactive.png",
-            "Released": "__generated\\alternate_theme_images_widgets_button_regular_height_50_small_rounded_inactive.png",
-            "Alpha": 0
-          },
-          {
-            "Type": "Button",
-            "Name": "buttonfornothing",
-            "Width": 240,
-            "Height": 50,
-            "Visible": false,
-            "Pressed": "__generated\\alternate_theme_images_widgets_button_regular_height_50_medium_rounded_pressed.png",
-            "Released": "__generated\\alternate_theme_images_widgets_button_regular_height_50_medium_rounded_normal.png",
-            "Preset": "alternate_theme\\presets\\button\\regular\\height_50\\medium_rounded_normal.json"
-          },
-          {
-            "Type": "Image",
-            "Name": "ontime_image",
-            "X": 16,
-            "Y": 50,
-            "Width": 35,
-            "Height": 35,
-            "RelativeFilename": "set_setting_ontime_icon.png"
-          },
-          {
-            "Type": "Image",
-            "Name": "brightness_image",
-            "X": 17,
-            "Y": 112,
-            "Width": 33,
-            "Height": 33,
-            "RelativeFilename": "set_setting_brightness_icon.png"
-          },
-          {
-            "Type": "CustomContainerInstance",
-            "Name": "batteryprogress_container1",
-            "Width": 240,
-            "Height": 23,
-            "CustomContainerDefinitionName": "batteryprogress_container"
-          }
-        ],
-        "Interactions": [
-          {
-            "InteractionName": "setscreenontime",
-            "Trigger": {
-              "Type": "TriggerClicked",
-              "TriggerComponent": "ontime_button"
-            },
-            "Action": {
-              "Type": "ActionGotoScreen",
-              "ScreenTransitionType": "ScreenTransitionCover",
-              "ScreenTransitionDirection": "East",
-              "ActionComponent": "screenontimeSetting"
-            }
-          },
-          {
-            "InteractionName": "setscreenbrightness",
-            "Trigger": {
-              "Type": "TriggerClicked",
-              "TriggerComponent": "brightness_button"
-            },
-            "Action": {
-              "Type": "ActionGotoScreen",
-              "ScreenTransitionType": "ScreenTransitionCover",
-              "ScreenTransitionDirection": "East",
-              "ActionComponent": "screenbrightnessSetting"
-            }
-          },
-          {
-            "InteractionName": "Interaction1",
-            "Trigger": {
-              "Type": "TriggerClicked",
-              "TriggerComponent": "buttonfornothing"
-            },
-            "Action": {
-              "Type": "ActionGotoScreen",
-              "ScreenTransitionType": "ScreenTransitionWipe",
-              "ScreenTransitionDirection": "West",
-              "ActionComponent": "SettingScreen"
-            }
-          }
-        ]
-      },
-      {
-        "Name": "screenontimeSetting",
-        "Components": [
-          {
-            "Type": "Image",
-            "Name": "background",
-            "Width": 240,
-            "Height": 280,
-            "RelativeFilename": "background.png"
-          },
-          {
-            "Type": "TextArea",
-            "Name": "ontime_label",
-            "Y": 6,
-            "Width": 240,
-            "Height": 25,
-            "TextId": "screenontime",
-            "TextRotation": "0",
-            "Color": {
-              "Red": 255,
-              "Green": 255,
-              "Blue": 255
-            }
-          },
-          {
-            "Type": "ScrollWheel",
-            "Name": "scrollWheel1",
-            "X": 22,
-            "Y": 54,
-            "Width": 197,
-            "Height": 153,
-            "SelectedItemOffset": 53,
-            "UseSelectedStyle": true,
-            "SelectedItemTemplateName": "setting_screenontime_selected",
-            "ItemTemplateName": "setting_screenontime_notselected",
-            "NumberofItems": 6,
-            "InitialElement": 3,
-            "Easing": "Back",
-            "EasingOption": "Out",
-            "SwipeAcceleration": 1.2,
-            "DragAcceleration": 1.2,
-            "OverShootPercentage": 75
-          },
-          {
-            "Type": "Image",
-            "Name": "scrollwheel_contour_image",
-            "X": 22,
-            "Y": 107,
-            "Width": 198,
-            "Height": 47,
-            "RelativeFilename": "selectline.png"
-          },
-          {
-            "Type": "Button",
-            "Name": "ontime_done_button",
-            "X": 48,
-            "Y": 215,
-            "Width": 144,
-            "Height": 43,
-            "Pressed": "Rectanglepressed.png",
-            "Released": "Rectangle 14.png"
-          },
-          {
-            "Type": "TextArea",
-            "Name": "ontime_done_label",
-            "X": 48,
-            "Y": 222,
-            "Width": 144,
-            "Height": 29,
-            "TextId": "screenontimeapply",
-            "TextRotation": "0",
-            "Color": {
-              "Red": 255,
-              "Green": 255,
-              "Blue": 255
-            }
-          },
-          {
-            "Type": "Button",
-            "Name": "buttonfornothing",
-            "Width": 240,
-            "Height": 50,
-            "Visible": false,
-            "Pressed": "__generated\\alternate_theme_images_widgets_button_regular_height_50_medium_rounded_pressed.png",
-            "Released": "__generated\\alternate_theme_images_widgets_button_regular_height_50_medium_rounded_normal.png",
-            "Preset": "alternate_theme\\presets\\button\\regular\\height_50\\medium_rounded_normal.json"
-          },
-          {
-            "Type": "CustomContainerInstance",
-            "Name": "batteryprogress_container1",
-            "Width": 240,
-            "Height": 23,
-            "CustomContainerDefinitionName": "batteryprogress_container"
-          }
-        ],
-        "Interactions": [
-          {
-            "InteractionName": "Interaction1",
-            "Trigger": {
-              "Type": "TriggerClicked",
-              "TriggerComponent": "buttonfornothing"
-            },
-            "Action": {
-              "Type": "ActionGotoScreen",
-              "ScreenTransitionType": "ScreenTransitionWipe",
-              "ScreenTransitionDirection": "West",
-              "ActionComponent": "screenSetting"
-            }
-          },
-          {
-            "InteractionName": "Interaction2",
-            "Trigger": {
-              "Type": "TriggerClicked",
-              "TriggerComponent": "ontime_done_button"
-            },
-            "Action": {
-              "Type": "ActionGotoScreen",
-              "ScreenTransitionType": "ScreenTransitionWipe",
-              "ScreenTransitionDirection": "West",
-              "ActionComponent": "screenSetting"
-            }
-          },
-          {
-            "InteractionName": "callFunction",
-            "Trigger": {
-              "Type": "TriggerClicked",
-              "TriggerComponent": "ontime_done_button"
-            },
-            "Action": {
-              "Type": "ActionCustom2",
-              "ActionCustomTypeName": "Call screenontimeSetting changeScreenOnTime",
-              "ActionComponent": "screenontimeSetting"
-            }
-          }
-        ],
-        "CustomActions": [
-          {
-            "Name": "changeScreenOnTime"
-          }
-        ]
-      },
-      {
-        "Name": "screenbrightnessSetting",
-        "Components": [
-          {
-            "Type": "Image",
-            "Name": "background",
-            "Width": 240,
-            "Height": 280,
-            "RelativeFilename": "background.png"
-          },
-          {
-            "Type": "TextArea",
-            "Name": "screenbrightness_label",
-            "Y": 6,
-            "Width": 240,
-            "Height": 25,
-            "TextId": "screenbrightness",
-            "TextRotation": "0",
-            "Color": {
-              "Red": 255,
-              "Green": 255,
-              "Blue": 255
-            }
-          },
-          {
-            "Type": "Slider",
-            "Name": "slider1",
-            "X": 67,
-            "Y": 39,
-            "Width": 107,
-            "Height": 227,
-            "BackgroundUnselected": "set_brightness_back.png",
-            "BackgroundSelected": "set_brigntness.png",
-            "Indicator": "swipedown_brightness_indicator.png",
-            "IndicatorPos": 31,
-            "IndicatorMax": 226,
-            "ValueMax": 100,
-            "InitValue": 50
-          },
-          {
-            "Type": "Image",
-            "Name": "brightness_image",
-            "X": 87,
-            "Y": 179,
-            "Width": 66,
-            "Height": 66,
-            "RelativeFilename": "set_setting_slider_icon.png"
-          },
-          {
-            "Type": "CustomContainerInstance",
-            "Name": "batteryprogress_container1",
-            "Width": 240,
-            "Height": 23,
-            "CustomContainerDefinitionName": "batteryprogress_container"
-          }
-        ],
-        "Interactions": []
-      },
-      {
-        "Name": "soundnhapticsSetting",
-        "Components": [
-          {
-            "Type": "Image",
-            "Name": "background",
-            "Width": 240,
-            "Height": 280,
-            "RelativeFilename": "background.png"
-          },
-          {
-            "Type": "TextArea",
-            "Name": "soundnhaptics_label",
-            "Y": 6,
-            "Width": 240,
-            "Height": 25,
-            "TextId": "soundnhaptics",
-            "TextRotation": "0",
-            "Color": {
-              "Red": 255,
-              "Green": 255,
-              "Blue": 255
-            }
-          },
-          {
-            "Type": "Image",
-            "Name": "haptic_icon_back",
-            "X": 14,
-            "Y": 48,
-            "Width": 40,
-            "Height": 40,
-            "RelativeFilename": "set_setting_iconback.png"
-          },
-          {
-            "Type": "Image",
-            "Name": "sound_icon_back",
-            "X": 14,
-            "Y": 109,
-            "Width": 40,
-            "Height": 40,
-            "RelativeFilename": "set_setting_iconback.png"
-          },
-          {
-            "Type": "TextArea",
-            "Name": "haptic_label",
-            "X": 66,
-            "Y": 59,
-            "Width": 28,
-            "Height": 19,
-            "TextId": "hapticText",
-            "TextRotation": "0",
-            "Color": {
-              "Red": 255,
-              "Green": 255,
-              "Blue": 255
-            },
-            "AutoSize": true
-          },
-          {
-            "Type": "TextArea",
-            "Name": "sound_label",
-            "X": 66,
-            "Y": 120,
-            "Width": 28,
-            "Height": 19,
-            "TextId": "soundText",
-            "TextRotation": "0",
-            "Color": {
-              "Red": 255,
-              "Green": 255,
-              "Blue": 255
-            },
-            "AutoSize": true
-          },
-          {
-            "Type": "ToggleButton",
-            "Name": "haptic_togglebutton",
-            "X": 60,
-            "Y": 43,
-            "Width": 170,
-            "Height": 50,
-            "InitialStatePressed": true,
-            "Pressed": "toggleon.png",
-            "Released": "toggleoff.png"
-          },
-          {
-            "Type": "ToggleButton",
-            "Name": "sound_togglebutton",
-            "X": 60,
-            "Y": 103,
-            "Width": 170,
-            "Height": 50,
-            "LockPosition": true,
-            "Pressed": "toggleon.png",
-            "Released": "toggleoff.png"
-          },
-          {
-            "Type": "Image",
-            "Name": "haptic_image",
-            "X": 15,
-            "Y": 55,
-            "Width": 38,
-            "Height": 25,
-            "RelativeFilename": "set_setting_haptic_icon.png"
-          },
-          {
-            "Type": "Image",
-            "Name": "sound_image",
-            "X": 17,
-            "Y": 112,
-            "Width": 33,
-            "Height": 33,
-            "RelativeFilename": "set_setting_sound_icon.png"
-          },
-          {
-            "Type": "CustomContainerInstance",
-            "Name": "batteryprogress_container1",
-            "Width": 240,
-            "Height": 23,
-            "CustomContainerDefinitionName": "batteryprogress_container"
-          }
-        ],
-        "Interactions": []
-      },
-      {
-        "Name": "languageSetting",
-        "Components": [
-          {
-            "Type": "Image",
-            "Name": "background",
-            "Width": 240,
-            "Height": 280,
-            "RelativeFilename": "background.png"
-          },
-          {
-            "Type": "TextArea",
-            "Name": "language_label",
-            "Y": 6,
-            "Width": 240,
-            "Height": 25,
-            "TextId": "languageScreen",
-            "TextRotation": "0",
-            "Color": {
-              "Red": 255,
-              "Green": 255,
-              "Blue": 255
-            }
-          },
-          {
-            "Type": "Image",
-            "Name": "korean_icon_back",
-            "X": 14,
-            "Y": 48,
-            "Width": 40,
-            "Height": 40,
-            "RelativeFilename": "set_setting_iconback.png"
-          },
-          {
-            "Type": "Image",
-            "Name": "english_icon_back",
-            "X": 14,
-            "Y": 109,
-            "Width": 40,
-            "Height": 40,
-            "RelativeFilename": "set_setting_iconback.png"
-          },
-          {
-            "Type": "Image",
-            "Name": "spanish_icon_back",
-            "X": 14,
-            "Y": 170,
-            "Width": 40,
-            "Height": 40,
-            "RelativeFilename": "set_setting_iconback.png"
-          },
-          {
-            "Type": "TextArea",
-            "Name": "korean_label",
-            "X": 66,
-            "Y": 59,
-            "Width": 107,
-            "Height": 20,
-            "TextId": "korean",
-            "TextRotation": "0",
-            "Color": {
-              "Red": 255,
-              "Green": 255,
-              "Blue": 255
-            }
-          },
-          {
-            "Type": "TextArea",
-            "Name": "english_label",
-            "X": 66,
-            "Y": 120,
-            "Width": 107,
-            "Height": 20,
-            "TextId": "English",
-            "TextRotation": "0",
-            "Color": {
-              "Red": 255,
-              "Green": 255,
-              "Blue": 255
-            }
-          },
-          {
-            "Type": "TextArea",
-            "Name": "spanish_label",
-            "X": 66,
-            "Y": 180,
-            "Width": 107,
-            "Height": 20,
-            "TextId": "Spanish",
-            "TextRotation": "0",
-            "Color": {
-              "Red": 255,
-              "Green": 255,
-              "Blue": 255
-            }
-          },
-          {
-            "Type": "RadioButton",
-            "Name": "radioButton1",
-            "X": 60,
-            "Y": 44,
-            "Width": 170,
-            "Height": 50,
-            "Selected": true,
-            "FileNameSelected": "radiofill.png",
-            "FileNameSelectedPressed": "radiofill.png",
-            "FileNameUnselected": "radionfill.png",
-            "FileNameUnselectedPressed": "radionfill.png",
-            "RadioButtonGroup": "radioButtonGroup1"
-          },
-          {
-            "Type": "RadioButton",
-            "Name": "radioButton2",
-            "X": 60,
-            "Y": 105,
-            "Width": 170,
-            "Height": 50,
-            "FileNameSelected": "radiofill.png",
-            "FileNameSelectedPressed": "radiofill.png",
-            "FileNameUnselected": "radionfill.png",
-            "FileNameUnselectedPressed": "radionfill.png",
-            "RadioButtonGroup": "radioButtonGroup1"
-          },
-          {
-            "Type": "RadioButton",
-            "Name": "radioButton3",
-            "X": 60,
-            "Y": 166,
-            "Width": 170,
-            "Height": 50,
-            "FileNameSelected": "radiofill.png",
-            "FileNameSelectedPressed": "radiofill.png",
-            "FileNameUnselected": "radionfill.png",
-            "FileNameUnselectedPressed": "radionfill.png",
-            "RadioButtonGroup": "radioButtonGroup1"
-          },
-          {
-            "Type": "Image",
-            "Name": "korean_image",
-            "X": 22,
-            "Y": 55,
-            "Width": 24,
-            "Height": 26,
-            "RelativeFilename": "set_setting_korean_icon.png"
-          },
-          {
-            "Type": "Image",
-            "Name": "english_image",
-            "X": 16,
-            "Y": 111,
-            "Width": 35,
-            "Height": 35,
-            "RelativeFilename": "set_setting_english_icon.png"
-          },
-          {
-            "Type": "Image",
-            "Name": "spanish_image",
-            "X": 17,
-            "Y": 178,
-            "Width": 33,
-            "Height": 25,
-            "RelativeFilename": "set_setting_spanish_icon.png"
-          },
-          {
-            "Type": "CustomContainerInstance",
-            "Name": "batteryprogress_container1",
-            "Width": 240,
-            "Height": 23,
-            "CustomContainerDefinitionName": "batteryprogress_container"
-          }
-        ],
-        "Interactions": [
-          {
-            "InteractionName": "setLanguageToKorean",
-            "Trigger": {
-              "Type": "TriggerRadioButtonSelected",
-              "TriggerComponent": "radioButton1"
-            },
-            "Action": {
-              "Type": "ActionSetLanguage",
-              "Language": "Korean"
-            }
-          },
-          {
-            "InteractionName": "setLanguageToEnglish",
-            "Trigger": {
-              "Type": "TriggerRadioButtonSelected",
-              "TriggerComponent": "radioButton2"
-            },
-            "Action": {
-              "Type": "ActionSetLanguage",
-              "Language": "GB"
-            }
-          },
-          {
-            "InteractionName": "setLanguageToSpanish",
-            "Trigger": {
-              "Type": "TriggerRadioButtonSelected",
-              "TriggerComponent": "radioButton3"
-            },
-            "Action": {
-              "Type": "ActionSetLanguage",
-              "Language": "Spanish"
-            }
-          }
-        ]
-      },
-      {
-        "Name": "informationSetting",
-        "Components": [
-          {
-            "Type": "Image",
-            "Name": "background",
-            "Width": 240,
-            "Height": 280,
-            "RelativeFilename": "background.png"
-          },
-          {
-            "Type": "TextArea",
-            "Name": "information_label",
-            "Y": 6,
-            "Width": 240,
-            "Height": 25,
-            "TextId": "Information",
-            "TextRotation": "0",
-            "Color": {
-              "Red": 255,
-              "Green": 255,
-              "Blue": 255
-            }
-          },
-          {
-            "Type": "Image",
-            "Name": "device_icon_back",
-            "X": 14,
-            "Y": 48,
-            "Width": 40,
-            "Height": 40,
-            "RelativeFilename": "set_setting_iconback.png"
-          },
-          {
-            "Type": "Image",
-            "Name": "network_icon_back",
-            "X": 14,
-            "Y": 109,
-            "Width": 40,
-            "Height": 40,
-            "RelativeFilename": "set_setting_iconback.png"
-          },
-          {
-            "Type": "TextArea",
-            "Name": "device_label",
-            "X": 66,
-            "Y": 59,
-            "Width": 140,
-            "Height": 25,
-            "TextId": "deviceInfoText",
-            "TextRotation": "0",
-            "Color": {
-              "Red": 255,
-              "Green": 255,
-              "Blue": 255
-            }
-          },
-          {
-            "Type": "TextArea",
-            "Name": "network_label",
-            "X": 66,
-            "Y": 120,
-            "Width": 140,
-            "Height": 25,
-            "TextId": "networkInfoText",
-            "TextRotation": "0",
-            "Color": {
-              "Red": 255,
-              "Green": 255,
-              "Blue": 255
-            }
-          },
-          {
-            "Type": "Image",
-            "Name": "device_arrow_image",
-            "X": 211,
-            "Y": 58,
-            "Width": 20,
-            "Height": 20,
-            "RelativeFilename": "right.png"
-          },
-          {
-            "Type": "Image",
-            "Name": "network_arrow_image",
-            "X": 211,
-            "Y": 120,
-            "Width": 20,
-            "Height": 20,
-            "RelativeFilename": "right.png"
-          },
-          {
-            "Type": "Button",
-            "Name": "device_button",
-            "X": 56,
-            "Y": 43,
-            "Width": 175,
-            "Height": 50,
-            "Pressed": "__generated\\alternate_theme_images_widgets_button_regular_height_50_small_rounded_inactive.png",
-            "Released": "__generated\\alternate_theme_images_widgets_button_regular_height_50_small_rounded_inactive.png",
-            "Alpha": 0
-          },
-          {
-            "Type": "Button",
-            "Name": "network_button",
-            "X": 56,
-            "Y": 104,
-            "Width": 175,
-            "Height": 50,
-            "Pressed": "__generated\\alternate_theme_images_widgets_button_regular_height_50_small_rounded_inactive.png",
-            "Released": "__generated\\alternate_theme_images_widgets_button_regular_height_50_small_rounded_inactive.png",
-            "Alpha": 0
-          },
-          {
-            "Type": "Image",
-            "Name": "device_image",
-            "X": 14,
-            "Y": 48,
-            "Width": 40,
-            "Height": 40,
-            "RelativeFilename": "set_setting_device_icon.png"
-          },
-          {
-            "Type": "Image",
-            "Name": "network_image",
-            "X": 19,
-            "Y": 114,
-            "Width": 30,
-            "Height": 30,
-            "RelativeFilename": "set_setting_network_icon.png"
-          },
-          {
-            "Type": "CustomContainerInstance",
-            "Name": "batteryprogress_container1",
-            "Width": 240,
-            "Height": 23,
-            "CustomContainerDefinitionName": "batteryprogress_container"
-          }
-        ],
-        "Interactions": [
-          {
-            "InteractionName": "movetoDeviceInfo",
-            "Trigger": {
-              "Type": "TriggerClicked",
-              "TriggerComponent": "device_button"
-            },
-            "Action": {
-              "Type": "ActionGotoScreen",
-              "ScreenTransitionType": "ScreenTransitionCover",
-              "ScreenTransitionDirection": "East",
-              "ActionComponent": "deviceInfoSetting"
-            }
-          },
-          {
-            "InteractionName": "movetoNetworkInfo",
-            "Trigger": {
-              "Type": "TriggerClicked",
-              "TriggerComponent": "network_button"
-            },
-            "Action": {
-              "Type": "ActionGotoScreen",
-              "ScreenTransitionType": "ScreenTransitionCover",
-              "ScreenTransitionDirection": "East",
-              "ActionComponent": "networkInfoSetting"
-            }
-          }
-        ]
-      },
-      {
-        "Name": "deviceInfoSetting",
-        "Components": [
-          {
-            "Type": "Image",
-            "Name": "background",
-            "Width": 240,
-            "Height": 280,
-            "RelativeFilename": "background.png"
-          },
-          {
-            "Type": "TextArea",
-            "Name": "deviceinfo_label",
-            "Y": 6,
-            "Width": 240,
-            "Height": 25,
-            "TextId": "deviceInfo",
-            "TextRotation": "0",
-            "Color": {
-              "Red": 255,
-              "Green": 255,
-              "Blue": 255
-            }
-          },
-          {
-            "Type": "TextArea",
-            "Name": "model_label",
-            "Y": 67,
-            "Width": 240,
-            "Height": 29,
-            "TextId": "modelname",
-            "TextRotation": "0",
-            "Color": {
-              "Red": 255,
-              "Green": 255,
-              "Blue": 255
-            },
-            "Wildcard1": {
-              "TextId": "modelnameValue",
-              "UseBuffer": true,
-              "BufferSize": 20
-            }
-          },
-          {
-            "Type": "TextArea",
-            "Name": "version_label",
-            "Y": 98,
-            "Width": 240,
-            "Height": 29,
-            "TextId": "fwversion",
-            "TextRotation": "0",
-            "Color": {
-              "Red": 255,
-              "Green": 255,
-              "Blue": 255
-            },
-            "Wildcard1": {
-              "TextId": "fwversionValue",
-              "UseBuffer": true,
-              "BufferSize": 20
-            }
-          },
-          {
-            "Type": "TextArea",
-            "Name": "id_label",
-            "Y": 129,
-            "Width": 240,
-            "Height": 29,
-            "TextId": "idinfo",
-            "TextRotation": "0",
-            "Color": {
-              "Red": 255,
-              "Green": 255,
-              "Blue": 255
-            },
-            "Wildcard1": {
-              "TextId": "idinfoValue",
-              "UseBuffer": true,
-              "BufferSize": 20
-            }
-          },
-          {
-            "Type": "TextArea",
-            "Name": "serialnumber_label",
-            "Y": 160,
-            "Width": 240,
-            "Height": 29,
-            "TextId": "serialnumber",
-            "TextRotation": "0",
-            "Color": {
-              "Red": 255,
-              "Green": 255,
-              "Blue": 255
-            },
-            "Wildcard1": {
-              "TextId": "serialnumberValue",
-              "UseBuffer": true,
-              "BufferSize": 20
-            }
-          },
-          {
-            "Type": "TextArea",
-            "Name": "servicenumber_label",
-            "Y": 191,
-            "Width": 240,
-            "Height": 29,
-            "TextId": "servicenumber",
-            "TextRotation": "0",
-            "Color": {
-              "Red": 255,
-              "Green": 255,
-              "Blue": 255
-            },
-            "Wildcard1": {
-              "TextId": "servicenumberValue",
-              "UseBuffer": true,
-              "BufferSize": 20
-            }
-          },
-          {
-            "Type": "Button",
-            "Name": "buttonfornothing",
-            "Width": 240,
-            "Height": 50,
-            "Visible": false,
-            "Pressed": "__generated\\alternate_theme_images_widgets_button_regular_height_50_medium_rounded_pressed.png",
-            "Released": "__generated\\alternate_theme_images_widgets_button_regular_height_50_medium_rounded_normal.png",
-            "Preset": "alternate_theme\\presets\\button\\regular\\height_50\\medium_rounded_normal.json"
-          },
-          {
-            "Type": "CustomContainerInstance",
-            "Name": "batteryprogress_container1",
-            "Width": 240,
-            "Height": 23,
-            "CustomContainerDefinitionName": "batteryprogress_container"
-          }
-        ],
-        "Interactions": [
-          {
-            "InteractionName": "Interaction1",
-            "Trigger": {
-              "Type": "TriggerClicked",
-              "TriggerComponent": "buttonfornothing"
-            },
-            "Action": {
-              "Type": "ActionGotoScreen",
-              "ScreenTransitionType": "ScreenTransitionWipe",
-              "ScreenTransitionDirection": "West",
-              "ActionComponent": "informationSetting"
-            }
-          }
-        ]
-      },
-      {
-        "Name": "networkInfoSetting",
-        "Components": [
-          {
-            "Type": "Image",
-            "Name": "background",
-            "Width": 240,
-            "Height": 280,
-            "RelativeFilename": "background.png"
-          },
-          {
-            "Type": "TextArea",
-            "Name": "networkinfo_label",
-            "Y": 6,
-            "Width": 240,
-            "Height": 25,
-            "TextId": "networkInfo",
-            "TextRotation": "0",
-            "Color": {
-              "Red": 255,
-              "Green": 255,
-              "Blue": 255
-            }
-          },
-          {
-            "Type": "TextArea",
-            "Name": "imei_label",
-            "Y": 53,
-            "Width": 240,
-            "Height": 29,
-            "TextId": "imei",
-            "TextRotation": "0",
-            "Color": {
-              "Red": 255,
-              "Green": 255,
-              "Blue": 255
-            },
-            "Wildcard1": {
-              "TextId": "imeiValue",
-              "UseBuffer": true,
-              "BufferSize": 20
-            }
-          },
-          {
-            "Type": "TextArea",
-            "Name": "iccid_label",
-            "Y": 80,
-            "Width": 240,
-            "Height": 29,
-            "TextId": "iccid",
-            "TextRotation": "0",
-            "Color": {
-              "Red": 255,
-              "Green": 255,
-              "Blue": 255
-            },
-            "Wildcard1": {
-              "TextId": "iccidValue",
-              "UseBuffer": true,
-              "BufferSize": 20
-            }
-          },
-          {
-            "Type": "CustomContainerInstance",
-            "Name": "batteryprogress_container1",
-            "Width": 240,
-            "Height": 23,
-            "CustomContainerDefinitionName": "batteryprogress_container"
-          }
-        ],
-        "Interactions": []
-      },
-      {
-        "Name": "systemSetting",
-        "Components": [
-          {
-            "Type": "Image",
-            "Name": "background",
-            "Width": 240,
-            "Height": 280,
-            "RelativeFilename": "background.png"
-          },
-          {
-            "Type": "TextArea",
-            "Name": "system_label",
-            "Y": 6,
-            "Width": 240,
-            "Height": 25,
-            "TextId": "system",
-            "TextRotation": "0",
-            "Color": {
-              "Red": 255,
-              "Green": 255,
-              "Blue": 255
-            }
-          },
-          {
-            "Type": "Button",
-            "Name": "reset_button",
-            "X": 20,
-            "Y": 66,
-            "Width": 200,
-            "Height": 60,
-            "Pressed": "Rectangle 32_D.png",
-            "Released": "Rectangle 32.png"
-          },
-          {
-            "Type": "Button",
-            "Name": "poweroff_button",
-            "X": 20,
-            "Y": 161,
-            "Width": 200,
-            "Height": 60,
-            "Pressed": "Rectangle 31_D.png",
-            "Released": "Rectangle 31.png"
-          },
-          {
-            "Type": "TextArea",
-            "Name": "reset_label",
-            "X": 20,
-            "Y": 80,
-            "Width": 200,
-            "Height": 29,
-            "TextId": "resetText",
-            "TextRotation": "0",
-            "Color": {
-              "Red": 255,
-              "Green": 255,
-              "Blue": 255
-            }
-          },
-          {
-            "Type": "TextArea",
-            "Name": "poweroff_label",
-            "X": 20,
-            "Y": 175,
-            "Width": 200,
-            "Height": 29,
-            "TextId": "poweroffText",
-            "TextRotation": "0",
-            "Color": {
-              "Red": 255,
-              "Green": 255,
-              "Blue": 255
-            }
-          },
-          {
-            "Type": "CustomContainerInstance",
-            "Name": "batteryprogress_container1",
-            "Width": 240,
-            "Height": 23,
-            "CustomContainerDefinitionName": "batteryprogress_container"
-          }
-        ],
-        "Interactions": [
-          {
-            "InteractionName": "poweroffbtn_pressed",
-            "Trigger": {
-              "Type": "TriggerClicked",
-              "TriggerComponent": "poweroff_button"
-            },
-            "Action": {
-              "Type": "ActionGotoScreen",
-              "ScreenTransitionType": "ScreenTransitionNone",
-              "ActionComponent": "turnoffScreen"
-            }
-          }
-        ]
-      },
-      {
-        "Name": "turnoffScreen",
-        "Components": [
-          {
-            "Type": "Image",
-            "Name": "background",
-            "Width": 240,
-            "Height": 280,
-            "RelativeFilename": "background.png"
-          },
-          {
-            "Type": "TextArea",
-            "Name": "yousure_label",
-            "Y": 21,
-            "Width": 240,
-            "Height": 90,
-            "TextId": "offText",
-            "TextRotation": "0",
-            "Color": {
-              "Red": 255,
-              "Green": 255,
-              "Blue": 255
-            }
-          },
-          {
-            "Type": "Button",
-            "Name": "no_button",
-            "X": 20,
-            "Y": 125,
-            "Width": 200,
-            "Height": 60,
-            "Pressed": "dispatch_pressed.png",
-            "Released": "dispatch_notpressed.png"
-          },
-          {
-            "Type": "Button",
-            "Name": "yes_button",
-            "X": 20,
-            "Y": 198,
-            "Width": 200,
-            "Height": 60,
-            "Pressed": "Rectangle 31_D.png",
-            "Released": "Rectangle 31.png"
-          },
-          {
-            "Type": "TextArea",
-            "Name": "yes_label",
-            "X": 20,
-            "Y": 214,
-            "Width": 200,
-            "Height": 29,
-            "TextId": "off_yes",
-            "TextRotation": "0",
-            "Color": {
-              "Red": 255,
-              "Green": 255,
-              "Blue": 255
-            }
-          },
-          {
-            "Type": "TextArea",
-            "Name": "no_label",
-            "X": 20,
-            "Y": 141,
-            "Width": 200,
-            "Height": 29,
-            "TextId": "off_no",
-            "TextRotation": "0",
-            "Color": {
-              "Red": 255,
-              "Green": 255,
-              "Blue": 255
-            }
-          }
-        ],
-        "Interactions": [
-          {
-            "InteractionName": "Interaction1",
-            "Trigger": {
-              "Type": "TriggerClicked",
-              "TriggerComponent": "no_button"
-            },
-            "Action": {
-              "Type": "ActionGotoScreen",
-              "ScreenTransitionType": "ScreenTransitionNone",
-              "ActionComponent": "HomeScreenWithBiodata"
-            }
-          }
-        ]
-      },
-      {
-        "Name": "sos_alert",
-        "Components": [
-          {
-            "Type": "Image",
-            "Name": "background",
-            "Width": 240,
-            "Height": 280,
-            "RelativeFilename": "background.png"
-          },
-          {
-            "Type": "TextArea",
-            "Name": "textArea1",
-            "Y": 6,
-            "Width": 240,
-            "Height": 39,
-            "TextId": "sosAlertLabel",
-            "TextRotation": "0",
-            "Color": {
-              "Red": 255,
-              "Green": 255,
-              "Blue": 255
-            }
-          },
-          {
-            "Type": "TextArea",
-            "Name": "textArea2",
-            "Y": 196,
-            "Width": 240,
-            "Height": 80,
-            "TextId": "sosAlertText",
-            "TextRotation": "0",
-            "Color": {
-              "Red": 255,
-              "Green": 255,
-              "Blue": 255
-            }
-          },
-          {
-            "Type": "CustomContainerInstance",
-            "Name": "batteryprogress_container1",
-            "Width": 240,
-            "Height": 23,
-            "CustomContainerDefinitionName": "batteryprogress_container"
-          },
-          {
-            "Type": "CustomContainerInstance",
-            "Name": "lte_status_container1",
-            "Width": 55,
-            "Height": 33,
-            "CustomContainerDefinitionName": "lte_status_container"
-          },
-          {
-            "Type": "Image",
-            "Name": "image1",
-            "X": 36,
-            "Y": 34,
-            "Width": 168,
-            "Height": 168,
-            "RelativeFilename": "sos_alert.png"
-          }
-        ],
-        "Interactions": [
-          {
-            "InteractionName": "Interaction1",
-            "Trigger": {
-              "Type": "TriggerWhen",
-              "ActionCustomTypeName": "Call sos_alert changeToSOSDetected"
-            },
-            "Action": {
-              "Type": "ActionGotoScreen",
-              "ScreenTransitionType": "ScreenTransitionNone",
-              "ActionComponent": "sos_alert"
-            }
-          }
-        ],
-        "CustomActions": [
-          {
-            "Name": "changeToSOSDetected"
-          }
-        ]
-      },
-      {
-        "Name": "fallDetected",
-        "Components": [
-          {
-            "Type": "Image",
-            "Name": "background",
-            "Width": 240,
-            "Height": 280,
-            "RelativeFilename": "background.png"
-          },
-          {
-            "Type": "TextArea",
-            "Name": "textArea1",
-            "Y": 6,
-            "Width": 240,
-            "Height": 25,
-            "TextId": "fallsOccurLabel",
-            "TextRotation": "0",
-            "Color": {
-              "Red": 255,
-              "Green": 255,
-              "Blue": 255
-            }
-          },
-          {
-            "Type": "Image",
-            "Name": "image1",
-            "X": 56,
-            "Y": 57,
-            "Width": 128,
-            "Height": 128,
-            "RelativeFilename": "fall detected icon.png"
-          },
-          {
-            "Type": "TextArea",
-            "Name": "textArea2",
-            "Y": 196,
-            "Width": 240,
-            "Height": 80,
-            "TextId": "falldetectionText",
-            "TextRotation": "0",
-            "Color": {
-              "Red": 255,
-              "Green": 255,
-              "Blue": 255
-            }
-          },
-          {
-            "Type": "CustomContainerInstance",
-            "Name": "batteryprogress_container1",
-            "Width": 240,
-            "Height": 23,
-            "CustomContainerDefinitionName": "batteryprogress_container"
-          },
-          {
-            "Type": "CustomContainerInstance",
-            "Name": "lte_status_container1",
-            "Width": 55,
-            "Height": 33,
-            "CustomContainerDefinitionName": "lte_status_container"
-          }
-        ],
-        "Interactions": [
-          {
-            "InteractionName": "Interaction1",
-            "Trigger": {
-              "Type": "TriggerWhen",
-              "ActionCustomTypeName": "Call fallDetected changeToFallDetected"
-            },
-            "Action": {
-              "Type": "ActionGotoScreen",
-              "ScreenTransitionType": "ScreenTransitionNone",
-              "ActionComponent": "fallDetected"
-            }
-          }
-        ],
-        "CustomActions": [
-          {
-            "Name": "changeToFallDetected"
-          }
-        ]
-      },
-      {
-        "Name": "initBlackScreen",
-        "Components": [
-          {
-            "Type": "Image",
-            "Name": "background",
-            "Width": 240,
-            "Height": 280,
-            "RelativeFilename": "background.png"
           },
           {
             "Type": "FlexButton",
             "Name": "flexButton1",
-            "Width": 240,
-            "Height": 280,
+            "X": 179,
+            "Y": 4,
+            "Width": 49,
+            "Height": 46,
             "Alpha": 0,
             "ButtonTrigger": {
               "Type": "ClickButtonTrigger"
@@ -3236,8 +1046,8 @@
             "ButtonStyles": [
               {
                 "Type": "BoxWithBorderButtonStyle",
-                "Width": 240,
-                "Height": 280,
+                "Width": 49,
+                "Height": 46,
                 "LockToFlexButtonSize": true,
                 "BorderSize": 5,
                 "ColorReleased": {
@@ -3259,6 +1069,79 @@
                 }
               }
             ]
+          },
+          {
+            "Type": "ImageProgress",
+            "Name": "gps_progress",
+            "X": 40,
+            "Y": 12,
+            "Width": 15,
+            "Height": 15,
+            "FileNameProgress": "gps_connected.png",
+            "AnchorAtZero": true,
+            "Direction": "Right",
+            "FileNameBackground": "gps_notconnected.png",
+            "IndicatorPositionWidth": 15,
+            "IndicatorPositionHeight": 15,
+            "ProgressRangeMax": 1,
+            "ProgressInitialValue": 1
+          },
+          {
+            "Type": "ImageProgress",
+            "Name": "lte_progress",
+            "X": 16,
+            "Y": 13,
+            "Width": 15,
+            "Height": 12,
+            "FileNameProgress": "lte_connected.png",
+            "AnchorAtZero": true,
+            "Direction": "Right",
+            "FileNameBackground": "lte_notconnected.png",
+            "IndicatorPositionWidth": 15,
+            "IndicatorPositionHeight": 12,
+            "ProgressRangeMax": 4,
+            "ProgressInitialValue": 4
+          },
+          {
+            "Type": "Shape",
+            "Name": "shape1",
+            "X": 183,
+            "Y": 7,
+            "Width": 40,
+            "Height": 40,
+            "Color": {
+              "Red": 64,
+              "Green": 134,
+              "Blue": 255
+            },
+            "Points": [
+              {},
+              {
+                "X": 40.0,
+                "Y": 20.0
+              },
+              {
+                "Y": 40.0
+              }
+            ],
+            "XScale": 1.0,
+            "YScale": 1.0
+          },
+          {
+            "Type": "ImageProgress",
+            "Name": "imageProgress1",
+            "X": 138,
+            "Y": 12,
+            "Width": 33,
+            "Height": 15,
+            "FileNameProgress": "Group 6.png",
+            "AnchorAtZero": true,
+            "Direction": "Right",
+            "FileNameBackground": "Group 3.png",
+            "IndicatorPositionWidth": 35,
+            "IndicatorPositionHeight": 16,
+            "ProgressRangeMax": 100,
+            "ProgressInitialValue": 1
           }
         ],
         "Interactions": [
@@ -3270,62 +1153,28 @@
             },
             "Action": {
               "Type": "ActionGotoScreen",
-              "ScreenTransitionType": "ScreenTransitionNone",
-              "ActionComponent": "HomeScreenWithBiodata"
+              "ScreenTransitionType": "ScreenTransitionSlide",
+              "ScreenTransitionDirection": "East",
+              "ActionComponent": "Screen2"
             }
           },
           {
             "InteractionName": "Interaction2",
             "Trigger": {
-              "Type": "TriggerWhen",
-              "ActionCustomTypeName": "Call initBlackScreen changeToInitBlackScreen"
+              "Type": "TriggerOnEveryTick",
+              "TickCount": 60
             },
             "Action": {
-              "Type": "ActionGotoScreen",
-              "ScreenTransitionType": "ScreenTransitionNone",
-              "ActionComponent": "initBlackScreen"
+              "Type": "ActionExecuteCode",
+              "Includes": "#include \"nrf9160.h\"",
+              "Code": "extern uint8_t gpsRSSI_0_1;\r\nextern uint8_t lteRSSI_0_4;\r\nextern uint8_t battVal;\r\nextern uint8_t sv_count;\r\nextern cat_m1_Status_Rtt_Gps_t cat_m1_Status_Rtt_Gps;\r\nextern uint8_t svNumCount;\r\n\r\ngps_progress.setValue(gpsRSSI_0_1);\r\ngps_progress.invalidate();\r\nlte_progress.setValue(lteRSSI_0_4);\r\nlte_progress.invalidate();\r\nimageProgress1.setValue(battVal);\r\nimageProgress1.invalidate();\r\n\r\nif(sv_count == 0)\r\n{\r\n\tuint16_t data1[DETAIL_1_1_1_SIZE];\r\n\tfor(int i=0; i<DETAIL_1_1_1_SIZE; i++){\r\n\t\tdata1[i] = cat_m1_Status_Rtt_Gps.svData01[i];\r\n\t}\r\n\tif(svNumCount >= 1) Unicode::snprintf(detail_1_1_1Buffer, DETAIL_1_1_1_SIZE, \"%s\", data1);\r\n\telse Unicode::snprintf(detail_1_1_1Buffer, DETAIL_1_1_1_SIZE, \"--\");\r\n\tdetail_1_1_1.invalidate();\r\n\r\n\tuint16_t data2[DETAIL_2_1_1_SIZE];\r\n\tfor(int i=0; i<DETAIL_2_1_1_SIZE; i++){\r\n\t\tdata2[i] = cat_m1_Status_Rtt_Gps.svData02[i];\r\n\t}\r\n\tif(svNumCount >= 2) Unicode::snprintf(detail_2_1_1Buffer, DETAIL_2_1_1_SIZE, \"%s\", data2);\r\n\telse Unicode::snprintf(detail_2_1_1Buffer, DETAIL_2_1_1_SIZE, \"--\");\r\n\tdetail_2_1_1.invalidate();\r\n\r\n\tuint16_t data3[DETAIL_3_1_1_SIZE];\r\n\tfor(int i=0; i<DETAIL_3_1_1_SIZE; i++){\r\n\t\tdata3[i] = cat_m1_Status_Rtt_Gps.svData03[i];\r\n\t}\r\n\tif(svNumCount >= 3) Unicode::snprintf(detail_3_1_1Buffer, DETAIL_3_1_1_SIZE, \"%s\", data3);\r\n\telse Unicode::snprintf(detail_3_1_1Buffer, DETAIL_3_1_1_SIZE, \"--\");\r\n\tdetail_3_1_1.invalidate();\r\n\r\n\tuint16_t data4[DETAIL_4_1_1_SIZE];\r\n\tfor(int i=0; i<DETAIL_4_1_1_SIZE; i++){\r\n\t\tdata4[i] = cat_m1_Status_Rtt_Gps.svData04[i];\r\n\t}\r\n\tif(svNumCount >= 4) Unicode::snprintf(detail_4_1_1Buffer, DETAIL_4_1_1_SIZE, \"%s\", data4);\r\n\telse Unicode::snprintf(detail_4_1_1Buffer, DETAIL_4_1_1_SIZE, \"--\");\r\n\tdetail_4_1_1.invalidate();\r\n\r\n\tuint16_t data5[DETAIL_5_1_1_SIZE];\r\n\tfor(int i=0; i<DETAIL_5_1_1_SIZE; i++){\r\n\t\tdata5[i] = cat_m1_Status_Rtt_Gps.svData05[i];\r\n\t}\r\n\tif(svNumCount >= 5) Unicode::snprintf(detail_5_1_1Buffer, DETAIL_5_1_1_SIZE, \"%s\", data5);\r\n\telse Unicode::snprintf(detail_5_1_1Buffer, DETAIL_5_1_1_SIZE, \"--\");\r\n\tdetail_5_1_1.invalidate();\r\n\r\n\tuint16_t data6[DETAIL_6_1_1_SIZE];\r\n\tfor(int i=0; i<DETAIL_6_1_1_SIZE; i++){\r\n\t\tdata6[i] = cat_m1_Status_Rtt_Gps.svData06[i];\r\n\t}\r\n\tif(svNumCount >= 6) Unicode::snprintf(detail_6_1_1Buffer, DETAIL_6_1_1_SIZE, \"%s\", data6);\r\n\telse Unicode::snprintf(detail_6_1_1Buffer, DETAIL_6_1_1_SIZE, \"--\");\r\n\tdetail_6_1_1.invalidate();\r\n\r\n\tuint16_t data7[DETAIL_7_1_1_SIZE];\r\n\tfor(int i=0; i<DETAIL_7_1_1_SIZE; i++){\r\n\t\tdata7[i] = cat_m1_Status_Rtt_Gps.svData07[i];\r\n\t}\r\n\tif(svNumCount >= 7) Unicode::snprintf(detail_7_1_1Buffer, DETAIL_7_1_1_SIZE, \"%s\", data7);\r\n\telse Unicode::snprintf(detail_7_1_1Buffer, DETAIL_7_1_1_SIZE, \"--\");\r\n\tdetail_7_1_1.invalidate();\r\n\r\n\tuint16_t data8[DETAIL_8_1_1_SIZE];\r\n\tfor(int i=0; i<DETAIL_8_1_1_SIZE; i++){\r\n\t\tdata8[i] = cat_m1_Status_Rtt_Gps.svData08[i];\r\n\t}\r\n\tif(svNumCount >= 8) Unicode::snprintf(detail_8_1_1Buffer, DETAIL_8_1_1_SIZE, \"%s\", data8);\r\n\telse Unicode::snprintf(detail_8_1_1Buffer, DETAIL_8_1_1_SIZE, \"--\");\r\n\tdetail_8_1_1.invalidate();\r\n\r\n\tuint16_t data9[DETAIL_9_1_1_SIZE];\r\n\tfor(int i=0; i<DETAIL_9_1_1_SIZE; i++){\r\n\t\tdata9[i] = cat_m1_Status_Rtt_Gps.svData09[i];\r\n\t}\r\n\tif(svNumCount >= 9) Unicode::snprintf(detail_9_1_1Buffer, DETAIL_9_1_1_SIZE, \"%s\", data9);\r\n\telse Unicode::snprintf(detail_9_1_1Buffer, DETAIL_9_1_1_SIZE, \"--\");\r\n\tdetail_9_1_1.invalidate();\r\n\r\n\tuint16_t data10[DETAIL_10_1_1_SIZE];\r\n\tfor(int i=0; i<DETAIL_10_1_1_SIZE; i++){\r\n\t\tdata10[i] = cat_m1_Status_Rtt_Gps.svData10[i];\r\n\t}\r\n\tif(svNumCount >= 10) Unicode::snprintf(detail_10_1_1Buffer, DETAIL_10_1_1_SIZE, \"%s\", data10);\r\n\telse Unicode::snprintf(detail_10_1_1Buffer, DETAIL_10_1_1_SIZE, \"--\");\r\n\tdetail_10_1_1.invalidate();\r\n\r\n\tuint16_t data11[DETAIL_11_1_1_SIZE];\r\n\tfor(int i=0; i<DETAIL_11_1_1_SIZE; i++){\r\n\t\tdata11[i] = cat_m1_Status_Rtt_Gps.svData11[i];\r\n\t}\r\n\tif(svNumCount >= 11) Unicode::snprintf(detail_11_1_1Buffer, DETAIL_11_1_1_SIZE, \"%s\", data11);\r\n\telse Unicode::snprintf(detail_11_1_1Buffer, DETAIL_11_1_1_SIZE, \"--\");\r\n\tdetail_11_1_1.invalidate();\r\n\r\n\tuint16_t data12[DETAIL_12_1_1_SIZE];\r\n\tfor(int i=0; i<DETAIL_12_1_1_SIZE; i++){\r\n\t\tdata12[i] = cat_m1_Status_Rtt_Gps.svData12[i];\r\n\t}\r\n\tif(svNumCount >= 12) Unicode::snprintf(detail_12_1_1Buffer, DETAIL_12_1_1_SIZE, \"%s\", data12);\r\n\telse Unicode::snprintf(detail_12_1_1Buffer, DETAIL_12_1_1_SIZE, \"--\");\r\n\tdetail_12_1_1.invalidate();\r\n\r\n\tuint16_t data13[DETAIL_13_1_1_SIZE];\r\n\tfor(int i=0; i<DETAIL_13_1_1_SIZE; i++){\r\n\t\tdata13[i] = cat_m1_Status_Rtt_Gps.svData13[i];\r\n\t}\r\n\tif(svNumCount >= 13) Unicode::snprintf(detail_13_1_1Buffer, DETAIL_13_1_1_SIZE, \"%s\", data13);\r\n\telse Unicode::snprintf(detail_13_1_1Buffer, DETAIL_13_1_1_SIZE, \"--\");\r\n\tdetail_13_1_1.invalidate();\r\n\r\n\tuint16_t data14[DETAIL_14_1_1_SIZE];\r\n\tfor(int i=0; i<DETAIL_14_1_1_SIZE; i++){\r\n\t\tdata14[i] = cat_m1_Status_Rtt_Gps.svData14[i];\r\n\t}\r\n\tif(svNumCount >= 14) Unicode::snprintf(detail_14_1_1Buffer, DETAIL_14_1_1_SIZE, \"%s\", data14);\r\n\telse Unicode::snprintf(detail_14_1_1Buffer, DETAIL_14_1_1_SIZE, \"--\");\r\n\tdetail_14_1_1.invalidate();\r\n\r\n\tuint16_t data15[DETAIL_15_1_1_SIZE];\r\n\tfor (int i = 0; i < DETAIL_15_1_1_SIZE; i++) {\r\n\t\tdata15[i] = cat_m1_Status_Rtt_Gps.svData15[i];\r\n\t}\r\n\tif (svNumCount >= 15) Unicode::snprintf(detail_15_1_1Buffer, DETAIL_15_1_1_SIZE, \"%s\", data15);\r\n\telse Unicode::snprintf(detail_15_1_1Buffer, DETAIL_15_1_1_SIZE, \"--\");\r\n\tdetail_15_1_1.invalidate();\r\n\r\n\tuint16_t data16[DETAIL_16_1_1_SIZE];\r\n\tfor (int i = 0; i < DETAIL_16_1_1_SIZE; i++) {\r\n\t\tdata16[i] = cat_m1_Status_Rtt_Gps.svData16[i];\r\n\t}\r\n\tif (svNumCount >= 16) Unicode::snprintf(detail_16_1_1Buffer, DETAIL_16_1_1_SIZE, \"%s\", data16);\r\n\telse Unicode::snprintf(detail_16_1_1Buffer, DETAIL_16_1_1_SIZE, \"--\");\r\n\tdetail_16_1_1.invalidate();\r\n\r\n\tuint16_t data17[DETAIL_17_1_1_SIZE];\r\n\tfor (int i = 0; i < DETAIL_17_1_1_SIZE; i++) {\r\n\t\tdata17[i] = cat_m1_Status_Rtt_Gps.svData17[i];\r\n\t}\r\n\tif (svNumCount >= 17) Unicode::snprintf(detail_17_1_1Buffer, DETAIL_17_1_1_SIZE, \"%s\", data17);\r\n\telse Unicode::snprintf(detail_17_1_1Buffer, DETAIL_17_1_1_SIZE, \"--\");\r\n\tdetail_17_1_1.invalidate();\r\n\r\n\tuint16_t data18[DETAIL_18_1_1_SIZE];\r\n\tfor (int i = 0; i < DETAIL_18_1_1_SIZE; i++) {\r\n\t\tdata18[i] = cat_m1_Status_Rtt_Gps.svData18[i];\r\n\t}\r\n\tif (svNumCount >= 18) Unicode::snprintf(detail_18_1_1Buffer, DETAIL_18_1_1_SIZE, \"%s\", data18);\r\n\telse Unicode::snprintf(detail_18_1_1Buffer, DETAIL_18_1_1_SIZE, \"--\");\r\n\tdetail_18_1_1.invalidate();\r\n\r\n\tuint16_t data19[DETAIL_19_1_1_SIZE];\r\n\tfor (int i = 0; i < DETAIL_19_1_1_SIZE; i++) {\r\n\t\tdata19[i] = cat_m1_Status_Rtt_Gps.svData19[i];\r\n\t}\r\n\tif (svNumCount >= 19) Unicode::snprintf(detail_19_1_1Buffer, DETAIL_19_1_1_SIZE, \"%s\", data19);\r\n\telse Unicode::snprintf(detail_19_1_1Buffer, DETAIL_19_1_1_SIZE, \"--\");\r\n\tdetail_19_1_1.invalidate();\r\n\r\n\tuint16_t data20[DETAIL_20_1_1_SIZE];\r\n\tfor (int i = 0; i < DETAIL_20_1_1_SIZE; i++) {\r\n\t\tdata20[i] = cat_m1_Status_Rtt_Gps.svData20[i];\r\n\t}\r\n\tif (svNumCount >= 20) Unicode::snprintf(detail_20_1_1Buffer, DETAIL_20_1_1_SIZE, \"%s\", data20);\r\n\telse Unicode::snprintf(detail_20_1_1Buffer, DETAIL_20_1_1_SIZE, \"--\");\r\n\tdetail_20_1_1.invalidate();\r\n\r\n\tuint16_t data21[DETAIL_21_1_1_SIZE];\r\n\tfor (int i = 0; i < DETAIL_21_1_1_SIZE; i++) {\r\n\t\tdata21[i] = cat_m1_Status_Rtt_Gps.svData21[i];\r\n\t}\r\n\tif (svNumCount >= 21) Unicode::snprintf(detail_21_1_1Buffer, DETAIL_21_1_1_SIZE, \"%s\", data21);\r\n\telse Unicode::snprintf(detail_21_1_1Buffer, DETAIL_21_1_1_SIZE, \"--\");\r\n\tdetail_21_1_1.invalidate();\r\n\r\n\tuint16_t data22[DETAIL_22_1_1_SIZE];\r\n\tfor (int i = 0; i < DETAIL_22_1_1_SIZE; i++) {\r\n\t\tdata22[i] = cat_m1_Status_Rtt_Gps.svData22[i];\r\n\t}\r\n\tif (svNumCount >= 22) Unicode::snprintf(detail_22_1_1Buffer, DETAIL_22_1_1_SIZE, \"%s\", data22);\r\n\telse Unicode::snprintf(detail_22_1_1Buffer, DETAIL_22_1_1_SIZE, \"--\");\r\n\tdetail_22_1_1.invalidate();\r\n\r\n\tuint16_t data23[DETAIL_23_1_1_SIZE];\r\n\tfor (int i = 0; i < DETAIL_23_1_1_SIZE; i++) {\r\n\t\tdata23[i] = cat_m1_Status_Rtt_Gps.svData23[i];\r\n\t}\r\n\tif (svNumCount >= 23) Unicode::snprintf(detail_23_1_1Buffer, DETAIL_23_1_1_SIZE, \"%s\", data23);\r\n\telse Unicode::snprintf(detail_23_1_1Buffer, DETAIL_23_1_1_SIZE, \"--\");\r\n\tdetail_23_1_1.invalidate();\r\n\r\n\tuint16_t data24[DETAIL_24_1_1_SIZE];\r\n\tfor (int i = 0; i < DETAIL_24_1_1_SIZE; i++) {\r\n\t\tdata24[i] = cat_m1_Status_Rtt_Gps.svData24[i];\r\n\t}\r\n\tif (svNumCount >= 24) Unicode::snprintf(detail_24_1_1Buffer, DETAIL_24_1_1_SIZE, \"%s\", data24);\r\n\telse Unicode::snprintf(detail_24_1_1Buffer, DETAIL_24_1_1_SIZE, \"--\");\r\n\tdetail_24_1_1.invalidate();\r\n\r\n\tuint16_t data25[DETAIL_25_1_1_SIZE];\r\n\tfor (int i = 0; i < DETAIL_25_1_1_SIZE; i++) {\r\n\t\tdata25[i] = cat_m1_Status_Rtt_Gps.svData25[i];\r\n\t}\r\n\tif (svNumCount >= 25) Unicode::snprintf(detail_25_1_1Buffer, DETAIL_25_1_1_SIZE, \"%s\", data25);\r\n\telse Unicode::snprintf(detail_25_1_1Buffer, DETAIL_25_1_1_SIZE, \"--\");\r\n\tdetail_25_1_1.invalidate();\r\n\r\n\tuint16_t data26[DETAIL_26_1_1_SIZE];\r\n\tfor (int i = 0; i < DETAIL_26_1_1_SIZE; i++) {\r\n\t\tdata26[i] = cat_m1_Status_Rtt_Gps.svData26[i];\r\n\t}\r\n\tif (svNumCount >= 26) Unicode::snprintf(detail_26_1_1Buffer, DETAIL_26_1_1_SIZE, \"%s\", data26);\r\n\telse Unicode::snprintf(detail_26_1_1Buffer, DETAIL_26_1_1_SIZE, \"--\");\r\n\tdetail_26_1_1.invalidate();\r\n\r\n\tuint16_t data27[DETAIL_27_1_1_SIZE];\r\n\tfor (int i = 0; i < DETAIL_27_1_1_SIZE; i++) {\r\n\t\tdata27[i] = cat_m1_Status_Rtt_Gps.svData27[i];\r\n\t}\r\n\tif (svNumCount >= 27) Unicode::snprintf(detail_27_1_1Buffer, DETAIL_27_1_1_SIZE, \"%s\", data27);\r\n\telse Unicode::snprintf(detail_27_1_1Buffer, DETAIL_27_1_1_SIZE, \"--\");\r\n\tdetail_27_1_1.invalidate();\r\n\r\n\tuint16_t data28[DETAIL_28_1_1_SIZE];\r\n\tfor (int i = 0; i < DETAIL_28_1_1_SIZE; i++) {\r\n\t\tdata28[i] = cat_m1_Status_Rtt_Gps.svData28[i];\r\n\t}\r\n\tif (svNumCount >= 28) Unicode::snprintf(detail_28_1_1Buffer, DETAIL_28_1_1_SIZE, \"%s\", data28);\r\n\telse Unicode::snprintf(detail_28_1_1Buffer, DETAIL_28_1_1_SIZE, \"--\");\r\n\tdetail_28_1_1.invalidate();\r\n\r\n\tuint16_t data29[DETAIL_29_1_1_SIZE];\r\n\tfor (int i = 0; i < DETAIL_29_1_1_SIZE; i++) {\r\n\t\tdata29[i] = cat_m1_Status_Rtt_Gps.svData29[i];\r\n\t}\r\n\tif (svNumCount >= 29) Unicode::snprintf(detail_29_1_1Buffer, DETAIL_29_1_1_SIZE, \"%s\", data29);\r\n\telse Unicode::snprintf(detail_29_1_1Buffer, DETAIL_29_1_1_SIZE, \"--\");\r\n\tdetail_29_1_1.invalidate();\r\n\r\n\tuint16_t data30[DETAIL_30_1_1_SIZE];\r\n\tfor (int i = 0; i < DETAIL_30_1_1_SIZE; i++) {\r\n\t\tdata30[i] = cat_m1_Status_Rtt_Gps.svData30[i];\r\n\t}\r\n\tif (svNumCount >= 30) Unicode::snprintf(detail_30_1_1Buffer, DETAIL_30_1_1_SIZE, \"%s\", data30);\r\n\telse Unicode::snprintf(detail_30_1_1Buffer, DETAIL_30_1_1_SIZE, \"--\");\r\n\tdetail_30_1_1.invalidate();\r\n\r\n\tuint16_t data31[DETAIL_31_1_1_SIZE];\r\n\tfor (int i = 0; i < DETAIL_31_1_1_SIZE; i++) {\r\n\t\tdata31[i] = cat_m1_Status_Rtt_Gps.svData31[i];\r\n\t}\r\n\tif (svNumCount >= 31) Unicode::snprintf(detail_31_1_1Buffer, DETAIL_31_1_1_SIZE, \"%s\", data31);\r\n\telse Unicode::snprintf(detail_31_1_1Buffer, DETAIL_31_1_1_SIZE, \"--\");\r\n\tdetail_31_1_1.invalidate();\r\n\r\n\tuint16_t data32[DETAIL_32_1_1_SIZE];\r\n\tfor (int i = 0; i < DETAIL_32_1_1_SIZE; i++) {\r\n\t\tdata32[i] = cat_m1_Status_Rtt_Gps.svData32[i];\r\n\t}\r\n\tif (svNumCount >= 32) Unicode::snprintf(detail_32_1_1Buffer, DETAIL_32_1_1_SIZE, \"%s\", data32);\r\n\telse Unicode::snprintf(detail_32_1_1Buffer, DETAIL_32_1_1_SIZE, \"--\");\r\n\tdetail_32_1_1.invalidate();\r\n}\r\n\r\nextern uint16_t GNSS_display_data[100];\r\nUnicode::snprintf(textArea2Buffer, TEXTAREA2_SIZE, \"%s\", GNSS_display_data);\r\ntextArea2.invalidate();\r\n"
             }
-          }
-        ],
-        "CustomActions": [
-          {
-            "Name": "changeToInitBlackScreen"
           }
         ]
       },
       {
-        "Name": "tempHome",
-        "Components": [
-          {
-            "Type": "Image",
-            "Name": "background",
-            "Width": 240,
-            "Height": 280,
-            "RelativeFilename": "background.png"
-          }
-        ],
-        "Interactions": [
-          {
-            "InteractionName": "Interaction1",
-            "Trigger": {
-              "Type": "TriggerWhen",
-              "ActionCustomTypeName": "Call tempHome changeToHomeScreen"
-            },
-            "Action": {
-              "Type": "ActionGotoScreen",
-              "ScreenTransitionType": "ScreenTransitionNone",
-              "ActionComponent": "HomeScreenWithBiodata"
-            }
-          }
-        ],
-        "CustomActions": [
-          {
-            "Name": "changeToHomeScreen"
-          }
-        ]
-      },
-      {
-        "Name": "flashlight_screen",
+        "Name": "Screen2",
+        "CanvasBufferSize": 3600,
         "Components": [
           {
             "Type": "Box",
@@ -3333,25 +1182,434 @@
             "Width": 240,
             "Height": 280,
             "Color": {
-              "Red": 255,
-              "Green": 255,
-              "Blue": 255
+              "Red": 209,
+              "Green": 209,
+              "Blue": 209
             }
           },
           {
-            "Type": "Image",
-            "Name": "flashlight_image",
-            "X": 98,
-            "Y": 118,
-            "Width": 45,
-            "Height": 45,
-            "RelativeFilename": "swipedown_flashlighticon.png"
+            "Type": "TextArea",
+            "Name": "textArea2",
+            "X": 13,
+            "Y": 233,
+            "Width": 214,
+            "Height": 39,
+            "TextId": "__SingleUse_SVXS",
+            "TextRotation": "0",
+            "Wildcard1": {
+              "TextId": "first_gnss",
+              "UseBuffer": true,
+              "BufferSize": 100
+            },
+            "WideTextAction": 4
+          },
+          {
+            "Type": "TextArea",
+            "Name": "textArea3",
+            "X": 13,
+            "Y": 259,
+            "Width": 44,
+            "Height": 13,
+            "Visible": false,
+            "TextId": "GNSS_update_cnt",
+            "TextRotation": "0",
+            "AutoSize": true,
+            "Wildcard1": {
+              "TextId": "update_cnt",
+              "UseBuffer": true,
+              "BufferSize": 4
+            }
+          },
+          {
+            "Type": "ScrollableContainer",
+            "Name": "scrollableContainer1",
+            "Y": 35,
+            "Width": 240,
+            "Height": 191,
+            "HorizontalScrollEnabled": true,
+            "VerticalScrollEnabled": true,
+            "ScrollbarsVisibleOnPressed": true,
+            "ScrollbarsAlpha": 255,
+            "Components": [
+              {
+                "Type": "TextArea",
+                "Name": "textArea4",
+                "X": 13,
+                "Width": 37,
+                "Height": 13,
+                "TextId": "__SingleUse_5P4Y",
+                "TextRotation": "0",
+                "AutoSize": true
+              },
+              {
+                "Type": "TextArea",
+                "Name": "GPGGA_detail",
+                "X": 13,
+                "Y": 13,
+                "Width": 214,
+                "Height": 26,
+                "TextId": "__SingleUse_83LK",
+                "TextRotation": "0",
+                "Wildcard1": {
+                  "TextId": "GPGGA_detail",
+                  "UseBuffer": true,
+                  "BufferSize": 65
+                },
+                "WideTextAction": 4
+              },
+              {
+                "Type": "TextArea",
+                "Name": "GPGGA_text",
+                "X": 13,
+                "Y": 13,
+                "Width": 49,
+                "Height": 13,
+                "TextId": "__SingleUse_VY29",
+                "TextRotation": "0",
+                "Color": {
+                  "Red": 255
+                },
+                "AutoSize": true
+              },
+              {
+                "Type": "TextArea",
+                "Name": "GPGLL_detail",
+                "X": 13,
+                "Y": 39,
+                "Width": 214,
+                "Height": 26,
+                "TextId": "__SingleUse_K1CL",
+                "TextRotation": "0",
+                "Wildcard1": {
+                  "TextId": "GPGLL_detail",
+                  "UseBuffer": true,
+                  "BufferSize": 65
+                },
+                "WideTextAction": 4
+              },
+              {
+                "Type": "TextArea",
+                "Name": "GPGLL_text",
+                "X": 13,
+                "Y": 39,
+                "Width": 44,
+                "Height": 13,
+                "TextId": "__SingleUse_V2E0",
+                "TextRotation": "0",
+                "Color": {
+                  "Red": 255
+                },
+                "AutoSize": true
+              },
+              {
+                "Type": "TextArea",
+                "Name": "GPGSA_detail",
+                "X": 13,
+                "Y": 65,
+                "Width": 214,
+                "Height": 26,
+                "TextId": "__SingleUse_OH19",
+                "TextRotation": "0",
+                "Wildcard1": {
+                  "TextId": "GPGSA_detail",
+                  "UseBuffer": true,
+                  "BufferSize": 65
+                },
+                "WideTextAction": 4
+              },
+              {
+                "Type": "TextArea",
+                "Name": "GPGSA_text",
+                "X": 13,
+                "Y": 65,
+                "Width": 48,
+                "Height": 13,
+                "TextId": "__SingleUse_ZHN4",
+                "TextRotation": "0",
+                "Color": {
+                  "Red": 255
+                },
+                "AutoSize": true
+              },
+              {
+                "Type": "TextArea",
+                "Name": "GPGSV_detail",
+                "X": 13,
+                "Y": 117,
+                "Width": 214,
+                "Height": 26,
+                "TextId": "__SingleUse_EQXE",
+                "TextRotation": "0",
+                "Wildcard1": {
+                  "TextId": "GPGSV_detail",
+                  "UseBuffer": true,
+                  "BufferSize": 65
+                },
+                "WideTextAction": 4
+              },
+              {
+                "Type": "TextArea",
+                "Name": "GPGSV_text",
+                "X": 13,
+                "Y": 117,
+                "Width": 48,
+                "Height": 13,
+                "TextId": "__SingleUse_997B",
+                "TextRotation": "0",
+                "Color": {
+                  "Red": 255
+                },
+                "AutoSize": true
+              },
+              {
+                "Type": "TextArea",
+                "Name": "GPGSV2_detail",
+                "X": 13,
+                "Y": 143,
+                "Width": 214,
+                "Height": 26,
+                "TextId": "__SingleUse_V6OB",
+                "TextRotation": "0",
+                "Wildcard1": {
+                  "TextId": "GPGSV2_detail",
+                  "UseBuffer": true,
+                  "BufferSize": 65
+                },
+                "WideTextAction": 4
+              },
+              {
+                "Type": "TextArea",
+                "Name": "GPGSV2_text",
+                "X": 13,
+                "Y": 143,
+                "Width": 48,
+                "Height": 13,
+                "TextId": "__SingleUse_8RM8",
+                "TextRotation": "0",
+                "Color": {
+                  "Red": 255
+                },
+                "AutoSize": true
+              },
+              {
+                "Type": "TextArea",
+                "Name": "GPGSV3_detail",
+                "X": 13,
+                "Y": 169,
+                "Width": 214,
+                "Height": 26,
+                "TextId": "__SingleUse_YH13",
+                "TextRotation": "0",
+                "Wildcard1": {
+                  "TextId": "GPGSV3_detail",
+                  "UseBuffer": true,
+                  "BufferSize": 65
+                },
+                "WideTextAction": 4
+              },
+              {
+                "Type": "TextArea",
+                "Name": "GPGSV3_text",
+                "X": 13,
+                "Y": 169,
+                "Width": 48,
+                "Height": 13,
+                "TextId": "__SingleUse_0C26",
+                "TextRotation": "0",
+                "Color": {
+                  "Red": 255
+                },
+                "AutoSize": true
+              },
+              {
+                "Type": "TextArea",
+                "Name": "GPGSV4_detail",
+                "X": 13,
+                "Y": 195,
+                "Width": 214,
+                "Height": 26,
+                "TextId": "__SingleUse_3L2T",
+                "TextRotation": "0",
+                "Wildcard1": {
+                  "TextId": "GPGSV_detail",
+                  "UseBuffer": true,
+                  "BufferSize": 65
+                },
+                "WideTextAction": 4
+              },
+              {
+                "Type": "TextArea",
+                "Name": "GPGSV4_text",
+                "X": 13,
+                "Y": 195,
+                "Width": 48,
+                "Height": 13,
+                "TextId": "__SingleUse_XVRK",
+                "TextRotation": "0",
+                "Color": {
+                  "Red": 255
+                },
+                "AutoSize": true
+              },
+              {
+                "Type": "TextArea",
+                "Name": "GPGSV5_detail",
+                "X": 13,
+                "Y": 221,
+                "Width": 214,
+                "Height": 26,
+                "TextId": "__SingleUse_ID4V",
+                "TextRotation": "0",
+                "Wildcard1": {
+                  "TextId": "GPGSV2_detail",
+                  "UseBuffer": true,
+                  "BufferSize": 65
+                },
+                "WideTextAction": 4
+              },
+              {
+                "Type": "TextArea",
+                "Name": "GPGSV5_text",
+                "X": 13,
+                "Y": 221,
+                "Width": 48,
+                "Height": 13,
+                "TextId": "__SingleUse_17H8",
+                "TextRotation": "0",
+                "Color": {
+                  "Red": 255
+                },
+                "AutoSize": true
+              },
+              {
+                "Type": "TextArea",
+                "Name": "GPGSV6_detail",
+                "X": 13,
+                "Y": 247,
+                "Width": 214,
+                "Height": 26,
+                "TextId": "__SingleUse_GSZF",
+                "TextRotation": "0",
+                "Wildcard1": {
+                  "TextId": "GPGSV3_detail",
+                  "UseBuffer": true,
+                  "BufferSize": 65
+                },
+                "WideTextAction": 4
+              },
+              {
+                "Type": "TextArea",
+                "Name": "GPGSV6_text",
+                "X": 13,
+                "Y": 247,
+                "Width": 48,
+                "Height": 13,
+                "TextId": "__SingleUse_QU1M",
+                "TextRotation": "0",
+                "Color": {
+                  "Red": 255
+                },
+                "AutoSize": true
+              },
+              {
+                "Type": "TextArea",
+                "Name": "GPGSV7_detail",
+                "X": 13,
+                "Y": 273,
+                "Width": 214,
+                "Height": 26,
+                "TextId": "__SingleUse_WY8T",
+                "TextRotation": "0",
+                "Wildcard1": {
+                  "TextId": "GPGSV_detail",
+                  "UseBuffer": true,
+                  "BufferSize": 65
+                },
+                "WideTextAction": 4
+              },
+              {
+                "Type": "TextArea",
+                "Name": "GPGSV7_text",
+                "X": 13,
+                "Y": 273,
+                "Width": 48,
+                "Height": 13,
+                "TextId": "__SingleUse_A1R8",
+                "TextRotation": "0",
+                "Color": {
+                  "Red": 255
+                },
+                "AutoSize": true
+              },
+              {
+                "Type": "TextArea",
+                "Name": "GPGSV8_detail",
+                "X": 13,
+                "Y": 299,
+                "Width": 214,
+                "Height": 26,
+                "TextId": "__SingleUse_NTL9",
+                "TextRotation": "0",
+                "Wildcard1": {
+                  "TextId": "GPGSV2_detail",
+                  "UseBuffer": true,
+                  "BufferSize": 65
+                },
+                "WideTextAction": 4
+              },
+              {
+                "Type": "TextArea",
+                "Name": "GPGSV8_text",
+                "X": 13,
+                "Y": 299,
+                "Width": 48,
+                "Height": 13,
+                "TextId": "__SingleUse_3PKV",
+                "TextRotation": "0",
+                "Color": {
+                  "Red": 255
+                },
+                "AutoSize": true
+              },
+              {
+                "Type": "TextArea",
+                "Name": "GPRMC_detail",
+                "X": 13,
+                "Y": 91,
+                "Width": 214,
+                "Height": 26,
+                "TextId": "__SingleUse_UU7R",
+                "TextRotation": "0",
+                "Wildcard1": {
+                  "TextId": "GPRMC_detail",
+                  "UseBuffer": true,
+                  "BufferSize": 65
+                },
+                "WideTextAction": 4
+              },
+              {
+                "Type": "TextArea",
+                "Name": "GPRMC_text",
+                "X": 13,
+                "Y": 91,
+                "Width": 48,
+                "Height": 13,
+                "TextId": "__SingleUse_68CC",
+                "TextRotation": "0",
+                "Color": {
+                  "Red": 255
+                },
+                "AutoSize": true
+              }
+            ]
           },
           {
             "Type": "FlexButton",
-            "Name": "flashlightBackBTN",
-            "Width": 240,
-            "Height": 280,
+            "Name": "flexButton1",
+            "X": 179,
+            "Y": 4,
+            "Width": 48,
+            "Height": 47,
             "Alpha": 0,
             "ButtonTrigger": {
               "Type": "ClickButtonTrigger"
@@ -3359,8 +1617,8 @@
             "ButtonStyles": [
               {
                 "Type": "BoxWithBorderButtonStyle",
-                "Width": 240,
-                "Height": 280,
+                "Width": 48,
+                "Height": 47,
                 "LockToFlexButtonSize": true,
                 "BorderSize": 5,
                 "ColorReleased": {
@@ -3382,374 +1640,39 @@
                 }
               }
             ]
-          }
-        ],
-        "Interactions": [
-          {
-            "InteractionName": "flashlightBack",
-            "Trigger": {
-              "Type": "TriggerClicked",
-              "TriggerComponent": "flashlightBackBTN"
-            },
-            "Action": {
-              "Type": "ActionGotoScreen",
-              "ScreenTransitionType": "ScreenTransitionNone",
-              "ActionComponent": "swipedownfromHome"
-            }
           },
           {
-            "InteractionName": "maxBrightness",
-            "Trigger": {
-              "Type": "TriggerScreenTransitionBegins"
-            },
-            "Action": {
-              "Type": "ActionCustom2",
-              "ActionCustomTypeName": "Call flashlight_screen changeMaxBrightness",
-              "ActionComponent": "flashlight_screen"
-            }
-          },
-          {
-            "InteractionName": "beforeBright",
-            "Trigger": {
-              "Type": "TriggerClicked",
-              "TriggerComponent": "flashlightBackBTN"
-            },
-            "Action": {
-              "Type": "ActionCustom2",
-              "ActionCustomTypeName": "Call flashlight_screen changeBeforeBrightness",
-              "ActionComponent": "flashlight_screen"
-            }
-          },
-          {
-            "InteractionName": "resetScreenOnTime",
-            "Trigger": {
-              "Type": "TriggerOnEveryTick",
-              "TickCount": 1
-            },
-            "Action": {
-              "Type": "ActionExecuteCode",
-              "Code": "#if !defined(gui_simulation)\r\nextern uint8_t brightness_count;\r\nbrightness_count = 0;\r\n#endif"
-            }
-          }
-        ],
-        "CustomActions": [
-          {
-            "Name": "changeMaxBrightness"
-          },
-          {
-            "Name": "changeBeforeBrightness"
-          }
-        ]
-      },
-      {
-        "Name": "unCharging_screen",
-        "Components": [
-          {
-            "Type": "Image",
-            "Name": "background",
-            "Width": 240,
-            "Height": 280,
-            "RelativeFilename": "background.png"
-          },
-          {
-            "Type": "TextArea",
-            "Name": "textArea1",
-            "Y": 190,
-            "Width": 240,
-            "Height": 58,
-            "TextId": "__SingleUse_TWFH",
-            "TextRotation": "0",
+            "Type": "Shape",
+            "Name": "shape1",
+            "X": 183,
+            "Y": 7,
+            "Width": 40,
+            "Height": 40,
             "Color": {
-              "Red": 255,
-              "Green": 255,
-              "Blue": 255
-            }
-          },
-          {
-            "Type": "Image",
-            "Name": "image1",
-            "X": 51,
-            "Y": 40,
-            "Width": 139,
-            "Height": 139,
-            "RelativeFilename": "uncharging.png"
-          }
-        ],
-        "Interactions": [
-          {
-            "InteractionName": "changeHomeScreen",
-            "Trigger": {
-              "Type": "TriggerOnEveryTick",
-              "TickCount": 120
-            },
-            "Action": {
-              "Type": "ActionGotoScreen",
-              "ScreenTransitionType": "ScreenTransitionNone",
-              "ActionComponent": "HomeScreenWithBiodata"
-            }
-          },
-          {
-            "InteractionName": "unchargingScreen",
-            "Trigger": {
-              "Type": "TriggerWhen",
-              "ActionCustomTypeName": "Call unCharging_screen changeUnChargeScreen"
-            },
-            "Action": {
-              "Type": "ActionGotoScreen",
-              "ScreenTransitionType": "ScreenTransitionNone",
-              "ActionComponent": "unCharging_screen"
-            }
-          }
-        ],
-        "CustomActions": [
-          {
-            "Name": "changeUnChargeScreen"
-          }
-        ]
-      },
-      {
-        "Name": "charging_screen",
-        "Components": [
-          {
-            "Type": "Image",
-            "Name": "background",
-            "Width": 240,
-            "Height": 280,
-            "RelativeFilename": "background.png"
-          },
-          {
-            "Type": "TextArea",
-            "Name": "textArea1",
-            "Y": 190,
-            "Width": 240,
-            "Height": 58,
-            "TextId": "__SingleUse_MNWB",
-            "TextRotation": "0",
-            "Color": {
-              "Red": 255,
-              "Green": 255,
-              "Blue": 255
-            }
-          },
-          {
-            "Type": "Image",
-            "Name": "image1",
-            "X": 51,
-            "Y": 40,
-            "Width": 139,
-            "Height": 139,
-            "RelativeFilename": "charging.png"
-          }
-        ],
-        "Interactions": [
-          {
-            "InteractionName": "changeHomeScreen",
-            "Trigger": {
-              "Type": "TriggerOnEveryTick",
-              "TickCount": 120
-            },
-            "Action": {
-              "Type": "ActionGotoScreen",
-              "ScreenTransitionType": "ScreenTransitionNone",
-              "ActionComponent": "HomeScreenWithBiodata"
-            }
-          },
-          {
-            "InteractionName": "chargingScreen",
-            "Trigger": {
-              "Type": "TriggerWhen",
-              "ActionCustomTypeName": "Call charging_screen changeChargeScreen"
-            },
-            "Action": {
-              "Type": "ActionGotoScreen",
-              "ScreenTransitionType": "ScreenTransitionNone",
-              "ActionComponent": "charging_screen"
-            }
-          }
-        ],
-        "CustomActions": [
-          {
-            "Name": "changeChargeScreen"
-          }
-        ]
-      }
-    ],
-    "CustomContainerDefinitions": [
-      {
-        "Name": "setting_screenontime_notselected",
-        "Width": 197,
-        "Height": 46,
-        "Components": [
-          {
-            "Type": "Box",
-            "Name": "box1",
-            "Width": 197,
-            "Height": 46
-          },
-          {
-            "Type": "TextArea",
-            "Name": "textArea1",
-            "Width": 197,
-            "Height": 46,
-            "TextId": "__SingleUse_K9CO",
-            "TextRotation": "0",
-            "Color": {
-              "Red": 118,
-              "Green": 118,
-              "Blue": 118
-            },
-            "Wildcard1": {
-              "TextId": "notSelected",
-              "UseBuffer": true,
-              "BufferSize": 3
-            }
-          }
-        ],
-        "Interactions": []
-      },
-      {
-        "Name": "setting_screenontime_selected",
-        "Width": 197,
-        "Height": 46,
-        "Components": [
-          {
-            "Type": "Box",
-            "Name": "box1",
-            "Width": 197,
-            "Height": 46
-          },
-          {
-            "Type": "TextArea",
-            "Name": "textArea1",
-            "Y": 3,
-            "Width": 197,
-            "Height": 43,
-            "TextId": "__SingleUse_3KO8",
-            "TextRotation": "0",
-            "Color": {
-              "Red": 255,
-              "Green": 255,
+              "Red": 64,
+              "Green": 134,
               "Blue": 255
             },
-            "Wildcard1": {
-              "TextId": "selected",
-              "UseBuffer": true,
-              "BufferSize": 3
-            }
-          }
-        ],
-        "Interactions": []
-      },
-      {
-        "Name": "batteryprogress_container",
-        "Width": 240,
-        "Height": 23,
-        "Components": [
-          {
-            "Type": "ImageProgress",
-            "Name": "batteryprogress",
-            "X": 190,
-            "Y": 8,
-            "Width": 33,
-            "Height": 15,
-            "FileNameProgress": "battpercentage.png",
-            "AnchorAtZero": true,
-            "Direction": "Right",
-            "FileNameBackground": "Group 6.png",
-            "IndicatorPositionX": 2,
-            "IndicatorPositionY": 2,
-            "IndicatorPositionWidth": 27,
-            "IndicatorPositionHeight": 11,
-            "ProgressRangeMax": 100
-          },
-          {
-            "Type": "Image",
-            "Name": "chargingIMG",
-            "X": 198,
-            "Y": 8,
-            "Width": 15,
-            "Height": 15,
-            "Visible": false,
-            "RelativeFilename": "charge_on_batt.png"
-          }
-        ],
-        "Interactions": [
-          {
-            "InteractionName": "updateBATT",
-            "Trigger": {
-              "Type": "TriggerWhen",
-              "ActionCustomTypeName": "Call batteryprogress_container changeBATTVal"
-            },
-            "Action": {
-              "Type": "ActionExecuteCode",
-              "Code": "#if !defined(gui_simulation)\r\nextern uint8_t battVal;\r\nbatteryprogress.setValue(battVal);\r\n#endif"
-            }
-          },
-          {
-            "InteractionName": "charging",
-            "Trigger": {
-              "Type": "TriggerWhen",
-              "ActionCustomTypeName": "Call batteryprogress_container batteryCharging"
-            },
-            "Action": {
-              "Type": "ActionExecuteCode",
-              "Code": "#if !defined(gui_simulation)\r\nextern bool isCharging;\r\nchargingIMG.setVisible(isCharging);\r\nchargingIMG.invalidate();\r\n#endif"
-            }
-          }
-        ],
-        "CustomActions": [
-          {
-            "Name": "changeBATTVal"
-          },
-          {
-            "Name": "batteryCharging"
-          },
-          {
-            "Name": "batteryNotCharging"
-          }
-        ]
-      },
-      {
-        "Name": "lte_status_container",
-        "Width": 55,
-        "Height": 33,
-        "Components": [
-          {
-            "Type": "Box",
-            "Name": "topleft_box",
-            "Width": 55,
-            "Height": 33
-          },
-          {
-            "Type": "Image",
-            "Name": "lte_image",
-            "X": 15,
-            "Y": 11,
-            "Width": 15,
-            "Height": 12,
-            "RelativeFilename": "lte_notconnected.png"
+            "Points": [
+              {
+                "X": 40.0
+              },
+              {
+                "Y": 20.0
+              },
+              {
+                "X": 40.0,
+                "Y": 40.0
+              }
+            ],
+            "XScale": 1.0,
+            "YScale": 1.0
           },
           {
             "Type": "ImageProgress",
-            "Name": "imageProgress1",
-            "X": 15,
-            "Y": 11,
-            "Width": 15,
-            "Height": 12,
-            "FileNameProgress": "lte.png",
-            "AnchorAtZero": true,
-            "Direction": "Right",
-            "FileNameBackground": "lte_notconnected.png",
-            "IndicatorPositionWidth": 15,
-            "IndicatorPositionHeight": 12,
-            "ProgressRangeMax": 4,
-            "ProgressInitialValue": 4
-          },
-          {
-            "Type": "ImageProgress",
-            "Name": "imageProgress2",
-            "X": 35,
-            "Y": 10,
+            "Name": "gps_progress",
+            "X": 40,
+            "Y": 12,
             "Width": 15,
             "Height": 15,
             "FileNameProgress": "gps_connected.png",
@@ -3760,19 +1683,78 @@
             "IndicatorPositionHeight": 15,
             "ProgressRangeMax": 1,
             "ProgressInitialValue": 1
+          },
+          {
+            "Type": "ImageProgress",
+            "Name": "lte_progress",
+            "X": 16,
+            "Y": 13,
+            "Width": 15,
+            "Height": 12,
+            "FileNameProgress": "lte_connected.png",
+            "AnchorAtZero": true,
+            "Direction": "Right",
+            "FileNameBackground": "lte_notconnected.png",
+            "IndicatorPositionWidth": 15,
+            "IndicatorPositionHeight": 12,
+            "ProgressRangeMax": 4,
+            "ProgressInitialValue": 4
+          },
+          {
+            "Type": "ImageProgress",
+            "Name": "imageProgress1",
+            "X": 138,
+            "Y": 12,
+            "Width": 33,
+            "Height": 15,
+            "FileNameProgress": "Group 6.png",
+            "AnchorAtZero": true,
+            "Direction": "Right",
+            "FileNameBackground": "Group 3.png",
+            "IndicatorPositionWidth": 35,
+            "IndicatorPositionHeight": 16,
+            "ProgressRangeMax": 100,
+            "ProgressInitialValue": 1
           }
         ],
-        "Interactions": []
+        "Interactions": [
+          {
+            "InteractionName": "Interaction1",
+            "Trigger": {
+              "Type": "TriggerClicked",
+              "TriggerComponent": "flexButton1"
+            },
+            "Action": {
+              "Type": "ActionGotoScreen",
+              "ScreenTransitionType": "ScreenTransitionSlide",
+              "ScreenTransitionDirection": "West",
+              "ActionComponent": "Screen1"
+            }
+          },
+          {
+            "InteractionName": "Interaction2",
+            "Trigger": {
+              "Type": "TriggerOnEveryTick",
+              "TickCount": 60
+            },
+            "Action": {
+              "Type": "ActionExecuteCode",
+              "Includes": "#include \"nrf9160.h\"",
+              "Code": "extern uint8_t gpsRSSI_0_1;\r\nextern uint8_t lteRSSI_0_4;\r\nextern uint8_t battVal;\r\nextern cat_m1_Status_Rtt_Gps_t cat_m1_Status_Rtt_Gps;\r\nextern uint8_t svTotalNum;\r\nextern uint8_t svMyNum;\r\n\r\ngps_progress.setValue(gpsRSSI_0_1);\r\ngps_progress.invalidate();\r\nlte_progress.setValue(lteRSSI_0_4);\r\nlte_progress.invalidate();\r\nimageProgress1.setValue(battVal);\r\nimageProgress1.invalidate();\r\n\r\nuint16_t GPGGA_data[GPGGA_DETAIL_SIZE];\r\nfor(int i=0; i<GPGGA_DETAIL_SIZE; i++){\r\n\tGPGGA_data[i] = cat_m1_Status_Rtt_Gps.GPGGA[i+7];\r\n}\r\nUnicode::snprintf(GPGGA_detailBuffer, GPGGA_DETAIL_SIZE, \"%s\\0\", GPGGA_data);\r\nGPGGA_detail.invalidate();\r\n\r\nuint16_t GPGLL_data[GPGLL_DETAIL_SIZE];\r\nfor(int i=0; i<GPGLL_DETAIL_SIZE; i++){\r\n\tGPGLL_data[i] = cat_m1_Status_Rtt_Gps.GPGLL[i+7];\r\n}\r\nUnicode::snprintf(GPGLL_detailBuffer, GPGLL_DETAIL_SIZE, \"%s\", GPGLL_data);\r\nGPGLL_detail.invalidate();\r\n\r\nuint16_t GPGSA_data[GPGSA_DETAIL_SIZE];\r\nfor(int i=0; i<GPGSA_DETAIL_SIZE; i++){\r\n\tGPGSA_data[i] = cat_m1_Status_Rtt_Gps.GPGSA[i+7];\r\n}\r\nUnicode::snprintf(GPGSA_detailBuffer, GPGSA_DETAIL_SIZE, \"%s\", GPGSA_data);\r\nGPGSA_detail.invalidate();\r\n\r\nuint16_t GPGSV_data[GPGSV_DETAIL_SIZE];\r\nfor(int i=0; i<GPGSV_DETAIL_SIZE; i++){\r\n\tGPGSV_data[i] = cat_m1_Status_Rtt_Gps.GPGSV[i+7];\r\n}\r\nUnicode::snprintf(GPGSV_detailBuffer, GPGSV_DETAIL_SIZE, \"%s\", GPGSV_data);\r\nif(svMyNum == 1) GPGSV_detail.invalidate();\r\n\r\nuint16_t GPGSV2_data[GPGSV2_DETAIL_SIZE];\r\nfor(int i=0; i<GPGSV2_DETAIL_SIZE; i++){\r\n\tGPGSV2_data[i] = cat_m1_Status_Rtt_Gps.GPGSV[i+7];\r\n}\r\nUnicode::snprintf(GPGSV2_detailBuffer, GPGSV2_DETAIL_SIZE, \"%s\", GPGSV2_data);\r\nif(svTotalNum == 1) {\r\n\tUnicode::snprintf(GPGSV2_detailBuffer, GPGSV2_DETAIL_SIZE, \"--\");\r\n\tGPGSV2_detail.invalidate();\r\n}\r\nif(svMyNum == 2) GPGSV2_detail.invalidate();\r\n\r\nuint16_t GPGSV3_data[GPGSV3_DETAIL_SIZE];\r\nfor(int i=0; i<GPGSV3_DETAIL_SIZE; i++){\r\n\tGPGSV3_data[i] = cat_m1_Status_Rtt_Gps.GPGSV[i+7];\r\n}\r\nUnicode::snprintf(GPGSV3_detailBuffer, GPGSV3_DETAIL_SIZE, \"%s\", GPGSV3_data);\r\nif(svTotalNum == 1 || svTotalNum == 2){\r\n\tUnicode::snprintf(GPGSV3_detailBuffer, GPGSV3_DETAIL_SIZE, \"--\");\r\n\tGPGSV3_detail.invalidate();\r\n}\r\nif(svMyNum == 3) GPGSV3_detail.invalidate();\r\n\r\nuint16_t GPGSV4_data[GPGSV4_DETAIL_SIZE];\r\nfor(int i=0; i<GPGSV4_DETAIL_SIZE; i++){\r\n\tGPGSV4_data[i] = cat_m1_Status_Rtt_Gps.GPGSV[i+7];\r\n}\r\nUnicode::snprintf(GPGSV4_detailBuffer, GPGSV4_DETAIL_SIZE, \"%s\", GPGSV4_data);\r\nif(svTotalNum == 1 || svTotalNum == 2 || svTotalNum == 3){\r\n\tUnicode::snprintf(GPGSV4_detailBuffer, GPGSV4_DETAIL_SIZE, \"--\");\r\n\tGPGSV4_detail.invalidate();\r\n}\r\nif(svMyNum == 4) GPGSV4_detail.invalidate();\r\n\r\nuint16_t GPGSV5_data[GPGSV5_DETAIL_SIZE];\r\nfor(int i=0; i<GPGSV5_DETAIL_SIZE; i++){\r\n\tGPGSV5_data[i] = cat_m1_Status_Rtt_Gps.GPGSV[i+7];\r\n}\r\nUnicode::snprintf(GPGSV5_detailBuffer, GPGSV5_DETAIL_SIZE, \"%s\", GPGSV5_data);\r\nif(svTotalNum == 1 || svTotalNum == 2 || svTotalNum == 3 || svTotalNum == 4){\r\n\tUnicode::snprintf(GPGSV5_detailBuffer, GPGSV5_DETAIL_SIZE, \"--\");\r\n\tGPGSV5_detail.invalidate();\r\n}\r\nif(svMyNum == 5) GPGSV5_detail.invalidate();\r\n\r\nuint16_t GPGSV6_data[GPGSV6_DETAIL_SIZE];\r\nfor(int i=0; i<GPGSV6_DETAIL_SIZE; i++){\r\n\tGPGSV6_data[i] = cat_m1_Status_Rtt_Gps.GPGSV[i+7];\r\n}\r\nUnicode::snprintf(GPGSV6_detailBuffer, GPGSV6_DETAIL_SIZE, \"%s\", GPGSV6_data);\r\nif(svTotalNum == 1 || svTotalNum == 2 || svTotalNum == 3 || svTotalNum == 4 || svTotalNum == 5){\r\n\tUnicode::snprintf(GPGSV6_detailBuffer, GPGSV6_DETAIL_SIZE, \"--\");\r\n\tGPGSV6_detail.invalidate();\r\n}\r\nif(svMyNum == 6) GPGSV6_detail.invalidate();\r\n\r\nuint16_t GPGSV7_data[GPGSV7_DETAIL_SIZE];\r\nfor(int i=0; i<GPGSV7_DETAIL_SIZE; i++){\r\n\tGPGSV7_data[i] = cat_m1_Status_Rtt_Gps.GPGSV[i+7];\r\n}\r\nUnicode::snprintf(GPGSV7_detailBuffer, GPGSV7_DETAIL_SIZE, \"%s\", GPGSV7_data);\r\nif(svTotalNum == 1 || svTotalNum == 2 || svTotalNum == 3 || svTotalNum == 4 || svTotalNum == 5 || svTotalNum == 6){\r\n\tUnicode::snprintf(GPGSV7_detailBuffer, GPGSV7_DETAIL_SIZE, \"--\");\r\n\tGPGSV7_detail.invalidate();\r\n}\r\nif(svMyNum == 7) GPGSV7_detail.invalidate();\r\n\r\nuint16_t GPGSV8_data[GPGSV8_DETAIL_SIZE];\r\nfor(int i=0; i<GPGSV8_DETAIL_SIZE; i++){\r\n\tGPGSV8_data[i] = cat_m1_Status_Rtt_Gps.GPGSV[i+7];\r\n}\r\nUnicode::snprintf(GPGSV8_detailBuffer, GPGSV8_DETAIL_SIZE, \"%s\", GPGSV8_data);\r\nif(svTotalNum == 1 || svTotalNum == 2 || svTotalNum == 3 || svTotalNum == 4 || svTotalNum == 5 || svTotalNum == 6 || svTotalNum == 7){\r\n\tUnicode::snprintf(GPGSV8_detailBuffer, GPGSV8_DETAIL_SIZE, \"--\");\r\n\tGPGSV8_detail.invalidate();\r\n}\r\nif(svMyNum == 8) GPGSV8_detail.invalidate();\r\n\r\nuint16_t GPRMC_data[GPRMC_DETAIL_SIZE];\r\nfor(int i=0; i<GPRMC_DETAIL_SIZE; i++){\r\n\tGPRMC_data[i] = cat_m1_Status_Rtt_Gps.GPRMC[i+7];\r\n}\r\nUnicode::snprintf(GPRMC_detailBuffer, GPRMC_DETAIL_SIZE, \"%s\", GPRMC_data);\r\nGPRMC_detail.invalidate();\r\n\r\nextern uint16_t GNSS_display_data[100];\r\nUnicode::snprintf(textArea2Buffer, TEXTAREA2_SIZE, \"%s\", GNSS_display_data);\r\ntextArea2.invalidate();\r\n"
+            }
+          }
+        ]
       }
     ],
-    "Name": "demo_eHG4",
+    "CustomContainerDefinitions": [],
+    "Name": "eHG4_GNSS_test",
     "Resolution": {
       "Width": 240,
       "Height": 280
     },
     "SelectedColorDepth": 16,
-    "StartupScreenName": "HomeScreenWithBiodata",
-    "SelectedStartupLanguage": "Korean",
+    "StartupScreenName": "Screen1",
+    "SelectedStartupLanguage": "GB",
     "TouchGfxPath": "../Middlewares/ST/touchgfx",
     "UIPath": ".",
     "ApplicationTemplateName": "Simulator",
@@ -3803,46 +1785,7 @@
     "FrameworkFeatures": {
       "LCD16bpp": {
         "Id": "LCD16bpp",
-        "Features": [
-          {
-            "Id": "TextureMapperImageFormats",
-            "Features": [
-              {
-                "Id": "RGB565",
-                "IsEnabled": true
-              },
-              {
-                "Id": "ARGB8888",
-                "IsEnabled": true
-              },
-              {
-                "Id": "L8_RGB565",
-                "IsEnabled": true
-              },
-              {
-                "Id": "L8_RGB888",
-                "IsEnabled": true
-              },
-              {
-                "Id": "L8_ARGB888",
-                "Features": [
-                  {
-                    "Id": "NearestNeighbor",
-                    "IsEnabled": true
-                  }
-                ]
-              },
-              {
-                "Id": "A4",
-                "IsEnabled": true
-              }
-            ]
-          },
-          {
-            "Id": "L8Compression",
-            "IsEnabled": true
-          }
-        ]
+        "IsEnabled": true
       }
     },
     "GenerateAssetsCommand": "make -f simulator/gcc/Makefile assets -j8",
@@ -3861,7 +1804,7 @@
     "SubFamily": "STM32U575/585",
     "Toolchain": "STM32CubeIDE",
     "Platform": "m33",
-    "ProjectFile": "../WIDB.ioc",
+    "ProjectFile": "../WIDB_jh.ioc",
     "OptionalComponentsRoot": "../Middlewares/ST/touchgfx_components",
     "OptionalComponents": [],
     "AdditionalFeatures": []

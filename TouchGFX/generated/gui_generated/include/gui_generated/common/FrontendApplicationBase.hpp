@@ -17,215 +17,29 @@ public:
 
     virtual void changeToStartScreen()
     {
-        gotoHomeScreenWithBiodataScreenNoTransition();
+        gotoScreen1ScreenNoTransition();
     }
 
-    // HomeScreenWithBiodata
-    void gotoHomeScreenWithBiodataScreenNoTransition();
+    // Screen1
+    void gotoScreen1ScreenNoTransition();
 
-    void gotoHomeScreenWithBiodataScreenWipeTransitionWest();
+    void gotoScreen1ScreenSlideTransitionWest();
 
-    void gotoHomeScreenWithBiodataScreenWipeTransitionEast();
-
-    void gotoHomeScreenWithBiodataScreenWipeTransitionSouth();
-
-    // StepsScreen
-    void gotoStepsScreenScreenWipeTransitionEast();
-
-    void gotoStepsScreenScreenWipeTransitionWest();
-
-    // HeartrateScreen
-    void gotoHeartrateScreenScreenWipeTransitionEast();
-
-    void gotoHeartrateScreenScreenWipeTransitionWest();
-
-    // Spo2Screen
-    void gotoSpo2ScreenScreenWipeTransitionWest();
-
-    void gotoSpo2ScreenScreenWipeTransitionEast();
-
-    void gotoSpo2ScreenScreenSlideTransitionWest();
-
-    // SleepScreen
-    void gotoSleepScreenScreenWipeTransitionEast();
-
-    // HeartrateDetail
-    void gotoHeartrateDetailScreenCoverTransitionEast();
-
-    // Spo2Detail
-    void gotoSpo2DetailScreenCoverTransitionEast();
-
-    // swipedownfromHome
-    void gotoswipedownfromHomeScreenCoverTransitionNorth();
-
-    void gotoswipedownfromHomeScreenWipeTransitionWest();
-
-    void gotoswipedownfromHomeScreenNoTransition();
-
-    // SettingScreen
-    void gotoSettingScreenScreenWipeTransitionNorth();
-
-    void gotoSettingScreenScreenWipeTransitionWest();
-
-    // screenSetting
-    void gotoscreenSettingScreenCoverTransitionEast();
-
-    void gotoscreenSettingScreenWipeTransitionWest();
-
-    // screenontimeSetting
-    void gotoscreenontimeSettingScreenCoverTransitionEast();
-
-    // screenbrightnessSetting
-    void gotoscreenbrightnessSettingScreenCoverTransitionEast();
-
-    // soundnhapticsSetting
-    void gotosoundnhapticsSettingScreenCoverTransitionEast();
-
-    // languageSetting
-    void gotolanguageSettingScreenCoverTransitionEast();
-
-    // informationSetting
-    void gotoinformationSettingScreenWipeTransitionNorth();
-
-    void gotoinformationSettingScreenCoverTransitionEast();
-
-    void gotoinformationSettingScreenWipeTransitionWest();
-
-    // deviceInfoSetting
-    void gotodeviceInfoSettingScreenCoverTransitionEast();
-
-    // networkInfoSetting
-    void gotonetworkInfoSettingScreenCoverTransitionEast();
-
-    // systemSetting
-    void gotosystemSettingScreenCoverTransitionEast();
-
-    // turnoffScreen
-    void gototurnoffScreenScreenNoTransition();
-
-    // sos_alert
-    void gotosos_alertScreenNoTransition();
-
-    // fallDetected
-    void gotofallDetectedScreenNoTransition();
-
-    // initBlackScreen
-    void gotoinitBlackScreenScreenNoTransition();
-
-    // flashlight_screen
-    void gotoflashlight_screenScreenNoTransition();
-
-    // unCharging_screen
-    void gotounCharging_screenScreenNoTransition();
-
-    // charging_screen
-    void gotocharging_screenScreenNoTransition();
+    // Screen2
+    void gotoScreen2ScreenSlideTransitionEast();
 
 protected:
     touchgfx::Callback<FrontendApplicationBase> transitionCallback;
     FrontendHeap& frontendHeap;
     Model& model;
 
-    // HomeScreenWithBiodata
-    void gotoHomeScreenWithBiodataScreenNoTransitionImpl();
+    // Screen1
+    void gotoScreen1ScreenNoTransitionImpl();
 
-    void gotoHomeScreenWithBiodataScreenWipeTransitionWestImpl();
+    void gotoScreen1ScreenSlideTransitionWestImpl();
 
-    void gotoHomeScreenWithBiodataScreenWipeTransitionEastImpl();
-
-    void gotoHomeScreenWithBiodataScreenWipeTransitionSouthImpl();
-
-    // StepsScreen
-    void gotoStepsScreenScreenWipeTransitionEastImpl();
-
-    void gotoStepsScreenScreenWipeTransitionWestImpl();
-
-    // HeartrateScreen
-    void gotoHeartrateScreenScreenWipeTransitionEastImpl();
-
-    void gotoHeartrateScreenScreenWipeTransitionWestImpl();
-
-    // Spo2Screen
-    void gotoSpo2ScreenScreenWipeTransitionWestImpl();
-
-    void gotoSpo2ScreenScreenWipeTransitionEastImpl();
-
-    void gotoSpo2ScreenScreenSlideTransitionWestImpl();
-
-    // SleepScreen
-    void gotoSleepScreenScreenWipeTransitionEastImpl();
-
-    // HeartrateDetail
-    void gotoHeartrateDetailScreenCoverTransitionEastImpl();
-
-    // Spo2Detail
-    void gotoSpo2DetailScreenCoverTransitionEastImpl();
-
-    // swipedownfromHome
-    void gotoswipedownfromHomeScreenCoverTransitionNorthImpl();
-
-    void gotoswipedownfromHomeScreenWipeTransitionWestImpl();
-
-    void gotoswipedownfromHomeScreenNoTransitionImpl();
-
-    // SettingScreen
-    void gotoSettingScreenScreenWipeTransitionNorthImpl();
-
-    void gotoSettingScreenScreenWipeTransitionWestImpl();
-
-    // screenSetting
-    void gotoscreenSettingScreenCoverTransitionEastImpl();
-
-    void gotoscreenSettingScreenWipeTransitionWestImpl();
-
-    // screenontimeSetting
-    void gotoscreenontimeSettingScreenCoverTransitionEastImpl();
-
-    // screenbrightnessSetting
-    void gotoscreenbrightnessSettingScreenCoverTransitionEastImpl();
-
-    // soundnhapticsSetting
-    void gotosoundnhapticsSettingScreenCoverTransitionEastImpl();
-
-    // languageSetting
-    void gotolanguageSettingScreenCoverTransitionEastImpl();
-
-    // informationSetting
-    void gotoinformationSettingScreenWipeTransitionNorthImpl();
-
-    void gotoinformationSettingScreenCoverTransitionEastImpl();
-
-    void gotoinformationSettingScreenWipeTransitionWestImpl();
-
-    // deviceInfoSetting
-    void gotodeviceInfoSettingScreenCoverTransitionEastImpl();
-
-    // networkInfoSetting
-    void gotonetworkInfoSettingScreenCoverTransitionEastImpl();
-
-    // systemSetting
-    void gotosystemSettingScreenCoverTransitionEastImpl();
-
-    // turnoffScreen
-    void gototurnoffScreenScreenNoTransitionImpl();
-
-    // sos_alert
-    void gotosos_alertScreenNoTransitionImpl();
-
-    // fallDetected
-    void gotofallDetectedScreenNoTransitionImpl();
-
-    // initBlackScreen
-    void gotoinitBlackScreenScreenNoTransitionImpl();
-
-    // flashlight_screen
-    void gotoflashlight_screenScreenNoTransitionImpl();
-
-    // unCharging_screen
-    void gotounCharging_screenScreenNoTransitionImpl();
-
-    // charging_screen
-    void gotocharging_screenScreenNoTransitionImpl();
+    // Screen2
+    void gotoScreen2ScreenSlideTransitionEastImpl();
 };
 
 #endif // FRONTENDAPPLICATIONBASE_HPP
