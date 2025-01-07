@@ -44,13 +44,13 @@ extern "C" {
 
 //Annotation processing is required during initial upload of nRF9160
 
-#define nRF9160_initial_upload
+//#define nRF9160_initial_upload
 //#define nRF9160_nRFCLOUD_Init
 //#define nRF9160_no_auto_gps
 #define nRF9160_KT
 //#define nRF9160_cell_location
 //#define nRF9160_Fall_Difference_Value_Send
-#define BattData_Value_Send
+//#define BattData_Value_Send
 
 #define PRINT_INFO(format, arg...)      printf(format , ## arg)
 
@@ -76,6 +76,9 @@ void Error_Handler(void);
 #define HOME_BTN_EXTI_IRQn EXTI4_IRQn
 #define LCD_DC_Pin GPIO_PIN_1
 #define LCD_DC_GPIO_Port GPIOE
+#define SOS_BTN_INT_Pin GPIO_PIN_5
+#define SOS_BTN_INT_GPIO_Port GPIOB
+#define SOS_BTN_INT_EXTI_IRQn EXTI5_IRQn
 #define SS_MFIO_Pin GPIO_PIN_4
 #define SS_MFIO_GPIO_Port GPIOD
 #define TP_INT_Pin GPIO_PIN_13
@@ -102,9 +105,6 @@ void Error_Handler(void);
 #define PMIC_INT_Pin GPIO_PIN_15
 #define PMIC_INT_GPIO_Port GPIOD
 #define PMIC_INT_EXTI_IRQn EXTI15_IRQn
-#define SOS_BTN_Pin GPIO_PIN_5
-#define SOS_BTN_GPIO_Port GPIOA
-#define SOS_BTN_EXTI_IRQn EXTI5_IRQn
 #define WiFi_PWR_Pin GPIO_PIN_10
 #define WiFi_PWR_GPIO_Port GPIOD
 #define WiFi_RESET_Pin GPIO_PIN_9

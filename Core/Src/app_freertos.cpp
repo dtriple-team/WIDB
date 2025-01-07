@@ -151,7 +151,7 @@ float deltaAlt = 0;
 uint16_t curr_height = 0;
 int height_num = 0;
 
-float falling_threshold = 1.0; // ?��?�� ?���????????? 기�? ?��?�� 차이
+float falling_threshold = 1.0; // ?��?�� ?���?????????? 기�? ?��?�� 차이
 
 uint8_t ssSCD = 0;
 uint16_t ssHr = 0;
@@ -436,7 +436,7 @@ void StartlcdTask(void *argument)
 		osDelay(10);
 	}
 	runHaptic(20, 500, 1); // turn on device haptic
-//	HAL_Delay(5000); // ?���????????? ?��?�� + ?��버거 ?���????????? ?���?????????
+//	HAL_Delay(5000); // ?���?????????? ?��?�� + ?��버거 ?���?????????? ?���??????????
 	ST7789_gpio_setting();
 	ST7789_Init();
 	ST7789_brightness_setting(set_bLevel);
@@ -647,7 +647,7 @@ void StartWPMTask(void *argument)
 
 					// To prevent the appearance of time decreasing when updating RTC time with GNSS time,
 					// caused by RTC time flowing faster than GNSS time.
-					// RTC ?��간이 GNSS ?��간보?�� 빠르�????????? ?��르면?��, RTC ?��간을 GNSS ?��간으�????????? ?��?��?��?��?�� ?�� ?��간이 감소?��?�� 것처?�� 보이?�� ?��?��?�� 방�??���????????? ?��?��.
+					// RTC ?��간이 GNSS ?��간보?�� 빠르�?????????? ?��르면?��, RTC ?��간을 GNSS ?��간으�?????????? ?��?��?��?��?�� ?�� ?��간이 감소?��?�� 것처?�� 보이?�� ?��?��?�� 방�??���?????????? ?��?��.
 					if(sTime.Minutes > (uint8_t)nowTimeinfo.min){
 						sDate.Year = (uint8_t)nowTimeinfo.year;
 						sDate.Month = (uint8_t)nowTimeinfo.month;
@@ -749,7 +749,7 @@ double magnitude = 0;
 
 
 #if !defined(fall_algo_test)
-// �??????????��?�� ?��?��?�� 구조�?????????
+// �???????????��?�� ?��?��?�� 구조�??????????
 typedef struct {
     double x;
     double y;
@@ -764,7 +764,7 @@ uint8_t detect_fall(AccelData* accel_data, double threshold) {
 #endif
 
 	if (magnitude_local > threshold) {
-		return 1; // ?��?��?���????????? 감�?
+		return 1; // ?��?��?���?????????? 감�?
 	}
 	else return 0; // ?��?�� ?��?��
 }
@@ -785,7 +785,7 @@ uint8_t detect_fall(IMUData* imu_data, double accel_threshold, double gyro_thres
 #endif
 
 	if (accel_magnitude_local > accel_threshold && gyro_magnitude_local > gyro_threshold) {
-		return 1; // ?��?��?���????????? 감�?
+		return 1; // ?��?��?���?????????? 감�?
 	}
 	else return 0; // ?��?�� ?��?��
 }
@@ -947,8 +947,8 @@ void StartSecTimerTask(void *argument)
 		ST7789_brightness_setting(now_bLevel);
 	}
 
-	// screenOnTime == brightness_count�??????????????? ?���??????????????? ?���??????????????? 꺼라
-	// brightness_count == 0?���??????????????? 바�?�면 백라?��?���??????????????? 켜라
+	// screenOnTime == brightness_count�???????????????? ?���???????????????? ?���???????????????? 꺼라
+	// brightness_count == 0?���???????????????? 바�?�면 백라?��?���???????????????? 켜라
 //	if(pre_secTime != secTime && secTime%1 == 0){ // 1sec
 //		// turn off LCD backlight
 //		if(brightness_count == 0 && pre_brightness_count >= screenOnTime){
@@ -968,25 +968,27 @@ void StartSecTimerTask(void *argument)
 		pre_secTime = secTime;
 
 		// turn on LCD backlight (in screenOnTime, active only one)
-		if(brightness_count == 0){
-			if(pre_brightness_count >= screenOnTime)
-				ST7789_brightness_setting(set_bLevel);
-			brightness_count++;
-			now_sleepmode = 0;
+		if(sendSOSFlag == 0){
+			if(brightness_count == 0){
+				if(pre_brightness_count >= screenOnTime)
+					ST7789_brightness_setting(set_bLevel);
+				brightness_count++;
+				now_sleepmode = 0;
+			}
+			else if(brightness_count < screenOnTime){
+				brightness_count++;
+			}
+			// turn off LCD backlight (out of screenOnTime)
+			else if(brightness_count >= screenOnTime){
+				ST7789_brightness_setting(0);
+				myBlackScreenView.changeToInitBlackScreen();
+				osDelay(100);
+				now_sleepmode = 1;
+			}
+			pre_brightness_count = brightness_count;
 		}
-		else if(brightness_count < screenOnTime){
-			brightness_count++;
-		}
-		// turn off LCD backlight (out of screenOnTime)
-		else if(brightness_count >= screenOnTime){
-			ST7789_brightness_setting(0);
-			myBlackScreenView.changeToInitBlackScreen();
-			osDelay(100);
-			now_sleepmode = 1;
-		}
-		pre_brightness_count = brightness_count;
 
-		//////////////////////////////// 5�????? 주기 ?��?�� Task�????? CatM1, GNSS ?��?�� ?��?�� ////////////////////////////////
+		//////////////////////////////// 5�?????? 주기 ?��?�� Task�?????? CatM1, GNSS ?��?�� ?��?�� ////////////////////////////////
 #if 0
 		cat_m1_rssi_cycleTime++;
 //		PRINT_INFO("mqttTime >>> %d\r\n",mqttTime);
@@ -1137,9 +1139,9 @@ uint8_t interrupt_kind = 0;
 #include <math.h>
 double calculateAltitudeDifference(double P1, double P2) {
     const double R = 8.314;       // 기체 ?��?�� (J/(mol·K))
-    const double T = 273.15+25;   // ?���????????????? ?��?�� (K) - ?���????????????? ??�????????????? 조건 15°C
-    const double g = 9.80665;     // 중력 �??????????????��?�� (m/s²)
-    const double M = 0.02896;     // 공기?�� �????????????? 질량 (kg/mol)
+    const double T = 273.15+25;   // ?���?????????????? ?��?�� (K) - ?���?????????????? ??�?????????????? 조건 15°C
+    const double g = 9.80665;     // 중력 �???????????????��?�� (m/s²)
+    const double M = 0.02896;     // 공기?�� �?????????????? 질량 (kg/mol)
 
     double altitudeDifference = (R * T) / (g * M) * log(P1 / P2);
 
@@ -1171,7 +1173,7 @@ void StartCheckINTTask(void *argument)
     osDelay(100);
 
 	extern uint8_t RTC_CallBack_Check;
-	if(RTC_CallBack_Check == 1){ //5�?????
+	if(RTC_CallBack_Check == 1){ //5�??????
 		RTC_CallBack_Check = 0;
 
 		// PPG 기능 ?��?��
@@ -1183,7 +1185,7 @@ void StartCheckINTTask(void *argument)
 		hrFlag = 1;
 		ssRunFlag = 1;
 
-		if(rtcAlarmEventCount % 2 == 0){ //10�?????
+		if(rtcAlarmEventCount % 2 == 0){ //10�??????
 			// CatM1, GNSS 기능 ?��?��
 			cat_m1_rssi_cycleFlag = true;
 			gpsFlag = true;
@@ -1291,43 +1293,48 @@ void StartCheckINTTask(void *argument)
 
     // update Battery
     bool pmicBATTERR = 0;
-    if(pmicSOCRead(&batterylevel) != 0x00){ // occur err
-    	MX_I2C3_Init(); // occur err...
-    	pmicBATTERR = 1;
-    }
-    if(!pmicBATTERR){
-    	// update Battery value
-    	if(battVal != batterylevel){
-    		battVal = batterylevel;
-//    		myBatteryprogress_container.changeBATTVal();
-    	}
+    if(hapticFlag == 0){ // not run PMIC haptic
+		if(pmicSOCRead(&batterylevel) != 0x00){ // occur err
+//			MX_I2C3_Init(); // occur err...
+			pmicBATTERR = 1;
+		}
+		if(!pmicBATTERR){
+			// update Battery value
+			if(battVal != batterylevel){
+				battVal = batterylevel;
+	//    		myBatteryprogress_container.changeBATTVal();
+			}
 
-	    // check and update Battery Charging value
-//		isCharging = isBATTCharging();
-		uint8_t chargingStatus = (uint8_t)isBATTCharging();
-		if(chargingStatus != 0xFF && battVal!=100){
-			bool isCharging_Now = chargingStatus;
-			if(isCharging != isCharging_Now){
-				isCharging = isCharging_Now;
-				if(isCharging){
-//					myBatteryprogress_container.batteryCharging();
-					myCharging_screenView.changeChargeScreen();
-			    	brightness_count = 0;
-			    	ppgMeasFlag = 0;
-				}
-				else{
-//					myBatteryprogress_container.batteryNotCharging();
-					myUnCharging_screenView.changeUnChargeScreen();
-			    	brightness_count = 0;
-			    	ppgMeasFlag = 1;
+			// check and update Battery Charging value
+	//		isCharging = isBATTCharging();
+			uint8_t chargingStatus = (uint8_t)isBATTCharging();
+			if(chargingStatus != 0xFF && battVal!=100){
+				bool isCharging_Now = chargingStatus;
+				if(isCharging != isCharging_Now){
+					isCharging = isCharging_Now;
+					if(isCharging){
+	//					myBatteryprogress_container.batteryCharging();
+						myCharging_screenView.changeChargeScreen();
+						brightness_count = 0;
+						ppgMeasFlag = 0;
+					}
+					else{
+	//					myBatteryprogress_container.batteryNotCharging();
+						myUnCharging_screenView.changeUnChargeScreen();
+						brightness_count = 0;
+						ppgMeasFlag = 1;
+					}
 				}
 			}
+			else if(battVal == 100 && isCharging == true){ // charging finish
+				isCharging = false;
+				myUnCharging_screenView.changeUnChargeScreen();
+				brightness_count = 0;
+			}
 		}
-		else if(battVal == 100 && isCharging == true){ // charging finish
-			isCharging = false;
-			myUnCharging_screenView.changeUnChargeScreen();
-	    	brightness_count = 0;
-		}
+
+		pmicVCELLRead(&batteryVoltage);
+		batteryVoltage_cal = batteryVoltage * 78.125 / 1000000;
     }
 
     // PMIC interrupt occur => emergency signal send to Web (CATM1)
@@ -1353,9 +1360,6 @@ void StartCheckINTTask(void *argument)
 
     	occurred_PMICBUTTInterrupt = 0;
     }
-
-    pmicVCELLRead(&batteryVoltage);
-    batteryVoltage_cal = batteryVoltage * 78.125 / 1000000;
   }
   /* USER CODE END checkINTTask */
 }
@@ -1471,15 +1475,15 @@ void read_ppg()
 }
 
 double getAltitude(double pressure_hPa) {
-    // hPa�????????? Pa�????????? �??????????��
+    // hPa�?????????? Pa�?????????? �???????????��
     double pressure_Pa = pressure_hPa * 100.0; // 1 hPa = 100 Pa
 
     // ?��?��면에?��?�� 기�? ?��?�� (Pa)
-    const double P0 = 1013.25 * 100.0; // ?��반적?�� ?��?���????????? ?��?�� �????????? (hPa?��?�� Pa�????????? �??????????��)
+    const double P0 = 1013.25 * 100.0; // ?��반적?�� ?��?���?????????? ?��?�� �?????????? (hPa?��?�� Pa�?????????? �???????????��)
 
-    // ??�????????? ?��?�� 공식?�� ?��?�� 고도 계산
+    // ??�?????????? ?��?�� 공식?�� ?��?�� 고도 계산
     double p = pressure_Pa / P0; // ?��?? ?��?��
-    double b = 1.0 / 5.255; // �??????????��
+    double b = 1.0 / 5.255; // �???????????��
     double alt = 44330.0 * (1.0 - pow(p, b)); // 고도 (미터 ?��?��)
 
     return alt;
@@ -1789,13 +1793,13 @@ void measPPG(){
 }
 
 /**
- * @brief A �???????��?��?�� ?��?�� RTC ?���?????? ???��
- * @param startTime ???��?�� RTC ?���?????? 구조�??????
+ * @brief A �????????��?��?�� ?��?�� RTC ?���??????? ???��
+ * @param startTime ???��?�� RTC ?���??????? 구조�???????
  */
 void GetTimeAtA(RTC_TimeTypeDef *startTime, RTC_DateTypeDef *startDate) {
 	extern RTC_HandleTypeDef hrtc;
     HAL_RTC_GetTime(&hrtc, startTime, RTC_FORMAT_BIN);
-    HAL_RTC_GetDate(&hrtc, startDate, RTC_FORMAT_BIN); // ?��짜도 ?���?????? ?��?��?�� ?���?????? 갱신 문제 방�?
+    HAL_RTC_GetDate(&hrtc, startDate, RTC_FORMAT_BIN); // ?��짜도 ?���??????? ?��?��?�� ?���??????? 갱신 문제 방�?
 }
 // Function to convert RTC time and date to time_t
 time_t convertRTCToTimeT(RTC_DateTypeDef* date, RTC_TimeTypeDef* time) {
@@ -1829,7 +1833,7 @@ double elapsedTime = 0;
 bool StopModeState = false;
 void Enter_StopMode(void) {
 	// FreeRTOS ?��?��?�� 중단
-//	vTaskSuspendAll();
+	vTaskSuspendAll();
 
 //	/**Enable the WakeUp => MX_RTC_Init();
 //	32000 / 16 = 2000Hz
@@ -1931,7 +1935,7 @@ void Enter_StopMode(void) {
 //		backendStopModeEnterFlag = 1;
 //	}
 //
-////	xTaskResumeAll();
+	xTaskResumeAll();
 }
 
 // frontend enter stopmode

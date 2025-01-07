@@ -194,10 +194,10 @@ int MAX20303::Max20303_BatteryGauge(unsigned char *batterylevel)
 	uint8_t data[2];
 
 	data[0] = 0x04; data[1] = 0x04;
-	ret = HAL_I2C_Master_Transmit(&hi2c3, MAX20303_I2C_ADDR_FUEL_GAUGE,   data, 1, 1);
+	ret = HAL_I2C_Master_Transmit(&hi2c3, MAX20303_I2C_ADDR_FUEL_GAUGE,   data, 1, 10);
 	if (ret != 0)
 		return MAX20303_ERROR;
-	ret = HAL_I2C_Master_Receive (&hi2c3, MAX20303_I2C_ADDR_FUEL_GAUGE+1, data, 2, 1);
+	ret = HAL_I2C_Master_Receive (&hi2c3, MAX20303_I2C_ADDR_FUEL_GAUGE+1, data, 2, 10);
 	if (ret != 0)
 		return MAX20303_ERROR;
 
