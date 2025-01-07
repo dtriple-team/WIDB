@@ -507,11 +507,6 @@ void StartWPMTask(void *argument)
 //	    .type = 0,
 //	    .fall_detect = 1
 //	};
-
-//		strncpy((char*)cat_m1_at_cmd_rst.gps,
-//      "36.106335,128.384310,119.546387,7.287167,0.220983,0.000000,2024-09-25 08:33:25",
-//		 sizeof(cat_m1_at_cmd_rst.gps) - 1);
-//		cat_m1_at_cmd_rst.gps[sizeof(cat_m1_at_cmd_rst.gps) - 1] = '\0';
   /* Infinite loop */
   for(;;)
   {
@@ -564,6 +559,13 @@ void StartWPMTask(void *argument)
 	}
 	if(wpmInitializationFlag && cat_m1_Status.Checked == 2)
 	{
+#if defined(nRF9160_nRFCLOUD_Init)
+			if ((strlen((const char*)cat_m1_at_cmd_rst.uuid) > 0) && cat_m1_Status.mqttChecking == 0)
+			{
+				cat_m1_Status_uuid.bid = deviceID;
+				send_UUID(&cat_m1_Status_uuid);
+			}
+#endif
 #if !defined(nRF9160_KT)
 		if ((mqttFlag && cat_m1_Status.gpsChecking == 0) || catM1MqttDangerMessage)
 #else
@@ -572,13 +574,7 @@ void StartWPMTask(void *argument)
 		{
 			//_State();
 			//test_send_json_publish();
-#if defined(nRF9160_nRFCLOUD_Init)
-			if ((strlen((const char*)cat_m1_at_cmd_rst.uuid) > 0) && cat_m1_Status.mqttChecking == 0)
-			{
-				cat_m1_Status_uuid.bid = deviceID;
-				send_UUID(&cat_m1_Status_uuid);
-			}
-#endif
+
 			if(cat_m1_Status.mqttChecking == 0)
 			{
 				cat_m1_Status_Band_t cat_m1_Status_Band =
