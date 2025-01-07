@@ -20,8 +20,8 @@ int pmic_init()
 	/*Set LDO2 to 3v*/
 	ret |= max20303.LDO2Config();
 
-	/*Set BK2 to 3.3v*/
-	ret |= max20303.Buck2Config(); // LCD 3.3v
+	/*Set BK2 to 1.8v*/
+		ret |= max20303.Buck2Config(); // LCD 1.8v
 
 	//max20303.BoostEnable();
 	ret |= max20303.BuckBoostEnable(); // 5V

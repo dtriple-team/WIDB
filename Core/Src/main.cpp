@@ -116,7 +116,6 @@ int main(void)
   MX_SPI1_Init();
   MX_UART4_Init();
   MX_USART1_UART_Init();
-  MX_USART2_UART_Init();
   MX_USART3_UART_Init();
   MX_ADC1_Init();
   MX_LPTIM1_Init();
@@ -241,7 +240,7 @@ uint8_t secTime = 0;
 
 uint8_t occurred_imuInterrupt = 0;
 uint8_t occurred_PMICBUTTInterrupt = 0;
-
+uint8_t occurred_HOMEBTNInterrupt = 0;
 uint8_t occurred_touchInterrupt = 0;
 
 void HAL_GPIO_EXTI_Rising_Callback(uint16_t GPIO_Pin)
@@ -258,11 +257,20 @@ void HAL_GPIO_EXTI_Rising_Callback(uint16_t GPIO_Pin)
   }
   else if(GPIO_Pin == PMIC_INT_Pin){
   }
+  else if(GPIO_Pin == HOME_BTN_Pin){
+	  occurred_HOMEBTNInterrupt = 1;
+  }
 }
 void HAL_GPIO_EXTI_Falling_Callback(uint16_t GPIO_Pin)
 {
   if(GPIO_Pin == PMIC_BUTT_INT_Pin){
 	  occurred_PMICBUTTInterrupt = 1;
+  }
+  else if(GPIO_Pin == TP_INT_Pin){
+	  occurred_touchInterrupt = 1;
+  }
+  else if(GPIO_Pin == HOME_BTN_Pin){
+	  occurred_HOMEBTNInterrupt = 1;
   }
 }
 /* USER CODE END 4 */
