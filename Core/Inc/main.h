@@ -70,9 +70,6 @@ void Error_Handler(void);
 /* Private defines -----------------------------------------------------------*/
 #define LCD_PWR_Pin GPIO_PIN_0
 #define LCD_PWR_GPIO_Port GPIOD
-#define HOME_BTN_Pin GPIO_PIN_4
-#define HOME_BTN_GPIO_Port GPIOE
-#define HOME_BTN_EXTI_IRQn EXTI4_IRQn
 #define LCD_DC_Pin GPIO_PIN_1
 #define LCD_DC_GPIO_Port GPIOE
 #define PMIC_BUTT_INT_Pin GPIO_PIN_5
@@ -108,6 +105,8 @@ void Error_Handler(void);
 #define WiFi_PWR_GPIO_Port GPIOD
 #define WiFi_RESET_Pin GPIO_PIN_9
 #define WiFi_RESET_GPIO_Port GPIOD
+#define HOME_BTN_Pin GPIO_PIN_14
+#define HOME_BTN_GPIO_Port GPIOB
 #define IMU_INTA3_Pin GPIO_PIN_3
 #define IMU_INTA3_GPIO_Port GPIOA
 #define IMU_INTA3_EXTI_IRQn EXTI3_IRQn
