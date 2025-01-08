@@ -369,6 +369,7 @@ void MX_FREERTOS_Init(void) {
 * @param argument: Not used
 * @retval None
 */
+uint8_t busyPMIC_haptic = 0;
 /* USER CODE END Header_StartInitTask */
 void StartInitTask(void *argument)
 {
@@ -391,19 +392,25 @@ void StartInitTask(void *argument)
 		// haptic
 		if(cat_m1_Status_FallDetection.fall_detect == 1){
 			if(hapticFlag == 1){
+				busyPMIC_haptic = 1;
 				runHaptic(20, 500, 3);
+				busyPMIC_haptic = 0;
 			}
 			brightness_count = 0; // lcd backlight count reset
 		}
 		if(beforeHaptic != hapticFlag){ // toggle haptic BTN
 			beforeHaptic = hapticFlag;
 			if(hapticFlag == 1){
+				busyPMIC_haptic = 1;
 				runHaptic(20, 500, 1);
+				busyPMIC_haptic = 0;
 			}
 		}
 		if(haptic_SOS == 1){
 			if(hapticFlag == 1){
+				busyPMIC_haptic = 1;
 				runHaptic(20, 500, 3);
+				busyPMIC_haptic = 0;
 			}
 			brightness_count = 0; // lcd backlight count reset
 			haptic_SOS = 0;
@@ -1289,7 +1296,7 @@ void StartCheckINTTask(void *argument)
 
     // update Battery
     bool pmicBATTERR = 0;
-    if(hapticFlag == 0){ // not run PMIC haptic
+    if(busyPMIC_haptic == 0){ // not run PMIC haptic (I2C3)
 		if(pmicSOCRead(&batterylevel) != 0x00){ // occur err
 //			MX_I2C3_Init(); // occur err...
 			pmicBATTERR = 1;
