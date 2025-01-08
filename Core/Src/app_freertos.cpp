@@ -1298,7 +1298,7 @@ void StartCheckINTTask(void *argument)
     bool pmicBATTERR = 0;
     if(busyPMIC_haptic == 0){ // not run PMIC haptic (I2C3)
 		if(pmicSOCRead(&batterylevel) != 0x00){ // occur err
-//			MX_I2C3_Init(); // occur err...
+			MX_I2C3_Init(); // occur err...
 			pmicBATTERR = 1;
 		}
 		if(!pmicBATTERR){
