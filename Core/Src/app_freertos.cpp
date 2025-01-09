@@ -1059,6 +1059,7 @@ void StartSecTimerTask(void *argument)
 			catM1Reset();
 #else
 			nrf9160_Stop_gps();
+			gpsOffCheckTime = 0;
 
 #endif
 		}
