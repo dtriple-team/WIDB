@@ -93,7 +93,7 @@ int gps_operation_cycle  = GNSS_INTERVAL_SEC;
 uint8_t gpsTime = 0;
 bool gpsFlag = false;
 
-#define gps_offCheck_cycle 40
+#define gps_offCheck_cycle 120
 uint8_t gpsOffCheckTime = 0;
 
 int cell_location_operation_cycle  = 60*1;
