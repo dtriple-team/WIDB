@@ -1195,7 +1195,8 @@ void StartCheckINTTask(void *argument)
 		}
 		rtcAlarmEventCount++;
 
-		timerSecCounter = 60*10; // about 60sec
+		//timerSecCounter = 60*10; // about 60sec
+		timerSecCounter = 120*10; // about 120sec
 	}
 	else {
 		if(timerSecCounter == 0){ // after about 60sec
