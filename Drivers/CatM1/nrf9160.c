@@ -413,7 +413,7 @@ void handle_gps_command(const char *value)
     else if (strstr(value, "1,3") != NULL || strstr(value, "1,0") != NULL || strstr(value, "0,0") != NULL)
 #endif
     {
-    	gps_operation_cycle = (60*4);
+    	gps_operation_cycle = (60*5);
     	gpsRSSI_0_1 = 0;
     	cat_m1_Status.gpsOff = 1;
     	cell_locationFlag = true;
@@ -1203,7 +1203,7 @@ void nrf9160_Get_gps()
             if (!cat_m1_Status.gpsOn)
             {
 #if defined(nRF9160_KT)
-            	send_at_command("AT#XGPS=1,1,0,180\r\n");
+            	send_at_command("AT#XGPS=1,1,0,240\r\n");
 #else
                 send_at_command("AT#XGPS=1,0,0,180\r\n");
 #endif
