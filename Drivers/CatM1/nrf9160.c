@@ -421,37 +421,20 @@ void handle_gps_command(const char *value)
     }
 
     else { // strstr(value, "1,4") => after MSG: GPS DATA
-    	if (gpsDataLength > 10) {
-    	    char tempBuffer[sizeof(cat_m1_at_cmd_rst.gps)];
-    	    int j = 0;
-    	    bool isValidFormat = true;
+       	if (gpsDataLength > 10) {
+       	    char tempBuffer[sizeof(cat_m1_at_cmd_rst.gps)];
+       	    int j = 0;
 
+       	    for (int i = 0; value[i] != '\0' && j < sizeof(tempBuffer) - 1; i++) {
+       	        if (value[i] != '"') {
+       	            tempBuffer[j++] = value[i];
+       	        }
+       	    }
+       	    tempBuffer[j] = '\0';
 
-    	    int startIdx = 0;
-    	    while (value[startIdx] == ' ' || value[startIdx] == '"') {
-    	        startIdx++;
-    	    }
-
-    	    for (int i = startIdx; value[i] != '\0' && j < sizeof(tempBuffer) - 1; i++) {
-
-    	        if (value[i] == '"' || (j == 0 && value[i] == ' ')) {
-    	            continue;
-    	        }
-
-    	        if (j == 0 && !isdigit(value[i])) {
-    	            isValidFormat = false;
-    	            break;
-    	        }
-
-    	        tempBuffer[j++] = value[i];
-    	    }
-    	    tempBuffer[j] = '\0';
-
-    	    if (isValidFormat && j > 10) {
-    	        strncpy((char *)cat_m1_at_cmd_rst.gps, tempBuffer, sizeof(cat_m1_at_cmd_rst.gps) - 1);
-    	        cat_m1_at_cmd_rst.gps[sizeof(cat_m1_at_cmd_rst.gps) - 1] = '\0';
-    	    }
-    	}
+       	    strncpy((char *)cat_m1_at_cmd_rst.gps, tempBuffer, sizeof(cat_m1_at_cmd_rst.gps) - 1);
+       	    cat_m1_at_cmd_rst.gps[sizeof(cat_m1_at_cmd_rst.gps) - 1] = '\0';
+       	}
     }
 }
 
