@@ -1142,7 +1142,6 @@ void nrf9160_Get_gps()
     switch (gpsState)
     {
         case GPS_INIT:
-            cat_m1_Status.gpsChecking = 1;
 #if !defined(nRF9160_KT)
             send_at_command("AT#XMQTTCON=0\r\n");
 #endif
@@ -1239,6 +1238,7 @@ void nrf9160_Get_gps()
             cat_m1_Status.Checked = 2;
             //gpsFlag = false;
             gpsState = GPS_INIT;
+            cat_m1_Status.gpsChecking = 1;
             break;
     }
 }

@@ -608,8 +608,6 @@ void StartWPMTask(void *argument)
 			if(cat_m1_Status.gpsOff)
 			{
 				nrf9160_Stop_gps();
-				gpsTime = 0;
-				gpsOffCheckTime = 0;
 			}
 		}
 		if(cat_m1_rssi_cycleFlag && cat_m1_Status.gpsChecking == 0 && cat_m1_Status.mqttChecking == 0)
@@ -929,7 +927,7 @@ void StartSecTimerTask(void *argument)
 			cat_m1_Status.txflag = 0;
 		}
 #if !defined(nRF9160_no_auto_gps)
-		if(gpsFlag == 0)
+		if(gpsFlag == false)
 		{
 			gpsTime++;
 		}
@@ -1158,7 +1156,7 @@ void StartCheckINTTask(void *argument)
 		cat_m1_Status_BandAlert.value = 1;
 		send_Status_BandAlert(&cat_m1_Status_BandAlert);
 		catM1MqttDangerMessage = 1;
-
+		gpsFlag = true;
     	occurred_PMICBUTTInterrupt = 0;
     }
   }
