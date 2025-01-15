@@ -89,12 +89,12 @@ uint8_t UartRxRetryTime = 0;
 bool UartRxRetryTimeFlag = false;
 
 //int gps_operation_cycle  = 60*3;
-int gps_operation_cycle  = 60*5;
+int gps_operation_cycle  = 60*4;
 //#define gps_operation_cycle 60*4
 uint8_t gpsTime = 0;
 bool gpsFlag = false;
 
-#define gps_offCheck_cycle 240+10
+#define gps_offCheck_cycle 180+10
 uint8_t gpsOffCheckTime = 0;
 
 int cell_location_operation_cycle  = 60*1;
@@ -1375,7 +1375,7 @@ void BandAlert()
 			}
 				catM1MqttDangerMessage = 1;
 				send_Status_FallDetection(&cat_m1_Status_FallDetection);
-				gpsFlag = 1;
+				gpsFlag = true;
 
 //				ST7789_brightness_setting(before_bLevel);
 //		    	myTempHomeView.changeToHomeScreen();

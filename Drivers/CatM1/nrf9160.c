@@ -413,7 +413,7 @@ void handle_gps_command(const char *value)
     else if (strstr(value, "1,3") != NULL || strstr(value, "1,0") != NULL || strstr(value, "0,0") != NULL)
 #endif
     {
-    	gps_operation_cycle = (60*5);
+    	gps_operation_cycle = (60*4);
     	gpsRSSI_0_1 = 0;
     	cat_m1_Status.gpsOff = 1;
     	cell_locationFlag = true;
@@ -1142,6 +1142,7 @@ void nrf9160_Get_gps()
     switch (gpsState)
     {
         case GPS_INIT:
+        	cat_m1_Status.gpsChecking = 1;
 #if !defined(nRF9160_KT)
             send_at_command("AT#XMQTTCON=0\r\n");
 #endif
@@ -1238,7 +1239,6 @@ void nrf9160_Get_gps()
             cat_m1_Status.Checked = 2;
             //gpsFlag = false;
             gpsState = GPS_INIT;
-            cat_m1_Status.gpsChecking = 1;
             break;
     }
 }
