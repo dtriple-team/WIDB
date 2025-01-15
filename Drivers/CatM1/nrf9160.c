@@ -413,7 +413,7 @@ void handle_gps_command(const char *value)
     else if (strstr(value, "1,3") != NULL || strstr(value, "1,0") != NULL || strstr(value, "0,0") != NULL)
 #endif
     {
-    	gps_operation_cycle = (60*4);
+    	gps_operation_cycle = (60*5);
     	gpsRSSI_0_1 = 0;
     	cat_m1_Status.gpsOff = 1;
     	cell_locationFlag = true;
@@ -1317,7 +1317,7 @@ void catM1Reset()
 	cat_m1_Status.gpsOn = 0;
 	cat_m1_Status.gpsOff = 0;
 	cat_m1_Status.mqttSetStatus = 0;
-	gps_operation_cycle = 60*4;
+	gps_operation_cycle = 60*5;
 	cell_locationFlag = true;
 	catM1PWRGPIOInit();
 	//send_at_command("AT+CFUN=0\r\n");
