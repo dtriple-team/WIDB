@@ -433,6 +433,7 @@ void StartInitTask(void *argument)
 
 //	// finish Task
 //	vTaskDelete(NULL);
+
   /* USER CODE END initTask */
 }
 
