@@ -308,7 +308,7 @@ void cat_m1_parse_result(const char *command, const char *value)
 {
     // PRINT_INFO("Command: %s\r\n", command);
     // PRINT_INFO("Value: %s\r\n", value);
-
+osDelay(100);
     if (!command || !value)
         return;
 

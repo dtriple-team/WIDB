@@ -292,22 +292,6 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
     HAL_IncTick();
   }
   /* USER CODE BEGIN Callback 1 */
-  if (htim->Instance == TIM4)
-  {
-	  if(ssRunFlag == 1)
-	  {
-		  read_ppg();
-	  }
-  }
-  if(htim->Instance == TIM17)
-  {
-	HAL_RTC_GetDate(&hrtc, &sDate, RTC_FORMAT_BIN);
-	HAL_RTC_GetTime(&hrtc, &sTime, RTC_FORMAT_BIN);
-	secTime++;
-	if(secTime%60 == 0){
-		secTime = 0;
-	}
-  }
   /* USER CODE END Callback 1 */
 }
 
