@@ -215,7 +215,7 @@ void MX_GPIO_Init(void)
 
   /*Configure GPIO pin : PtPin */
   GPIO_InitStruct.Pin = HOME_BTN_Pin;
-  GPIO_InitStruct.Mode = GPIO_MODE_IT_FALLING;
+  GPIO_InitStruct.Mode = GPIO_MODE_IT_RISING;
   GPIO_InitStruct.Pull = GPIO_PULLUP;
   HAL_GPIO_Init(HOME_BTN_GPIO_Port, &GPIO_InitStruct);
 
@@ -249,6 +249,9 @@ void MX_GPIO_Init(void)
 
   HAL_NVIC_SetPriority(EXTI13_IRQn, 5, 0);
   HAL_NVIC_EnableIRQ(EXTI13_IRQn);
+
+  HAL_NVIC_SetPriority(EXTI14_IRQn, 5, 0);
+  HAL_NVIC_EnableIRQ(EXTI14_IRQn);
 
   HAL_NVIC_SetPriority(EXTI15_IRQn, 5, 0);
   HAL_NVIC_EnableIRQ(EXTI15_IRQn);
