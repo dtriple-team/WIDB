@@ -80,9 +80,9 @@ uint8_t nRFCloudFlag = 0;
 uint8_t cat_m1_rssi_cycleTime = 0;
 bool cat_m1_rssi_cycleFlag = false;
 
-#define mqtt_operation_cycle 60*10
+#define mqtt_operation_cycle 60*1
 int mqttTime = 0;
-bool mqttFlag = true;
+bool mqttFlag = false;
 
 #define mqtt_RetryTime_cycle 11
 int UartRxRetryTime = 0;
