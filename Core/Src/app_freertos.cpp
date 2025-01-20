@@ -259,6 +259,11 @@ uint8_t flashlightOn = 0;
 uint8_t lteRSSI_0_4 = 0; // CATM1 signal RSSI 0 to 4 value
 uint8_t gpsRSSI_0_1 = 0;
 
+unsigned char batterylevel;
+batteryprogress_containerBase myBatteryprogress_container;
+charging_screenViewBase myCharging_screenView;
+unCharging_screenViewBase myUnCharging_screenView;
+
 initBlackScreenViewBase myBlackScreenView;
 fallDetectedViewBase myFallDetectedView;
 tempHomeViewBase myTempHomeView;
@@ -865,6 +870,47 @@ void StartSecTimerTask(void *argument)
 	if(pre_secTime != secTime){ // 1sec
 		pre_secTime = secTime;
 
+	    // update Battery
+	    bool pmicBATTERR = 0;
+	    if(pmicSOCRead(&batterylevel) != 0x00){ // occur err
+	    	MX_I2C3_Init(); // occur err...
+	    	pmicBATTERR = 1;
+	    }
+	    if(!pmicBATTERR){
+	    	// update Battery value
+	    	if(battVal != batterylevel){
+	    		battVal = batterylevel;
+	//    		myBatteryprogress_container.changeBATTVal();
+	    	}
+
+		    // check and update Battery Charging value
+	//		isCharging = isBATTCharging();
+			uint8_t chargingStatus = (uint8_t)isBATTCharging();
+			if(chargingStatus != 0xFF && battVal!=100){
+				bool isCharging_Now = chargingStatus;
+				if(isCharging != isCharging_Now){
+					isCharging = isCharging_Now;
+					if(isCharging){
+	//					myBatteryprogress_container.batteryCharging();
+						myCharging_screenView.changeChargeScreen();
+				    	brightness_count = 0;
+				    	ppgMeasFlag = 0;
+					}
+					else{
+	//					myBatteryprogress_container.batteryNotCharging();
+						myUnCharging_screenView.changeUnChargeScreen();
+				    	brightness_count = 0;
+				    	ppgMeasFlag = 1;
+					}
+				}
+			}
+			else if(battVal == 100 && isCharging == true){ // charging finish
+				isCharging = false;
+				myUnCharging_screenView.changeUnChargeScreen();
+		    	brightness_count = 0;
+			}
+	    }
+
 		// turn on LCD backlight (in screenOnTime, active only one)
 		if(brightness_count == 0){
 			if(pre_brightness_count >= screenOnTime)
@@ -991,13 +1037,10 @@ void StartSecTimerTask(void *argument)
 * @param argument: Not used
 * @retval None
 */
-batteryprogress_containerBase myBatteryprogress_container;
-charging_screenViewBase myCharging_screenView;
-unCharging_screenViewBase myUnCharging_screenView;
 uint8_t interrupt_kind = 0;
 #define PRESSURE_VAL_LEN 10
 #include <math.h>
-unsigned char batterylevel;
+//unsigned char batterylevel;
 double calculateAltitudeDifference(double P1, double P2) {
     const double R = 8.314;       // 기체 ?��?�� (J/(mol·K))
     const double T = 273.15+25;   // ?���?????? ?��?�� (K) - ?���?????? ??�?????? 조건 15°C
@@ -1097,46 +1140,46 @@ void StartCheckINTTask(void *argument)
 #endif
     }
 
-    // update Battery
-    bool pmicBATTERR = 0;
-    if(pmicSOCRead(&batterylevel) != 0x00){ // occur err
-    	MX_I2C3_Init(); // occur err...
-    	pmicBATTERR = 1;
-    }
-    if(!pmicBATTERR){
-    	// update Battery value
-    	if(battVal != batterylevel){
-    		battVal = batterylevel;
-//    		myBatteryprogress_container.changeBATTVal();
-    	}
-
-	    // check and update Battery Charging value
-//		isCharging = isBATTCharging();
-		uint8_t chargingStatus = (uint8_t)isBATTCharging();
-		if(chargingStatus != 0xFF && battVal!=100){
-			bool isCharging_Now = chargingStatus;
-			if(isCharging != isCharging_Now){
-				isCharging = isCharging_Now;
-				if(isCharging){
-//					myBatteryprogress_container.batteryCharging();
-					myCharging_screenView.changeChargeScreen();
-			    	brightness_count = 0;
-			    	ppgMeasFlag = 0;
-				}
-				else{
-//					myBatteryprogress_container.batteryNotCharging();
-					myUnCharging_screenView.changeUnChargeScreen();
-			    	brightness_count = 0;
-			    	ppgMeasFlag = 1;
-				}
-			}
-		}
-		else if(battVal == 100 && isCharging == true){ // charging finish
-			isCharging = false;
-			myUnCharging_screenView.changeUnChargeScreen();
-	    	brightness_count = 0;
-		}
-    }
+//    // update Battery
+//    bool pmicBATTERR = 0;
+//    if(pmicSOCRead(&batterylevel) != 0x00){ // occur err
+////    	MX_I2C3_Init(); // occur err...
+//    	pmicBATTERR = 1;
+//    }
+//    if(!pmicBATTERR){
+//    	// update Battery value
+//    	if(battVal != batterylevel){
+//    		battVal = batterylevel;
+////    		myBatteryprogress_container.changeBATTVal();
+//    	}
+//
+//	    // check and update Battery Charging value
+////		isCharging = isBATTCharging();
+//		uint8_t chargingStatus = (uint8_t)isBATTCharging();
+//		if(chargingStatus != 0xFF && battVal!=100){
+//			bool isCharging_Now = chargingStatus;
+//			if(isCharging != isCharging_Now){
+//				isCharging = isCharging_Now;
+//				if(isCharging){
+////					myBatteryprogress_container.batteryCharging();
+//					myCharging_screenView.changeChargeScreen();
+//			    	brightness_count = 0;
+//			    	ppgMeasFlag = 0;
+//				}
+//				else{
+////					myBatteryprogress_container.batteryNotCharging();
+//					myUnCharging_screenView.changeUnChargeScreen();
+//			    	brightness_count = 0;
+//			    	ppgMeasFlag = 1;
+//				}
+//			}
+//		}
+//		else if(battVal == 100 && isCharging == true){ // charging finish
+//			isCharging = false;
+//			myUnCharging_screenView.changeUnChargeScreen();
+//	    	brightness_count = 0;
+//		}
+//    }
 
     // PMIC interrupt occur => emergency signal send to Web (CATM1)
     if(occurred_PMICBUTTInterrupt){
