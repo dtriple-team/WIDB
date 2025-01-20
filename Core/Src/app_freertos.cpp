@@ -1077,6 +1077,7 @@ void StartCheckINTTask(void *argument)
 //    if(HAL_GPIO_ReadPin(GPIOB, GPIO_PIN_12) == GPIO_PIN_RESET){
 	extern uint8_t occured_HOMEBTNInterrupt;
     if(occured_HOMEBTNInterrupt == 1){
+    	occured_HOMEBTNInterrupt = 0;
     	brightness_count = 0;
     	if(flashlightOn){
     		flashlightOn = 0;
