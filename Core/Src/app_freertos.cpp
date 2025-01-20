@@ -80,35 +80,33 @@ uint8_t nRFCloudFlag = 0;
 uint8_t cat_m1_rssi_cycleTime = 0;
 bool cat_m1_rssi_cycleFlag = false;
 
-#define mqtt_operation_cycle 60*1
-uint8_t mqttTime = 0;
+#define mqtt_operation_cycle 60*10
+int mqttTime = 0;
 bool mqttFlag = false;
 
 #define mqtt_RetryTime_cycle 11
-uint8_t UartRxRetryTime = 0;
+int UartRxRetryTime = 0;
 bool UartRxRetryTimeFlag = false;
 
-//int gps_operation_cycle  = 60*3;
-int gps_operation_cycle  = 60*5;
-//#define gps_operation_cycle 60*4
+int gps_operation_cycle  = 60*10;
 int gpsTime = 0;
 bool gpsFlag = false;
 
-#define gps_offCheck_cycle 240+10
-uint8_t gpsOffCheckTime = 0;
+#define gps_offCheck_cycle (60*10)+10
+int gpsOffCheckTime = 0;
 
 int cell_location_operation_cycle  = 60*1;
-uint8_t cell_locationTime = 0;
+int cell_locationTime = 0;
 bool cell_locationFlag = true;
 
 #define fall_Check_cycle 0 // falling event occure => after N sec => MQTT // 60
-uint8_t fallCheckTime = 0;
+int fallCheckTime = 0;
 uint8_t fallCheckFlag = 0;
 
-uint8_t pressCheckTime = 0;
+int pressCheckTime = 0;
 uint8_t pressCheckFlag = 0;
 
-uint8_t pressCheckStartTime = 0;
+int pressCheckStartTime = 0;
 uint8_t pressCheckStartFlag = 0;
 
 uint8_t catM1MqttDangerMessage = 0;
