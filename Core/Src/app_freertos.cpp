@@ -82,7 +82,7 @@ bool cat_m1_rssi_cycleFlag = false;
 
 #define mqtt_operation_cycle 60*10
 int mqttTime = 0;
-bool mqttFlag = false;
+bool mqttFlag = true;
 
 #define mqtt_RetryTime_cycle 11
 int UartRxRetryTime = 0;
