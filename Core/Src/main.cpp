@@ -241,7 +241,7 @@ uint8_t secTime = 0;
 
 uint8_t occurred_imuInterrupt = 0;
 uint8_t occurred_PMICBUTTInterrupt = 0;
-
+uint8_t occured_HOMEBTNInterrupt = 0;
 uint8_t occurred_touchInterrupt = 0;
 
 void HAL_GPIO_EXTI_Rising_Callback(uint16_t GPIO_Pin)
@@ -258,12 +258,18 @@ void HAL_GPIO_EXTI_Rising_Callback(uint16_t GPIO_Pin)
   }
   else if(GPIO_Pin == PMIC_INT_Pin){
   }
+  else if(GPIO_Pin == HOME_BTN_Pin){
+  	  occured_HOMEBTNInterrupt = 1;
+  	}
 }
 void HAL_GPIO_EXTI_Falling_Callback(uint16_t GPIO_Pin)
 {
   if(GPIO_Pin == PMIC_BUTT_INT_Pin){
 	  occurred_PMICBUTTInterrupt = 1;
   }
+  else if(GPIO_Pin == HOME_BTN_Pin){
+  	  occured_HOMEBTNInterrupt = 1;
+  	}
 }
 /* USER CODE END 4 */
 

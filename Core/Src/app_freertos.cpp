@@ -1074,7 +1074,9 @@ void StartCheckINTTask(void *argument)
     }
 
     // MCU GPIO button click => change to home screen & backlight on
-    if(HAL_GPIO_ReadPin(GPIOB, GPIO_PIN_12) == GPIO_PIN_RESET){
+//    if(HAL_GPIO_ReadPin(GPIOB, GPIO_PIN_12) == GPIO_PIN_RESET){
+	extern uint8_t occured_HOMEBTNInterrupt;
+    if(occured_HOMEBTNInterrupt == 1){
     	brightness_count = 0;
     	if(flashlightOn){
     		flashlightOn = 0;
