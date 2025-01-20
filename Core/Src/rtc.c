@@ -37,7 +37,7 @@ void MX_RTC_Init(void)
   RTC_PrivilegeStateTypeDef privilegeState = {0};
   RTC_TimeTypeDef sTime = {0};
   RTC_DateTypeDef sDate = {0};
-//  RTC_AlarmTypeDef sAlarm = {0};
+  RTC_AlarmTypeDef sAlarm = {0};
 
   /* USER CODE BEGIN RTC_Init 1 */
 
@@ -92,30 +92,30 @@ void MX_RTC_Init(void)
     Error_Handler();
   }
 
-//  /** Enable the Alarm A
-//  */
-//  sAlarm.AlarmTime.Hours = 0;
-//  sAlarm.AlarmTime.Minutes = 0;
-//  sAlarm.AlarmTime.Seconds = 0;
-//  sAlarm.AlarmTime.SubSeconds = 0;
-//  sAlarm.AlarmMask = RTC_ALARMMASK_DATEWEEKDAY|RTC_ALARMMASK_HOURS
-//                              |RTC_ALARMMASK_MINUTES;
-//  sAlarm.AlarmSubSecondMask = RTC_ALARMSUBSECONDMASK_ALL;
-//  sAlarm.AlarmDateWeekDaySel = RTC_ALARMDATEWEEKDAYSEL_DATE;
-//  sAlarm.AlarmDateWeekDay = 1;
-//  sAlarm.Alarm = RTC_ALARM_A;
-//  if (HAL_RTC_SetAlarm_IT(&hrtc, &sAlarm, RTC_FORMAT_BIN) != HAL_OK)
-//  {
-//    Error_Handler();
-//  }
-//
-//  /** Enable the Alarm B
-//  */
-//  sAlarm.Alarm = RTC_ALARM_B;
-//  if (HAL_RTC_SetAlarm_IT(&hrtc, &sAlarm, RTC_FORMAT_BIN) != HAL_OK)
-//  {
-//    Error_Handler();
-//  }
+  /** Enable the Alarm A
+  */
+  sAlarm.AlarmTime.Hours = 0;
+  sAlarm.AlarmTime.Minutes = 0;
+  sAlarm.AlarmTime.Seconds = 0;
+  sAlarm.AlarmTime.SubSeconds = 0;
+  sAlarm.AlarmMask = RTC_ALARMMASK_DATEWEEKDAY|RTC_ALARMMASK_HOURS
+                              |RTC_ALARMMASK_MINUTES;
+  sAlarm.AlarmSubSecondMask = RTC_ALARMSUBSECONDMASK_ALL;
+  sAlarm.AlarmDateWeekDaySel = RTC_ALARMDATEWEEKDAYSEL_DATE;
+  sAlarm.AlarmDateWeekDay = 1;
+  sAlarm.Alarm = RTC_ALARM_A;
+  if (HAL_RTC_SetAlarm_IT(&hrtc, &sAlarm, RTC_FORMAT_BIN) != HAL_OK)
+  {
+    Error_Handler();
+  }
+
+  /** Enable the Alarm B
+  */
+  sAlarm.Alarm = RTC_ALARM_B;
+  if (HAL_RTC_SetAlarm_IT(&hrtc, &sAlarm, RTC_FORMAT_BIN) != HAL_OK)
+  {
+    Error_Handler();
+  }
   /* USER CODE BEGIN RTC_Init 2 */
 
   /* USER CODE END RTC_Init 2 */
@@ -146,9 +146,9 @@ void HAL_RTC_MspInit(RTC_HandleTypeDef* rtcHandle)
     __HAL_RCC_RTCAPB_CLK_ENABLE();
     __HAL_RCC_RTCAPB_CLKAM_ENABLE();
 
-//    /* RTC interrupt Init */
-//    HAL_NVIC_SetPriority(RTC_IRQn, 5, 0);
-//    HAL_NVIC_EnableIRQ(RTC_IRQn);
+    /* RTC interrupt Init */
+    HAL_NVIC_SetPriority(RTC_IRQn, 5, 0);
+    HAL_NVIC_EnableIRQ(RTC_IRQn);
   /* USER CODE BEGIN RTC_MspInit 1 */
 
   /* USER CODE END RTC_MspInit 1 */
@@ -168,8 +168,8 @@ void HAL_RTC_MspDeInit(RTC_HandleTypeDef* rtcHandle)
     __HAL_RCC_RTCAPB_CLK_DISABLE();
     __HAL_RCC_RTCAPB_CLKAM_DISABLE();
 
-//    /* RTC interrupt Deinit */
-//    HAL_NVIC_DisableIRQ(RTC_IRQn);
+    /* RTC interrupt Deinit */
+    HAL_NVIC_DisableIRQ(RTC_IRQn);
   /* USER CODE BEGIN RTC_MspDeInit 1 */
 
   /* USER CODE END RTC_MspDeInit 1 */

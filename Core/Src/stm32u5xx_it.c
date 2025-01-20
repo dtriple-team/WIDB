@@ -58,7 +58,7 @@
 extern I2C_HandleTypeDef hi2c2;
 extern UART_HandleTypeDef huart1;
 extern UART_HandleTypeDef huart2;
-//extern RTC_HandleTypeDef hrtc;
+extern RTC_HandleTypeDef hrtc;
 extern DMA_HandleTypeDef handle_GPDMA1_Channel15;
 extern SPI_HandleTypeDef hspi1;
 extern TIM_HandleTypeDef htim4;
@@ -168,19 +168,19 @@ void DebugMon_Handler(void)
 /* please refer to the startup file (startup_stm32u5xx.s).                    */
 /******************************************************************************/
 
-///**
-//  * @brief This function handles RTC non-secure interrupt.
-//  */
-//void RTC_IRQHandler(void)
-//{
-//  /* USER CODE BEGIN RTC_IRQn 0 */
+/**
+  * @brief This function handles RTC non-secure interrupt.
+  */
+void RTC_IRQHandler(void)
+{
+  /* USER CODE BEGIN RTC_IRQn 0 */
 //
-//  /* USER CODE END RTC_IRQn 0 */
-//  HAL_RTC_AlarmIRQHandler(&hrtc);
-//  /* USER CODE BEGIN RTC_IRQn 1 */
+  /* USER CODE END RTC_IRQn 0 */
+  HAL_RTC_AlarmIRQHandler(&hrtc);
+  /* USER CODE BEGIN RTC_IRQn 1 */
 //
-//  /* USER CODE END RTC_IRQn 1 */
-//}
+  /* USER CODE END RTC_IRQn 1 */
+}
 
 /**
   * @brief This function handles EXTI Line5 interrupt.
@@ -250,6 +250,20 @@ void EXTI13_IRQHandler(void)
   /* USER CODE BEGIN EXTI13_IRQn 1 */
 
   /* USER CODE END EXTI13_IRQn 1 */
+}
+
+/**
+  * @brief This function handles EXTI Line14 interrupt.
+  */
+void EXTI14_IRQHandler(void)
+{
+  /* USER CODE BEGIN EXTI14_IRQn 0 */
+
+  /* USER CODE END EXTI14_IRQn 0 */
+  HAL_GPIO_EXTI_IRQHandler(HOME_BTN_Pin);
+  /* USER CODE BEGIN EXTI14_IRQn 1 */
+
+  /* USER CODE END EXTI14_IRQn 1 */
 }
 
 /**

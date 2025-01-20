@@ -45,7 +45,7 @@ extern "C" {
 //Annotation processing is required during initial upload of nRF9160
 
 #define nRF9160_initial_upload
-//#define nRF9160_nRFCLOUD_Init
+#define nRF9160_nRFCLOUD_Init
 //#define nRF9160_no_auto_gps
 #define nRF9160_KT
 //#define nRF9160_cell_location
@@ -102,6 +102,9 @@ void Error_Handler(void);
 #define WiFi_PWR_GPIO_Port GPIOD
 #define WiFi_RESET_Pin GPIO_PIN_9
 #define WiFi_RESET_GPIO_Port GPIOD
+#define HOME_BTN_Pin GPIO_PIN_14
+#define HOME_BTN_GPIO_Port GPIOB
+#define HOME_BTN_EXTI_IRQn EXTI14_IRQn
 #define LCD_SS_Pin GPIO_PIN_12
 #define LCD_SS_GPIO_Port GPIOE
 
