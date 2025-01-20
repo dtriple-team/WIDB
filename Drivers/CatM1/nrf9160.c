@@ -421,21 +421,20 @@ void handle_gps_command(const char *value)
     }
 
     else { // strstr(value, "1,4") => after MSG: GPS DATA
-    	if (gpsDataLength > 10) {
-    	    char tempBuffer[sizeof(cat_m1_at_cmd_rst.gps)];
-    	    register int j = 0;
+       	if (gpsDataLength > 10) {
+       	    char tempBuffer[sizeof(cat_m1_at_cmd_rst.gps)];
+       	    int j = 0;
 
-    	    register const char* ptr = value;
-    	    while (*ptr && j < sizeof(tempBuffer) - 1) {
-    	        if (*ptr != '"') {
-    	            tempBuffer[j++] = *ptr;
-    	        }
-    	        ptr++;
-    	    }
-    	    tempBuffer[j] = '\0';
+       	    for (int i = 0; value[i] != '\0' && j < sizeof(tempBuffer) - 1; i++) {
+       	        if (value[i] != '"') {
+       	            tempBuffer[j++] = value[i];
+       	        }
+       	    }
+       	    tempBuffer[j] = '\0';
 
-    	    memcpy((char *)cat_m1_at_cmd_rst.gps, tempBuffer, j + 1);
-    	}
+       	    strncpy((char *)cat_m1_at_cmd_rst.gps, tempBuffer, sizeof(cat_m1_at_cmd_rst.gps) - 1);
+       	    cat_m1_at_cmd_rst.gps[sizeof(cat_m1_at_cmd_rst.gps) - 1] = '\0';
+       	}
     }
 }
 
