@@ -1416,7 +1416,7 @@ void BandAlert()
 		}
 		if (battVal < 50 && !lowBatteryAlertSent && cat_m1_Status.mqttChecking == 0)
 		{
-		    cat_m1_Status_BandAlert.bid = HAL_GetUIDw2();
+		    cat_m1_Status_BandAlert.bid = deviceID();
 		    cat_m1_Status_BandAlert.type = 2;
 		    cat_m1_Status_BandAlert.value = 1;
 		    send_Status_BandAlert(&cat_m1_Status_BandAlert);
