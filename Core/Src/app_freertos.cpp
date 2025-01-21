@@ -1328,6 +1328,7 @@ void StartCheckINTTask(void *argument)
     }
 
     if(occurred_touchInterrupt){
+    	occurred_touchInterrupt = 0;
     	brightness_count = 0;
     }
   }
