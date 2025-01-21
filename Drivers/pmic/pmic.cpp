@@ -70,13 +70,19 @@ int runHaptic(int hapticFrequencyHz, int hapticDuration, int hapticContinue){
 	if(pmicBusyFlag == 0){
 		pmicBusyFlag = 1;
 
-		do{
-			ret = 0;
-			ret |= max20303.Max20303_HapticSetting();
-			ret |= max20303.Max20303_HapticSetFullScale();
-			ret |= max20303.Max20303_HapticDrive0();
-			ret |= max20303.Max20303_HapticDrive1();
-		} while(ret != 0x00);
+//		do{
+//			ret = 0;
+//			ret |= max20303.Max20303_HapticSetting();
+//			ret |= max20303.Max20303_HapticSetFullScale();
+//			ret |= max20303.Max20303_HapticDrive0();
+//			ret |= max20303.Max20303_HapticDrive1();
+//		} while(ret != 0x00);
+
+		ret = 0;
+		ret |= max20303.Max20303_HapticSetting();
+		ret |= max20303.Max20303_HapticSetFullScale();
+		ret |= max20303.Max20303_HapticDrive0();
+		ret |= max20303.Max20303_HapticDrive1();
 
 		max20303.Max20303_StartHapticPattern(hapticFrequencyHz, hapticDuration, hapticContinue);
 

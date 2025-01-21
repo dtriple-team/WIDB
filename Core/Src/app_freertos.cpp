@@ -1327,7 +1327,7 @@ void StartCheckINTTask(void *argument)
     }
 
     if(occurred_touchInterrupt){
-
+    	brightness_count = 0;
     }
   }
   /* USER CODE END checkINTTask */
@@ -1752,10 +1752,11 @@ void measPPG(){
 //		hrCount = 0;
 //		spo2Count = 0;
 //	}
-	if(pre_ppgMeasFlag != ppgMeasFlag){
-		if(ppgMeasFlag == 1){
-			ppgMeaserCount++;
-		} else {
+
+	if(ppgMeasFlag == 1){
+		ppgMeaserCount++;
+	} else {
+		if(pre_ppgMeasFlag != ppgMeasFlag){
 			ppgMeaserCount = 1;
 //			ssWalk_SUM = ssWalk; // total walk count ?��?�� ?��?��
 			ssBegin(0x05);
