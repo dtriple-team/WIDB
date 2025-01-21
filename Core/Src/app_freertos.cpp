@@ -255,6 +255,7 @@ uint8_t initFlag = 0;
 uint8_t pmicInitFlag = 0;
 uint8_t wpmInitializationFlag = 0;
 uint8_t lcdInitFlag = 0;
+uint8_t pmicBusyFlag = 0;
 
 double test_mag_data[15] = {0,};
 uint8_t set_bLevel = 7; // GUI val ?��?�� // default bright level
@@ -376,25 +377,28 @@ void StartInitTask(void *argument)
 //	runHaptic();
 
 	for(;;){
+		int isPMIC_I2C_SUCC = 0;
 		// haptic
 		if(cat_m1_Status_FallDetection.fall_detect == 1){
 			if(hapticFlag == 1){
-				runHaptic(20, 500, 3);
+				isPMIC_I2C_SUCC = runHaptic(20, 500, 3);
 			}
 			brightness_count = 0; // lcd backlight count reset
 		}
 		if(beforeHaptic != hapticFlag){ // toggle haptic BTN
 			beforeHaptic = hapticFlag;
 			if(hapticFlag == 1){
-				runHaptic(20, 500, 1);
+				isPMIC_I2C_SUCC = runHaptic(20, 500, 1);
 			}
 		}
 		if(haptic_SOS == 1){
 			if(hapticFlag == 1){
-				runHaptic(20, 500, 3);
+				isPMIC_I2C_SUCC = runHaptic(20, 500, 3);
 			}
 			brightness_count = 0; // lcd backlight count reset
-			haptic_SOS = 0;
+			if(isPMIC_I2C_SUCC != -5){
+				haptic_SOS = 0;
+			}
 		}
 		osDelay(100);
 	}

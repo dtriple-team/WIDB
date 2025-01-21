@@ -9,51 +9,78 @@ MAX20303 max20303;
 
 int pmic_init()
 {
-	uint8_t ret = 0;
+	int ret = -5;
 
-	/* Wait for pmic to settle down */
-	HAL_Delay(800);
+	extern uint8_t pmicBusyFlag;
+	if(pmicBusyFlag == 0){
+		pmicBusyFlag = 1;
 
-	/*Set LDO1 to 1.8v*/
-	ret |= max20303.LDO1Config(); // max 2V
+		/* Wait for pmic to settle down */
+		HAL_Delay(800);
 
-	/*Set LDO2 to 3v*/
-	ret |= max20303.LDO2Config();
+		/*Set LDO1 to 1.8v*/
+		ret |= max20303.LDO1Config(); // max 2V
 
-//	/*Set BK2 to 3.3v*/
-//	ret |= max20303.Buck2Config(); // LCD 3.3v
-	/*Set BK2 to 1.8v*/
-	ret |= max20303.Buck2Config(); // LCD 1.8v
+		/*Set LDO2 to 3v*/
+		ret |= max20303.LDO2Config();
 
-	//max20303.BoostEnable();
-	ret |= max20303.BuckBoostEnable(); // 5V
+	//	/*Set BK2 to 3.3v*/
+	//	ret |= max20303.Buck2Config(); // LCD 3.3v
+		/*Set BK2 to 1.8v*/
+		ret |= max20303.Buck2Config(); // LCD 1.8v
 
-	/* Wait for pmic to settle down */
-	HAL_Delay(200);
+		//max20303.BoostEnable();
+		ret |= max20303.BuckBoostEnable(); // 5V
 
-    return 0;
+		/* Wait for pmic to settle down */
+		HAL_Delay(200);
+
+		pmicBusyFlag = 0;
+	}
+
+    return ret;
 }
 
 int pmicSOCRead(unsigned char *batterylevel){
-	int ret = 0;
-	ret = max20303.Max20303_BatteryGauge(batterylevel);
+	int ret = -5;
+	extern uint8_t pmicBusyFlag;
+	if(pmicBusyFlag == 0){
+		ret = 0;
+		pmicBusyFlag = 1;
+		ret = max20303.Max20303_BatteryGauge(batterylevel);
+		pmicBusyFlag = 0;
+	}
 	return ret;
 }
 
 int isBATTCharging(){
-	int batteryChargeStatus = max20303.Battery_Status_Charger();
+	int batteryChargeStatus = -5;
+	extern uint8_t pmicBusyFlag;
+	if(pmicBusyFlag == 0){
+		pmicBusyFlag = 1;
+		batteryChargeStatus = max20303.Battery_Status_Charger();
+		pmicBusyFlag = 0;
+	}
 	return batteryChargeStatus;
 }
 
-void runHaptic(int hapticFrequencyHz, int hapticDuration, int hapticContinue){
-	uint8_t ret = 0;
-	do{
-		ret = 0;
-		ret |= max20303.Max20303_HapticSetting();
-		ret |= max20303.Max20303_HapticSetFullScale();
-		ret |= max20303.Max20303_HapticDrive0();
-		ret |= max20303.Max20303_HapticDrive1();
-	} while(ret != 0x00);
+int runHaptic(int hapticFrequencyHz, int hapticDuration, int hapticContinue){
+	int ret = -5;
+	extern uint8_t pmicBusyFlag;
+	if(pmicBusyFlag == 0){
+		pmicBusyFlag = 1;
 
-	max20303.Max20303_StartHapticPattern(hapticFrequencyHz, hapticDuration, hapticContinue);
+		do{
+			ret = 0;
+			ret |= max20303.Max20303_HapticSetting();
+			ret |= max20303.Max20303_HapticSetFullScale();
+			ret |= max20303.Max20303_HapticDrive0();
+			ret |= max20303.Max20303_HapticDrive1();
+		} while(ret != 0x00);
+
+		max20303.Max20303_StartHapticPattern(hapticFrequencyHz, hapticDuration, hapticContinue);
+
+		pmicBusyFlag = 0;
+	}
+	return ret;
 }
