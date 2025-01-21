@@ -27,7 +27,7 @@
 #include "bl6133.h"
 
 extern uint8_t set_bLevel;
-extern uint8_t brightness_count;
+//extern uint8_t brightness_count;
 
 void STM32TouchController::init()
 {
@@ -59,9 +59,9 @@ bool STM32TouchController::sampleTouch(int32_t& x, int32_t& y)
 	if(!occurred_touchInterrupt) return false; // ???�� ?��?��?��?�� ?�� ?��?��,.. 짝수?�� ?��?��?��
 
 	touchDetectFlag = touchDetect(touchData);
-	if(!touchDetectFlag){
-		brightness_count = 0;
-	}
+//	if(!touchDetectFlag){
+//		brightness_count = 0;
+//	}
 
 	//	uint8_t touchData[6] = {0,};
 	uint8_t err = readTouchData(touchData, sizeof(touchData));
