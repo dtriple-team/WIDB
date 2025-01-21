@@ -12,6 +12,7 @@
 #include <string.h>
 #include <stdbool.h>
 #include <stdlib.h>
+#include <ctype.h>
 #define MINMEA_MAX_SENTENCE_LENGTH 256
 
 uint8_t uart_cat_m1_buf[MINMEA_MAX_SENTENCE_LENGTH] = {0, };
@@ -421,20 +422,41 @@ void handle_gps_command(const char *value)
     }
 
     else { // strstr(value, "1,4") => after MSG: GPS DATA
-       	if (gpsDataLength > 10) {
-       	    char tempBuffer[sizeof(cat_m1_at_cmd_rst.gps)];
-       	    int j = 0;
-
-       	    for (int i = 0; value[i] != '\0' && j < sizeof(tempBuffer) - 1; i++) {
-       	        if (value[i] != '"') {
-       	            tempBuffer[j++] = value[i];
-       	        }
-       	    }
-       	    tempBuffer[j] = '\0';
-
-       	    strncpy((char *)cat_m1_at_cmd_rst.gps, tempBuffer, sizeof(cat_m1_at_cmd_rst.gps) - 1);
-       	    cat_m1_at_cmd_rst.gps[sizeof(cat_m1_at_cmd_rst.gps) - 1] = '\0';
-       	}
+    	if (gpsDataLength > 10) {
+//    	    const size_t GPS_BUFFER_SIZE = sizeof(cat_m1_at_cmd_rst.gps);
+//    	    char tempBuffer[GPS_BUFFER_SIZE];
+//    	    memset(tempBuffer, 0, GPS_BUFFER_SIZE);
+//    	    int j = 0;
+//
+//    	    for (int i = 0;
+//    	         value[i] != '\0' &&
+//    	         i < gpsDataLength &&
+//    	         j < (GPS_BUFFER_SIZE - 1);
+//    	         i++) {
+//
+//    	        unsigned char currentChar = (unsigned char)value[i];
+//
+//    	        if (currentChar != '"' &&
+//    	            ((currentChar >= '0' && currentChar <= '9') ||
+//    	             currentChar == '.' ||
+//    	             currentChar == ',' ||
+//    	             currentChar == ' ' ||
+//    	             currentChar == '-' ||
+//    	             currentChar == ':')) {
+//    	            tempBuffer[j++] = value[i];
+//    	        }
+//    	    }
+//
+//    	    tempBuffer[GPS_BUFFER_SIZE - 1] = '\0';
+//
+//    	    if (strlen(tempBuffer) > 0) {
+//    	        memset(cat_m1_at_cmd_rst.gps, 0, GPS_BUFFER_SIZE);
+//    	        strncpy((char *)cat_m1_at_cmd_rst.gps, tempBuffer, GPS_BUFFER_SIZE - 1);
+//    	        cat_m1_at_cmd_rst.gps[GPS_BUFFER_SIZE - 1] = '\0';
+//    	    }
+    		strncpy((char *)cat_m1_at_cmd_rst.gps, (const char *)value, sizeof(cat_m1_at_cmd_rst.gps) - 1);
+    		cat_m1_at_cmd_rst.gps[sizeof(cat_m1_at_cmd_rst.gps) - 1] = '\0';
+    	}
     }
 }
 
@@ -1001,32 +1023,37 @@ void send_Status_FallDetection(cat_m1_Status_FallDetection_t* fallData)
 
 void send_GPS_Location(cat_m1_Status_GPS_Location_t* location)
 {
-	cat_m1_Status.mqttChecking = 1;
+    cat_m1_Status.mqttChecking = 1;
     char mqtt_data[1024];
+    char tempBuffer[sizeof(cat_m1_at_cmd_rst.gps)];
+    int j = 0;
+
+    for (int i = 0; cat_m1_at_cmd_rst.gps[i] != '\0' && j < sizeof(tempBuffer) - 1; i++) {
+        if (cat_m1_at_cmd_rst.gps[i] != '"') {
+            tempBuffer[j++] = cat_m1_at_cmd_rst.gps[i];
+        }
+    }
+    tempBuffer[j] = '\0';
 
     snprintf(mqtt_data, sizeof(mqtt_data),
-    	"{\"extAddress\": {\"low\": %u, \"high\": 0},"
-    	"\"data\": \"%s\""
+        "{\"extAddress\": {\"low\": %u, \"high\": 0},"
+        "\"data\": \"%s\""
         "}+++\r\n",
-		(unsigned int)location->bid, cat_m1_at_cmd_rst.gps);
+        (unsigned int)location->bid, tempBuffer);
 
-    if (send_at_command(GPS_LOCATION_TOPIC))
-    {
+    if (send_at_command(GPS_LOCATION_TOPIC)) {
         PRINT_INFO("AT command sent successfully.\n");
 
-        if (send_at_command(mqtt_data))
-        {
-        	osDelay(5000);
+        if (send_at_command(mqtt_data)) {
+            osDelay(5000);
             memset(&cat_m1_at_cmd_rst.gps, 0, sizeof(cat_m1_at_cmd_rst.gps));
             PRINT_INFO("JSON send_GPS_Location message sent successfully.\n");
         }
-        else
-        {
+        else {
             PRINT_INFO("Failed to send JSON message.\n");
         }
     }
-    else
-    {
+    else {
         PRINT_INFO("Failed to send AT command.\n");
     }
     cat_m1_Status.mqttChecking = 0;
