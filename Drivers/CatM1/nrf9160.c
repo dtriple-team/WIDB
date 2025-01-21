@@ -1026,7 +1026,7 @@ void send_GPS_Location(cat_m1_Status_GPS_Location_t* location)
 
         if (send_at_command(mqtt_data))
         {
-        	osDelay(10000);
+        	osDelay(5000);
             memset(&cat_m1_at_cmd_rst.gps, 0, sizeof(cat_m1_at_cmd_rst.gps));
             PRINT_INFO("JSON send_GPS_Location message sent successfully.\n");
         }
