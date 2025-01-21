@@ -549,6 +549,10 @@ void StartWPMTask(void *argument)
 				lteRSSI_0_4 = 0;
 			}
 			cat_m1_Status.InitialLoad = 1;
+
+			// succ connect CatM1
+			myTempHomeView.changeToHomeScreen();
+			brightness_count = 0;
 		}
 		//gpsTime = 0;
 		cat_m1_rssi_cycleTime = 0;
@@ -643,6 +647,21 @@ void StartWPMTask(void *argument)
 					HAL_RTC_SetDate(&hrtc, &sDate, RTC_FORMAT_BIN);
 				} else {
 					nowTimeinfo = nowRTCTimeinfo;
+				}
+
+				// CatM1 RSSI value update
+				nrf9160_Get_rssi();
+
+				if(-95 <= cat_m1_Status_Band.rssi){
+					lteRSSI_0_4 = 4;
+				} else if(-105 <= cat_m1_Status_Band.rssi && cat_m1_Status_Band.rssi < -95) {
+					lteRSSI_0_4 = 3;
+				} else if(-115 <= cat_m1_Status_Band.rssi && cat_m1_Status_Band.rssi < -105) {
+					lteRSSI_0_4 = 2;
+				} else if(-125 <= cat_m1_Status_Band.rssi && cat_m1_Status_Band.rssi < -115) {
+					lteRSSI_0_4 = 1;
+				} else {
+					lteRSSI_0_4 = 0;
 				}
 			}
 			mqttFlag = false;
