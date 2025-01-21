@@ -985,8 +985,9 @@ void StartSecTimerTask(void *argument)
 		    // check and update Battery Charging value
 	//		isCharging = isBATTCharging();
 			uint8_t chargingStatus = (uint8_t)isBATTCharging();
-			if(chargingStatus != 0xFF && battVal!=100){
-				bool isCharging_Now = chargingStatus;
+			if(chargingStatus != 0xFF && battVal<100){
+				bool isCharging_Now = false;
+				if(chargingStatus == 1) isCharging_Now = true;
 				if(isCharging != isCharging_Now){
 					isCharging = isCharging_Now;
 					if(isCharging){

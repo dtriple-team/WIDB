@@ -91,7 +91,7 @@ int MAX20303::writeReg(registers_t reg, uint8_t value)
 	i2cbuffer_[0] = reg;
 	i2cbuffer_[1] = value;
 	uint8_t ret = 0;
-	ret = HAL_I2C_Master_Transmit(&hi2c3, m_writeAddress, (uint8_t *)i2cbuffer_, (1+1), 1);
+	ret = HAL_I2C_Master_Transmit(&hi2c3, m_writeAddress, (uint8_t *)i2cbuffer_, (1+1), 10);
 
 //	HAL_I2C_Master_Transmit(&hi2c3, m_writeAddress, &uint_reg, sizeof(uint8_t), 1);
 //	HAL_I2C_Master_Transmit(&hi2c3, m_writeAddress, &value, sizeof(uint8_t), 1);
@@ -132,7 +132,7 @@ int MAX20303::writeRegMulti(registers_t reg, uint8_t *value, uint8_t len){
 	memcpy(&i2cbuffer_[1], value, len);
 	uint8_t ret = 0;
 
-	ret |= HAL_I2C_Master_Transmit(&hi2c3, m_writeAddress, (uint8_t *)i2cbuffer_, (len+1), 1);
+	ret |= HAL_I2C_Master_Transmit(&hi2c3, m_writeAddress, (uint8_t *)i2cbuffer_, (len+1), 10);
 
 	return ret;
 }
