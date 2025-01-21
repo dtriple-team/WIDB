@@ -616,8 +616,9 @@ void StartWPMTask(void *argument)
 				//     Update the RTC value using the CatM1 time
 				// Otherwise:
 				//     Retain the current RTC value
+				osDelay(100);
 				nrf9160_Get_time();
-				osDelay(500);
+				osDelay(100);
 				extern RTC_HandleTypeDef hrtc;
 				extern catM1Time nowTimeinfo;
 				extern RTC_TimeTypeDef sTime;
