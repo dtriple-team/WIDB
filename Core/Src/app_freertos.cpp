@@ -873,7 +873,7 @@ void StartSecTimerTask(void *argument)
 	    // update Battery
 	    bool pmicBATTERR = 0;
 	    if(pmicSOCRead(&batterylevel) != 0x00){ // occur err
-	    	MX_I2C3_Init(); // occur err...
+	    	//MX_I2C3_Init(); // occur err...
 	    	pmicBATTERR = 1;
 	    }
 	    if(!pmicBATTERR){

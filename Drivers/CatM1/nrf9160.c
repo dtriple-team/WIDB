@@ -424,7 +424,6 @@ void handle_gps_command(const char *value)
     else { // strstr(value, "1,4") => after MSG: GPS DATA
     	if (gpsDataLength > 10) {
     	    const size_t GPS_BUFFER_SIZE = sizeof(cat_m1_at_cmd_rst.gps);
-    	    memset(cat_m1_at_cmd_rst.gps, 0, GPS_BUFFER_SIZE);
     	    int j = 0;
     	    int commaCount = 0;
 
@@ -1010,7 +1009,7 @@ void send_Status_FallDetection(cat_m1_Status_FallDetection_t* fallData)
 void send_GPS_Location(cat_m1_Status_GPS_Location_t* location)
 {
 	cat_m1_Status.mqttChecking = 1;
-    char mqtt_data[1024];
+    char mqtt_data[256];
 
     snprintf(mqtt_data, sizeof(mqtt_data),
     	"{\"extAddress\": {\"low\": %u, \"high\": 0},"
@@ -1024,7 +1023,7 @@ void send_GPS_Location(cat_m1_Status_GPS_Location_t* location)
 
         if (send_at_command(mqtt_data))
         {
-        	osDelay(5000);
+        	osDelay(10000);
             memset(&cat_m1_at_cmd_rst.gps, 0, sizeof(cat_m1_at_cmd_rst.gps));
             PRINT_INFO("JSON send_GPS_Location message sent successfully.\n");
         }
