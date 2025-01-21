@@ -426,10 +426,11 @@ void handle_gps_command(const char *value)
     	    const size_t GPS_BUFFER_SIZE = sizeof(cat_m1_at_cmd_rst.gps);
     	    char *token;
     	    char *rest = (char *)value;
-    	    int count = 0;
     	    int pos = 0;
+    	    int count = 0;
 
-    	    while ((token = strtok_r(rest, ",", &rest)) != NULL && count < 6) {
+    	    while ((token = strtok_r(rest, ",", &rest)) != NULL) {
+    	        if (token[0] == '"') break;
 
     	        int len = strlen(token);
 
@@ -437,13 +438,11 @@ void handle_gps_command(const char *value)
     	            if (count > 0) {
     	                cat_m1_at_cmd_rst.gps[pos++] = ',';
     	            }
-
     	            strcpy(cat_m1_at_cmd_rst.gps + pos, token);
     	            pos += len;
     	            count++;
     	        }
     	    }
-
     	    cat_m1_at_cmd_rst.gps[pos] = '\0';
     	}
     }
