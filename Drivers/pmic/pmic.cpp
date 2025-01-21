@@ -45,7 +45,6 @@ int pmicSOCRead(unsigned char *batterylevel){
 	int ret = -5;
 	extern uint8_t pmicBusyFlag;
 	if(pmicBusyFlag == 0){
-		ret = 0;
 		pmicBusyFlag = 1;
 		ret = max20303.Max20303_BatteryGauge(batterylevel);
 		pmicBusyFlag = 0;

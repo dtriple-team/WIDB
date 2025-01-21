@@ -106,8 +106,8 @@ int MAX20303::readReg(registers_t reg, uint8_t &value)
 	uint8_t uint_reg = reg;
 	uint8_t ret = 0;
 
-	ret |= HAL_I2C_Master_Transmit(&hi2c3, m_writeAddress, &uint_reg, sizeof(uint8_t), 1);
-	ret |= HAL_I2C_Master_Receive(&hi2c3, m_readAddress, &uint_reg, sizeof(uint_reg), 1);
+	ret |= HAL_I2C_Master_Transmit(&hi2c3, m_writeAddress, &uint_reg, sizeof(uint8_t), 10);
+	ret |= HAL_I2C_Master_Receive(&hi2c3, m_readAddress, &uint_reg, sizeof(uint_reg), 10);
 	value = uint_reg;
 
 	return ret;
@@ -194,10 +194,10 @@ int MAX20303::Max20303_BatteryGauge(unsigned char *batterylevel)
 	uint8_t data[2];
 
 	data[0] = 0x04; data[1] = 0x04;
-	ret = HAL_I2C_Master_Transmit(&hi2c3, MAX20303_I2C_ADDR_FUEL_GAUGE,   data, 1, 1);
+	ret = HAL_I2C_Master_Transmit(&hi2c3, MAX20303_I2C_ADDR_FUEL_GAUGE,   data, 1, 10);
 	if (ret != 0)
 		return MAX20303_ERROR;
-	ret = HAL_I2C_Master_Receive (&hi2c3, MAX20303_I2C_ADDR_FUEL_GAUGE+1, data, 2, 1);
+	ret = HAL_I2C_Master_Receive (&hi2c3, MAX20303_I2C_ADDR_FUEL_GAUGE+1, data, 2, 10);
 	if (ret != 0)
 		return MAX20303_ERROR;
 

@@ -965,6 +965,7 @@ void StartSecTimerTask(void *argument)
 	    	//MX_I2C3_Init(); // occur err...
 	    	pmicBATTERR = 1;
 	    }
+	    osDelay(100);
 	    if(!pmicBATTERR){
 	    	// update Battery value
 	    	if(battVal != batterylevel){
