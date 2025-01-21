@@ -45,8 +45,6 @@ extern uint32_t deviceID;
 extern uint8_t deviceID_check;
 extern uint8_t gpsRSSI_0_1;
 
-extern int gpsTime;
-
 bool txCompleteFlag = 0;
 
 void HAL_UART_TxCpltCallback(UART_HandleTypeDef *huart)
@@ -1251,7 +1249,6 @@ void nrf9160_Get_gps()
             cat_m1_Status.Checked = 2;
             //gpsFlag = false;
             gpsState = GPS_INIT;
-            gpsTime = 0;
             break;
     }
 }
