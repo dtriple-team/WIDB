@@ -80,6 +80,7 @@ bool STM32TouchController::sampleTouch(int32_t& x, int32_t& y)
 		case None:
 			x = read_x(touchData);
 			y = read_y(touchData);
+			normalTouch = 1;
 			break;
 		case SingleTap:
 			x = read_x(touchData);
