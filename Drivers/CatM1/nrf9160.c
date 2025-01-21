@@ -1022,7 +1022,7 @@ void send_GPS_Location(cat_m1_Status_GPS_Location_t* location)
 
     snprintf(mqtt_data, sizeof(mqtt_data),
     	"{\"extAddress\": {\"low\": %u, \"high\": 0},"
-    	"\"data\": \"%s"
+    	"\"data\": \"%s\""
         "}+++\r\n",
 		(unsigned int)location->bid, cat_m1_at_cmd_rst.gps);
 
