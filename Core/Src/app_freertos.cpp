@@ -154,7 +154,7 @@ uint32_t imuTemp = 0;
 uint32_t press = 0;
 uint8_t battVal = 0;
 
-uint32_t ssWalk_SUM = 0;
+//uint32_t ssWalk_SUM = 0;
 
 uint8_t hapticFlag = 1;
 uint8_t beforeHaptic = hapticFlag;
@@ -707,9 +707,9 @@ void StartSPMTask(void *argument)
 	}
 	// Smart Sensor Hub init
 	ssInit();
-	ssBegin(0x00);
-	ssRead_setting();
-//	ssRunFlag = 1; // start read PPG, using Timer
+//	ssBegin(0x00);
+//	ssRead_setting();
+////	ssRunFlag = 1; // start read PPG, using Timer
 
 	init_iis2mdc();
 	init_ism330dhcx();
@@ -729,6 +729,10 @@ void StartSPMTask(void *argument)
 	uint8_t accSensi = 2;
 	double ismTemp, gyroX, gyroY, gyroZ, accX, accY, accZ;
 	read_ism330dhcx(gyroSensi, accSensi, &ismTemp, &gyroX, &gyroY, &gyroZ, &accX, &accY, &accZ);
+
+	uint16_t imu_walk = 0;
+	read_ism330dhcx_stepCount(&imu_walk);
+	ssWalk = (uint32_t)imu_walk;
 
 	double pressure, lpsTemp;
 	read_lps22hh(&pressure, &lpsTemp);
@@ -1271,45 +1275,6 @@ void read_ppg()
 
     memcpy(&lcd_ssDataEx, ssDataEx, sizeof(ssDataEx_format));
 
-//    scdStateSamples[scdSampleIndex] = lcd_ssDataEx.algo.SCDstate;
-//    scdSampleIndex = (scdSampleIndex + 1) % SDC_COUNT;
-//
-//    int count1 = 0, count2 = 0, count3 = 0;
-//    for (int i = 0; i < SDC_COUNT; i++)
-//    {
-//        if (scdStateSamples[i] == 1) count1++;
-//        else if (scdStateSamples[i] == 2) count2++;
-//        else if (scdStateSamples[i] == 3) count3++;
-//    }
-//
-//    int scdStateAvg;
-//    if (count3 >= count1 && count3 >= count2) scdStateAvg = 3;
-//    else if (count2 >= count1 && count2 >= count3) scdStateAvg = 2;
-//    else scdStateAvg = 1;
-//
-//    if (scdStateAvg == 3)
-//    {
-//        ssSCD = 3;
-//        ssHr = lcd_ssDataEx.algo.hr / 10;
-//
-//        if (lcd_ssDataEx.algo.spo2 != 0)
-//        {
-//            ssSpo2 = lcd_ssDataEx.algo.spo2 / 10;
-//        }
-//    }
-//    else if (scdStateAvg == 2)
-//    {
-//        ssSCD = 2;
-//        ssHr = 0;
-//        ssSpo2 = 0;
-//    }
-//    else
-//    {
-//        ssSCD = 1;
-//        ssHr = 0;
-//        ssSpo2 = 0;
-//    }
-
     if(spo2Flag == 1 || hrFlag == 1){
 		scdStateSamples[scdSampleIndex] = lcd_ssDataEx.algo.SCDstate;
 		scdSampleIndex = (scdSampleIndex + 1) % SDC_COUNT;
@@ -1350,7 +1315,7 @@ void read_ppg()
 		}
     }
 
-    ssWalk = lcd_ssDataEx.algo.totalWalkSteps + ssWalk_SUM;
+//    ssWalk = lcd_ssDataEx.algo.totalWalkSteps + ssWalk_SUM;
 
     free(ssDataEx);
     canDisplayPPG = 1;
@@ -1614,7 +1579,7 @@ void measPPG(){
 		// start ppg
 		if(ppgMeaserCount % spo2MeaserPeriode_sec == 0){
 //			mfioGPIOModeChange(output);
-			ssWalk_SUM = ssWalk; // total walk count ?��?�� ?��?��
+//			ssWalk_SUM = ssWalk; // total walk count ?��?�� ?��?��
 			ssBegin(0x00);
 			ssRead_setting();
 			spo2Flag = 1;
@@ -1622,7 +1587,7 @@ void measPPG(){
 		}
 		else if(ppgMeaserCount % hrMeaserPeriode_sec == 0){
 //			mfioGPIOModeChange(output);
-			ssWalk_SUM = ssWalk; // total walk count ?��?�� ?��?��
+//			ssWalk_SUM = ssWalk; // total walk count ?��?�� ?��?��
 			ssBegin(0x02);
 			ssRead_setting();
 			hrFlag = 1;
@@ -1641,13 +1606,13 @@ void measPPG(){
 		}
 
 		if(spo2Count == 60){ // < spo2MeaserPeriode_sec = 60*5
-			ssWalk_SUM = ssWalk; // total walk count ?��?�� ?��?��
+//			ssWalk_SUM = ssWalk; // total walk count ?��?�� ?��?��
 			ssBegin(0x05);
 			spo2Count = 0;
 			spo2Flag = 0;
 		}
 		if(hrCount == 30){ // < hrMeaserPeriode_sec = 60 * 1
-			ssWalk_SUM = ssWalk; // total walk count ?��?�� ?��?��
+//			ssWalk_SUM = ssWalk; // total walk count ?��?�� ?��?��
 			ssBegin(0x05);
 			hrCount = 0;
 			hrFlag = 0;
@@ -1658,7 +1623,7 @@ void measPPG(){
 	if(ppgMeasFlag == 1){
 		ppgMeaserCount++;
 	} else {
-		ssWalk_SUM = ssWalk; // total walk count 누적 필요
+//		ssWalk_SUM = ssWalk; // total walk count 누적 필요
 		ssBegin(0x05);
 		ssRead_setting();
 		hrCount = 0;
