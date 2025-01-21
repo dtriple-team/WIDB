@@ -275,6 +275,8 @@ fallDetectedViewBase myFallDetectedView;
 tempHomeViewBase myTempHomeView;
 sos_alertViewBase mySOSAlertViewBase;
 
+uint8_t backlightTurnONCheck = 0;
+
 extern uint8_t occurred_imuInterrupt;
 extern uint8_t occurred_PMICBUTTInterrupt;
 extern uint8_t occurred_touchInterrupt;
@@ -436,6 +438,7 @@ void StartlcdTask(void *argument)
 	ST7789_gpio_setting();
 	ST7789_Init();
 	ST7789_brightness_setting(set_bLevel);
+	backlightTurnONCheck = 1;
 
 	lcdInitFlag = 1;
 
@@ -1010,8 +1013,10 @@ void StartSecTimerTask(void *argument)
 		// turn on LCD backlight (in screenOnTime, active only one)
 	    if(sendSOSFlag == 0){
 			if(brightness_count == 0){
-				if(pre_brightness_count >= screenOnTime-1) // => occurred touch backlight bug
+				if(backlightTurnONCheck == 0){ // => occurred touch backlight bug
 					ST7789_brightness_setting(set_bLevel);
+					backlightTurnONCheck = 1;
+				}
 				brightness_count++;
 				now_sleepmode = 0;
 			}
@@ -1021,11 +1026,12 @@ void StartSecTimerTask(void *argument)
 			// turn off LCD backlight (out of screenOnTime)
 			else if(brightness_count >= screenOnTime){
 				ST7789_brightness_setting(0);
+				backlightTurnONCheck = 0;
 				myBlackScreenView.changeToInitBlackScreen();
 				osDelay(100);
 				now_sleepmode = 1;
 			}
-			pre_brightness_count = brightness_count;
+//			pre_brightness_count = brightness_count;
 	    }
 
 		cat_m1_rssi_cycleTime++;
