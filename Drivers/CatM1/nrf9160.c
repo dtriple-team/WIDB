@@ -424,32 +424,24 @@ void handle_gps_command(const char *value)
     else { // strstr(value, "1,4") => after MSG: GPS DATA
     	if (gpsDataLength > 10) {
     	    const size_t GPS_BUFFER_SIZE = sizeof(cat_m1_at_cmd_rst.gps);
-    	    char tempBuffer[GPS_BUFFER_SIZE];
-    	    memset(tempBuffer, 0, GPS_BUFFER_SIZE);
+    	    memset(cat_m1_at_cmd_rst.gps, 0, GPS_BUFFER_SIZE);
     	    int j = 0;
-
     	    int commaCount = 0;
 
     	    for (int i = 0; value[i] != '\0' && i < gpsDataLength && j < (GPS_BUFFER_SIZE - 1); i++) {
     	        if (value[i] == ',') {
     	            commaCount++;
-    	            tempBuffer[j++] = value[i];
+    	            cat_m1_at_cmd_rst.gps[j++] = value[i];
     	        }
     	        else if (commaCount >= 6 && value[i] == '"') {
     	            continue;
     	        }
     	        else {
-    	            tempBuffer[j++] = value[i];
+    	            cat_m1_at_cmd_rst.gps[j++] = value[i];
     	        }
     	    }
 
-    	    tempBuffer[GPS_BUFFER_SIZE - 1] = '\0';
-
-    	    if (strlen(tempBuffer) > 0) {
-    	        memset(cat_m1_at_cmd_rst.gps, 0, GPS_BUFFER_SIZE);
-    	        strncpy((char *)cat_m1_at_cmd_rst.gps, tempBuffer, GPS_BUFFER_SIZE - 1);
-    	        cat_m1_at_cmd_rst.gps[GPS_BUFFER_SIZE - 1] = '\0';
-    	    }
+    	    cat_m1_at_cmd_rst.gps[GPS_BUFFER_SIZE - 1] = '\0';
     	}
     }
 }
