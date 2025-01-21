@@ -59,18 +59,11 @@ bool STM32TouchController::sampleTouch(int32_t& x, int32_t& y)
 	if(!occurred_touchInterrupt) return false; // ???�� ?��?��?��?�� ?�� ?��?��,.. 짝수?�� ?��?��?��
 
 	touchDetectFlag = touchDetect(touchData);
-//	if(!touchDetectFlag){
-//		brightness_count = 0;
-//	}
 
-	//	uint8_t touchData[6] = {0,};
 	uint8_t err = readTouchData(touchData, sizeof(touchData));
-//	occurred_touchInterrupt = 0;
 
 	if(err) return false;
 
-//	x = before_x;
-//	y = before_y;
 
 	gesture = static_cast<GESTURE>(touchData[0]);
 	HAL_Delay(20); // debouncing
@@ -92,8 +85,6 @@ bool STM32TouchController::sampleTouch(int32_t& x, int32_t& y)
 			lastGesture = gesture;
 	}
 
-//	before_x = x;
-//	before_y = y;
 
 	if(normalTouch){
 		return true;
@@ -101,14 +92,52 @@ bool STM32TouchController::sampleTouch(int32_t& x, int32_t& y)
 		return false;
 	}
 
-//	if(touchDetect(touchData)){
-//		x = read_x(touchData);
-//		y = read_y(touchData);
-//		brightness_count = 0;
+
+//	//////// touch state check (손가락 땔때만 입력 되도록) /////////
 //
-//		return true;
+//	if(!occurred_touchInterrupt) return false; // ???�� ?��?��?��?�� ?�� ?��?��,.. 짝수?�� ?��?��?��
+//
+//	touchDetectFlag = touchDetect(touchData);
+//
+//	uint8_t err = readTouchData(touchData, sizeof(touchData));
+//
+//	if(err) return false;
+//
+//	now_touchState = touchData[1]; // 1: touch, 0: no touch
+//
+//	gesture = static_cast<GESTURE>(touchData[0]);
+//	HAL_Delay(20); // debouncing
+//
+//	uint8_t normalTouch = 0;
+//	switch(gesture){
+//		case None:
+//			x = read_x(touchData);
+//			y = read_y(touchData);
+//			normalTouch = 1;
+//			break;
+//		case SingleTap:
+//			x = read_x(touchData);
+//			y = read_y(touchData);
+//			lastGesture = gesture;
+//			normalTouch = 1;
+//			break;
+//		default: // slide interrupt
+//			lastGesture = gesture;
 //	}
-//	return false;
+//
+//	if(normalTouch){
+//		if(pre_touchState == 1 && now_touchState == 0){
+//			pre_touchState = now_touchState;
+//			return true;
+//		} else {
+//			pre_touchState = now_touchState;
+//			return false;
+//		}
+//	} else {
+//		pre_touchState = now_touchState;
+//		return false;
+//	}
+
 
 }
 
