@@ -277,6 +277,7 @@ sos_alertViewBase mySOSAlertViewBase;
 
 extern uint8_t occurred_imuInterrupt;
 extern uint8_t occurred_PMICBUTTInterrupt;
+extern uint8_t occurred_touchInterrupt;
 
 void mfioGPIOModeChange(GPIOMode mode);
 void measPPG(void);
@@ -1324,6 +1325,10 @@ void StartCheckINTTask(void *argument)
 
     	occurred_PMICBUTTInterrupt = 0;
     }
+
+    if(occurred_touchInterrupt){
+
+    }
   }
   /* USER CODE END checkINTTask */
 }
@@ -1689,6 +1694,7 @@ void mfioGPIOModeChange(GPIOMode mode){
 //	ssRead_setting();
 uint8_t spo2Count = 0;
 uint8_t hrCount = 0;
+uint8_t pre_ppgMeasFlag = 0;
 void measPPG(){
 //	if (ppgMeasFlag == 0){
 		ssRunFlag = 0;
@@ -1737,15 +1743,28 @@ void measPPG(){
 		ssRunFlag = 1;
 //	}
 
-	if(ppgMeasFlag == 1){
-		ppgMeaserCount++;
-	} else {
-//		ssWalk_SUM = ssWalk; // total walk count 누적 필요
-		ssBegin(0x05);
-		ssRead_setting();
-		hrCount = 0;
-		spo2Count = 0;
+//	if(ppgMeasFlag == 1){
+//		ppgMeaserCount++;
+//	} else {
+////		ssWalk_SUM = ssWalk; // total walk count 누적 필요
+//		ssBegin(0x05);
+//		ssRead_setting();
+//		hrCount = 0;
+//		spo2Count = 0;
+//	}
+	if(pre_ppgMeasFlag != ppgMeasFlag){
+		if(ppgMeasFlag == 1){
+			ppgMeaserCount++;
+		} else {
+			ppgMeaserCount = 1;
+//			ssWalk_SUM = ssWalk; // total walk count ?��?�� ?��?��
+			ssBegin(0x05);
+			ssRead_setting();
+			hrCount = 0;
+			spo2Count = 0;
+		}
 	}
+	pre_ppgMeasFlag = ppgMeasFlag;
 	return;
 }
 /* USER CODE END Application */
