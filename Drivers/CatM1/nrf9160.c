@@ -1213,7 +1213,7 @@ void nrf9160_Get_gps()
             if (!cat_m1_Status.gpsOn)
             {
 #if defined(nRF9160_KT)
-            	send_at_command("AT#XGPS=1,1,0,240\r\n");
+            	send_at_command("AT#XGPS=1,1,0,300\r\n");
 #else
                 send_at_command("AT#XGPS=1,0,0,180\r\n");
 #endif
