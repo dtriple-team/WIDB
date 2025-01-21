@@ -11,6 +11,8 @@
 #include "stm32u5xx_hal.h"
 #include <stdbool.h>
 
+#include <time.h>
+
 #include "cmsis_os2.h"
 //DK
 //// CA Certificate
@@ -317,5 +319,8 @@ void catM1PWRGPIOInit();
 void nrf9160_Get_cell_location();
 
 catM1Time getCatM1Time(void);
+
+time_t convertToTimeT(catM1Time dt);
+bool isDifferenceWithinNMinute(catM1Time dt1, catM1Time dt2, uint16_t thresholdTime);
 
 #endif /* CATM1_NRF9160_H_ */

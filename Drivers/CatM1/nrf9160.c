@@ -1456,3 +1456,27 @@ catM1Time getCatM1Time(void){
 
 	return nowTime;
 }
+
+// Function to convert catM1Time to time_t
+// Assumes the input is valid and within a valid range
+time_t convertToTimeT(catM1Time dt) {
+    struct tm t = {0};
+    t.tm_year = dt.year - 1900; // tm_year is years since 1900
+    t.tm_mon = dt.month - 1;   // tm_mon is 0-based (0 = January)
+    t.tm_mday = dt.day;
+    t.tm_hour = dt.hour;
+    t.tm_min = dt.min;
+    t.tm_sec = dt.sec;
+    return mktime(&t);
+}
+
+// Function to determine if the difference between two catM1Time inputs is 1 minute or less
+bool isDifferenceWithinNMinute(catM1Time dt1, catM1Time dt2, uint16_t thresholdTime) {
+    time_t time1 = convertToTimeT(dt1);
+    time_t time2 = convertToTimeT(dt2);
+
+    // Get the absolute difference in seconds
+    double difference = difftime(time1, time2);
+
+    return difference <= thresholdTime && difference >= (-1*thresholdTime); // Check if difference is within 1 minute
+}
