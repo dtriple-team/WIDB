@@ -421,6 +421,8 @@ void StartlcdTask(void *argument)
 	pmic_init();
 	pmicInitFlag = 1;
 
+	pmicSOCRead(&battVal);
+
 	while(!pmicInitFlag){
 		osDelay(10);
 	}
