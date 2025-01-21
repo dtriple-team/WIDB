@@ -424,32 +424,26 @@ void handle_gps_command(const char *value)
     else { // strstr(value, "1,4") => after MSG: GPS DATA
     	if (gpsDataLength > 10) {
     	    const size_t GPS_BUFFER_SIZE = sizeof(cat_m1_at_cmd_rst.gps);
-    	    char tempBuffer[GPS_BUFFER_SIZE];
-    	    memset(tempBuffer, 0, GPS_BUFFER_SIZE);
-    	    int j = 0;
+    	    char *token;
+    	    char *rest = (char *)value;
+    	    int pos = 0;
+    	    int count = 0;
 
-    	    int commaCount = 0;
+    	    while ((token = strtok_r(rest, ",", &rest)) != NULL) {
+    	        if (token[0] == '"') break;
 
-    	    for (int i = 0; value[i] != '\0' && i < gpsDataLength && j < (GPS_BUFFER_SIZE - 1); i++) {
-    	        if (value[i] == ',') {
-    	            commaCount++;
-    	            tempBuffer[j++] = value[i];
-    	        }
-    	        else if (commaCount >= 6 && value[i] == '"') {
-    	            continue;
-    	        }
-    	        else {
-    	            tempBuffer[j++] = value[i];
+    	        int len = strlen(token);
+
+    	        if ((pos + len + 1) < GPS_BUFFER_SIZE) {
+    	            if (count > 0) {
+    	                cat_m1_at_cmd_rst.gps[pos++] = ',';
+    	            }
+    	            strcpy(cat_m1_at_cmd_rst.gps + pos, token);
+    	            pos += len;
+    	            count++;
     	        }
     	    }
-
-    	    tempBuffer[GPS_BUFFER_SIZE - 1] = '\0';
-
-    	    if (strlen(tempBuffer) > 0) {
-    	        memset(cat_m1_at_cmd_rst.gps, 0, GPS_BUFFER_SIZE);
-    	        strncpy((char *)cat_m1_at_cmd_rst.gps, tempBuffer, GPS_BUFFER_SIZE - 1);
-    	        cat_m1_at_cmd_rst.gps[GPS_BUFFER_SIZE - 1] = '\0';
-    	    }
+    	    cat_m1_at_cmd_rst.gps[pos] = '\0';
     	}
     }
 }
@@ -1018,11 +1012,11 @@ void send_Status_FallDetection(cat_m1_Status_FallDetection_t* fallData)
 void send_GPS_Location(cat_m1_Status_GPS_Location_t* location)
 {
 	cat_m1_Status.mqttChecking = 1;
-    char mqtt_data[1024];
+    char mqtt_data[256];
 
     snprintf(mqtt_data, sizeof(mqtt_data),
     	"{\"extAddress\": {\"low\": %u, \"high\": 0},"
-    	"\"data\": \"%s"
+    	"\"data\": \"%s\""
         "}+++\r\n",
 		(unsigned int)location->bid, cat_m1_at_cmd_rst.gps);
 
