@@ -65,15 +65,17 @@ bool STM32TouchController::sampleTouch(int32_t& x, int32_t& y)
 
 	//	uint8_t touchData[6] = {0,};
 	uint8_t err = readTouchData(touchData, sizeof(touchData));
-	occurred_touchInterrupt = 0;
+//	occurred_touchInterrupt = 0;
 
 	if(err) return false;
 
-	x = before_x;
-	y = before_y;
+//	x = before_x;
+//	y = before_y;
 
 	gesture = static_cast<GESTURE>(touchData[0]);
 	HAL_Delay(20); // debouncing
+
+	uint8_t normalTouch = 0;
 	switch(gesture){
 		case None:
 			x = read_x(touchData);
@@ -83,15 +85,20 @@ bool STM32TouchController::sampleTouch(int32_t& x, int32_t& y)
 			x = read_x(touchData);
 			y = read_y(touchData);
 			lastGesture = gesture;
+			normalTouch = 1;
 			break;
 		default: // slide interrupt
 			lastGesture = gesture;
 	}
 
-	before_x = x;
-	before_y = y;
+//	before_x = x;
+//	before_y = y;
 
-	return true;
+	if(normalTouch){
+		return true;
+	} else {
+		return false;
+	}
 
 //	if(touchDetect(touchData)){
 //		x = read_x(touchData);

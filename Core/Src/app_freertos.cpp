@@ -1003,7 +1003,7 @@ void StartSecTimerTask(void *argument)
 		// turn on LCD backlight (in screenOnTime, active only one)
 	    if(sendSOSFlag == 0){
 			if(brightness_count == 0){
-				if(pre_brightness_count >= screenOnTime)
+				if(pre_brightness_count >= screenOnTime-1) // => occurred touch backlight bug
 					ST7789_brightness_setting(set_bLevel);
 				brightness_count++;
 				now_sleepmode = 0;
@@ -1188,51 +1188,51 @@ void StartCheckINTTask(void *argument)
   {
     osDelay(100);
 
-    if(occurred_imuInterrupt){
-    	occurred_imuInterrupt = 0;
-    	interrupt_kind = whatKindInterrupt();
-    	if((interrupt_kind & 0x01) == 0x01){
-    		// free-fall + pressure(after outlier delet => cal mean val)
-    		/*
-    		 * back light enable
-    		 * change screen
-    		 * haptic
-    		 * send signal to web server using CatM1
-    		 */
-//    		freeFall_int_on = true;
-
-//    		cat_m1_Status_FallDetection.bid = deviceID;
-//    		cat_m1_Status_FallDetection.type = 0;
-//    		cat_m1_Status_FallDetection.fall_detect = 1;
+//    if(occurred_imuInterrupt){
+//    	occurred_imuInterrupt = 0;
+//    	interrupt_kind = whatKindInterrupt();
+//    	if((interrupt_kind & 0x01) == 0x01){
+//    		// free-fall + pressure(after outlier delet => cal mean val)
+//    		/*
+//    		 * back light enable
+//    		 * change screen
+//    		 * haptic
+//    		 * send signal to web server using CatM1
+//    		 */
+////    		freeFall_int_on = true;
 //
-//    		PRINT_INFO("catM1MqttDangerMessage\r\n");
+////    		cat_m1_Status_FallDetection.bid = deviceID;
+////    		cat_m1_Status_FallDetection.type = 0;
+////    		cat_m1_Status_FallDetection.fall_detect = 1;
+////
+////    		PRINT_INFO("catM1MqttDangerMessage\r\n");
+////
+////    		myFallDetectedView.changeToFallDetected();
+////    		before_bLevel = set_bLevel;
+////    		brightness_count = 0;
+////    		ST7789_brightness_setting(16);
 //
-//    		myFallDetectedView.changeToFallDetected();
-//    		before_bLevel = set_bLevel;
-//    		brightness_count = 0;
-//    		ST7789_brightness_setting(16);
-
-    	}
-    	if((interrupt_kind & 0x02) == 0x02){
-    		// wake-up
-    	}
-    	if((interrupt_kind & 0x04) == 0x04){
-    		// single-tap
-    	}
-    	if((interrupt_kind & 0x08) == 0x08){
-    		// double-tap
-    	}
-    	if((interrupt_kind & 0x10) == 0x10){
-    		// change position
-//    		if(now_sleepmode == 1){
-//				ST7789_brightness_setting(now_bLevel);
-//				myBlackScreenView.changeToInitBlackScreen();
-//    		}
-    	}
-    	if((interrupt_kind & 0x20) == 0x20){
-    		// change activity/inactivity
-    	}
-    }
+//    	}
+//    	if((interrupt_kind & 0x02) == 0x02){
+//    		// wake-up
+//    	}
+//    	if((interrupt_kind & 0x04) == 0x04){
+//    		// single-tap
+//    	}
+//    	if((interrupt_kind & 0x08) == 0x08){
+//    		// double-tap
+//    	}
+//    	if((interrupt_kind & 0x10) == 0x10){
+//    		// change position
+////    		if(now_sleepmode == 1){
+////				ST7789_brightness_setting(now_bLevel);
+////				myBlackScreenView.changeToInitBlackScreen();
+////    		}
+//    	}
+//    	if((interrupt_kind & 0x20) == 0x20){
+//    		// change activity/inactivity
+//    	}
+//    }
 
     // MCU GPIO button click => change to home screen & backlight on
 //    if(HAL_GPIO_ReadPin(GPIOB, GPIO_PIN_12) == GPIO_PIN_RESET){
@@ -1328,7 +1328,7 @@ void StartCheckINTTask(void *argument)
     }
 
     if(occurred_touchInterrupt){
-    	occurred_touchInterrupt = 0;
+    	occurred_touchInterrupt = 0; // => 안된다고?????
     	brightness_count = 0;
     }
   }
