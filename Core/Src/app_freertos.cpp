@@ -359,6 +359,7 @@ void MX_FREERTOS_Init(void) {
 * @param argument: Not used
 * @retval None
 */
+uint8_t haptic_check_temp = 0;
 /* USER CODE END Header_StartInitTask */
 void StartInitTask(void *argument)
 {
@@ -381,18 +382,21 @@ void StartInitTask(void *argument)
 		int isPMIC_I2C_SUCC = 0;
 		// haptic
 		if(cat_m1_Status_FallDetection.fall_detect == 1){
+			haptic_check_temp = 1;
 			if(hapticFlag == 1){
 				isPMIC_I2C_SUCC = runHaptic(20, 500, 3);
 			}
 			brightness_count = 0; // lcd backlight count reset
 		}
 		if(beforeHaptic != hapticFlag){ // toggle haptic BTN
+			haptic_check_temp = 2;
 			beforeHaptic = hapticFlag;
 			if(hapticFlag == 1){
 				isPMIC_I2C_SUCC = runHaptic(20, 500, 1);
 			}
 		}
 		if(haptic_SOS == 1){
+			haptic_check_temp = 3;
 			if(hapticFlag == 1){
 				isPMIC_I2C_SUCC = runHaptic(20, 500, 3);
 			}
@@ -963,10 +967,12 @@ void StartSecTimerTask(void *argument)
 	    bool pmicBATTERR = 0;
 	    if(pmicSOCRead(&batterylevel) != 0x00){ // occur err
 	    	//MX_I2C3_Init(); // occur err...
+	    	haptic_check_temp = 4;
 	    	pmicBATTERR = 1;
 	    }
 	    osDelay(100);
 	    if(!pmicBATTERR){
+	    	haptic_check_temp = 5;
 	    	// update Battery value
 	    	if(battVal != batterylevel){
 	    		battVal = batterylevel;
@@ -1073,7 +1079,7 @@ void StartSecTimerTask(void *argument)
 		if(gpsTime > gps_operation_cycle)
 		{
 			gpsFlag = true;
-			gpsTime = 0;
+			//gpsTime = 0;
 		}
 		if(cat_m1_Status.gpsChecking)
 		{
