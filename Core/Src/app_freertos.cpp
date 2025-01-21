@@ -1047,6 +1047,7 @@ void StartSecTimerTask(void *argument)
 		if(mqttTime > mqtt_operation_cycle)
 		{
 			mqttFlag = true;
+			osDelay(100);
 			mqttTime = 0;
 		}
 
@@ -1079,7 +1080,8 @@ void StartSecTimerTask(void *argument)
 		if(gpsTime > gps_operation_cycle)
 		{
 			gpsFlag = true;
-			//gpsTime = 0;
+			osDelay(100);
+			gpsTime = 0;
 		}
 		if(cat_m1_Status.gpsChecking)
 		{

@@ -45,8 +45,6 @@ extern uint32_t deviceID;
 extern uint8_t deviceID_check;
 extern uint8_t gpsRSSI_0_1;
 
-extern int gpsTime;
-
 bool txCompleteFlag = 0;
 
 void HAL_UART_TxCpltCallback(UART_HandleTypeDef *huart)
@@ -1220,25 +1218,25 @@ void nrf9160_Get_gps()
                 send_at_command("AT#XGPS=1,0,0,180\r\n");
 #endif
 
-//                osDelay(2000);
-//                send_at_command("AT#XGPS?\r\n");
-//
-//                if (cat_m1_Status.parseResult == 0)
-//                {
-//                    send_at_command("AT#XGPS=0\r\n");
-//                    osDelay(1000);
-//                    cat_m1_Status.errorCount = 0;
-//
-//                }
+                osDelay(2000);
+                send_at_command("AT#XGPS?\r\n");
 
-//                osDelay(500);
-//                cat_m1_Status.retryCount++;
-//
-//                if (cat_m1_Status.retryCount >= 60)
-//                {
-//                	catM1Reset();
-//                    //gpsState = GPS_COMPLETE;
-//                }
+                if (cat_m1_Status.parseResult == 0)
+                {
+                    send_at_command("AT#XGPS=0\r\n");
+                    osDelay(1000);
+                    cat_m1_Status.errorCount = 0;
+
+                }
+
+                osDelay(500);
+                cat_m1_Status.retryCount++;
+
+                if (cat_m1_Status.retryCount >= 60)
+                {
+                	catM1Reset();
+                    //gpsState = GPS_COMPLETE;
+                }
             }
             else
             {
@@ -1251,7 +1249,6 @@ void nrf9160_Get_gps()
             cat_m1_Status.Checked = 2;
             //gpsFlag = false;
             gpsState = GPS_INIT;
-            gpsTime = 0;
             break;
     }
 }
