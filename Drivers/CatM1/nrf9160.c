@@ -424,23 +424,27 @@ void handle_gps_command(const char *value)
     else { // strstr(value, "1,4") => after MSG: GPS DATA
     	if (gpsDataLength > 10) {
     	    const size_t GPS_BUFFER_SIZE = sizeof(cat_m1_at_cmd_rst.gps);
-    	    int j = 0;
-    	    int commaCount = 0;
+    	    char *token;
+    	    char *rest = (char *)value;
+    	    int count = 0;
+    	    int pos = 0;
 
-    	    for (int i = 0; value[i] != '\0' && i < gpsDataLength && j < (GPS_BUFFER_SIZE - 1); i++) {
-    	        if (value[i] == ',') {
-    	            commaCount++;
-    	            cat_m1_at_cmd_rst.gps[j++] = value[i];
-    	        }
-    	        else if (commaCount >= 6 && value[i] == '"') {
-    	            continue;
-    	        }
-    	        else {
-    	            cat_m1_at_cmd_rst.gps[j++] = value[i];
+    	    while ((token = strtok_r(rest, ",", &rest)) != NULL && count < 6) {
+
+    	        int len = strlen(token);
+
+    	        if ((pos + len + 1) < GPS_BUFFER_SIZE) {
+    	            if (count > 0) {
+    	                cat_m1_at_cmd_rst.gps[pos++] = ',';
+    	            }
+
+    	            strcpy(cat_m1_at_cmd_rst.gps + pos, token);
+    	            pos += len;
+    	            count++;
     	        }
     	    }
 
-    	    cat_m1_at_cmd_rst.gps[GPS_BUFFER_SIZE - 1] = '\0';
+    	    cat_m1_at_cmd_rst.gps[pos] = '\0';
     	}
     }
 }
