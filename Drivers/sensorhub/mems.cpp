@@ -135,6 +135,29 @@ void init_ism330dhcx(){ // 주석 설명 필요
 	tx_data[0] = ISM330DHCX_CTRL1_XL;
 	tx_data[1] = 0x62;
 	err |= HAL_I2C_Master_Transmit(&hi2c1, ISM330DHCX_ADDR_W, tx_data, 2, 100);
+
+	////////////////// step counter enable //////////////////
+
+	uint8_t wData[1] = {0x80};
+	err |= HAL_I2C_Mem_Write(&hi2c1, ISM330DHCX_ADDR_W, 0x0001, 1, wData, 1, 100);
+
+	uint8_t rData[1] = {0x00};
+
+	// EMB_FUNC_EN_A => PEDO_EN
+	uint8_t startRegAddr = 0x04;
+	err |= HAL_I2C_Mem_Read(&hi2c1, ISM330DHCX_ADDR_W+1, (uint16_t)startRegAddr, 1, rData, sizeof(rData), 100);
+
+	tx_data[0] = startRegAddr;
+	tx_data[1] = rData[0] | 0x08;
+	err |= HAL_I2C_Master_Transmit(&hi2c1, ISM330DHCX_ADDR_W, tx_data, 2, 100);
+
+	// EMB_FUNC_INIT_A => STEP_DET_INIT
+	startRegAddr = 0x66;
+	err |= HAL_I2C_Mem_Read(&hi2c1, ISM330DHCX_ADDR_W+1, (uint16_t)startRegAddr, 1, rData, sizeof(rData), 100);
+
+	tx_data[0] = startRegAddr;
+	tx_data[1] = rData[0] | 0x08;
+	err |= HAL_I2C_Master_Transmit(&hi2c1, ISM330DHCX_ADDR_W, tx_data, 2, 100);
 }
 
 void read_ism330dhcx(uint16_t gyroSensi, uint8_t accSensi, double* temp, double* gyroX, double* gyroY, double* gyroZ, double* accX, double* accY, double* accZ){
