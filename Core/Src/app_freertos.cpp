@@ -92,7 +92,7 @@ int gps_operation_cycle  = 60*10;
 int gpsTime = 0;
 bool gpsFlag = false;
 
-#define gps_offCheck_cycle (60*10)+10
+#define gps_offCheck_cycle (60*5)+10
 int gpsOffCheckTime = 0;
 
 int cell_location_operation_cycle  = 60*1;
@@ -1084,6 +1084,7 @@ void StartSecTimerTask(void *argument)
 			catM1Reset();
 #else
 			nrf9160_Stop_gps();
+			gpsFlag = false;
 #endif
 		}
 //		if(cell_locationFlag == 0)
