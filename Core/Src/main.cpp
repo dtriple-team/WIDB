@@ -269,7 +269,10 @@ void HAL_GPIO_EXTI_Falling_Callback(uint16_t GPIO_Pin)
   }
   else if(GPIO_Pin == HOME_BTN_Pin){
   	  occured_HOMEBTNInterrupt = 1;
-  	}
+  }
+  else if(GPIO_Pin == TP_INT_Pin){
+	  occurred_touchInterrupt = 1;
+  }
 }
 /* USER CODE END 4 */
 
