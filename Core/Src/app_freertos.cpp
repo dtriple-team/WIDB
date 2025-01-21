@@ -1083,6 +1083,7 @@ void StartSecTimerTask(void *argument)
 			catM1Reset();
 #else
 			nrf9160_Stop_gps();
+			gpsFlag = false;
 #endif
 		}
 //		if(cell_locationFlag == 0)
