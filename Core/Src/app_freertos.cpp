@@ -99,9 +99,14 @@ int cell_location_operation_cycle  = 60*1;
 int cell_locationTime = 0;
 bool cell_locationFlag = true;
 
-#define fall_Check_cycle 0 // falling event occure => after N sec => MQTT // 60
+#define fall_Check_cycle 60 // falling event occure => after N sec => MQTT // 60
 int fallCheckTime = 0;
 uint8_t fallCheckFlag = 0;
+
+#define SOS_Check_cycle 60 // SOS event occure => after N sec => MQTT // 60
+uint8_t SOSCheckTime = 0;
+uint8_t SOSCheckFlag = 0;
+uint8_t sendSOSFlag = 0;
 
 int pressCheckTime = 0;
 uint8_t pressCheckFlag = 0;
@@ -215,7 +220,7 @@ const osThreadAttr_t spmTask_attributes = {
 osThreadId_t secTimerTaskHandle;
 const osThreadAttr_t secTimerTask_attributes = {
   .name = "secTimerTask",
-  .stack_size = 128 * 4,
+  .stack_size = 512 * 4, // 512
   .priority = (osPriority_t) osPriorityNormal
 
 };
@@ -252,7 +257,7 @@ uint8_t wpmInitializationFlag = 0;
 uint8_t lcdInitFlag = 0;
 
 double test_mag_data[15] = {0,};
-uint8_t set_bLevel = 7; // GUI val ?��?��
+uint8_t set_bLevel = 1; // GUI val ?��?�� // default bright level
 uint8_t before_bLevel = set_bLevel;
 uint8_t flashlightOn = 0;
 
@@ -916,22 +921,25 @@ void StartSecTimerTask(void *argument)
 	    }
 
 		// turn on LCD backlight (in screenOnTime, active only one)
-		if(brightness_count == 0){
-			if(pre_brightness_count >= screenOnTime)
-				ST7789_brightness_setting(set_bLevel);
-			brightness_count++;
-			now_sleepmode = 0;
-		}
-		else if(brightness_count < screenOnTime){
-			brightness_count++;
-		}
-		// turn off LCD backlight (out of screenOnTime)
-		else if(brightness_count >= screenOnTime){
-			ST7789_brightness_setting(0);
-			myBlackScreenView.changeToInitBlackScreen();
-			now_sleepmode = 1;
-		}
-		pre_brightness_count = brightness_count;
+	    if(sendSOSFlag == 0){
+			if(brightness_count == 0){
+				if(pre_brightness_count >= screenOnTime)
+					ST7789_brightness_setting(set_bLevel);
+				brightness_count++;
+				now_sleepmode = 0;
+			}
+			else if(brightness_count < screenOnTime){
+				brightness_count++;
+			}
+			// turn off LCD backlight (out of screenOnTime)
+			else if(brightness_count >= screenOnTime){
+				ST7789_brightness_setting(0);
+				myBlackScreenView.changeToInitBlackScreen();
+				osDelay(100);
+				now_sleepmode = 1;
+			}
+			pre_brightness_count = brightness_count;
+	    }
 
 		cat_m1_rssi_cycleTime++;
 //		PRINT_INFO("mqttTime >>> %d\r\n",mqttTime);
@@ -1027,6 +1035,31 @@ void StartSecTimerTask(void *argument)
 		{
 			pressCheckStartFlag = 1;
 			pressCheckStartTime = 0;
+		}
+
+		if(sendSOSFlag == 1)
+		{
+			SOSCheckTime++;
+			brightness_count = 0;
+		}
+		if(SOSCheckTime > SOS_Check_cycle){
+			if (cat_m1_Status.gpsChecking)
+			{
+				nrf9160_Stop_gps();
+			}
+
+			sendSOSFlag = 0;
+			SOSCheckTime = 0;
+			// haptic
+			haptic_SOS = 1;
+			// send SOS MQTT
+			cat_m1_Status_BandAlert.bid = deviceID;
+			cat_m1_Status_BandAlert.type = 6;
+			cat_m1_Status_BandAlert.value = 1;
+			send_Status_BandAlert(&cat_m1_Status_BandAlert);
+			catM1MqttDangerMessage = 1;
+
+			gpsFlag = true;
 		}
 
 		measPPG();
@@ -1139,6 +1172,9 @@ void StartCheckINTTask(void *argument)
 
     	fallCheckTime = 0;
 
+    	sendSOSFlag = 0;
+		fallCheckTime = 0;
+
 #if defined(nRF9160_Fall_Difference_Value_Send)
     	magnitude = 0;
 #endif
@@ -1198,13 +1234,15 @@ void StartCheckINTTask(void *argument)
     	mySOSAlertViewBase.changeToSOSDetected();
     	// haptic
     	haptic_SOS = 1;
-    	// send SOS MQTT
-    	cat_m1_Status_BandAlert.bid = deviceID;
-		cat_m1_Status_BandAlert.type = 6;
-		cat_m1_Status_BandAlert.value = 1;
-		send_Status_BandAlert(&cat_m1_Status_BandAlert);
-		catM1MqttDangerMessage = 1;
-		gpsFlag = true;
+//    	// send SOS MQTT
+//    	cat_m1_Status_BandAlert.bid = deviceID;
+//		cat_m1_Status_BandAlert.type = 6;
+//		cat_m1_Status_BandAlert.value = 1;
+//		send_Status_BandAlert(&cat_m1_Status_BandAlert);
+//		catM1MqttDangerMessage = 1;
+//		gpsFlag = true;
+    	sendSOSFlag = 1;
+
     	occurred_PMICBUTTInterrupt = 0;
     }
   }
