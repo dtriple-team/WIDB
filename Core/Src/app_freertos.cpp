@@ -682,6 +682,7 @@ void StartWPMTask(void *argument)
 		{
 		    cat_m1_Status_GPS_Location.bid = deviceID;
 		    send_GPS_Location(&cat_m1_Status_GPS_Location);
+		    memset(&cat_m1_at_cmd_rst.gps, 0, sizeof(cat_m1_at_cmd_rst.gps));
 		}
 #if defined(nRF9160_cell_location)
 		//soundFlag off no nRF9160_cell_location
