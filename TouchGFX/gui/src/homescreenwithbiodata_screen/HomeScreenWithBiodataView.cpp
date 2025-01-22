@@ -135,7 +135,6 @@ void HomeScreenWithBiodataView::handleTickEvent()
 //		}
 
 		////////////////// jh ///////////////////
-		struct tm* timeinfo;
 		if(timeUpdateFlag){
 			timeUpdateFlag = 0;
 			nowTimeinfo = getCatM1Time();
@@ -148,7 +147,6 @@ void HomeScreenWithBiodataView::handleTickEvent()
 
 			HAL_RTC_SetTime(&hrtc, &sTime, RTC_FORMAT_BIN);
 			HAL_RTC_SetDate(&hrtc, &sDate, RTC_FORMAT_BIN);
-			int temp = 0;
 		}
 		HAL_RTC_GetTime(&hrtc, &sTime, RTC_FORMAT_BIN);
 		HAL_RTC_GetDate(&hrtc, &sDate, RTC_FORMAT_BIN);

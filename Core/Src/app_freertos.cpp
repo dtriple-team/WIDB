@@ -609,54 +609,55 @@ void StartWPMTask(void *argument)
 					cat_m1_Status_BATTData_Value.voltage = (int)batteryVoltage;
 					send_BATTData_Value(&cat_m1_Status_BATTData_Value);
 #endif
-				// **RTC time update (correction)**
-				// Retrieve time information from CatM1
-				// Compare the RTC time with the CatM1 time
-				// If the difference is within 1 minute:
-				//     Update the RTC value using the CatM1 time
-				// Otherwise:
-				//     Retain the current RTC value
-				osDelay(100);
-				nrf9160_Get_time();
-				osDelay(100);
-				extern RTC_HandleTypeDef hrtc;
-				extern catM1Time nowTimeinfo;
-				extern RTC_TimeTypeDef sTime;
-				extern RTC_DateTypeDef sDate;
-
-				HAL_RTC_GetDate(&hrtc, &sDate, RTC_FORMAT_BIN);
-				HAL_RTC_GetTime(&hrtc, &sTime, RTC_FORMAT_BIN);
-				catM1Time nowNetTimeinfo = getCatM1Time();
-				catM1Time nowRTCTimeinfo = {sDate.Year, sDate.Month, sDate.Date, sTime.Hours, sTime.Minutes, sTime.Seconds};
-
-				if(isDifferenceWithinNMinute(nowNetTimeinfo, nowRTCTimeinfo, mqtt_operation_cycle+60)){
-					nowTimeinfo = nowNetTimeinfo;
-
-					// To prevent the appearance of time decreasing when updating RTC time with GNSS time,
-					// caused by RTC time flowing faster than GNSS time.
-					// RTC ?��간이 GNSS ?��간보?�� 빠르�???? ?��르면?��, RTC ?��간을 GNSS ?��간으�???? ?��?��?��?��?�� ?�� ?��간이 감소?��?�� 것처?�� 보이?�� ?��?��?�� 방�??���???? ?��?��.
-					if(sTime.Minutes > (uint8_t)nowTimeinfo.min){
-						sDate.Year = (uint8_t)nowTimeinfo.year;
-						sDate.Month = (uint8_t)nowTimeinfo.month;
-						sDate.Date = (uint8_t)nowTimeinfo.day;
-						sTime.Hours = (uint8_t)nowTimeinfo.hour;
-						sTime.Minutes = sTime.Minutes;
-						sTime.Seconds = 0;
-					}
-					else {
-						sDate.Year = (uint8_t)nowTimeinfo.year;
-						sDate.Month = (uint8_t)nowTimeinfo.month;
-						sDate.Date = (uint8_t)nowTimeinfo.day;
-						sTime.Hours = (uint8_t)nowTimeinfo.hour;
-						sTime.Minutes = (uint8_t)nowTimeinfo.min;
-						sTime.Seconds = (uint8_t)nowTimeinfo.sec;
-					}
-
-					HAL_RTC_SetTime(&hrtc, &sTime, RTC_FORMAT_BIN);
-					HAL_RTC_SetDate(&hrtc, &sDate, RTC_FORMAT_BIN);
-				} else {
-					nowTimeinfo = nowRTCTimeinfo;
-				}
+					nrf9160_Get_time();
+//				// **RTC time update (correction)**
+//				// Retrieve time information from CatM1
+//				// Compare the RTC time with the CatM1 time
+//				// If the difference is within 1 minute:
+//				//     Update the RTC value using the CatM1 time
+//				// Otherwise:
+//				//     Retain the current RTC value
+//				osDelay(100);
+//				nrf9160_Get_time();
+//				osDelay(100);
+//				extern RTC_HandleTypeDef hrtc;
+//				extern catM1Time nowTimeinfo;
+//				extern RTC_TimeTypeDef sTime;
+//				extern RTC_DateTypeDef sDate;
+//
+//				HAL_RTC_GetDate(&hrtc, &sDate, RTC_FORMAT_BIN);
+//				HAL_RTC_GetTime(&hrtc, &sTime, RTC_FORMAT_BIN);
+//				catM1Time nowNetTimeinfo = getCatM1Time();
+//				catM1Time nowRTCTimeinfo = {sDate.Year, sDate.Month, sDate.Date, sTime.Hours, sTime.Minutes, sTime.Seconds};
+//
+//				if(isDifferenceWithinNMinute(nowNetTimeinfo, nowRTCTimeinfo, mqtt_operation_cycle+60)){
+//					nowTimeinfo = nowNetTimeinfo;
+//
+//					// To prevent the appearance of time decreasing when updating RTC time with GNSS time,
+//					// caused by RTC time flowing faster than GNSS time.
+//					// RTC ?��간이 GNSS ?��간보?�� 빠르�???? ?��르면?��, RTC ?��간을 GNSS ?��간으�???? ?��?��?��?��?�� ?�� ?��간이 감소?��?�� 것처?�� 보이?�� ?��?��?�� 방�??���???? ?��?��.
+//					if(sTime.Minutes > (uint8_t)nowTimeinfo.min){
+//						sDate.Year = (uint8_t)nowTimeinfo.year;
+//						sDate.Month = (uint8_t)nowTimeinfo.month;
+//						sDate.Date = (uint8_t)nowTimeinfo.day;
+//						sTime.Hours = (uint8_t)nowTimeinfo.hour;
+//						sTime.Minutes = sTime.Minutes;
+//						sTime.Seconds = 0;
+//					}
+//					else {
+//						sDate.Year = (uint8_t)nowTimeinfo.year;
+//						sDate.Month = (uint8_t)nowTimeinfo.month;
+//						sDate.Date = (uint8_t)nowTimeinfo.day;
+//						sTime.Hours = (uint8_t)nowTimeinfo.hour;
+//						sTime.Minutes = (uint8_t)nowTimeinfo.min;
+//						sTime.Seconds = (uint8_t)nowTimeinfo.sec;
+//					}
+//
+//					HAL_RTC_SetTime(&hrtc, &sTime, RTC_FORMAT_BIN);
+//					HAL_RTC_SetDate(&hrtc, &sDate, RTC_FORMAT_BIN);
+//				} else {
+//					nowTimeinfo = nowRTCTimeinfo;
+//				}
 
 				// CatM1 RSSI value update
 				nrf9160_Get_rssi();
