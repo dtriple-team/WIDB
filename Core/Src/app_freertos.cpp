@@ -91,6 +91,7 @@ bool UartRxRetryTimeFlag = false;
 int gps_operation_cycle  = 60*10;
 int gpsTime = 0;
 bool gpsFlag = false;
+bool gpsSendFlag = false;
 
 #define gps_offCheck_cycle (60*5)+10
 int gpsOffCheckTime = 0;
@@ -678,11 +679,11 @@ void StartWPMTask(void *argument)
 			catM1MqttDangerMessage = 0;
 		}
 
-		if ((strlen((const char*)cat_m1_at_cmd_rst.gps) > 0) && cat_m1_Status.mqttChecking == 0 && cat_m1_Status.gpsChecking == 0)
+		if ((strlen((const char*)cat_m1_at_cmd_rst.gps) > 0) && cat_m1_Status.mqttChecking == 0 && cat_m1_Status.gpsChecking == 0 && gpsSendFlag == 0)
 		{
 		    cat_m1_Status_GPS_Location.bid = deviceID;
 		    send_GPS_Location(&cat_m1_Status_GPS_Location);
-		    memset(&cat_m1_at_cmd_rst.gps, 0, sizeof(cat_m1_at_cmd_rst.gps));
+//		    memset(&cat_m1_at_cmd_rst.gps, 0, sizeof(cat_m1_at_cmd_rst.gps));
 		}
 #if defined(nRF9160_cell_location)
 		//soundFlag off no nRF9160_cell_location

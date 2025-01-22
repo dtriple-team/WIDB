@@ -44,6 +44,7 @@ extern int gps_operation_cycle;
 extern uint32_t deviceID;
 extern uint8_t deviceID_check;
 extern uint8_t gpsRSSI_0_1;
+extern bool gpsSendFlag;
 
 bool txCompleteFlag = 0;
 
@@ -401,6 +402,7 @@ void handle_gps_command(const char *value)
     }
 
     else if (strstr(value, "1,4") != NULL) {
+    	gpsSendFlag = 0;
     	//gpsRSSI_0_1 = 1;
     	gpsRSSI_0_1 = 0;
         cat_m1_Status.gpsOff = 1;
@@ -423,6 +425,7 @@ void handle_gps_command(const char *value)
 
     else { // strstr(value, "1,4") => after MSG: GPS DATA
     	if (gpsDataLength > 10) {
+    		memset(&cat_m1_at_cmd_rst.gps, 0, sizeof(cat_m1_at_cmd_rst.gps));
     	    const size_t GPS_BUFFER_SIZE = sizeof(cat_m1_at_cmd_rst.gps);
     	    char *token;
     	    char *rest = (char *)value;
@@ -1040,6 +1043,7 @@ void send_GPS_Location(cat_m1_Status_GPS_Location_t* location)
         PRINT_INFO("Failed to send AT command.\n");
     }
     cat_m1_Status.mqttChecking = 0;
+    gpsSendFlag = true;
 }
 
 void send_UUID(cat_m1_Status_uuid_t* uuid)
