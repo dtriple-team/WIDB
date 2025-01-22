@@ -426,28 +426,38 @@ void handle_gps_command(const char *value)
     else { // strstr(value, "1,4") => after MSG: GPS DATA
     	if (gpsDataLength > 10) {
     		memset(&cat_m1_at_cmd_rst.gps, 0, sizeof(cat_m1_at_cmd_rst.gps));
-    	    const size_t GPS_BUFFER_SIZE = sizeof(cat_m1_at_cmd_rst.gps);
-    	    char *token;
-    	    char *rest = (char *)value;
-    	    int pos = 0;
-    	    int count = 0;
+			const size_t GPS_BUFFER_SIZE = sizeof(cat_m1_at_cmd_rst.gps);
+			char *token;
+			char *rest = (char *)value;
+			int pos = 0;
+			int count = 0;
 
-    	    while ((token = strtok_r(rest, ",", &rest)) != NULL) {
-    	        if (token[0] == '"') break;
+			char cleaned_token[GPS_BUFFER_SIZE];
 
-    	        int len = strlen(token);
+			while ((token = strtok_r(rest, ",", &rest)) != NULL) {
+				if (token[0] == '"') break;
 
-    	        if ((pos + len + 1) < GPS_BUFFER_SIZE) {
-    	            if (count > 0) {
-    	                cat_m1_at_cmd_rst.gps[pos++] = ',';
-    	            }
-    	            strcpy(cat_m1_at_cmd_rst.gps + pos, token);
-    	            pos += len;
-    	            count++;
-    	        }
-    	    }
-    	    cat_m1_at_cmd_rst.gps[pos] = '\0';
-    	}
+				int clean_pos = 0;
+				for(int i = 0; token[i] != '\0'; i++) {
+					if(token[i] != '"') {
+						cleaned_token[clean_pos++] = token[i];
+					}
+				}
+				cleaned_token[clean_pos] = '\0';
+
+				int len = strlen(cleaned_token);
+
+				if ((pos + len + 1) < GPS_BUFFER_SIZE) {
+					if (count > 0) {
+						cat_m1_at_cmd_rst.gps[pos++] = ',';
+					}
+					strcpy(cat_m1_at_cmd_rst.gps + pos, cleaned_token);
+					pos += len;
+					count++;
+				}
+			}
+			cat_m1_at_cmd_rst.gps[pos] = '\0';
+		}
     }
 }
 
