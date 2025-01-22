@@ -334,24 +334,38 @@ void handle_cgdcont_command(const char *value)
 
 void handle_iccid_command(const char *value)
 {
-    for (int i = 0; i < ICCID_LEN - 1 && value[i] != '\0'; i++) {
-        cat_m1_at_cmd_rst.iccid[i] = value[i];
-    }
-    cat_m1_at_cmd_rst.iccid[ICCID_LEN - 1] = '\0';
+   for (int i = 0; i < ICCID_LEN - 1 && value[i] != '\0'; i++) {
+       cat_m1_at_cmd_rst.iccid[i] = value[i];
+   }
+   cat_m1_at_cmd_rst.iccid[ICCID_LEN - 1] = '\0';
 
-    if (!deviceID_check)
-    {
-        char iccid9[10];
-        for (int i = 0; i < 9; i++) {
-            iccid9[i] = cat_m1_at_cmd_rst.iccid[11 + i];
-        }
-        iccid9[9] = '\0';
+   if (!deviceID_check)
+   {
+       if (strlen(cat_m1_at_cmd_rst.iccid) >= 20) {
+           char *ptr = cat_m1_at_cmd_rst.iccid + 11;
+           ptr[9] = '\0';
 
-        deviceID = (uint32_t)strtol(iccid9, NULL, 10);
-        PRINT_INFO("deviceID >>> %u\r\n", (unsigned int)deviceID);
-        HAL_Delay(250);
-        deviceID_check = 1;
-    }
+           deviceID = (uint32_t)strtol(ptr, NULL, 10);
+
+           if (deviceID == 0) {
+               HAL_Delay(100);
+               deviceID = (uint32_t)strtol(ptr, NULL, 10);
+
+               if (deviceID == 0) {
+                   HAL_Delay(100);
+                   deviceID = (uint32_t)strtol(ptr, NULL, 10);
+               }
+           }
+
+           if (strlen(cat_m1_at_cmd_rst.iccid) > 20) {
+               ptr[9] = cat_m1_at_cmd_rst.iccid[20];
+           }
+       }
+
+       //PRINT_INFO("deviceID >>> %u\r\n", (unsigned int)deviceID);
+       HAL_Delay(250);
+       deviceID_check = 1;
+   }
 }
 
 void handle_monitor_command(const char *value)
