@@ -1561,8 +1561,10 @@ void nrf9160_Get_gps()
 #if defined(nRF9160_KT)
             // send_at_command("AT#XGPS=1,1,0,180\r\n");
 
+        	osDelay(1000);
+        	send_at_command("AT#XGPS=0\r\n");
             send_at_command("AT#XGPS=1,0,0,0\r\n");
-            send_at_command("AT%XCOEX0=3,1,1570,1580,1,2000,2180,1,600,800");
+//            send_at_command("AT%XCOEX0=3,1,1570,1580,1,2000,2180,1,600,800");
 #else
             send_at_command("AT#XGPS=1,0,0,180\r\n");
 #endif
