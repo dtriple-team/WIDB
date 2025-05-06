@@ -90,6 +90,7 @@ void TouchGFXHAL::setTFTFrameBuffer(uint16_t* address)
  *
  * @see flushFrameBuffer().
  */
+int temp_count = 0;
 void TouchGFXHAL::flushFrameBuffer(const touchgfx::Rect& rect)
 {
     // Calling parent implementation of flushFrameBuffer(const touchgfx::Rect& rect).
@@ -101,6 +102,16 @@ void TouchGFXHAL::flushFrameBuffer(const touchgfx::Rect& rect)
     // To calculate he start adress of rect,
     // use advanceFrameBufferToRect(uint8_t* fbPtr, const touchgfx::Rect& rect)
     // defined in TouchGFXGeneratedHAL.cpp
+
+//	temp_count++;
+//	extern uint8_t gui_update;
+//	if(gui_update) {
+//		if(temp_count % 20 == 0){
+//	      gui_update = 0;
+//		}
+//	} else {
+//	  return;
+//	}
 
 	uint millis = HAL_GetTick();
 

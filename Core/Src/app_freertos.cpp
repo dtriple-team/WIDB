@@ -482,10 +482,21 @@ void StartPPMTask(void *argument)
 		osDelay(10);
 	}
 
+	HAL_GPIO_WritePin(GPIOD, GPIO_PIN_12, GPIO_PIN_SET);
+
   /* Infinite loop */
   for(;;)
   {
     osDelay(10);
+
+//	  extern bool uartRXFinish;
+//	  extern uint16_t uart_rx_count;
+//	  if(uartRXFinish == 1){
+//		  extern UART_HandleTypeDef huart2;
+//	//    uint32_t* rx_data = &(uart_cat_m1_rx.buffer[uart_cat_m1_rx.tail]);
+//		  HAL_UART_Transmit(&huart2, &(uart_cat_m1_rx.buffer[uart_cat_m1_rx.tail]), uart_rx_count, HAL_MAX_DELAY);
+//		  uart_rx_count = 0;
+//	  }
   }
   /* USER CODE END ppmTask */
 }

@@ -108,9 +108,6 @@ void Error_Handler(void);
 #define HOME_BTN_Pin GPIO_PIN_14
 #define HOME_BTN_GPIO_Port GPIOB
 #define HOME_BTN_EXTI_IRQn EXTI14_IRQn
-#define IMU_INTA3_Pin GPIO_PIN_3
-#define IMU_INTA3_GPIO_Port GPIOA
-#define IMU_INTA3_EXTI_IRQn EXTI3_IRQn
 #define LCD_SS_Pin GPIO_PIN_12
 #define LCD_SS_GPIO_Port GPIOE
 

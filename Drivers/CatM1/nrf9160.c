@@ -52,6 +52,8 @@ bool txCompleteFlag = 0;
 
 bool uartRXFinish = 0;
 
+uint16_t uart_rx_count = 0;
+
 uint8_t svTotalNum = 0;
 uint8_t svMyNum = 0;
 uint8_t svNumCount = 0;
@@ -70,8 +72,15 @@ void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart)
     {
         if (uart_cat_m1_rx.temp == '\r')
         {
+        	push(&uart_cat_m1_rx, uart_cat_m1_rx.temp);
+        	push(&uart_cat_m1_rx, '\n');
             push(&uart_cat_m1_rx, '\0');
             uartRXFinish = 1;
+
+//            extern UART_HandleTypeDef huart2;
+////            uint32_t* rx_data = &(uart_cat_m1_rx.buffer[uart_cat_m1_rx.tail]);
+//        	HAL_UART_Transmit(&huart2, &(uart_cat_m1_rx.buffer[uart_cat_m1_rx.tail]), uart_rx_count, HAL_MAX_DELAY);
+//            uart_rx_count = 0;
         }
         else
         {
@@ -80,8 +89,13 @@ void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart)
             //    		}
             uartRXFinish = 0;
             push(&uart_cat_m1_rx, uart_cat_m1_rx.temp);
+            uart_rx_count++;
         }
         HAL_UART_Receive_IT(&huart1, &uart_cat_m1_rx.temp, 1);
+
+        extern UART_HandleTypeDef huart2;
+        HAL_UART_Transmit_IT(&huart2, &uart_cat_m1_rx.temp, 1);
+//        HAL_UART_Transmit(&huart2, &uart_cat_m1_rx.temp, 1, HAL_MAX_DELAY);
     }
 }
 
@@ -550,6 +564,11 @@ void handle_gps_command(const char *value)
             {
                 GNSS_display_data[i] = cat_m1_at_cmd_rst.gps[i];
             }
+
+//            extern uint8_t gui_update;
+//      	  if(!gui_update) {
+//      		  gui_update = 1;
+//      		}
         }
     }
 }
@@ -1017,7 +1036,7 @@ void nrf9160_check()
     case FINAL_COMMANDS:
 
         send_at_command("AT+CNUM\r\n");
-        send_at_command("AT#XNRFCLOUD=1\r\n");
+//        send_at_command("AT#XNRFCLOUD=1\r\n");
 
         send_at_command("AT+CGDCONT?\r\n");
         osDelay(200);

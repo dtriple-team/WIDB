@@ -136,6 +136,7 @@ int main(void)
   MX_RTC_Init();
   MX_TIM17_Init();
   MX_DAC1_Init();
+  MX_USART2_UART_Init();
   MX_TouchGFX_Init();
   /* Call PreOsInit function */
   MX_TouchGFX_PreOSInit();
