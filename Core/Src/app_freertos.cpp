@@ -487,7 +487,7 @@ void StartPPMTask(void *argument)
 		osDelay(10);
 	}
 
-	osDelay(5000);
+	osDelay(10000);
 	HAL_GPIO_WritePin(GPIOD, GPIO_PIN_12, GPIO_PIN_RESET);
 	osDelay(10);
 	HAL_GPIO_WritePin(GPIOD, GPIO_PIN_12, GPIO_PIN_SET);
@@ -546,11 +546,17 @@ void StartWPMTask(void *argument)
     send_at_command("AT+CFUN=1\r\n");
     send_at_command("AT+COPS?\r\n");
 
+    osDelay(10000);
+
   /* Infinite loop */
   for(;;)
   {
 	  switch(now_band_state){
 	  case GPS_INIT_STATE:
+		  send_at_command("AT#XGPS=0\r\n");
+		  send_at_command("AT+CFUN=0\r\n");
+		  send_at_command("AT+CFUN=31\r\n");
+		  send_at_command("AT#XGPS=1,0,0,0\r\n");
 		  now_band_state = GPS_STATE;
 		  break;
 	  case GPS_STATE:

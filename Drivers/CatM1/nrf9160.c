@@ -118,7 +118,6 @@ void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart)
 {
     if (huart->Instance == USART1)
     {
-//    	uart_line_buf[uart_line_index++] = uart_rx_byte;
 
 		// \r\n 수신 여부 확인
 		if (uart_rx_byte == '\r')
@@ -440,10 +439,14 @@ osDelay(100);
     {
         handle_cesq_command(value);
     }
-    else if (strstr(command, "#XGNSSDATA") != NULL)
+    else if (strstr(command, "#XGPS") != NULL)
     {
         handle_gps_command(value);
     }
+    else if (strstr(command, "#XGPSDATA") != NULL)
+	{
+		handle_gpsdata_command(value);
+	}
     else if (strstr(command, "#XMQTTEVT") != NULL)
     {
         handle_mqtt_event_command(value);
@@ -652,6 +655,15 @@ void handle_gps_command(const char *value)
 //      		  gui_update = 1;
 //      		}
         }
+    }
+}
+void handle_gpsdata_command(const char *value)
+{
+	int gpsDataLength = strlen(value);
+    if (gpsDataLength > 30) {
+    	memset(&cat_m1_at_cmd_rst.gps, 0, sizeof(cat_m1_at_cmd_rst.gps));
+    	strncpy((char *)cat_m1_at_cmd_rst.gps, (const char *)value, sizeof(cat_m1_at_cmd_rst.gps) - 1);
+			cat_m1_at_cmd_rst.gps[sizeof(cat_m1_at_cmd_rst.gps) - 1] = '\0';
     }
 }
 

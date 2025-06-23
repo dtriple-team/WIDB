@@ -330,6 +330,7 @@ void handle_iccid_command(const char *value);
 void handle_monitor_command(const char *value);
 void handle_cesq_command(const char *value);
 void handle_gps_command(const char *value);
+void handle_gpsdata_command(const char *value);
 void handle_cell_location_command(const char *value);
 void handle_mqtt_event_command(const char *value);
 void handle_cclk_command(const char *value);
