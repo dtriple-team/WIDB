@@ -44,7 +44,7 @@ extern "C" {
 
 //Annotation processing is required during initial upload of nRF9160
 
-#define nRF9160_initial_upload
+//#define nRF9160_initial_upload
 //#define nRF9160_nRFCLOUD_Init
 //#define nRF9160_no_auto_gps
 #define nRF9160_KT

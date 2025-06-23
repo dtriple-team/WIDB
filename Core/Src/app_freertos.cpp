@@ -487,6 +487,9 @@ void StartPPMTask(void *argument)
 		osDelay(10);
 	}
 
+	osDelay(5000);
+	HAL_GPIO_WritePin(GPIOD, GPIO_PIN_12, GPIO_PIN_RESET);
+	osDelay(10);
 	HAL_GPIO_WritePin(GPIOD, GPIO_PIN_12, GPIO_PIN_SET);
 
   /* Infinite loop */
@@ -529,45 +532,51 @@ void StartWPMTask(void *argument)
 	catM1PWRGPIOInit();
 	HAL_Delay(1000);
 
+//	nrf9160_ready();
+//	nrf9160_check();
+//	nrf9160_mqtt_setting();
+
+    send_at_command("AT+CFUN=0\r\n");
+    send_at_command("AT+COPS=1,2,\"45008\"\r\n");
+    send_at_command("AT%XSYSTEMMODE=1,0,1,0\r\n");
+    send_at_command("AT+CPSMS=1,,,\"00000001\",\"00000011\"\r\n");
+    send_at_command("AT+CEDRXS=2,4,\"0011\"\r\n");
+    osDelay(1000);
+    send_at_command("AT%XSYSTEMMODE?\r\n");
+    send_at_command("AT+CFUN=1\r\n");
+    send_at_command("AT+COPS?\r\n");
+
   /* Infinite loop */
   for(;;)
   {
-
-	  switch(now_band_state){
-	  case GPS_INIT_STATE:
-		  if(wpmInitializationFlag == 0)
-		  	{
-		  		// CatM1 init
-		  		nrf9160_ready();
-		  	}
-		  break;
-	  case GPS_STATE:
-		  if(wpmInitializationFlag && cat_m1_Status.Checked == 0)
-		  	{
-		  		nrf9160_Get_gps();
-		  	}
-		  break;
-	  case CATM1_INIT_STATE:
-		  nrf9160_Stop_gps();
-		  break;
-	  case CATM1_STATE:
-		  nrf9160_Get_rssi();
-		  osDelay(1000);
-		  break;
-	  default:
-		  break;
-	  }
-
 	  switch(now_band_state){
 	  case GPS_INIT_STATE:
 		  now_band_state = GPS_STATE;
 		  break;
 	  case GPS_STATE:
+		  nrf9160_Get_gps();
 		  break;
 	  case CATM1_INIT_STATE:
+		  nrf9160_Stop_gps();
+
+		    send_at_command("AT+CFUN=0\r\n");
+		    send_at_command("AT+COPS=1,2,\"45008\"\r\n");
+		    send_at_command("AT%XSYSTEMMODE=1,0,1,0\r\n");
+		    send_at_command("AT+CPSMS=0,,,\"00000001\",\"00000011\"\r\n");
+		    send_at_command("AT+CEDRXS=2,4,\"0011\"\r\n");
+		    osDelay(1000);
+		    send_at_command("AT%XSYSTEMMODE?\r\n");
+		    send_at_command("AT+CFUN=1\r\n");
+		    send_at_command("AT+COPS?\r\n");
+
 		  now_band_state = CATM1_STATE;
 		  break;
 	  case CATM1_STATE:
+		  nrf9160_Get_rssi();
+		  if(cat_m1_Status_Band.rssi == -255){
+			  now_band_state = CATM1_INIT_STATE;
+		  }
+		  osDelay(1000);
 		  break;
 	  default:
 		  now_band_state = GPS_INIT_STATE;

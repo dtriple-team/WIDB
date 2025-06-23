@@ -86,6 +86,14 @@
 #define SUB_SERVER_ALERT	"AT#XMQTTSUB=\"/DT/eHG4/Status/ServerAlert\",0\r\n"
 
 typedef enum {
+    IDLE             = 0x0000,  // 초기 상태
+    AT_READY         = 0x0001,  // AT command 초기 응답 OK
+    NETWORK_REGISTER = 0x0002,  // 네트워크 등록 완료
+    MQTT_CONNECTED   = 0x0003,  // MQTT 연결 완료
+    COMPLETE         = 0x00FF   // 초기화 완료
+} InitState;
+
+typedef enum {
     WPM_INIT_CHECK,
     WPM_INIT_COMPLETE
 } WpmState;

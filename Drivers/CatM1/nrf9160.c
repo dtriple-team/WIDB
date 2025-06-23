@@ -18,6 +18,7 @@ uint8_t uart_cat_m1_buf[MINMEA_MAX_SENTENCE_LENGTH] = {
     0,
 };
 
+InitState currentInitState = IDLE;
 cat_m1_Status_t cat_m1_Status;
 uart_cat_m1_t uart_cat_m1_rx;
 cat_m1_at_cmd_rst_t cat_m1_at_cmd_rst;
