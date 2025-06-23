@@ -440,7 +440,7 @@ osDelay(100);
     {
         handle_cesq_command(value);
     }
-    else if (strstr(command, "#XGPS") != NULL)
+    else if (strstr(command, "#XGNSSDATA") != NULL)
     {
         handle_gps_command(value);
     }

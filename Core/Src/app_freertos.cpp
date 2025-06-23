@@ -573,9 +573,6 @@ void StartWPMTask(void *argument)
 		  break;
 	  case CATM1_STATE:
 		  nrf9160_Get_rssi();
-		  if(cat_m1_Status_Band.rssi == -255){
-			  now_band_state = CATM1_INIT_STATE;
-		  }
 		  osDelay(1000);
 		  break;
 	  default:
