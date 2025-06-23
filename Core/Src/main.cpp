@@ -79,6 +79,8 @@ extern "C" int _write(int file, uint8_t *p, int len)
     HAL_UART_Transmit(&huart4, p, len, 10);
     return len;
 }
+
+enum BAND_STATE now_band_state = NONE_STATE;
 /* USER CODE END 0 */
 
 /**
@@ -145,6 +147,8 @@ int main(void)
   HAL_TIM_Base_Start_IT(&htim4);
   HAL_TIM_Base_Start_IT(&htim17);
   HAL_DAC_Start(&hdac1, DAC_CHANNEL_2);
+  extern uint8_t uart_rx_byte;
+	HAL_UART_Receive_IT(&huart1, &uart_rx_byte, 1);
   /* USER CODE END 2 */
 
   /* Init scheduler */
@@ -262,6 +266,17 @@ void HAL_GPIO_EXTI_Rising_Callback(uint16_t GPIO_Pin)
   }
   else if(GPIO_Pin == HOME_BTN_Pin){
 	  occurred_HOMEBTNInterrupt = 1;
+	  switch(now_band_state){
+	  case GPS_STATE:
+		  now_band_state = CATM1_INIT_STATE;
+		  break;
+	  case CATM1_STATE:
+		  now_band_state = GPS_INIT_STATE;
+		  break;
+	  default:
+		  now_band_state = GPS_INIT_STATE;
+		  break;
+	  }
   }
 }
 void HAL_GPIO_EXTI_Falling_Callback(uint16_t GPIO_Pin)

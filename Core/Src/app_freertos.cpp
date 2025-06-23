@@ -42,6 +42,11 @@ extern "C" {
 }
 #include "speaker.h"
 
+extern "C" {
+	#include "../../Drivers/q_cmd/command.h"
+	#include "../../Drivers/q_cmd/queue.h"
+}
+
 //#include <gui_generated/initblackscreen_screen/initBlackScreenViewBase.hpp>
 //#include <gui_generated/falldetected_screen/fallDetectedViewBase.hpp>
 //#include <gui_generated/temphome_screen/tempHomeViewBase.hpp>
@@ -487,7 +492,7 @@ void StartPPMTask(void *argument)
   /* Infinite loop */
   for(;;)
   {
-    osDelay(10);
+//    osDelay(10);
 
 //	  extern bool uartRXFinish;
 //	  extern uint16_t uart_rx_count;
@@ -497,6 +502,8 @@ void StartPPMTask(void *argument)
 //		  HAL_UART_Transmit(&huart2, &(uart_cat_m1_rx.buffer[uart_cat_m1_rx.tail]), uart_rx_count, HAL_MAX_DELAY);
 //		  uart_rx_count = 0;
 //	  }
+
+	  command_queue_handler();
   }
   /* USER CODE END ppmTask */
 }
@@ -514,47 +521,59 @@ void StartWPMTask(void *argument)
 	while(!pmicInitFlag){
 		osDelay(10);
 	}
-	// device ID init (ST UID)
-	//deviceID = HAL_GetUIDw2();
-	//PRINT_INFO("deviceID >>> %u\r\n",deviceID);
 
-	// UART INT INIT, buffer init
+	extern BAND_STATE now_band_state;
+
 	nrf9160_init();
 	nrf9160_clear_buf();
-	// CatM1 PWR GPIO ON
-	catM1PWRGPIOInit(); // ->??
+	catM1PWRGPIOInit();
 	HAL_Delay(1000);
 
-//	// WiFi-BLE init
-//	nora_w10_init();
-//	cat_m1_Status_FallDetection_t cat_m1_Status_FallDetection = {
-//	    .bid = deviceID, // Band?�� bid 값을 ?��?��
-//	    .type = 0,
-//	    .fall_detect = 1
-//	};
-
-//		strncpy((char*)cat_m1_at_cmd_rst.gps,
-//      "36.106335,128.384310,119.546387,7.287167,0.220983,0.000000,2024-09-25 08:33:25",
-//		 sizeof(cat_m1_at_cmd_rst.gps) - 1);
-//		cat_m1_at_cmd_rst.gps[sizeof(cat_m1_at_cmd_rst.gps) - 1] = '\0';
   /* Infinite loop */
   for(;;)
   {
-	if(wpmInitializationFlag == 0)
-	{
-		// CatM1 init
-		nrf9160_ready();
-	}
 
-	if(wpmInitializationFlag && cat_m1_Status.Checked == 0)
-	{
-		nrf9160_Get_gps();
-	}
-	if(initFlag){
+	  switch(now_band_state){
+	  case GPS_INIT_STATE:
+		  if(wpmInitializationFlag == 0)
+		  	{
+		  		// CatM1 init
+		  		nrf9160_ready();
+		  	}
+		  break;
+	  case GPS_STATE:
+		  if(wpmInitializationFlag && cat_m1_Status.Checked == 0)
+		  	{
+		  		nrf9160_Get_gps();
+		  	}
+		  break;
+	  case CATM1_INIT_STATE:
+		  nrf9160_Stop_gps();
+		  break;
+	  case CATM1_STATE:
+		  nrf9160_Get_rssi();
+		  osDelay(1000);
+		  break;
+	  default:
+		  break;
+	  }
 
-	}
-//	BandAlert();
-	osDelay(10);
+	  switch(now_band_state){
+	  case GPS_INIT_STATE:
+		  now_band_state = GPS_STATE;
+		  break;
+	  case GPS_STATE:
+		  break;
+	  case CATM1_INIT_STATE:
+		  now_band_state = CATM1_STATE;
+		  break;
+	  case CATM1_STATE:
+		  break;
+	  default:
+		  now_band_state = GPS_INIT_STATE;
+		  break;
+	  }
+	  osDelay(10);
   }
   /* USER CODE END wpmTask */
 }

@@ -98,20 +98,25 @@ void Error_Handler(void);
 #define MAG_INT_Pin GPIO_PIN_8
 #define MAG_INT_GPIO_Port GPIOC
 #define MAG_INT_EXTI_IRQn EXTI8_IRQn
-#define PMIC_INTD15_Pin GPIO_PIN_15
-#define PMIC_INTD15_GPIO_Port GPIOD
-#define PMIC_INTD15_EXTI_IRQn EXTI15_IRQn
 #define WiFi_PWR_Pin GPIO_PIN_10
 #define WiFi_PWR_GPIO_Port GPIOD
+#define HOME_BTN_Pin GPIO_PIN_15
+#define HOME_BTN_GPIO_Port GPIOB
+#define HOME_BTN_EXTI_IRQn EXTI15_IRQn
 #define WiFi_RESET_Pin GPIO_PIN_9
 #define WiFi_RESET_GPIO_Port GPIOD
-#define HOME_BTN_Pin GPIO_PIN_14
-#define HOME_BTN_GPIO_Port GPIOB
-#define HOME_BTN_EXTI_IRQn EXTI14_IRQn
 #define LCD_SS_Pin GPIO_PIN_12
 #define LCD_SS_GPIO_Port GPIOE
 
 /* USER CODE BEGIN Private defines */
+
+enum BAND_STATE{
+	NONE_STATE = 0x00,
+	GPS_STATE,
+	GPS_INIT_STATE,
+	CATM1_STATE,
+	CATM1_INIT_STATE,
+};
 
 /* USER CODE END Private defines */
 

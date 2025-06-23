@@ -66,38 +66,119 @@ void HAL_UART_TxCpltCallback(UART_HandleTypeDef *huart)
     }
 }
 
+//void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart)
+//{
+//    if (huart->Instance == USART1)
+//    {
+//        if (uart_cat_m1_rx.temp == '\r')
+//        {
+//        	push(&uart_cat_m1_rx, uart_cat_m1_rx.temp);
+//        	push(&uart_cat_m1_rx, '\n');
+//            push(&uart_cat_m1_rx, '\0');
+//            uartRXFinish = 1;
+//
+////            extern UART_HandleTypeDef huart2;
+//////            uint32_t* rx_data = &(uart_cat_m1_rx.buffer[uart_cat_m1_rx.tail]);
+////        	HAL_UART_Transmit(&huart2, &(uart_cat_m1_rx.buffer[uart_cat_m1_rx.tail]), uart_rx_count, HAL_MAX_DELAY);
+////            uart_rx_count = 0;
+//        }
+//        else
+//        {
+//            //    		if(uartRXFinish == 1){
+//            //    			clear_uart_buf(&uart_cat_m1_rx);
+//            //    		}
+//            uartRXFinish = 0;
+//            push(&uart_cat_m1_rx, uart_cat_m1_rx.temp);
+//            uart_rx_count++;
+//        }
+//        HAL_UART_Receive_IT(&huart1, &uart_cat_m1_rx.temp, 1);
+//
+//        extern UART_HandleTypeDef huart2;
+//        HAL_UART_Transmit_IT(&huart2, &uart_cat_m1_rx.temp, 1);
+////        HAL_UART_Transmit(&huart2, &uart_cat_m1_rx.temp, 1, HAL_MAX_DELAY);
+//    }
+//}
+///////////////////////////////////////////////////////////////////////
+#include "./q_cmd/command.h"
+#include "./q_cmd/queue.h"
+CommandQueue cmd_q;
+uint8_t uart_rx_byte;
+
+#define RX_BUF_LEN  256
+
+// UART 수신용 임시 버퍼
+char uart_line_buf[RX_BUF_LEN];
+uint8_t uart_line_index = 0;
+
+// BLE 수신 버퍼
+char ble_line_buf[RX_BUF_LEN];
+uint16_t ble_line_index = 0;
 void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart)
 {
     if (huart->Instance == USART1)
     {
-        if (uart_cat_m1_rx.temp == '\r')
-        {
-        	push(&uart_cat_m1_rx, uart_cat_m1_rx.temp);
-        	push(&uart_cat_m1_rx, '\n');
-            push(&uart_cat_m1_rx, '\0');
-            uartRXFinish = 1;
+//    	uart_line_buf[uart_line_index++] = uart_rx_byte;
 
-//            extern UART_HandleTypeDef huart2;
-////            uint32_t* rx_data = &(uart_cat_m1_rx.buffer[uart_cat_m1_rx.tail]);
-//        	HAL_UART_Transmit(&huart2, &(uart_cat_m1_rx.buffer[uart_cat_m1_rx.tail]), uart_rx_count, HAL_MAX_DELAY);
-//            uart_rx_count = 0;
-        }
-        else
-        {
-            //    		if(uartRXFinish == 1){
-            //    			clear_uart_buf(&uart_cat_m1_rx);
-            //    		}
-            uartRXFinish = 0;
-            push(&uart_cat_m1_rx, uart_cat_m1_rx.temp);
-            uart_rx_count++;
-        }
-        HAL_UART_Receive_IT(&huart1, &uart_cat_m1_rx.temp, 1);
+		// \r\n 수신 여부 확인
+		if (uart_rx_byte == '\r')
+		{
 
-        extern UART_HandleTypeDef huart2;
-        HAL_UART_Transmit_IT(&huart2, &uart_cat_m1_rx.temp, 1);
-//        HAL_UART_Transmit(&huart2, &uart_cat_m1_rx.temp, 1, HAL_MAX_DELAY);
+			int msg_start_index = 0;
+			for(int i=0; i<uart_line_index; i++){
+				if(uart_line_buf[i] != '\0' && uart_line_buf[i] != '\r' && uart_line_buf[i] != '\n'){
+					msg_start_index = i;
+					break;
+				}
+			}
+
+			uart_line_buf[uart_line_index++] = uart_rx_byte;
+			uart_line_buf[uart_line_index++] = '\n';
+			uart_line_buf[uart_line_index++] = '\0';
+
+			// UART로 전송
+			CommandQueue_Push(&cmd_q, CMD_TX_UART, uart_line_buf+msg_start_index, uart_line_index);
+
+			// 버퍼 초기화
+			uart_line_index = 0;
+			memset(uart_line_buf, '\0', RX_BUF_LEN);
+
+			push(&uart_cat_m1_rx, uart_rx_byte);
+			push(&uart_cat_m1_rx, '\n');
+			push(&uart_cat_m1_rx, '\0');
+			uartRXFinish = 1;
+		}
+		else{
+			uartRXFinish = 0;
+			push(&uart_cat_m1_rx, uart_rx_byte);
+			uart_line_buf[uart_line_index++] = uart_rx_byte;
+			uart_rx_count++;
+		}
+
+		// 다음 바이트 수신 재시작
+		HAL_UART_Receive_IT(&huart1, &uart_rx_byte, 1);
     }
 }
+/////////////////////////////////////////////////////////////////
+//void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart)
+//{
+//    if (huart->Instance == USART1)
+//    {
+//        if (uart_cat_m1_rx.temp == '\r')
+//        {
+//        	push(&uart_cat_m1_rx, uart_cat_m1_rx.temp);
+//        	push(&uart_cat_m1_rx, '\n');
+//            push(&uart_cat_m1_rx, '\0');
+//            uartRXFinish = 1;
+//        }
+//        else
+//        {
+//            uartRXFinish = 0;
+//            push(&uart_cat_m1_rx, uart_cat_m1_rx.temp);
+//            uart_rx_count++;
+//        }
+//        HAL_UART_Receive_IT(&huart1, &uart_cat_m1_rx.temp, 1);
+//    }
+//}
 
 void clear_uart_buf(uart_cat_m1_t *u)
 {
