@@ -120,9 +120,9 @@ typedef struct SDL_version
  *
  *  SDL_VERSION(&compiled);
  *  SDL_GetVersion(&linked);
- *  printf("We compiled against SDL version %d.%d.%d ...\n",
+ *  printf("We compiled against SDL version %d.%d.%d ...\r\n",
  *         compiled.major, compiled.minor, compiled.patch);
- *  printf("But we linked against SDL version %d.%d.%d.\n",
+ *  printf("But we linked against SDL version %d.%d.%d.\r\n",
  *         linked.major, linked.minor, linked.patch);
  *  \endcode
  *

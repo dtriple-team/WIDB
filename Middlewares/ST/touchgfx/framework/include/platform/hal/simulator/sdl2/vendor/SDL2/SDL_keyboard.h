@@ -70,7 +70,7 @@ extern DECLSPEC SDL_Window * SDLCALL SDL_GetKeyboardFocus(void);
  *  \code
  *  const Uint8 *state = SDL_GetKeyboardState(NULL);
  *  if ( state[SDL_SCANCODE_RETURN] )   {
- *      printf("<RETURN> is pressed.\n");
+ *      printf("<RETURN> is pressed.\r\n");
  *  }
  *  \endcode
  */

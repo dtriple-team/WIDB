@@ -250,7 +250,7 @@ extern DECLSPEC SDL_AssertionHandler SDLCALL SDL_GetAssertionHandler(void **puse
  *  <code>
  *  const SDL_AssertData *item = SDL_GetAssertionReport();
  *  while (item) {
- *      printf("'%s', %s (%s:%d), triggered %u times, always ignore: %s.\n",
+ *      printf("'%s', %s (%s:%d), triggered %u times, always ignore: %s.\r\n",
  *             item->condition, item->function, item->filename,
  *             item->linenum, item->trigger_count,
  *             item->always_ignore ? "yes" : "no");

@@ -1783,8 +1783,8 @@ typedef  void (*pADC_CallbackTypeDef)(ADC_HandleTypeDef *hadc); /*!< pointer to 
   *         @arg @ref ADC_CHANNEL_DAC1CH1_ADC4 (2)
   *         @arg @ref ADC_CHANNEL_DAC1CH2_ADC4 (2)
   *
-  *         (1) On STM32U5, parameter available only on ADC instance: ADC1.\n
-  *         (2) On STM32U5, parameter available only on ADC instance: ADC4.\n
+  *         (1) On STM32U5, parameter available only on ADC instance: ADC1.\r\n
+  *         (2) On STM32U5, parameter available only on ADC instance: ADC4.\r\n
   *         (3) On STM32U5, fast channel (0.125 us for 14-bit resolution (ADC conversion rate up to 8 Ms/s)).
   *             Other channels are slow channels (conversion rate: refer to reference manual).
   * @retval Value between Min_Data=0 and Max_Data=18
@@ -1828,10 +1828,10 @@ typedef  void (*pADC_CallbackTypeDef)(ADC_HandleTypeDef *hadc); /*!< pointer to 
   *         @arg @ref ADC4_CHANNEL_VBAT        (2)
   *         @arg @ref ADC_CHANNEL_VCORE        (2)
   *
-  *         (1) On STM32U5, parameter available only on ADC instance: ADC1/ADC2.\n
-  *         (2) On STM32U5, parameter available only on ADC instance: ADC4.\n
+  *         (1) On STM32U5, parameter available only on ADC instance: ADC1/ADC2.\r\n
+  *         (2) On STM32U5, parameter available only on ADC instance: ADC4.\r\n
   *         (3) On STM32U5, fast channel (0.125 us for 14-bit resolution (ADC conversion rate up to 8 Ms/s)).
-  *             Other channels are slow channels (conversion rate: refer to reference manual).\n
+  *             Other channels are slow channels (conversion rate: refer to reference manual).\r\n
   *         (1, 2) For ADC channel read back from ADC register,
   *                comparison with internal channel parameter to be done
   *                using helper macro @ref __LL_ADC_CHANNEL_INTERNAL_TO_EXTERNAL().
@@ -1885,8 +1885,8 @@ typedef  void (*pADC_CallbackTypeDef)(ADC_HandleTypeDef *hadc); /*!< pointer to 
   *         @arg @ref ADC4_CHANNEL_VBAT        (2)
   *         @arg @ref ADC_CHANNEL_VCORE        (2)
   *
-  *         (1) On STM32U5, parameter available only on ADC instance: ADC1/ADC2.\n
-  *         (2) On STM32U5, parameter available only on ADC instance: ADC4.\n
+  *         (1) On STM32U5, parameter available only on ADC instance: ADC1/ADC2.\r\n
+  *         (2) On STM32U5, parameter available only on ADC instance: ADC4.\r\n
   *         (3) On STM32U5, fast channel (0.125 us for 14-bit resolution (ADC conversion rate up to 8 Ms/s)).
   *             Other channels are slow channels (conversion rate: refer to reference manual).
   * @retval Value "0" if the channel corresponds to a parameter definition of a ADC external channel
@@ -1938,10 +1938,10 @@ typedef  void (*pADC_CallbackTypeDef)(ADC_HandleTypeDef *hadc); /*!< pointer to 
   *         @arg @ref ADC4_CHANNEL_VBAT        (2)
   *         @arg @ref ADC_CHANNEL_VCORE        (2)
   *
-  *         (1) On STM32U5, parameter available only on ADC instance: ADC1/ADC2.\n
+  *         (1) On STM32U5, parameter available only on ADC instance: ADC1/ADC2.\r\n
   *         (2) On STM32U5, parameter available only on ADC instance: ADC4.
   *         (3) On STM32U5, fast channel (0.125 us for 14-bit resolution (ADC conversion rate up to 8 Ms/s)).
-  *             Other channels are slow channels (conversion rate: refer to reference manual).\n
+  *             Other channels are slow channels (conversion rate: refer to reference manual).\r\n
   * @retval Returned value can be one of the following values:
   *         @arg @ref ADC_CHANNEL_0
   *         @arg @ref ADC_CHANNEL_1
@@ -1990,8 +1990,8 @@ typedef  void (*pADC_CallbackTypeDef)(ADC_HandleTypeDef *hadc); /*!< pointer to 
   *         @arg @ref ADC4_CHANNEL_VBAT        (2)
   *         @arg @ref ADC_CHANNEL_VCORE        (2)
   *
-  *         (1) On STM32U5, parameter available only on ADC instance: ADC1/ADC2.\n
-  *         (2) On STM32U5, parameter available only on ADC instance: ADC4.\n
+  *         (1) On STM32U5, parameter available only on ADC instance: ADC1/ADC2.\r\n
+  *         (2) On STM32U5, parameter available only on ADC instance: ADC4.\r\n
   * @retval Value "0" if the internal channel selected is not available on the ADC instance selected.
   *         Value "1" if the internal channel selected is available on the ADC instance selected.
   */
@@ -2062,8 +2062,8 @@ typedef  void (*pADC_CallbackTypeDef)(ADC_HandleTypeDef *hadc); /*!< pointer to 
   *         @arg @ref ADC_RESOLUTION_8B
   *         @arg @ref ADC_RESOLUTION_6B
   *
-  *         (1) On STM32U5, parameter available only on ADC instance: ADC1/ADC2.\n
-  *         (2) On STM32U5, parameter available only on ADC instance: ADC4.\n
+  *         (1) On STM32U5, parameter available only on ADC instance: ADC1/ADC2.\r\n
+  *         (2) On STM32U5, parameter available only on ADC instance: ADC4.\r\n
   * @retval ADC conversion data full-scale digital value
   */
 #define __HAL_ADC_DIGITAL_SCALE(__ADC_RESOLUTION__)                             \
@@ -2082,8 +2082,8 @@ typedef  void (*pADC_CallbackTypeDef)(ADC_HandleTypeDef *hadc); /*!< pointer to 
   *         @arg @ref ADC_RESOLUTION_8B    (1)(2)
   *         @arg @ref ADC_RESOLUTION_6B    (2)
   *
-  *         (1) On STM32U5, parameter available only on ADC instance: ADC1/ADC2.\n
-  *         (2) On STM32U5, parameter available only on ADC instance: ADC4.\n
+  *         (1) On STM32U5, parameter available only on ADC instance: ADC1/ADC2.\r\n
+  *         (2) On STM32U5, parameter available only on ADC instance: ADC4.\r\n
   * @param  __ADC_RESOLUTION_TARGET__ Resolution of the data after conversion
   *         This parameter can be one of the following values:
   *         @arg @ref ADC_RESOLUTION_14B   (1)
@@ -2092,8 +2092,8 @@ typedef  void (*pADC_CallbackTypeDef)(ADC_HandleTypeDef *hadc); /*!< pointer to 
   *         @arg @ref ADC_RESOLUTION_8B    (1)(2)
   *         @arg @ref ADC_RESOLUTION_6B    (2)
   *
-  *         (1) On STM32U5, parameter available only on ADC instance: ADC1/ADC2.\n
-  *         (2) On STM32U5, parameter available only on ADC instance: ADC4.\n
+  *         (1) On STM32U5, parameter available only on ADC instance: ADC1/ADC2.\r\n
+  *         (2) On STM32U5, parameter available only on ADC instance: ADC4.\r\n
   * @retval ADC conversion data to the requested resolution
   */
 #define __HAL_ADC_CONVERT_DATA_RESOLUTION(__ADCx__, __DATA__,\
@@ -2120,8 +2120,8 @@ __LL_ADC_CONVERT_DATA_RESOLUTION((__ADCx__), (__DATA__),\
   *         @arg @ref ADC_RESOLUTION_8B    (1)(2)
   *         @arg @ref ADC_RESOLUTION_6B    (2)
   *
-  *         (1) On STM32U5, parameter available only on ADC instance: ADC1/ADC2.\n
-  *         (2) On STM32U5, parameter available only on ADC instance: ADC4.\n
+  *         (1) On STM32U5, parameter available only on ADC instance: ADC1/ADC2.\r\n
+  *         (2) On STM32U5, parameter available only on ADC instance: ADC4.\r\n
   * @retval ADC conversion data equivalent voltage value (unit: mVolt)
   */
 #define __HAL_ADC_CALC_DATA_TO_VOLTAGE(__ADCx__, __VREFANALOG_VOLTAGE__,       \
@@ -2183,8 +2183,8 @@ __LL_ADC_CALC_DIFF_DATA_TO_VOLTAGE((__ADCx__), (__VREFANALOG_VOLTAGE__),       \
   *         @arg @ref ADC_RESOLUTION_8B    (1)(2)
   *         @arg @ref ADC_RESOLUTION_6B    (2)
   *
-  *         (1) On STM32U5, parameter available only on ADC instance: ADC1/ADC2.\n
-  *         (2) On STM32U5, parameter available only on ADC instance: ADC4.\n
+  *         (1) On STM32U5, parameter available only on ADC instance: ADC1/ADC2.\r\n
+  *         (2) On STM32U5, parameter available only on ADC instance: ADC4.\r\n
   * @retval Analog reference voltage (unit: mV)
   */
 #define __HAL_ADC_CALC_VREFANALOG_VOLTAGE(__ADCx__, __VREFINT_ADC_DATA__,  \
@@ -2238,8 +2238,8 @@ __LL_ADC_CALC_VREFANALOG_VOLTAGE((__ADCx__),(__VREFINT_ADC_DATA__),        \
   *         @arg @ref ADC_RESOLUTION_8B    (1)(2)
   *         @arg @ref ADC_RESOLUTION_6B    (2)
   *
-  *         (1) On STM32U5, parameter available only on ADC instance: ADC1/ADC2.\n
-  *         (2) On STM32U5, parameter available only on ADC instance: ADC4.\n
+  *         (1) On STM32U5, parameter available only on ADC instance: ADC1/ADC2.\r\n
+  *         (2) On STM32U5, parameter available only on ADC instance: ADC4.\r\n
   * @retval Temperature (unit: degree Celsius)
   */
 #define __HAL_ADC_CALC_TEMPERATURE(__ADCx__, __VREFANALOG_VOLTAGE__,\
@@ -2297,8 +2297,8 @@ __LL_ADC_CALC_TEMPERATURE((__ADCx__), (__VREFANALOG_VOLTAGE__),\
   *         @arg @ref ADC_RESOLUTION_8B    (1)(2)
   *         @arg @ref ADC_RESOLUTION_6B    (2)
   *
-  *         (1) On STM32U5, parameter available only on ADC instance: ADC1/ADC2.\n
-  *         (2) On STM32U5, parameter available only on ADC instance: ADC4.\n
+  *         (1) On STM32U5, parameter available only on ADC instance: ADC1/ADC2.\r\n
+  *         (2) On STM32U5, parameter available only on ADC instance: ADC4.\r\n
   * @retval Temperature (unit: degree Celsius)
   */
 #define __HAL_ADC_CALC_TEMPERATURE_TYP_PARAMS(__ADCx__, __TEMPSENSOR_TYP_AVGSLOPE__,\

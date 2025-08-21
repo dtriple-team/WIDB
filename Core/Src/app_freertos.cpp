@@ -279,7 +279,7 @@ sos_alertViewBase mySOSAlertViewBase;
 uint8_t backlightTurnONCheck = 0;
 
 extern uint8_t occurred_imuInterrupt;
-extern uint8_t occurred_PMICBUTTInterrupt;
+extern uint8_t occurred_PMICBTNInterrupt;
 extern uint8_t occurred_touchInterrupt;
 
 void mfioGPIOModeChange(GPIOMode mode);
@@ -1254,9 +1254,9 @@ void StartCheckINTTask(void *argument)
 
     // MCU GPIO button click => change to home screen & backlight on
 //    if(HAL_GPIO_ReadPin(GPIOB, GPIO_PIN_12) == GPIO_PIN_RESET){
-	extern uint8_t occured_HOMEBTNInterrupt;
-    if(occured_HOMEBTNInterrupt == 1){
-    	occured_HOMEBTNInterrupt = 0;
+	extern uint8_t occurred_HOMEBTNInterrupt;
+    if(occurred_HOMEBTNInterrupt == 1){
+    	occurred_HOMEBTNInterrupt = 0;
     	brightness_count = 0;
     	if(flashlightOn){
     		flashlightOn = 0;
@@ -1321,7 +1321,7 @@ void StartCheckINTTask(void *argument)
 //    }
 
     // PMIC interrupt occur => emergency signal send to Web (CATM1)
-    if(occurred_PMICBUTTInterrupt){
+    if(occurred_PMICBTNInterrupt){
     	if (cat_m1_Status.gpsChecking)
     	{
     	nrf9160_Stop_gps();
@@ -1342,7 +1342,7 @@ void StartCheckINTTask(void *argument)
 //		gpsFlag = true;
     	sendSOSFlag = 1;
 
-    	occurred_PMICBUTTInterrupt = 0;
+    	occurred_PMICBTNInterrupt = 0;
     }
 
     if(occurred_touchInterrupt){

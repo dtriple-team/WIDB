@@ -53,11 +53,11 @@ void CanvasWidget::draw(const Rect& invalidatedArea) const
                     {
                         if (area.height > 1)
                         {
-                            touchgfx_printf("CWR will split draw into multiple draws due to limited memory.\n");
+                            touchgfx_printf("CWR will split draw into multiple draws due to limited memory.\r\n");
                         }
                         else
                         {
-                            touchgfx_printf("CWR was unable to complete a draw operation due to limited memory.\n");
+                            touchgfx_printf("CWR was unable to complete a draw operation due to limited memory.\r\n");
                         }
                     }
 #endif
@@ -87,11 +87,11 @@ void CanvasWidget::draw(const Rect& invalidatedArea) const
                     {
                         if (area.width > 1)
                         {
-                            touchgfx_printf("CWR will split draw into multiple draws due to limited memory.\n");
+                            touchgfx_printf("CWR will split draw into multiple draws due to limited memory.\r\n");
                         }
                         else
                         {
-                            touchgfx_printf("CWR was unable to complete a draw operation due to limited memory.\n");
+                            touchgfx_printf("CWR was unable to complete a draw operation due to limited memory.\r\n");
                         }
                     }
 #endif

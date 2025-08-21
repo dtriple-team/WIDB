@@ -594,7 +594,7 @@ void nrf9160_ready(void)
                 cat_m1_Status.retryCount++;
                 if (cat_m1_Status.retryCount >= 5)
                 {
-                    PRINT_INFO("Error count exceeded. Initialization failed.\n");
+                    PRINT_INFO("Error count exceeded. Initialization failed.\r\n");
                     //currentWpmState = WPM_INIT_COMPLETE;
                     uart_init();
 #if !defined(nRF9160_initial_upload)
@@ -609,7 +609,7 @@ void nrf9160_ready(void)
             break;
 
         case WPM_INIT_COMPLETE:
-            PRINT_INFO("WPM initialization completed successfully.\n");
+            PRINT_INFO("WPM initialization completed successfully.\r\n");
             break;
     }
 }
@@ -639,7 +639,7 @@ void nrf9160_check()
                 cat_m1_Status.retryCount++;
                 if (cat_m1_Status.retryCount >= 300)
                 {
-                    PRINT_INFO("System mode check failed.\n");
+                    PRINT_INFO("System mode check failed.\r\n");
                     currentCheckState = CHECK_COMPLETE;
                     break;
                 }
@@ -661,7 +661,7 @@ void nrf9160_check()
                 cat_m1_Status.retryCount++;
                 if (cat_m1_Status.retryCount >= 300)
                 {
-                    PRINT_INFO("CFUN check failed.\n");
+                    PRINT_INFO("CFUN check failed.\r\n");
                     currentCheckState = CHECK_COMPLETE;
                     break;
                 }
@@ -683,7 +683,7 @@ void nrf9160_check()
                 cat_m1_Status.retryCount++;
                 if (cat_m1_Status.retryCount >= 60 * 10)
                 {
-                    PRINT_INFO("Connection check failed.\n");
+                    PRINT_INFO("Connection check failed.\r\n");
                     currentCheckState = CHECK_COMPLETE;
                     break;
                 }
@@ -706,7 +706,7 @@ void nrf9160_check()
             osDelay(200);
 
             currentCheckState = CHECK_COMPLETE;
-            PRINT_INFO("All checks completed.\n");
+            PRINT_INFO("All checks completed.\r\n");
             break;
 
         case CHECK_COMPLETE:
@@ -867,21 +867,21 @@ void test_send_json_publish(void)
 
     if (send_at_command(at_command))
     {
-        PRINT_INFO("AT command sent successfully.\n");
+        PRINT_INFO("AT command sent successfully.\r\n");
     }
     else
     {
-        PRINT_INFO("Failed to send AT command.\n");
+        PRINT_INFO("Failed to send AT command.\r\n");
         return;
     }
 
     if (send_at_command(json_message_networkinfo))
     {
-        PRINT_INFO("JSON message sent successfully.\n");
+        PRINT_INFO("JSON message sent successfully.\r\n");
     }
     else
     {
-        PRINT_INFO("Failed to send JSON message.\n");
+        PRINT_INFO("Failed to send JSON message.\r\n");
     }
     send_at_command("AT#XMQTTCON=0\r\n");
 }
@@ -947,19 +947,19 @@ void send_Status_Band(cat_m1_Status_Band_t *status)
 
     if (send_at_command(OLD_BAND_TOPIC))
     {
-        PRINT_INFO("OLD_BAND_TOPIC AT command sent successfully.\n");
+        PRINT_INFO("OLD_BAND_TOPIC AT command sent successfully.\r\n");
         if (send_at_command(mqtt_data))
         {
-            PRINT_INFO("JSON send_Status_Band message sent successfully.\n");
+            PRINT_INFO("JSON send_Status_Band message sent successfully.\r\n");
         }
         else
         {
-            PRINT_INFO("Failed to send JSON message.\n");
+            PRINT_INFO("Failed to send JSON message.\r\n");
         }
     }
     else
     {
-        PRINT_INFO("Failed to send OLD_BAND_TOPIC AT command.\n");
+        PRINT_INFO("Failed to send OLD_BAND_TOPIC AT command.\r\n");
     }
     cat_m1_Status.mqttChecking = 0;
     //cell_locationFlag = true;
@@ -986,19 +986,19 @@ void send_Status_BandAlert(cat_m1_Status_BandAlert_t* alertData)
 
     if (send_at_command(OLD_BANDALERT_TOPIC))
     {
-        PRINT_INFO("AT command sent successfully.\n");
+        PRINT_INFO("AT command sent successfully.\r\n");
         if (send_at_command(mqtt_data))
         {
-            PRINT_INFO("JSON send_Status_BandAlert message sent successfully.\n");
+            PRINT_INFO("JSON send_Status_BandAlert message sent successfully.\r\n");
         }
         else
         {
-            PRINT_INFO("Failed to send JSON message.\n");
+            PRINT_INFO("Failed to send JSON message.\r\n");
         }
     }
     else
     {
-        PRINT_INFO("Failed to send AT command.\n");
+        PRINT_INFO("Failed to send AT command.\r\n");
     }
     cat_m1_Status.mqttChecking = 0;
 }
@@ -1018,20 +1018,20 @@ void send_Status_FallDetection(cat_m1_Status_FallDetection_t* fallData)
 
     if (send_at_command(OLD_FALLDETECTION_TOPIC))
     {
-        PRINT_INFO("AT command sent successfully.\n");
+        PRINT_INFO("AT command sent successfully.\r\n");
         if (send_at_command(mqtt_data))
         {
             memset(&cat_m1_Status_FallDetection, 0, sizeof(cat_m1_Status_FallDetection));
-            PRINT_INFO("JSON send_Status_FallDetection message sent successfully.\n");
+            PRINT_INFO("JSON send_Status_FallDetection message sent successfully.\r\n");
         }
         else
         {
-            PRINT_INFO("Failed to send JSON message.\n");
+            PRINT_INFO("Failed to send JSON message.\r\n");
         }
     }
     else
     {
-        PRINT_INFO("Failed to send AT command.\n");
+        PRINT_INFO("Failed to send AT command.\r\n");
     }
     cat_m1_Status.mqttChecking = 0;
 }
@@ -1049,22 +1049,22 @@ void send_GPS_Location(cat_m1_Status_GPS_Location_t* location)
 
     if (send_at_command(GPS_LOCATION_TOPIC))
     {
-        PRINT_INFO("AT command sent successfully.\n");
+        PRINT_INFO("AT command sent successfully.\r\n");
 
         if (send_at_command(mqtt_data))
         {
 //        	osDelay(5000);
 //            memset(&cat_m1_at_cmd_rst.gps, 0, sizeof(cat_m1_at_cmd_rst.gps));
-            PRINT_INFO("JSON send_GPS_Location message sent successfully.\n");
+            PRINT_INFO("JSON send_GPS_Location message sent successfully.\r\n");
         }
         else
         {
-            PRINT_INFO("Failed to send JSON message.\n");
+            PRINT_INFO("Failed to send JSON message.\r\n");
         }
     }
     else
     {
-        PRINT_INFO("Failed to send AT command.\n");
+        PRINT_INFO("Failed to send AT command.\r\n");
     }
     cat_m1_Status.mqttChecking = 0;
     gpsSendFlag = true;
@@ -1083,21 +1083,21 @@ void send_UUID(cat_m1_Status_uuid_t* uuid)
 
     if (send_at_command(UUID_TOPIC))
     {
-        PRINT_INFO("AT command sent successfully.\n");
+        PRINT_INFO("AT command sent successfully.\r\n");
 
         if (send_at_command(mqtt_data))
         {
             memset(&cat_m1_at_cmd_rst.uuid, 0, sizeof(cat_m1_at_cmd_rst.uuid));
-            PRINT_INFO("JSON message sent successfully.\n");
+            PRINT_INFO("JSON message sent successfully.\r\n");
         }
         else
         {
-            PRINT_INFO("Failed to send JSON message.\n");
+            PRINT_INFO("Failed to send JSON message.\r\n");
         }
     }
     else
     {
-        PRINT_INFO("Failed to send AT command.\n");
+        PRINT_INFO("Failed to send AT command.\r\n");
     }
     cat_m1_Status.mqttChecking = 0;
 }
@@ -1116,21 +1116,21 @@ void send_Fall_Difference_Value(cat_m1_Status_Fall_Difference_Value_t* Fall_Diff
 
     if (send_at_command(FALLDETECTION_CHECK_TOPIC))
     {
-        PRINT_INFO("AT command sent successfully.\n");
+        PRINT_INFO("AT command sent successfully.\r\n");
 
         if (send_at_command(mqtt_data))
         {
             memset(&cat_m1_at_cmd_rst.uuid, 0, sizeof(cat_m1_at_cmd_rst.uuid));
-            PRINT_INFO("JSON message sent successfully.\n");
+            PRINT_INFO("JSON message sent successfully.\r\n");
         }
         else
         {
-            PRINT_INFO("Failed to send JSON message.\n");
+            PRINT_INFO("Failed to send JSON message.\r\n");
         }
     }
     else
     {
-        PRINT_INFO("Failed to send AT command.\n");
+        PRINT_INFO("Failed to send AT command.\r\n");
     }
     cat_m1_Status.mqttChecking = 0;
 }
@@ -1158,19 +1158,19 @@ void send_Status_IMU(cat_m1_Status_IMU_t* imu_data)
 
     if (send_at_command(IMU_TOPIC))
     {
-        PRINT_INFO("AT command sent successfully.\n");
+        PRINT_INFO("AT command sent successfully.\r\n");
         if (send_at_command(mqtt_data))
         {
-            PRINT_INFO("JSON message sent successfully.\n");
+            PRINT_INFO("JSON message sent successfully.\r\n");
         }
         else
         {
-            PRINT_INFO("Failed to send JSON message.\n");
+            PRINT_INFO("Failed to send JSON message.\r\n");
         }
     }
     else
     {
-        PRINT_INFO("Failed to send AT command.\n");
+        PRINT_INFO("Failed to send AT command.\r\n");
     }
     cat_m1_Status.mqttChecking = 0;
 }
