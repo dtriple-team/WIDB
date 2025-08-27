@@ -443,7 +443,7 @@ osDelay(100);
     {
         handle_gps_command(value);
     }
-    else if (strstr(command, "#XGPSDATA") != NULL)
+    else if (strstr(command, "#XGNSSDATA") != NULL)
 	{
 		handle_gpsdata_command(value);
 	}
